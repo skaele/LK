@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { ModalProvider } from 'widgets/modal/lib'
 import Router from './routers/router'
+import usePushNotifications from '@entities/pushes/PushNotificationPermission'
 
 const Background = styled.div`
     background: var(--theme);
@@ -13,6 +14,7 @@ const Background = styled.div`
 
 const App = () => {
     useTheme()
+    usePushNotifications()
 
     return (
         <ModalProvider>

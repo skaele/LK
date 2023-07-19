@@ -7,20 +7,14 @@ const usePushNotifications = () => {
     useEffect(() => {
         Notification.requestPermission().then((permission) => {
             setPermission(permission)
-            if (permission === 'granted') {
-                // new Notification('Example Title', {
-                //     body: 'Example description',
-                // })
-            }
         })
 
         const subscribeToPushNotifications = async () => {
-            const registration = await navigator.serviceWorker.ready
-            const subscription = await registration.pushManager.subscribe({
+            const sw = await navigator.serviceWorker.ready
+            const subscription = await sw.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: '<InsertKey>',
             })
-
             setSubscription(subscription)
 
             // Send the subscription data to your server for storage

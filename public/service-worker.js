@@ -63,3 +63,10 @@ self.addEventListener('fetch', function(event) {
         );
     }
 });
+
+self.addEventListener('push', function(event) {
+    const {notification} = JSON.parse(event.data.text());
+    const promiseChain = self.registration.showNotification(notification.title, notification);
+
+    event.waitUntil(promiseChain);
+});

@@ -1,8 +1,9 @@
-import { HrBlock, Message, Title, Wrapper } from '@ui/atoms'
 import React, { useEffect } from 'react'
-import { FiInfo } from 'react-icons/fi'
 import styled from 'styled-components'
+import { FiInfo } from 'react-icons/fi'
 import { bufferHolidayPlanningModel } from './model'
+import { Message, Title, Wrapper } from '@ui/atoms'
+import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import Content from './ui/content'
 
 const HolidayPlanningBufferPage = () => {
@@ -20,7 +21,7 @@ const HolidayPlanningBufferPage = () => {
             data={data}
         >
             <ApplicationPageWrapper>
-                <HrBlock maxWidth="1500px">
+                <HrBlockWrapper maxWidth="1500px">
                     <HrHeader>
                         <Title size={2} align="left">
                             Заявление на отпуск
@@ -36,11 +37,11 @@ const HolidayPlanningBufferPage = () => {
                             <a target="_blank" href="#/vacation" rel="noreferrer">
                                 ссылке
                             </a>
-                            .{' '}
+                            .
                         </p>
                     </HrHeader>
                     <Content />
-                </HrBlock>
+                </HrBlockWrapper>
             </ApplicationPageWrapper>
         </Wrapper>
     )

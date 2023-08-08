@@ -28,7 +28,6 @@ const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlann
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
 const $bufferHolidayPlanning = createStore<BufferHolidayPlanning['employeeVacations']>([])
-const $bufferHolidayPlanningLoading = sendBufferHolidayPlanningFx.pending
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
@@ -100,6 +99,6 @@ export const effects = {
 export const selectors = {
     useBufferHolidayPlanning: () => ({
         data: useStore($bufferHolidayPlanning),
-        loading: useStore($bufferHolidayPlanningLoading),
+        loading: useStore(sendBufferHolidayPlanningFx.pending),
     }),
 }

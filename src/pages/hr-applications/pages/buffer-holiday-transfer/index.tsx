@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { HrBlock, Message, Title, Wrapper } from '@ui/atoms'
+import { Message, Title, Wrapper } from '@ui/atoms'
 import { FiInfo } from 'react-icons/fi'
 import styled from 'styled-components'
 import Content from './ui/content'
 import { bufferHolidayTransferModel } from './model'
+import { HrBlockWrapper } from '@pages/hr-applications/ui'
 
 const HolidayTransferBufferPage = () => {
     const { data, loading } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
@@ -20,7 +21,7 @@ const HolidayTransferBufferPage = () => {
             data={data}
         >
             <ApplicationPageWrapper>
-                <HrBlock maxWidth="1500px">
+                <HrBlockWrapper maxWidth="1500px">
                     <HrHeader>
                         <Title size={2} align="left">
                             Заявление на перенос отпуска
@@ -40,7 +41,7 @@ const HolidayTransferBufferPage = () => {
                         </p>
                     </HrHeader>
                     <Content />
-                </HrBlock>
+                </HrBlockWrapper>
             </ApplicationPageWrapper>
         </Wrapper>
     )

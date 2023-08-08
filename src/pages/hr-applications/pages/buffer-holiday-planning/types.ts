@@ -8,87 +8,21 @@ export interface BufferHolidayPlanning {
         schedule: [
             {
                 documentGuid: string
-                status: {
-                    creationDate: string
-                    signedDate: string
-                    hasApplication: boolean
-                    hasOrder: boolean
-                    orderNumber: string
-                    displayApplication: boolean
-                    displayOrder: boolean
-                    orderStatus: string
-                    applicationApporvalStatus: string
-                    orderApprovalStatus: string
-                    downloadApplication: boolean
-                    downloadOrder: boolean
-                }
+                status: Status
                 isCarriedOver: boolean
-                vacation: {
-                    period: {
-                        startDate: string
-                        endDate: string
-                        totalDays: 0
-                    }
-                    status: {
-                        creationDate: string
-                        signedDate: string
-                        hasApplication: boolean
-                        hasOrder: boolean
-                        orderNumber: string
-                        displayApplication: boolean
-                        displayOrder: boolean
-                        orderStatus: string
-                        applicationApporvalStatus: string
-                        orderApprovalStatus: string
-                        downloadApplication: boolean
-                        downloadOrder: boolean
-                    }
-                }
+                vacation: Vacation
                 carriedOver: {
                     period: {
                         startDate: string
                         endDate: string
                         totalDays: 0
                     }
-                    status: {
-                        creationDate: string
-                        signedDate: string
-                        hasApplication: boolean
-                        hasOrder: boolean
-                        orderNumber: string
-                        displayApplication: boolean
-                        displayOrder: boolean
-                        orderStatus: string
-                        applicationApporvalStatus: string
-                        orderApprovalStatus: string
-                        downloadApplication: boolean
-                        downloadOrder: boolean
-                    }
+                    status: Status
                 }
             },
         ]
         spent: {
-            vacation: {
-                period: {
-                    startDate: string
-                    endDate: string
-                    totalDays: 0
-                }
-                status: {
-                    creationDate: string
-                    signedDate: string
-                    hasApplication: boolean
-                    hasOrder: boolean
-                    orderNumber: string
-                    displayApplication: boolean
-                    displayOrder: boolean
-                    orderStatus: string
-                    applicationApporvalStatus: string
-                    orderApprovalStatus: string
-                    downloadApplication: boolean
-                    downloadOrder: boolean
-                }
-            }
+            vacation: Vacation
             documentGuid: string
         }[]
         notTaken: {
@@ -98,20 +32,7 @@ export interface BufferHolidayPlanning {
                     endDate: string
                     totalDays: number
                 }
-                status: {
-                    creationDate: string
-                    signedDate: string
-                    hasApplication: boolean
-                    hasOrder: boolean
-                    orderNumber: string
-                    displayApplication: boolean
-                    displayOrder: boolean
-                    orderStatus: string
-                    applicationApporvalStatus: string
-                    orderApprovalStatus: string
-                    downloadApplication: boolean
-                    downloadOrder: boolean
-                }
+                status: Status
             }
             documentGuid: string
         }[]
@@ -123,4 +44,28 @@ export interface BufferHolidayPlanningForm {
     type: number
     start: string
     end: string
+}
+
+interface Vacation {
+    period: {
+        startDate: string
+        endDate: string
+        totalDays: 0
+    }
+    status: Status
+}
+
+interface Status {
+    creationDate: string
+    signedDate: string
+    hasApplication: boolean
+    hasOrder: boolean
+    orderNumber: string
+    displayApplication: boolean
+    displayOrder: boolean
+    orderStatus: string
+    applicationApporvalStatus: string
+    orderApprovalStatus: string
+    downloadApplication: boolean
+    downloadOrder: boolean
 }

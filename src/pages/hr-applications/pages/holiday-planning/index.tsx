@@ -1,6 +1,5 @@
 import { HR_APPLICATIONS_ROUTE } from '@app/routes/teacher-routes'
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import sendHrFormHolidayPlanning from '@pages/hr-applications/lib/send-hr-form-holiday-planning'
 import { Button, FormBlock, SubmitButton } from '@ui/atoms'
@@ -14,6 +13,7 @@ import { useHistory, useParams } from 'react-router'
 import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'
 import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 const HolidayPlanning = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

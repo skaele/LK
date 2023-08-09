@@ -37,7 +37,7 @@ const HolidayTransferBufferPage = () => {
                             <a target="_blank" href="#/vacation" rel="noreferrer">
                                 ссылке
                             </a>
-                            .{' '}
+                            .
                         </p>
                     </HrHeader>
                     <Content />

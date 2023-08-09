@@ -471,6 +471,10 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : WorkTransferBufferPage,
         isTemplate: false,
         group: 'OTHER',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
     },
 
     'part-time-employment': {
@@ -482,6 +486,10 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : PartTimeEmployment,
         isTemplate: false,
         group: 'OTHER',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
     },
     'holiday-work-form': {
         id: 'part-time-employment',
@@ -492,6 +500,10 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : HolidayWork,
         isTemplate: false,
         group: 'OTHER',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
     },
     'medical-examination-form': {
         id: 'part-time-employment',

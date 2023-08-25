@@ -2,22 +2,34 @@ import React from 'react'
 import { applicationsModel } from '@entities/applications'
 import { Message, Title, Wrapper } from '@ui/atoms'
 import { FiInfo } from 'react-icons/fi'
-import styled from 'styled-components'
-import Content from './ui/content'
+import { bufferMedicalExaminationModel } from './model'
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
+import { HrHeader } from '@pages/hr-applications/ui/atoms/HrHeader'
+import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/ApplicationPageWrapper'
+import Content from './ui/content'
 
 const MedicalExaminationBufferPage = () => {
     const {
         data: { listApplication },
         error,
+        loading,
     } = applicationsModel.selectors.useApplications()
+
+    const {
+        data: medicalData,
+        loading: medicalLoading,
+        error: medicalError,
+    } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
 
     return (
         <Wrapper
-            load={() => applicationsModel.effects.getApplicationsFx()}
-            loading={!listApplication}
-            error={error}
-            data={listApplication}
+            load={() => {
+                applicationsModel.effects.getApplicationsFx()
+                bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx()
+            }}
+            loading={loading || medicalLoading}
+            error={error || medicalError}
+            data={listApplication && medicalData}
         >
             <ApplicationPageWrapper>
                 <HrBlockWrapper maxWidth="1500px">
@@ -40,32 +52,3 @@ const MedicalExaminationBufferPage = () => {
 }
 
 export default MedicalExaminationBufferPage
-
-const ApplicationPageWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    color: var(--text);
-    justify-content: center;
-
-    @media (max-width: 1000px) {
-        align-items: flex-start;
-        overflow-y: auto;
-        height: 100%;
-    }
-`
-
-const HrHeader = styled.div`
-    // block
-    border-radius: var(--brSemi);
-    background: var(--schedule);
-    box-shadow: var(--schedule-shadow);
-    height: fit-content;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    margin-bottom: 30px;
-
-    padding-bottom: 40px;
-    margin-bottom: 10px;
-`

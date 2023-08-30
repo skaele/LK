@@ -3,7 +3,7 @@ import { HRDocumentFlow } from '../lib/HRDocumentFlow'
 import { PassRegistration } from '../lib/PassRegistration'
 import { SalaryPayment } from '../lib/SalaryPayment'
 import { WorkplaceOrganization } from '../lib/WorkplaceOrganization'
-import { OnboardingTopic } from '../types/Onboarding'
+import { OnboardingTopic } from '../types/onboarding'
 
 export const topics: OnboardingTopic = [
     {

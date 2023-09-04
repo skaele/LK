@@ -10,7 +10,7 @@ export const getStatusFormSuperiorRoom = (user: User) => {
     // if (user.enterYear !== '2023/2024') return 'Форма доступна только для студентов 1 курса'
 
     if (currentTime < new Date(StartDateSuperiorRoom))
-        return 'Подача заявок открыта с 12:00 6 сентября до 12:00 7 сентября!'
+        return 'Подача заявок открыта с 12:00 6 сентября до 12:00 7 сентября!'
 
     if (currentTime > new Date(EndDateSuperiorRoom)) return 'Подача заявок закрыта'
 

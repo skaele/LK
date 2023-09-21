@@ -13,7 +13,6 @@ const getContactInfo = (data: TeacherDataVerification, isDone: boolean): IInputA
                 value: data?.tel_mob_private ?? '',
                 required: true,
                 mask: true,
-                autocomplete: false,
             },
             {
                 fieldName: 'tel_mob_staff',
@@ -21,14 +20,12 @@ const getContactInfo = (data: TeacherDataVerification, isDone: boolean): IInputA
                 type: 'tel',
                 value: data?.tel_mob_staff ?? '',
                 mask: true,
-                autocomplete: false,
             },
             {
                 fieldName: 'tel_staff',
                 title: 'Служебный телефон (прямой/дополнительный)',
                 type: 'tel',
                 value: data?.tel_staff ?? '',
-                autocomplete: false,
             },
             {
                 fieldName: 'email_private',
@@ -36,14 +33,12 @@ const getContactInfo = (data: TeacherDataVerification, isDone: boolean): IInputA
                 type: 'email',
                 value: data?.email_private ?? '',
                 required: true,
-                autocomplete: false,
             },
             {
                 fieldName: 'email_staff',
                 title: 'Рабочий e-mail',
                 type: 'email',
                 value: data?.email_staff ?? '',
-                autocomplete: false,
             },
         ],
         confirmed: isDone,

@@ -66,8 +66,15 @@ const Inputs = () => {
                     <Message type="success" visible={data?.isAuthenticated ?? false}>
                         Вы вошли в аккаунт
                     </Message>
-                    <Input value={login} setValue={setLogin} title="Логин" placeholder="Введите логин" />
                     <Input
+                        autocomplete="username"
+                        value={login}
+                        setValue={setLogin}
+                        title="Логин"
+                        placeholder="Введите логин"
+                    />
+                    <Input
+                        autocomplete="password"
                         value={password}
                         setValue={setPassword}
                         title="Пароль"

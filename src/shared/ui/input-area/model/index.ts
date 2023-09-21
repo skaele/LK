@@ -72,7 +72,7 @@ export interface IInputAreaData {
     mask?: boolean
     editable?: boolean
     placeholder?: string
-    autocomplete?: boolean
+    autocomplete?: string
     isSpecificRadio?: boolean
     specialType?: SpecialFieldsName
     minValueInput?: number | string

@@ -110,7 +110,7 @@ interface Props {
     mask?: boolean
     width?: string
     minWidth?: string
-    autocomplete?: boolean
+    autocomplete?: string
     danger?: boolean
     alertMessage?: string
     maxLength?: number
@@ -138,7 +138,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         isActive = true,
         inputAppearance = true,
         mask = false,
-        autocomplete = false,
+        autocomplete = 'new-password',
         minValue = undefined,
         maxValue = undefined,
         maxLength = undefined,
@@ -178,7 +178,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
                 type={inputType}
                 placeholder={placeholder}
                 value={value ?? ''}
-                autoComplete={autocomplete ? 'on' : 'off'}
+                autoComplete={autocomplete ? autocomplete : 'new-password'}
                 onKeyDown={(e) => type === 'tel' && phoneMaskKeyDown(e)}
                 onChange={handleOnChange}
                 required={required}

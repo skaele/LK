@@ -1,1 +1,0 @@
-import{j as o}from"./vendor-198a3a64.js";import{b7 as r}from"./index-7ac35755.js";import{T as t}from"./index-c57ceb11.js";import"./week-schedule-17e38314.js";import"./index-1ebd5fac.js";const c=()=>{const e=r.useSchedule();return o.jsx(t,{...e})};export{c as default};

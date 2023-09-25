@@ -350,6 +350,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: PhysicalEducationStudent,
         isTemplate: false,
         fallbackPrevPage: PHYSICAL_EDUCATION,
+        show: !isProduction,
     },
     oop: {
         id: 'oop',

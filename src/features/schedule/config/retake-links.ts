@@ -67,11 +67,12 @@ const RETAKE_LINKS: Record<string, RetakeLink> = {
         href: 'https://e.mospolytech.ru/old/storage/files/arrears/IIDiZh.zip?1',
         links: [],
     },
-    igrik: {
-        fullTitle: 'Институт графики и искусства книги имени В.А.Фаворского',
-        href: 'https://e.mospolytech.ru/old/storage/files/arrears/IGRIK.zip?2',
-        links: [],
-    },
+    // ссылка устарела
+    // igrik: {
+    //     fullTitle: 'Институт графики и искусства книги имени В.А.Фаворского',
+    //     href: 'https://e.mospolytech.ru/old/storage/files/arrears/IGRIK.zip?2',
+    //     links: [],
+    // },
     pishe: {
         fullTitle: 'Передовая инженерная школа электротранспорта',
         href: 'https://e.mospolytech.ru/old/storage/files/arrears/PIShE.zip?1',

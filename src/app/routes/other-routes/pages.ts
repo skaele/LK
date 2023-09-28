@@ -102,6 +102,10 @@ export const ApplicationProvisionAcademicLeave = lazy(
     () => import('@pages/applications/pages/multifunctional-center/provision-academic-leave'),
 )
 
+export const ExitAcademicLeave = lazy(
+    () => import('@pages/applications/pages/multifunctional-center/exit-academic-leave'),
+)
+
 export const ApplicationIndependentlyDeduction = lazy(
     () => import('@pages/applications/pages/multifunctional-center/independently-deducted'),
 )

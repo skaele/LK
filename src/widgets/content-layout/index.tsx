@@ -28,6 +28,8 @@ const ContentLayout = () => {
 
     return (
         <Wrapper>
+            <>{console.log('user', user)}</>
+            <>{console.log('allRoutes', allRoutes)}</>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
             <LeftsideBar />

@@ -18,9 +18,9 @@ const useContentLayout = () => {
     const isShowWhatsNew = useIsShowWhatsNew()
     // const { seen } = useShowTutorial()
 
-    useEffect(() => {
-        if (user) settingsModel.effects.getLocalSettingsFx(user.id)
-    }, [user])
+    // useEffect(() => {
+    //     settingsModel.effects.getLocalSettingsFx()
+    // }, [user])
 
     useLkNotifications()
 

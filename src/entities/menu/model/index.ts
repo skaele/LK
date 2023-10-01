@@ -133,6 +133,8 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
         ),
     }))
 
+$menu.watch(console.log)
+
 export const selectors = {
     useMenu,
 }

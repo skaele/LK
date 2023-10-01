@@ -1,9 +1,10 @@
 import { useStore } from 'effector-react/compat'
-import { createEvent, createStore } from 'effector'
-import { createEffect } from 'effector'
+import { attach, createEvent, createStore, sample } from 'effector'
 import { ThemeType } from '@shared/constants'
 import getDefaultSettings from '../lib/get-default-settings'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { userModel } from '@entities/user'
+import { $userStore } from '@entities/user/model'
 
 export enum NameSettings {
     'settings-home-page' = 'settings-home-page',
@@ -38,11 +39,10 @@ const DEFAULT_STORE: SettingsStore = {
     completed: false,
 }
 
-let currentUser: string
-
 const useSettings = () => {
+    const { currentUser } = useStore(userModel.stores.$userStore)
     return {
-        settings: useStore($settingsStore).settings[currentUser],
+        settings: useStore($settingsStore).settings[currentUser?.id ?? ''],
         error: useStore($settingsStore).error,
         completed: useStore($settingsStore).completed,
     }
@@ -61,10 +61,18 @@ const actualizeSettings = (settings: Param | undefined, defaultSettings: Param) 
     return result
 }
 
-const getLocalSettingsFx = createEffect((userId: string): Param => {
-    currentUser = userId
-    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? '{}')[currentUser] as Param
-    return actualizeSettings(localSettings, getDefaultSettings(userId)[userId])
+const getLocalSettingsFx = attach({
+    source: $userStore,
+    effect: ({ currentUser }): Param => {
+        const userId = currentUser?.id ?? ''
+        const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? '{}')[userId] as Param
+        return actualizeSettings(localSettings, getDefaultSettings(userId)[userId])
+    },
+})
+
+sample({
+    clock: $userStore,
+    target: getLocalSettingsFx,
 })
 
 const updateSetting = createEvent<{
@@ -82,38 +90,73 @@ const $settingsStore = createStore<SettingsStore>(DEFAULT_STORE)
         ...oldData,
         completed: newData.completed,
     }))
-    .on(getLocalSettingsFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        settings: {
-            [currentUser]: newData,
-        },
-    }))
-    .on(updateSetting, (oldData, { nameSettings, nameParam, value }) => ({
-        ...oldData,
-        settings: {
-            [currentUser]: {
-                ...oldData.settings[currentUser],
-                [nameSettings]: {
-                    ...oldData.settings[currentUser][nameSettings],
-                    property: {
-                        ...oldData.settings[currentUser][nameSettings].property,
-                        [nameParam]: value,
-                    },
-                },
-            },
-        },
-    }))
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))
 
-$settingsStore.watch((state) => {
-    if (state !== DEFAULT_STORE && !!currentUser) {
-        const allSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? JSON.stringify({}))
-        allSettings[currentUser] = state.settings[currentUser]
-        localStorage.setItem(BrowserStorageKey.NewSettings, JSON.stringify(allSettings))
-    }
+sample({
+    clock: getLocalSettingsFx.doneData,
+    source: {
+        settings: $settingsStore,
+        user: userModel.stores.$userStore,
+    },
+    fn: ({ settings: oldData, user }, newData) => {
+        const currentUser = user.currentUser?.id ?? ''
+
+        return {
+            ...oldData,
+            settings: {
+                [currentUser]: newData,
+            },
+        }
+    },
+    target: $settingsStore,
 })
+
+sample({
+    clock: updateSetting,
+    source: {
+        settings: $settingsStore,
+        user: userModel.stores.$userStore,
+    },
+    fn: ({ settings: oldData, user }, { nameSettings, nameParam, value }) => {
+        const currentUser = user.currentUser?.id ?? ''
+
+        return {
+            ...oldData,
+            settings: {
+                [currentUser]: {
+                    ...oldData.settings[currentUser],
+                    [nameSettings]: {
+                        ...oldData.settings[currentUser][nameSettings],
+                        property: {
+                            ...oldData.settings[currentUser][nameSettings].property,
+                            [nameParam]: value,
+                        },
+                    },
+                },
+            },
+        }
+    },
+    target: $settingsStore,
+})
+
+sample({
+    source: {
+        settings: $settingsStore,
+        user: userModel.stores.$userStore,
+    },
+    fn: ({ settings: state, user }) => {
+        const currentUser = user?.currentUser?.id ?? ''
+        if (state !== DEFAULT_STORE && !!currentUser) {
+            const allSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? JSON.stringify({}))
+            allSettings[currentUser] = state.settings[currentUser]
+            localStorage.setItem(BrowserStorageKey.NewSettings, JSON.stringify(allSettings))
+        }
+    },
+})
+
+$settingsStore.watch(console.log)
 
 export const selectors = {
     useSettings,

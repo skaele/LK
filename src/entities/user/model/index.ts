@@ -181,6 +181,8 @@ export const $userStore = createStore(DEFAULT_STORE)
         currentUser: null,
     }))
 
+$userStore.watch(console.log)
+
 export const selectors = {
     useUser: () => {
         const { currentUser: user, error, isAuthenticated, savePassword, loginEuz } = useStore($userStore)
@@ -191,6 +193,8 @@ export const selectors = {
         }
     },
 }
+
+export const stores = { $userStore }
 
 export const events = {
     login,

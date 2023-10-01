@@ -92,12 +92,19 @@ const useSchedule = () => {
                 handleReturnToMySchedule()
             }
             if (hint?.id) {
-                history.push(
-                    getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
-                        page: location.pathname.split('/')[2],
-                        filter: hint.value,
-                    }),
-                )
+                location.pathname.split('/')[2] === 'retake'
+                    ? history.push(
+                          getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                              page: 'current',
+                              filter: hint.value,
+                          }),
+                      )
+                    : history.push(
+                          getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                              page: location.pathname.split('/')[2],
+                              filter: hint.value,
+                          }),
+                      )
             }
         }
     }

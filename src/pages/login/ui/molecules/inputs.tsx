@@ -42,22 +42,24 @@ const Inputs = () => {
                 </Flex>
                 {showAbiturientMessage && (
                     <Message type={'info'} title="Уважаемые абитуриенты!">
-                        Личный кабинет абитуриента находится по ссылке
-                        <a href="https://lk.mospolytech.ru/" target="_blank" rel="noreferrer">
-                            <strong> lk.mospolytech.ru</strong>
-                        </a>
+                        <p>
+                            Личный кабинет абитуриента находится по ссылке{' '}
+                            <a href="https://lk.mospolytech.ru/" target="_blank" rel="noreferrer">
+                                <strong>lk.mospolytech.ru</strong>
+                            </a>
+                        </p>
                     </Message>
                 )}
                 <List gap={16} scroll={false}>
                     <Title size={4} align="left">
                         Вход
                     </Title>
-                    <Subtext>Вход в личный кабинет происходит через единую учетную запись (ЕУЗ)</Subtext>
+                    <Subtext>Вход в личный кабинет происходит через единую учетную запись (ЕУЗ)</Subtext>
                     <Message type="failure" visible={!!error}>
                         {error}
                     </Message>
                     <Message type="success" visible={data?.isAuthenticated ?? false}>
-                        Вы вошли в аккаунт
+                        Вы вошли в аккаунт
                     </Message>
                     <Input value={login} setValue={setLogin} title="Логин" placeholder="Введите логин" />
                     <Input
@@ -68,7 +70,7 @@ const Inputs = () => {
                         type="password"
                         alertMessage={capsLock ? 'Включен Capslock' : undefined}
                     />
-                    <Checkbox text="Оставаться в системе" checked={data.savePassword} setChecked={handleSavePassword} />
+                    <Checkbox text="Оставаться в системе" checked={data.savePassword} setChecked={handleSavePassword} />
                 </List>
                 <SubmitButton
                     text="Вход"

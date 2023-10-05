@@ -8,6 +8,7 @@ const MistakeModalWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     row-gap: 10px;
 
     & > span {
@@ -28,25 +29,29 @@ const MistakeModal = () => {
             {user?.user_status === 'stud' ? (
                 <>
                     <span>
-                        Для изменения данных Вам необходимо обратиться в отделение центра по работе со студентами
+                        Для изменения данных Вам необходимо обратиться в отделение центра по работе со студентами
                         (многофункциональный центр)
                     </span>
                     <LinkButton
                         onClick={() => null}
                         href={'https://mospolytech.ru/obuchauschimsya/mnogofunkcionalnyy-centr/'}
-                        text="Контакты центра по работе со студентами"
+                        text="Контакты центра по работе со студентами"
                         width="100%"
                         align="center"
                     />
                 </>
             ) : (
                 <>
-                    Для изменения данных Вам необходимо обратиться в отдел кадров по телефону
+                    Для изменения данных Вам необходимо обратиться в отдел кадров по телефону
                     <br />
-                    <b>+7 (495) 223-05-23 доб.1130</b>
-                    или написать письмо на
+                    <b>
+                        <a href="tel:+7(495) 223-05-23,1130">+7 (495) 223-05-23 доб.1130</a>
+                    </b>
+                    или написать письмо на
                     <br />
-                    <b>ok@mospolytech.ru</b>
+                    <a href="mailto:ok@mospolytech.ru">
+                        <b>ok@mospolytech.ru</b>
+                    </a>
                 </>
             )}
         </MistakeModalWrapper>

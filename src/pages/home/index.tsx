@@ -1,6 +1,4 @@
 import { menuModel } from '@entities/menu'
-import { paymentsModel } from '@entities/payments'
-import { scheduleModel } from '@entities/schedule'
 import { settingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import GlobalAppSearch from '@features/global-app-search'
@@ -10,11 +8,10 @@ import UserInfo from '@features/user-info'
 import Block from '@shared/ui/block'
 import Flex from '@shared/ui/flex'
 import { CenterPage, Title, Wrapper } from '@ui/atoms'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import HomeTopPlate from './ui/home-top-plate'
-import { useUnit } from 'effector-react'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -36,26 +33,9 @@ const Home = () => {
         error,
     } = userModel.selectors.useUser()
 
-    const payments = useUnit(paymentsModel.stores.$paymentsStore)
-    const {
-        data: { schedule },
-    } = scheduleModel.selectors.useSchedule()
-
     const { homeRoutes } = menuModel.selectors.useMenu()
 
     if (!user || !homeRoutes) return null
-
-    useEffect(() => {
-        if (!payments) {
-            paymentsModel.events.getPayments()
-        }
-    }, [payments])
-
-    useEffect(() => {
-        if (!schedule) {
-            scheduleModel.effects.getScheduleFx(user)
-        }
-    }, [schedule])
 
     const { news } = settingsModel.selectors.useSettings().settings['settings-home-page'].property
 

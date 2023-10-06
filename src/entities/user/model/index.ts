@@ -8,6 +8,8 @@ import { createEffect, createEvent, createStore, forward, sample } from 'effecto
 import { useStore } from 'effector-react/compat'
 import clearAllStores from '../lib/clear-all-stores'
 import { parseJwt } from '../lib/jwt-token'
+import { scheduleModel } from '@entities/schedule'
+import { paymentsModel } from '@entities/payments'
 
 interface UserStore {
     currentUser: User | null
@@ -180,6 +182,12 @@ export const $userStore = createStore(DEFAULT_STORE)
         ...oldData,
         currentUser: null,
     }))
+
+sample({
+    clock: getUserFx.doneData,
+    fn: (data) => data.currentUser,
+    target: [scheduleModel.effects.getScheduleFx, paymentsModel.events.getPayments],
+})
 
 export const selectors = {
     useUser: () => {

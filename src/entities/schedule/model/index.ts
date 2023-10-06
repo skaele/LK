@@ -64,7 +64,7 @@ const setFilter = createEvent<string>()
 const setSearchValue = createEvent<string>()
 const resetExternalSchedule = createEvent()
 
-const $schedule = createStore(DEFAULT_STORE)
+export const $schedule = createStore(DEFAULT_STORE)
     .on(getScheduleFx, (oldData) => ({
         ...oldData,
         data: { ...oldData.data, schedule: null, hasNoSchedule: false },

@@ -11,7 +11,6 @@ import CurrentSemestr from './ui/current-semestr'
 import LastSemestr from './ui/last-semestr'
 import InfoModal from './ui/project-info/info-modal'
 import Result from './ui/result'
-import { userModel } from '@entities/user'
 import { ProjectActivityIntroMessage } from './ui/intro-message'
 
 const Container = styled.div`
@@ -34,9 +33,6 @@ const ProjectStyled = styled.div`
 
 const ProjectActivitiesPage = () => {
     const { data, loading, error } = projectActivitesModel.selectors.useData()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
     const { open } = useModal()
 
     const handleOpenModal = () => {
@@ -52,7 +48,7 @@ const ProjectActivitiesPage = () => {
         >
             <Container>
                 <PageBlock>
-                    <ProjectActivityIntroMessage course={user?.course} />
+                    <ProjectActivityIntroMessage />
                     <ProjectStyled>
                         <Subtext fontSize="0.85rem">Вам назначен проект</Subtext>
                         <Title size={3} align="left" bottomGap>

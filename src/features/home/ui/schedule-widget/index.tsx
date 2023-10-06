@@ -41,7 +41,7 @@ export const ScheduleWidget = () => {
                             leftShift={0}
                             quantity={1}
                             {...event}
-                            key={event.title + event.weekday + event.dateInterval}
+                            key={event.title + event.weekday + event.dateInterval + event.startTime}
                         />
                     ))}
                     {isEnded && <DayEnded />}

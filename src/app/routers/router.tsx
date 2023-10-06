@@ -8,6 +8,7 @@ import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
+import '../../entities/roles/model'
 
 const Router = () => {
     const {

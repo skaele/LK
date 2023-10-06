@@ -1,10 +1,13 @@
-import { createStore, sample } from 'effector'
+import { createEvent, createStore, sample } from 'effector'
 import { $userStore } from '@entities/user/model'
 import { $schedule } from '@entities/schedule/model'
+import { userModel } from '@entities/user'
 
 type Role = 'admin' | 'teacher' | 'staff' | 'student' | 'freshman' | null
 
-export const $roles = createStore<Set<Role>>(new Set())
+const clearStore = createEvent()
+
+export const $roles = createStore<Set<Role>>(new Set()).on(clearStore, () => new Set())
 
 sample({
     clock: $userStore,
@@ -27,7 +30,7 @@ sample({
     clock: $schedule,
     source: $roles,
     fn: (roles, schedule) => {
-        if (schedule.data.schedule) {
+        if (!!schedule.data.schedule && !schedule.data.hasNoSchedule && !schedule.loading) {
             if (roles.has('staff')) {
                 roles.add('teacher')
             }
@@ -35,4 +38,9 @@ sample({
         return roles
     },
     target: $roles,
+})
+
+sample({
+    clock: userModel.events.logout,
+    target: clearStore,
 })

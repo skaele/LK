@@ -10,9 +10,10 @@ import { NextDayScheduleStyled } from './styles'
 type Props = {
     dayEvents: DayCalendarEvent[] | undefined
     day: string
+    isCurrentDay: boolean
 }
 
-export const EventsModal = ({ dayEvents, day }: Props) => {
+export const EventsModal = ({ dayEvents, day, isCurrentDay }: Props) => {
     const scale = useCalendarScale()
     const openModal = useScheduleSubjectModal()
     const interval = [9, 22] as [number, number]
@@ -26,6 +27,7 @@ export const EventsModal = ({ dayEvents, day }: Props) => {
                 interval={interval}
                 scale={scale}
                 weekday={0}
+                isCurrentDay={isCurrentDay}
                 currentDay={0}
                 shift={interval[0] * 60}
                 onEventClick={openModal}

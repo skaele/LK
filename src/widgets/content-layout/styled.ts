@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
     height: 100vh;
 
     ${MEDIA_QUERIES.isTablet} {
-        height: 100dvh;
+        height: calc(100vh - env(safe-area-inset-bottom));
     }
 `
 

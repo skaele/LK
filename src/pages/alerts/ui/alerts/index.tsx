@@ -1,12 +1,12 @@
 import { PreparedAlerts } from '@entities/alert/lib/prepare-data'
-import List from '@shared/ui/list'
+import { userModel } from '@entities/user'
+import Flex from '@shared/ui/flex'
 import { LocalSearch } from '@shared/ui/molecules'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import AlertItem from 'widgets/alerts-widget/alert-item'
 import search from '../../lib/search'
 import Collapse from './collapse'
-import { userModel } from '@entities/user'
 
 const AlertsStyled = styled.div`
     width: 100%;
@@ -54,7 +54,7 @@ const Alerts = ({ alerts, listView }: Props) => {
                             isCollapsed={collapsed}
                             initiallyCollapsed={collapsed}
                         >
-                            <List scroll={false} gap={20}>
+                            <Flex d="column" gap="8px">
                                 {finalAlerts[year].map((alert, index) => {
                                     return (
                                         <AlertItem
@@ -65,7 +65,7 @@ const Alerts = ({ alerts, listView }: Props) => {
                                         />
                                     )
                                 })}
-                            </List>
+                            </Flex>
                         </Collapse>
                     )
                 })}

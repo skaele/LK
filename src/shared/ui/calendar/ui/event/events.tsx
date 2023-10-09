@@ -18,17 +18,29 @@ type Props = {
     weekDay: number
     interval: [number, number]
     showTime?: boolean
+    isCurrentDay?: boolean
 }
 
-const Events = ({ events, shift, scale, shortInfo, weekDay, interval, showTime, onClick, currentDay }: Props) => {
+const Events = ({
+    events,
+    shift,
+    scale,
+    shortInfo,
+    weekDay,
+    interval,
+    showTime,
+    onClick,
+    currentDay,
+    isCurrentDay,
+}: Props) => {
     const eventsPrepared = prepareEvents(events)
 
-    const isCurrentDay = new Date().getDay() === weekDay
+    const isCurrent = isCurrentDay ?? new Date().getDay() === weekDay
     const isTimelineVisible = currentDay !== undefined ? currentDay + 1 === weekDay : undefined
 
     return (
         <EventsWrapper h="100%" d="column">
-            {isCurrentDay && (
+            {isCurrent && (
                 <CurrentTimeLine
                     isVisible={isTimelineVisible}
                     showTime={showTime}
@@ -44,8 +56,8 @@ const Events = ({ events, shift, scale, shortInfo, weekDay, interval, showTime, 
                             leftShift={index}
                             quantity={eventsPrepared[key].length}
                             scale={scale}
-                            isCurrentEvent={checkIfEventIsCurrent(event, isCurrentDay)}
-                            isNextEvent={isNextEvent(events, event, isCurrentDay)}
+                            isCurrentEvent={checkIfEventIsCurrent(event, isCurrent)}
+                            isNextEvent={isNextEvent(events, event, isCurrent)}
                             {...event}
                             onClick={onClick}
                             shift={shift}

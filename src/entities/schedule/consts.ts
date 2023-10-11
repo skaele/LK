@@ -37,8 +37,16 @@ export const SCHEDULE_NO_RESULT: GetScheduleResult = {
     schedule: {
         today: [],
         week: { ...EMPTY_WEEK },
-        semestr: { data: { ...EMPTY_WEEK }, startDate: new Date(), endDate: new Date() },
-        session: { data: { ...EMPTY_WEEK }, startDate: new Date(), endDate: new Date() },
+        semestr: {
+            data: { ...EMPTY_WEEK },
+            startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            endDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+        },
+        session: {
+            data: { ...EMPTY_WEEK },
+            startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            endDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+        },
     },
     teachers: [],
 }

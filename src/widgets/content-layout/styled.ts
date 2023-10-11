@@ -1,14 +1,11 @@
-import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     display: flex;
     background: var(--theme);
     height: 100vh;
-
-    ${MEDIA_QUERIES.isTablet} {
-        height: calc(100vh - env(safe-area-inset-bottom));
-    }
+    height: 100dvh;
+    height: 100svh;
 `
 
 export const ContentWrapper = styled.div`

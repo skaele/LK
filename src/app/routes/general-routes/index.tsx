@@ -19,9 +19,8 @@ import {
     FeedbackPage,
     ForgotPasswordPage,
     GetYourLoginPage,
+    LkNotificationsPage,
     Home,
-    // AllStudentsPage,
-    // AllTeachersPage,
     InstructionsPage,
     MedicalCertificate,
     MemoFreshmenPage,
@@ -37,7 +36,6 @@ import {
     SettingsPage,
 } from './pages'
 
-import LkNotificationsPage from '@pages/lk-notifications'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
@@ -141,6 +139,8 @@ export interface IRoute {
     fallbackPrevPage?: string
     planeHeader?: boolean
     pageSize?: ExtSize
+    isExternalPage?: boolean
+    isOldLkPage?: boolean
 }
 
 export const publicRoutes = [
@@ -226,7 +226,7 @@ export const generalRoutes: IRoutes = {
         shortTitle: 'Ознакомление с док...',
         icon: <FiFileText />,
         path: DOCLIST_ROUTE,
-        Component: () => <DecreisDirectivesPage />,
+        Component: DecreisDirectivesPage,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',
@@ -275,7 +275,6 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'GENERAL',
         keywords: ['Оповещения'],
-        isNew: true,
     },
     'electronic-interaction-agreement': {
         id: 'electronic-interaction-agreement',
@@ -295,6 +294,7 @@ export const generalRoutes: IRoutes = {
         title: 'Сообщения',
         icon: <BiMessageRounded />,
         path: CHAT_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: OLD_CHAT_ROUTE }),
         color: 'red',
         isTemplate: true,
@@ -337,16 +337,6 @@ export const generalRoutes: IRoutes = {
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
     },
-    // portfolio: {
-    //     id: 'portfolio',
-    //     title: 'Портфолио',
-    //     icon: <BiIdCard />,
-    //     path: PORTFOLIO_ROUTE,
-    //     Component: () => PageIsNotReady({ oldVersionUrl: PORTFOLIO_ROUTE }),
-    //     color: 'blue',
-    //     isTemplate: true,
-    //     group: 'COMMUNICATION',
-    // },
     feedback: {
         id: 'feedback',
         title: 'Обратная связь',

@@ -1061,7 +1061,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
     'certification-and-issuance-of-docs': {
         id: 'certification-and-issuance-of-docs',
-        title: 'Заказ гостевого пропуска',
+        title: 'Заверение и выдача копий внутренних документов',
         icon: <FiFileText />,
         color: 'blue',
         path: CERTIFICATION_AND_ISSUANCE_OF_DOCS,
@@ -1076,7 +1076,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
     'deferment-from-conscription': {
         id: 'deferment-from-conscription',
-        title: 'Заказ гостевого пропуска',
+        title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
         icon: <FiFileText />,
         color: 'blue',
         path: DEFERMENT_FROM_CONSCRIPTION,
@@ -1090,7 +1090,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'certified-copies-of-military-docs': {
         id: 'certified-copies-of-military-docs',
-        title: 'Заказ гостевого пропуска',
+        title: 'Заверенные копии документов по воинскому учету из личного дела',
         icon: <FiFileText />,
         color: 'blue',
         path: CERTIFIED_COPIES_OF_MILITARY_DOCS,

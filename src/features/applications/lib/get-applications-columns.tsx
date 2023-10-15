@@ -38,7 +38,7 @@ const getApplicationsColumns = (): ColumnProps[] => {
                 return (
                     <Message
                         type={newValue === 'Готово' ? 'success' : newValue === 'Отклонено' ? 'failure' : 'alert'}
-                        title={newValue}
+                        title={newValue || '—'}
                         align="center"
                         width="100%"
                         icon={null}

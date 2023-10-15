@@ -6,9 +6,8 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { getCurrentDay } from '../lib/get-current-day'
 import { getEndTime } from '../lib/get-end-time'
 import { DayCalendarProps } from '../types'
-import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
-import { getCurrentTimeLinePosition } from '../lib/get-current-time-line-position'
-import { SCROLL_UP_SHIFT } from '../consts'
+import { IWeekDayNames } from '@shared/constants'
+import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
 
 type Props = DayCalendarProps
 
@@ -23,12 +22,15 @@ export const useCalendarDay = ({
     const [chosenEvent, setChosenEvent] = useState<DayCalendarEvent | null>(null)
     const [currentDay, setCurrentDay] = useState(getCurrentDay(currentChosenDay))
     const carouselRef = useRef<HTMLDivElement>(null)
-    const eventsRef = useScrollTo({
-        getScrollTopValue: () => getCurrentTimeLinePosition(interval, shift, scale) - SCROLL_UP_SHIFT,
-    })
 
     useEffect(() => {
-        setChosenEvent(null)
+        if (allEvents) {
+            const day = Object.keys(allEvents ?? {})[currentDay] as IWeekDayNames
+            const chosen = allEvents[day].find((event) => checkIfEventIsCurrent(event, true)) ?? null
+            setChosenEvent(chosen)
+        } else {
+            setChosenEvent(null)
+        }
     }, [allEvents])
 
     const timeInterval = chosenEvent
@@ -59,7 +61,6 @@ export const useCalendarDay = ({
         currentDay,
         events,
         carouselRef,
-        eventsRef,
         interval,
         scale,
         shift,

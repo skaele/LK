@@ -154,7 +154,7 @@ export const Colors: IColors = {
         transparent3: '#ffbce530',
     },
     red: {
-        dark3: '#91353d',
+        dark3: '#8f454b',
         dark2: '#bf3641',
         dark1: '#cf4b56',
         main: '#ec5f6b',
@@ -220,15 +220,15 @@ export const WEEK_DAYS = {
 export type IWeekDays = typeof WEEK_DAYS
 export type IWeekDayNames = keyof IWeekDays
 
-export const ColorsByGrade: Record<keyof IGrade | 'default', string> = {
-    Зачтено: Colors.green.main,
-    'Не зачтено': Colors.red.main,
-    Отлично: Colors.green.main,
-    Хорошо: Colors.blue.main,
-    Удовлетворительно: Colors.orange.main,
-    Неудовлетворительно: Colors.red.main,
-    'Не явился': Colors.red.main,
-    default: Colors.red.main,
+export const ColorsByGrade: Record<keyof IGrade | 'default', IColorPalette> = {
+    Зачтено: Colors.green,
+    'Не зачтено': Colors.red,
+    Отлично: Colors.green,
+    Хорошо: Colors.blue,
+    Удовлетворительно: Colors.orange,
+    Неудовлетворительно: Colors.red,
+    'Не явился': Colors.red,
+    default: Colors.red,
 }
 
 export const WidthByGrade: IGrade & { default: number } = {
@@ -254,7 +254,7 @@ export const GradeByScore: IGrade = {
 
 export const OLD_LK_URL = 'https://e.mospolytech.ru/old'
 
-export const LastUpdateWhatsNew = '2023-06-30T00:43:43'
+export const LastUpdateWhatsNew = '2023-10-03T10:43:43'
 
 type MessageTypeObj = {
     [key in MessageType]: {
@@ -398,6 +398,8 @@ export const JS_QUERIES = [
 
 export const TIME_IN_MS = {
     minute: 60000,
+    ten_seconds: 10000,
+    thirty_seconds: 30000,
 }
 
 /**

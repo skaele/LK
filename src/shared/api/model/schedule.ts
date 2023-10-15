@@ -35,6 +35,7 @@ export interface ILessons {
 type ErrorResponse = {
     status: string
     error: string
+    message?: string
 }
 
 export type CapitalLettersWeekNames = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday'
@@ -79,6 +80,8 @@ export interface ISchedule {
         view: View
         filter: string
         searchValue: string
+        hasNoSchedule: boolean
+        errorInData?: string
     }
     loading: boolean
     error: string | null

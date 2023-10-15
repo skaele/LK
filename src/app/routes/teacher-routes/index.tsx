@@ -190,11 +190,12 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         path: ElECTRONIC_STATEMENTS,
         Component: () => {
             React.useEffect(() => {
-                window.location.replace(' https://e.mospolytech.ru/old/stats.php?m=items&act=st_list')
+                window.location.replace(`${OLD_LK_URL}/stats.php?m=items&act=st_list`)
             }, [])
 
             return null
         },
+        isOldLkPage: true,
         color: 'blue',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -211,6 +212,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
             return null
         },
+        isOldLkPage: true,
         color: 'orange',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -238,6 +240,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
             return null
         },
+        isExternalPage: true,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',
@@ -254,6 +257,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
             return null
         },
+        isOldLkPage: true,
         color: 'pink',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -271,6 +275,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
             return null
         },
+        isOldLkPage: true,
         color: 'lightBlue',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -280,6 +285,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Анонсы научных мероприятий',
         icon: <RiNotificationBadgeLine />,
         path: SC_NEWS_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: SC_NEWS_ROUTE }),
         color: 'orange',
         isTemplate: false,
@@ -291,6 +297,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Приказы',
         icon: <FiFileText />,
         path: ORDERS_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: ORDERS_ROUTE }),
         color: 'blue',
         isTemplate: false,
@@ -302,6 +309,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Бланки документов',
         icon: <BiGroup />,
         path: DOCUMENT_BLANKS_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: DOCUMENT_BLANKS_ROUTE }),
         color: 'blue',
         isTemplate: false,
@@ -335,7 +343,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'lightGreen',
         path: PHYSICAL_EDUCATION,
-        show: !isProduction,
         pageSize: 'big',
         Component: TeacherPhysicalEducation,
         isTemplate: false,
@@ -346,17 +353,20 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Физическая культура',
         icon: <FiFileText />,
         color: 'pink',
+        show: false,
         path: PHYSICAL_EDUCATION_STUDENT,
         Component: PhysicalEducationStudent,
         isTemplate: false,
         fallbackPrevPage: PHYSICAL_EDUCATION,
-        show: false,
+        backButtonText: 'Физическая культура',
+        isSubPage: true,
     },
     oop: {
         id: 'oop',
         title: 'Образовательные программы',
         icon: <BiHeadphone />,
         path: OOP_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: OOP_ROUTE }),
         color: 'blue',
         isTemplate: false,
@@ -368,6 +378,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Многофункциональный центр',
         icon: <BiHeadphone />,
         path: CENTERS_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: CENTERS_ROUTE }),
         color: 'blue',
         isTemplate: false,
@@ -389,6 +400,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Опрос для проверки уровня цифровой грамотности',
         icon: <BiBookReader />,
         path: PPS_VOTE_ROUTE,
+        isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
         color: 'blue',
         isTemplate: false,

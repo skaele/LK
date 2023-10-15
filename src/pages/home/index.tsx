@@ -14,6 +14,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import HomeTopPlate from './ui/home-top-plate'
+import { useUnit } from 'effector-react'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -35,7 +36,7 @@ const Home = () => {
         error,
     } = userModel.selectors.useUser()
 
-    const { data: payments } = paymentsModel.selectors.usePayments()
+    const payments = useUnit(paymentsModel.stores.$paymentsStore)
     const {
         data: { schedule },
     } = scheduleModel.selectors.useSchedule()
@@ -65,7 +66,14 @@ const Home = () => {
                 <GlobalAppSearch />
                 <Links links={homeRoutes} />
                 <CenterPage>
-                    <Block maxWidth="750px" minHeight="100%" height="100%" orientation="vertical" gap="20px">
+                    <Block
+                        noAppearanceInMobile
+                        maxWidth="750px"
+                        minHeight="100%"
+                        height="100%"
+                        orientation="vertical"
+                        gap="20px"
+                    >
                         <Flex>
                             <Title size={2} align="left" width="100%">
                                 Главная

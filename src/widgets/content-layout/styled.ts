@@ -3,7 +3,9 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
     display: flex;
     background: var(--theme);
+    height: 100vh;
     height: 100dvh;
+    height: 100svh;
 `
 
 export const ContentWrapper = styled.div`

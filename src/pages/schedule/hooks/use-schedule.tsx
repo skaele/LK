@@ -14,13 +14,16 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import { useModal } from 'widgets'
 import { SideMenuContent } from '../ui/side-menu/side-menu-content'
+import Flex from '@shared/ui/flex'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { TIME_IN_MS } from '@shared/constants'
 
 const useSchedule = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
     const {
-        data: { filter, view },
+        data: { filter, view, errorInData },
     } = scheduleModel.selectors.useSchedule()
 
     const { isTablet, isMobile } = useCurrentDevice()
@@ -91,12 +94,19 @@ const useSchedule = () => {
                 handleReturnToMySchedule()
             }
             if (hint?.id) {
-                history.push(
-                    getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
-                        page: location.pathname.split('/')[2],
-                        filter: hint.value,
-                    }),
-                )
+                location.pathname.split('/')[2] === 'retake'
+                    ? history.push(
+                          getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                              page: 'current',
+                              filter: hint.value,
+                          }),
+                      )
+                    : history.push(
+                          getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                              page: location.pathname.split('/')[2],
+                              filter: hint.value,
+                          }),
+                      )
             }
         }
     }
@@ -108,16 +118,27 @@ const useSchedule = () => {
     const handleOpenSideMenu = () => {
         if (isMobile) {
             open(
-                <SideMenuContent
-                    baseSearchValue={baseSearchValue}
-                    handleReturnToMySchedule={handleReturnToMySchedule}
-                    onHintClick={onHintClick}
-                    handleValue={handleValue}
-                />,
+                <Flex d="column" gap="8px" ai="flex-start">
+                    <SideMenuContent
+                        isSideMenuOpen
+                        baseSearchValue={baseSearchValue}
+                        handleReturnToMySchedule={handleReturnToMySchedule}
+                        onHintClick={onHintClick}
+                        handleValue={handleValue}
+                    />
+                </Flex>,
             )
         } else {
             setIsSideMenuOpen((prev) => !prev)
         }
+    }
+
+    const handleErrorClick = () => {
+        popUpMessageModel.events.evokePopUpMessage({
+            message: errorInData,
+            type: 'failure',
+            time: TIME_IN_MS.ten_seconds,
+        })
     }
 
     return {
@@ -127,6 +148,7 @@ const useSchedule = () => {
         isSessionPage,
         baseSearchValue,
         showMonth,
+        handleErrorClick,
         handleValue,
         onHintClick,
         handleReturnToMySchedule,

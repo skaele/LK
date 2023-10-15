@@ -1,3 +1,4 @@
+import { getSubjectName } from '@features/schedule/lib/get-subject-name'
 import { NextSubject } from '@features/schedule/ui'
 import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
@@ -5,21 +6,21 @@ import getShortString from '@shared/lib/get-short-string'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React from 'react'
-import { HiOutlineCalendar, HiOutlineExternalLink, HiOutlineLogin, HiOutlineUserCircle } from 'react-icons/hi'
+import {
+    HiOutlineCalendar,
+    HiOutlineExternalLink,
+    HiOutlineLogin,
+    HiOutlineUserCircle,
+    HiOutlineUserGroup,
+} from 'react-icons/hi'
 import DotSeparatedWords from '../../../dot-separated-words'
 import Flex from '../../../flex'
-import EventBackground from '../../calendars/day/ui/event-background'
 import IconText from '../../calendars/day/ui/icon-text'
 import { getTimeInterval } from '../../lib/get-time-interval'
 import { DayCalendarEvent } from '../../types'
+import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'
 import { UIProps } from './types'
-
-const getStartTimeShiftInMinutes = (startTime: string) => {
-    // E.g 12:20 -> 740
-    const [hour, minute] = startTime.split(':')
-    return +hour * 60 + +minute
-}
 
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
 
@@ -36,12 +37,11 @@ const EventItem = (props: Props) => {
         scale,
         onClick,
         link,
-        isCurrent,
-        otherIsCurrent,
         rooms,
         dateInterval,
         leftShift,
         quantity,
+        groups,
         isCurrentEvent = false,
         nameInOneRow = true,
         isNextEvent = false,
@@ -50,7 +50,6 @@ const EventItem = (props: Props) => {
     } = props
     const { theme } = useTheme()
     const { isMobile } = useCurrentDevice()
-    const startTimeShift = getStartTimeShiftInMinutes(startTime)
     const textColor = theme === 'light' ? color.dark3 : color.light3
     const background = theme === 'light' ? color.transparent1 : color.transparent2
     const handleClick = () => onClick(props)
@@ -62,24 +61,29 @@ const EventItem = (props: Props) => {
 
         return result
     })
+    const top = getEventTopPosition(startTime, shift, scale)
+    const normalizedTitle = getSubjectName(title)
+    const eventTitle = !extremeSmallSize
+        ? getShortString(normalizedTitle.name, shortInfo ? (hideSomeInfo ? 43 : 35) : nameInOneRow ? 300 : 64)
+        : title.split(' ').map((el) => el[0].toUpperCase())
+    const groupsArray = groups?.split(',') ?? []
 
     return (
         <EventItemStyled
+            background={background}
             textColor={textColor}
             listView={listView}
             leftShift={100 * leftShift}
             quantity={100 / quantity}
             duration={duration}
-            startDayShift={shift}
-            startTimeShift={startTimeShift}
             scale={scale}
+            top={top}
             onClick={handleClick}
-            isCurrent={isCurrent}
-            otherIsCurrent={otherIsCurrent}
             shortInfo={shortInfo}
         >
             <MobileIcon>{icon}</MobileIcon>
-            {!listView && <EventBackground icon={icon} background={background} />}
+
+            {/* {!listView && <EventBackground icon={icon} background={background} />} */}
             <Flex className="event-body" gap="0px" ai="flex-start">
                 <EventFront scale={scale} d="column" ai="flex-start" shortInfo={shortInfo}>
                     <Flex d="column" gap="2px">
@@ -99,20 +103,29 @@ const EventItem = (props: Props) => {
                                 {!!rooms?.length && (
                                     <IconText
                                         shortInfo={shortInfo}
-                                        icon={<HiOutlineLogin />}
+                                        icon={isMobile && quantity > 1 ? undefined : <HiOutlineLogin />}
                                         text={<DotSeparatedWords words={rooms} />}
                                     />
                                 )}
-                                {!!link && (
-                                    <a href={link} target="_blank" rel="noreferrer">
-                                        <IconText shortInfo={shortInfo} icon={<HiOutlineExternalLink />} text={place} />
+                                {(!!link || normalizedTitle.link) && (
+                                    <a href={link ?? normalizedTitle.link} target="_blank" rel="noreferrer">
+                                        <IconText
+                                            shortInfo={shortInfo}
+                                            icon={<HiOutlineExternalLink />}
+                                            text={link ? place : 'Cсылка'}
+                                        />
                                     </a>
+                                )}
+                                {!!groupsArray.length && (
+                                    <IconText
+                                        icon={<HiOutlineUserGroup />}
+                                        text={<DotSeparatedWords words={groupsArray} />}
+                                    />
                                 )}
                             </Flex>
                         )}
                         <EventTitle listView={listView} nameInOneRow={nameInOneRow} scale={scale} shortInfo={shortInfo}>
-                            {!extremeSmallSize &&
-                                getShortString(title, shortInfo ? (hideSomeInfo ? 43 : 35) : nameInOneRow ? 300 : 64)}
+                            {eventTitle}
                         </EventTitle>
                     </Flex>
 
@@ -138,7 +151,7 @@ const EventItem = (props: Props) => {
                     )}
 
                     {!!dateInterval && !hideSomeInfo && (
-                        <Flex gap="5px" d="column" ai="flex-start">
+                        <Flex gap="5px">
                             <IconText shortInfo={shortInfo} icon={<HiOutlineCalendar />} text={dateInterval} />
                         </Flex>
                     )}

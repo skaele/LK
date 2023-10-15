@@ -24,7 +24,7 @@ export const WeekDaysWrapper = styled(Flex)`
     padding-left: var(--time-width);
 `
 
-export const WeekDay = styled.div<{ showColumns: boolean }>`
+export const WeekDay = styled.div<{ showColumns: boolean; showDates?: boolean }>`
     width: 100%;
     font-weight: 500;
     height: 44px;
@@ -44,7 +44,7 @@ export const WeekDay = styled.div<{ showColumns: boolean }>`
         top: 54px;
         width: 1.5px;
         position: absolute;
-        background: var(--theme-3);
+        background: var(--theme-4);
     }
 
     &::after {
@@ -53,12 +53,12 @@ export const WeekDay = styled.div<{ showColumns: boolean }>`
 
     ${MEDIA_QUERIES.isMobile} {
         font-size: 0.8rem;
-        height: 70px;
+        height: ${({ showDates }) => (showDates ? '80px' : '50px')};
 
         &::after,
         &::before {
-            top: 80px;
-            height: calc(100% - 88px);
+            top: 90px;
+            height: calc(100% - 100px);
         }
     }
 `

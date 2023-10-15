@@ -72,6 +72,8 @@ export type SpecialFieldsName =
     | 'collDog'
     | 'dueToWithdrawal'
     | 'medicalReport'
+    | 'employed'
+    | 'unemployed'
     | null
 
 export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }

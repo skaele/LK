@@ -23,16 +23,13 @@ const TimeLine = styled.div`
     left: var(--time-width);
     top: 50%;
     transform: translateY(-50%);
-    background: var(--theme-3);
+    background: var(--theme-4);
     height: 1px;
-
-    ${MEDIA_QUERIES.isMobile} {
-        background: var(--almostTransparentOpposite);
-    }
 `
 
 const SubtextStyled = styled(Subtext)`
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    opacity: 0.5;
 
     ${MEDIA_QUERIES.isMobile} {
         font-size: 0.65rem;

@@ -14,7 +14,7 @@ export const EventBackgroundStyled = styled.div<{ background: string; noPadding:
     overflow: hidden;
 
     ${MEDIA_QUERIES.isMobile} {
-        width: calc(100% + 50px);
+        width: calc(100% + 40px);
     }
 `
 
@@ -143,7 +143,7 @@ export const CurrentTime = styled.div`
     font-weight: 500;
     background: var(--block);
     position: absolute;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     width: var(--time-width);
     left: calc(var(--time-width) * -1);
     box-shadow: -26px 0 26px 26px var(--block);

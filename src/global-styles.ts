@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { CSSObject, createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 	* {
@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
 
 	body {
 		overflow: hidden;
+		min-height: 100vh;
+    	min-height: -webkit-fill-available;
 	}
 
 	@media (min-width: 1001px) {
@@ -68,6 +70,7 @@ const GlobalStyles = createGlobalStyle`
 
 	html[data-theme=dark] {
 		--blue: #6d86e3;
+		--theme-4: #494949;
 		--theme-3: #3b3b3b;
 		--theme-3-shadow: 5px 5px 10px rgba(0,0,0,0.377);
 		--theme-2: rgb(34, 34, 34);
@@ -93,12 +96,14 @@ const GlobalStyles = createGlobalStyle`
 		--almostTransparentOpposite: hsla(0,0%,100%,0.103);
 		--block: #2e2e2e;
 		--block-shadow: 0;
+		--block-shadow-1: 0 0 2px #ffffff8f;
 		--block-content: #252525;
 	}
 
 	html[data-theme=light] {
 		--blue: #6d86e3;
 		--blueTransparent: #6d86e3b0;
+		--theme-4: #f1f1f1;
 		--theme-3: #f1f1f1;
 		--theme-3-shadow: 5px 5px 10px hsla(0,0%,40.8%,0.24);
 		--theme-2: rgb(243, 243, 243);
@@ -122,6 +127,7 @@ const GlobalStyles = createGlobalStyle`
 		--almostTransparentOpposite: rgba(53,53,53,0.151);
 		--block: #fff;
 		--block-shadow: 0 0 2px rgb(0 0 0 / 24%);
+		--block-shadow-1: 0 0 2px rgb(0 0 0 / 24%);
 		--block-content: #fff;
 	}
 
@@ -149,5 +155,35 @@ const GlobalStyles = createGlobalStyle`
 		}
 	}
 `
+
+export const pulse = ({ color, start }: { color: string; start: boolean }) => `
+&::before {
+    content: '';
+    background: ${color};
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    position: absolute;
+    inset: 0;
+    animation: ${start ? 'pulse-animation 1s infinite linear' : 'none'};
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform:  scale(2.5);
+        opacity: 0;
+    }
+}`
+
+export const textEllipsis: CSSObject = {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+}
 
 export default GlobalStyles

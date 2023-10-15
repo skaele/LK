@@ -10,6 +10,7 @@ const useShortCutKeys = (keys: string[], onPressed: () => void) => {
             const sliced = keys.slice(0, keys.length - 1)
 
             if (!sliced.find((k) => !keys_pressed.has(k)) && keys[keys.length - 1] === event.key) {
+                event.preventDefault()
                 onPressed()
             }
         })

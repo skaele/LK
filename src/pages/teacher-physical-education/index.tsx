@@ -1,20 +1,36 @@
+import { peTeacherModel } from '@entities/pe-teacher'
+import { PeTeacherPermission } from '@entities/pe-teacher/types'
 import { CenterPage } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import React, { useState } from 'react'
+import { useUnit } from 'effector-react'
+import React, { useEffect } from 'react'
 import Slider from 'widgets/slider'
 import { AdminPanel } from './admin-panel'
 import { MyGroups } from './my-groups'
+import { $page, pageIndexChanged, pageLoaded } from './page-model'
 import { StudentsList } from './students-list'
-import Flex from '@shared/ui/flex'
 
 const TeacherPhysicalEducation = () => {
-    const [currentPageIndex, setCurrentPageIndex] = useState(0)
+    const [peTeacher, currentPageIndex] = useUnit([peTeacherModel.stores.$peTeacher, $page])
 
-    const pages = [
-        { title: 'Студенты', content: <StudentsList /> },
-        { title: 'Администриование', content: <AdminPanel /> },
-        { title: 'Мои Группы', content: <MyGroups /> },
-    ]
+    useEffect(() => {
+        pageLoaded()
+    }, [])
+
+    const pages = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some((permission) =>
+        peTeacher?.permissions.includes(permission),
+    )
+        ? [
+              { title: 'Студенты', content: <StudentsList /> },
+              { title: 'Управление', content: <AdminPanel /> },
+              { title: 'Мои Группы', content: <MyGroups /> },
+          ]
+        : [
+              { title: 'Студенты', content: <StudentsList /> },
+              { title: 'Мои Группы', content: <MyGroups /> },
+          ]
+
     return (
         <CenterPage padding="10px">
             <PageBlock>
@@ -23,7 +39,7 @@ const TeacherPhysicalEducation = () => {
                         appearance={false}
                         pages={pages}
                         currentPage={currentPageIndex}
-                        setCurrentPage={setCurrentPageIndex}
+                        setCurrentPage={pageIndexChanged}
                     />
                     {pages[currentPageIndex].content}
                 </Flex>

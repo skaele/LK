@@ -31,6 +31,7 @@ import {
     ACCOMMODATION_FOR_GRADUATES,
     MILITARY_REGISTRATION,
     EXIT_ACADEMIC_LEAVE,
+    STUDENT_EMPLOYMENT_ROUTE,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
@@ -171,7 +172,17 @@ const getSectionLinks = (): Section[] => {
             links: [
                 {
                     link: ARBITRARY_REQUEST_ROUTE,
-                    title: ' Произвольный запрос',
+                    title: 'Произвольный запрос',
+                },
+            ],
+        },
+        {
+            title: 'Прочее (в разработке)',
+            disabled: isProduction,
+            links: [
+                {
+                    link: STUDENT_EMPLOYMENT_ROUTE,
+                    title: 'Трудоустройство студентов',
                 },
             ],
         },

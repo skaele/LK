@@ -22,6 +22,11 @@ export const prepareEvents = (events: DayCalendarEvent[] | null | undefined): Re
                 result['19:30'] = []
             }
             result['19:30'].push(event)
+        } else if (event.startTime === '19:30' && result['19:50']) {
+            if (!result['19:50']) {
+                result['19:50'] = []
+            }
+            result['19:50'].push(event)
         } else {
             result[event.startTime].push(event)
         }

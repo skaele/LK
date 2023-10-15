@@ -39,6 +39,16 @@ import {
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
     WorkTransfer,
+    LivingInResidentialPremises,
+    GuestsAccomodationOnCampus,
+    GuestsPassageToCampus,
+    Relocation,
+    TerminationOfAgreement,
+    IssuanceOfPass,
+    GuestPass,
+    CertificationAndIssuanceOfDocs,
+    CertifiedCopiesOfMilitaryDocs,
+    DefermentFromConscription,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -154,6 +164,21 @@ export const BUFFER_WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-work-transf
 // export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
 export const BUFFER_PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/buffer-part-time-deployment'
 export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
+
+export const LIVING_IN_RESIDENTIAL_PREMISES = APPLICATIONS_ROUTE + '/living-in-residential-premises'
+export const GUESTS_ACCOMODATION_ON_CAMPUS = APPLICATIONS_ROUTE + '/guests-accomodation-on-campus'
+export const GUESTS_PASSAGE_TO_CAMPUS = APPLICATIONS_ROUTE + '/guests-passage-to-campus'
+export const RELOCATION = APPLICATIONS_ROUTE + '/relocation'
+export const TERMINATION_OF_AGREEMENT = APPLICATIONS_ROUTE + '/termination-of-agreement'
+
+export const ISSUANCE_OF_PASS = APPLICATIONS_ROUTE + '/issuance-of-pass'
+export const GUEST_PASS = APPLICATIONS_ROUTE + '/guest-pass'
+
+export const CERTIFICATION_AND_ISSUANCE_OF_DOCS = APPLICATIONS_ROUTE + '/certification-and-issuance-of-docs'
+
+export const DEFERMENT_FROM_CONSCRIPTION = APPLICATIONS_ROUTE + '/deferment-from-conscription'
+export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certified-copies-of-military-docs'
+
 // export const GENERATE_SCHEDULE = '/generate-schedule'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
@@ -738,7 +763,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'visa-certificate': {
         id: 'visa-certificate',
-        title: 'Справка на визу',
+        title: 'Справка с места работы для предоставления в визовый центр',
         icon: <FiFileText />,
         color: 'blue',
         path: VISA_CERTIFICATE,
@@ -933,6 +958,151 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
+
+    'living-in-residential-premises': {
+        id: 'living-in-residential-premises',
+        title: 'Предоставление права проживания в жилом помещении',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: LIVING_IN_RESIDENTIAL_PREMISES,
+        Component: isProduction ? ApplicationRedirect : LivingInResidentialPremises,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'guests-accomodation-on-campus': {
+        id: 'guests-accomodation-on-campus',
+        title: 'Временное размещение гостей в студгородке',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: GUESTS_ACCOMODATION_ON_CAMPUS,
+        Component: isProduction ? ApplicationRedirect : GuestsAccomodationOnCampus,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'guests-passage-to-campus': {
+        id: 'guests-passage-to-campus',
+        title: 'Проход гостей на территорию студенческого городка',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: GUESTS_PASSAGE_TO_CAMPUS,
+        Component: isProduction ? ApplicationRedirect : GuestsPassageToCampus,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    relocation: {
+        id: 'relocation',
+        title: 'Переселение',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: RELOCATION,
+        Component: isProduction ? ApplicationRedirect : Relocation,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'termination-of-agreement': {
+        id: 'termination-of-agreement',
+        title: 'Расторжение договора найма жилого помещения',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: TERMINATION_OF_AGREEMENT,
+        Component: isProduction ? ApplicationRedirect : TerminationOfAgreement,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'issuance-of-pass': {
+        id: 'issuance-of-pass',
+        title: 'Выдача пропуска (повторная)',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: ISSUANCE_OF_PASS,
+        Component: isProduction ? ApplicationRedirect : IssuanceOfPass,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'guest-pass': {
+        id: 'guest-pass',
+        title: 'Заказ гостевого пропуска',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: GUEST_PASS,
+        Component: isProduction ? ApplicationRedirect : GuestPass,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'certification-and-issuance-of-docs': {
+        id: 'certification-and-issuance-of-docs',
+        title: 'Заверение и выдача копий внутренних документов',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CERTIFICATION_AND_ISSUANCE_OF_DOCS,
+        Component: isProduction ? ApplicationRedirect : CertificationAndIssuanceOfDocs,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'deferment-from-conscription': {
+        id: 'deferment-from-conscription',
+        title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: DEFERMENT_FROM_CONSCRIPTION,
+        Component: isProduction ? ApplicationRedirect : DefermentFromConscription,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'certified-copies-of-military-docs': {
+        id: 'certified-copies-of-military-docs',
+        title: 'Заверенные копии документов по воинскому учету из личного дела',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CERTIFIED_COPIES_OF_MILITARY_DOCS,
+        Component: isProduction ? ApplicationRedirect : CertifiedCopiesOfMilitaryDocs,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
     'social-environment': {
         id: 'Социальная среда',
         title: 'Социальная среда',
@@ -948,6 +1118,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'psychological-help': {
         id: 'Психологическая помощь',
@@ -965,6 +1136,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'health-care': {
         id: 'Медицинская помощь',
@@ -981,6 +1153,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'wifi-at-the-university': {
         id: 'WI-FI  в университете',
@@ -998,6 +1171,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     brandbook: {
         id: 'Брендбук',
@@ -1014,6 +1188,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'addresses-and-contacts': {
         id: 'addresses-and-contacts',
@@ -1031,6 +1206,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'structure-of-the-university': {
         id: 'structure-of-the-university',
@@ -1049,5 +1225,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
 })

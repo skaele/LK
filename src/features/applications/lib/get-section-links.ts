@@ -30,6 +30,7 @@ import {
     FULL_TIME_PART_TIME_FORM,
     ACCOMMODATION_FOR_GRADUATES,
     MILITARY_REGISTRATION,
+    EXIT_ACADEMIC_LEAVE,
     STUDENT_EMPLOYMENT_ROUTE,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
@@ -58,6 +59,7 @@ const getSectionLinks = (): Section[] => {
                 { link: STATE_ACCREDITATION, title: 'Выдача лицензий и свидетельств о государственной аккредитации' },
                 { link: HOLIDAYS_AFTER_TRAINING, title: 'Предоставление каникул в связи с окончанием университета' },
                 { link: PROVISION_ACADEMIC_LEAVE, title: 'Предоставление академического отпуска' },
+                { link: EXIT_ACADEMIC_LEAVE, title: 'Выход из академического отпуска' },
                 { link: INDEPENDENTLY_DEDUCTED, title: 'Отчисление по инициативе обучающегося' },
                 { link: EXTENSION_ATTESTATION, title: 'Продление промежуточной аттестации или ГИА' },
             ],

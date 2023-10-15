@@ -19,7 +19,14 @@ const listTeacherMfc = [
     },
 ]
 
-type RequestType = 'kadr' | 'buhg'
+const hrDepartment = { id: 4, title: 'Отдел кадров' }
+const bookkeeping = { id: 5, title: 'Бухгалтерия' }
+const mobilizationDepartment = {
+    id: 6,
+    title: 'Мобилизационный отдел\nг. Москва, ул. Б. Семёновская, д. 38, корп. Н, кабинет 517. Тел.: (495) 223-05-23, доб. 1225',
+}
+
+type RequestType = 'kadr' | 'buhg' | 'mob'
 
 const getTeacherSubdivisions = (type?: RequestType): IInputAreaData[] => {
     return [
@@ -32,9 +39,11 @@ const getTeacherSubdivisions = (type?: RequestType): IInputAreaData[] => {
             required: true,
             items:
                 type === 'kadr'
-                    ? [...listTeacherMfc, { id: 4, title: 'Отдел кадров' }]
+                    ? [...listTeacherMfc, hrDepartment]
                     : type === 'buhg'
-                    ? [...listTeacherMfc, { id: 4, title: 'Бухгалтерия' }]
+                    ? [...listTeacherMfc, bookkeeping]
+                    : type === 'mob'
+                    ? [...listTeacherMfc, mobilizationDepartment]
                     : listTeacherMfc,
             specialType: 'personalMethod',
         },

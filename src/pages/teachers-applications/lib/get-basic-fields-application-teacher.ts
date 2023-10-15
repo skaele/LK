@@ -40,6 +40,7 @@ const getBasicFieldsApplicationTeacher = (dataForm: UserApplication): IInputArea
             fieldName: 'phone_private',
             editable: true,
             mask: true,
+            required: true,
         },
         {
             title: 'Служебный мобильный телефон',

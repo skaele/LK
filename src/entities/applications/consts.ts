@@ -54,6 +54,11 @@ export const MethodObtainingOptions = [
     { id: 3, title: 'На почтовый адрес' },
 ]
 
+export const TeacherMethodObtainingOptions = [
+    { id: 0, title: 'На электронную почту' },
+    { id: 1, title: 'Лично' },
+]
+
 export type SpecialFieldsName =
     | 'personalMethod'
     | 'postMethod'

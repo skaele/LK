@@ -19,7 +19,9 @@ const listTeacherMfc = [
     },
 ]
 
-const getTeacherSubdivisions = (): IInputAreaData[] => {
+type RequestType = 'kadr' | 'buhg'
+
+const getTeacherSubdivisions = (type?: RequestType): IInputAreaData[] => {
     return [
         {
             title: 'Выберите отделение МФЦ, где желаете получить готовый документ',
@@ -28,7 +30,12 @@ const getTeacherSubdivisions = (): IInputAreaData[] => {
             value: null,
             editable: true,
             required: true,
-            items: listTeacherMfc,
+            items:
+                type === 'kadr'
+                    ? [...listTeacherMfc, { id: 4, title: 'Отдел кадров' }]
+                    : type === 'buhg'
+                    ? [...listTeacherMfc, { id: 4, title: 'Бухгалтерия' }]
+                    : listTeacherMfc,
             specialType: 'personalMethod',
         },
     ]

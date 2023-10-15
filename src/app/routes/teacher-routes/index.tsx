@@ -738,7 +738,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'visa-certificate': {
         id: 'visa-certificate',
-        title: 'Справка на визу',
+        title: 'Справка с места работы для предоставления в визовый центр',
         icon: <FiFileText />,
         color: 'blue',
         path: VISA_CERTIFICATE,
@@ -948,6 +948,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'psychological-help': {
         id: 'Психологическая помощь',
@@ -965,6 +966,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'health-care': {
         id: 'Медицинская помощь',
@@ -981,6 +983,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'wifi-at-the-university': {
         id: 'WI-FI  в университете',
@@ -998,6 +1001,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     brandbook: {
         id: 'Брендбук',
@@ -1014,6 +1018,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'addresses-and-contacts': {
         id: 'addresses-and-contacts',
@@ -1031,6 +1036,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'structure-of-the-university': {
         id: 'structure-of-the-university',
@@ -1049,5 +1055,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
 })

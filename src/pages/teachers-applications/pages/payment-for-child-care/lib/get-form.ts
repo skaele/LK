@@ -32,7 +32,7 @@ const getForm = (data: UserApplication): IInputArea => {
                 editable: true,
             },
         ],
-        documents: { files: [], fieldName: 'docs', maxFiles: 6, required: false },
+        documents: { files: [], fieldName: 'docs', maxFiles: 4, required: false },
     }
 }
 

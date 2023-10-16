@@ -65,7 +65,7 @@ const getForm = (data: UserApplication): IInputArea => {
             {
                 title: 'Интервал доставки',
                 value: '',
-                fieldName: 'type_document',
+                fieldName: 'delivery_interval',
                 editable: true,
                 required: true,
             },

@@ -33,7 +33,7 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
-import { UNION_ORGANIZATION } from '@shared/constants'
+import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
 
 const getTeachersSectionLinks = () => {
     return [
@@ -47,13 +47,6 @@ const getTeachersSectionLinks = () => {
                     link: WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
                     title: 'Справка о работе на условиях внешнего совместительства для внесения стажа в трудовую книжку',
                 },
-            ],
-        },
-        {
-            title: 'Общее',
-            links: [
-                { link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' },
-                { link: DATA_VERIFICATION_ROUTE, title: 'Анкета для сверки данных' },
             ],
         },
         {
@@ -128,6 +121,14 @@ const getTeachersSectionLinks = () => {
                     title: 'Вступить в Профсоюз',
                     isExternalLink: true,
                 },
+            ],
+        },
+        {
+            title: 'Прочее (Скрыто)',
+            disabled: isProduction,
+            links: [
+                { link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' },
+                { link: DATA_VERIFICATION_ROUTE, title: 'Анкета для сверки данных' },
             ],
         },
     ]

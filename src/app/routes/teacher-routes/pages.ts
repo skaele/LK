@@ -52,30 +52,6 @@ export const WorkOnTermsOfExternalConcurrencyPage = lazy(
     () => import('@pages/teachers-applications/pages/work-on-the-terms-of-external-concurrency'),
 )
 
-export const LivingInResidentialPremises = lazy(
-    () => import('@pages/teachers-applications/pages/campus-office/living-in-residential-premises'),
-)
-export const GuestsAccomodationOnCampus = lazy(
-    () => import('@pages/teachers-applications/pages/campus-office/guests-accomodation-on-campus'),
-)
-export const GuestsPassageToCampus = lazy(
-    () => import('@pages/teachers-applications/pages/campus-office/guests-passage-to-campus'),
-)
-export const Relocation = lazy(() => import('@pages/teachers-applications/pages/campus-office/relocation'))
-export const TerminationOfAgreement = lazy(
-    () => import('@pages/teachers-applications/pages/campus-office/termination-of-agreement'),
-)
-
-export const IssuanceOfPass = lazy(() => import('@pages/teachers-applications/pages/pass-office/issuance-of-pass'))
-export const GuestPass = lazy(() => import('@pages/teachers-applications/pages/pass-office/guest-pass'))
-
-export const CertificationAndIssuanceOfDocs = lazy(
-    () =>
-        import(
-            '@pages/teachers-applications/pages/control-and-records-management-office/certification-and-issuance-of-docs'
-        ),
-)
-
 export const DefermentFromConscription = lazy(
     () => import('@pages/teachers-applications/pages/mobilization-department/deferment-from-conscription'),
 )

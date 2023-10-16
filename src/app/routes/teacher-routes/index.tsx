@@ -39,14 +39,6 @@ import {
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
     WorkTransfer,
-    LivingInResidentialPremises,
-    GuestsAccomodationOnCampus,
-    GuestsPassageToCampus,
-    Relocation,
-    TerminationOfAgreement,
-    IssuanceOfPass,
-    GuestPass,
-    CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
 } from './pages'
@@ -164,17 +156,6 @@ export const BUFFER_WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-work-transf
 // export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
 export const BUFFER_PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/buffer-part-time-deployment'
 export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
-
-export const LIVING_IN_RESIDENTIAL_PREMISES = APPLICATIONS_ROUTE + '/living-in-residential-premises'
-export const GUESTS_ACCOMODATION_ON_CAMPUS = APPLICATIONS_ROUTE + '/guests-accomodation-on-campus'
-export const GUESTS_PASSAGE_TO_CAMPUS = APPLICATIONS_ROUTE + '/guests-passage-to-campus'
-export const RELOCATION = APPLICATIONS_ROUTE + '/relocation'
-export const TERMINATION_OF_AGREEMENT = APPLICATIONS_ROUTE + '/termination-of-agreement'
-
-export const ISSUANCE_OF_PASS = APPLICATIONS_ROUTE + '/issuance-of-pass'
-export const GUEST_PASS = APPLICATIONS_ROUTE + '/guest-pass'
-
-export const CERTIFICATION_AND_ISSUANCE_OF_DOCS = APPLICATIONS_ROUTE + '/certification-and-issuance-of-docs'
 
 export const DEFERMENT_FROM_CONSCRIPTION = APPLICATIONS_ROUTE + '/deferment-from-conscription'
 export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certified-copies-of-military-docs'
@@ -951,121 +932,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         path: DATA_VERIFICATION_ROUTE,
         Component: DataVerificationPage,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-
-    'living-in-residential-premises': {
-        id: 'living-in-residential-premises',
-        title: 'Предоставление права проживания в жилом помещении',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: LIVING_IN_RESIDENTIAL_PREMISES,
-        Component: isProduction ? ApplicationRedirect : LivingInResidentialPremises,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'guests-accomodation-on-campus': {
-        id: 'guests-accomodation-on-campus',
-        title: 'Временное размещение гостей в студгородке',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: GUESTS_ACCOMODATION_ON_CAMPUS,
-        Component: isProduction ? ApplicationRedirect : GuestsAccomodationOnCampus,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'guests-passage-to-campus': {
-        id: 'guests-passage-to-campus',
-        title: 'Проход гостей на территорию студенческого городка',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: GUESTS_PASSAGE_TO_CAMPUS,
-        Component: isProduction ? ApplicationRedirect : GuestsPassageToCampus,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    relocation: {
-        id: 'relocation',
-        title: 'Переселение',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: RELOCATION,
-        Component: isProduction ? ApplicationRedirect : Relocation,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'termination-of-agreement': {
-        id: 'termination-of-agreement',
-        title: 'Расторжение договора найма жилого помещения',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: TERMINATION_OF_AGREEMENT,
-        Component: isProduction ? ApplicationRedirect : TerminationOfAgreement,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-
-    'issuance-of-pass': {
-        id: 'issuance-of-pass',
-        title: 'Выдача пропуска (повторная)',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: ISSUANCE_OF_PASS,
-        Component: isProduction ? ApplicationRedirect : IssuanceOfPass,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'guest-pass': {
-        id: 'guest-pass',
-        title: 'Заказ гостевого пропуска',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: GUEST_PASS,
-        Component: isProduction ? ApplicationRedirect : GuestPass,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-
-    'certification-and-issuance-of-docs': {
-        id: 'certification-and-issuance-of-docs',
-        title: 'Заверение и выдача копий внутренних документов',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: CERTIFICATION_AND_ISSUANCE_OF_DOCS,
-        Component: isProduction ? ApplicationRedirect : CertificationAndIssuanceOfDocs,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

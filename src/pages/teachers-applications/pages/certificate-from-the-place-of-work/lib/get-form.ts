@@ -1,20 +1,31 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
-import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
-import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
-import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher-subdivisions'
-import getAddressFields from '@features/applications/lib/get-address-fields'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
 
 const getForm = (data: UserApplication): IInputArea => {
     return {
         title: 'Справка с места работы',
         data: [
-            ...getBasicFieldsApplicationTeacher(data),
-            ...getMethodObtainingFields(),
-            ...getTeacherSubdivisions('kadr'),
-            ...getAddressFields(),
+            {
+                title: 'Подразделение/должность',
+                value: getDefaultSubdivision(data.subdivisions),
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisions(data.subdivisions),
+                isSpecificSelect: true,
+            },
+            {
+                title: 'по месту требования',
+                type: 'checkbox',
+                value: false,
+                editable: true,
+                fieldName: 'place_of_requirement',
+            },
         ],
-        documents: { files: [], fieldName: 'docs', maxFiles: 4, required: false },
     }
 }
 

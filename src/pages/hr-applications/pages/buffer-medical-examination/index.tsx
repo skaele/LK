@@ -1,12 +1,12 @@
 import React from 'react'
 import { applicationsModel } from '@entities/applications'
-import { Message, Title, Wrapper } from '@ui/atoms'
-import { FiInfo } from 'react-icons/fi'
+import { Title, Wrapper } from '@ui/atoms'
 import { bufferMedicalExaminationModel } from './model'
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HrHeader } from '@pages/hr-applications/ui/atoms/hr-header'
 import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/application-page-wrapper'
 import Content from './ui/content'
+import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
 
 const MedicalExaminationBufferPage = () => {
     const {
@@ -37,12 +37,7 @@ const MedicalExaminationBufferPage = () => {
                         <Title size={2} align="left">
                             Заявление на диспансеризацию
                         </Title>
-                        <Message type="info" title="Информация" icon={<FiInfo />}>
-                            Данный сервис позволяет заказать необходимую справку, подать заявление, запрос. Статус
-                            (информация о степени готовности) заказанных справок меняется согласно действиям оператора.
-                            В колонке «Подразделение, адрес» указывается название подразделения и адрес, куда необходимо
-                            приехать за готовым документом.
-                        </Message>
+                        <HRInfoMessage />
                     </HrHeader>
                     <Content />
                 </HrBlockWrapper>

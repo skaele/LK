@@ -4,8 +4,8 @@ import { Message, Title, Wrapper } from '@ui/atoms'
 import { FiInfo } from 'react-icons/fi'
 import { bufferMedicalExaminationModel } from './model'
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
-import { HrHeader } from '@pages/hr-applications/ui/atoms/HrHeader'
-import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/ApplicationPageWrapper'
+import { HrHeader } from '@pages/hr-applications/ui/atoms/hr-header'
+import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/application-page-wrapper'
 import Content from './ui/content'
 
 const MedicalExaminationBufferPage = () => {

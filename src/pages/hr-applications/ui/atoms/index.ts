@@ -1,1 +1,1 @@
-export * from './HrBlockWrapper'
+export * from './hr-block-wrapper'

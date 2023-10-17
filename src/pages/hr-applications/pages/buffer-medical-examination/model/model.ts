@@ -2,7 +2,7 @@ import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
-import { createEffect, createEvent, createStore, forward } from 'effector'
+import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
@@ -20,7 +20,6 @@ const loadBufferMedicalExaminationFx = createEffect(async () => {
         `MedicalExamination.GetAllHistory?PersonalGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
     )
     try {
-        // ???????
         setAgeMed(response.data.age)
         setIsTutor(
             response.data.employeeMedicalExaminations.map(({ employeeGuid, tutor }) => ({ employeeGuid, tutor })),
@@ -37,22 +36,11 @@ const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalEx
         const result = await $hrApi.post<BufferMedicalExamination>('MedicalExamination.AddMedicalExamination', data)
 
         if (result.data.isError) {
-            popUpMessageModelHr.events.evokePopUpMessage({
-                message: result.data.error,
-                type: 'hrFailure' as MessageType,
-                time: 300000,
-            })
+            throw new Error()
         }
-
-        popUpMessageModelHr.events.evokePopUpMessage({
-            message: `Форма отправлена успешно`,
-            type: 'success' as MessageType,
-            time: 0,
-        })
 
         return result.data
     } catch (error) {
-        console.log('sendBufferMedicalExaminationFx', error)
         throw new Error(error as string)
     }
 })
@@ -70,6 +58,26 @@ const clearStore = createEvent()
 
 forward({ from: sendBufferMedicalExaminationFx.doneData, to: loadBufferMedicalExaminationFx })
 
+sample({
+    clock: sendBufferMedicalExaminationFx.doneData,
+    fn: () => ({
+        message: `Форма отправлена успешно`,
+        type: 'success' as MessageType,
+        time: 0,
+    }),
+    target: popUpMessageModelHr.events.evokePopUpMessage,
+})
+
+sample({
+    clock: sendBufferMedicalExaminationFx.failData,
+    fn: () => ({
+        message: 'Не удалось отправить форму.',
+        type: 'hrFailure' as MessageType,
+        time: 3000,
+    }),
+    target: popUpMessageModelHr.events.evokePopUpMessage,
+})
+
 const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_STORE)
     .on(loadBufferMedicalExaminationFx, (oldData) => ({
         ...oldData,
@@ -83,14 +91,6 @@ const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_ST
         ...oldData,
         error: newData.message,
     }))
-
-sendBufferMedicalExaminationFx.fail.watch(() =>
-    popUpMessageModelHr.events.evokePopUpMessage({
-        message: 'Не удалось отправить форму.',
-        type: 'hrFailure' as MessageType,
-        time: 300000,
-    }),
-)
 
 export const effects = { loadBufferMedicalExaminationFx, sendBufferMedicalExaminationFx }
 

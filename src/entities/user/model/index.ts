@@ -70,7 +70,7 @@ const getUserFx = createEffect<Pick<UserToken, 'jwt' | 'token'>, UserStore>(asyn
         // eslint-disable-next-line no-console
         console.log(error)
 
-        throw new Error('Возникла какая-то ошибка')
+        throw new Error(`Возникла какая-то ошибка: ${(error as Error).message}`)
     }
 })
 
@@ -132,7 +132,7 @@ const DEFAULT_STORE: UserStore = {
 
 changeSavePasswordFunc()
 
-const $userStore = createStore(DEFAULT_STORE)
+export const $userStore = createStore(DEFAULT_STORE)
     .on(getUserFx, (oldData) => ({
         ...oldData,
         error: null,

@@ -3,7 +3,9 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
     display: flex;
     background: var(--theme);
+    height: 100vh;
     height: 100dvh;
+    height: 100svh;
 `
 
 export const ContentWrapper = styled.div`
@@ -22,7 +24,8 @@ export const ContentWrapper = styled.div`
 export const PageContent = styled.div<{ withHeader?: boolean }>`
     position: relative;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
     padding-top: ${({ withHeader }) => (withHeader ? 'var(--header-height)' : '0')};
     width: 100%;
     height: 100%;

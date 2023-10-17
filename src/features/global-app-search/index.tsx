@@ -10,16 +10,26 @@ import { FiCommand, FiSearch } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import GlobalAppSearchModal from './global-app-search-modal'
+import { MEDIA_QUERIES } from '@shared/constants'
 
-const GlobalAppSearchStyled = styled(BlockWrapper)`
+type SearchSize = 'icon' | 'small' | 'large'
+
+const GlobalAppSearchStyled = styled(BlockWrapper)<{ size: SearchSize }>`
     cursor: pointer;
+    box-shadow: ${({ size }) => size === 'small' && 'var(--block-shadow-1)'};
+    border-radius: 17px;
+
+    ${MEDIA_QUERIES.isTablet} {
+        align-items: flex-start;
+    }
+
     &:hover {
         filter: brightness(0.96);
     }
 `
 
 const Key = styled.div`
-    background-color: var(--mild-theme);
+    background-color: var(--theme-1);
     width: 23px;
     height: 23px;
     display: flex;
@@ -47,13 +57,15 @@ const getShortCut = () => {
         Linux: [{ title: 'CTRL', key: 'Control' }, { key: 'k' }],
         UNIX: [{ title: 'CTRL', key: 'Control' }, { key: 'k' }],
         MacOS: [{ title: 'CMD', key: 'Meta', icon: <FiCommand /> }, { key: 'k' }],
+        iOS: [],
+        Android: [],
     } as Record<typeof os, { title?: string; key: string; icon?: React.ReactNode }[]>
 
     return shortcuts[os]
 }
 
 type Props = {
-    size?: 'icon' | 'small' | 'large'
+    size?: SearchSize
 }
 
 const GlobalAppSearch = ({ size = 'large' }: Props) => {
@@ -76,6 +88,7 @@ const GlobalAppSearch = ({ size = 'large' }: Props) => {
                 icon={<FiSearch />}
                 width="40px"
                 minWidth="40px"
+                shrinkTextInMobile
                 background="transparent"
                 onClick={handleOpenModal}
             />
@@ -84,8 +97,10 @@ const GlobalAppSearch = ({ size = 'large' }: Props) => {
 
     return (
         <GlobalAppSearchStyled
+            tabIndex={0}
             maxWidth="750px"
             width={width}
+            size={size}
             height="fit-content"
             padding={padding}
             justifyContent="space-between"

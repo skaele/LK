@@ -19,6 +19,7 @@ export enum ApplicationFormCodes {
     STATUS_REGULAR = 'status_regular',
     OKID_LICAKKRED = 'okid_licakkred',
     MILDOCS = 'mildocs',
+    MIL_REG = 'mil_reg',
     VOEN_UCH = 'voen_uch',
     PR_DONATE = 'pr_donate',
     PR_MATPOM = 'pr_matpom',
@@ -29,9 +30,11 @@ export enum ApplicationFormCodes {
     FREE_REQUEST = 'free_request',
     CRS_VACATIONS = 'crs_vacations',
     CRS_ACADEMVAC = 'crs_academvac',
+    CRS_EXTACADEMVAC = 'crs_extacademvac',
     CRS_EXPULSION = 'crs_expulsion',
     CRS_ATTESTAT = 'crs_attestat',
     MEDICAL_CERT = 'postRequestMedicalCertificate',
+    STUD_EMPLOYMENT = 'stud_employment',
     WORK_TRANSFER = '',
     EXTRA_HOLIDAY_COLL = '',
     HOLIDAY_PLANNING = '',
@@ -63,4 +66,18 @@ export enum ApplicationTeachersFormCodes {
     PERSONA_INCOME_TAX_REFERENCE = 'persona-income-tax-reference',
     PAYMENT_OF_CHILD_BIRTH_ALLOWANCE = 'payment-of-child-birth-allowance',
     PAYMENT_FOR_CHILD_CARE = 'payment-for-child-care',
+
+    LIVING_IN_RESIDENTIAL_PREMISES = 'living-in-residential-premises',
+    GUESTS_ACCOMODATION_ON_CAMPUS = 'guests-accomodation-on-campus',
+    GUESTS_PASSAGE_TO_CAMPUS = 'guests-passage-to-campus',
+    RELOCATION = 'relocation',
+    TERMINATION_OF_AGREEMENT = 'termination-of-agreement',
+
+    ISSUANCE_OF_PASS = 'issuance-of-pass',
+    GUEST_PASS = 'guest-pass',
+
+    CERTIFICATION_AND_ISSUANCE_OF_DOCS = 'certification-and-issuance-of-documents',
+
+    DEFERMENT_FROM_CONSCRIPTION = 'deferment-from-conscription',
+    CERTIFIED_COPIES_OF_MILITARY_DOCS = 'certified-copies-of-military-docs',
 }

@@ -1,6 +1,6 @@
 import { Colors, FileFormats } from '@shared/constants'
 import { Button, Divider, FileLink, Message } from '@ui/atoms'
-import Checkbox from '@ui/atoms/checkbox'
+import Checkbox from '@ui/checkbox'
 import FileInput from '@ui/file-input'
 import React from 'react'
 import { FiAlertCircle, FiInfo, FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
@@ -79,7 +79,6 @@ const InputArea = ({
                     {!Array.isArray(data[0])
                         ? (data as IInputAreaData[]).map((attr, index) => {
                               // TODO: Remove UniversalInput, inputs performing different tasks should be different components
-
                               return (
                                   <UniversalInput
                                       key={index}
@@ -131,7 +130,7 @@ const InputArea = ({
                             isActive={!optionalCheckbox?.value}
                         />
                     )}
-                    {!!documents && changeInputArea && (
+                    {!!documents && changeInputArea && documents.visible !== false && (
                         <FileInput
                             files={documents.files}
                             setFiles={(files: File[]) => handleLoadFiles(files)}

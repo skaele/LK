@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const ModalContent = styled.div<{ isOpen: boolean; hasBack: boolean; hasTitle: boolean }>`
-    background: var(--theme);
+    background: var(--block);
     color: var(--text);
     padding: 20px;
     min-height: 150px;
@@ -14,7 +14,7 @@ const ModalContent = styled.div<{ isOpen: boolean; hasBack: boolean; hasTitle: b
         margin-left: ${({ hasBack }) => (hasBack ? '15px' : '0px')};
         padding-right: 50px;
         white-space: break-spaces;
-        max-width: 400px;
+        max-width: 600px;
         hyphens: auto;
     }
 
@@ -66,8 +66,26 @@ const ModalContent = styled.div<{ isOpen: boolean; hasBack: boolean; hasTitle: b
         height: fit-content;
         bottom: 0;
         border-radius: 20px 20px 0 0;
-        transform: ${({ isOpen }) => (isOpen ? `scale(1) translateY(0px)` : `scale(1) translateY(150px)`)};
+        animation: ${({ isOpen }) => (isOpen ? 'openAnimation 0.2s forwards' : 'closeAnimation 0.2s forwards')};
         border-radius: var(--brLight);
+
+        @keyframes openAnimation {
+            0% {
+                transform: scale(1) translateY(150px);
+            }
+            100% {
+                transform: scale(1) translateY(0px);
+            }
+        }
+
+        @keyframes closeAnimation {
+            0% {
+                transform: scale(1) translateY(0px);
+            }
+            100% {
+                transform: scale(1) translateY(150px);
+            }
+        }
 
         .close-button {
             right: 15px;

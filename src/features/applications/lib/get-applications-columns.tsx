@@ -5,10 +5,33 @@ import React from 'react'
 import { ApplicationFileOutput } from '@api/model'
 import { Button } from '@ui/button'
 import { Colors } from '@shared/constants'
+import Flex from '@shared/ui/flex'
+import { FiDownload } from 'react-icons/fi'
+import { LinkButton } from '@shared/ui/atoms'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
-        { title: 'Запрос', field: 'subject', priority: 'one', search: true, showFull: true },
+        {
+            title: 'Запрос',
+            field: 'subject',
+            priority: 'one',
+            search: true,
+            showFull: true,
+            render: (val, obj) => {
+                return (
+                    <Flex jc="space-between">
+                        {val}
+                        {!!obj?.files_output?.length && (
+                            <LinkButton
+                                icon={<FiDownload />}
+                                background="transparent"
+                                href={obj?.files_output[0].url}
+                            />
+                        )}
+                    </Flex>
+                )
+            },
+        },
         {
             title: 'Дата',
             field: 'created',
@@ -38,7 +61,7 @@ const getApplicationsColumns = (): ColumnProps[] => {
                 return (
                     <Message
                         type={newValue === 'Готово' ? 'success' : newValue === 'Отклонено' ? 'failure' : 'alert'}
-                        title={newValue}
+                        title={newValue || '—'}
                         align="center"
                         width="100%"
                         icon={null}
@@ -55,7 +78,7 @@ const getApplicationsColumns = (): ColumnProps[] => {
         },
         { title: 'Примечание', field: 'comment', priority: 'five', width: '150px' },
         {
-            title: 'Файлы',
+            title: 'Файлы для скачивания',
             align: 'center',
             field: 'files_output',
             priority: 'five',

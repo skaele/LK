@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi'
 import styled from 'styled-components'
 import { Input } from '../atoms'
 import BlockWrapper from '../block/styles'
+import { Size } from '../types'
 
 const SearchStyled = styled.div<{ width?: string }>`
     display: flex;
@@ -49,7 +50,7 @@ const HintItem = styled.div<{ selected: boolean }>`
     }
 
     &:hover {
-        background: ${({ selected }) => (selected ? Colors.blue.main : 'var(--mild-theme)')};
+        background: ${({ selected }) => (selected ? Colors.blue.main : 'var(--theme-1)')};
     }
 `
 
@@ -73,6 +74,7 @@ type SearchProps = {
     focusOn?: any
     onHintClick?: (hint: Hint | undefined) => void
     customMask?: (value: string, prevValue?: string) => string
+    size?: Size
 }
 
 const Search = ({
@@ -88,6 +90,7 @@ const Search = ({
     customMask,
     onHintClick,
     validationCheck = false,
+    size = 'middle',
 }: SearchProps) => {
     const [currentSelectedHint, setCurrentSelectedHint] = useState<number | null>(0)
     const [openHints, setOpenHints] = useState(false)
@@ -114,7 +117,7 @@ const Search = ({
             if (typeof currentSelectedHint === 'number')
                 setCurrentSelectedHint(limitNumber(currentSelectedHint - 1, (hints?.length ?? 1) - 1, 0))
         } else if (e.key === 'Enter') {
-            setValue(hints?.[currentSelectedHint ?? 0].title ?? '')
+            hints?.[currentSelectedHint ?? 0].title && setValue(hints?.[currentSelectedHint ?? 0].title)
             setOpenHints(false)
             onHintClick?.(hints?.[currentSelectedHint ?? 0])
         } else setCurrentSelectedHint(0)
@@ -136,6 +139,7 @@ const Search = ({
     return (
         <SearchStyled width={width} onKeyDown={handleKeyDown} onMouseDown={handleMouseDown} ref={hintsRef}>
             <Input
+                size={size}
                 value={value}
                 placeholder={placeholder}
                 leftIcon={leftIcon ?? <FiSearch />}

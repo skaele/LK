@@ -1,5 +1,5 @@
 import { Button, Title } from '@ui/atoms'
-import Checkbox from '@ui/atoms/checkbox'
+import Checkbox from '@ui/checkbox'
 import React from 'react'
 import { HiChevronDown, HiOutlineCheckCircle, HiOutlineExclamationCircle } from 'react-icons/hi'
 import styled from 'styled-components'
@@ -12,7 +12,7 @@ const AreaTitleWrapper = styled.div`
     cursor: pointer;
     position: sticky;
     top: -2px;
-    background: var(--schedule);
+    background: var(--block);
     z-index: 3;
     width: 100%;
 
@@ -23,6 +23,7 @@ const AreaTitleWrapper = styled.div`
 
     @media (max-width: 1000px) {
         background: transparent;
+        position: relative;
     }
 `
 
@@ -42,7 +43,7 @@ const AreaTitle = ({ title, included, optional, confirmed, setOpenArea, setInclu
         <AreaTitleWrapper onClick={() => !collapsed && (included || !optional) && setOpenArea((prev) => !prev)}>
             <div className="title-and-icon">
                 <Title
-                    size={4}
+                    size={3}
                     align="left"
                     icon={
                         confirmed !== undefined ? (

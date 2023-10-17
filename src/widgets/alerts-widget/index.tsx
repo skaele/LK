@@ -30,13 +30,13 @@ const AlertsWidget = () => {
                     <Button
                         width="50px"
                         height="15px"
-                        background={Colors.blue.transparent2}
+                        background={Colors.blue.transparent3}
                         textColor={Colors.blue.light1}
                         text="Ещё"
                     />
                 </Link>
             </Title>
-            <Flex gap="12px" d={isMobile ? 'column' : 'row'}>
+            <Flex gap="10px" d={isMobile ? 'column' : 'row'}>
                 {loading && (
                     <Flex d="column" gap="8px">
                         <PlaneSkeletonList />

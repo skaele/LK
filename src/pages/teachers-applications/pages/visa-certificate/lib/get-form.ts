@@ -5,7 +5,7 @@ import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivi
 
 const getForm = (data: UserApplication): IInputArea => {
     return {
-        title: 'Справка на визу',
+        title: 'Справка с места работы для предоставления в визовый центр',
         data: [
             {
                 title: 'Подразделение/должность',

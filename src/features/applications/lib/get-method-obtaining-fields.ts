@@ -1,5 +1,5 @@
 import { IInputAreaData } from '@ui/input-area/model'
-import { MethodObtainingOptions } from '@entities/applications/consts'
+import { TeacherMethodObtainingOptions } from '@entities/applications/consts'
 
 const getMethodObtainingFields = (): IInputAreaData[] => {
     return [
@@ -11,7 +11,7 @@ const getMethodObtainingFields = (): IInputAreaData[] => {
             value: null,
             editable: true,
             required: true,
-            items: MethodObtainingOptions,
+            items: TeacherMethodObtainingOptions,
         },
     ]
 }

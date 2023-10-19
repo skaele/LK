@@ -59,6 +59,7 @@ import { DOCLIST_ROUTE } from '../teacher-routes'
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
 export const MEDICAL_CERTIFICATE = '/medical-certificate'
+export const VACCINATION = '/vaccination'
 
 export const ALL_ROUTE = '/all'
 export const HOME_ROUTE = '/home'
@@ -377,6 +378,24 @@ export const generalRoutes: IRoutes = {
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+        show: false,
+    },
+    vaccination: {
+        id: 'vaccination',
+        title: 'Вакцинация',
+        icon: <BsFileMedical />,
+        path: VACCINATION,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://e.mospolytech.ru/old/index.php?p=vaccination')
+            }, [])
+
+            return null
+        },
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+        keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
     },
 }
 

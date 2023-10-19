@@ -386,6 +386,7 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'GENERAL',
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
+        isOldLkPage: true,
     },
 }
 

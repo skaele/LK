@@ -18,6 +18,13 @@ const getForm = (data: UserApplication): IInputArea => {
                 items: getFormattedSubDivisions(data.subdivisions),
                 isSpecificSelect: true,
             },
+            {
+                title: 'по месту требования',
+                type: 'checkbox',
+                value: false,
+                editable: true,
+                fieldName: 'place_of_requirement',
+            },
         ],
     }
 }

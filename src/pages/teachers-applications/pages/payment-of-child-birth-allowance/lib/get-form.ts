@@ -27,17 +27,17 @@ const getForm = (data: UserApplication): IInputArea => {
                 required: true,
             },
             ...getMethodObtainingFields(),
-            ...getTeacherSubdivisions(),
+            ...getTeacherSubdivisions('buhg'),
             ...getAddressFields(),
             {
-                title: 'Комментарий к заявке',
+                title: 'Текст заявки',
                 type: 'textarea',
                 fieldName: 'commentary',
                 value: '',
                 editable: true,
             },
         ],
-        documents: { files: [], fieldName: 'docs', maxFiles: 6, required: false },
+        documents: { files: [], fieldName: 'docs', maxFiles: 4, required: false },
     }
 }
 

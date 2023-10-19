@@ -1,9 +1,10 @@
 import React from 'react'
 import { applicationsModel } from '@entities/applications'
-import { HrBlock, Message, Title, Wrapper } from '@ui/atoms'
+import { Message, Title, Wrapper } from '@ui/atoms'
 import { FiInfo } from 'react-icons/fi'
 import styled from 'styled-components'
 import Content from './ui/content'
+import { HrBlockWrapper } from '@pages/hr-applications/ui'
 
 const PartTimeEmploymentBufferPage = () => {
     const {
@@ -19,7 +20,7 @@ const PartTimeEmploymentBufferPage = () => {
             data={listApplication}
         >
             <ApplicationPageWrapper>
-                <HrBlock maxWidth="1500px">
+                <HrBlockWrapper maxWidth="1500px">
                     <HrHeader>
                         <Title size={2} align="left">
                             Заявление на трудоустройство по совместительству
@@ -32,7 +33,7 @@ const PartTimeEmploymentBufferPage = () => {
                         </Message>
                     </HrHeader>
                     <Content />
-                </HrBlock>
+                </HrBlockWrapper>
             </ApplicationPageWrapper>
         </Wrapper>
     )

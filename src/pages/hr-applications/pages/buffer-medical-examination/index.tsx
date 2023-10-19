@@ -1,70 +1,49 @@
 import React from 'react'
 import { applicationsModel } from '@entities/applications'
-import { HrBlock, Message, Title, Wrapper } from '@ui/atoms'
-import { FiInfo } from 'react-icons/fi'
-import styled from 'styled-components'
+import { Title, Wrapper } from '@ui/atoms'
+import { bufferMedicalExaminationModel } from './model'
+import { HrBlockWrapper } from '@pages/hr-applications/ui'
+import { HrHeader } from '@pages/hr-applications/ui/atoms/hr-header'
+import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/application-page-wrapper'
 import Content from './ui/content'
+import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
 
 const MedicalExaminationBufferPage = () => {
     const {
         data: { listApplication },
         error,
+        loading,
     } = applicationsModel.selectors.useApplications()
+
+    const {
+        data: medicalData,
+        loading: medicalLoading,
+        error: medicalError,
+    } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
 
     return (
         <Wrapper
-            load={() => applicationsModel.effects.getApplicationsFx()}
-            loading={!listApplication}
-            error={error}
-            data={listApplication}
+            load={() => {
+                applicationsModel.effects.getApplicationsFx()
+                bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx()
+            }}
+            loading={loading || medicalLoading}
+            error={error || medicalError}
+            data={listApplication && medicalData}
         >
             <ApplicationPageWrapper>
-                <HrBlock maxWidth="1500px">
+                <HrBlockWrapper maxWidth="1500px">
                     <HrHeader>
                         <Title size={2} align="left">
                             Заявление на диспансеризацию
                         </Title>
-                        <Message type="info" title="Информация" icon={<FiInfo />}>
-                            Данный сервис позволяет заказать необходимую справку, подать заявление, запрос. Статус
-                            (информация о степени готовности) заказанных справок меняется согласно действиям оператора.
-                            В колонке «Подразделение, адрес» указывается название подразделения и адрес, куда необходимо
-                            приехать за готовым документом.
-                        </Message>
+                        <HRInfoMessage />
                     </HrHeader>
                     <Content />
-                </HrBlock>
+                </HrBlockWrapper>
             </ApplicationPageWrapper>
         </Wrapper>
     )
 }
 
 export default MedicalExaminationBufferPage
-
-const ApplicationPageWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    color: var(--text);
-    justify-content: center;
-
-    @media (max-width: 1000px) {
-        align-items: flex-start;
-        overflow-y: auto;
-        height: 100%;
-    }
-`
-
-const HrHeader = styled.div`
-    // block
-    border-radius: var(--brSemi);
-    background: var(--block);
-    box-shadow: var(--block-shadow);
-    height: fit-content;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    margin-bottom: 30px;
-
-    padding-bottom: 40px;
-    margin-bottom: 10px;
-`

@@ -30,7 +30,7 @@ const AlertsWidget = () => {
                     <Button
                         width="50px"
                         height="15px"
-                        background={Colors.blue.transparent2}
+                        background={Colors.blue.transparent3}
                         textColor={Colors.blue.light1}
                         text="Ещё"
                     />

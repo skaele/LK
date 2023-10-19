@@ -102,6 +102,10 @@ export const ApplicationProvisionAcademicLeave = lazy(
     () => import('@pages/applications/pages/multifunctional-center/provision-academic-leave'),
 )
 
+export const ExitAcademicLeave = lazy(
+    () => import('@pages/applications/pages/multifunctional-center/exit-academic-leave'),
+)
+
 export const ApplicationIndependentlyDeduction = lazy(
     () => import('@pages/applications/pages/multifunctional-center/independently-deducted'),
 )
@@ -121,3 +125,4 @@ export const AccommodationCorrespondenceFormPage = lazy(
 export const FamilyRoomPage = lazy(() => import('@pages/applications/pages/campus-management/family-room'))
 
 export const ArbitraryRequestPage = lazy(() => import('@pages/applications/pages/other/arbitrary-request'))
+export const StudentEmploymentPage = lazy(() => import('@pages/applications/pages/other/student-employment'))

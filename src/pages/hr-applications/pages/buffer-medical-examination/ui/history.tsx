@@ -1,7 +1,7 @@
 import Block from '@shared/ui/block'
 import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import styled from 'styled-components'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
@@ -9,9 +9,23 @@ import { bufferMedicalExaminationModel } from '../model'
 
 const History = () => {
     const [openedHistory, setOpenedHistory] = useState<boolean>(false)
-    useEffect(bufferMedicalExaminationModel.events.loadBufferMedicalExamination, [])
     const { data } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
-    const historyIsEmpty = !!data.every((d) => !d)
+
+    const filteredData = useMemo(() => {
+        return data
+            ?.map((workerInfo) => {
+                const filteredData = workerInfo.notTaken.filter((item) => {
+                    if (
+                        item.medicalExamination.status.orderStatus != 'false' &&
+                        item.medicalExamination.status.orderStatus != ''
+                    )
+                        return item.medicalExamination.status.orderStatus
+                })
+                return filteredData
+            })
+            .flat()
+    }, [data])
+
     return (
         <Block
             orientation={'vertical'}
@@ -26,28 +40,19 @@ const History = () => {
                 История заявлений на диспансеризацию:
                 <Button
                     icon={openedHistory ? <HiChevronUp /> : <HiChevronDown />}
-                    onClick={() => !historyIsEmpty && setOpenedHistory((prev) => !prev)}
+                    onClick={() => setOpenedHistory((prev) => !prev)}
                     background="transparent"
                 />
             </BlockHeader>
-            {openedHistory && (
-                // if (!object.dismissalApplications.length) return null
 
-                <StyledTable
-                    columns={getMedicalExaminationHistoryColumns()}
-                    data={data.map((object) => {
-                        return {
-                            ...object,
-                        }
-                    })}
-                    maxOnPage={5}
-                />
+            {openedHistory && (
+                <StyledTable columns={getMedicalExaminationHistoryColumns()} data={filteredData} maxOnPage={5} />
             )}
             <Button
                 onClick={() => {
-                    !historyIsEmpty && setOpenedHistory((prev) => !prev)
+                    setOpenedHistory((prev) => !prev)
                 }}
-                text={historyIsEmpty ? 'История пуста' : openedHistory ? 'Скрыть' : 'Подробнее'}
+                text={!data ? 'История пуста' : openedHistory ? 'Скрыть' : 'Подробнее'}
                 background="transparent"
             />
         </Block>

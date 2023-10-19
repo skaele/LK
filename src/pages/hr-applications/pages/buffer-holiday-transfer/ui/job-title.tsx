@@ -7,14 +7,14 @@ import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { getBufferHolidayPlanningColumns } from '../../buffer-holiday-planning/lib/get-buffer-holiday-planning-columns'
-import { BufferHolidayTransfer } from '../types'
+import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
 interface Props {
     //info?: BufferHolidayPlanning
     // jobTitleInfo: WorkerApplication
     info: WorkerApplication
     index: number
-    data: BufferHolidayTransfer['employeeVacations']
+    data: BufferHoliday['employeeVacations']
 }
 
 const JobTitle: React.FC<Props> = ({ info, index, data }) => {

@@ -51,7 +51,6 @@ export const SideMenuContent = ({
                         <NewPageLink
                             key={id}
                             collapsed={!isSideMenuOpen}
-                            disabled={id === 'schedule-retake' && !!filter}
                             isCurrent={location.pathname === normalizedPath}
                             route={{ ...route, path: normalizedPath }}
                         />

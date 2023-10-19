@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
 
 	body {
 		overflow: hidden;
+		min-height: 100vh;
+    	min-height: -webkit-fill-available;
 	}
 
 	@media (min-width: 1001px) {

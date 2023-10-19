@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
 import { bufferMedicalExaminationModel } from '../model'
-import { BufferMedicalExaminationOrder } from '../types'
 // import getHrApplicationsColumns from '../lib/get-hr-applications-columns'
 // import { BufferHolidayWork } from '../types'
 
@@ -17,14 +16,13 @@ interface Props {
     // jobTitleInfo: WorkerApplication
     info: WorkerApplication
     index: number
-    data: BufferMedicalExaminationOrder[]
 }
 
 const JobTitle: React.FC<Props> = ({ info, index }) => {
     const { jobTitle, subDivision, rate } = info
     const { data } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [opened, setOpened] = useState<boolean>(false)
-    if (data.length == 0) return null
+    if (data?.length == 0) return null
 
     return (
         <Block
@@ -32,8 +30,7 @@ const JobTitle: React.FC<Props> = ({ info, index }) => {
             alignItems={'flex-start'}
             justifyContent={'flex-start'}
             gap={'10px'}
-            width="100%"
-            maxWidth="100%"
+            minHeight="200px"
             height="fit-content"
         >
             <BlockHeader>
@@ -67,7 +64,7 @@ const JobTitle: React.FC<Props> = ({ info, index }) => {
                             />
                         </Link>
                     )}
-                    {data.map((workerInfo, index) => {
+                    {data?.map((workerInfo, index) => {
                         if (workerInfo.employeeGuid == info.jobGuid) {
                             const filteredData = data[index].notTaken.filter((item) => {
                                 if (

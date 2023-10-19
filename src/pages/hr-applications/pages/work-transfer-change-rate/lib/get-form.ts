@@ -8,7 +8,7 @@ const getForm = (
 ): IInputArea => {
     const { surname, name, patronymic } = dataUserApplication
     return {
-        title: 'Заявление на перевод',
+        title: 'Заявление на изменение ставки',
         data: [
             {
                 title: 'ФИО',

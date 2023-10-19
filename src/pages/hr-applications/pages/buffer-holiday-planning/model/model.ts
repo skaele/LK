@@ -5,13 +5,14 @@ import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
-import { BufferHolidayPlanning, BufferHolidayPlanningForm } from '../types'
+import { BufferHolidayPlanningForm } from '../types'
+import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
 const loadBufferHolidayPlanning = createEvent()
 const sendBufferHolidayPlanning = createEvent<BufferHolidayPlanningForm>()
 
 const loadBufferHolidayPlanningFx = createEffect(async () => {
-    const { data } = await $hrApi.get<BufferHolidayPlanning>(
+    const { data } = await $hrApi.get<BufferHoliday>(
         `Vacation.GetAllHistory?personalGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
     )
     return data
@@ -20,15 +21,14 @@ const loadBufferHolidayPlanningFx = createEffect(async () => {
 sample({ clock: loadBufferHolidayPlanning, target: loadBufferHolidayPlanningFx })
 
 const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlanningForm) => {
-    const result = await $hrApi.post<BufferHolidayPlanning>('Vacation.AddVacation', data)
+    const result = await $hrApi.post<BufferHoliday>('Vacation.AddVacation', data)
 
     return result.data
 })
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
-const $bufferHolidayPlanning = createStore<BufferHolidayPlanning['employeeVacations']>([])
-const $bufferHolidayPlanningLoading = sendBufferHolidayPlanningFx.pending
+const $bufferHolidayPlanning = createStore<BufferHoliday['employeeVacations']>([])
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
@@ -100,6 +100,6 @@ export const effects = {
 export const selectors = {
     useBufferHolidayPlanning: () => ({
         data: useStore($bufferHolidayPlanning),
-        loading: useStore($bufferHolidayPlanningLoading),
+        loading: useStore(sendBufferHolidayPlanningFx.pending),
     }),
 }

@@ -34,7 +34,7 @@ const LocalSearch = <T, R>({
         setResult(null)
     }
 
-    const [value, setValue, loading] = useDebounce({ onDebounce, onClear })
+    const [value, setValue, loading] = useDebounce({ onDebounce, onClear, delay: 100 })
 
     const handleChangeValue = (v: string) => {
         setValue(v)

@@ -1,11 +1,11 @@
 import { IRoute } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
-import { Direction } from '@ui/types'
+import { MenuItemType } from '@shared/ui/menu-item/types'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import PageLinkContent from './page-link-content'
-import React from 'react'
 import { useModal } from 'widgets'
+import PageLinkContent from './page-link-content'
 
 const LinkWrapper = styled(Link)<{ width: number | string }>`
     width: ${({ width }) =>
@@ -25,7 +25,7 @@ const AddPageWrapper = styled.div<{ width: number | string }>`
 export type PageLinkMode = 'use' | 'add'
 
 export type PageLinkProps = IRoute & {
-    orientation?: Direction
+    orientation?: MenuItemType
     shadow?: boolean
     restricted?: boolean
     mode?: PageLinkMode

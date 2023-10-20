@@ -4,11 +4,10 @@ import { TeacherGroupSearch } from '@features/teacher-group-search'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
+import { MenuItem } from '@shared/ui/menu-item'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
-import { useLocation } from 'react-router'
-import { NewPageLink } from './new-page-link'
 import { SideMenuProps } from './types'
 
 export const SideMenuContent = ({
@@ -21,7 +20,6 @@ export const SideMenuContent = ({
     const {
         data: { searchValue, filter },
     } = scheduleModel.selectors.useSchedule()
-    const location = useLocation()
 
     return (
         <>
@@ -48,12 +46,14 @@ export const SideMenuContent = ({
                     const normalizedPath = filter ? `${path}/${filter}` : path
 
                     return (
-                        <NewPageLink
+                        <MenuItem
+                            type="horizontal"
                             key={id}
                             collapsed={!isSideMenuOpen}
                             disabled={id === 'schedule-retake' && !!filter}
-                            isCurrent={location.pathname === normalizedPath}
-                            route={{ ...route, path: normalizedPath }}
+                            {...route}
+                            title={route.shortTitle ?? route.title}
+                            path={normalizedPath}
                         />
                     )
                 })}

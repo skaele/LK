@@ -3,7 +3,7 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiBookReader, BiGroup, BiPalette } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -19,9 +19,8 @@ import {
     FeedbackPage,
     ForgotPasswordPage,
     GetYourLoginPage,
-    LkNotificationsPage,
     Home,
-    InstructionsPage,
+    LkNotificationsPage,
     MedicalCertificate,
     MemoFreshmenPage,
     MemoTeacherPage,
@@ -37,21 +36,25 @@ import {
 } from './pages'
 
 import { ExtSize } from '@shared/ui/types'
-import { AiOutlineReload } from 'react-icons/ai'
-import { BsFileMedical } from 'react-icons/bs'
+import { FiClock, FiLock, FiRotateCcw, FiXCircle } from 'react-icons/fi'
 import {
-    FiBell,
-    FiClipboard,
-    FiClock,
-    FiFileText,
-    FiHome,
-    FiLock,
-    FiMenu,
-    FiSettings,
-    FiUser,
-    FiXCircle,
-} from 'react-icons/fi'
-import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
+    HiOutlineBell,
+    HiOutlineCalendar,
+    HiOutlineChat,
+    HiOutlineClipboardCheck,
+    HiOutlineClock,
+    HiOutlineCog,
+    HiOutlineDocumentText,
+    HiOutlineFlag,
+    HiOutlineFolderAdd,
+    HiOutlineHome,
+    HiOutlineMenu,
+    HiOutlineNewspaper,
+    HiOutlineSpeakerphone,
+    HiOutlineUserCircle,
+    HiOutlineUserGroup,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 
 export const LOGIN_ROUTE = '/login'
@@ -161,7 +164,7 @@ export const publicRoutes = [
     {
         id: 2,
         title: 'Обратная связь',
-        icon: <BiHeadphone />,
+        icon: <HiOutlineSpeakerphone />,
         path: FEEDBACK_ROUTE,
         Component: FeedbackPage,
     },
@@ -212,7 +215,7 @@ export const generalRoutes: IRoutes = {
     settings: {
         id: 'settings',
         title: 'Настройки',
-        icon: <FiSettings />,
+        icon: <HiOutlineCog />,
         path: SETTINGS_ROUTE,
         Component: SettingsPage,
         color: 'grey',
@@ -224,7 +227,7 @@ export const generalRoutes: IRoutes = {
         id: 'doclist',
         title: 'Ознакомление с документами',
         shortTitle: 'Ознакомление с док...',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         path: DOCLIST_ROUTE,
         Component: DecreisDirectivesPage,
         color: 'blue',
@@ -234,7 +237,7 @@ export const generalRoutes: IRoutes = {
     alerts: {
         id: 'alerts',
         title: 'Новости',
-        icon: <BiNews />,
+        icon: <HiOutlineNewspaper />,
         path: ALERTS_ROUTE,
         Component: AlertsPage,
         color: 'purple',
@@ -245,7 +248,7 @@ export const generalRoutes: IRoutes = {
     home: {
         id: 'home',
         title: 'Главная',
-        icon: <FiHome />,
+        icon: <HiOutlineHome />,
         path: HOME_ROUTE,
         Component: Home,
         color: 'blue',
@@ -257,7 +260,7 @@ export const generalRoutes: IRoutes = {
     profile: {
         id: 'profile',
         title: 'Профиль',
-        icon: <BiUserCircle />,
+        icon: <HiOutlineUserCircle />,
         path: PROFILE_ROUTE,
         Component: ProfilePage,
         color: 'purple',
@@ -268,7 +271,7 @@ export const generalRoutes: IRoutes = {
     'lk-notifications': {
         id: 'lk-notifications',
         title: 'Уведомления',
-        icon: <FiBell />,
+        icon: <HiOutlineBell />,
         path: LK_NOTIFICATIONS_ROUTE,
         Component: LkNotificationsPage,
         color: 'orange',
@@ -292,7 +295,7 @@ export const generalRoutes: IRoutes = {
         //ChatPage
         id: 'chat',
         title: 'Сообщения',
-        icon: <BiMessageRounded />,
+        icon: <HiOutlineChat />,
         path: CHAT_ROUTE,
         isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: OLD_CHAT_ROUTE }),
@@ -305,7 +308,7 @@ export const generalRoutes: IRoutes = {
     schedule: {
         id: 'schedule',
         title: 'Расписание',
-        icon: <FiClock />,
+        icon: <HiOutlineClock />,
         path: SCHEDULE_ROUTE,
         menuPath: SCHEDULE_CURRENT_ROUTE,
         Component: SchedulePage,
@@ -318,7 +321,7 @@ export const generalRoutes: IRoutes = {
     'all-students': {
         id: 'all-students',
         title: 'Студенты',
-        icon: <BiGroup />,
+        icon: <HiOutlineUserGroup />,
         path: ALL_STUDENTS_ROUTE,
         Component: AllStudentsPage,
         color: 'lightBlue',
@@ -340,28 +343,17 @@ export const generalRoutes: IRoutes = {
     feedback: {
         id: 'feedback',
         title: 'Обратная связь',
-        icon: <BiHeadphone />,
+        icon: <HiOutlineSpeakerphone />,
         path: FEEDBACK_ROUTE,
         Component: FeedbackPage,
         color: 'blue',
         isTemplate: false,
         group: 'COMMUNICATION',
     },
-    instructions: {
-        id: 'instructions',
-        title: 'Полезная информация',
-        icon: <FiClipboard />,
-        path: INSTRUCTIONS_ROUTE,
-        Component: InstructionsPage,
-        color: 'blue',
-        isTemplate: false,
-        group: 'GENERAL',
-        show: false,
-    },
     'medical-certificate': {
         id: 'medical-certificate',
         title: 'Предоставление медицинских справок',
-        icon: <BsFileMedical />,
+        icon: <HiOutlineFolderAdd />,
         path: MEDICAL_CERTIFICATE,
         Component: MedicalCertificate,
         color: 'blue',
@@ -404,7 +396,8 @@ export const scheduleRoutes: IRoutes = {
         icon: <HiOutlineFlag />,
         path: SCHEDULE_SESSION_ROUTE,
         Component: ScheduleSession,
-        color: 'red',
+        color: 'purple',
+        keywords: ['Сессия', 'Экзамены'],
         isTemplate: false,
         show: true,
         group: 'OTHER',
@@ -413,10 +406,11 @@ export const scheduleRoutes: IRoutes = {
     'schedule-retake': {
         id: 'schedule-retake',
         title: 'Пересдачи',
-        icon: <AiOutlineReload />,
+        icon: <FiRotateCcw />,
         path: SCHEDULE_RETAKE_ROUTE,
         Component: ScheduleRetake,
         color: 'red',
+        keywords: ['Расписание'],
         isTemplate: false,
         show: true,
         group: 'OTHER',
@@ -485,13 +479,12 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Внешний вид',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'settings-personal': {
         id: 'settings-personal',
         title: 'Настройки. Аккаунт',
-        icon: <FiUser />,
+        icon: <HiOutlineUserCircle />,
         path: SETTINGS_PERSONAl_ROUTE,
         Component: Account,
         color: 'pink',
@@ -501,7 +494,6 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Аккаунт',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'settings-security': {
@@ -512,7 +504,7 @@ export const generalHiddenRoutes: IRoutes = {
         Component: Security,
         color: 'green',
         isTemplate: true,
-        show: true,
+        show: false,
         group: 'OTHER',
         isSubPage: true,
         subPageHeaderTitle: 'Безопасность',
@@ -522,7 +514,7 @@ export const generalHiddenRoutes: IRoutes = {
     'settings-home-page': {
         id: 'settings-home-page',
         title: 'Настройки. Главная',
-        icon: <FiHome />,
+        icon: <HiOutlineHome />,
         path: SETTINGS_HOME_PAGE_ROUTE,
         Component: () => <></>,
         color: 'blue',
@@ -532,13 +524,12 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Главная',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'settings-customize-menu': {
         id: 'settings-customize-menu',
         title: 'Настройки. Меню',
-        icon: <FiMenu />,
+        icon: <HiOutlineMenu />,
         path: SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE,
         Component: () => <></>,
         color: 'red',
@@ -547,13 +538,12 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Меню',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'settings-notifications': {
         id: 'settings-notifications',
         title: 'Настройки. Уведомления',
-        icon: <FiBell />,
+        icon: <HiOutlineBell />,
         path: SETTINGS_NOTIFICATIONS,
         Component: () => <></>,
         color: 'orange',
@@ -562,7 +552,6 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Уведомления',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'useful-info-template': {

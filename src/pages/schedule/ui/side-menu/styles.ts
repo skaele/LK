@@ -2,8 +2,8 @@ import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
 
 export const SideMenuStyled = styled.div<{ isSideMenuOpen: boolean }>`
-    min-width: ${({ isSideMenuOpen }) => (isSideMenuOpen ? '210px' : '60px')};
-    width: ${({ isSideMenuOpen }) => (isSideMenuOpen ? '210px' : '60px')};
+    min-width: ${({ isSideMenuOpen }) => (isSideMenuOpen ? '210px' : '56px')};
+    width: ${({ isSideMenuOpen }) => (isSideMenuOpen ? '210px' : '56px')};
     padding-right: 10px;
     height: calc(100vh - var(--header-height) - 112px);
     display: flex;

@@ -1,23 +1,34 @@
-import React from 'react'
-import { isProduction } from '@shared/constants'
+import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
+import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
-import { FaRegLightbulb } from 'react-icons/fa'
-import { FiBriefcase, FiFileText } from 'react-icons/fi'
+import PaymentsPage from '@pages/payments'
+import { User } from '@shared/api/model'
+import { isProduction } from '@shared/constants'
+import React from 'react'
+import { BiIdCard, BiRuble, BiStar } from 'react-icons/bi'
+import { FiBriefcase } from 'react-icons/fi'
+import {
+    HiOutlineCheckCircle,
+    HiOutlineDocumentText,
+    HiOutlineInformationCircle,
+    HiOutlineLightBulb,
+    HiOutlineLogout,
+} from 'react-icons/hi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
 import {
-    generalHiddenRoutes,
-    generalRoutes,
     IRoutes,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     USEFUL_INFO_ROUTE,
+    generalHiddenRoutes,
+    generalRoutes,
 } from './general-routes'
 import {
-    AcademicLeaveAccommodationPage,
     AcadPerformance,
+    AcademicLeaveAccommodationPage,
     AccommodationCorrespondenceFormPage,
+    AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
     ApplicationForCertificateOfAttendance,
     ApplicationForFinancialAssistance,
@@ -29,6 +40,7 @@ import {
     ApplicationProvisionAcademicLeave,
     ApplicationSocialAgencies,
     ApplicationsPage,
+    ArbitraryRequestPage,
     ChangingPersonalData,
     ClarificationOfPassportDataApplication,
     DormitoryPage,
@@ -36,27 +48,21 @@ import {
     FinancialSupport,
     IncreasedStateAcademicScholarship,
     MilitaryRegistrationCard,
+    MilitaryRegistrationDocuments,
     PaymentRecipient,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
     RelocationInsideHostelPage,
     RelocationToAnotherHostelPage,
-    AccommodationForGraduatesPage,
     RestoringTheMagneticPass,
     RetakeForDiploma,
     StateAccreditation,
+    StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
-    ArbitraryRequestPage,
-    MilitaryRegistrationDocuments,
-    StudentEmploymentPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
-import { User } from '@shared/api/model'
-import PaymentsPage from '@pages/payments'
-import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
-import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -106,7 +112,7 @@ export const privateRoutes: () => IRoutes = () => ({
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         path: APPLICATIONS_ROUTE,
         Component: ApplicationsPage,
         color: 'red',
@@ -141,7 +147,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'acad-performance': {
         id: 'acad-performance',
         title: 'Успеваемость',
-        icon: <BiCheckCircle />,
+        icon: <HiOutlineCheckCircle />,
         path: ACAD_PERFORMANCE_ROUTE,
         Component: AcadPerformance,
         color: 'green',
@@ -152,7 +158,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'project-activity': {
         id: 'project-activity',
         title: 'Проектная деятельность',
-        icon: <FaRegLightbulb />,
+        icon: <HiOutlineLightBulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
         Component: ProjectActivitiesPage,
         color: 'orange',
@@ -164,7 +170,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'helpful-information': {
         id: 'helpful-information',
         title: 'Полезная информация',
-        icon: <BiInfoCircle />,
+        icon: <HiOutlineInformationCircle />,
         path: USEFUL_INFO_ROUTE,
         Component: HelpfulInformation,
         color: 'blue',
@@ -612,10 +618,10 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     'independently-deducted': {
         id: 'independently-deducted',
         title: 'Отчисление по инициативе обучающегося',
-        icon: <BiIdCard />,
+        icon: <HiOutlineLogout />,
         path: INDEPENDENTLY_DEDUCTED,
         Component: ApplicationIndependentlyDeduction,
-        color: 'blue',
+        color: 'red',
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

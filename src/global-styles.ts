@@ -154,6 +154,11 @@ const GlobalStyles = createGlobalStyle`
 			opacity: 1;
 		}
 	}
+
+	.search-hit {
+		background:var(--blue);
+		font-weight: 600;
+	}
 `
 
 export const pulse = ({ color, start }: { color: string; start: boolean }) => `

@@ -34,7 +34,7 @@ const PageName = styled.span`
     font-weight: 500;
 `
 
-const ContextContent = (props: IRoute) => {
+const ContextContent = (props: Omit<IRoute, 'Component' | 'isTemplate'>) => {
     const { id, icon, title, color } = props
     const { settings } = settingsModel.selectors.useSettings()
     const { data } = userModel.selectors.useUser()
@@ -54,6 +54,16 @@ const ContextContent = (props: IRoute) => {
         contextMenuModel.events.close()
     }
 
+    const handleRemoveFromHome = () => {
+        deletePageFromHome(id, settings)
+        contextMenuModel.events.close()
+    }
+
+    const handleRemoveFromMenu = () => {
+        deletePageFromSidebar(id, settings, requiredLeftsideBarItems)
+        contextMenuModel.events.close()
+    }
+
     return (
         <ContextContentWrapper>
             <div className="top">
@@ -70,10 +80,7 @@ const ContextContent = (props: IRoute) => {
                     width="100%"
                     align="left"
                     background="var(--block)"
-                    onClick={() => {
-                        deletePageFromHome(id, settings)
-                        contextMenuModel.events.close()
-                    }}
+                    onClick={handleRemoveFromHome}
                 />
             ) : (
                 <Button
@@ -101,7 +108,7 @@ const ContextContent = (props: IRoute) => {
                     width="100%"
                     align="left"
                     background="var(--block)"
-                    onClick={() => deletePageFromSidebar(id, settings, requiredLeftsideBarItems)}
+                    onClick={handleRemoveFromMenu}
                 />
             )}
         </ContextContentWrapper>

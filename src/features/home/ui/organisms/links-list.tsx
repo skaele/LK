@@ -1,21 +1,21 @@
 import { IRoutes } from '@app/routes/general-routes'
 import AllPagesLink from '@features/all-pages/ui/molecules/all-pages-link'
 import Flex from '@shared/ui/flex'
+import { MenuItem } from '@shared/ui/menu-item'
 import { Title } from '@shared/ui/title'
 import { Align } from '@ui/types'
 import React from 'react'
-import PageLink, { PageLinkProps } from '../../../all-pages/ui/molecules/page-link'
+import { PageLinkProps } from '../../../all-pages/ui/molecules/page-link'
 
 type Props = Pick<PageLinkProps, 'orientation' | 'shadow' | 'mode' | 'background'> & {
     links: IRoutes
     title?: string
     align?: Align
     doNotShow?: string
-    restricted?: boolean
     wrapOnMobile?: boolean
 }
 
-const LinksList = ({ title, links, doNotShow, restricted, orientation, background, shadow = true, mode }: Props) => {
+const LinksList = ({ title, links, doNotShow, orientation }: Props) => {
     return (
         <Flex d="column">
             <Title size={4} align="left" bottomGap>
@@ -25,13 +25,9 @@ const LinksList = ({ title, links, doNotShow, restricted, orientation, backgroun
                 {Object.values(links).map((el) => {
                     if (el?.show !== false && doNotShow !== el?.id)
                         return (
-                            <PageLink
-                                background={background}
-                                orientation={orientation}
-                                restricted={restricted}
+                            <MenuItem
+                                type={orientation}
                                 key={el.id}
-                                mode={mode}
-                                shadow={shadow}
                                 {...el}
                                 color={el.color.length ? el.color : 'blue'}
                             />

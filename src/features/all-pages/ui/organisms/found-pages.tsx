@@ -1,8 +1,8 @@
 import { IRoutes } from '@app/routes/general-routes'
+import { MenuItem } from '@shared/ui/menu-item'
 import { Error } from '@ui/error'
 import React from 'react'
 import styled from 'styled-components'
-import { PageLink } from '../molecules'
 
 const FoundPagesWrapper = styled.div`
     width: 100%;
@@ -24,9 +24,7 @@ const FoundPages = ({ pages, showNotFound = true }: Props) => {
     return (
         <FoundPagesWrapper>
             {Object.values(pages).map((page) => {
-                return (
-                    page?.show !== false && <PageLink {...page} orientation="horizontal" shadow={false} key={page.id} />
-                )
+                return page?.show !== false && <MenuItem {...page} type="horizontal" key={page.id} />
             })}
         </FoundPagesWrapper>
     )

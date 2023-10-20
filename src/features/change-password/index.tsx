@@ -12,6 +12,7 @@ import generatePassword from './lib/generate-password'
 import getPasswordStrength from './lib/get-password-strength'
 import { Buttons, ChangePasswordStyled, CheckStyled, FormStyled, InputsStyled, LeftSide, TopLeftSide } from './styles'
 import { useModal } from 'widgets'
+import Flex from '@shared/ui/flex'
 
 const ChangePassword = () => {
     const [old, setOld] = useState('')
@@ -54,13 +55,10 @@ const ChangePassword = () => {
         <ChangePasswordStyled>
             <LeftSide>
                 <TopLeftSide>
-                    <Title size={3} align="left">
-                        Смена пароля
-                    </Title>
                     <Subtext width="100%" align="left" fontSize="0.9rem">
                         Обязательные требования
                     </Subtext>
-                    <List gap={8} direction="vertical">
+                    <Flex d="column" ai="flex-start" gap="8px">
                         {MANDATORY_RULES.map((rule) => {
                             return (
                                 <Checkbox
@@ -72,7 +70,7 @@ const ChangePassword = () => {
                                 />
                             )
                         })}
-                    </List>
+                    </Flex>
                     <Subtext width="100%" align="left" fontSize="0.9rem">
                         Необязательные требования
                     </Subtext>

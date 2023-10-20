@@ -1,16 +1,13 @@
 import { IRoute } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
 import Flex from '@shared/ui/flex'
+import { MenuItem } from '@shared/ui/menu-item'
 import { SkeletonShape } from '@ui/skeleton-shape'
 import React from 'react'
-import { useLocation } from 'react-router'
 import LeftsideBarListWrapper from '../atoms/leftside-bar-list-wrapper'
-import LeftsideBarItem from '../molecules/leftside-bar-item'
 
 const LeftsideBarList = () => {
     const { leftsideBarRoutes } = menuModel.selectors.useMenu()
-
-    const location = useLocation()
 
     if (!leftsideBarRoutes)
         return (
@@ -87,13 +84,7 @@ const LeftsideBarList = () => {
             {Object.values(leftsideBarRoutes)
                 .filter((el) => el !== undefined)
                 .map((props: IRoute) => {
-                    return (
-                        <LeftsideBarItem
-                            {...props}
-                            key={props?.id}
-                            isCurrent={location.pathname.includes(props.path)}
-                        />
-                    )
+                    return <MenuItem showFullTitle={false} type="horizontal" keywords={[]} {...props} key={props.id} />
                 })}
         </LeftsideBarListWrapper>
     )

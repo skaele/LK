@@ -28,18 +28,19 @@ export const Image = styled.div<{ orientation: Direction }>`
     min-width: ${({ orientation }) => (orientation === 'vertical' ? '50px' : '65px')};
     min-height: ${({ orientation }) => (orientation === 'vertical' ? '50px' : '65px')};
     overflow: hidden;
-    background: ${Colors.purple.transparent2};
+    background: ${Colors.purple.transparent3};
     border-radius: ${({ orientation }) => (orientation === 'vertical' ? 'calc(var(--brLight) - 3px)' : '7px')};
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: ${({ orientation }) => (orientation === 'vertical' ? '12px' : '0')};
     margin-top: ${({ orientation }) => (orientation === 'vertical' ? '12px' : '0')};
-    box-shadow: ${({ orientation }) => (orientation === 'vertical' ? '0 0 30px rgba(0, 0, 0, 0.101)' : 'none')};
+    /* box-shadow: ${({ orientation }) => (orientation === 'vertical' ? '0 0 30px rgba(0, 0, 0, 0.101)' : 'none')}; */
 
     svg {
-        width: 40%;
-        height: 40%;
+        width: 45%;
+        height: 45%;
+        color: ${Colors.purple.dark2};
     }
 
     img {

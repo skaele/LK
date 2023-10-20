@@ -1,21 +1,23 @@
+import { User } from '@api/model'
 import createApplicationSearch from '@features/applications/lib/create-application-search'
 import getSectionLinks from '@features/applications/lib/get-section-links'
+import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers-section-links'
+import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
+import Flex from '@shared/ui/flex'
+import { MenuItem } from '@shared/ui/menu-item'
 import { Error } from '@ui/error'
 import { LocalSearch } from '@ui/molecules'
 import { Title } from '@ui/title'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { HiOutlineDocumentText } from 'react-icons/hi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
-import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers-section-links'
-import { User } from '@api/model'
-import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
 
 const CreateApplicationListWrapper = styled.div`
     @media (min-width: 1001px) {
         width: 100%;
-        max-width: 900px;
-        min-width: 900px;
+        max-width: 600px;
+        min-width: 600px;
         max-height: 600px;
     }
 
@@ -24,7 +26,6 @@ const CreateApplicationListWrapper = styled.div`
     height: 70vh;
 
     .list {
-        padding: 5px;
         margin-top: 10px;
         overflow-y: auto;
         height: 100%;
@@ -37,11 +38,7 @@ const CreateApplicationListWrapper = styled.div`
             .link-list {
                 display: flex;
                 flex-direction: column;
-                width: calc(50% - 5px);
-                background: var(--block);
-                box-shadow: var(--block-shadow);
-                padding: 10px;
-                border-radius: var(--brLight);
+                width: 100%;
 
                 .links {
                     display: flex;
@@ -108,6 +105,7 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                 setResult={setFoundSections}
                 placeholder="Поиск заявок"
                 setExternalValue={setSearch}
+                validationCheck
             />
             <div className="list">
                 <div className="links-wrapper">
@@ -118,8 +116,7 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                     <Title size={4} align="left" bottomGap>
                                         {section.title}
                                     </Title>
-
-                                    <div className="links">
+                                    <Flex $wrap gap="8px">
                                         {section.links.map((link, index) => {
                                             if (
                                                 link.disabled ||
@@ -140,12 +137,19 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                                     {link.title}
                                                 </a>
                                             ) : (
-                                                <Link to={link.link} key={link.link + index} onClick={close}>
-                                                    {link.title}
-                                                </Link>
+                                                <MenuItem
+                                                    title={link.title}
+                                                    key={link.link + index}
+                                                    onClick={close}
+                                                    id={link.title}
+                                                    icon={<HiOutlineDocumentText />}
+                                                    path={link.link}
+                                                    color="blue"
+                                                    type="horizontal"
+                                                ></MenuItem>
                                             )
                                         })}
-                                    </div>
+                                    </Flex>
                                 </div>
                             )
                     })}

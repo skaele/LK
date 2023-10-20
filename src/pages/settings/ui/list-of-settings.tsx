@@ -1,26 +1,26 @@
 import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
-import { PageLink } from '@features/all-pages'
 import { TFullSettingsModel } from '@pages/settings/model'
 import { LocalSearch } from '@shared/ui/molecules'
-import { ListWrapper } from '@ui/list/styles'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouteMatch } from 'react-router'
 
-import styled from 'styled-components'
-import search from '../lib/search'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { MEDIA_QUERIES } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import Flex from '@shared/ui/flex'
+import { MenuItem } from '@shared/ui/menu-item'
+import styled from 'styled-components'
+import SearchResultField from '../fields/search-result-field'
+import search from '../lib/search'
 
-const ListOfSettingsWrapper = styled(ListWrapper)<{ open: boolean }>`
+const ListOfSettingsWrapper = styled(Flex)<{ open: boolean }>`
     height: 100%;
     z-index: 1;
     padding-top: 0;
-    padding: 8px;
-    border-radius: var(--brLight);
-    box-shadow: var(--block-shadow);
-    margin-right: 20px;
-    background: var(--block-content);
+    margin-right: 25px;
+    min-width: 240px;
+    width: 240px;
+    position: relative;
 
     ${MEDIA_QUERIES.isMobile} {
         padding: 0;
@@ -35,12 +35,12 @@ const ListOfSettingsWrapper = styled(ListWrapper)<{ open: boolean }>`
 `
 
 type Props = {
-    setSearchValue: React.Dispatch<React.SetStateAction<string>>
-    setSearchResult: React.Dispatch<React.SetStateAction<string[][] | null>>
     settingsConfig: TFullSettingsModel
 }
 
-const ListOfSettings = ({ settingsConfig, setSearchResult, setSearchValue }: Props) => {
+const ListOfSettings = ({ settingsConfig }: Props) => {
+    const [searchValue, setSearchValue] = useState('')
+    const [searchResult, setSearchResult] = useState<string[][] | null>(null)
     const { allRoutes } = menuModel.selectors.useMenu()
     const { isMobile } = useCurrentDevice()
     const params = useRouteMatch(TEMPLATE_SETTINGS_ROUTE)?.params as { id: string | undefined }
@@ -49,9 +49,10 @@ const ListOfSettings = ({ settingsConfig, setSearchResult, setSearchValue }: Pro
         search(value, whereToSearch as TFullSettingsModel, allRoutes)
 
     if (!allRoutes) return null
+    const listOfSettings = Object.keys(settingsConfig ?? {}).map((name) => allRoutes[name]) ?? {}
 
     return (
-        <ListOfSettingsWrapper width="250px" open={!params?.id}>
+        <ListOfSettingsWrapper d="column" gap="8px" open={!params?.id}>
             <LocalSearch
                 whereToSearch={settingsConfig}
                 searchEngine={handleSearch}
@@ -61,19 +62,21 @@ const ListOfSettings = ({ settingsConfig, setSearchResult, setSearchValue }: Pro
                 validationCheck
                 loadingOnType
             />
-            {Object.keys(settingsConfig ?? {})?.map((name) => {
-                if ((isMobile && name !== 'settings-customize-menu') || !isMobile) {
-                    return (
-                        <PageLink
-                            {...allRoutes[name]}
-                            title={allRoutes[name].title.slice(11, allRoutes[name].title.length)}
-                            key={name}
-                            orientation="horizontal"
-                            shadow={false}
-                        />
-                    )
-                }
-            })}
+            {searchValue && <SearchResultField list={searchResult} listOfSettings={listOfSettings} />}
+
+            {!searchValue.length &&
+                listOfSettings.map((route) => {
+                    if ((isMobile && route.id !== 'settings-customize-menu') || !isMobile) {
+                        return (
+                            <MenuItem
+                                {...route}
+                                title={route.title.slice(11, route.title.length)}
+                                key={route.id}
+                                type="horizontal"
+                            />
+                        )
+                    }
+                })}
         </ListOfSettingsWrapper>
     )
 }

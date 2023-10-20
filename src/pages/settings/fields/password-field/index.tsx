@@ -6,7 +6,7 @@ import TextFieldItem from '../text-field/text-field-item'
 
 const PasswordField = (props: FieldProps) => {
     const { open } = useModal()
-    const handleClick = () => open(<ChangePassword />)
+    const handleClick = () => open(<ChangePassword />, 'Смена пароля')
     return <TextFieldItem {...props} onClick={handleClick} />
 }
 

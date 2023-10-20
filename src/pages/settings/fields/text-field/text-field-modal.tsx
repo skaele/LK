@@ -1,6 +1,6 @@
 import { FieldProps } from '@pages/settings/model'
 import useFormValidation, { TRules } from '@shared/lib/hooks/use-form-validation'
-import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
+import { Button, Divider, Input, Message, SubmitButton } from '@shared/ui/atoms'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
@@ -51,9 +51,6 @@ const TextFieldModal = (props: FieldProps) => {
 
     return (
         <TextFieldModalStyled key={title}>
-            <Title size={3} align="left">
-                {title}
-            </Title>
             {message && (
                 <Message type={message.type ?? ''} title={message.title}>
                     {message.body}

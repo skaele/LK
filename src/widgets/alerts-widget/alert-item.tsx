@@ -27,7 +27,7 @@ const AlertItem = ({ news, orientation = 'vertical', isNew = false }: Props) => 
             <Image orientation={orientation}>{cover ? <img src={cover} alt="" /> : <BiNews />}</Image>
             <AlertContent orientation={orientation}>
                 <AlertTitle orientation={orientation}>
-                    {orientation === 'vertical' ? getShortStirng(news.title, 38) : news.title}
+                    {orientation === 'vertical' ? getShortStirng(news.title, 36) : news.title}
                 </AlertTitle>
 
                 <Subtext>

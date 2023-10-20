@@ -3,10 +3,11 @@ import { menuModel } from '@entities/menu'
 import { Menu } from '@entities/menu/model'
 import { settingsModel } from '@entities/settings'
 import search from '@features/all-pages/lib/search'
+import { Divider } from '@shared/ui/divider'
+import { MenuItem } from '@shared/ui/menu-item'
 import { LocalSearch } from '@shared/ui/molecules'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CustomizeLeftsideBarItem } from '../../pages/settings/pages/customize-menu/ui/molecules'
 
 const CustomizeMenuStyled = styled.div`
     display: flex;
@@ -52,14 +53,19 @@ const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
                 searchEngine={search}
                 setResult={setSearchResult}
             />
-            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute, index) => {
+            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute) => {
                 return (
-                    <CustomizeLeftsideBarItem
-                        {...el}
-                        key={index}
-                        chosen={!!enabled[el.id]}
-                        switchMenuItem={switchChosen}
-                    />
+                    <React.Fragment key={el.id}>
+                        <MenuItem
+                            {...el}
+                            disabled={requiredList.includes(el.id)}
+                            chosen={!!enabled[el.id]}
+                            onChoose={switchChosen}
+                            type="horizontal"
+                            showCurrent={false}
+                        />
+                        <Divider width="100%" margin="0" />
+                    </React.Fragment>
                 )
             })}
         </CustomizeMenuStyled>

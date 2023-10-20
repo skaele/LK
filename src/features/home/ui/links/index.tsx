@@ -1,9 +1,9 @@
 import { IRoutes } from '@app/routes/general-routes'
+import { menuModel } from '@entities/menu'
+import { Divider } from '@shared/ui/divider'
+import { MenuItem } from '@shared/ui/menu-item'
 import React from 'react'
 import styled from 'styled-components'
-import LinkItem from './link-item'
-import { Divider } from '@shared/ui/divider'
-import { menuModel } from '@entities/menu'
 
 const LinksStyled = styled.div`
     width: 100%;
@@ -27,7 +27,6 @@ type Props = {
 
 const Links = ({ links }: Props) => {
     const linksKeysArray = Object.keys(links)
-    const amount = linksKeysArray.length < 8 ? 8 : Object.keys(links).length
     const { allRoutes } = menuModel.selectors.useMenu()
 
     if (!allRoutes) return null
@@ -37,15 +36,13 @@ const Links = ({ links }: Props) => {
             {linksKeysArray.map((key, index) => {
                 return (
                     <React.Fragment key={key}>
-                        <LinkItem item={links[key]} amount={amount} />
+                        <MenuItem {...links[key]} type="vertical" />
                         {index !== linksKeysArray.length - 1 && (
                             <Divider direction="vertical" margin="10px 0" width="70%" />
                         )}
                     </React.Fragment>
                 )
             })}
-            <Divider direction="vertical" margin="10px 0" width="70%" />
-            <LinkItem item={allRoutes['all']} amount={amount} />
         </LinksStyled>
     )
 }

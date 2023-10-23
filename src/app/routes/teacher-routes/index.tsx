@@ -225,6 +225,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'GENERAL',
         pageSize: 'big',
+        isOldLkPage: true,
         keywords: ['Ltnb b dyerb'],
     },
     'electronic-statements': {

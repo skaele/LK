@@ -76,6 +76,7 @@ import DownloadAdminFilesPage from '@pages/download-admin-files'
 import { Onboarding } from '../general-routes/pages'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import PaymentsPage from '@pages/payments'
+import { BsPeople } from 'react-icons/bs'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -182,6 +183,24 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'GENERAL',
 
         isAdmin: true,
+    },
+    children: {
+        id: 'children',
+        title: 'Дети и внуки',
+        icon: <BsPeople />,
+        path: CHILDREN_ROUTE,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://e.mospolytech.ru/old/index.php?p=children')
+            }, [])
+
+            return null
+        },
+        color: 'green',
+        isTemplate: false,
+        group: 'GENERAL',
+        pageSize: 'big',
+        keywords: ['Ltnb b dyerb'],
     },
     'electronic-statements': {
         id: 'electronic-statements',

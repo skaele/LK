@@ -18,6 +18,7 @@ const Router = () => {
     const { settings } = settingsModel.selectors.useSettings()
 
     useEffect(() => {
+        console.log('first')
         if (window.location.href === 'https://e.mospolytech.ru/?p=children#/home') {
             window.location.replace('https://e.mospolytech.ru/old/index.php?p=children')
         }

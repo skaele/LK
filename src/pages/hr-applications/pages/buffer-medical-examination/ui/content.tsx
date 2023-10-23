@@ -1,10 +1,10 @@
 import React from 'react'
 import { applicationsModel } from '@entities/applications'
 import { useState } from 'react'
-import History from './history'
-import JobTitle from './job-title'
+import JobTitle from './JobTitle'
 import styled from 'styled-components'
-import { bufferMedicalExaminationModel } from '../model'
+import Flex from '@shared/ui/flex'
+import History from './history'
 //import HWAssesment from './holiday-work-affirmation'
 
 const Content = () => {
@@ -12,23 +12,23 @@ const Content = () => {
         data: { dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
     const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
-    const { data } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     if (!dataWorkerApplication) {
         return null
     }
 
     return (
         <Wrapper>
-            {dataWorkerApplication.map((jobTitleInfo, index) => {
-                if (jobTitleInfo.isDismissal) {
-                    historyIsEmpty && setHistoryIsEmpty(false)
-                    return null
-                } else return <JobTitle info={jobTitleInfo} index={index} data={data} />
-            })}
-            {/* {data.map((info, index) => {
-                return <JobTitle info={info} index={index} />
-            })} */}
-            <History />
+            <>
+                <Flex jc="space-between" ai="flex-start" gap="10px">
+                    {dataWorkerApplication.map((jobTitleInfo, index) => {
+                        if (jobTitleInfo.isDismissal) {
+                            historyIsEmpty && setHistoryIsEmpty(false)
+                            return null
+                        } else return <JobTitle info={jobTitleInfo} index={index} />
+                    })}
+                </Flex>
+                <History />
+            </>
         </Wrapper>
     )
 }

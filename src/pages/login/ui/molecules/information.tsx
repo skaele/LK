@@ -48,7 +48,7 @@ const Information = () => {
                         <Button
                             padding="0"
                             icon={<FiAlertCircle />}
-                            text="Вниманию студентов 1 курса!"
+                            text="Вниманию студентов 1 курса!"
                             height="25px"
                             background="transparent"
                             textColor="var(--theme-mild-opposite)"
@@ -70,7 +70,7 @@ const Information = () => {
                         <Button
                             padding="0"
                             icon={<FiMeh />}
-                            text="Не получается войти"
+                            text="Не получается войти"
                             height="25px"
                             align="left"
                             background="transparent"
@@ -80,7 +80,7 @@ const Information = () => {
                 </List>
 
                 <LinkButton
-                    text={'Перейти к старому дизайну'}
+                    text={'Перейти к старому дизайну'}
                     onClick={() => {
                         localStorage.setItem('useOldVersion', 'true')
                     }}

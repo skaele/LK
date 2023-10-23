@@ -50,12 +50,14 @@ import {
     TerminationOfEmploymentContractPage,
     ArbitraryRequestPage,
     MilitaryRegistrationDocuments,
+    StudentEmploymentPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
 import { User } from '@shared/api/model'
 import PaymentsPage from '@pages/payments'
 import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -66,6 +68,7 @@ export const DORMITORY = '/dormitory'
 //hidden routes
 export const CLARIFICATION_OF_PASSPORT_DATA_ROUTE = APPLICATIONS_ROUTE + '/clarification-of-passport-data'
 export const ARBITRARY_REQUEST_ROUTE = APPLICATIONS_ROUTE + '/arbitrary-request'
+export const STUDENT_EMPLOYMENT_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
 export const SOCIAL_SCOLLARSHIP = APPLICATIONS_ROUTE + '/social-scollarship'
 export const CERTIFICATE_OF_ATTENDANCE = APPLICATIONS_ROUTE + '/certificate-of-attendance'
 export const SOCIAL_AGENCIES = APPLICATIONS_ROUTE + '/social-agencies'
@@ -94,6 +97,7 @@ export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
 export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
 export const HOLIDAYS_AFTER_TRAINING = APPLICATIONS_ROUTE + '/holidays-after-training'
 export const PROVISION_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/provision-academic-leave'
+export const EXIT_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/exit-academic-leave'
 export const INDEPENDENTLY_DEDUCTED = APPLICATIONS_ROUTE + '/independently-deducted'
 export const EXTENSION_ATTESTATION = APPLICATIONS_ROUTE + '/extension-attestation'
 
@@ -204,6 +208,20 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: <FiBriefcase />,
         path: ARBITRARY_REQUEST_ROUTE,
         Component: ArbitraryRequestPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'student-employment': {
+        id: 'student-employment',
+        title: 'Трудоустройство студентов',
+        icon: <FiBriefcase />,
+        path: STUDENT_EMPLOYMENT_ROUTE,
+        Component: isProduction ? ApplicationRedirect : StudentEmploymentPage,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',
@@ -585,6 +603,20 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: <BiIdCard />,
         path: PROVISION_ACADEMIC_LEAVE,
         Component: ApplicationProvisionAcademicLeave,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'exit-academic-leave': {
+        id: 'exit-academic-leave',
+        title: 'Выход из академического отпуска',
+        icon: <BiIdCard />,
+        path: EXIT_ACADEMIC_LEAVE,
+        Component: ApplicationExitAcademicLeave,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

@@ -21,16 +21,16 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                 return (
                     <Message
                         type={
-                            value.status.orderStatus === 'Согласовано'
+                            value.status?.orderStatus === 'Согласовано'
                                 ? 'success'
-                                : value.status.orderStatus === 'На регистрации'
+                                : value.status?.orderStatus === 'На регистрации'
                                 ? 'info'
-                                : value.status.orderStatus === 'Не утвержден' ||
-                                  value.status.orderStatus === 'Не создано'
+                                : value.status?.orderStatus === 'Не утвержден' ||
+                                  value.status?.orderStatus === 'Не создано'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value.status.orderStatus}
+                        title={value.status?.orderStatus}
                         align="center"
                         width="100%"
                         icon={null}

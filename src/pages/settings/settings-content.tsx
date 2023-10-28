@@ -11,7 +11,7 @@ import SearchResultField from './fields/search-result-field'
 import { TFullSettingsModel } from './model'
 import SettingsFields from './settings-fields'
 import SettingsSection from './settings-section'
-import { NameSettings } from '@entities/settings/model'
+import { OldNameSettings } from '@entities/settings/model'
 
 const SettingsContentWrapper = styled.div<{ open: boolean }>`
     width: 100%;
@@ -77,7 +77,7 @@ const SettingsContent = ({ searchValue, searchResult, settingsConfig }: Props) =
                                                     </TitleWrapper>
                                                     <SettingsFields
                                                         fields={fields}
-                                                        settingsName={name as NameSettings}
+                                                        settingsName={name as OldNameSettings}
                                                     />
                                                 </SettingsSection>
                                             )

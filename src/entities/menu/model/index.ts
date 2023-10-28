@@ -3,7 +3,7 @@ import { IRoute, IRoutes } from '@app/routes/general-routes'
 import { hiddenRoutes, privateRoutes } from '@app/routes/routes'
 import { teachersHiddenRoutes, teachersPrivateRoutes } from '@app/routes/teacher-routes'
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { SettingsType } from '@entities/settings/model'
+import { SettingsOldType } from '@entities/settings/model'
 import { useStore } from 'effector-react/compat'
 import { createEvent, createStore } from 'effector'
 import findRoutesByConfig from '../lib/find-routes-by-config'
@@ -27,7 +27,7 @@ export const DEFAULT_STAFF_MOBILE_CONFIG = ['home', 'doclist', 'alerts', 'all', 
 const getLeftsideBarConfig = (user: User | null): MenuType => {
     if (!user) return []
 
-    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) || '{}') as SettingsType
+    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.OldSettings) || '{}') as SettingsOldType
     const settingsMenuData =
         (localSettings[user.id]?.['settings-customize-menu']?.property.pages as unknown as string[]) ??
         REQUIRED_LEFTSIDE_BAR_CONFIG

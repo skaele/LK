@@ -31,6 +31,7 @@ const useSettings = () => {
     const { widgetPayment, widgetSchedule, news } = settings['settings-home-page'].property
     const requiredLeftsideBarItems =
         user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
+
     useEffect(() => {
         setFullSettings({
             ...getSettingsModel({

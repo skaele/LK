@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { confirmModel } from '@entities/confirm'
-import { NameSettings } from '@entities/settings/model'
+import { OldNameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
 import { FilterElementList } from '@shared/ui/added-elements-list'
@@ -42,7 +42,7 @@ export type TSettingsFields = {
     visible?: boolean
     subfields?: TSettingsFields[]
     searchable?: boolean
-    settingsName?: NameSettings
+    settingsName?: OldNameSettings
 }
 
 type TSettingsSection = {
@@ -78,7 +78,7 @@ type SettingsFullProps = {
 }
 
 export type TFullSettingsModel = {
-    [section in keyof typeof NameSettings]: TSettingsSection[]
+    [section in keyof typeof OldNameSettings]: TSettingsSection[]
 }
 
 export type FieldProps = TSettingsFields

@@ -522,7 +522,6 @@ export const generalHiddenRoutes: IRoutes = {
         isSubPage: true,
         subPageHeaderTitle: 'Аккаунт',
         fallbackPrevPage: SETTINGS_ROUTE,
-
         backButtonText: 'Настройки',
     },
     'settings-security': {

@@ -1,7 +1,7 @@
-import { releaseClear } from '@entities/release/utils'
 import useTheme from '@shared/lib/hooks/use-theme'
+import { appStarted } from '@shared/models/app-started'
 import ErrorBoundary from '@shared/ui/error-boundary'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import { ModalProvider } from 'widgets/modal/lib'
@@ -15,10 +15,12 @@ const Background = styled.div`
     width: 100%;
 `
 
-releaseClear()
-
 const App = () => {
     useTheme()
+
+    useEffect(() => {
+        appStarted()
+    }, [])
 
     return (
         <ModalProvider>

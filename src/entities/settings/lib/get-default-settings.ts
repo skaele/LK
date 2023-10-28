@@ -1,5 +1,5 @@
-import { ThemeType, REQUIRED_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { NameSettings, Param, SettingsType } from '../model'
+import { ThemeVariant, REQUIRED_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
+import { OldNameSettings, Param, SettingsOldType } from '../model'
 
 const NOTIFICATIONS_DEFAULT_VALUE = {
     all: true,
@@ -14,7 +14,7 @@ const NOTIFICATIONS_DEFAULT_VALUE = {
 export type NotificationsSettingsType = typeof NOTIFICATIONS_DEFAULT_VALUE
 
 const generateDefaultSettings = () => {
-    return (Object.keys(NameSettings) as (keyof typeof NameSettings)[]).reduce((acc, el) => {
+    return (Object.keys(OldNameSettings) as (keyof typeof OldNameSettings)[]).reduce((acc, el) => {
         acc[el] = {
             id: el,
             property: {},
@@ -23,19 +23,19 @@ const generateDefaultSettings = () => {
     }, {} as Param)
 }
 
-const getDefaultSettings = (userId = ''): SettingsType => ({
+const getDefaultSettings = (userId = ''): SettingsOldType => ({
     [userId]: {
         ...generateDefaultSettings(),
-        [NameSettings['settings-appearance']]: {
-            id: NameSettings['settings-appearance'],
+        [OldNameSettings['settings-appearance']]: {
+            id: OldNameSettings['settings-appearance'],
             property: {
-                theme: 'dark' as ThemeType,
+                theme: ThemeVariant.Dark,
                 scheduledLightTheme: false,
                 lightThemeRange: ['300', '1140'],
             },
         },
-        [NameSettings['settings-home-page']]: {
-            id: NameSettings['settings-home-page'],
+        [OldNameSettings['settings-home-page']]: {
+            id: OldNameSettings['settings-home-page'],
             property: {
                 pages: ['settings', 'profile', 'chat', 'schedule', 'payments', 'project-activity', 'all-students'],
                 widgetSchedule: true,
@@ -43,14 +43,14 @@ const getDefaultSettings = (userId = ''): SettingsType => ({
                 news: true,
             },
         },
-        [NameSettings['settings-customize-menu']]: {
-            id: NameSettings['settings-customize-menu'],
+        [OldNameSettings['settings-customize-menu']]: {
+            id: OldNameSettings['settings-customize-menu'],
             property: {
                 pages: REQUIRED_LEFTSIDE_BAR_CONFIG,
             },
         },
-        [NameSettings['settings-notifications']]: {
-            id: NameSettings['settings-notifications'],
+        [OldNameSettings['settings-notifications']]: {
+            id: OldNameSettings['settings-notifications'],
             property: NOTIFICATIONS_DEFAULT_VALUE,
         },
     },

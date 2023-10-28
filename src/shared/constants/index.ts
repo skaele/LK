@@ -6,13 +6,16 @@ import { HiOutlineLightBulb } from 'react-icons/hi'
 
 export type MenuType = string[]
 export type ShortCutLinksType = number[]
-export type ThemeType = 'dark' | 'light'
+export enum ThemeVariant {
+    Dark = 'dark',
+    Light = 'light',
+}
 export type GeneralType = {
     [key: string]: boolean
 }
 
 export interface IDefaultSettings {
-    [key: string]: MenuType | ThemeType | GeneralType | ShortCutLinksType
+    [key: string]: MenuType | ThemeVariant | GeneralType | ShortCutLinksType
 }
 
 export const DEFAULT_API_LOAD_ERROR_MESSAGE =
@@ -27,7 +30,7 @@ export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'downlo
 
 export const DEFAULT_SETTINGS: IDefaultSettings = {
     menu: REQUIRED_LEFTSIDE_BAR_CONFIG,
-    theme: 'light',
+    theme: ThemeVariant.Light,
     general: {
         notifications: false,
     },

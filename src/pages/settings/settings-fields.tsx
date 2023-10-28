@@ -4,7 +4,7 @@ import { TextField, ToggleField, LinkField, DisplayField, PhotoField, ChoicesFie
 import styled from 'styled-components'
 import PasswordField from './fields/password-field'
 import { settingsModel } from '@entities/settings'
-import { NameSettings } from '@entities/settings/model'
+import { OldNameSettings } from '@entities/settings/model'
 
 const SettingsFieldsList = styled.div<{ asChild: boolean }>`
     display: flex;
@@ -29,7 +29,7 @@ const SettingsFieldsList = styled.div<{ asChild: boolean }>`
 type Props = {
     fields: TSettingsFields[]
     asChild?: boolean
-    settingsName: NameSettings | undefined
+    settingsName: OldNameSettings | undefined
 }
 
 const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType> => ({

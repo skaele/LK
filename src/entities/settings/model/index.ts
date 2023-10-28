@@ -1,11 +1,12 @@
 import { useStore } from 'effector-react/compat'
 import { createEvent, createStore } from 'effector'
 import { createEffect } from 'effector'
-import { ThemeType } from '@shared/constants'
+import { ThemeVariant } from '@shared/constants'
 import getDefaultSettings from '../lib/get-default-settings'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import './users-settings-model'
 
-export enum NameSettings {
+export enum OldNameSettings {
     'settings-home-page' = 'settings-home-page',
     'settings-personal' = 'settings-personal',
     'settings-appearance' = 'settings-appearance',
@@ -14,20 +15,20 @@ export enum NameSettings {
 }
 
 export type Param = {
-    [key in NameSettings]: {
+    [key in OldNameSettings]: {
         id: string
         property: {
-            [key: string]: ThemeType | string[] | boolean
+            [key: string]: ThemeVariant | string[] | boolean
         }
     }
 }
 
-export type SettingsType = {
+export type SettingsOldType = {
     [key: string]: Param
 }
 
 interface SettingsStore {
-    settings: SettingsType
+    settings: SettingsOldType
     error: string | null
     completed: boolean
 }
@@ -53,8 +54,8 @@ const actualizeSettings = (settings: Param | undefined, defaultSettings: Param) 
     const result = { ...settings }
 
     for (const key in defaultSettings) {
-        if (result[key as NameSettings] === undefined) {
-            result[key as NameSettings] = defaultSettings[key as NameSettings]
+        if (result[key as OldNameSettings] === undefined) {
+            result[key as OldNameSettings] = defaultSettings[key as OldNameSettings]
         }
     }
 
@@ -63,12 +64,12 @@ const actualizeSettings = (settings: Param | undefined, defaultSettings: Param) 
 
 const getLocalSettingsFx = createEffect((userId: string): Param => {
     currentUser = userId
-    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? '{}')[currentUser] as Param
+    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.OldSettings) ?? '{}')[currentUser] as Param
     return actualizeSettings(localSettings, getDefaultSettings(userId)[userId])
 })
 
 const updateSetting = createEvent<{
-    nameSettings: keyof typeof NameSettings
+    nameSettings: keyof typeof OldNameSettings
     nameParam: string
     value: string | boolean | string[]
 }>()
@@ -109,9 +110,9 @@ const $settingsStore = createStore<SettingsStore>(DEFAULT_STORE)
 
 $settingsStore.watch((state) => {
     if (state !== DEFAULT_STORE && !!currentUser) {
-        const allSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) ?? JSON.stringify({}))
+        const allSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.OldSettings) ?? JSON.stringify({}))
         allSettings[currentUser] = state.settings[currentUser]
-        localStorage.setItem(BrowserStorageKey.NewSettings, JSON.stringify(allSettings))
+        localStorage.setItem(BrowserStorageKey.OldSettings, JSON.stringify(allSettings))
     }
 })
 

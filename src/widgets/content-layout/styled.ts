@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    height: 100%;
+
+    flex: 1;
     z-index: 3;
     background: var(--theme);
     overflow: hidden;

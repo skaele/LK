@@ -15,7 +15,7 @@ sample({
     fn: () => {
         return {
             message: 'Не удалось добавить права преподавателю',
-            type: 'failure' as any,
+            type: 'failure' as const,
             time: 3000,
         }
     },
@@ -27,7 +27,7 @@ sample({
     fn: () => {
         return {
             message: 'Права добавлены',
-            type: 'success' as any,
+            type: 'success' as const,
             time: 3000,
         }
     },

@@ -1,6 +1,7 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
+import { peTeacherModel } from '@entities/pe-teacher'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
 import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
@@ -20,6 +21,8 @@ const PEStudent = () => {
 
     useEffect(() => {
         selectedPEStudentModel.events.setCurrentStudentId(studentId)
+
+        peTeacherModel.events.load()
 
         return () => selectedPEStudentModel.events.resetStudentId()
     }, [studentId])

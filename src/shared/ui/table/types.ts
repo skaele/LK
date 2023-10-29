@@ -22,6 +22,7 @@ export interface ColumnProps {
     catalogs?: SelectPage[]
     type?: ColumnType
     render?: (value: any, obj: IndexedProperties) => ChildrenType
+    onClick?: (obj: IndexedProperties) => void
 }
 
 export type Footer = (props: { [key: string]: any[] } | null) => IndexedProperties

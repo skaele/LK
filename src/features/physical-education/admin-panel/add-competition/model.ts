@@ -20,7 +20,7 @@ sample({
     fn: () => {
         return {
             message: 'Не удалось добавить соревнование',
-            type: 'failure' as any,
+            type: 'failure' as const,
             time: 3000,
         }
     },
@@ -32,7 +32,7 @@ sample({
     fn: () => {
         return {
             message: 'Соревнование добавлено',
-            type: 'success' as any,
+            type: 'success' as const,
             time: 3000,
         }
     },

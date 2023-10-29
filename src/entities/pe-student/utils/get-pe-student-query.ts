@@ -43,6 +43,8 @@ export const getPEStudentQuery = (studentId: string) => `{
           points
           standardType
           date
+          comment
+          teacherGuid
           teacher {
             fullName
           }
@@ -53,6 +55,7 @@ export const getPEStudentQuery = (studentId: string) => `{
         visitsHistory {
           id
           date
+          teacherGuid
           teacher {
             fullName
           }
@@ -63,6 +66,7 @@ export const getPEStudentQuery = (studentId: string) => `{
           comment
           date
           points
+          teacherGuid
           teacher{
             fullName
           }

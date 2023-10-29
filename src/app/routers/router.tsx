@@ -18,6 +18,12 @@ const Router = () => {
     const { settings } = settingsModel.selectors.useSettings()
 
     useEffect(() => {
+        if (window.location.href === 'https://e.mospolytech.ru/?p=children#/home') {
+            window.location.replace('https://e.mospolytech.ru/old/index.php?p=children')
+        }
+    }, [window.location.href])
+
+    useEffect(() => {
         if (isAuthenticated) {
             // TODO: add custom event for all effects/events
             // setTimeout(() => {

@@ -16,7 +16,7 @@ sample({
     fn: () => {
         return {
             message: 'Не удалось назначить стоимость посещения',
-            type: 'failure' as any,
+            type: 'failure' as const,
             time: 3000,
         }
     },
@@ -28,7 +28,7 @@ sample({
     fn: () => {
         return {
             message: 'Стоимость посещения назначена',
-            type: 'success' as any,
+            type: 'success' as const,
             time: 3000,
         }
     },

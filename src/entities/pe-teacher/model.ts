@@ -10,7 +10,7 @@ const loadFx = attach({
     effect: async ({ currentUser }) => {
         const res = await pERequest<{ teacher: PETeacher }>(loadPeUserPermissions(currentUser?.guid ?? ''))
 
-        return res.teacher
+        return { ...res.teacher, id: currentUser?.guid ?? '' }
     },
     source: $userStore,
 })
@@ -26,6 +26,6 @@ export const events = {
 }
 
 export const stores = {
-    $peTeacher,
-    $isLoading,
+    peTeacher: $peTeacher,
+    isLoading: $isLoading,
 }

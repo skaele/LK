@@ -15,3 +15,17 @@ export const getAddPEStudentAdditionalPoints = (model: AddStudentAdditionalPoint
         }
       }`
 }
+
+export const getRemovePEStudentAdditionalPoints = (id: string) => {
+    return `mutation removePointsFromStudent {
+      deletePoints(input: {historyId : ${id}}) {
+        success
+        errors {
+          ... on Error {
+            message
+          }
+        }
+          
+      }
+    }`
+}

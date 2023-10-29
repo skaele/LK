@@ -28,6 +28,12 @@ const Row = ({ columns, el, index, onRowClick }: Props) => {
                             className={column.priority?.toString() ?? 'one'}
                             key={column.field}
                             align={column.align}
+                            onClick={(e) => {
+                                if (column.onClick) {
+                                    e.stopPropagation()
+                                    column.onClick(el)
+                                }
+                            }}
                         >
                             {column.render
                                 ? column.render(displayWithType(el[column.field], column.type), el)

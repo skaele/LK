@@ -2,6 +2,7 @@ import { Colors } from '@shared/constants'
 import { INPUT_HEIGHT } from '@shared/constants/input-size'
 import { Button } from '@ui/button'
 import { Title } from '@ui/title'
+import { format } from 'date-fns'
 import React, { ForwardedRef, forwardRef, HTMLInputTypeAttribute } from 'react'
 import { FiAlertTriangle, FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -165,6 +166,8 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         mask,
     )
 
+    const formattedValue = value && type === 'date' ? format(new Date(value), 'yyyy-MM-dd') : value ?? ''
+
     return (
         <InputWrapper
             leftIcon={!!leftIcon}
@@ -188,7 +191,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
                 step={stepSize ?? undefined}
                 type={inputType}
                 placeholder={placeholder}
-                value={value ?? ''}
+                value={formattedValue}
                 autoComplete={autocomplete ? 'on' : 'off'}
                 onKeyDown={(e) => type === 'tel' && phoneMaskKeyDown(e)}
                 onChange={handleOnChange}

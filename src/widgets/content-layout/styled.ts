@@ -4,13 +4,14 @@ export const Wrapper = styled.div`
     display: flex;
     background: var(--theme);
     height: 100vh;
-    height: 100dvh;
     height: 100svh;
+    height: 100dvh;
 `
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    height: 100%;
+
+    flex: 1;
     z-index: 3;
     background: var(--theme);
     overflow: hidden;

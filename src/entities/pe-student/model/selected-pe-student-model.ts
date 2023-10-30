@@ -24,8 +24,13 @@ const $loading = combine(pEStudentVisitModel.effects.addVisitFx.pending, loadCur
 sample({
     clock: [
         pEStudentVisitModel.effects.addVisitFx.doneData,
+        pEStudentVisitModel.effects.removeVisitFx.doneData,
+
         peStudentAdditionalPointsModel.effects.addAdditionPointsFx.doneData,
+        peStudentAdditionalPointsModel.effects.removeAdditionPointsFx.doneData,
+
         peStudentRegulationPointsModel.effects.addRegulationPointsFx.doneData,
+        peStudentRegulationPointsModel.effects.removeRegulationPointsFx.doneData,
     ],
     target: reload,
 })

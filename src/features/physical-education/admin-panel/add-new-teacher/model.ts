@@ -22,7 +22,7 @@ sample({
     fn: () => {
         return {
             message: 'Не удалось создать нового преподавателя',
-            type: 'failure' as any,
+            type: 'failure' as const,
             time: 3000,
         }
     },
@@ -34,7 +34,7 @@ sample({
     fn: () => {
         return {
             message: 'Преподаватель создан',
-            type: 'success' as any,
+            type: 'success' as const,
             time: 3000,
         }
     },

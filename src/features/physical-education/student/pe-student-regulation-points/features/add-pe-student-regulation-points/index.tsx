@@ -1,5 +1,5 @@
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
-import { AddStudentRegulationPoints } from '@entities/pe-student-regulation-points/types'
+import { AddStudentRegulationPoints, RegulationType } from '@entities/pe-student-regulation-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import Select, { SelectPage } from '@features/select'
 import { Colors } from '@shared/constants'
@@ -8,15 +8,15 @@ import { Button } from '@shared/ui/button'
 import Input from '@shared/ui/input'
 import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
-import { selectorData } from '../../constants'
+import { SelectorData } from '../../constants'
 import { Wrapper } from './styled'
 
 export const AddPEStudentRegulationPoints = () => {
     const student = useUnit(selectedPEStudentModel.stores.$selectedStudent)
-    const [date, setDate] = useState<string>('')
+    const [date, setDate] = useState<string>(new Date().toISOString())
     const [type, setType] = useState<SelectPage | null>(null)
     const [pointsAmount, setPointsAmount] = useState<string>('0')
-    // const [isOverride, setIsOverride] = useState<boolean>(false)
+    const [comment, setComment] = useState<string>('')
 
     const handleClick = () => {
         peStudentRegulationPointsModel.events.addRegulationPoints({
@@ -25,6 +25,7 @@ export const AddPEStudentRegulationPoints = () => {
             studentGuid: student?.studentGuid,
             standardType: type?.id,
             isOverride: false,
+            comment: type?.id === RegulationType.Other ? comment ?? '' : '',
         } as AddStudentRegulationPoints)
     }
 
@@ -34,8 +35,17 @@ export const AddPEStudentRegulationPoints = () => {
 
     return (
         <Wrapper>
-            <Select size="big" title={'Тип работ'} items={selectorData} selected={type} setSelected={setType} />
-
+            <Select
+                width="100%"
+                size="big"
+                title={'Тип работ'}
+                items={SelectorData}
+                selected={type}
+                setSelected={setType}
+            />
+            {type?.id === RegulationType.Other && (
+                <Input width="100%" size="big" title={'Комментарий'} setValue={setComment} value={comment} />
+            )}
             <Input
                 alertMessage={!isDateValid ? 'Не допустимая дата' : ''}
                 size="big"
@@ -43,8 +53,10 @@ export const AddPEStudentRegulationPoints = () => {
                 setValue={setDate}
                 value={date}
                 type="date"
+                width="100%"
             />
             <Input
+                width="100%"
                 size="big"
                 title={'Количество баллов'}
                 setValue={setPointsAmount}
@@ -53,7 +65,6 @@ export const AddPEStudentRegulationPoints = () => {
                 stepSize={1}
                 minValue={1}
             />
-            {/* <Checkbox checked={isOverride} setChecked={setIsOverride} text={'Перезаписать'} /> */}
             <Button
                 text="Добавить"
                 isActive={isDateValid}

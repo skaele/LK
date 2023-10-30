@@ -4,6 +4,8 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
+import { isWithinInterval, subWeeks } from 'date-fns'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -12,15 +14,14 @@ interface Props {
 
 export const AddPeStudentVisits = ({ studentGuid }: Props) => {
     const [date, setDate] = useState(new Date().toISOString())
-
-    // TODO: uncomment after release
-    // const minDate = new Date(new Date().getDate() - 7 * 24 * 60 * 60 * 1000)
-    // selectedDate >= minDate &&
-    const maxDate = new Date()
+    const [isPendingAddVisit] = useUnit([pEStudentVisitModel.stores.pendingAddVisit])
 
     const selectedDate = new Date(date)
 
-    const isDateValid = selectedDate <= maxDate && selectedDate.getDay() !== 0 && selectedDate.getDay() !== 1
+    const isDateValid =
+        isWithinInterval(selectedDate, { start: subWeeks(new Date(), 1), end: new Date() }) &&
+        selectedDate.getDay() !== 0 &&
+        selectedDate.getDay() !== 1
 
     useEffect(() => {
         setDate(new Date().toISOString())
@@ -41,7 +42,7 @@ export const AddPeStudentVisits = ({ studentGuid }: Props) => {
             />
 
             <Button
-                isActive={isDateValid}
+                isActive={isDateValid && !isPendingAddVisit}
                 text={`Добавить посещение ${localizeDate(date, 'numeric')}`}
                 onClick={handleClick}
                 width="100%"

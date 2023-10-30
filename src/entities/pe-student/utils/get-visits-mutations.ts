@@ -11,3 +11,14 @@ export const getAddVisitMutation = ({ studentGuid, date }: AddStudentVisits) => 
     }
   }  
 `
+
+export const getRemoveVisitMutation = (id: string) => `mutation RemoveStudentVisits {
+  deleteStudentVisit(input: { historyId: ${id} }) {
+    success
+    errors {
+      ... on Error {
+        message
+      }
+    }
+  }
+}`

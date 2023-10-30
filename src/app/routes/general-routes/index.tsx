@@ -368,7 +368,6 @@ export const generalRoutes: IRoutes = {
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
-        show: true,
     },
     vaccination: {
         id: 'vaccination',

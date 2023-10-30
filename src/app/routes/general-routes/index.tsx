@@ -367,8 +367,8 @@ export const generalRoutes: IRoutes = {
         Component: MedicalCertificate,
         color: 'blue',
         isTemplate: false,
-        group: 'GENERAL',
-        show: true,
+        group: 'FINANCES_DOCS',
+        show: false,
     },
     vaccination: {
         id: 'vaccination',

@@ -367,8 +367,7 @@ export const generalRoutes: IRoutes = {
         Component: MedicalCertificate,
         color: 'blue',
         isTemplate: false,
-        group: 'FINANCES_DOCS',
-        show: false,
+        group: 'GENERAL',
     },
     vaccination: {
         id: 'vaccination',
@@ -386,6 +385,7 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'GENERAL',
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
+        isOldLkPage: true,
     },
 }
 

@@ -20,7 +20,7 @@ const Content = () => {
                     if (jobTitleInfo.isDismissal) {
                         historyIsEmpty && setHistoryIsEmpty(false)
                         return null
-                    } else return <JobTitle info={jobTitleInfo} index={index} data={data} />
+                    } else return <JobTitle key={jobTitleInfo.jobGuid} info={jobTitleInfo} index={index} data={data} />
                 })}
             <History />
         </Wrapper>

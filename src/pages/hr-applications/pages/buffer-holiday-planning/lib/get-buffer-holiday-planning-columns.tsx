@@ -1,4 +1,7 @@
+import downloadFile from '@pages/hr-applications/lib/get-file-vacation'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { TypesOfVacation } from '@shared/models/types-of-vacation'
+import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
@@ -6,7 +9,13 @@ import React from 'react'
 export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
         {
-            title: 'Статус заявления',
+            title: 'Дата',
+            field: 'vacation',
+            width: '150px',
+            render: (value) => localizeDate(value?.status?.creationDate, 'numeric'),
+        },
+        {
+            title: 'Статус',
             field: 'vacation',
             width: '200px',
             render: (value) => {
@@ -22,13 +31,20 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value.status.orderStatus}
+                        title={value.status.orderStatus || '-'}
                         align="center"
                         width="100%"
                         icon={null}
                         maxWidth="150px"
                     />
                 )
+            },
+        },
+        {
+            title: 'Вид отпуска',
+            field: 'vacation',
+            render: (value, data) => {
+                return TypesOfVacation[data?.typeOfVacation as keyof typeof TypesOfVacation] || '-'
             },
         },
         {
@@ -42,21 +58,33 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                 )}`
             },
         },
-        // {
-        //     title: 'Номер приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
-        //     align: 'center',
-        //     render: (value) => value.orderNumber,
-        // },
-        // {
-        //     title: 'Дата приказа',
-        //     field: 'vacation',
-        //     type: 'date',
-        //     priority: 'one',
-        //     align: 'center',
-        //     render: (value) => localizeDate(value.status.orderDate, 'numeric'),
-        // },
-        // { title: 'Файл заявления', priority: 'one', field: 'file', type: 'file' },
+        {
+            title: 'Файл заявления',
+            priority: 'one',
+            field: 'downloadable',
+            type: 'file',
+            width: '200px',
+            align: 'center',
+            render: (value, data) => {
+                if (data?.status?.downloadApplication)
+                    return (
+                        <Button
+                            text="Скачать файл"
+                            background="rgb(60,210,136)"
+                            textColor="#fff"
+                            id="downloadButton"
+                            width={'150px'}
+                            align="center"
+                            minWidth={'150px'}
+                            height="30px"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                downloadFile(data.documentGuid)
+                            }}
+                        />
+                    )
+                else return '-'
+            },
+        },
     ]
 }

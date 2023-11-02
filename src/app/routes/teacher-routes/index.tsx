@@ -564,7 +564,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
         subPageHeaderTitle: 'Заявление на отпуск',
     },
     'buffer-holiday-transfer': {

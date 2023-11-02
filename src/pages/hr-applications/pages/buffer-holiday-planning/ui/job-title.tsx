@@ -6,10 +6,11 @@ import React, { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import { FiPlus } from 'react-icons/fi'
 import Flex from '@shared/ui/flex'
+import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
+import { getExpandedBufferHolidayPlanningColumns } from '../lib/get-expanded-buffer-holiday-planning-columns copy'
 
 interface Props {
     //info: BufferHolidayPlanning['employeeVacations'][0]
@@ -67,18 +68,24 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
                 <ActionBlock>
                     {data.map((workerInfo, index) => {
                         if (workerInfo.employeeGuid == info.jobGuid) {
-                            const filteredData = data[index].notTaken.filter((item) => {
-                                if (
-                                    item.vacation.status.orderStatus != 'false' &&
-                                    item.vacation.status.orderStatus != ''
-                                )
-                                    return item.vacation.status.orderStatus
-                            })
+                            const allVacations = [
+                                ...data[index].schedule,
+                                ...data[index].spent,
+                                ...data[index].notTaken,
+                            ]
+                            // const filteredData = allVacations.filter((item) => {
+                            //     if (
+                            //         item.vacation.status.orderStatus != 'false' &&
+                            //         item.vacation.status.orderStatus != ''
+                            //     )
+                            //         return item.vacation.status.orderStatus
+                            // })
                             return (
                                 <Table
                                     key={workerInfo.jobTitle}
                                     columns={getBufferHolidayPlanningColumns()}
-                                    data={filteredData}
+                                    columnsExpaned={getExpandedBufferHolidayPlanningColumns()}
+                                    data={allVacations}
                                     maxOnPage={10}
                                 />
                             )

@@ -83,7 +83,7 @@ const getForm = (
                 required: true,
                 onChange: (value) => {
                     setCollType(value)
-                    setEndDate(getDelayInDays(value ? +value.data : 0, holidayStartDate + 5))
+                    setEndDate(getDelayInDays(value ? +value.data : 0, holidayStartDate))
                 },
                 width: '100%',
                 specialType: 'collDog',

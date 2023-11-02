@@ -649,10 +649,8 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : HolidayPlanning,
         isTemplate: false,
         group: 'FINANCES_DOCS',
-        pageSize: 'big',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: 'Назад',
         fallbackPrevPage: BUFFER_HOLIDAY_PLANNING,
     },
     'holiday-transfer': {
@@ -666,7 +664,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_HOLIDAY_TRANSFER,
     },
     'work-transfer': {
@@ -680,7 +677,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
     'work-transfer-change-rate': {
@@ -694,7 +690,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
     'extra-holiday-coll': {

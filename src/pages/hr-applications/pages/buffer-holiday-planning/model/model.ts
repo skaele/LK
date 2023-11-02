@@ -94,6 +94,6 @@ export const effects = {
 export const selectors = {
     useBufferHolidayPlanning: () => ({
         data: useStore($bufferHolidayPlanning),
-        loading: useStore(sendBufferHolidayPlanningFx.pending),
+        loading: useStore(sendBufferHolidayPlanningFx.pending) || useStore(loadBufferHolidayPlanningFx.pending),
     }),
 }

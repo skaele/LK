@@ -5,14 +5,6 @@ import React from 'react'
 
 export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
-        // {
-        //     title: 'Статус заявления',
-        //     field: 'vacation',
-        //     width: '200px',
-        //     render: (value) => {
-        //         return value.status.orderStatus
-        //     },
-        // },
         {
             title: 'Статус заявления',
             field: 'vacation',

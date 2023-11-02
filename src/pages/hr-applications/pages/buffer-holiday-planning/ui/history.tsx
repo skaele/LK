@@ -1,17 +1,24 @@
 import Block from '@shared/ui/block'
-import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
-import React, { useState } from 'react'
-import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
+import React from 'react'
 import styled from 'styled-components'
-import getHolidayWorkHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 import { bufferHolidayPlanningModel } from '../model'
+import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 
 const History = () => {
-    const [openedHistory, setOpenedHistory] = useState<boolean>(false)
-
     const { data } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
-    const historyIsEmpty = !!data.every((d) => !d)
+
+    const jobVacations =
+        data &&
+        data
+            .map((job) => {
+                return [
+                    ...job.notTaken.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                    ...job.schedule.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                    ...job.spent.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                ]
+            })
+            .flat()
 
     return (
         <Block
@@ -23,27 +30,8 @@ const History = () => {
             maxWidth="100%"
             height="fit-content"
         >
-            <BlockHeader>
-                История заявлений на отпуск:
-                <Button
-                    icon={openedHistory ? <HiChevronUp /> : <HiChevronDown />}
-                    onClick={() => !historyIsEmpty && setOpenedHistory((prev) => !prev)}
-                    background="transparent"
-                />
-            </BlockHeader>
-            {openedHistory &&
-                data.map((object, index) => {
-                    // if (!object.dismissalApplications.length) return null
-
-                    return <StyledTable key={index} columns={getHolidayWorkHistoryColumns()} data={[]} maxOnPage={10} />
-                })}
-            <Button
-                onClick={() => {
-                    !historyIsEmpty && setOpenedHistory((prev) => !prev)
-                }}
-                text={historyIsEmpty ? 'История пуста' : openedHistory ? 'Скрыть' : 'Подробнее'}
-                background="transparent"
-            />
+            <BlockHeader>История заявлений на отпуск:</BlockHeader>
+            <Table columns={getBufferHolidayPlanningColumns()} data={jobVacations} maxOnPage={10} />
         </Block>
     )
 }
@@ -55,8 +43,4 @@ const BlockHeader = styled.div`
     flex-direction: row;
     gap: 10px;
     align-items: center;
-`
-
-const StyledTable = styled(Table)`
-    width: 100%;
 `

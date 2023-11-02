@@ -41,6 +41,12 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             },
         },
         {
+            title: 'Должность',
+            field: 'vacation',
+            width: '150px',
+            render: (value, data) => data.jobTitle,
+        },
+        {
             title: 'Вид отпуска',
             field: 'vacation',
             render: (value, data) => {

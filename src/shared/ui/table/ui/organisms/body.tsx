@@ -51,7 +51,7 @@ const Body = ({
     data,
     loading,
     columns,
-    columnsExpaned,
+    columnsExtended,
     maxOnPage,
     onRowClick,
     filter,
@@ -71,7 +71,7 @@ const Body = ({
                     <Row
                         onRowClick={onRowClick}
                         columns={columns}
-                        columnsExpanded={columnsExpaned}
+                        columnsExtended={columnsExtended}
                         el={el}
                         key={i}
                         index={i}

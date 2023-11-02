@@ -84,7 +84,7 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
                                 <Table
                                     key={workerInfo.jobTitle}
                                     columns={getBufferHolidayPlanningColumns()}
-                                    columnsExpaned={getExpandedBufferHolidayPlanningColumns()}
+                                    columnsExtended={getExpandedBufferHolidayPlanningColumns()}
                                     data={allVacations}
                                     maxOnPage={10}
                                 />

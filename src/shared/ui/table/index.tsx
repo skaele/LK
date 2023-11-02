@@ -14,7 +14,7 @@ const TableWrapper = styled.div`
     overflow: hidden;
 `
 
-const Table = ({ columns, columnsExpaned, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
+const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
     const {
         sort,
         setSort,
@@ -53,7 +53,7 @@ const Table = ({ columns, columnsExpaned, data, maxOnPage, onRowClick, footer, l
                 onRowClick={onRowClick}
                 filter={filter}
                 columns={columns}
-                columnsExpaned={columnsExpaned}
+                columnsExtended={columnsExtended}
                 data={resultData}
                 maxOnPage={maxOnPage}
             />

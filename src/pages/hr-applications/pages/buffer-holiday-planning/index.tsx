@@ -1,27 +1,21 @@
-import React, { useEffect } from 'react'
-import { bufferHolidayPlanningModel } from './model'
+import React from 'react'
 import Content from './ui/content'
 import { useHistory } from 'react-router'
 import { FiCalendar, FiInfo } from 'react-icons/fi'
 import { Button, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
+import { applicationsModel } from '@entities/applications'
 
 const HolidayPlanningBufferPage = () => {
-    const { data, loading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
-
-    useEffect(() => {
-        bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
-    }, [])
+    const {
+        data: { dataWorkerApplication },
+        error,
+    } = applicationsModel.selectors.useApplications()
 
     const history = useHistory()
 
     return (
-        <Wrapper
-            load={bufferHolidayPlanningModel.events.loadBufferHolidayPlanning}
-            loading={loading}
-            error={null}
-            data={data}
-        >
+        <Wrapper load={applicationsModel.effects.getWorkerPosts} error={error} data={dataWorkerApplication}>
             <PageBlock
                 topRightCornerElement={
                     <Button

@@ -1,13 +1,15 @@
 import React from 'react'
 import { bufferHolidayPlanningModel } from '../model'
-import { Loading, Wrapper } from '@shared/ui/atoms'
+import { Button, Loading, Wrapper } from '@shared/ui/atoms'
 import styled from 'styled-components'
 import Block from '@shared/ui/block'
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import Table from '@shared/ui/table'
-import { getExpandedBufferHolidayPlanningColumns } from '../lib/get-expanded-buffer-holiday-planning-columns copy'
-import { compareAsc } from 'date-fns'
+import { compareDesc } from 'date-fns'
 import Flex from '@shared/ui/flex'
+import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
+import { Link } from 'react-router-dom'
+import { FiPlus } from 'react-icons/fi'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
@@ -24,8 +26,12 @@ const Content = () => {
                 ]
             })
             .flat()
+            .filter((item) => {
+                if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
+                    return item.vacation.status.orderStatus
+            })
             .sort((a, b) =>
-                compareAsc(new Date(a.vacation.status.creationDate), new Date(b.vacation.status.creationDate)),
+                compareDesc(new Date(a.vacation.status.creationDate), new Date(b.vacation.status.creationDate)),
             )
 
     return (
@@ -41,6 +47,20 @@ const Content = () => {
                     })}
             </> */}
             <>
+                <Flex jc="space-between">
+                    <BlockHeader>История заявлений на отпуск:</BlockHeader>
+                    <Link to={`/hr-applications/holiday-planning`}>
+                        <Button
+                            text="Отпуск"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth={'35px'}
+                            height="36px"
+                            shrinkTextInMobile
+                        />
+                    </Link>
+                </Flex>
                 {getDataLoading ? (
                     <Flex w="100%" jc="center" ai="center">
                         <Loading />
@@ -55,10 +75,9 @@ const Content = () => {
                         maxWidth="100%"
                         height="fit-content"
                     >
-                        <BlockHeader>История заявлений на отпуск:</BlockHeader>
                         <Table
                             columns={getBufferHolidayPlanningColumns()}
-                            columnsExtended={getExpandedBufferHolidayPlanningColumns()}
+                            columnsExtended={getExtendedBufferHolidayPlanningColumns()}
                             data={jobVacations}
                             maxOnPage={10}
                         />

@@ -10,7 +10,7 @@ import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import { FiPlus } from 'react-icons/fi'
 import Flex from '@shared/ui/flex'
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
-import { getExpandedBufferHolidayPlanningColumns } from '../lib/get-expanded-buffer-holiday-planning-columns copy'
+import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 
 interface Props {
     //info: BufferHolidayPlanning['employeeVacations'][0]
@@ -84,7 +84,7 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
                                 <Table
                                     key={workerInfo.jobTitle}
                                     columns={getBufferHolidayPlanningColumns()}
-                                    columnsExtended={getExpandedBufferHolidayPlanningColumns()}
+                                    columnsExtended={getExtendedBufferHolidayPlanningColumns()}
                                     data={allVacations}
                                     maxOnPage={10}
                                 />

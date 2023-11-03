@@ -1,5 +1,4 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
@@ -28,7 +27,7 @@ const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlann
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
-const $bufferHolidayPlanning = createStore<BufferHoliday['employeeVacations']>([])
+const $bufferHolidayPlanning = createStore<BufferHoliday['employeeVacations'] | null>(null)
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
@@ -40,23 +39,33 @@ sample({
     clock: sendBufferHolidayPlanningFx.doneData,
     fn: (result) => {
         if (result.isError) {
-            return { message: result.error, type: 'hrFailure' as MessageType, time: 300000 }
+            throw new Error(result.error)
         }
 
         return {
             message: `Форма отправлена успешно`,
             type: 'success' as MessageType,
-            time: 0,
         }
     },
-    target: popUpMessageModelHr.events.evokePopUpMessage,
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: sendBufferHolidayPlanningFx.failData,
+    fn: ({ message }) => {
+        return {
+            message,
+            type: 'hrFailure' as MessageType,
+        }
+    },
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 sample({
     clock: sendBufferHolidayPlanningFx.doneData,
     source: $bufferHolidayPlanning,
     fn: (source, { employeeVacations }) => {
-        return [...source, ...employeeVacations]
+        return [...source!, ...employeeVacations]
     },
     target: $bufferHolidayPlanning,
 })
@@ -69,24 +78,9 @@ sample({
         return {
             message,
             type: 'failure' as MessageType,
-            time: 300000,
         }
     },
     target: popUpMessageModel.events.evokePopUpMessage,
-})
-
-sample({
-    clock: sendBufferHolidayPlanningFx.failData,
-    fn: (response) => {
-        const message = isAxiosError(response) ? (response.response?.data as any).error : 'Не удалось отправить данные'
-
-        return {
-            message,
-            type: 'hrFailure' as MessageType,
-            time: 300000,
-        }
-    },
-    target: popUpMessageModelHr.events.evokePopUpMessage,
 })
 
 export const events = {
@@ -101,5 +95,6 @@ export const selectors = {
     useBufferHolidayPlanning: () => ({
         data: useStore($bufferHolidayPlanning),
         loading: useStore(sendBufferHolidayPlanningFx.pending),
+        getDataLoading: useStore(loadBufferHolidayPlanningFx.pending),
     }),
 }

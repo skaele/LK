@@ -6,8 +6,11 @@ import React, { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
+import { FiPlus } from 'react-icons/fi'
+import Flex from '@shared/ui/flex'
+import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
+import { getExpandedBufferHolidayPlanningColumns } from '../lib/get-expanded-buffer-holiday-planning-columns copy'
 
 interface Props {
     //info: BufferHolidayPlanning['employeeVacations'][0]
@@ -17,15 +20,9 @@ interface Props {
 }
 
 const JobTitle: React.FC<Props> = ({ info, index, data }) => {
-    //const { notTaken} = info
-
     const { jobTitle, subDivision, rate } = info
 
     const [opened, setOpened] = useState<boolean>(false)
-    // console.log('info')
-    // console.log(info)
-    //console.log(data)
-    // console.log(data)
 
     return (
         <Block
@@ -38,14 +35,28 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
             height="fit-content"
         >
             <BlockHeader>
-                <span>{jobTitle}</span>
-                <Button
-                    icon={opened ? <HiChevronUp /> : <HiChevronDown />}
-                    onClick={() => {
-                        setOpened((prev) => !prev)
-                    }}
-                    background="transparent"
-                />
+                <Flex gap="10px">
+                    <span>{jobTitle}</span>
+                    <Button
+                        icon={opened ? <HiChevronUp /> : <HiChevronDown />}
+                        onClick={() => {
+                            setOpened((prev) => !prev)
+                        }}
+                        background="transparent"
+                    />
+                </Flex>
+
+                <Link to={`/hr-applications/holiday-planning/${index}`}>
+                    <Button
+                        text="Отпуск"
+                        background="var(--reallyBlue)"
+                        textColor="#fff"
+                        icon={<FiPlus />}
+                        minWidth={'35px'}
+                        height="36px"
+                        shrinkTextInMobile
+                    />
+                </Link>
             </BlockHeader>
             <JobDescription>
                 Подразделение: {subDivision}
@@ -55,37 +66,26 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
             </JobDescription>
             {opened && (
                 <ActionBlock>
-                    <Link to={`/hr-applications/holiday-planning/${index}`}>
-                        <Button
-                            text="Отпуск по этой должности"
-                            background="rgb(236,95,107)"
-                            textColor="#fff"
-                            width={'250px'}
-                            minWidth={'150px'}
-                            height="36px"
-                        />
-                    </Link>
-                    {/* {!!data[index].notTaken.length && (
-                        <StyledTable
-                            columns={getBufferHolidayPlanningColumns()}
-                            data={data[index].notTaken}
-                            maxOnPage={10}
-                        />
-                    )} */}
                     {data.map((workerInfo, index) => {
                         if (workerInfo.employeeGuid == info.jobGuid) {
-                            const filteredData = data[index].notTaken.filter((item) => {
-                                if (
-                                    item.vacation.status.orderStatus != 'false' &&
-                                    item.vacation.status.orderStatus != ''
-                                )
-                                    return item.vacation.status.orderStatus
-                            })
+                            const allVacations = [
+                                ...data[index].schedule,
+                                ...data[index].spent,
+                                ...data[index].notTaken,
+                            ]
+                            // const filteredData = allVacations.filter((item) => {
+                            //     if (
+                            //         item.vacation.status.orderStatus != 'false' &&
+                            //         item.vacation.status.orderStatus != ''
+                            //     )
+                            //         return item.vacation.status.orderStatus
+                            // })
                             return (
-                                <StyledTable
+                                <Table
                                     key={workerInfo.jobTitle}
                                     columns={getBufferHolidayPlanningColumns()}
-                                    data={filteredData}
+                                    columnsExtended={getExpandedBufferHolidayPlanningColumns()}
+                                    data={allVacations}
                                     maxOnPage={10}
                                 />
                             )
@@ -96,7 +96,6 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
             <Button
                 onClick={() => {
                     setOpened((prev) => !prev)
-                    // setOpenedHistory(false)
                 }}
                 text={opened ? 'Скрыть' : 'Подробнее'}
                 background="transparent"
@@ -117,11 +116,8 @@ const JobDescription = styled.div`
 const BlockHeader = styled.div`
     display: flex;
     flex-direction: row;
-    gap: 10px;
     align-items: center;
-`
-
-const StyledTable = styled(Table)`
+    justify-content: space-between;
     width: 100%;
 `
 

@@ -29,6 +29,7 @@ export type Footer = (props: { [key: string]: any[] } | null) => IndexedProperti
 
 export interface TableProps {
     columns: ColumnProps[]
+    columnsExtended?: ColumnProps[]
     footer?: Footer
     data: Nullable<IndexedProperties[]>
     maxOnPage?: number

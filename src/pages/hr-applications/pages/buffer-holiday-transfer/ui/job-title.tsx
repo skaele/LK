@@ -6,8 +6,8 @@ import React, { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { getBufferHolidayPlanningColumns } from '../../buffer-holiday-planning/lib/get-buffer-holiday-planning-columns'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
+import { getBufferHolidayPlanningColumns } from '../../buffer-holiday-planning/lib/get-buffer-holiday-planning-columns'
 
 interface Props {
     //info?: BufferHolidayPlanning

@@ -4,12 +4,14 @@ import Flex from '@shared/ui/flex'
 import { bufferMedicalExaminationModel } from '../model'
 import { Loading } from '@shared/ui/loading'
 import Block from '@shared/ui/block'
-import { Wrapper } from '@shared/ui/atoms'
+import { Button, Wrapper } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
 import { applicationsModel } from '@entities/applications'
 import { compareDesc } from 'date-fns'
 import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
+import { Link } from 'react-router-dom'
+import { FiPlus } from 'react-icons/fi'
 
 const Content = () => {
     const { data, loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
@@ -33,6 +35,20 @@ const Content = () => {
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
+            <Flex jc="space-between">
+                <BlockHeader>История заявлений на диспансеризацию:</BlockHeader>
+                <Link to={`/hr-applications/medical-examination`}>
+                    <Button
+                        text="Диспансеризация"
+                        background="var(--reallyBlue)"
+                        textColor="#fff"
+                        icon={<FiPlus />}
+                        minWidth={'35px'}
+                        height="36px"
+                        shrinkTextInMobile
+                    />
+                </Link>
+            </Flex>
             {loading ? (
                 <Flex w="100%" jc="center" ai="center">
                     <Loading />
@@ -47,7 +63,6 @@ const Content = () => {
                     maxWidth="100%"
                     height="fit-content"
                 >
-                    <BlockHeader>История заявлений на диспансеризацию:</BlockHeader>
                     <Table
                         columns={getMedicalExaminationHistoryColumns()}
                         columnsExtended={getExtendedMedicalExaminationHistoryColumns()}

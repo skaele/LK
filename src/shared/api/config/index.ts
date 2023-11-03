@@ -1,4 +1,4 @@
-import { OLD_LK_URL } from '@shared/constants'
+import { OLD_LK_URL, isProduction } from '@shared/constants'
 import axios, { AxiosError } from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
@@ -9,9 +9,10 @@ export const $api = axios.create({ baseURL: API_BASE_URL, withCredentials: true 
 export const $hrApi = axios.create({ baseURL: API_HR_URL })
 $hrApi.interceptors.request.use(addAuthHeaderToRequests)
 
-$hrApi.interceptors.response.use((response) => {
-    return response
-}, getAuthResponseInterceptor($hrApi))
+!isProduction &&
+    $hrApi.interceptors.response.use((response) => {
+        return response
+    }, getAuthResponseInterceptor($hrApi))
 
 export function isAxiosError(error: Error): error is AxiosError {
     return (error as AxiosError).isAxiosError

@@ -8,7 +8,6 @@ import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
@@ -17,6 +16,8 @@ const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [medicalExaminationDate] = useState<string | null>(null)
+    const [jobGuid, setJobGuid] = useState<string | null>(null)
+    const [jobTitle, setJobTitle] = useState<string | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
     const {
         data: { dataUserApplication, dataWorkerApplication },
@@ -25,8 +26,6 @@ const MedicalExamination = () => {
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false
-    const { id } = useParams<{ id: string }>()
-    const currentIndex = +id
 
     useEffect(() => {
         if (!!dataUserApplication && !!dataWorkerApplication && !loading) {
@@ -34,15 +33,18 @@ const MedicalExamination = () => {
                 getForm(
                     dataUserApplication,
                     dataWorkerApplication,
-                    currentIndex,
                     startDate,
                     setStartDate,
                     isRetirement,
                     setIsRetirement,
+                    jobTitle,
+                    setJobTitle,
+                    jobGuid,
+                    setJobGuid,
                 ),
             )
         }
-    }, [dataUserApplication, currentIndex, loading, startDate, medicalExaminationDate, isRetirement])
+    }, [dataUserApplication, loading, startDate, medicalExaminationDate, isRetirement])
     useEffect(() => {
         if (!!form && !!dataUserApplication) {
             setSpecialFieldsName(getCompensation(form.data as IInputAreaData[]))

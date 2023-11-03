@@ -5,9 +5,9 @@ import styled from 'styled-components'
 import Block from '@shared/ui/block'
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import Table from '@shared/ui/table'
-import { getExpandedBufferHolidayPlanningColumns } from '../lib/get-expanded-buffer-holiday-planning-columns copy'
-import { compareAsc } from 'date-fns'
+import { compareDesc } from 'date-fns'
 import Flex from '@shared/ui/flex'
+import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
@@ -24,8 +24,12 @@ const Content = () => {
                 ]
             })
             .flat()
+            .filter((item) => {
+                if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
+                    return item.vacation.status.orderStatus
+            })
             .sort((a, b) =>
-                compareAsc(new Date(a.vacation.status.creationDate), new Date(b.vacation.status.creationDate)),
+                compareDesc(new Date(a.vacation.status.creationDate), new Date(b.vacation.status.creationDate)),
             )
 
     return (
@@ -58,7 +62,7 @@ const Content = () => {
                         <BlockHeader>История заявлений на отпуск:</BlockHeader>
                         <Table
                             columns={getBufferHolidayPlanningColumns()}
-                            columnsExtended={getExpandedBufferHolidayPlanningColumns()}
+                            columnsExtended={getExtendedBufferHolidayPlanningColumns()}
                             data={jobVacations}
                             maxOnPage={10}
                         />

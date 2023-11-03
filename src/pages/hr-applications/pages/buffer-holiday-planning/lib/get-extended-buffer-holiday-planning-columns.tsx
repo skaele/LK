@@ -1,8 +1,8 @@
-import { ColumnProps } from '@ui/table/types'
-import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
+import { ColumnProps } from '@shared/ui/table/types'
 
-export const getExpandedBufferHolidayPlanningColumns = (): ColumnProps[] => {
+export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
         ...getBufferHolidayPlanningColumns(),
         {
@@ -33,7 +33,7 @@ export const getExpandedBufferHolidayPlanningColumns = (): ColumnProps[] => {
             title: 'Перенесен',
             field: 'vacation',
             align: 'center',
-            render: (value, data) => {
+            render: (_, data) => {
                 if (data?.isCarriedOver)
                     return `Перенесен с ${localizeDate(
                         data?.carriedOver?.period?.startDate,

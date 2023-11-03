@@ -520,7 +520,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     'buffer-holiday-work': {
         id: 'buffer-holiday-work',
@@ -535,7 +535,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     'buffer-medical-examination': {
         id: 'buffer-medical-examination',
@@ -548,9 +548,8 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     'buffer-holiday-planning': {
         id: 'buffer-holiday-planning',
@@ -580,7 +579,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     'buffer-work-transfer': {
         id: 'buffer-work-transfer',
@@ -595,7 +594,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
-        pageSize: 'big',
+        pageSize: 'large',
     },
 
     'part-time-employment': {

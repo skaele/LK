@@ -15,11 +15,7 @@ const History = () => {
         return data
             ?.map((workerInfo) => {
                 const filteredData = workerInfo.notTaken.filter((item) => {
-                    if (
-                        item.medicalExamination.status.orderStatus != 'false' &&
-                        item.medicalExamination.status.orderStatus != ''
-                    )
-                        return item.medicalExamination.status.orderStatus
+                    if (item.orderStatus != 'false' && item.orderStatus != '') return item.orderStatus
                 })
                 return filteredData
             })

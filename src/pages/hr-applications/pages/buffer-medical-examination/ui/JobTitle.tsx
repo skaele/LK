@@ -66,12 +66,8 @@ const JobTitle: React.FC<Props> = ({ info, index }) => {
                     )}
                     {data?.map((workerInfo, index) => {
                         if (workerInfo.employeeGuid == info.jobGuid) {
-                            const filteredData = data[index].notTaken.filter((item) => {
-                                if (
-                                    item.medicalExamination.status.orderStatus != 'false' &&
-                                    item.medicalExamination.status.orderStatus != ''
-                                )
-                                    return item.medicalExamination.status.orderStatus
+                            const filteredData = data[index]?.notTaken?.filter((item) => {
+                                if (item.orderStatus != 'false' && item.orderStatus != '') return item.orderStatus
                             })
                             return (
                                 <StyledTable

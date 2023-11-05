@@ -15,13 +15,14 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	#root {
-		height: 100vh;
+		display: flex;
+		height: 100%;
 	}
 
 	body {
-		overflow: hidden;
-		min-height: 100vh;
-    	min-height: -webkit-fill-available;
+		height: 100vh;
+    	height: 100svh;
+   		height: 100dvh;
 	}
 
 	@media (min-width: 1001px) {

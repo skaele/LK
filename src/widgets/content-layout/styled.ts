@@ -2,10 +2,9 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     display: flex;
+    flex: 1;
     background: var(--theme);
-    height: 100vh;
-    height: 100svh;
-    height: 100dvh;
+    width: 100%;
 `
 
 export const ContentWrapper = styled.div`
@@ -25,7 +24,7 @@ export const ContentWrapper = styled.div`
 export const PageContent = styled.div<{ withHeader?: boolean }>`
     position: relative;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     scrollbar-gutter: stable;
     padding-top: ${({ withHeader }) => (withHeader ? 'var(--header-height)' : '0')};
     width: 100%;

@@ -17,12 +17,15 @@ const GlobalStyles = createGlobalStyle`
 	#root {
 		display: flex;
 		height: 100%;
+		max-height: 100%;
 	}
 
 	body {
 		height: 100vh;
     	height: 100svh;
    		height: 100dvh;
+
+		overflow: hidden;
 	}
 
 	@media (min-width: 1001px) {

@@ -11,7 +11,8 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             title: 'Дата',
             field: 'creationDate',
             width: '100px',
-            render: (value) => localizeDate(value, 'numeric'),
+            sort: true,
+            type: 'date',
         },
         {
             title: 'Статус',
@@ -41,7 +42,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Должность',
             field: 'jobTitle',
-            render: (value) => value,
+            sort: true,
         },
         {
             title: 'Период',

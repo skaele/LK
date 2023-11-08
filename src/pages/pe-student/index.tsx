@@ -2,6 +2,7 @@ import { WorkType } from '@entities/pe-student-additional-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { peTeacherModel } from '@entities/pe-teacher'
+import { $userStore } from '@entities/user/model'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
 import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
@@ -14,10 +15,11 @@ import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 
 const PEStudent = () => {
-    const { studentId } = useParams<{ studentId: string }>()
-    const [currentPage, setCurrentPage] = useState<number>(0)
+    const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
+    const [student, { currentUser }] = useUnit([selectedPEStudentModel.stores.$selectedStudent, $userStore])
 
-    const [student] = useUnit([selectedPEStudentModel.stores.$selectedStudent])
+    const studentId = currentUser?.user_status === 'staff' ? studentIdFromParams : currentUser?.guid ?? ''
+    const [currentPage, setCurrentPage] = useState<number>(0)
 
     useEffect(() => {
         selectedPEStudentModel.events.setCurrentStudentId(studentId)

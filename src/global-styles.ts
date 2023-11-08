@@ -21,6 +21,9 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
+		-webkit-overflow-scrolling: touch;
+		scrollbar-gutter: stable;
+		position: relative;
 		height: 100vh;
     	height: 100svh;
    		height: 100dvh;

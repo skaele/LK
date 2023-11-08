@@ -45,30 +45,36 @@ export const $regularPointsColumns = combine(
             field: 'comment',
             priority: 'five',
         },
-        {
-            title: 'Действия',
-            field: 'actions',
-            onClick: () => null,
-            render: (_, data) => {
-                const history = data as PEStudentProfile['standardsHistory'][number]
-                const isExpired = differenceInDays(new Date(history.date), new Date()) < -30
-                const isAdmin = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some((permission) =>
-                    teacher?.permissions?.includes(permission),
-                )
+        ...(teacher?.permissions?.length
+            ? [
+                  {
+                      title: 'Действия',
+                      field: 'actions',
+                      onClick: () => null,
+                      render: (_: unknown, data: unknown) => {
+                          const history = data as PEStudentProfile['standardsHistory'][number]
+                          const isExpired = differenceInDays(new Date(history.date), new Date()) < -30
+                          const isAdmin = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some(
+                              (permission) => teacher?.permissions?.includes(permission),
+                          )
 
-                if (!((history.teacherGuid === teacher?.id && !isExpired) || isAdmin)) return null
+                          if (!((history.teacherGuid === teacher?.id && !isExpired) || isAdmin)) return null
 
-                return (
-                    <Button
-                        width="100%"
-                        text="Удалить"
-                        isActive={!isLoading}
-                        onClick={() =>
-                            peStudentRegulationPointsModel.events.removeRegulationPoints({ id: history.id.toString() })
-                        }
-                    />
-                )
-            },
-        },
+                          return (
+                              <Button
+                                  width="100%"
+                                  text="Удалить"
+                                  isActive={!isLoading}
+                                  onClick={() =>
+                                      peStudentRegulationPointsModel.events.removeRegulationPoints({
+                                          id: history.id.toString(),
+                                      })
+                                  }
+                              />
+                          )
+                      },
+                  },
+              ]
+            : []),
     ],
 )

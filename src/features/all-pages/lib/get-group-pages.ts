@@ -1,4 +1,5 @@
 import { Groups, IRoutes } from '@app/routes/general-routes'
+import { PETeacher } from '@entities/pe-teacher/types'
 
 type RoutesOrder = Record<Groups, number>
 
@@ -10,16 +11,20 @@ export const routesOrder: RoutesOrder = {
     'Находится в разработке': 4,
 }
 
-const getGroupPages = (routes: IRoutes | null) => {
+const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null) => {
     if (!routes) return {} as Record<Groups, IRoutes>
 
-    const tabs = Object.values(routes).reduce((acc, route) => {
-        const group = route?.group ? Groups[route.group] : Groups.OTHER
+    const tabs = Object.values(routes)
+        .filter(({ getIsVisibleForCurrentUser }) =>
+            getIsVisibleForCurrentUser && peTeacher ? getIsVisibleForCurrentUser(peTeacher) : true,
+        )
+        .reduce((acc, route) => {
+            const group = route?.group ? Groups[route.group] : Groups.OTHER
 
-        if (!acc[group]) acc[group] = {}
-        acc[group][route.id] = route
-        return acc
-    }, {} as Record<Groups, IRoutes>)
+            if (!acc[group]) acc[group] = {}
+            acc[group][route.id] = route
+            return acc
+        }, {} as Record<Groups, IRoutes>)
 
     return tabs
 }

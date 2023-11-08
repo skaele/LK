@@ -16,7 +16,7 @@ import { useScheduleWidget } from '@features/home/ui/schedule-widget/hooks/use-s
 import { useLocation } from 'react-router'
 
 const MobileBottomMenuWrapper = styled(ListWrapper)`
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;

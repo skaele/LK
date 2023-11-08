@@ -11,13 +11,13 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         {
             title: 'Дата',
             field: 'vacation',
-            width: '150px',
+            width: '100px',
             render: (value) => localizeDate(value?.status?.creationDate, 'numeric'),
         },
         {
             title: 'Статус',
             field: 'vacation',
-            width: '200px',
+            width: '150px',
             render: (value) => {
                 return (
                     <Message
@@ -42,21 +42,22 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Должность',
-            field: 'vacation',
-            width: '150px',
-            render: (value, data) => data.jobTitle,
+            field: 'jobTitle',
+            width: '250px',
+            sort: true,
         },
         {
             title: 'Вид отпуска',
             field: 'vacation',
-            render: (value, data) => {
-                return TypesOfVacation[data?.typeOfVacation as keyof typeof TypesOfVacation] || '-'
+            render: (value) => {
+                return TypesOfVacation[value?.typeOfVacation as keyof typeof TypesOfVacation] || '-'
             },
         },
         {
             title: 'Период',
             field: 'vacation',
             align: 'center',
+            width: '200px',
             render: (value) => {
                 return `${localizeDate(value?.period?.startDate, 'numeric')} - ${localizeDate(
                     value?.period?.endDate,

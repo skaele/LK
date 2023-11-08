@@ -47,7 +47,7 @@ const Content = () => {
                     })}
             </> */}
             <>
-                <Flex jc="space-between">
+                <Flex jc="space-between" m="10px 0">
                     <BlockHeader>История заявлений на отпуск:</BlockHeader>
                     <Link to={`/hr-applications/holiday-planning`}>
                         <Button

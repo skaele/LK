@@ -35,7 +35,7 @@ const Content = () => {
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
-            <Flex jc="space-between">
+            <Flex jc="space-between" m="10px 0">
                 <BlockHeader>История заявлений на диспансеризацию:</BlockHeader>
                 <Link to={`/hr-applications/medical-examination`}>
                     <Button

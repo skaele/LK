@@ -10,13 +10,14 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Дата',
             field: 'creationDate',
-            width: '150px',
-            render: (value) => localizeDate(value, 'numeric'),
+            width: '100px',
+            sort: true,
+            type: 'date',
         },
         {
-            title: 'Статус заявления',
+            title: 'Статус',
             field: 'orderStatus',
-            width: '200px',
+            width: '150px',
             render: (value) => {
                 return (
                     <Message
@@ -41,13 +42,13 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Должность',
             field: 'jobTitle',
-            width: '150px',
-            render: (value) => value,
+            sort: true,
         },
         {
             title: 'Период',
             field: 'medicalExamination',
             align: 'center',
+            width: '200px',
             render: (_, data) => {
                 return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
             },

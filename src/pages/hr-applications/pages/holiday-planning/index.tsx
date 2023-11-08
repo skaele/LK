@@ -11,6 +11,7 @@ import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'
 import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import PageBlock from '@shared/ui/page-block'
 
 const HolidayPlanning = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -58,33 +59,37 @@ const HolidayPlanning = () => {
     }, [form])
 
     return (
-        <BaseApplicationWrapper isDone={isDone}>
-            {!!form && !!setForm && (
-                <FormBlock>
-                    <InputArea
-                        {...form}
-                        collapsed={isDone}
-                        setData={setForm as any}
-                        specialFieldsNameConfig={specialFieldsName}
-                    />
+        <PageBlock>
+            <BaseApplicationWrapper isDone={isDone}>
+                {!!form && !!setForm && (
+                    <FormBlock>
+                        <InputArea
+                            {...form}
+                            collapsed={isDone}
+                            setData={setForm as any}
+                            specialFieldsNameConfig={specialFieldsName}
+                        />
 
-                    <SubmitButton
-                        text={'Отправить'}
-                        action={() =>
-                            sendHrFormHolidayPlanning(ApplicationFormCodes.HOLIDAY_PLANNING, [form], setCompleted)
-                        }
-                        isLoading={loading}
-                        completed={completed}
-                        setCompleted={setCompleted}
-                        repeatable={false}
-                        buttonSuccessText="Отправлено"
-                        isDone={isDone}
-                        isActive={checkFormFields(form, specialFieldsName) && (form.optionalCheckbox?.value ?? true)}
-                        alerts={false}
-                    />
-                </FormBlock>
-            )}
-        </BaseApplicationWrapper>
+                        <SubmitButton
+                            text={'Отправить'}
+                            action={() =>
+                                sendHrFormHolidayPlanning(ApplicationFormCodes.HOLIDAY_PLANNING, [form], setCompleted)
+                            }
+                            isLoading={loading}
+                            completed={completed}
+                            setCompleted={setCompleted}
+                            repeatable={false}
+                            buttonSuccessText="Отправлено"
+                            isDone={isDone}
+                            isActive={
+                                checkFormFields(form, specialFieldsName) && (form.optionalCheckbox?.value ?? true)
+                            }
+                            alerts={false}
+                        />
+                    </FormBlock>
+                )}
+            </BaseApplicationWrapper>
+        </PageBlock>
     )
 }
 

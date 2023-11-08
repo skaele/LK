@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
+import PageBlock from '@shared/ui/page-block'
 
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -52,33 +53,35 @@ const MedicalExamination = () => {
     }, [form])
 
     return (
-        <BaseApplicationWrapper isDone={isDone}>
-            {!!form && !!setForm && (
-                <FormBlock>
-                    <InputArea
-                        {...form}
-                        collapsed={isDone}
-                        setData={setForm as any}
-                        specialFieldsNameConfig={specialFieldsName}
-                    />
+        <PageBlock>
+            <BaseApplicationWrapper isDone={isDone}>
+                {!!form && !!setForm && (
+                    <FormBlock>
+                        <InputArea
+                            {...form}
+                            collapsed={isDone}
+                            setData={setForm as any}
+                            specialFieldsNameConfig={specialFieldsName}
+                        />
 
-                    <SubmitButton
-                        text={'Отправить'}
-                        action={() =>
-                            SendHrFormMedicalExamination(ApplicationFormCodes.HOLIDAY_WORK, [form], setCompleted)
-                        }
-                        isLoading={loading}
-                        completed={completed}
-                        setCompleted={setCompleted}
-                        repeatable={false}
-                        buttonSuccessText="Отправлено"
-                        isDone={isDone}
-                        isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
-                        alerts={false}
-                    />
-                </FormBlock>
-            )}
-        </BaseApplicationWrapper>
+                        <SubmitButton
+                            text={'Отправить'}
+                            action={() =>
+                                SendHrFormMedicalExamination(ApplicationFormCodes.HOLIDAY_WORK, [form], setCompleted)
+                            }
+                            isLoading={loading}
+                            completed={completed}
+                            setCompleted={setCompleted}
+                            repeatable={false}
+                            buttonSuccessText="Отправлено"
+                            isDone={isDone}
+                            isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
+                            alerts={false}
+                        />
+                    </FormBlock>
+                )}
+            </BaseApplicationWrapper>
+        </PageBlock>
     )
 }
 

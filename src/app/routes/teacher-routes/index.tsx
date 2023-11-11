@@ -390,8 +390,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         path: PHYSICAL_EDUCATION,
         pageSize: 'big',
         Component: TeacherPhysicalEducation,
+        getIsVisibleForCurrentUser: (peTeacher) => !!peTeacher?.permissions?.length,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'LEARNING_ACTIVITIES',
     },
     'physical-education-student': {
         id: 'physical-education-student',

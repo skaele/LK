@@ -19,9 +19,9 @@ import {
     FeedbackPage,
     ForgotPasswordPage,
     GetYourLoginPage,
-    LkNotificationsPage,
     Home,
     InstructionsPage,
+    LkNotificationsPage,
     MedicalCertificate,
     MemoFreshmenPage,
     MemoTeacherPage,
@@ -36,6 +36,7 @@ import {
     SettingsPage,
 } from './pages'
 
+import { PETeacher } from '@entities/pe-teacher/types'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
@@ -142,6 +143,7 @@ export interface IRoute {
     pageSize?: ExtSize
     isExternalPage?: boolean
     isOldLkPage?: boolean
+    getIsVisibleForCurrentUser?: (peTeacher: PETeacher | null) => boolean
 }
 
 export const publicRoutes = [

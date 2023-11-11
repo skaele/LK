@@ -1,7 +1,12 @@
-import React from 'react'
-import { isProduction } from '@shared/constants'
+import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
+import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 import PageIsNotReady from '@pages/page-is-not-ready'
+import PaymentsPage from '@pages/payments'
+import { User } from '@shared/api/model'
+import { isProduction } from '@shared/constants'
+import React from 'react'
 import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
@@ -15,9 +20,11 @@ import {
     USEFUL_INFO_ROUTE,
 } from './general-routes'
 import {
+    PhysicalEducationStudent,
     AcademicLeaveAccommodationPage,
     AcadPerformance,
     AccommodationCorrespondenceFormPage,
+    AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
     ApplicationForCertificateOfAttendance,
     ApplicationForFinancialAssistance,
@@ -29,6 +36,7 @@ import {
     ApplicationProvisionAcademicLeave,
     ApplicationSocialAgencies,
     ApplicationsPage,
+    ArbitraryRequestPage,
     ChangingPersonalData,
     ClarificationOfPassportDataApplication,
     DormitoryPage,
@@ -36,28 +44,21 @@ import {
     FinancialSupport,
     IncreasedStateAcademicScholarship,
     MilitaryRegistrationCard,
+    MilitaryRegistrationDocuments,
     PaymentRecipient,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
     RelocationInsideHostelPage,
     RelocationToAnotherHostelPage,
-    AccommodationForGraduatesPage,
     RestoringTheMagneticPass,
     RetakeForDiploma,
     StateAccreditation,
+    StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
-    ArbitraryRequestPage,
-    MilitaryRegistrationDocuments,
-    StudentEmploymentPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
-import { User } from '@shared/api/model'
-import PaymentsPage from '@pages/payments'
-import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
-import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
-import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -100,6 +101,7 @@ export const PROVISION_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/provision-academi
 export const EXIT_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/exit-academic-leave'
 export const INDEPENDENTLY_DEDUCTED = APPLICATIONS_ROUTE + '/independently-deducted'
 export const EXTENSION_ATTESTATION = APPLICATIONS_ROUTE + '/extension-attestation'
+export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
@@ -150,6 +152,19 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
         keywords: ['оценки', 'экзамены', 'зачеты'],
+    },
+    'physical-education': {
+        id: 'physical-education',
+        title: 'Физическая культура',
+        icon: <FiFileText />,
+        color: 'lightGreen',
+        path: PHYSICAL_EDUCATION_STUDENT,
+        pageSize: 'big',
+        Component: PhysicalEducationStudent,
+        isTemplate: false,
+        group: 'LEARNING_ACTIVITIES',
+        show: !isProduction,
+        keywords: ['физра', 'физическая культура'],
     },
     'project-activity': {
         id: 'project-activity',

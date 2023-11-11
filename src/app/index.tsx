@@ -7,8 +7,6 @@ import styled from 'styled-components'
 import { ModalProvider } from 'widgets/modal/lib'
 import Router from './routers/router'
 
-console.log('feat running')
-
 const Background = styled.div`
     background: var(--theme);
     overflow-y: auto;

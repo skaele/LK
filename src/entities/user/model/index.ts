@@ -7,6 +7,7 @@ import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 import clearAllStores from '../lib/clear-all-stores'
+import { clearTokens } from '../lib/clear-tokens'
 import { parseJwt } from '../lib/jwt-token'
 
 interface UserStore {
@@ -36,6 +37,8 @@ const getUserTokenFx = createEffect<LoginData, UserToken>(async (params: LoginDa
             await axios.post('/old', form)
         } catch {}
 
+        clearTokens()
+
         if (savePasswordInStorage()) {
             localStorage.setItem(BrowserStorageKey.Token, data.token)
             localStorage.setItem(BrowserStorageKey.JWT, data?.jwt ?? '')
@@ -43,6 +46,7 @@ const getUserTokenFx = createEffect<LoginData, UserToken>(async (params: LoginDa
         } else {
             sessionStorage.setItem(BrowserStorageKey.Token, data.token)
             sessionStorage.setItem(BrowserStorageKey.JWT, data?.jwt ?? '')
+            localStorage.setItem(BrowserStorageKey.JWTRefresh, data.jwt_refresh ?? '')
         }
         return data
     } catch (e) {

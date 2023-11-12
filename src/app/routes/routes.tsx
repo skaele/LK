@@ -162,8 +162,8 @@ export const privateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
         Component: PhysicalEducationStudent,
         isTemplate: false,
+        isNew: true,
         group: 'LEARNING_ACTIVITIES',
-        show: !isProduction,
         keywords: ['физра', 'физическая культура'],
     },
     'project-activity': {

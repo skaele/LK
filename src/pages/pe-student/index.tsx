@@ -4,7 +4,7 @@ import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-point
 import { peTeacherModel } from '@entities/pe-teacher'
 import { $userStore } from '@entities/user/model'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
-import { CenterPage } from '@shared/ui/atoms'
+import { CenterPage, Error } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
@@ -28,6 +28,10 @@ const PEStudent = () => {
 
         return () => selectedPEStudentModel.events.resetStudentId()
     }, [studentId])
+
+    if (studentId && !student) {
+        return <Error text="Нет данных" />
+    }
 
     if (!student) return null
 

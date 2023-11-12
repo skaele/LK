@@ -1,0 +1,1 @@
+import{j as o}from"./vendor-f1fdae2f.js";import{bl as u,bT as t}from"./index-6982b600.js";import{T as d}from"./index-29fa00c6.js";const h=()=>{const{data:{schedule:s,externalSchedule:r,view:a},loading:l}=u.useSchedule(),e=l?t.schedule:r??s??t.schedule;return o.jsx(d,{showDates:!0,events:e.week,view:a,startDate:e.semestr.startDate,endDate:e.semestr.endDate})};export{h as default};

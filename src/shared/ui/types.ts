@@ -8,3 +8,5 @@ export type MessageType = 'success' | 'failure' | 'info' | 'alert' | 'tip' | 'hi
 export type Coordinates = { x: number; y: number }
 export type Size = 'small' | 'middle' | 'big'
 export type ExtSize = Size | 'large'
+
+export type FontWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900

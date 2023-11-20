@@ -83,6 +83,8 @@ export const createFormStore = <DataType, PostDataType>({
         target: popUpMessageModel.events.evokePopUpMessage,
     })
 
+    forward({ from: postFormFx.doneData, to: applicationsModel.effects.getApplicationsFx })
+
     const getFormFx = createEffect(async (): Promise<DataType | null> => {
         if (api.get) {
             try {

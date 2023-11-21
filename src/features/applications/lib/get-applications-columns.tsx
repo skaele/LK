@@ -8,6 +8,7 @@ import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
 import { LinkButton } from '@shared/ui/atoms'
+import { Tooltip } from '@shared/ui/tooltip'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -21,13 +22,12 @@ const getApplicationsColumns = (): ColumnProps[] => {
                 return (
                     <Flex jc="space-between">
                         {val}
-                        {!!obj?.files_output?.length && (
-                            <LinkButton
-                                icon={<FiDownload />}
-                                background="transparent"
-                                href={obj?.files_output[0].url}
-                            />
-                        )}
+                        {!!obj?.files_output?.length &&
+                            obj.files_output.map((file: { fname: string; url: string }) => (
+                                <Tooltip key={file.url} text={file.fname} direction="left">
+                                    <LinkButton icon={<FiDownload />} background="transparent" href={file?.url} />
+                                </Tooltip>
+                            ))}
                     </Flex>
                 )
             },

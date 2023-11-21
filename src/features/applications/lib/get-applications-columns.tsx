@@ -24,9 +24,11 @@ const getApplicationsColumns = (): ColumnProps[] => {
                         {val}
                         {!!obj?.files_output?.length &&
                             obj.files_output.map((file: { fname: string; url: string }) => (
-                                <Tooltip key={file.url} text={file.fname} direction="left">
-                                    <LinkButton icon={<FiDownload />} background="transparent" href={file?.url} />
-                                </Tooltip>
+                                <div key={file.url} onClick={(e) => e.stopPropagation()}>
+                                    <Tooltip text={file.fname} direction="left">
+                                        <LinkButton icon={<FiDownload />} background="transparent" href={file?.url} />
+                                    </Tooltip>
+                                </div>
                             ))}
                     </Flex>
                 )

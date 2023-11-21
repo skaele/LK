@@ -8,6 +8,7 @@ import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
 import { LinkButton } from '@shared/ui/atoms'
+import { Tooltip } from '@shared/ui/tooltip'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -21,13 +22,14 @@ const getApplicationsColumns = (): ColumnProps[] => {
                 return (
                     <Flex jc="space-between">
                         {val}
-                        {!!obj?.files_output?.length && (
-                            <LinkButton
-                                icon={<FiDownload />}
-                                background="transparent"
-                                href={obj?.files_output[0].url}
-                            />
-                        )}
+                        {!!obj?.files_output?.length &&
+                            obj.files_output.map((file: { fname: string; url: string }) => (
+                                <div key={file.url} onClick={(e) => e.stopPropagation()}>
+                                    <Tooltip text={file.fname} direction="left">
+                                        <LinkButton icon={<FiDownload />} background="transparent" href={file?.url} />
+                                    </Tooltip>
+                                </div>
+                            ))}
                     </Flex>
                 )
             },
@@ -77,23 +79,23 @@ const getApplicationsColumns = (): ColumnProps[] => {
             showFull: false,
         },
         { title: 'Примечание', field: 'comment', priority: 'five', width: '150px' },
-        {
-            title: 'Файлы для скачивания',
-            align: 'center',
-            field: 'files_output',
-            priority: 'five',
-            width: '150px',
-            render: (value) =>
-                !!value.length && (
-                    <Button
-                        onClick={() => downloadFiles(value)}
-                        text={'Скачать'}
-                        background="transparent"
-                        textColor={Colors.green.main}
-                        width={'100%'}
-                    />
-                ),
-        },
+        // {
+        //     title: 'Файлы для скачивания',
+        //     align: 'center',
+        //     field: 'files_output',
+        //     priority: 'five',
+        //     width: '150px',
+        //     render: (value) =>
+        //         !!value.length && (
+        //             <Button
+        //                 onClick={() => downloadFiles(value)}
+        //                 text={'Скачать'}
+        //                 background="transparent"
+        //                 textColor={Colors.green.main}
+        //                 width={'100%'}
+        //             />
+        //         ),
+        // },
     ]
 }
 

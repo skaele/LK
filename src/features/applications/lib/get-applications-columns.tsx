@@ -79,23 +79,23 @@ const getApplicationsColumns = (): ColumnProps[] => {
             showFull: false,
         },
         { title: 'Примечание', field: 'comment', priority: 'five', width: '150px' },
-        {
-            title: 'Файлы для скачивания',
-            align: 'center',
-            field: 'files_output',
-            priority: 'five',
-            width: '150px',
-            render: (value) =>
-                !!value.length && (
-                    <Button
-                        onClick={() => downloadFiles(value)}
-                        text={'Скачать'}
-                        background="transparent"
-                        textColor={Colors.green.main}
-                        width={'100%'}
-                    />
-                ),
-        },
+        // {
+        //     title: 'Файлы для скачивания',
+        //     align: 'center',
+        //     field: 'files_output',
+        //     priority: 'five',
+        //     width: '150px',
+        //     render: (value) =>
+        //         !!value.length && (
+        //             <Button
+        //                 onClick={() => downloadFiles(value)}
+        //                 text={'Скачать'}
+        //                 background="transparent"
+        //                 textColor={Colors.green.main}
+        //                 width={'100%'}
+        //             />
+        //         ),
+        // },
     ]
 }
 

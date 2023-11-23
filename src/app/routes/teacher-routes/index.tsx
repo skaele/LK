@@ -152,7 +152,7 @@ export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer/:id'
 export const EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/extra-holiday-coll'
 export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning'
 export const HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/holiday-transfer/:id'
-export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
+export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work'
 export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
 export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
 export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
@@ -534,9 +534,9 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
         pageSize: 'large',
+        subPageHeaderTitle: 'Заявление на выход в выходной день',
     },
     'buffer-medical-examination': {
         id: 'buffer-medical-examination',

@@ -1,41 +1,56 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
-import { useState } from 'react'
-import History from './history'
-import JobTitle from './job-title'
+import { Button, Loading, Wrapper } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
-//import HWAssesment from './holiday-work-affirmation'
+import { Link } from 'react-router-dom'
+import { FiPlus } from 'react-icons/fi'
+import Block from '@shared/ui/block'
+import Table from '@shared/ui/table'
+import getHolidayWorkHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 
-const Content = () => {
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
-    const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
-
-    if (!dataWorkerApplication) {
-        return null
-    }
-
+export const Content = () => {
     return (
-        <Wrapper>
-            {dataWorkerApplication.map((jobTitleInfo, index) => {
-                if (jobTitleInfo.isDismissal) {
-                    historyIsEmpty && setHistoryIsEmpty(false)
-                    return null
-                } else return <JobTitle info={jobTitleInfo} index={index} />
-            })}
-            {/* {data.map((info, index) => {
-                return <JobTitle info={info} index={index} />
-            })} */}
-            <History />
+        <Wrapper load={() => {}} error={null} data={!null}>
+            <>
+                <Flex jc="space-between" m="10px 0">
+                    <BlockHeader>История заявлений на выход в выходной день:</BlockHeader>
+                    <Link to={`/hr-applications/holiday-work`}>
+                        <Button
+                            text="Выйти в выходной день"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth={'35px'}
+                            height="36px"
+                            shrinkTextInMobile
+                        />
+                    </Link>
+                </Flex>
+                {null ? (
+                    <Flex w="100%" jc="center" ai="center">
+                        <Loading />
+                    </Flex>
+                ) : (
+                    <Block
+                        orientation={'vertical'}
+                        alignItems={'flex-start'}
+                        justifyContent={'flex-start'}
+                        gap={'10px'}
+                        width="100%"
+                        maxWidth="100%"
+                        height="fit-content"
+                    >
+                        <Table columns={getHolidayWorkHistoryColumns()} data={null} maxOnPage={10} />
+                    </Block>
+                )}
+            </>
         </Wrapper>
     )
 }
 
-export default Content
-
-const Wrapper = styled.div`
+const BlockHeader = styled.div`
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 `

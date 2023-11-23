@@ -1,13 +1,22 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication, WorkerApplication } from '@api/model'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
 
 const getForm = (
     dataUserApplication: UserApplication,
     dataWorkerApplication: WorkerApplication[],
     currentIndex: number,
+    jobTitle: string | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    jobGuid: string | null,
+    setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
-    const { surname, name, patronymic } = dataUserApplication
+    const { surname, name, patronymic, subdivisions } = dataUserApplication
+    const jobGuidData = !!jobGuid ? jobGuid : ''
+    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+
     return {
         title: 'Заявление о привлечении к работе в выходной день',
         data: [
@@ -19,18 +28,19 @@ const getForm = (
                 visible: true,
             },
             {
-                title: 'Должность',
-                type: 'simple-text',
-                fieldName: 'post',
-                value: dataWorkerApplication[currentIndex].jobTitle.toString(),
-                visible: true,
-            },
-            {
-                title: 'Подразделение',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].subDivision.toString(),
-                fieldName: 'subDivision',
-                visible: true,
+                title: 'Подразделение/должность',
+                value: jobTitleData,
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisions(subdivisions),
+                isSpecificSelect: true,
+                onChange: (value) => {
+                    setJobTitle(value)
+                    setJobGuid(value.id)
+                },
             },
             {
                 title: 'Дата привлечения к работе',
@@ -137,7 +147,7 @@ const getForm = (
             {
                 title: '',
                 type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].jobGuid.toString(),
+                value: jobGuidData,
                 fieldName: 'jobGuid',
                 visible: false,
             },

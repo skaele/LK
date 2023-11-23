@@ -1,128 +1,96 @@
-import { hrApplicationsConstants } from '@entities/applications/consts'
+import downloadFile from '@pages/hr-applications/lib/get-file'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { Button } from '@shared/ui/button'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 
 const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
     return [
-        //{ title: 'Название', field: 'title', priority: 'one', search: true, },
-
         {
-            title: 'Должность, Подразделение',
-            field: 'jobDivision',
-            priority: 'one',
+            title: 'Дата',
+            field: 'data',
+            width: '100px',
+            render: (value) => localizeDate(value?.status?.creationDate, 'numeric'),
+        },
+        {
+            title: 'Статус',
+            field: 'vacation',
+            width: '150px',
+            render: (value) => {
+                return (
+                    <Message
+                        type={
+                            value.status.orderStatus === 'Согласовано'
+                                ? 'success'
+                                : value.status.orderStatus === 'На регистрации'
+                                ? 'info'
+                                : value.status.orderStatus === 'Не утвержден' ||
+                                  value.status.orderStatus === 'Не создано'
+                                ? 'failure'
+                                : 'alert'
+                        }
+                        title={value.status.orderStatus || '-'}
+                        align="center"
+                        width="100%"
+                        icon={null}
+                        maxWidth="150px"
+                    />
+                )
+            },
+        },
+        {
+            title: 'Должность',
+            field: 'jobTitle',
+            width: '250px',
+            sort: true,
+        },
+        {
+            title: 'Период',
+            field: 'vacation',
+            align: 'center',
             width: '200px',
-        },
-        {
-            title: 'Статус заявления',
-            field: 'orderRegistrationStatus',
-            priority: 'one',
-            width: '200px',
-            catalogs: [
-                ...(Object.values(hrApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
-            ],
-            render: (value) => (
-                <Message
-                    type={
-                        value === 'Согласовано'
-                            ? 'success'
-                            : value === 'Не согласовано' || value === 'Не создано'
-                            ? 'failure'
-                            : 'alert'
-                    }
-                    title={value}
-                    align="center"
-                    width="100%"
-                    icon={null}
-                    maxWidth="150px"
-                />
-            ),
-        },
-        {
-            title: 'Дата заявления',
-            field: 'creationDate',
-            type: 'date',
-            priority: 'one',
-            align: 'center',
-        },
-        {
-            title: 'Номер приказа',
-            field: 'weekends',
-            priority: 'one',
-            align: 'center',
-            render: (value) => value[0].type,
-        },
-        {
-            title: 'Дата выхода',
-            field: 'weekends',
-            priority: 'one',
-            align: 'center',
-            // render: (value) => localizeDate(value.orderDate, 'numeric'),
-            render: (value) => localizeDate(value[0].dates[0].date, 'numeric'),
+            render: (value) => {
+                return `${localizeDate(value?.period?.startDate, 'numeric')} - ${localizeDate(
+                    value?.period?.endDate,
+                    'numeric',
+                )}`
+            },
         },
         {
             title: 'Количество часов',
-            field: 'weekends',
-            priority: 'one',
+            field: 'data',
             align: 'center',
-            // render: (value) => localizeDate(value.orderDate, 'numeric'),
-            render: (value) => value[0].dates[0].hours,
         },
-        // {
-        //     title: 'Статус приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
-        //     width: '220px',
-        //     catalogs: [...(Object.values(hrOrderConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
-        //     render: (value, data) => {
-        //         if (!value.orderStatus) return null
-        //         const title = value.orderStatus + data.dismissalOrder.registrationStatus
-        //         return (
-        //             <Message
-        //                 type={
-        //                     value.orderStatus === 'Подписан'
-        //                         ? 'success'
-        //                         : value.orderStatus === 'Не создан'
-        //                         ? 'failure'
-        //                         : 'alert'
-        //                 }
-        //                 title={title}
-        //                 align="center"
-        //                 width="100%"
-        //                 icon={null}
-        //                 maxWidth="220px"
-        //             />
-        //         )
-        //     },
-        // },
-        { title: 'Файл заявления', priority: 'one', field: 'file', type: 'file' },
-        // {
-        //     title: 'Статус регистрации приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
 
-        //     catalogs: [
-        //         ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
-        //     ],
-        //     render: (value, elements) =>
-        //         elements.dismissalOrder.orderStatus == 'Подписан' && (
-        //             <Message
-        //                 type={
-        //                     value.registrationStatus === 'Зарегистрирован'
-        //                         ? 'success'
-        //                         : value.registrationStatus === 'Не зарегистрирован'
-        //                         ? 'failure'
-        //                         : 'alert'
-        //                 }
-        //                 title={value.registrationStatus}
-        //                 align="center"
-        //                 width="100%"
-        //                 icon={null}
-        //                 maxWidth="150px"
-        //             />
-        //         ),
-        // },
+        {
+            title: 'Файл заявления',
+            priority: 'one',
+            field: 'downloadable',
+            type: 'file',
+            width: '200px',
+            align: 'center',
+            render: (value, data) => {
+                if (data?.status?.downloadApplication)
+                    return (
+                        <Button
+                            text="Скачать файл"
+                            background="rgb(60,210,136)"
+                            textColor="#fff"
+                            id="downloadButton"
+                            width={'150px'}
+                            align="center"
+                            minWidth={'150px'}
+                            height="30px"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                downloadFile('Weekend', data.documentGuid)
+                            }}
+                        />
+                    )
+                else return '-'
+            },
+        },
     ]
 }
 

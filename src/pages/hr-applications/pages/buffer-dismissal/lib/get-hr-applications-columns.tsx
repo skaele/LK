@@ -1,5 +1,5 @@
 import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
-import downloadFile from '@pages/hr-applications/lib/get-file-dismissal'
+import downloadFile from '@pages/hr-applications/lib/get-file'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 
@@ -104,7 +104,7 @@ const getHrApplicationsColumns = (): ColumnProps[] => {
                             minWidth={'150px'}
                             height="30px"
                             onClick={() => {
-                                downloadFile(data.applicationGuid)
+                                downloadFile('Dismissal', data.applicationGuid)
                             }}
                         />
                     )

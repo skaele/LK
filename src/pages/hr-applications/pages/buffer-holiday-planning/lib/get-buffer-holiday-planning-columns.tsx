@@ -1,4 +1,4 @@
-import downloadFile from '@pages/hr-applications/lib/get-file-vacation'
+import downloadFile from '@pages/hr-applications/lib/get-file'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { TypesOfVacation } from '@shared/models/types-of-vacation'
 import { Button } from '@shared/ui/button'
@@ -86,7 +86,7 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                             height="30px"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                downloadFile(data.documentGuid)
+                                downloadFile('Vacation', data.documentGuid)
                             }}
                         />
                     )

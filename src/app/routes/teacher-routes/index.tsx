@@ -49,6 +49,7 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
+    HolidayWorkBufferPage,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -76,7 +77,6 @@ import {
     PROJECT_ACTIVITIES_ROUTE,
 } from '../general-routes'
 import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
-import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
 import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
 import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
 import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'

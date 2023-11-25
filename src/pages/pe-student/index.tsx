@@ -16,7 +16,12 @@ import { UserDataBlock } from './ui/user-data-block'
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
-    const [student, { currentUser }] = useUnit([selectedPEStudentModel.stores.$selectedStudent, $userStore])
+    const [student, { currentUser }, isTeacherLoading, isStudentLoading] = useUnit([
+        selectedPEStudentModel.stores.$selectedStudent,
+        $userStore,
+        peTeacherModel.stores.isLoading,
+        selectedPEStudentModel.stores.$loading,
+    ])
 
     const studentId = currentUser?.user_status === 'staff' ? studentIdFromParams : currentUser?.guid ?? ''
     const [currentPage, setCurrentPage] = useState<number>(0)
@@ -29,7 +34,7 @@ const PEStudent = () => {
         return () => selectedPEStudentModel.events.resetStudentId()
     }, [studentId])
 
-    if (studentId && !student) {
+    if (!student && studentId && !isTeacherLoading && !isStudentLoading) {
         return <Error text="Нет данных" />
     }
 

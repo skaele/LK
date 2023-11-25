@@ -32,7 +32,7 @@ export const PEStudentRegulationPoints = () => {
 
     return (
         <Wrapper>
-            {isAddPointsDisabled && (
+            {!student && isAddPointsDisabled && (
                 <Message type="alert">Чтобы добавить норматив, у студента должно быть хотя бы 20 баллов</Message>
             )}
             {!!peTeacher?.permissions?.length && (

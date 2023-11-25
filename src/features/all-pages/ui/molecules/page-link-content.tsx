@@ -48,6 +48,7 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
     }
 
     .outside {
+        position: static;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -176,7 +177,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                 <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
-                <b>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
+                <b title={title}>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
                 {!!notifications && (
                     <span className="notifications-title">
                         {notifications}{' '}

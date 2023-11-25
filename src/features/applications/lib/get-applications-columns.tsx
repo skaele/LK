@@ -2,9 +2,9 @@ import { ApplicationsConstants } from '@entities/applications/consts'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
-import { ApplicationFileOutput } from '@api/model'
-import { Button } from '@ui/button'
-import { Colors } from '@shared/constants'
+// import { ApplicationFileOutput } from '@api/model'
+// import { Button } from '@ui/button'
+// import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
 import { LinkButton } from '@shared/ui/atoms'
@@ -112,15 +112,15 @@ const transformStatusApplication = (status: string): string => {
     }
 }
 
-const downloadFiles = (links: ApplicationFileOutput[]) => {
-    links.map((item) => {
-        const a = document.createElement('a')
-        a.href = item.url
-        a.download = item.name
-        a.target = '_blank'
-        a.click()
-        a.remove()
-    })
-}
+// const downloadFiles = (links: ApplicationFileOutput[]) => {
+//     links.map((item) => {
+//         const a = document.createElement('a')
+//         a.href = item.url
+//         a.download = item.name
+//         a.target = '_blank'
+//         a.click()
+//         a.remove()
+//     })
+// }
 
 export default getApplicationsColumns

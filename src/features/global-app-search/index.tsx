@@ -129,7 +129,7 @@ const GlobalAppSearch = ({ size = 'large' }: Props) => {
             </Subtext>
             <Shortcuts w="fit-content" gap="4px">
                 {shortCut.map((k) => (
-                    <Key key={k.key}>{k?.icon ?? k.title ?? k.key}</Key>
+                    <Key key={k.key}>{k?.icon ?? k.title ?? ''}</Key>
                 ))}
             </Shortcuts>
         </GlobalAppSearchStyled>

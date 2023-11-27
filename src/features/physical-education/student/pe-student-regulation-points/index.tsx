@@ -26,7 +26,7 @@ export const PEStudentRegulationPoints = () => {
         open(<AddPEStudentRegulationPoints />, 'Добавить норматив')
     }
 
-    const isAddPointsDisabled = points < 20
+    const isAddPointsDisabled = Number(points) < 20
 
     if (!student) return null
 

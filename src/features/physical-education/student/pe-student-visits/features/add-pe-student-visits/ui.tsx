@@ -1,4 +1,6 @@
 import { pEStudentVisitModel } from '@entities/pe-student/model'
+import { peTeacherModel } from '@entities/pe-teacher'
+import { PeTeacherPermission } from '@entities/pe-teacher/types'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
@@ -14,12 +16,21 @@ interface Props {
 
 export const AddPeStudentVisits = ({ studentGuid }: Props) => {
     const [date, setDate] = useState(new Date().toISOString())
-    const [isPendingAddVisit] = useUnit([pEStudentVisitModel.stores.pendingAddVisit])
+    const [isPendingAddVisit, teacher] = useUnit([
+        pEStudentVisitModel.stores.pendingAddVisit,
+        peTeacherModel.stores.peTeacher,
+    ])
 
     const selectedDate = new Date(date)
 
+    const isAdmin = [
+        PeTeacherPermission.AdminAccess,
+        PeTeacherPermission.SuperUser,
+        PeTeacherPermission.SecretaryAccess,
+    ].some((permission) => teacher?.permissions?.includes(permission))
+
     const isDateValid =
-        isWithinInterval(selectedDate, { start: subWeeks(new Date(), 1), end: new Date() }) &&
+        (isWithinInterval(selectedDate, { start: subWeeks(new Date(), 1), end: new Date() }) || isAdmin) &&
         selectedDate.getDay() !== 0 &&
         selectedDate.getDay() !== 1
 

@@ -174,7 +174,7 @@ const pages: HelpfulPages = [
                     {
                         title: 'Памятка студента по действиям в экстремальных ситуациях',
                         visible: 'all',
-                        href: 'https://e.mospolytech.ru/old/storage/files/notes/Metodicheskie_ukazaniya_i_pamyatki_4_Pamyatka_studenta_po_dejstviyam_v_ekstremalnyh_situatsiyah.pdf',
+                        href: 'https://e.mospolytech.ru/old/storage/files/Metodicheskie_ukazaniya_i_pamyatki_4_Pamyatka_studenta_po_dejstviyam_v_ekstremalnyh_situatsiyah.pdf',
                     },
                     {
                         title: 'Алгоритм действий при возникновении паники в толпе или в месте массового пребывания людей',

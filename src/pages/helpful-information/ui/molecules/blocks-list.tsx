@@ -39,6 +39,14 @@ const BlocksList = ({ blocks, isStaff }: Props) => {
                                     return null
                                 }
 
+                                if (href === '') {
+                                    return (
+                                        <p style={{ color: 'var(--blue)' }} key={linkTitle + index}>
+                                            {linkTitle}
+                                        </p>
+                                    )
+                                }
+
                                 return (
                                     <a key={linkTitle + index} href={href} target="_blank" rel="noreferrer">
                                         {linkTitle}

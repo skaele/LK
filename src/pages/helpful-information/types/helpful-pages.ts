@@ -4,6 +4,7 @@ export type Link = {
     title: string
     href: string
     visible: Visibility
+    disabled?: boolean
 }
 
 export type HelpfulPage = {

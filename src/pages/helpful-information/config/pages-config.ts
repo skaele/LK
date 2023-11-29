@@ -162,6 +162,12 @@ const pages: HelpfulPages = [
                 title: 'Безопасность',
                 links: [
                     {
+                        title: 'Действия работников и обучающихся при вооруженном нападении на учебный корпус (антитеррористическая защищенность)',
+                        visible: 'all',
+                        href: '',
+                        disabled: true,
+                    },
+                    {
                         title: 'Если оказались на территории вуза в момент наступившей чрезвычайной ситуации',
                         visible: 'all',
                         href: 'https://e.mospolytech.ru/old/storage/files/notes/Metodicheskie_ukazaniya_i_pamyatki_2_Esli_okazalis_na_territorii_vuza_v_moment_nastupivshej_chrezvychajnoj_situatsii.pdf',

@@ -225,8 +225,7 @@ export const generalRoutes: IRoutes = {
     },
     doclist: {
         id: 'doclist',
-        title: 'Ознакомление с документами',
-        shortTitle: 'Ознакомление с док...',
+        title: 'Ознакомление с документами',
         icon: <FiFileText />,
         path: DOCLIST_ROUTE,
         Component: DecreisDirectivesPage,
@@ -281,7 +280,7 @@ export const generalRoutes: IRoutes = {
     },
     'electronic-interaction-agreement': {
         id: 'electronic-interaction-agreement',
-        title: 'Соглашение об электронном взаимодействии',
+        title: 'Соглашение об электронном взаимодействии',
         shortTitle: 'Соглашение об электр...',
         icon: <HiOutlineClipboardCheck />,
         path: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,

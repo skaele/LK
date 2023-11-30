@@ -2,12 +2,13 @@ import { userModel } from '@entities/user'
 import { vacationScheduleModel } from '@entities/vacation-schedule'
 import Select, { SelectPage } from '@features/select'
 import PageBlock from '@shared/ui/page-block'
-import { CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/atoms'
+import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/atoms'
 import Card from '@ui/card'
 import List from '@ui/list'
 import Subtext from '@ui/subtext'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Vacation } from '../organism'
+import { FiPlus } from 'react-icons/fi'
 
 const calendarUrls = {
     fiveWorkDays:
@@ -39,7 +40,21 @@ const Page = () => {
     return (
         <Wrapper load={vacationScheduleModel.effects.getFx} error={error} data={data}>
             <CenterPage alignItems="flex-start">
-                <PageBlock>
+                <PageBlock
+                    topRightCornerElement={
+                        <Button
+                            onClick={() => {
+                                window.location.replace('https://e.mospolytech.ru/old/index.php?p=vacation')
+                            }}
+                            text="Заполнить график"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth={'35px'}
+                            height="36px"
+                        />
+                    }
+                >
                     <Subtext width="100%" maxWidth="100%">
                         Производственный календарь на 2023 год
                     </Subtext>

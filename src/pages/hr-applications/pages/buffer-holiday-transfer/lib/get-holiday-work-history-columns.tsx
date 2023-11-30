@@ -62,7 +62,6 @@ const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
             field: 'data',
             align: 'center',
         },
-
         {
             title: 'Файл заявления',
             priority: 'one',
@@ -90,6 +89,11 @@ const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
                     )
                 else return '-'
             },
+        },
+        {
+            title: 'Согласие',
+            field: 'data',
+            align: 'center',
         },
     ]
 }

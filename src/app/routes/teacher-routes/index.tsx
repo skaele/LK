@@ -309,8 +309,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-admin': {
         id: 'kpi-admin',
-        // title: 'Экспертиза рейтинговой системы ППС',
-        title: 'Экспертиза рейтинго...',
+        title: 'Экспертиза рейтинговой системы ППС',
         icon: <FiMonitor />,
         path: KPI_ADMIN_ROUTE,
         Component: () => {

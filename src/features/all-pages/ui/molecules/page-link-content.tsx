@@ -179,11 +179,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                 <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
-                <b title={title}>
-                    {isMobile || isTablet
-                        ? getHyphenatedTitle(title, maxFirstWordLength)
-                        : getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}
-                </b>
+                <b title={title}>{getHyphenatedTitle(title, maxFirstWordLength)}</b>
                 {!!notifications && (
                     <span className="notifications-title">
                         {notifications}{' '}

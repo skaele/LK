@@ -20,9 +20,21 @@ const Content = () => {
         data
             .map((job) => {
                 return [
-                    ...job.notTaken.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
-                    ...job.schedule.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
-                    ...job.spent.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                    ...job.notTaken.map((vac) => ({
+                        ...vac,
+                        jobTitle: job.jobTitle,
+                        creationDate: vac.vacation.status.creationDate,
+                    })),
+                    ...job.schedule.map((vac) => ({
+                        ...vac,
+                        jobTitle: job.jobTitle,
+                        creationDate: vac.vacation.status.creationDate,
+                    })),
+                    ...job.spent.map((vac) => ({
+                        ...vac,
+                        jobTitle: job.jobTitle,
+                        creationDate: vac.vacation.status.creationDate,
+                    })),
                 ]
             })
             .flat()

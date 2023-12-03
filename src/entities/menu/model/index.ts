@@ -3,16 +3,18 @@ import { IRoute, IRoutes } from '@app/routes/general-routes'
 import { hiddenRoutes, privateRoutes } from '@app/routes/routes'
 import { teachersHiddenRoutes, teachersPrivateRoutes } from '@app/routes/teacher-routes'
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { SettingsOldType } from '@entities/settings/model'
 import { useStore } from 'effector-react/compat'
-import { createEvent, createStore } from 'effector'
+import { createEvent, createStore, sample } from 'effector'
 import findRoutesByConfig from '../lib/find-routes-by-config'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { $userStore } from '@entities/user/model'
+import { userSettingsModel } from '@entities/settings'
+import { UserSettings } from '@entities/settings/types'
+import { adminLinksModel } from '@entities/admin-links'
 
 export interface Menu {
     allRoutes: IRoutes | null
     visibleRoutes: IRoutes | null
-    leftsideBarRoutes: IRoutes | null
     homeRoutes: IRoutes | null
     currentPage: IRoute | null
     isOpen: boolean
@@ -24,13 +26,10 @@ export const DEFAULT_STUDENT_MOBILE_CONFIG = ['home', 'schedule', 'acad-performa
 export const DEFAULT_PPS_MOBILE_CONFIG = ['home', 'schedule', 'alerts', 'all', 'profile']
 export const DEFAULT_STAFF_MOBILE_CONFIG = ['home', 'doclist', 'alerts', 'all', 'profile']
 
-const getLeftsideBarConfig = (user: User | null): MenuType => {
+const getLeftsideBarConfig = (user: User | null, settings: UserSettings): MenuType => {
     if (!user) return []
 
-    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.OldSettings) || '{}') as SettingsOldType
-    const settingsMenuData =
-        (localSettings[user.id]?.['settings-customize-menu']?.property.pages as unknown as string[]) ??
-        REQUIRED_LEFTSIDE_BAR_CONFIG
+    const settingsMenuData = settings.customizeMenu.pages ?? REQUIRED_LEFTSIDE_BAR_CONFIG
 
     const uniqueRequiredTeacherMenuItems = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG.filter(
         (item) => !settingsMenuData.includes(item),
@@ -47,7 +46,6 @@ const getLeftsideBarConfig = (user: User | null): MenuType => {
 const DEFAULT_STORE: Menu = {
     allRoutes: null,
     visibleRoutes: null,
-    leftsideBarRoutes: null,
     homeRoutes: null,
     currentPage: null,
     isOpen: false,
@@ -88,6 +86,26 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
     return Object.fromEntries(filteredRoutes)
 }
 
+const $leftSidebar = createStore<IRoutes | null>(null)
+
+sample({
+    source: {
+        user: $userStore,
+        settings: userSettingsModel.stores.userSettings,
+        adminLinks: adminLinksModel.store,
+    },
+    filter: ({ user, settings }) => {
+        return Boolean(user) && Boolean(settings)
+    },
+    fn: ({ settings, user, adminLinks }) => {
+        return findRoutesByConfig(
+            getLeftsideBarConfig(user.currentUser, settings!),
+            user.currentUser?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks.data) : privateRoutes(),
+        )
+    },
+    target: $leftSidebar,
+})
+
 const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(changeOpen, (oldState, { isOpen, currentPage }) => ({
         ...oldState,
@@ -108,10 +126,6 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
                 ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user) },
         visibleRoutes: user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
-        leftsideBarRoutes: findRoutesByConfig(
-            getLeftsideBarConfig(user),
-            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
-        ),
         homeRoutes: findRoutesByConfig(
             homeRoutes ??
                 (JSON.parse(
@@ -142,4 +156,8 @@ export const events = {
     clearStore,
     defineMenu,
     changeNotifications,
+}
+
+export const stores = {
+    leftSidebar: $leftSidebar,
 }

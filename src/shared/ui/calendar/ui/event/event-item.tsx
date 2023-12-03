@@ -4,7 +4,7 @@ import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
 import getShortString from '@shared/lib/get-short-string'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import useTheme from '@shared/lib/hooks/use-theme'
+
 import React from 'react'
 import {
     HiOutlineCalendar,
@@ -21,6 +21,9 @@ import { DayCalendarEvent } from '../../types'
 import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'
 import { UIProps } from './types'
+import { useUnit } from 'effector-react'
+import { userSettingsModel } from '@entities/settings'
+import { ThemeVariant } from '@shared/constants'
 
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
 
@@ -48,10 +51,11 @@ const EventItem = (props: Props) => {
         listView = false,
         shortInfo = false,
     } = props
-    const { theme } = useTheme()
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+
     const { isMobile } = useCurrentDevice()
-    const textColor = theme === 'light' ? color.dark3 : color.light3
-    const background = theme === 'light' ? color.transparent1 : color.transparent2
+    const textColor = settings?.appearance.theme === ThemeVariant.Light ? color.dark3 : color.light3
+    const background = settings?.appearance.theme === ThemeVariant.Light ? color.transparent1 : color.transparent2
     const handleClick = () => onClick(props)
     const hideSomeInfo = (isMobile || quantity > 1) && shortInfo
     const extremeSmallSize = isMobile && quantity >= 2 && shortInfo

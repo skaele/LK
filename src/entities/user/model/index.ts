@@ -5,7 +5,7 @@ import createFullName from '@features/home/lib/create-full-name'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
+import { useStore } from 'effector-react'
 import clearAllStores from '../lib/clear-all-stores'
 import { clearTokens } from '../lib/clear-tokens'
 

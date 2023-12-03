@@ -1,8 +1,27 @@
-import { IColorPalette, MEDIA_QUERIES } from '@shared/constants'
-import useTheme from '@shared/lib/hooks/use-theme'
+import { userSettingsModel } from '@entities/settings'
+import { IColorPalette, MEDIA_QUERIES, ThemeVariant } from '@shared/constants'
+import { useUnit } from 'effector-react'
 import { pulse } from 'global-styles'
 import React from 'react'
 import styled from 'styled-components'
+
+type Props = {
+    timeInterval?: string
+    color: IColorPalette
+    isCurrentEvent: boolean
+}
+
+export const TimeIndicator = ({ timeInterval, color, isCurrentEvent }: Props) => {
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const theme = settings?.appearance.theme
+    const background = theme === ThemeVariant.Light ? color.main : color.light2
+    return (
+        <TimeIndicatorStyled>
+            <TimeCircle start={isCurrentEvent} color={background} />
+            {timeInterval && <TimeIntervalStyled>{timeInterval}</TimeIntervalStyled>}
+        </TimeIndicatorStyled>
+    )
+}
 
 const TimeCircle = styled.div`
     min-width: 10px;
@@ -29,20 +48,3 @@ const TimeIntervalStyled = styled.span`
         font-size: 0.7rem;
     }
 `
-
-type Props = {
-    timeInterval?: string
-    color: IColorPalette
-    isCurrentEvent: boolean
-}
-
-export const TimeIndicator = ({ timeInterval, color, isCurrentEvent }: Props) => {
-    const { theme } = useTheme()
-    const background = theme === 'light' ? color.main : color.light2
-    return (
-        <TimeIndicatorStyled>
-            <TimeCircle start={isCurrentEvent} color={background} />
-            {timeInterval && <TimeIntervalStyled>{timeInterval}</TimeIntervalStyled>}
-        </TimeIndicatorStyled>
-    )
-}

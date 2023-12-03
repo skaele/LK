@@ -1,6 +1,3 @@
-import { settingsModel } from '@entities/settings'
-import addPageToHome from '@features/all-pages/lib/add-page-to-home'
-import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import LinkMoreButton from '@features/link-more-button'
 import { Colors, IColors } from '@shared/constants'
 import BlockWrapper from '@ui/block/styles'
@@ -13,6 +10,109 @@ import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 import styled from 'styled-components'
 import Icon from '../atoms/icon'
 import { PageLinkProps } from './page-link'
+import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
+import { userSettingsModel } from '@entities/settings'
+import { useUnit } from 'effector-react'
+
+const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
+    const {
+        color,
+        shadow,
+        notifications,
+        maxWordLength,
+        title,
+        isNew,
+        icon,
+        isExternalPage,
+        isOldLkPage,
+        mode,
+        id,
+        background,
+        orientation = 'vertical',
+    } = props
+
+    const isVertical = orientation === 'vertical'
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const isAdded = settings?.homePage.pages.includes(id)
+
+    const maxFirstWordLength = 11
+
+    const getHyphenatedTitle = useMemo(
+        () => (title: string, maxLength: number) => {
+            const firstWord = title.split(' ')[0]
+
+            return firstWord.length > maxLength && firstWord.length !== maxLength + 1 && isVertical
+                ? `${title.substring(0, maxLength)}-${title.substring(maxLength, title.length)}`
+                : title
+        },
+        [],
+    )
+
+    return (
+        <PageLinkWrapper
+            padding="0"
+            width={'100%'}
+            maxWidth={'100%'}
+            height={isVertical ? '135px' : '60px'}
+            isVertical={isVertical}
+            justifyContent="center"
+            shadow={shadow}
+            color={color.length ? color : 'blue'}
+            hasNotifications={!!notifications}
+            background={background}
+        >
+            {(isOldLkPage || isExternalPage) && isVertical && (
+                <LinkIcon>
+                    {isOldLkPage && <FiArrowLeftCircle title="Раздел в старом ЛК" />}
+                    {isExternalPage && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
+                </LinkIcon>
+            )}
+            <div className="outside">
+                <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
+                    {icon ?? <HiOutlineFolder />}
+                </Icon>
+                <b title={title}>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
+                {!!notifications && (
+                    <span className="notifications-title">
+                        {notifications}{' '}
+                        {getCorrectWordForm(notifications, {
+                            one: 'уведомление',
+                            zero: 'уведомлений',
+                            twoToFour: 'уведомления',
+                            fiveToNine: 'уведомлений',
+                        })}
+                    </span>
+                )}
+            </div>
+            {mode === 'use' && <LinkMoreButton route={props} />}
+            {mode === 'add' ? (
+                isAdded ? (
+                    <Button
+                        icon={<FiX />}
+                        width="80px"
+                        align="center"
+                        textColor="var(--red)"
+                        background="var(--block)"
+                        onClick={() => deletePageFromHome({ pageId: id })}
+                    />
+                ) : (
+                    <Button
+                        icon={<FiPlus />}
+                        //  onClick={() => open(<WhatsNew />)}
+                        width="80px"
+                        textColor="var(--green)"
+                        align="center"
+                        background="var(--block)"
+                        onClick={() => addPageToHome({ pageId: id })}
+                    />
+                )
+            ) : null}
+            {isNew && <span className="new">New</span>}
+        </PageLinkWrapper>
+    )
+}
+
+export default PageLinkContent
 
 export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical: boolean; hasNotifications: boolean }>`
     position: relative;
@@ -119,103 +219,3 @@ const LinkIcon = styled.div`
     left: 12px;
     opacity: 0.7;
 `
-
-const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
-    const {
-        color,
-        shadow,
-        notifications,
-        maxWordLength,
-        title,
-        isNew,
-        icon,
-        isExternalPage,
-        isOldLkPage,
-        mode,
-        id,
-        background,
-        orientation = 'vertical',
-    } = props
-
-    const isVertical = orientation === 'vertical'
-    const { settings } = settingsModel.selectors.useSettings()
-    const isAdded = !!(settings['settings-home-page'].property.pages as string[])?.find((el) => el === id)
-
-    const maxFirstWordLength = 11
-
-    const getHyphenatedTitle = useMemo(
-        () => (title: string, maxLength: number) => {
-            const firstWord = title.split(' ')[0]
-
-            return firstWord.length > maxLength && firstWord.length !== maxLength + 1 && isVertical
-                ? `${title.substring(0, maxLength)}-${title.substring(maxLength, title.length)}`
-                : title
-        },
-        [],
-    )
-
-    return (
-        <PageLinkWrapper
-            padding="0"
-            width={'100%'}
-            maxWidth={'100%'}
-            height={isVertical ? '135px' : '60px'}
-            isVertical={isVertical}
-            justifyContent="center"
-            shadow={shadow}
-            color={color.length ? color : 'blue'}
-            hasNotifications={!!notifications}
-            background={background}
-        >
-            {(isOldLkPage || isExternalPage) && isVertical && (
-                <LinkIcon>
-                    {isOldLkPage && <FiArrowLeftCircle title="Раздел в старом ЛК" />}
-                    {isExternalPage && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
-                </LinkIcon>
-            )}
-            <div className="outside">
-                <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
-                    {icon ?? <HiOutlineFolder />}
-                </Icon>
-                <b title={title}>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
-                {!!notifications && (
-                    <span className="notifications-title">
-                        {notifications}{' '}
-                        {getCorrectWordForm(notifications, {
-                            one: 'уведомление',
-                            zero: 'уведомлений',
-                            twoToFour: 'уведомления',
-                            fiveToNine: 'уведомлений',
-                        })}
-                    </span>
-                )}
-            </div>
-            {mode === 'use' && <LinkMoreButton route={props} />}
-            {mode === 'add' ? (
-                isAdded ? (
-                    <Button
-                        icon={<FiX />}
-                        width="80px"
-                        align="center"
-                        textColor="var(--red)"
-                        background="var(--block)"
-                        onClick={() => deletePageFromHome(id, settings)}
-                    />
-                ) : (
-                    <Button
-                        icon={<FiPlus />}
-                        //  onClick={() => open(<WhatsNew />)}
-                        width="80px"
-                        textColor="var(--green)"
-                        align="center"
-                        background="var(--block)"
-                        onClick={() => addPageToHome(id, settings)}
-                    />
-                )
-            ) : null}
-            {isNew && <span className="new">New</span>}
-        </PageLinkWrapper>
-    )
-}
-
-export default PageLinkContent

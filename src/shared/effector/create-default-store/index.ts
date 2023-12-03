@@ -95,5 +95,6 @@ export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArg
         events: {
             clearStore,
         },
+        store: $store,
     }
 }

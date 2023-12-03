@@ -1,6 +1,7 @@
 export enum BrowserStorageKey {
     OldSettings = 'NewSettings',
-    NewSettings = 'NewSettingsV2',
+    // TODO
+    Settings = 'SettingsV2',
     HomeRoutes = 'HomeRoutes',
     Token = 'Token',
     JWT = 'JWT',

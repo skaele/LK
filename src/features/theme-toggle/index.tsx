@@ -1,11 +1,12 @@
-import { settingsModel } from '@entities/settings'
+import { userSettingsModel } from '@entities/settings'
 import { IconWrapper } from '@pages/profile/ui/top/styles'
-import { Colors } from '@shared/constants'
-import useTheme from '@shared/lib/hooks/use-theme'
+import { Colors, ThemeVariant } from '@shared/constants'
 import { Button } from '@shared/ui/button'
 import ToggleArea, { ToggleItem } from '@shared/ui/organisms/toggle-area'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import { FiMoon, FiSun } from 'react-icons/fi'
+import { switchTheme } from './model'
 
 type Props = {
     type: 'toggle' | 'h-button' | 'v-button'
@@ -13,10 +14,10 @@ type Props = {
 }
 
 const ThemeToggle = ({ type, onClick }: Props) => {
-    const { theme, switchTheme } = useTheme()
-    const { settings } = settingsModel.selectors.useSettings()
-    const apparanceSettings = settings?.['settings-appearance'].property
-    const [isLight, setIsLight] = useState(theme === 'light')
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const theme = settings?.appearance.theme
+    const isLight = theme === ThemeVariant.Light
+
     const icon = isLight ? <FiSun /> : <FiMoon />
     const themeWord = isLight ? 'Светлая' : 'Темная'
     const text = `Тема: ${themeWord}`
@@ -24,8 +25,8 @@ const ThemeToggle = ({ type, onClick }: Props) => {
     const [toggles, setToggles] = useState<ToggleItem[]>([
         {
             title: 'Темная тема',
-            state: theme !== 'light',
-            action: (state: boolean) => switchTheme(state),
+            state: !isLight,
+            action: (isDark: boolean) => switchTheme({ isDark }),
         },
     ])
 
@@ -33,37 +34,23 @@ const ThemeToggle = ({ type, onClick }: Props) => {
         setToggles([
             {
                 title: 'Темная тема',
-                state: theme !== 'light',
-                action: (state: boolean) => switchTheme(state),
+                state: !isLight,
+                action: (isDark: boolean) => switchTheme({ isDark }),
             },
         ])
     }, [theme])
 
-    useEffect(() => {
-        setIsLight(theme === 'light')
-    }, [theme])
-
     const changeTheme = () => {
-        switchTheme(isLight)
-        setIsLight((prev) => !prev)
+        switchTheme({ isDark: !isLight })
         onClick?.()
     }
 
-    if (type === 'toggle')
-        return (
-            <ToggleArea
-                disabled={!!apparanceSettings?.scheduledLightTheme}
-                title={''}
-                toggles={toggles}
-                setToggles={setToggles}
-            />
-        )
+    if (type === 'toggle') return <ToggleArea title={''} toggles={toggles} setToggles={setToggles} />
 
     if (type === 'h-button') {
         return (
             <Button
                 notActiveClickMessage="У вас включена тема по расписанию. Если хотите управлять темой вручную, перейдите в настройки -> внешний вид"
-                isActive={!apparanceSettings.scheduledLightTheme}
                 text={text}
                 background="var(--block)"
                 icon={icon}
@@ -77,7 +64,6 @@ const ThemeToggle = ({ type, onClick }: Props) => {
     return (
         <Button
             notActiveClickMessage="У вас включена тема по расписанию. Если хотите управлять темой вручную, перейдите в настройки -> внешний вид"
-            isActive={!apparanceSettings.scheduledLightTheme}
             padding="0"
             background={Colors.white.transparent2}
             icon={

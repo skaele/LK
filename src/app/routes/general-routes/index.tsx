@@ -3,16 +3,14 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
-    Account,
     AlertsPage,
     AllPages,
     AllStudentsPage,
     AllTeachersPage,
-    Appearance,
     CantAccessPage,
     DecreisDirectivesPage,
     ElectronicInteractionAgreementPage,
@@ -32,26 +30,13 @@ import {
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
-    Security,
-    SettingsPage,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
-import {
-    FiBell,
-    FiClipboard,
-    FiClock,
-    FiFileText,
-    FiHome,
-    FiLock,
-    FiMenu,
-    FiSettings,
-    FiUser,
-    FiXCircle,
-} from 'react-icons/fi'
+import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiXCircle } from 'react-icons/fi'
 import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 
@@ -212,17 +197,17 @@ export const generalRoutes: IRoutes = {
         withoutBackButton: true,
         pageSize: 'big',
     },
-    settings: {
-        id: 'settings',
-        title: 'Настройки',
-        icon: <FiSettings />,
-        path: SETTINGS_ROUTE,
-        Component: SettingsPage,
-        color: 'grey',
-        isTemplate: true,
-        show: true,
-        group: 'GENERAL',
-    },
+    // settings: {
+    //     id: 'settings',
+    //     title: 'Настройки',
+    //     icon: <FiSettings />,
+    //     path: SETTINGS_ROUTE,
+    //     Component: SettingsPage,
+    //     color: 'grey',
+    //     isTemplate: true,
+    //     show: true,
+    //     group: 'GENERAL',
+    // },
     doclist: {
         id: 'doclist',
         title: 'Ознакомление с документами',
@@ -493,52 +478,52 @@ export const generalHiddenRoutes: IRoutes = {
         show: false,
         group: 'OTHER',
     },
-    'settings-appearance': {
-        id: 'settings-appearance',
-        title: 'Настройки. Внешний вид',
-        icon: <BiPalette />,
-        path: SETTINGS_APPEARANCE_ROUTE,
-        Component: Appearance,
-        color: 'purple',
-        isTemplate: true,
-        show: true,
-        group: 'OTHER',
-        isSubPage: true,
-        subPageHeaderTitle: 'Внешний вид',
-        fallbackPrevPage: SETTINGS_ROUTE,
+    // 'settings-appearance': {
+    //     id: 'settings-appearance',
+    //     title: 'Настройки. Внешний вид',
+    //     icon: <BiPalette />,
+    //     path: SETTINGS_APPEARANCE_ROUTE,
+    //     Component: Appearance,
+    //     color: 'purple',
+    //     isTemplate: true,
+    //     show: true,
+    //     group: 'OTHER',
+    //     isSubPage: true,
+    //     subPageHeaderTitle: 'Внешний вид',
+    //     fallbackPrevPage: SETTINGS_ROUTE,
 
-        backButtonText: 'Настройки',
-    },
-    'settings-personal': {
-        id: 'settings-personal',
-        title: 'Настройки. Аккаунт',
-        icon: <FiUser />,
-        path: SETTINGS_PERSONAl_ROUTE,
-        Component: Account,
-        color: 'pink',
-        isTemplate: true,
-        show: true,
-        group: 'OTHER',
-        isSubPage: true,
-        subPageHeaderTitle: 'Аккаунт',
-        fallbackPrevPage: SETTINGS_ROUTE,
-        backButtonText: 'Настройки',
-    },
-    'settings-security': {
-        id: 'settings-security',
-        title: 'Настройки. Безопасность',
-        icon: <FiLock />,
-        path: SETTINGS_SECURITY_ROUTE,
-        Component: Security,
-        color: 'green',
-        isTemplate: true,
-        show: true,
-        group: 'OTHER',
-        isSubPage: true,
-        subPageHeaderTitle: 'Безопасность',
-        fallbackPrevPage: SETTINGS_ROUTE,
-        backButtonText: 'Настройки',
-    },
+    //     backButtonText: 'Настройки',
+    // },
+    // 'settings-personal': {
+    //     id: 'settings-personal',
+    //     title: 'Настройки. Аккаунт',
+    //     icon: <FiUser />,
+    //     path: SETTINGS_PERSONAl_ROUTE,
+    //     Component: Account,
+    //     color: 'pink',
+    //     isTemplate: true,
+    //     show: true,
+    //     group: 'OTHER',
+    //     isSubPage: true,
+    //     subPageHeaderTitle: 'Аккаунт',
+    //     fallbackPrevPage: SETTINGS_ROUTE,
+    //     backButtonText: 'Настройки',
+    // },
+    // 'settings-security': {
+    //     id: 'settings-security',
+    //     title: 'Настройки. Безопасность',
+    //     icon: <FiLock />,
+    //     path: SETTINGS_SECURITY_ROUTE,
+    //     Component: Security,
+    //     color: 'green',
+    //     isTemplate: true,
+    //     show: true,
+    //     group: 'OTHER',
+    //     isSubPage: true,
+    //     subPageHeaderTitle: 'Безопасность',
+    //     fallbackPrevPage: SETTINGS_ROUTE,
+    //     backButtonText: 'Настройки',
+    // },
     'settings-home-page': {
         id: 'settings-home-page',
         title: 'Настройки. Главная',

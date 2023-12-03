@@ -1,4 +1,3 @@
-import useTheme from '@shared/lib/hooks/use-theme'
 import { appStarted } from '@shared/models/app-started'
 import ErrorBoundary from '@shared/ui/error-boundary'
 import React, { useEffect } from 'react'
@@ -16,8 +15,6 @@ const Background = styled.div`
 `
 
 const App = () => {
-    useTheme()
-
     useEffect(() => {
         appStarted()
     }, [])

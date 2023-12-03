@@ -1,7 +1,6 @@
 import { menuModel } from '@entities/menu'
 import { paymentsModel } from '@entities/payments'
 import { scheduleModel } from '@entities/schedule'
-import { settingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import GlobalAppSearch from '@features/global-app-search'
 import Links from '@features/home/ui/links'
@@ -15,6 +14,7 @@ import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import HomeTopPlate from './ui/home-top-plate'
 import { useUnit } from 'effector-react'
+import { userSettingsModel } from '@entities/settings'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -57,7 +57,7 @@ const Home = () => {
         }
     }, [schedule])
 
-    const { news } = settingsModel.selectors.useSettings().settings['settings-home-page'].property
+    const settings = useUnit(userSettingsModel.stores.userSettings)
 
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>
@@ -81,7 +81,7 @@ const Home = () => {
                             <UserInfo />
                         </Flex>
                         <ScheduleAndNotification />
-                        {!!news && <AlertsWidget />}
+                        {!!settings?.homePage.hasNews && <AlertsWidget />}
                     </Block>
                 </CenterPage>
             </HomePageStyled>

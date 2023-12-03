@@ -1,56 +1,28 @@
 import { IRoute } from '@app/routes/general-routes'
 import { contextMenuModel } from '@entities/context-menu'
-import { settingsModel } from '@entities/settings'
+import { userSettingsModel } from '@entities/settings'
+import { addPageToHome, addPageToSidebar, deletePageFromHome, deletePageFromSidebar } from '@features/all-pages/model'
 import { Button } from '@ui/button'
 import { Divider } from '@ui/divider'
+import { useUnit } from 'effector-react'
+import React from 'react'
 import { FiPlus, FiXCircle } from 'react-icons/fi'
 import styled from 'styled-components'
 import Icon from '../all-pages/ui/atoms/icon'
-import React from 'react'
-import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
-import addPageToHome from '@features/all-pages/lib/add-page-to-home'
-import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
-import { menuModel } from '@entities/menu'
-import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { userModel } from '@entities/user'
-
-const ContextContentWrapper = styled.div`
-    .top {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px;
-    }
-`
-
-const PageName = styled.span`
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    font-size: 0.8em;
-    font-weight: 500;
-`
 
 const ContextContent = (props: IRoute) => {
     const { id, icon, title, color } = props
-    const { settings } = settingsModel.selectors.useSettings()
-    const { data } = userModel.selectors.useUser()
-    const menu = menuModel.selectors.useMenu()
-    const isAddedToHome = (settings['settings-home-page'].property.pages as string[])?.find((el) => el === id)
-    const isAddedToMenu = (settings['settings-customize-menu'].property.pages as string[])?.find((el) => el === id)
-    const requiredLeftsideBarItems =
-        data.user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const isAddedToHome = settings?.homePage.pages.includes(id)
+    const isAddedToMenu = settings?.customizeMenu.pages.includes(id)
 
     const handleAddToHome = () => {
-        addPageToHome(id, settings)
+        addPageToHome({ pageId: id })
         contextMenuModel.events.close()
     }
 
     const handleAddToMenu = () => {
-        addPageToSidebar(id, settings, Object.keys(menu.leftsideBarRoutes ?? {}).length ?? 0, requiredLeftsideBarItems)
+        addPageToSidebar({ pageId: id })
         contextMenuModel.events.close()
     }
 
@@ -71,7 +43,7 @@ const ContextContent = (props: IRoute) => {
                     align="left"
                     background="var(--block)"
                     onClick={() => {
-                        deletePageFromHome(id, settings)
+                        deletePageFromHome({ pageId: id })
                         contextMenuModel.events.close()
                     }}
                 />
@@ -101,7 +73,7 @@ const ContextContent = (props: IRoute) => {
                     width="100%"
                     align="left"
                     background="var(--block)"
-                    onClick={() => deletePageFromSidebar(id, settings, requiredLeftsideBarItems)}
+                    onClick={() => deletePageFromSidebar({ pageId: id })}
                 />
             )}
         </ContextContentWrapper>
@@ -109,3 +81,22 @@ const ContextContent = (props: IRoute) => {
 }
 
 export default ContextContent
+
+const ContextContentWrapper = styled.div`
+    .top {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px;
+    }
+`
+
+const PageName = styled.span`
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 0.8em;
+    font-weight: 500;
+`

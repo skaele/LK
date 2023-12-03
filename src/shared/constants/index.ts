@@ -24,18 +24,10 @@ export const DEFAULT_API_LOAD_ERROR_MESSAGE =
 export const SHORT_CUT_LINKS_LIMIT_SIZE = 4
 
 export const ADDITIONAL_MENU_ITEMS_LIMIT_SIZE = 3
+export const SIDEBAR_ITEMS_LIMIT_SIZE = 7
 
 export const REQUIRED_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
 export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'download-agreements', 'all']
-
-export const DEFAULT_SETTINGS: IDefaultSettings = {
-    menu: REQUIRED_LEFTSIDE_BAR_CONFIG,
-    theme: ThemeVariant.Light,
-    general: {
-        notifications: false,
-    },
-    shortCutLinks: [0, 1, 2, 3],
-}
 
 export const UNION_ORGANIZATION = 'https://lk.eseur.ru/signup'
 export const RECEPTION_COMMISSION =
@@ -104,7 +96,6 @@ export const Colors: IColors = {
         light2: '#99a3ff',
         light3: '#bac0ff',
         transparent1: '#bac0ffa3',
-        // aaaaaaaaaaaaaaaaaaaaaaaaaa i love maria))))for real what competetive adv
         transparent2: '#bac0ff42',
         transparent3: '#bac0ff17',
     },

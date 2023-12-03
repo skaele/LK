@@ -1,5 +1,5 @@
 import { menuModel } from '@entities/menu'
-import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
+import { UserSettings } from '@entities/settings/types'
 import { lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
@@ -31,7 +31,7 @@ const DEFAULT_STORE: TStore = {
     loaded: false,
 }
 
-const fetchNotifications = createEffect(async ({ settings }: { settings: NotificationsSettingsType }) => {
+const fetchNotifications = createEffect(async ({ settings }: { settings: UserSettings['notifications'] }) => {
     try {
         const { data } = await lkNotificationApi.get()
 
@@ -76,7 +76,7 @@ const removeNotificationFromPageFx = (pageId?: string) => {
 }
 
 const add = createEvent<TNotification>()
-const initialize = createEvent<{ settings: NotificationsSettingsType }>()
+const initialize = createEvent<{ settings: UserSettings['notifications'] }>()
 const clearVisibleById = createEvent<string>()
 const clearById = createEvent<{ id: string; pageId?: string }>()
 const clearAll = createEvent()

@@ -1,4 +1,4 @@
-import { Effect, Event } from 'effector'
+import { Effect, Event, Store } from 'effector'
 
 export interface TemplateStore<DataType, PreparedDataType> {
     data: DataType | null
@@ -23,6 +23,7 @@ export interface TemplateStoreOutput<DataType, PreparedDataType, APIGetArgs, API
     events: {
         clearStore: Event<void>
     }
+    store: Store<TemplateStore<DataType, PreparedDataType>>
 }
 
 interface APIType<APIGetArgs, DataType, APIPostArgs> {

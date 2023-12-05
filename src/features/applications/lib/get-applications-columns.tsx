@@ -95,6 +95,7 @@ const getApplicationsColumns = (): ColumnProps[] => {
         // },
     ]
 }
+//deploy
 
 const transformStatusApplication = (status: string): string => {
     switch (status) {

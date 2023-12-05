@@ -26,13 +26,13 @@ export const PEStudentRegulationPoints = () => {
         open(<AddPEStudentRegulationPoints />, 'Добавить норматив')
     }
 
-    const isAddPointsDisabled = points < 20
+    const isAddPointsDisabled = Number(points) < 20
 
     if (!student) return null
 
     return (
         <Wrapper>
-            {isAddPointsDisabled && (
+            {!student && isAddPointsDisabled && (
                 <Message type="alert">Чтобы добавить норматив, у студента должно быть хотя бы 20 баллов</Message>
             )}
             {!!peTeacher?.permissions?.length && (

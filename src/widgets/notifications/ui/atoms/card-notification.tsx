@@ -66,10 +66,12 @@ const CardNotification = ({ data }: Props) => {
         <CardNotificationWrapper>
             <InfoNotification>
                 <TitleCardNotification>{data.event || data.post}</TitleCardNotification>
-                {data.startDate && (
+                {data.startDate && data.endDate !== '0000-00-00' ? (
                     <Subtext>
                         Период: {localizeDate(data.startDate, 'numeric')} - {localizeDate(data.endDate, 'numeric')}
                     </Subtext>
+                ) : (
+                    <Subtext>Дата: {localizeDate(data.startDate, 'numeric')}</Subtext>
                 )}
             </InfoNotification>
             <BlockButtons>

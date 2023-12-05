@@ -1,14 +1,11 @@
 import { ApplicationsConstants } from '@entities/applications/consts'
+import { LinkButton } from '@shared/ui/atoms'
+import { Tooltip } from '@shared/ui/tooltip'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
-// import { ApplicationFileOutput } from '@api/model'
-// import { Button } from '@ui/button'
-// import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
-import { LinkButton } from '@shared/ui/atoms'
-import { Tooltip } from '@shared/ui/tooltip'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -111,16 +108,5 @@ const transformStatusApplication = (status: string): string => {
             return status
     }
 }
-
-// const downloadFiles = (links: ApplicationFileOutput[]) => {
-//     links.map((item) => {
-//         const a = document.createElement('a')
-//         a.href = item.url
-//         a.download = item.name
-//         a.target = '_blank'
-//         a.click()
-//         a.remove()
-//     })
-// }
 
 export default getApplicationsColumns

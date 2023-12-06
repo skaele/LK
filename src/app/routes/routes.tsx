@@ -122,7 +122,7 @@ export const privateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     payments: {
         id: 'payments',
-        title: 'Договоры и оплаты',
+        title: 'Договоры и оплаты',
         icon: <BiRuble />,
         path: PAYMENTS_ROUTE,
         Component: PaymentsPage,
@@ -133,7 +133,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     dormitory: {
         id: 'dormitory',
-        title: 'Список ожидания на заселение в общежитие',
+        title: 'Список ожидания на заселение в общежитие',
         icon: <MdOutlineBedroomChild />,
         path: DORMITORY,
         Component: DormitoryPage,
@@ -190,7 +190,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     'application-for-superior-room': {
         id: 'application-for-superior-room',
-        title: 'Заявка на комнату повышенной комфортности',
+        title: 'Заявка на комнату повышенной комфортности',
         icon: <MdOutlineBedroomChild />,
         path: APPLICATION_FOR_SUPERIOR_ROOM_ROUTE,
         Component: ApplicationForSuperiorRoom,

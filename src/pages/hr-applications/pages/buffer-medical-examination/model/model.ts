@@ -50,6 +50,7 @@ const useBufferMedicalExamination = () => {
     return {
         data: listMedicalExamination,
         loading: useStore(sendBufferMedicalExaminationFx.pending),
+        getDataLoading: useStore(loadBufferMedicalExaminationFx.pending),
         error: error,
     }
 }

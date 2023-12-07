@@ -23,7 +23,7 @@ const MedicalExamination = () => {
     const {
         data: { dataUserApplication, dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
-    const { loading: loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false
@@ -63,12 +63,9 @@ const MedicalExamination = () => {
                             setData={setForm as any}
                             specialFieldsNameConfig={specialFieldsName}
                         />
-
                         <SubmitButton
                             text={'Отправить'}
-                            action={() =>
-                                SendHrFormMedicalExamination(ApplicationFormCodes.HOLIDAY_WORK, [form], setCompleted)
-                            }
+                            action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
                             isLoading={loading}
                             completed={completed}
                             setCompleted={setCompleted}

@@ -1,4 +1,3 @@
-import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
@@ -7,6 +6,7 @@ import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
 import { BufferMedicalExamination, BufferMedicalExaminationForm, BufferMedicalExaminationOrder } from '../types'
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 interface MedicalExaminationStore {
     listMedicalExamination: BufferMedicalExaminationOrder[] | null
@@ -49,7 +49,8 @@ const useBufferMedicalExamination = () => {
     const { listMedicalExamination, error } = useStore($medicalExaminationStore)
     return {
         data: listMedicalExamination,
-        loading: useStore(loadBufferMedicalExaminationFx.pending),
+        loading: useStore(sendBufferMedicalExaminationFx.pending),
+        getDataLoading: useStore(loadBufferMedicalExaminationFx.pending),
         error: error,
     }
 }
@@ -65,7 +66,7 @@ sample({
         type: 'success' as MessageType,
         time: 0,
     }),
-    target: popUpMessageModelHr.events.evokePopUpMessage,
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 sample({
@@ -75,7 +76,7 @@ sample({
         type: 'hrFailure' as MessageType,
         time: 3000,
     }),
-    target: popUpMessageModelHr.events.evokePopUpMessage,
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_STORE)

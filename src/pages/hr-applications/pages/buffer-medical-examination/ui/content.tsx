@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
 
 const Content = () => {
-    const { data, loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const {
         data: { dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
@@ -49,7 +49,7 @@ const Content = () => {
                     />
                 </Link>
             </Flex>
-            {loading ? (
+            {getDataLoading ? (
                 <Flex w="100%" jc="center" ai="center">
                     <Loading />
                 </Flex>

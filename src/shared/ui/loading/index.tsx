@@ -13,6 +13,13 @@ const LoadingStyled = styled.img`
     width: 40px;
 `
 
-export function Loading(props: LoadingProps) {
-    return <LoadingStyled {...props} src={LoadingImage} alt="loading" className="loading-circle" />
+export function Loading({ className, ...props }: LoadingProps) {
+    return (
+        <LoadingStyled
+            {...props}
+            src={LoadingImage}
+            alt="loading"
+            className={`loading-circle${className ? ' ' + className : ''}`}
+        />
+    )
 }

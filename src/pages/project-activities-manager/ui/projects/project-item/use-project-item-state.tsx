@@ -1,81 +1,123 @@
 import React, { useContext } from 'react'
 import { StudentActivityData } from '@features/table-project-activities-manager'
-import { createContext, ReactNode, useCallback, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
+import { createDefaultStore } from '@shared/effector/create-default-store'
+import {
+    getCurrentSemesterProjectActivities,
+    getPrevSemesterProjectActivities,
+    saveProjectActivities,
+} from '@api/project-activities-manager'
+import { useStore } from 'effector-react'
+
+const useCreateLocalStoreCurrentSemester = () => {
+    const [store] = useState(() =>
+        createDefaultStore({
+            api: {
+                get: getCurrentSemesterProjectActivities,
+                post: saveProjectActivities,
+            },
+        }),
+    )
+
+    return store
+}
+
+const useCreateLocalStorePrevSemester = () => {
+    const [store] = useState(() =>
+        createDefaultStore({
+            api: {
+                get: getPrevSemesterProjectActivities,
+                post: saveProjectActivities,
+            },
+        }),
+    )
+
+    return store
+}
 
 type SemesterProjectActivityStoreData = {
-    data: StudentActivityData[]
+    data: StudentActivityData[] | null
     editedData: Record<number, StudentActivityData>
 }
 
-type ProjectItemStoreData = {
-    prevSemester: SemesterProjectActivityStoreData
-    currentSemester: SemesterProjectActivityStoreData
-}
-
 const INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY: SemesterProjectActivityStoreData = {
-    data: [],
+    data: null,
     editedData: {},
 }
 
-const INITIAL_DATA_PROJECT_ITEM: ProjectItemStoreData = {
-    prevSemester: INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY,
-    currentSemester: INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY,
-}
+export const useProjectItemState = () => {
+    const currentSemesterStore = useCreateLocalStoreCurrentSemester()
+    const prevSemesterStore = useCreateLocalStorePrevSemester()
 
-export type ProjectItemState = {
-    state: ProjectItemStoreData
-    changeRow: (data: StudentActivityData) => void
-}
+    const currentSemesterSaving = useStore(currentSemesterStore.effects.postFx.pending)
+    const prevSemesterSaving = useStore(prevSemesterStore.effects.postFx.pending)
 
-export const useProjectItemState = (): ProjectItemState => {
-    const [state, setState] = useState<ProjectItemStoreData>(INITIAL_DATA_PROJECT_ITEM)
+    const [currentSemesterState, setCurrentSemesterState] = useState<SemesterProjectActivityStoreData>(
+        INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY,
+    )
+    const [prevSemesterState, setPrevSemesterState] = useState<SemesterProjectActivityStoreData>(
+        INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY,
+    )
 
     const changeRow = (data: StudentActivityData) => {
         if (data.isPrevSemester) {
-            return setState({
-                ...state,
-                prevSemester: {
-                    ...state.prevSemester,
-                    editedData: {
-                        ...state.prevSemester.editedData,
-                        [data.studentId]: data,
-                    },
+            return setPrevSemesterState({
+                ...prevSemesterState,
+                editedData: {
+                    ...prevSemesterState.editedData,
+                    [data.studentId]: { ...data },
                 },
             })
         }
 
-        console.log('prev state', state.currentSemester.editedData)
-
-        console.log('set new state', {
-            ...state.currentSemester.editedData,
-            [data.studentId]: data,
-        })
-
-        return setState({
-            ...state,
-            currentSemester: {
-                ...state.currentSemester,
-                editedData: {
-                    ...state.currentSemester.editedData,
-                    [data.studentId]: data,
-                },
+        return setCurrentSemesterState({
+            ...currentSemesterState,
+            editedData: {
+                ...currentSemesterState.editedData,
+                [data.studentId]: { ...data },
             },
         })
     }
 
+    const updateData = (isPrevSemester: boolean, data: StudentActivityData[]) => {
+        if (isPrevSemester) {
+            return setPrevSemesterState({
+                data: [...data],
+                editedData: {},
+            })
+        }
+
+        return setCurrentSemesterState({
+            data: [...data],
+            editedData: {},
+        })
+    }
+
     return {
-        state,
+        updateData,
+        currentSemesterState,
+        prevSemesterState,
         changeRow,
+        currentSemesterStore,
+        prevSemesterStore,
+        currentSemesterSaving,
+        prevSemesterSaving,
     }
 }
 
-export const ProjectItemStateContext = createContext<ProjectItemState | null>(null)
+type UseProjectItemStateReturn = ReturnType<typeof useProjectItemState>
 
-export const ProjectItemStateProvider = ({ children, state }: { children: ReactNode; state: ProjectItemState }) => (
-    <ProjectItemStateContext.Provider value={state}>{children}</ProjectItemStateContext.Provider>
-)
+export const ProjectItemStateContext = createContext<UseProjectItemStateReturn | null>(null)
 
-export const useProjectItemStateContext = (): ProjectItemState => {
+export const ProjectItemStateProvider = ({
+    children,
+    state,
+}: {
+    children: ReactNode
+    state: UseProjectItemStateReturn
+}) => <ProjectItemStateContext.Provider value={state}>{children}</ProjectItemStateContext.Provider>
+
+export const useProjectItemStateContext = (): UseProjectItemStateReturn => {
     const state = useContext(ProjectItemStateContext)
 
     if (!state) {

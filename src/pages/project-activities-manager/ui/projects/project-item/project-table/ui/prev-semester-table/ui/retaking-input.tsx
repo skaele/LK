@@ -17,12 +17,9 @@ type Props = {
 }
 
 const RetakingInput = ({ data, initial }: Props) => {
-    const {
-        state: { prevSemester },
-        changeRow,
-    } = useProjectItemStateContext()
+    const { prevSemesterState, changeRow } = useProjectItemStateContext()
 
-    const editedData = prevSemester.editedData[data.studentId] as StudentActivityData | undefined
+    const editedData = prevSemesterState.editedData[data.studentId] as StudentActivityData | undefined
 
     if (!data.isPrevSemester || (editedData && !editedData.isPrevSemester)) {
         return null
@@ -54,8 +51,9 @@ const RetakingInput = ({ data, initial }: Props) => {
             value={String(editedData?.[StudentActivitiesColumn.retaking] ?? initial)}
             setValue={onChange}
             type="number"
+            stepSize={1}
             minValue={0}
-            maxValue={15}
+            maxValue={PROJ_ACTIVITIES_RETAKING_MAX_POINTS}
             placeholder=""
             hideCross
         />

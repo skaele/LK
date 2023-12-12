@@ -2,16 +2,11 @@ import React from 'react'
 import { StudentActivitiesColumn, StudentActivityData } from '@features/table-project-activities-manager'
 
 type Props = {
-    data: StudentActivityData
     editedData: StudentActivityData | undefined
     initial: number
 }
 
-const ResultPoints = ({ initial, data, editedData }: Props) => {
-    if (data.isPrevSemester || editedData?.isPrevSemester) {
-        return null
-    }
-
+const ResultPoints = ({ initial, editedData }: Props) => {
     return <>{editedData?.[StudentActivitiesColumn.resultPoints] ?? initial}</>
 }
 

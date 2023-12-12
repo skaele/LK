@@ -88,3 +88,5 @@ export type StudentActivityData = {
           isPrevSemester: false
       } & StudentActivityDataCurrentSemesterRow)
 )
+
+export type ProjectActivityManagerProject = { id: number; name: string }

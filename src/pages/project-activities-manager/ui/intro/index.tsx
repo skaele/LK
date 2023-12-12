@@ -1,15 +1,21 @@
 import React from 'react'
-import { ProjectActivityManagerRole } from '@entities/project-activities-manager'
 import CurrentSemester from './current-semester'
 import Role from './role'
 import { Spacing } from '@ui/atoms'
+import { projectActivitiesManagerStore } from '@pages/project-activities-manager/model'
 
 const Intro = () => {
+    const { data } = projectActivitiesManagerStore.selectors.useData()
+
+    if (!data) {
+        return null
+    }
+
     return (
         <div>
-            <CurrentSemester year={'2023-2024'} semester={1} scheduleUrl="https://google.com" />
+            <CurrentSemester year={data.year} semester={data.semester} scheduleUrl={data.scheduleUrl} />
             <Spacing size={16} />
-            <Role role={ProjectActivityManagerRole.Manager} pointsCountingRulesUrl="https://google.com" />
+            <Role role={data.role} pointsCountingRulesUrl={data.pointsCountingRulesUrl} />
         </div>
     )
 }

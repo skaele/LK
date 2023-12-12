@@ -1,27 +1,24 @@
 import * as React from 'react'
-import { useState } from 'react'
 import { StudentActivitiesColumn, StudentActivityData } from '@features/table-project-activities-manager'
-import { Input } from '@ui/atoms'
 import Table from '@ui/table'
 import noop from '@utils/noop'
 import SubprojectInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/subproject-input'
 import { useProjectItemStateContext } from '@pages/project-activities-manager/ui/projects/project-item/use-project-item-state'
 import { Email, FIO } from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/ui'
 import RetakingInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/prev-semester-table/ui/retaking-input'
+import ResultPoints from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/result-points'
+import ResultSign from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/result-sign'
 
-type Props = {
-    data: StudentActivityData[]
-}
-
-const PrevSemesterTable = ({ data }: Props) => {
-    const {
-        state: { prevSemester },
-    } = useProjectItemStateContext()
+const PrevSemesterTable = () => {
+    const { prevSemesterState, prevSemesterSaving, currentSemesterSaving } = useProjectItemStateContext()
 
     return (
         <Table
+            alignLeftPagination
+            maxOnPage={10}
             onRowClick={noop}
-            data={data}
+            data={prevSemesterState.data}
+            loading={currentSemesterSaving || prevSemesterSaving}
             columns={[
                 {
                     title: 'Подпроект',
@@ -31,7 +28,7 @@ const PrevSemesterTable = ({ data }: Props) => {
                         <SubprojectInput
                             data={data as StudentActivityData}
                             initial={initial}
-                            editedData={prevSemester.editedData[(data as StudentActivityData).studentId]}
+                            editedData={prevSemesterState.editedData[(data as StudentActivityData).studentId]}
                         />
                     ),
                 },
@@ -79,12 +76,24 @@ const PrevSemesterTable = ({ data }: Props) => {
                     field: StudentActivitiesColumn.resultPoints,
                     width: '100px',
                     showFull: true,
+                    render: (initial, data) => (
+                        <ResultPoints
+                            initial={initial}
+                            editedData={prevSemesterState.editedData[(data as StudentActivityData).studentId]}
+                        />
+                    ),
                 },
                 {
                     title: 'Результат',
                     field: StudentActivitiesColumn.result,
                     width: '170px',
                     showFull: true,
+                    render: (initial, data) => (
+                        <ResultSign
+                            editedData={prevSemesterState.editedData[(data as StudentActivityData).studentId]}
+                            initial={initial}
+                        />
+                    ),
                 },
                 {
                     title: 'Звёзды',

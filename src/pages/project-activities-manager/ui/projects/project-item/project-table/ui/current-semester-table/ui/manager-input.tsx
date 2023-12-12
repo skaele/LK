@@ -10,14 +10,11 @@ type Props = {
 }
 
 const ManagerInput = ({ initial, data }: Props) => {
-    const {
-        changeRow,
-        state: { currentSemester },
-    } = useProjectItemStateContext()
+    const { changeRow, currentSemesterState } = useProjectItemStateContext()
 
-    const editedData = currentSemester.editedData[data.studentId] as StudentActivityData | undefined
+    const editedData = currentSemesterState.editedData[data.studentId] as StudentActivityData | undefined
 
-    const [value, setValue] = useState(initial)
+    const [value, setValue] = useState(editedData?.[StudentActivitiesColumn.manager] ?? initial)
 
     const onClickHint = (hint: Hint | undefined) => {
         setValue(hint?.value ?? initial)

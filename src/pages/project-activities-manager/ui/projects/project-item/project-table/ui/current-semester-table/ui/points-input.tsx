@@ -16,12 +16,9 @@ type Props = {
 }
 
 const PointsInput = ({ initial, data, column, maxPoints }: Props) => {
-    const {
-        state: { currentSemester },
-        changeRow,
-    } = useProjectItemStateContext()
+    const { currentSemesterState, changeRow } = useProjectItemStateContext()
 
-    const editedData = currentSemester.editedData[data.studentId] as StudentActivityData | undefined
+    const editedData = currentSemesterState.editedData[data.studentId] as StudentActivityData | undefined
 
     if (data.isPrevSemester || editedData?.isPrevSemester) {
         return null

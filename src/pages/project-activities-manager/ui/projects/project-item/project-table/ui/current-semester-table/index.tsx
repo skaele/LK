@@ -1,14 +1,8 @@
 import * as React from 'react'
-import { useState } from 'react'
 import { StudentActivitiesColumn, StudentActivityData } from '@features/table-project-activities-manager'
-import { Input } from '@ui/atoms'
-import { TeacherSearch } from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/teacher-search'
 import Table from '@ui/table'
 import noop from '@utils/noop'
 import { useProjectItemStateContext } from '@pages/project-activities-manager/ui/projects/project-item/use-project-item-state'
-import { Hint } from '@ui/search'
-import { extractPoints } from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/lib/extract-points'
-import { calcResult } from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/lib/calc-result'
 import PointsInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/ui/points-input'
 import {
     PROJ_ACTIVITIES_DEFENSE_MAX_POINTS,
@@ -16,36 +10,32 @@ import {
     PROJ_ACTIVITIES_SECOND_VALIDATION_MAX_POINTS,
 } from '@features/table-project-activities-manager/config'
 import ManagerInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/ui/manager-input'
-import styled, { css } from 'styled-components'
-import { Colors } from '@shared/constants'
 import { Email, FIO } from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/ui'
 import ResultPoints from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/result-points'
 import ResultSign from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/result-sign'
 import StarsInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/ui/stars-input'
 import SubprojectInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/subproject-input'
 
-type Props = {
-    data: StudentActivityData[]
-}
-
-const CurrentSemesterTable = ({ data }: Props) => {
-    const { state } = useProjectItemStateContext()
-    const { currentSemester } = state
+const CurrentSemesterTable = ({ data }: { data: StudentActivityData[] }) => {
+    const { currentSemesterState, currentSemesterSaving, prevSemesterSaving } = useProjectItemStateContext()
 
     return (
         <Table
+            loading={prevSemesterSaving || currentSemesterSaving}
+            alignLeftPagination
             onRowClick={noop}
+            maxOnPage={10}
             data={data}
             columns={[
                 {
                     title: 'Подпроект',
-                    width: '200px',
+                    width: '255px',
                     field: StudentActivitiesColumn.subproject,
                     render: (initial, data) => (
                         <SubprojectInput
                             data={data as StudentActivityData}
                             initial={initial}
-                            editedData={currentSemester.editedData[(data as StudentActivityData).studentId]}
+                            editedData={currentSemesterState.editedData[(data as StudentActivityData).studentId]}
                         />
                     ),
                 },
@@ -108,7 +98,7 @@ const CurrentSemesterTable = ({ data }: Props) => {
                     title: 'Баллы защиты',
                     field: StudentActivitiesColumn.defensePoints,
                     showFull: true,
-                    width: '140px',
+                    width: '120px',
                     render: (initial, data) => (
                         <PointsInput
                             data={data as StudentActivityData}
@@ -125,21 +115,19 @@ const CurrentSemesterTable = ({ data }: Props) => {
                     showFull: true,
                     render: (initial, data) => (
                         <ResultPoints
-                            data={data as StudentActivityData}
                             initial={initial}
-                            editedData={currentSemester.editedData[(data as StudentActivityData).studentId]}
+                            editedData={currentSemesterState.editedData[(data as StudentActivityData).studentId]}
                         />
                     ),
                 },
                 {
                     title: 'Результат',
                     field: StudentActivitiesColumn.result,
-                    width: '160px',
+                    width: '130px',
                     showFull: true,
                     render: (initial, data) => (
                         <ResultSign
-                            data={data as StudentActivityData}
-                            editedData={currentSemester.editedData[(data as StudentActivityData).studentId]}
+                            editedData={currentSemesterState.editedData[(data as StudentActivityData).studentId]}
                             initial={initial}
                         />
                     ),
@@ -147,7 +135,7 @@ const CurrentSemesterTable = ({ data }: Props) => {
                 {
                     title: 'Звёзды',
                     field: StudentActivitiesColumn.stars,
-                    width: '120px',
+                    width: '115px',
                     showFull: true,
                     render: (initial, data) => <StarsInput data={data as StudentActivityData} initial={initial} />,
                 },

@@ -10,12 +10,9 @@ type Props = {
 }
 
 const StarsInput = ({ initial, data }: Props) => {
-    const {
-        changeRow,
-        state: { currentSemester },
-    } = useProjectItemStateContext()
+    const { changeRow, currentSemesterState } = useProjectItemStateContext()
 
-    const editedData = currentSemester.editedData[data.studentId] as StudentActivityData | undefined
+    const editedData = currentSemesterState.editedData[data.studentId] as StudentActivityData | undefined
 
     if (data.isPrevSemester || editedData?.isPrevSemester) {
         return null

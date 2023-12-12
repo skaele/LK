@@ -1,12 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import { Title } from '@ui/title'
 import Flex from '@ui/flex'
-import { Button } from '@ui/button'
-import { Colors } from '@shared/constants'
 import { LinkAppearance } from './ui'
-import Table from '@ui/table'
 import ProjectTable from './project-table'
-import { useStore } from 'effector-react'
 import { ProjectItemStateProvider, useProjectItemState } from './use-project-item-state'
 
 type Props = {

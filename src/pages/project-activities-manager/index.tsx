@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Spacing } from '@ui/atoms'
 import Intro from './ui/intro'
 import Projects from '@pages/project-activities-manager/ui/projects'
+import { projectActivitiesManagerStore } from '@pages/project-activities-manager/model'
 
 const Container = styled.div`
     @media (max-width: 1000px) {
@@ -13,8 +14,10 @@ const Container = styled.div`
 `
 
 const ProjectActivitiesActivitiesPage = () => {
+    const { loading, data } = projectActivitiesManagerStore.selectors.useData()
+
     return (
-        <Wrapper load={() => '1'} error={null} loading={false} data="1">
+        <Wrapper load={projectActivitiesManagerStore.effects.getFx} error={null} loading={loading} data={data}>
             <Container>
                 <PageBlock>
                     <Intro />

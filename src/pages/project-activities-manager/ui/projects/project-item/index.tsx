@@ -1,30 +1,37 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Title } from '@ui/title'
 import Flex from '@ui/flex'
 import { Button } from '@ui/button'
 import { Colors } from '@shared/constants'
 import { LinkAppearance } from './ui'
+import Table from '@ui/table'
+import ProjectTable from './project-table'
+import { useStore } from 'effector-react'
+import { ProjectItemStateProvider, useProjectItemState } from './use-project-item-state'
 
 type Props = {
     order: number
-    project: { id: number; name: string; hasDataToSave: boolean }
+    project: { id: number; name: string }
 }
 
 const ProjectItem = ({ order, project }: Props) => {
+    const state = useProjectItemState()
+
+    const [isTableOpen, setIsTableOpen] = useState(false)
+
+    const toggleOpenTable = useCallback(() => {
+        setIsTableOpen((prev) => !prev)
+    }, [])
+
     return (
-        <Flex jc="space-between" w="100%" h="40px">
-            <Title size={4} align="left" weight={400}>
-                {order}. <LinkAppearance>{project.name}</LinkAppearance>
-            </Title>
-            {project.hasDataToSave && (
-                <Button
-                    text="Сохранить"
-                    background={Colors.green.light2}
-                    textColor={Colors.grey.dark3}
-                    minWidth="120px"
-                />
-            )}
-        </Flex>
+        <ProjectItemStateProvider state={state}>
+            <Flex jc="space-between" w="100%" h="40px">
+                <Title size={4} align="left" weight={400}>
+                    {order}. <LinkAppearance onClick={toggleOpenTable}>{project.name}</LinkAppearance>
+                </Title>
+            </Flex>
+            {isTableOpen && <ProjectTable projectId={project.id} />}
+        </ProjectItemStateProvider>
     )
 }
 

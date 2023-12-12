@@ -58,15 +58,16 @@ type Props = {
     action: (state: boolean) => void
     icon?: React.ReactNode
     disabled?: boolean
+    className?: string
 }
 
-const ToggleItem = ({ title, state, action, icon, disabled }: Props) => {
+const ToggleItem = ({ title, state, action, icon, disabled, className }: Props) => {
     const handleToggle = () => {
         action(!state)
     }
 
     return (
-        <ToggleItemBlock key={title} disabled={disabled}>
+        <ToggleItemBlock key={title} disabled={disabled} className={className}>
             {icon && <div className="icon">{icon}</div>}
             <label>
                 <b>{title}</b>

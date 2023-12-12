@@ -8,6 +8,8 @@ import styled from 'styled-components'
 import { Input } from '../atoms'
 import BlockWrapper from '../block/styles'
 import { Size } from '../types'
+import { createPortal } from 'react-dom'
+import useHintsListPortal from '@ui/search/lib/use-hints-list-portal'
 
 const SearchStyled = styled.div<{ width?: string }>`
     display: flex;
@@ -17,13 +19,13 @@ const SearchStyled = styled.div<{ width?: string }>`
     position: relative;
 `
 
-const Hints = styled(BlockWrapper)`
+const Hints = styled(BlockWrapper)<{ top?: number; left?: number }>`
     position: absolute;
-    top: 45px;
+    top: ${({ top = 45 }) => `${top}px`};
     z-index: 10;
     height: auto;
-    width: 100%;
-    left: 0;
+    width: ${({ width }) => width};
+    left: ${({ left = 0 }) => `${left}px`};
     overflow-y: auto;
 `
 
@@ -75,6 +77,8 @@ type SearchProps = {
     onHintClick?: (hint: Hint | undefined) => void
     customMask?: (value: string, prevValue?: string) => string
     size?: Size
+    hintsListPortalMode?: boolean
+    hideInputCross?: boolean
 }
 
 const Search = ({
@@ -91,12 +95,24 @@ const Search = ({
     onHintClick,
     validationCheck = false,
     size = 'middle',
+    hintsListPortalMode = false,
+    hideInputCross = false,
 }: SearchProps) => {
     const [currentSelectedHint, setCurrentSelectedHint] = useState<number | null>(0)
     const [openHints, setOpenHints] = useState(false)
     const hintsRef = useRef<HTMLDivElement>(null)
+    const hintsListRef = useRef<HTMLDivElement>(null)
     const selectedRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
+
+    const { inputCoords } = useHintsListPortal({
+        hintsListPortalMode,
+        hintsListRef,
+        inputRef,
+        openHints,
+        hints,
+    })
+
     useOnClickOutside(hintsRef, () => setOpenHints(false))
 
     useEffect(() => {
@@ -136,6 +152,38 @@ const Search = ({
         if (hints?.length) setOpenHints(true)
     }
 
+    const hintsList = (
+        <Hints
+            height="fit-content"
+            maxWidth={hintsListPortalMode ? width : '100%'}
+            maxHeight="250px"
+            width="100%"
+            onKeyDown={handleKeyDown}
+            padding="0"
+            orientation="vertical"
+            top={inputCoords?.top}
+            left={inputCoords?.left}
+            onMouseDown={hintsListPortalMode ? (e) => e.stopPropagation() : undefined}
+            onTouchStart={hintsListPortalMode ? (e) => e.stopPropagation() : undefined}
+            ref={hintsListRef}
+        >
+            {hints?.map(({ title, icon }, index) => {
+                const selected = currentSelectedHint === index
+                return (
+                    <HintItem
+                        onClick={handleItemClick(index)}
+                        key={title + index}
+                        ref={selected ? selectedRef : null}
+                        selected={selected}
+                    >
+                        {icon && <div className="icon">{icon}</div>}
+                        <span>{title}</span>
+                    </HintItem>
+                )
+            })}
+        </Hints>
+    )
+
     return (
         <SearchStyled width={width} onKeyDown={handleKeyDown} onMouseDown={handleMouseDown} ref={hintsRef}>
             <Input
@@ -150,34 +198,11 @@ const Search = ({
                 mask
                 customMask={customMask}
                 ref={inputRef}
+                hideCross={hideInputCross}
             />
             <PerhapsYouMeant setValue={setValue} value={value} visible={validationCheck} />
-            {openHints && (
-                <Hints
-                    height="fit-content"
-                    maxWidth="100%"
-                    maxHeight="250px"
-                    width="100%"
-                    onKeyDown={handleKeyDown}
-                    padding="0"
-                    orientation="vertical"
-                >
-                    {hints?.map(({ title, icon }, index) => {
-                        const selected = currentSelectedHint === index
-                        return (
-                            <HintItem
-                                onClick={handleItemClick(index)}
-                                key={title + index}
-                                ref={selected ? selectedRef : null}
-                                selected={selected}
-                            >
-                                {icon && <div className="icon">{icon}</div>}
-                                <span>{title}</span>
-                            </HintItem>
-                        )
-                    })}
-                </Hints>
-            )}
+            {!hintsListPortalMode && openHints && hintsList}
+            {hintsListPortalMode && openHints && createPortal(hintsList, document.body)}
         </SearchStyled>
     )
 }

@@ -251,11 +251,14 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Проектная деятельность',
         icon: <FaRegLightbulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
-        Component: ProjectActivitiesManagerPage,
+        Component: isProduction
+            ? () => PageIsNotReady({ oldVersionUrl: `${OLD_LK_URL}/?p=proj_main` })
+            : ProjectActivitiesManagerPage,
+        isOldLkPage: true,
         color: 'orange',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
-        pageSize: 'large',
+        pageSize: isProduction ? undefined : 'large',
     },
     payments: {
         id: 'payments',

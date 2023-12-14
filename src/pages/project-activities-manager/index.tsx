@@ -16,15 +16,25 @@ const Container = styled.div`
 const ProjectActivitiesActivitiesPage = () => {
     const { loading, data } = projectActivitiesManagerStore.selectors.useData()
 
+    const isNotProjectActivitiesManager = !loading && data === null
+
     return (
-        <Wrapper load={projectActivitiesManagerStore.effects.getFx} error={null} loading={loading} data={data}>
-            <Container>
-                <PageBlock>
-                    <Intro />
-                    <Spacing size={2} />
-                    <Projects />
-                </PageBlock>
-            </Container>
+        <Wrapper
+            load={projectActivitiesManagerStore.effects.getFx}
+            noDataCheck
+            error={isNotProjectActivitiesManager ? 'Вы не являетесь руководителем проектов' : null}
+            loading={loading}
+            data={data}
+        >
+            <>
+                <Container>
+                    <PageBlock>
+                        <Intro />
+                        <Spacing size={2} />
+                        <Projects />
+                    </PageBlock>
+                </Container>
+            </>
         </Wrapper>
     )
 }

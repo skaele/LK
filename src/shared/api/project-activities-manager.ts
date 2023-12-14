@@ -19,7 +19,8 @@ type ProjActivitiesManagerActivitiesResponse = {
 }
 
 export const getProjects = async (): Promise<ProjActivitiesManagerProjectsResponse> => {
-    // Todo: Интерграция с апи
+    // Todo: Интерграция с апи: возвращает объект с данными по проекту, если преподаватель является руководителем,
+    //  и null, если не является им
 
     await new Promise((r) => setTimeout(r, 1000))
 

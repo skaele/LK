@@ -40,7 +40,13 @@ import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
 import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
-import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
+import {
+    HiOutlineAcademicCap,
+    HiOutlineCalendar,
+    HiOutlineClipboardCheck,
+    HiOutlineFlag,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
@@ -79,6 +85,7 @@ export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/settings-personal'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-home-page'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/settings-notifications'
+export const SETTINGS_TUTORIAL = SETTINGS_ROUTE + '/settings-tutorial'
 
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
@@ -539,6 +546,21 @@ export const generalHiddenRoutes: IRoutes = {
         show: true,
         isSubPage: true,
         subPageHeaderTitle: 'Уведомления',
+        fallbackPrevPage: SETTINGS_ROUTE,
+
+        backButtonText: 'Настройки',
+    },
+    'settings-tutorial': {
+        id: 'settings-tutorial',
+        title: 'Настройки. Обучение',
+        icon: <HiOutlineAcademicCap />,
+        path: SETTINGS_TUTORIAL,
+        Component: () => <></>,
+        color: 'green',
+        isTemplate: true,
+        show: true,
+        isSubPage: true,
+        subPageHeaderTitle: 'Обучение',
         fallbackPrevPage: SETTINGS_ROUTE,
 
         backButtonText: 'Настройки',

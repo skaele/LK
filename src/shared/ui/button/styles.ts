@@ -12,11 +12,13 @@ export const ButtonWrapper = styled.button<{
     textColor?: string
     shrinkTextInMobile?: boolean
     hoverBackground?: string
+    hoverTextColor?: string
     direction?: Direction
     align?: Align
     isActive: boolean
     fixedInMobile?: boolean
     height?: string
+    fontSize?: string
     flipped?: boolean
 }>`
     display: flex;
@@ -26,6 +28,7 @@ export const ButtonWrapper = styled.button<{
     color: ${({ textColor }) => (textColor ? textColor : 'var(--text)')};
     background: ${({ isChosen, background }) => (isChosen ? 'var(--reallyBlue)' : background ?? 'var(--search)')};
     padding: ${({ padding }) => padding ?? '10px'};
+    font-size: ${({ fontSize }) => fontSize};
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
@@ -54,6 +57,7 @@ export const ButtonWrapper = styled.button<{
         background: ${({ hoverBackground, isChosen, background }) =>
             hoverBackground ?? (isChosen ? 'var(--blue)' : background ?? 'var(--search)')};
         filter: brightness(0.97);
+        color: ${({ hoverTextColor }) => hoverTextColor};
     }
 
     .text {

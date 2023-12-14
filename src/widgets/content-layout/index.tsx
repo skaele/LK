@@ -13,6 +13,7 @@ import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent, Wrapper } from './styled'
+import { Training } from 'widgets/training'
 
 const ContentLayout = () => {
     const {
@@ -54,6 +55,7 @@ const ContentLayout = () => {
             <Confirm />
             <ContextMenu />
             <HintModal />
+            <Training />
             <PopUpNotifications />
         </Wrapper>
     )

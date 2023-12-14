@@ -17,6 +17,7 @@ export type ButtonProps = BaseProps & {
     textColor?: string
     shrinkTextInMobile?: boolean
     hoverBackground?: string
+    hoverTextColor?: string
     padding?: string
     align?: Align
     direction?: Direction
@@ -26,6 +27,7 @@ export type ButtonProps = BaseProps & {
     notActiveClickMessage?: string
     flipped?: boolean
     loading?: boolean
+    fontSize?: string
 }
 
 export function Button(props: ButtonProps) {

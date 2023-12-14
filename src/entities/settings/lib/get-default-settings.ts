@@ -53,6 +53,12 @@ const getDefaultSettings = (userId = ''): SettingsType => ({
             id: NameSettings['settings-notifications'],
             property: NOTIFICATIONS_DEFAULT_VALUE,
         },
+        [NameSettings['settings-training']]: {
+            id: NameSettings['settings-training'],
+            property: {
+                training: true,
+            },
+        },
     },
 })
 

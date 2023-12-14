@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PasswordField from './fields/password-field'
 import { settingsModel } from '@entities/settings'
 import { NameSettings } from '@entities/settings/model'
+import { Button } from '@shared/ui/button'
 
 const SettingsFieldsList = styled.div<{ asChild: boolean }>`
     display: flex;
@@ -42,6 +43,18 @@ const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType
     tel: <TextField key={field.title} {...field} />,
     password: <PasswordField key={field.title} {...field} />,
     link: <LinkField key={field.title} {...field} />,
+    button: (
+        <Button
+            key={field.title}
+            text={field.title}
+            onClick={() => {
+                if (field.action) field.action()
+            }}
+            width="50%"
+            background={field.color}
+            textColor="white"
+        ></Button>
+    ),
 })
 
 const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {

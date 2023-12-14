@@ -52,7 +52,13 @@ import {
     FiUser,
     FiXCircle,
 } from 'react-icons/fi'
-import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
+import {
+    HiOutlineAcademicCap,
+    HiOutlineCalendar,
+    HiOutlineClipboardCheck,
+    HiOutlineFlag,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 
 export const LOGIN_ROUTE = '/login'
@@ -89,6 +95,7 @@ export const SETTINGS_SECURITY_ROUTE = SETTINGS_ROUTE + '/security'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home-page'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
+export const SETTINGS_TRAINING = SETTINGS_ROUTE + '/training'
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
 export const ALERTS_ROUTE = '/alerts'
@@ -581,6 +588,21 @@ export const generalHiddenRoutes: IRoutes = {
         show: true,
         isSubPage: true,
         subPageHeaderTitle: 'Уведомления',
+        fallbackPrevPage: SETTINGS_ROUTE,
+
+        backButtonText: 'Настройки',
+    },
+    'settings-training': {
+        id: 'settings-training',
+        title: 'Настройки. Обучение',
+        icon: <HiOutlineAcademicCap />,
+        path: SETTINGS_TRAINING,
+        Component: () => <></>,
+        color: 'green',
+        isTemplate: true,
+        show: true,
+        isSubPage: true,
+        subPageHeaderTitle: 'Обучение',
         fallbackPrevPage: SETTINGS_ROUTE,
 
         backButtonText: 'Настройки',

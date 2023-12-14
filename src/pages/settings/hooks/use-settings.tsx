@@ -29,6 +29,7 @@ const useSettings = () => {
     const { property: settingsProperty } = settings['settings-notifications']
     const { property: appearanceProperty } = settings['settings-appearance']
     const { widgetPayment, widgetSchedule, news } = settings['settings-home-page'].property
+    const { training } = settings['settings-training'].property
     const requiredLeftsideBarItems =
         user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
     useEffect(() => {
@@ -134,6 +135,15 @@ const useSettings = () => {
                                 value: !!state,
                             }),
                     },
+                },
+                training: {
+                    value: training as boolean,
+                    action: (state) =>
+                        settingsModel.events.updateSetting({
+                            nameSettings: 'settings-training',
+                            nameParam: 'training',
+                            value: !!state,
+                        }),
                 },
             }),
         })

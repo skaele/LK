@@ -21,6 +21,7 @@ export type TSettingsFieldType =
     | 'interval'
     | 'password'
     | 'tel'
+    | 'button'
 export type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
 export type TSettingsFields = {
     id?: string
@@ -29,6 +30,7 @@ export type TSettingsFields = {
     action?: (value?: TValueFieldType) => void
     disabled?: boolean
     value?: TValueFieldType
+    color?: string
     additionalActions?:
         | {
               onAdd?: (value?: TValueFieldType) => void
@@ -75,6 +77,7 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
+    training: Prop<boolean>
 }
 
 export type TFullSettingsModel = {
@@ -97,6 +100,7 @@ const getSettingsModel: TSettingsModel = ({
     phone,
     menu,
     settings,
+    training,
 }) => ({
     'settings-appearance': [
         {
@@ -227,13 +231,6 @@ const getSettingsModel: TSettingsModel = ({
         {
             title: 'Действия',
             fields: [
-                // {
-                //     title: 'Сменить аккаунт',
-                //     type: 'link',
-                //     icon: <FiUsers />,
-                //     action: () => null,
-                //     visible: 1 == 1,
-                // },
                 {
                     title: 'Выйти из аккаунта',
                     type: 'display',
@@ -301,6 +298,41 @@ const getSettingsModel: TSettingsModel = ({
                             icon: <FiFilePlus />,
                         },
                     ],
+                },
+            ],
+        },
+    ],
+    'settings-training': [
+        {
+            title: 'Общее',
+            fields: [
+                {
+                    title: 'Процесс обучения',
+                    type: 'toggle',
+                    value: training.value,
+                    action: training.action,
+                },
+                {
+                    title: 'Сбросить обучение',
+                    type: 'button',
+                    color: 'rgb(236, 95, 107)',
+                },
+            ],
+        },
+        {
+            title: 'Запустить этап обучения',
+            fields: [
+                {
+                    title: 'Общее',
+                    type: 'link',
+                },
+                {
+                    title: 'Цифровые сервисы',
+                    type: 'link',
+                },
+                {
+                    title: 'Оплата общежития',
+                    type: 'link',
                 },
             ],
         },

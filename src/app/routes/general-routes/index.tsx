@@ -42,6 +42,7 @@ import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
 import {
     FiBell,
+    FiBook,
     FiClipboard,
     FiClock,
     FiFileText,
@@ -65,6 +66,7 @@ export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
 export const MEDICAL_CERTIFICATE = '/medical-certificate'
 export const VACCINATION = '/vaccination'
+export const HANDBOOK = '/handbook'
 
 export const ALL_ROUTE = '/all'
 export const HOME_ROUTE = '/home'
@@ -394,6 +396,18 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
+    },
+    handbook: {
+        id: 'handbook',
+        title: 'Справочник',
+        icon: <FiBook />,
+        path: HANDBOOK,
+        Component: () => {
+            return null
+        },
+        color: 'green',
+        isTemplate: false,
+        group: 'GENERAL',
     },
 }
 

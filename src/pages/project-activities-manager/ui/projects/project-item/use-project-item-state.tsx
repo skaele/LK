@@ -36,7 +36,10 @@ const useCreateLocalStorePrevSemester = () => {
 }
 
 type SemesterProjectActivityStoreData = {
+    // Все данные (ряды) по текущей таблице
     data: StudentActivityData[] | null
+
+    // Отредактированные ряды таблицы, ассоциированные по id студента
     editedData: Record<number, StudentActivityData>
 }
 
@@ -46,11 +49,9 @@ const INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY: SemesterProjectActivityStoreData =
 }
 
 export const useProjectItemState = () => {
+    // Сторы используются для общения с апи и состояния загрузки, динамичное состояние таблицы хранится в стейте
     const currentSemesterStore = useCreateLocalStoreCurrentSemester()
     const prevSemesterStore = useCreateLocalStorePrevSemester()
-
-    const currentSemesterSaving = useStore(currentSemesterStore.effects.postFx.pending)
-    const prevSemesterSaving = useStore(prevSemesterStore.effects.postFx.pending)
 
     const [currentSemesterState, setCurrentSemesterState] = useState<SemesterProjectActivityStoreData>(
         INITIAL_DATA_SEMESTER_PROJECT_ACTIVITY,
@@ -92,6 +93,9 @@ export const useProjectItemState = () => {
             editedData: {},
         })
     }
+
+    const currentSemesterSaving = useStore(currentSemesterStore.effects.postFx.pending)
+    const prevSemesterSaving = useStore(prevSemesterStore.effects.postFx.pending)
 
     return {
         updateData,

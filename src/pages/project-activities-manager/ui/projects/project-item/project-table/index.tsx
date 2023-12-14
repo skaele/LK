@@ -30,7 +30,7 @@ const ProjectTable = ({ projectId }: Props) => {
 
     const [isPrevSemester, setIsPrevSemester] = useState(false)
 
-    const setIsToggled = useCallback(() => {
+    const toggleIsPrevSemester = useCallback(() => {
         setIsPrevSemester((prev) => !prev)
     }, [])
 
@@ -87,7 +87,7 @@ const ProjectTable = ({ projectId }: Props) => {
                         id={String(projectId)}
                         title="Предыдущий семестр"
                         state={isPrevSemester}
-                        action={setIsToggled}
+                        action={toggleIsPrevSemester}
                         disabled={
                             currentSemesterStoreLoading ||
                             prevSemesterStoreLoading ||
@@ -113,9 +113,7 @@ const ProjectTable = ({ projectId }: Props) => {
                     {isPrevSemester && prevSemesterState.data && <PrevSemesterTable />}
 
                     {!isPrevSemester && !currentSemesterState.data && <StyledLoader />}
-                    {!isPrevSemester && currentSemesterState.data && (
-                        <CurrentSemesterTable data={currentSemesterState.data} />
-                    )}
+                    {!isPrevSemester && currentSemesterState.data && <CurrentSemesterTable />}
                 </div>
             </TableContainer>
         </>

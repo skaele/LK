@@ -16,7 +16,7 @@ import ResultSign from '@pages/project-activities-manager/ui/projects/project-it
 import StarsInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/current-semester-table/ui/stars-input'
 import SubprojectInput from '@pages/project-activities-manager/ui/projects/project-item/project-table/ui/subproject-input'
 
-const CurrentSemesterTable = ({ data }: { data: StudentActivityData[] }) => {
+const CurrentSemesterTable = () => {
     const { currentSemesterState, currentSemesterSaving, prevSemesterSaving } = useProjectItemStateContext()
 
     return (
@@ -25,7 +25,7 @@ const CurrentSemesterTable = ({ data }: { data: StudentActivityData[] }) => {
             alignLeftPagination
             onRowClick={noop}
             maxOnPage={10}
-            data={data}
+            data={currentSemesterState.data}
             columns={[
                 {
                     title: 'Подпроект',

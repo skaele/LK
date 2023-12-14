@@ -14,6 +14,8 @@ const StarsInput = ({ initial, data }: Props) => {
 
     const editedData = currentSemesterState.editedData[data.studentId] as StudentActivityData | undefined
 
+    // Так как работаем с таблицей по текущему семестру, такой ситуации быть не должно,
+    // но проверку типов сделать нужно
     if (data.isPrevSemester || editedData?.isPrevSemester) {
         return null
     }

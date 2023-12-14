@@ -3,7 +3,7 @@ import { Title } from '@ui/title'
 import { FullWidth } from '../ui'
 import { Caption } from './ui'
 import { Spacing } from '@ui/atoms'
-import ProjectItem from '@pages/project-activities-manager/ui/projects/project-item'
+import ProjectItem from './project-item'
 import { projectActivitiesManagerStore } from '@pages/project-activities-manager/model'
 
 const Projects = () => {

@@ -51,6 +51,8 @@ export const getPrevSemesterProjectActivities = async (): Promise<ProjActivities
     return { activities: MOCK_PROJ_ACTIVITIES_MANAGER_PREV_SEMESTER }
 }
 
+// Todo: Интеграция с апи. Возможно, когда появится апи, потребуется передаваь в методе только id проекта,
+//  показатель "прошлый/текущий семестр" и отредактированные данные
 export const saveProjectActivities = async ({
     editedData,
     initialData,
@@ -58,12 +60,10 @@ export const saveProjectActivities = async ({
     initialData: StudentActivityData[]
     editedData: Record<number, StudentActivityData>
 }): Promise<ProjActivitiesManagerActivitiesResponse> => {
-    // Todo: Интеграция с апи
-
     await new Promise((r) => setTimeout(r, 1000))
 
     return {
-        // Предполагается, что апи сама применит отредактированные данные из editedData к базе данных
+        // Лучше, если апи (когда будет) сама применит отредактированные данные из editedData к базе данных
         // и вернёт новый массив строк таблицы
         activities: initialData.map((activity) => {
             return editedData[activity.studentId] ?? activity

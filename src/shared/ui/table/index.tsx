@@ -16,6 +16,7 @@ const TableWrapper = styled.div`
 
 const Table = ({
     columns,
+    columnsExtended,
     data,
     maxOnPage,
     onRowClick,
@@ -61,6 +62,7 @@ const Table = ({
                 onRowClick={onRowClick}
                 filter={filter}
                 columns={columns}
+                columnsExtended={columnsExtended}
                 data={resultData}
                 maxOnPage={maxOnPage}
                 alignLeftPagination={alignLeftPagination}

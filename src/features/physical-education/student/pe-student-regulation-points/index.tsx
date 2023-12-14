@@ -9,11 +9,13 @@ import { Colors } from '@shared/constants'
 import { $regularPointsColumns } from './model'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { Message } from '@shared/ui/message'
+import { peTeacherModel } from '@entities/pe-teacher'
 
 export const PEStudentRegulationPoints = () => {
-    const [student, regularPointsColumns] = useUnit([
+    const [student, regularPointsColumns, peTeacher] = useUnit([
         selectedPEStudentModel.stores.$selectedStudent,
         $regularPointsColumns,
+        peTeacherModel.stores.peTeacher,
     ])
 
     const { open } = useModal()
@@ -24,22 +26,24 @@ export const PEStudentRegulationPoints = () => {
         open(<AddPEStudentRegulationPoints />, 'Добавить норматив')
     }
 
-    const isAddPointsDisabled = points < 20
+    const isAddPointsDisabled = Number(points) < 20
 
     if (!student) return null
 
     return (
         <Wrapper>
-            {isAddPointsDisabled && (
+            {!student && isAddPointsDisabled && (
                 <Message type="alert">Чтобы добавить норматив, у студента должно быть хотя бы 20 баллов</Message>
             )}
-            <Button
-                text="Добавить норматив"
-                onClick={handleClick}
-                background={Colors.blue.main}
-                textColor={Colors.white.main}
-                isActive={!isAddPointsDisabled}
-            />
+            {!!peTeacher?.permissions?.length && (
+                <Button
+                    text="Добавить норматив"
+                    onClick={handleClick}
+                    background={Colors.blue.main}
+                    textColor={Colors.white.main}
+                    isActive={!isAddPointsDisabled}
+                />
+            )}
             <StyledTable data={student.standardsHistory} columns={regularPointsColumns} />
         </Wrapper>
     )

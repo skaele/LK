@@ -151,11 +151,11 @@ export const HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/holiday-postponed'
 export const DISMISSAL = HR_APPLICATIONS_ROUTE + '/dismissal/:id'
 export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer/:id'
 export const EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/extra-holiday-coll'
-export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning/:id'
+export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning'
 export const HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/holiday-transfer/:id'
 export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
 export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
-export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination/:id'
+export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
 export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
 // export const BUFFER_EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/buffer-extra-holiday-coll'
 export const BUFFER_HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/buffer-holiday-planning'
@@ -212,7 +212,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     children: {
         id: 'children',
-        title: 'Дети и внуки',
+        title: 'Дети и внуки',
         icon: <BsPeople />,
         path: CHILDREN_ROUTE,
         Component: () => {
@@ -287,7 +287,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-pps': {
         id: 'kpi-pps',
-        title: 'Рейтинговая система ППС',
+        title: 'Рейтинговая система ППС',
         icon: <FiStar />,
         path: KPI_PPS_ROUTE,
         Component: () => {
@@ -304,8 +304,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-admin': {
         id: 'kpi-admin',
-        // title: 'Экспертиза рейтинговой системы ППС',
-        title: 'Экспертиза рейтинго...',
+        title: 'Экспертиза рейтинговой системы ППС',
         icon: <FiMonitor />,
         path: KPI_ADMIN_ROUTE,
         Component: () => {
@@ -358,8 +357,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     doclist: {
         id: 'doclist',
-        title: 'Ознакомление с документами',
-        shortTitle: 'Ознакомление с док...',
+        title: 'Ознакомление с документами',
         icon: <FiFileText />,
         path: DOCLIST_ROUTE,
         Component: PersonalNotificationsPage,
@@ -385,8 +383,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         path: PHYSICAL_EDUCATION,
         pageSize: 'big',
         Component: TeacherPhysicalEducation,
+        getIsVisibleForCurrentUser: (peTeacher) => !!peTeacher?.permissions?.length,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'LEARNING_ACTIVITIES',
     },
     'physical-education-student': {
         id: 'physical-education-student',
@@ -437,7 +436,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'pps-vote': {
         id: 'pps-vote',
-        title: 'Опрос для проверки уровня цифровой грамотности',
+        title: 'Опрос для проверки уровня цифровой грамотности',
         icon: <BiBookReader />,
         path: PPS_VOTE_ROUTE,
         isOldLkPage: true,
@@ -515,6 +514,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
     'buffer-holiday-work': {
         id: 'buffer-holiday-work',
@@ -529,6 +529,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
     'buffer-medical-examination': {
         id: 'buffer-medical-examination',
@@ -541,8 +542,8 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
     'buffer-holiday-planning': {
         id: 'buffer-holiday-planning',
@@ -555,8 +556,9 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
+        subPageHeaderTitle: 'Заявление на отпуск',
     },
     'buffer-holiday-transfer': {
         id: 'buffer-holiday-transfer',
@@ -571,8 +573,8 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
-
     'buffer-work-transfer': {
         id: 'buffer-work-transfer',
         title: 'Заявление на перевод',
@@ -586,6 +588,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
 
     'part-time-employment': {
@@ -641,7 +644,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_HOLIDAY_PLANNING,
     },
     'holiday-transfer': {
@@ -655,7 +657,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_HOLIDAY_TRANSFER,
     },
     'work-transfer': {
@@ -669,7 +670,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
     'work-transfer-change-rate': {
@@ -683,7 +683,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
     'extra-holiday-coll': {

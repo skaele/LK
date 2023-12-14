@@ -15,13 +15,20 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	#root {
-		height: 100vh;
+		display: flex;
+		height: 100%;
+		max-height: 100%;
 	}
 
 	body {
+		-webkit-overflow-scrolling: touch;
+		scrollbar-gutter: stable;
+		position: relative;
+		height: 100vh;
+    	height: 100svh;
+   		height: 100dvh;
+
 		overflow: hidden;
-		min-height: 100vh;
-    	min-height: -webkit-fill-available;
 	}
 
 	@media (min-width: 1001px) {

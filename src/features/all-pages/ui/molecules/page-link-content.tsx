@@ -13,6 +13,7 @@ import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 import styled from 'styled-components'
 import Icon from '../atoms/icon'
 import { PageLinkProps } from './page-link'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical: boolean; hasNotifications: boolean }>`
     position: relative;
@@ -48,6 +49,7 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
     }
 
     .outside {
+        position: static;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -152,6 +154,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
         },
         [],
     )
+    const { isMobile, isTablet } = useCurrentDevice()
 
     return (
         <PageLinkWrapper
@@ -176,7 +179,11 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                 <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
-                <b>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
+                <b title={title}>
+                    {isMobile || isTablet
+                        ? getHyphenatedTitle(title, maxFirstWordLength)
+                        : getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}
+                </b>
                 {!!notifications && (
                     <span className="notifications-title">
                         {notifications}{' '}

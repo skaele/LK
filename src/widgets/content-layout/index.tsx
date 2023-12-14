@@ -1,8 +1,9 @@
 import PrivateRouter from '@app/routers/private-router'
 import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
+import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import ErrorBoundary from '@shared/ui/error-boundary'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useRef, useState } from 'react'
 import { Confirm, HintModal, LeftsideBar, MobileBottomMenu, PopUpMessage } from 'widgets'
 import ContextMenu from 'widgets/context-menu'
 import Header from 'widgets/header'
@@ -17,6 +18,7 @@ const ContentLayout = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
+    const pageContentRef = useRef<HTMLDivElement>(null)
     const { allRoutes } = menuModel.selectors.useMenu()
     const { currentPage } = useContentLayout()
     const [headerVisible, setHeaderVisible] = useState<boolean>(false)
@@ -25,6 +27,8 @@ const ContentLayout = () => {
         setHeaderVisible(e.currentTarget.scrollTop > 0)
     }
 
+    useScrollToTop(pageContentRef.current!)
+
     return (
         <Wrapper>
             <InitialLoader loading={!user || !allRoutes} />
@@ -32,7 +36,11 @@ const ContentLayout = () => {
             <LeftsideBar />
             <ContentWrapper>
                 <Header headerVisible={headerVisible} currentPage={currentPage} />
-                <PageContent onScroll={handleContentScroll} withHeader={!currentPage?.withoutHeader}>
+                <PageContent
+                    ref={pageContentRef}
+                    onScroll={handleContentScroll}
+                    withHeader={!currentPage?.withoutHeader}
+                >
                     <ErrorBoundary>
                         <Suspense fallback={null}>
                             <PrivateRouter />

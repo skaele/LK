@@ -21,26 +21,21 @@ export interface BufferMedicalExaminationOrder {
 }
 
 export interface BufferMedicalExaminationNotTaken {
-    medicalExamination: {
-        period: {
-            startDate: string
-            endDate: string
-        }
-        status: {
-            creationDate: string
-            signedDate: string
-            hasApplication: true
-            hasOrder: true
-            orderNumber: string
-            displayApplication: true
-            displayOrder: true
-            orderStatus: string
-            applicationApporvalStatus: string
-            orderApprovalStatus: string
-            downloadApplication: true
-            downloadOrder: true
-        }
-    }
+    creationDate: string
+    signedDate: string
+    hasApplication: true
+    documentGuid: string
+    hasOrder: true
+    orderNumber: string
+    displayApplication: true
+    displayOrder: true
+    orderStatus: string
+    applicationApporvalStatus: string
+    orderApprovalStatus: string
+    downloadApplication: true
+    downloadOrder: true
+    startDate: string
+    endDate: string
 }
 
 export interface BufferMedicalExaminationForm {

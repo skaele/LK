@@ -1,49 +1,98 @@
 import React from 'react'
-import styled from 'styled-components'
 import { bufferHolidayPlanningModel } from '../model'
-import History from './history'
-import JobTitle from './job-title'
-import { applicationsModel } from '@entities/applications'
-import { useState } from 'react'
+import { Button, Loading, Wrapper } from '@shared/ui/atoms'
+import styled from 'styled-components'
+import Block from '@shared/ui/block'
+import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
+import Table from '@shared/ui/table'
+import { compareDesc } from 'date-fns'
+import Flex from '@shared/ui/flex'
+import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
+import { Link } from 'react-router-dom'
+import { FiPlus } from 'react-icons/fi'
 
 const Content = () => {
-    //const { data } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
-    // console.log(data)
-    // {
-    //     data.map((info, index) => {
-    //         if (info.jobTitle == null) data.shift()
-    //     })
-    // }
-    const { data } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
-    const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
+    const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
+    const load = () => bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
 
-    if (!dataWorkerApplication) {
-        return null
-    }
+    const jobVacations =
+        data &&
+        data
+            .map((job) => {
+                return [
+                    ...job.notTaken.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                    ...job.schedule.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                    ...job.spent.map((vac) => ({ ...vac, jobTitle: job.jobTitle })),
+                ]
+            })
+            .flat()
+            .filter((item) => {
+                if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
+                    return item.vacation.status.orderStatus
+            })
+            .sort((a, b) =>
+                compareDesc(new Date(a.vacation.status.creationDate), new Date(b.vacation.status.creationDate)),
+            )
 
     return (
-        <Wrapper>
-            {dataWorkerApplication.map((jobTitleInfo, index) => {
-                if (jobTitleInfo.isDismissal) {
-                    historyIsEmpty && setHistoryIsEmpty(false)
-                    return null
-                } else return <JobTitle info={jobTitleInfo} index={index} data={data} />
-            })}
-            {/* {data.map((info, index) => {
-                return <JobTitle key={index} info={info} index={index} />
-            })} */}
-            <History />
+        <Wrapper load={load} error={null} data={data}>
+            {/* <>
+                {dataWorkerApplication &&
+                    dataWorkerApplication.map((jobTitleInfo, index) => {
+                        if (jobTitleInfo.isDismissal) {
+                            historyIsEmpty && setHistoryIsEmpty(false)
+                            return null
+                        } else
+                            return <JobTitle key={jobTitleInfo.jobGuid} info={jobTitleInfo} index={index} data={data} />
+                    })}
+            </> */}
+            <>
+                <Flex jc="space-between" m="10px 0">
+                    <BlockHeader>История заявлений на отпуск:</BlockHeader>
+                    <Link to={`/hr-applications/holiday-planning`}>
+                        <Button
+                            text="Отпуск"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth={'35px'}
+                            height="36px"
+                            shrinkTextInMobile
+                        />
+                    </Link>
+                </Flex>
+                {getDataLoading ? (
+                    <Flex w="100%" jc="center" ai="center">
+                        <Loading />
+                    </Flex>
+                ) : (
+                    <Block
+                        orientation={'vertical'}
+                        alignItems={'flex-start'}
+                        justifyContent={'flex-start'}
+                        gap={'10px'}
+                        width="100%"
+                        maxWidth="100%"
+                        height="fit-content"
+                    >
+                        <Table
+                            columns={getBufferHolidayPlanningColumns()}
+                            columnsExtended={getExtendedBufferHolidayPlanningColumns()}
+                            data={jobVacations}
+                            maxOnPage={10}
+                        />
+                    </Block>
+                )}
+            </>
         </Wrapper>
     )
 }
 
-export default Content
-
-const Wrapper = styled.div`
+const BlockHeader = styled.div`
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 `
+
+export default Content

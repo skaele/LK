@@ -86,10 +86,10 @@ const NotificationsPage = ({ docsType }: Props) => {
                     const dateB = b.notificationType === 'docs' ? new Date(b.date) : new Date(b.startDate || '')
 
                     if (dateB.getTime() < dateA.getTime()) {
-                        return 1
+                        return -1
                     }
 
-                    return -1
+                    return 1
                 })
 
             case 'vacation':

@@ -47,10 +47,7 @@ const BlockWrapper = styled.div<StyledProps>`
     }
 
     ${MEDIA_QUERIES.isMobile} {
-        /* height: auto; */
-        /* max-height: 100%; */
         flex-direction: column;
-        /* gap: 1rem; */
         box-shadow: ${({ noAppearanceInMobile }) => noAppearanceInMobile && 'none'};
         border-radius: ${({ noAppearanceInMobile }) => noAppearanceInMobile && 'none'};
         padding: ${({ noAppearanceInMobile }) => noAppearanceInMobile && '6px'};

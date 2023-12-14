@@ -18,7 +18,6 @@ export const getWorkerData = async (): Promise<AxiosResponse> => {
 
     const response = await $hrApi.get(
         `/Dismissal.GetAllHistory?employeeGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
-        { timeout: 30000 },
     )
 
     return response

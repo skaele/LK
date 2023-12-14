@@ -73,8 +73,7 @@ const AcademicLeaveAccommodationPage = () => {
                         checkFormFields(fluorographyCert) &&
                         checkFormFields(vichRwCert) &&
                         checkFormFields(graftCert) &&
-                        checkFormFields(kvdCert) &&
-                        (form.optionalCheckbox?.value ?? true)
+                        checkFormFields(kvdCert)
                     }
                     popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
                     popUpSuccessMessage="Данные формы успешно отправлены"

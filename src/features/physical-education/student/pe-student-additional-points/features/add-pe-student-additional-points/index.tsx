@@ -41,6 +41,9 @@ export const AddPEStudentAdditionalPoints = () => {
         if (type?.id === WorkType.Competition && pointsAmount === '0') {
             setPointsAmount('5')
         }
+        if (type?.id === WorkType.InternalTeam && pointsAmount === '0') {
+            setPointsAmount('50')
+        }
     }, [type?.id])
 
     const selectedDate = new Date(date)

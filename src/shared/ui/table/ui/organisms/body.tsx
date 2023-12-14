@@ -53,6 +53,7 @@ const Body = ({
     data,
     loading,
     columns,
+    columnsExtended,
     maxOnPage,
     onRowClick,
     filter,
@@ -69,7 +70,16 @@ const Body = ({
     return !loading ? (
         <BodyWrapper>
             {result?.map((el, i) => {
-                return <Row onRowClick={onRowClick} columns={columns} el={el} key={i} index={i} />
+                return (
+                    <Row
+                        onRowClick={onRowClick}
+                        columns={columns}
+                        columnsExtended={columnsExtended}
+                        el={el}
+                        key={i}
+                        index={i}
+                    />
+                )
             })}
             {!result?.length && <Error text="Нет данных" />}
             {pages > 0 && <Divider margin="0" width="100%" />}

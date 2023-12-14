@@ -1,44 +1,43 @@
-import React, { useEffect } from 'react'
-import { bufferHolidayPlanningModel } from './model'
-import { Title, Wrapper } from '@ui/atoms'
-import { HrBlockWrapper } from '@pages/hr-applications/ui'
+import React from 'react'
 import Content from './ui/content'
-import { HrHeader } from '@pages/hr-applications/ui/atoms/hr-header'
-import { ApplicationPageWrapper } from '@pages/hr-applications/ui/atoms/application-page-wrapper'
-import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+import { useHistory } from 'react-router'
+import { FiCalendar, FiInfo } from 'react-icons/fi'
+import { Button, Message, Wrapper } from '@shared/ui/atoms'
+import PageBlock from '@shared/ui/page-block'
+import { applicationsModel } from '@entities/applications'
 
 const HolidayPlanningBufferPage = () => {
-    const { data, loading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
+    const {
+        data: { dataWorkerApplication },
+        error,
+    } = applicationsModel.selectors.useApplications()
 
-    useEffect(() => {
-        bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
-    }, [])
+    const history = useHistory()
 
     return (
-        <Wrapper
-            load={bufferHolidayPlanningModel.events.loadBufferHolidayPlanning}
-            loading={loading}
-            error={null}
-            data={data}
-        >
-            <ApplicationPageWrapper>
-                <HrBlockWrapper maxWidth="1500px">
-                    <HrHeader>
-                        <Title size={2} align="left">
-                            Заявление на отпуск
-                        </Title>
-                        <HRInfoMessage />
-                        <p>
-                            График отпусков вы можете посмотреть по{' '}
-                            <a target="_blank" href="#/vacation" rel="noreferrer">
-                                ссылке
-                            </a>
-                            .
-                        </p>
-                    </HrHeader>
-                    <Content />
-                </HrBlockWrapper>
-            </ApplicationPageWrapper>
+        <Wrapper load={applicationsModel.effects.getWorkerPosts} error={error} data={dataWorkerApplication}>
+            <PageBlock
+                topRightCornerElement={
+                    <Button
+                        onClick={() => {
+                            history.replace('/vacation')
+                        }}
+                        text="График отпусков"
+                        background="var(--reallyBlue)"
+                        textColor="#fff"
+                        icon={<FiCalendar />}
+                        minWidth={'35px'}
+                        height="36px"
+                        shrinkTextInMobile
+                    />
+                }
+            >
+                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                    Тут можно посмотреть свои заявления на отпуск и согласовать их.
+                </Message>
+
+                <Content />
+            </PageBlock>
         </Wrapper>
     )
 }

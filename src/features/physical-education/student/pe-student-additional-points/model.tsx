@@ -43,29 +43,49 @@ export const $additionalPointsColumns = combine(
             render: (data) => data.fullName,
         },
         {
-            title: 'Действия',
-            field: 'actions',
-            onClick: () => null,
-            render: (_, data) => {
-                const history = data as PEStudentProfile['pointsHistory'][number]
-                const isExpired = differenceInDays(new Date(history.date), new Date()) < -7
-                const isAdmin = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some((permission) =>
-                    teacher?.permissions?.includes(permission),
-                )
+            title: 'Комментарий',
+            field: 'comment',
+            priority: 'five',
+            render: (_, row) => {
+                const workType = SelectorData.find(({ id }) => id === row.workType)
 
-                if (!((history.teacherGuid === teacher?.id && !isExpired) || isAdmin)) return null
+                if (workType?.id !== WorkType.Competition) {
+                    return row.comment
+                }
 
-                return (
-                    <Button
-                        width="100%"
-                        text="Удалить"
-                        isActive={!isLoading}
-                        onClick={() =>
-                            peStudentAdditionalPointsModel.events.removeAdditionPoints({ id: history.id.toString() })
-                        }
-                    />
-                )
+                return null
             },
         },
+        ...(teacher?.permissions?.length
+            ? [
+                  {
+                      title: 'Действия',
+                      field: 'actions',
+                      onClick: () => null,
+                      render: (_: unknown, data: unknown) => {
+                          const history = data as PEStudentProfile['pointsHistory'][number]
+                          const isExpired = differenceInDays(new Date(history.date), new Date()) < -7
+                          const isAdmin = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some(
+                              (permission) => teacher?.permissions?.includes(permission),
+                          )
+
+                          if (!((history.teacherGuid === teacher?.id && !isExpired) || isAdmin)) return null
+
+                          return (
+                              <Button
+                                  width="100%"
+                                  text="Удалить"
+                                  isActive={!isLoading}
+                                  onClick={() =>
+                                      peStudentAdditionalPointsModel.events.removeAdditionPoints({
+                                          id: history.id.toString(),
+                                      })
+                                  }
+                              />
+                          )
+                      },
+                  },
+              ]
+            : []),
     ],
 )

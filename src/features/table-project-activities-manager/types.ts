@@ -26,13 +26,13 @@ export enum StudentActivitiesColumn {
     email = 'email',
 
     // Первая аттестация
-    firstValidation = 'first-validation',
+    firstValidation = 'firstValidation',
 
     // Вторая аттестация
-    secondValidation = 'second-validation',
+    secondValidation = 'secondValidation',
 
     // Баллы защиты
-    defensePoints = 'defense-points',
+    defensePoints = 'defensePoints',
 
     // Итого
     resultPoints = 'resultPoints',

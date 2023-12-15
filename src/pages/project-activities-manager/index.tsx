@@ -14,9 +14,9 @@ const Container = styled.div`
 `
 
 const ProjectActivitiesActivitiesPage = () => {
-    const { loading, data } = projectActivitiesManagerStore.selectors.useData()
+    const { loading, data, error } = projectActivitiesManagerStore.selectors.useData()
 
-    const isNotProjectActivitiesManager = !loading && data === null
+    const isNotProjectActivitiesManager = !loading && data === null && !error
 
     return (
         <Wrapper
@@ -26,15 +26,13 @@ const ProjectActivitiesActivitiesPage = () => {
             loading={loading}
             data={data}
         >
-            <>
-                <Container>
-                    <PageBlock>
-                        <Intro />
-                        <Spacing size={2} />
-                        <Projects />
-                    </PageBlock>
-                </Container>
-            </>
+            <Container>
+                <PageBlock>
+                    <Intro />
+                    <Spacing size={2} />
+                    <Projects />
+                </PageBlock>
+            </Container>
         </Wrapper>
     )
 }

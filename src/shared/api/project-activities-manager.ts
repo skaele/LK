@@ -40,6 +40,7 @@ export const getCurrentSemesterProjectActivities = async (): Promise<ProjActivit
     await new Promise((r) => setTimeout(r, 1000))
 
     return {
+        // slice — для +-рандомного количества элементов в массиве
         activities: MOCK_PROJ_ACTIVITIES_MANAGER_CURRENT_SEMESTER.slice(0, -1 * (Math.floor(Math.random() * 3) + 1)),
     }
 }

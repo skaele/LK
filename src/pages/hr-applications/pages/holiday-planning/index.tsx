@@ -4,7 +4,6 @@ import sendHrFormHolidayPlanning from '@pages/hr-applications/lib/send-hr-form-h
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'

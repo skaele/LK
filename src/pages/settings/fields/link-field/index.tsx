@@ -4,7 +4,8 @@ import { FieldProps } from '../../model'
 import TextFieldItem from '../text-field/text-field-item'
 
 const LinkField = (props: FieldProps) => {
-    return <TextFieldItem {...props} rightIcon={<FiChevronRight />} />
+    const handleClick = () => props?.action?.()
+    return <TextFieldItem {...props} rightIcon={<FiChevronRight />} onClick={handleClick} />
 }
 
 export default LinkField

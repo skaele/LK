@@ -77,7 +77,10 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
-    training: Prop<boolean>
+    training: {
+        state: Prop<boolean>
+        applications: Prop<boolean>
+    }
 }
 
 export type TFullSettingsModel = {
@@ -309,8 +312,8 @@ const getSettingsModel: TSettingsModel = ({
                 {
                     title: 'Процесс обучения',
                     type: 'toggle',
-                    value: training.value,
-                    action: training.action,
+                    value: training.state.value,
+                    action: training.state.action,
                 },
                 {
                     title: 'Сбросить обучение',
@@ -329,6 +332,7 @@ const getSettingsModel: TSettingsModel = ({
                 {
                     title: 'Цифровые сервисы',
                     type: 'link',
+                    action: training.applications.action,
                 },
                 {
                     title: 'Оплата общежития',

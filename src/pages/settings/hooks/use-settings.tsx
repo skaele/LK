@@ -14,6 +14,8 @@ import CustomizeMenu from '../../../features/customize-menu'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
+import { useHistory } from 'react-router'
+import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -23,6 +25,7 @@ const useSettings = () => {
         data: { user },
     } = userModel.selectors.useUser()
     const { open } = useModal()
+    const history = useHistory()
     const { leftsideBarRoutes, homeRoutes } = menuModel.selectors.useMenu()
     const { settings } = settingsModel.selectors.useSettings()
     const [fullSettings, setFullSettings] = useState<TFullSettingsModel | null>(null)
@@ -137,13 +140,19 @@ const useSettings = () => {
                     },
                 },
                 training: {
-                    value: training as boolean,
-                    action: (state) =>
-                        settingsModel.events.updateSetting({
-                            nameSettings: 'settings-training',
-                            nameParam: 'training',
-                            value: !!state,
-                        }),
+                    state: {
+                        value: training as boolean,
+                        action: (state) =>
+                            settingsModel.events.updateSetting({
+                                nameSettings: 'settings-training',
+                                nameParam: 'training',
+                                value: !!state,
+                            }),
+                    },
+                    applications: {
+                        value: false,
+                        action: () => history.push(APPLICATIONS_ROUTE),
+                    },
                 },
             }),
         })

@@ -33,6 +33,7 @@ import {
     PAYMENT_FOR_CHILD_CARE,
     PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
     PERSONA_INCOME_TAX_REFERENCE,
+    PHONEBOOK,
     PRINTER_MAINTENANCE,
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
@@ -41,7 +42,7 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
-import { UNION_ORGANIZATION } from '@shared/constants'
+import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
 
 const getTeachersSectionLinks = () => {
     return [
@@ -63,6 +64,11 @@ const getTeachersSectionLinks = () => {
                 { link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' },
                 { link: DATA_VERIFICATION_ROUTE, title: 'Анкета для сверки данных' },
             ],
+        },
+        {
+            title: 'Общее (в разработке)',
+            disabled: isProduction,
+            links: [{ link: PHONEBOOK, title: 'Форма телефонного справочника' }],
         },
         {
             title: 'ИТ-обслуживание',

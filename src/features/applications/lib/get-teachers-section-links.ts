@@ -15,6 +15,7 @@ import {
     CERTIFIED_COPIES_OF_MILITARY_DOCS,
     CONNECTING_COMPUTER,
     CONTACT_INFO_ACTUALIZATION,
+    CONTACT_INFO_ACTUALIZATION_TEST,
     COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE,
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
@@ -68,7 +69,11 @@ const getTeachersSectionLinks = () => {
         {
             title: 'Общее (в разработке)',
             disabled: isProduction,
-            links: [{ link: PHONEBOOK, title: 'Форма телефонного справочника' }],
+            links: [
+                { link: PHONEBOOK, title: 'Форма телефонного справочника' },
+
+                { link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' },
+            ],
         },
         {
             title: 'ИТ-обслуживание',

@@ -50,6 +50,7 @@ import {
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
     PhonebookPage,
+    ContactInfoActualizationTestPage,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -125,6 +126,7 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
+export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
 export const PHONEBOOK = APPLICATIONS_ROUTE + '/phonebook'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
@@ -1012,6 +1014,21 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'data-actualization': {
+        id: 'data-actualization',
+        title: 'Актуализация контактных данных (тест)',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_INFO_ACTUALIZATION_TEST,
+        Component: isProduction ? ContactInfoActualizationPage : ContactInfoActualizationTestPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
     'data-verification': {
         id: 'data-verification',

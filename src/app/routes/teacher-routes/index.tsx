@@ -1028,7 +1028,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        pageSize: 'large',
     },
     'data-verification': {
         id: 'data-verification',

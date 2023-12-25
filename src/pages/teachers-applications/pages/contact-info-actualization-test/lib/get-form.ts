@@ -1,4 +1,6 @@
-import { ContactInfoActualization } from '@api/model'
+import { ContactInfoActualization, UserApplication } from '@api/model'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { IInputArea } from '@ui/input-area/model'
 const sites = [
     {
@@ -71,10 +73,22 @@ const sites = [
     },
 ]
 
-const getForm = (data: ContactInfoActualization): IInputArea => {
+const getForm = (data: ContactInfoActualization, dataForm: UserApplication): IInputArea => {
+    const { subdivisions } = dataForm
     return {
         title: 'Актуализация контактных данных',
         data: [
+            {
+                title: 'Подразделение/должность',
+                value: getDefaultSubdivision(subdivisions),
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisions(subdivisions),
+                isSpecificSelect: true,
+            },
             {
                 title: 'Служебный мобильный телефон',
                 type: 'tel',
@@ -96,7 +110,7 @@ const getForm = (data: ContactInfoActualization): IInputArea => {
             },
             {
                 fieldName: 'site',
-                title: 'Площадка (надо обновить)',
+                title: 'Площадка',
                 type: 'select',
                 value: null,
                 items: sites,

@@ -26,7 +26,7 @@ export const WeekCalendar = (props: CalendarWeekProps) => {
                             events={events?.[day as IWeekDayNames]}
                             scale={scale}
                             shift={shift}
-                            currentEvent={null}
+                            showCurrentEvent={!!showDates}
                             interval={interval}
                             onClick={handleOpenModal}
                         />

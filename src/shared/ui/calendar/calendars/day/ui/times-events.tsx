@@ -15,6 +15,7 @@ type Props = {
     shift: number
     onEventClick: (event: DayCalendarEvent) => void
     isCurrentDay?: boolean
+    showCurrentEvent?: boolean
 }
 
 export const TimesEvents = ({
@@ -26,6 +27,7 @@ export const TimesEvents = ({
     onEventClick,
     currentDay,
     isCurrentDay,
+    showCurrentEvent = true,
 }: Props) => {
     const eventsRef = useScrollTo({
         deps: [events?.length],
@@ -41,7 +43,7 @@ export const TimesEvents = ({
                 isCurrentDay={isCurrentDay}
                 events={events ?? []}
                 shift={shift}
-                currentEvent={null}
+                showCurrentEvent={showCurrentEvent}
                 scale={scale}
                 onClick={onEventClick}
                 interval={interval}

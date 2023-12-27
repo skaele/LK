@@ -10,9 +10,9 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
         {
             title: 'Дата',
-            field: 'vacation',
-            width: '100px',
-            render: (value) => localizeDate(value?.status?.creationDate, 'numeric'),
+            field: 'creationDate',
+            type: 'date',
+            sort: true,
         },
         {
             title: 'Статус',

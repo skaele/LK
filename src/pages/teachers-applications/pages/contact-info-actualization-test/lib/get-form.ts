@@ -118,6 +118,7 @@ const getForm = (data: ContactInfoActualization, dataForm: UserApplication): IIn
                 editable: true,
                 required: true,
             },
+
             {
                 fieldName: 'email_private',
                 title: 'Номер аудитории',

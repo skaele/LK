@@ -199,7 +199,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     'download-agreements': {
         id: 'download-agreements',
-        title: 'Административная панель',
+        title: 'Админ панель',
         icon: <FiArrowDownCircle />,
         path: DOWNLOAD_AGREEMENTS_FILES_ROUTE,
         Component: DownloadAdminFilesPage,

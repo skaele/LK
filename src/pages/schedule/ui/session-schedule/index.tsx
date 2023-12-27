@@ -19,7 +19,7 @@ export const SessionSchedule = () => {
             startDate={resultSchedule.session.startDate}
             endDate={resultSchedule.session.endDate}
             view={view}
-            showDates
+            showDates={false}
         />
     )
 }

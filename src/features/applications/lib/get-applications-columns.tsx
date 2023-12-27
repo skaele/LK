@@ -1,10 +1,10 @@
 import { ApplicationsConstants } from '@entities/applications/consts'
 import { LinkButton } from '@shared/ui/atoms'
-import Flex from '@shared/ui/flex'
 import { Tooltip } from '@shared/ui/tooltip'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
+import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
 
 const getApplicationsColumns = (): ColumnProps[] => {

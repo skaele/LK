@@ -18,6 +18,8 @@ const Subtext = styled.span<{
     text-align: ${({ align }) => align ?? 'left'};
     display: ${({ visible }) => !(visible ?? true) && 'none'};
     line-height: ${({ lineHeight }) => lineHeight};
+    word-wrap: break-word;
+    overflow-wrap: normal;
 `
 
 export default Subtext

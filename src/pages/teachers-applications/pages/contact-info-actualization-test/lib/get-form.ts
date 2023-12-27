@@ -109,7 +109,7 @@ const getForm = (data: ContactInfoActualization, dataForm: UserApplication): IIn
                 fieldName: 'email_staff',
             },
             {
-                fieldName: 'site',
+                fieldName: 'tel_mob_private',
                 title: 'Площадка',
                 type: 'select',
                 value: null,
@@ -119,7 +119,7 @@ const getForm = (data: ContactInfoActualization, dataForm: UserApplication): IIn
                 required: true,
             },
             {
-                fieldName: 'aud_number',
+                fieldName: 'email_private',
                 title: 'Номер аудитории',
                 value: '',
                 editable: true,

@@ -1,4 +1,3 @@
-import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 
@@ -23,6 +22,4 @@ export const FiltersWrapper = styled(Flex)`
     }
 `
 
-export const NameRenderer = styled.span<{ hasDebt: boolean }>`
-    color: ${({ hasDebt }) => hasDebt && Colors.red.main};
-`
+export const TableHeader = styled(Flex)``

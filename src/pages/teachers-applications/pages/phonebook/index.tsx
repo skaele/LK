@@ -1,5 +1,5 @@
 import { contactInfoActualizationModel } from '@entities/contact-info-actualization'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
@@ -16,6 +16,11 @@ const ContactInfoActualizationPage = () => {
     } = applicationsModel.selectors.useApplications()
 
     const history = useHistory()
+
+    useEffect(() => {
+        if (!!data && !!dataUserApplication?.subdivisions?.length && dataUserApplication.subdivisions?.length === 1)
+            history.push(PHONEBOOK + '/' + dataUserApplication.subdivisions[0].guid_staff)
+    }, [dataUserApplication, data])
 
     return (
         <Wrapper

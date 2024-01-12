@@ -1,6 +1,4 @@
-import { ContactInfoActualization, UserApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
-import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { ContactInfoActualization, Subdivision } from '@api/model'
 import { IInputArea } from '@ui/input-area/model'
 
 const sites = [
@@ -74,21 +72,27 @@ const sites = [
     },
 ]
 
-const getForm = (data: ContactInfoActualization, dataForm: UserApplication): IInputArea => {
-    const { subdivisions } = dataForm
+const getForm = (data: ContactInfoActualization, subdivision: Subdivision): IInputArea => {
     return {
         title: 'Актуализация контактных данных',
         data: [
             {
                 fieldName: 'guid_staff',
                 title: 'Подразделение/должность',
-                value: getDefaultSubdivision(subdivisions),
-                editable: true,
+                value: subdivision.guid_staff,
                 width: '100',
                 required: true,
-                type: 'select',
-                items: getFormattedSubDivisions(subdivisions),
-                isSpecificSelect: true,
+                type: 'text',
+                visible: false,
+            },
+            {
+                fieldName: '',
+                title: `${subdivision.subdivision} (${subdivision.post})`,
+                value: `${subdivision.subdivision} (${subdivision.post})`,
+                width: '100',
+                required: true,
+                type: 'text-header',
+                visible: true,
             },
             {
                 fieldName: 'site',

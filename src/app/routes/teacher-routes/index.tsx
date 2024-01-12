@@ -51,6 +51,7 @@ import {
     DefermentFromConscription,
     PhonebookPage,
     ContactInfoActualizationTestPage,
+    PhonebookForm,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -128,6 +129,7 @@ export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentI
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
 export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
 export const PHONEBOOK = APPLICATIONS_ROUTE + '/phonebook'
+export const PHONEBOOK_FORM = APPLICATIONS_ROUTE + '/phonebook/:guid'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -1001,9 +1003,9 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'phonebook-form': {
-        id: 'phonebook-form',
-        title: 'Форма телефонного справочника',
+    phonebook: {
+        id: 'phonebook',
+        title: 'Телефонный справочник',
         icon: <FiFileText />,
         color: 'blue',
         path: PHONEBOOK,
@@ -1012,8 +1014,20 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'phonebook-form': {
+        id: 'phonebook-form',
+        title: 'Форма телефонного справочника',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: PHONEBOOK_FORM,
+        Component: isProduction ? ApplicationRedirect : PhonebookForm,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        fallbackPrevPage: PHONEBOOK,
     },
     'data-actualization': {
         id: 'data-actualization',

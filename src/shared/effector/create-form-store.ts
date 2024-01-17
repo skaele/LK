@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { Effect, Event, forward, sample } from 'effector'
+import { Effect, Event, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { createEffect, createEvent, createStore } from 'effector'
 import { MessageType } from '@shared/ui/types'
@@ -83,7 +83,10 @@ export const createFormStore = <DataType, PostDataType>({
         target: popUpMessageModel.events.evokePopUpMessage,
     })
 
-    forward({ from: postFormFx.doneData, to: applicationsModel.effects.getApplicationsFx })
+    sample({
+        clock: postFormFx.doneData,
+        target: applicationsModel.effects.getApplicationsFx,
+    })
 
     const getFormFx = createEffect(async (): Promise<DataType | null> => {
         if (api.get) {

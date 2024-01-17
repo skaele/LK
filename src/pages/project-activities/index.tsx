@@ -75,8 +75,12 @@ const ProjectActivitiesPage = () => {
                         />
                         <Divider width="100%" margin="16px 0" />
                         <CurrentSemestr data={data} />
-                        <Divider width="100%" margin="16px 0" />
-                        <LastSemestr data={data} />
+                        {data?.last_semestr_result !== 'Данные отсутствуют' && (
+                            <>
+                                <Divider width="100%" margin="16px 0" />
+                                <LastSemestr data={data} />
+                            </>
+                        )}
                         <Divider width="100%" margin="16px 0" />
                         <Result data={data} />
                     </ProjectStyled>

@@ -1015,6 +1015,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isSubPage: true,
         backButtonText: 'Назад к цифровым сервисам',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'phonebook-form': {
         id: 'phonebook-form',
@@ -1028,6 +1029,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isSubPage: true,
         backButtonText: 'Назад',
         fallbackPrevPage: PHONEBOOK,
+        show: !isProduction,
     },
     'data-actualization': {
         id: 'data-actualization',
@@ -1042,6 +1044,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'data-verification': {
         id: 'data-verification',

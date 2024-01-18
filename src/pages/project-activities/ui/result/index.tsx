@@ -16,7 +16,14 @@ const Result = ({ data }: Props) => {
             <Title size={4} align="left" bottomGap>
                 Итог
             </Title>
-            <ScoreItem title="За прошлый семестр баллов " score={lastSemestr} scoreText={data?.arrear_result ?? ''} />
+            {data?.arrear !== '0' && (
+                <ScoreItem
+                    title="Баллы в счет погашения долга "
+                    score={lastSemestr}
+                    scoreText={data?.arrear_result ?? ''}
+                    color={data?.arrear_result === 'зачтено' ? 'var(--green)' : 'var(--red)'}
+                />
+            )}
             <ScoreItem
                 title="За текущий семестр баллов "
                 score={currentSemestr}

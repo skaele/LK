@@ -3,7 +3,7 @@ import { IInputAreaData } from '@ui/input-area/model'
 const listTeacherMfc = [
     {
         id: 0,
-        title: 'Отделение «На Большой Семеновской» Ул.Большая Семеновская, 38; ауд.В - 107. Тел. (495) 223-05 - 23, доб. 1105, 1175; crs- bs@mospolytech.ru',
+        title: 'Отделение «На Большой Семеновской» ул.Большая Семеновская, 38; ауд. В-207. Тел. (495) 223-05-23, доб. 1105, 1175; crs-bs@mospolytech.ru',
     },
     {
         id: 1,

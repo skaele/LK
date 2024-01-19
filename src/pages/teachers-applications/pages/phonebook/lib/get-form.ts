@@ -1,4 +1,5 @@
 import { Phonebook, Subdivision } from '@api/model'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@ui/input-area/model'
 
 const sites = [
@@ -98,7 +99,7 @@ const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
                 fieldName: 'site',
                 title: 'Площадка',
                 type: 'select',
-                value: null,
+                value: findCurrentInSelect(sites, data.site as string),
                 items: sites,
                 width: '100',
                 editable: true,
@@ -107,7 +108,7 @@ const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
             {
                 fieldName: 'aud_number',
                 title: 'Номер аудитории',
-                value: '',
+                value: data.aud_number,
                 editable: true,
                 required: true,
             },
@@ -122,13 +123,13 @@ const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
                 title: 'Показывать рабочий email внутри Личного кабинета',
                 fieldName: 'show_email_inner',
                 type: 'checkbox',
-                value: true,
+                value: data.show_email_inner ?? true,
             },
             {
                 title: 'Показывать рабочий email на сайте',
                 fieldName: 'show_email_outer',
                 type: 'checkbox',
-                value: true,
+                value: data.show_email_outer ?? true,
             },
             {
                 title: 'Служебный мобильный телефон',
@@ -141,13 +142,13 @@ const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
                 title: 'Показывать мобильный телефон внутри Личного кабинета',
                 fieldName: 'show_tel_mob_staff_inner',
                 type: 'checkbox',
-                value: true,
+                value: data.show_tel_mob_staff_inner ?? true,
             },
             {
                 title: 'Показывать мобильный телефон на сайте',
                 fieldName: 'show_tel_mob_staff_outer',
                 type: 'checkbox',
-                value: true,
+                value: data.show_tel_mob_staff_outer ?? true,
             },
             {
                 title: 'Служебный телефон (прямой/дополнительный)',
@@ -159,13 +160,13 @@ const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
                 title: 'Показывать служебный телефон внутри Личного кабинета',
                 fieldName: 'show_tel_staff_inner',
                 type: 'checkbox',
-                value: true,
+                value: data.show_tel_staff_inner ?? true,
             },
             {
                 title: 'Показывать служебный телефон на сайте',
                 fieldName: 'show_tel_staff_outer',
                 type: 'checkbox',
-                value: true,
+                value: data.show_tel_staff_outer ?? true,
             },
         ],
     }

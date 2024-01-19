@@ -1,4 +1,4 @@
-import { ContactInfoActualization, Subdivision } from '@api/model'
+import { Phonebook, Subdivision } from '@api/model'
 import { IInputArea } from '@ui/input-area/model'
 
 const sites = [
@@ -72,7 +72,7 @@ const sites = [
     },
 ]
 
-const getForm = (data: ContactInfoActualization, subdivision: Subdivision): IInputArea => {
+const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
     return {
         title: 'Актуализация контактных данных',
         data: [

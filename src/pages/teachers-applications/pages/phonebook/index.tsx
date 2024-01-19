@@ -1,5 +1,4 @@
-import { contactInfoActualizationModel } from '@entities/contact-info-actualization'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
@@ -8,11 +7,10 @@ import { applicationsModel } from '@entities/applications'
 import { useHistory } from 'react-router'
 import { PHONEBOOK } from '@app/routes/teacher-routes'
 
-const ContactInfoActualizationPage = () => {
-    const { data, error } = contactInfoActualizationModel.selectors.useForm()
+const PhonebookPage = () => {
     const {
         data: { dataUserApplication },
-        error: errorApplication,
+        error,
     } = applicationsModel.selectors.useApplications()
 
     const history = useHistory()
@@ -23,11 +21,7 @@ const ContactInfoActualizationPage = () => {
     }, [dataUserApplication, data])
 
     return (
-        <Wrapper
-            load={contactInfoActualizationModel.effects.getFormFx}
-            data={data && dataUserApplication}
-            error={error || errorApplication}
-        >
+        <Wrapper load={() => {}} data={dataUserApplication} error={error}>
             <PageBlock>
                 <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
                     Выберите должность, чтобы заполнить контактные данные по должности.
@@ -45,4 +39,4 @@ const ContactInfoActualizationPage = () => {
     )
 }
 
-export default ContactInfoActualizationPage
+export default PhonebookPage

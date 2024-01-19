@@ -1,4 +1,3 @@
-import { contactInfoActualizationModel } from '@entities/contact-info-actualization'
 import getForm from './lib/get-form'
 import React, { useState, useEffect } from 'react'
 import { IInputArea } from '@shared/ui/input-area/model'
@@ -6,19 +5,19 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { FormBlock, SubmitButton, Wrapper } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { LoadedState } from 'widgets/template-form'
-import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
 import sendForm from '@shared/lib/send-form'
-import { ContactInfoActualization } from '@shared/api/model'
+import { Phonebook } from '@shared/api/model'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { useParams } from 'react-router'
 import { applicationsModel } from '@entities/applications'
+import { phonebookModel } from '@entities/phonebook'
 
-const ContactInfoActualizationForm = () => {
+const PhonebookForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
-    const { data, error } = contactInfoActualizationModel.selectors.useForm()
+    const { data, error } = phonebookModel.selectors.useForm()
     const { guid } = useParams<{ guid: string }>()
     const {
         data: { dataUserApplication },
@@ -31,8 +30,20 @@ const ContactInfoActualizationForm = () => {
         }
     }, [data])
 
+    useEffect(() => {
+        return () => {
+            phonebookModel.events.clearStore()
+        }
+    }, [])
+
     return (
-        <Wrapper load={contactInfoActualizationModel.effects.getFormFx} data={data} error={error}>
+        <Wrapper
+            load={() => {
+                phonebookModel.effects.getFormFx(guid)
+            }}
+            data={data}
+            error={error}
+        >
             <BaseApplicationWrapper isDone={isDone}>
                 {!!form && (
                     <FormBlock>
@@ -40,12 +51,11 @@ const ContactInfoActualizationForm = () => {
                         <SubmitButton
                             text={!isDone ? 'Отправить' : 'Отправлено'}
                             action={() =>
-                                sendForm<ContactInfoActualization>(
+                                sendForm<Phonebook>(
                                     form,
-                                    contactInfoActualizationModel.effects.postFormFx,
+                                    phonebookModel.effects.postFormFx,
                                     setLoading,
-                                    contactInfoActualizationModel.events.changeCompleted,
-                                    ApplicationTeachersFormCodes.CONTACT_INFO_ACTUALIZATION,
+                                    phonebookModel.events.changeCompleted,
                                 )
                             }
                             isLoading={loading}
@@ -65,4 +75,4 @@ const ContactInfoActualizationForm = () => {
     )
 }
 
-export default ContactInfoActualizationForm
+export default PhonebookForm

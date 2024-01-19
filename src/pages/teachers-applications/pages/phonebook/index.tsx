@@ -15,10 +15,13 @@ const PhonebookPage = () => {
 
     const history = useHistory()
 
-    useEffect(() => {
-        if (!!data && !!dataUserApplication?.subdivisions?.length && dataUserApplication.subdivisions?.length === 1)
-            history.push(PHONEBOOK + '/' + dataUserApplication.subdivisions[0].guid_staff)
-    }, [dataUserApplication, data])
+    // Хотели перекидывать пользователя сразу на заполнение информации по должности,
+    // если у него 1 место работы, но возникли трудности с возвращением назад
+    // из формы заполения данных.
+    // useEffect(() => {
+    //     if (!!dataUserApplication?.subdivisions?.length && dataUserApplication.subdivisions?.length === 1)
+    //         history.push(PHONEBOOK + '/' + dataUserApplication.subdivisions[0].guid_staff)
+    // }, [dataUserApplication])
 
     return (
         <Wrapper load={() => {}} data={dataUserApplication} error={error}>

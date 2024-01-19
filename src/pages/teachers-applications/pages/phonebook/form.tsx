@@ -25,8 +25,10 @@ const PhonebookForm = () => {
 
     useEffect(() => {
         if (!!data) {
-            const x = dataUserApplication?.subdivisions?.find((subdivision) => subdivision.guid_staff === guid)
-            setForm(getForm(data, x!))
+            const subdivision = dataUserApplication?.subdivisions?.find(
+                (subdivision) => subdivision.guid_staff === guid,
+            )
+            setForm(getForm(data, subdivision!))
         }
     }, [data])
 

@@ -128,13 +128,13 @@ const TopMessage = ({
 }
 
 const countPayment = (contracts: PaymentsContract[]) => {
-    if (contracts.some((contract) => +contract.balance_currdate > 0)) {
+    if (contracts.some((contract) => Number(contract.balance_currdate) > 0)) {
         return contracts.reduce(
-            (sum, contract) => (+contract.balance_currdate > 0 ? +contract.balance_currdate + sum : sum),
+            (sum, contract) => (Number(contract.balance_currdate) > 0 ? Number(contract.balance_currdate) + sum : sum),
             0,
         )
     }
-    return contracts.reduce((sum, contract) => +contract.balance_currdate + sum, 0)
+    return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
 }
 
 const PaymentsWidget = () => {

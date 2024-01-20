@@ -16,21 +16,30 @@ const PhonebookForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
-    const isDone = completed ?? false
-    const { data, error } = phonebookModel.selectors.useForm()
     const { guid } = useParams<{ guid: string }>()
+    const isDone = completed ?? false
+    const [guidStaff, setGuidStaff] = useState(guid)
+
+    const { data, error } = phonebookModel.selectors.useForm()
     const {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
 
     useEffect(() => {
-        if (!!data) {
+        if (!!dataUserApplication) {
+            if (guid) setGuidStaff(guid)
+            else setGuidStaff(dataUserApplication?.subdivisions![0].guid_staff)
+        }
+    }, [dataUserApplication])
+
+    useEffect(() => {
+        if (!!data && !!guidStaff) {
             const subdivision = dataUserApplication?.subdivisions?.find(
-                (subdivision) => subdivision.guid_staff === guid,
+                (subdivision) => subdivision.guid_staff === guidStaff,
             )
             setForm(getForm(data, subdivision!))
         }
-    }, [data])
+    }, [guidStaff, data])
 
     useEffect(() => {
         return () => {
@@ -38,12 +47,14 @@ const PhonebookForm = () => {
         }
     }, [])
 
+    if (!guidStaff) return null
+
     return (
         <Wrapper
             load={() => {
-                phonebookModel.effects.getFormFx(guid)
+                phonebookModel.effects.getFormFx(guidStaff)
             }}
-            data={data}
+            data={dataUserApplication && data}
             error={error}
         >
             <BaseApplicationWrapper isDone={isDone}>

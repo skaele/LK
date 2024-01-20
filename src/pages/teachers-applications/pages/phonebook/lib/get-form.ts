@@ -75,7 +75,7 @@ const sites = [
 
 const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
     return {
-        title: 'Актуализация контактных данных',
+        title: 'Контактные данные',
         data: [
             {
                 fieldName: 'guid_staff',

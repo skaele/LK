@@ -1019,7 +1019,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'phonebook-form': {
         id: 'phonebook-form',
-        title: 'Форма телефонного справочника',
+        title: 'Телефонный справочник',
         icon: <FiFileText />,
         color: 'blue',
         path: PHONEBOOK_FORM,

@@ -1,8 +1,8 @@
 import { getJwtToken } from '@entities/user/lib/jwt-token'
 import axios from 'axios'
 
-const downloadFile = async (guid: string) => {
-    const url = `https://api.mospolytech.ru/serviceforfrontpersonnelorders/Vacation.DownloadFile?DocumentGuid=${guid}&Type=0`
+const downloadFile = async (guid: string, type: string) => {
+    const url = `https://api.mospolytech.ru/serviceforfrontpersonnelorders/Vacation.DownloadFile?DocumentGuid=${guid}&Type=${type}`
 
     const headers = {
         Authorization: `Bearer ${getJwtToken()}`,

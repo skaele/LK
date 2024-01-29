@@ -10,11 +10,6 @@ const getCurrentDaySubjects = (daySubjects: ISubject[] | null, fullWeekDay: Date
 
         const fullStartDate = getFullStartDate(startDate)
         const fullEndDate = getFullEndDate(endDate, startDate)
-        // console.log(
-        //     normalizedFullWeekDay.toLocaleDateString(),
-        //     fullStartDate.toLocaleDateString(),
-        //     normalizedFullWeekDay <= (fullEndDate ?? fullStartDate),
-        // )
 
         return normalizedFullWeekDay >= fullStartDate && normalizedFullWeekDay <= (fullEndDate ?? fullStartDate)
     })

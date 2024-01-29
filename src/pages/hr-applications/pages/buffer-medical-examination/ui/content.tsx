@@ -20,17 +20,17 @@ const Content = () => {
     } = applicationsModel.selectors.useApplications()
 
     const jobExaminations =
+        dataWorkerApplication &&
         data &&
         data
             .map((job) => {
-                const currentJob =
-                    dataWorkerApplication && dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
+                const currentJob = dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
                 return [...job.notTaken.map((exam) => ({ ...exam, jobTitle: currentJob?.jobTitle }))]
             })
             .flat()
-            .filter((exam) => {
-                if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
-            })
+            // .filter((exam) => {
+            //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
+            // })
             .sort((a, b) => compareDesc(new Date(a.creationDate), new Date(b.creationDate)))
 
     return (

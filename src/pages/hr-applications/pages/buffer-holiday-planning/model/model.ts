@@ -83,6 +83,11 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
+sample({
+    clock: sendBufferHolidayPlanningFx.doneData,
+    target: loadBufferHolidayPlanningFx,
+})
+
 export const events = {
     loadBufferHolidayPlanning,
     sendBufferHolidayPlanning,

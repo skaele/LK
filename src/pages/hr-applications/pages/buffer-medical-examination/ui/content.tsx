@@ -31,7 +31,7 @@ const Content = () => {
             // .filter((exam) => {
             //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
             // })
-            .sort((a, b) => compareDesc(new Date(a.creationDate), new Date(b.creationDate)))
+            .sort((a, b) => compareDesc(new Date(a.startDate), new Date(b.startDate)))
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>

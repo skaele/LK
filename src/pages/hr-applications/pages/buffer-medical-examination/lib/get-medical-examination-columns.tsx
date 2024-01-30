@@ -3,7 +3,7 @@ import { Message } from '@shared/ui/message'
 import React from 'react'
 import { ColumnProps } from '@ui/table/types'
 import { Button } from '@shared/ui/button'
-import downloadFile from '@pages/hr-applications/lib/get-file-medical-examination'
+import downloadFile from '@pages/hr-applications/lib/get-file'
 
 export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [
@@ -30,7 +30,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value}
+                        title={value || '-'}
                         align="center"
                         width="100%"
                         icon={null}
@@ -74,7 +74,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                             height="30px"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                downloadFile(data?.documentGuid)
+                                downloadFile(data?.documentGuid, '0')
                             }}
                         />
                     )

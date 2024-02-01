@@ -158,14 +158,6 @@ const DataVerificationPage = () => {
                                 checked={confirmAll}
                                 setChecked={setConfirmAll}
                                 text={'Я подтверждаю корректность указанных данных'}
-                                isActive={
-                                    !!army.confirmed &&
-                                    !!driveLicense.confirmed &&
-                                    !!personalData.confirmed &&
-                                    !!location.confirmed &&
-                                    !!passport.confirmed &&
-                                    !!education.confirmed
-                                }
                             />
                             <SubmitButton
                                 text={!completed ? 'Отправить' : 'Отправлено'}

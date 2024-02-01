@@ -1,0 +1,1541 @@
+{
+  "_BoldText-34495506.js": {
+    "file": "assets/BoldText-34495506.js",
+    "imports": [
+      "_vendor-2324f29b.js"
+    ]
+  },
+  "_alert-item-3abc138e.js": {
+    "file": "assets/alert-item-3abc138e.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_is-valid-url-08a91344.js"
+    ]
+  },
+  "_find-current-in-select-ba4611d5.js": {
+    "file": "assets/find-current-in-select-ba4611d5.js"
+  },
+  "_get-basic-fields-application-teacher-53f7b63c.js": {
+    "file": "assets/get-basic-fields-application-teacher-53f7b63c.js",
+    "imports": [
+      "_get-default-subdivision-17957fb0.js"
+    ]
+  },
+  "_get-default-subdivision-17957fb0.js": {
+    "file": "assets/get-default-subdivision-17957fb0.js"
+  },
+  "_get-divisions-96cfa1b1.js": {
+    "file": "assets/get-divisions-96cfa1b1.js"
+  },
+  "_get-last-year-for-period-e1de6b16.js": {
+    "file": "assets/get-last-year-for-period-e1de6b16.js"
+  },
+  "_get-method-obstaing-c0726de9.js": {
+    "file": "assets/get-method-obstaing-c0726de9.js"
+  },
+  "_get-method-obtaining-fields-de6a3bf9.js": {
+    "file": "assets/get-method-obtaining-fields-de6a3bf9.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_get-site-and-topic-a96b5f53.js": {
+    "file": "assets/get-site-and-topic-a96b5f53.js"
+  },
+  "_get-student-subdivisions-5a2f2c8d.js": {
+    "file": "assets/get-student-subdivisions-5a2f2c8d.js",
+    "imports": [
+      "_get-divisions-96cfa1b1.js"
+    ]
+  },
+  "_get-teacher-subdivisions-5cd556a9.js": {
+    "file": "assets/get-teacher-subdivisions-5cd556a9.js"
+  },
+  "_help-links-1a8d01aa.js": {
+    "file": "assets/help-links-1a8d01aa.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index-0d1cdebe.js": {
+    "file": "assets/index-0d1cdebe.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_index-140d8f78.js": {
+    "file": "assets/index-140d8f78.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index-53d71dd9.js": {
+    "file": "assets/index-53d71dd9.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index-53f917b4.js": {
+    "file": "assets/index-53f917b4.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index-56c1cef8.js": {
+    "file": "assets/index-56c1cef8.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-140d8f78.js",
+      "index.html"
+    ]
+  },
+  "_index-596e848b.js": {
+    "file": "assets/index-596e848b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index-f4ab0535.js": {
+    "file": "assets/index-f4ab0535.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js"
+    ]
+  },
+  "_index-fafb2aca.js": {
+    "file": "assets/index-fafb2aca.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_index.esm-d8bc35f4.js": {
+    "file": "assets/index.esm-d8bc35f4.js",
+    "imports": [
+      "_vendor-2324f29b.js"
+    ]
+  },
+  "_is-valid-url-08a91344.js": {
+    "file": "assets/is-valid-url-08a91344.js"
+  },
+  "_send-hr-form-work-transfer-e26559cb.js": {
+    "file": "assets/send-hr-form-work-transfer-e26559cb.js",
+    "imports": [
+      "index.html"
+    ]
+  },
+  "_ui-5e47f4cf.js": {
+    "file": "assets/ui-5e47f4cf.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ]
+  },
+  "_vendor-2324f29b.js": {
+    "file": "assets/vendor-2324f29b.js"
+  },
+  "index.html": {
+    "assets": [
+      "assets/sad-emoji-0c60bf90.gif",
+      "assets/loading-c8041cd3.gif",
+      "assets/logo-4d9aa449.png",
+      "assets/mospolytech-logo-white-b1e4f630.png",
+      "assets/thinking-emoji-f3c10f79.gif",
+      "assets/sleep-54d590c1.gif"
+    ],
+    "dynamicImports": [
+      "src/pages/teachers-applications/pages/certificate-from-the-place-of-work/index.tsx",
+      "src/pages/teachers-applications/pages/copies-of-documents-from-the-personal-file/index.tsx",
+      "src/pages/teachers-applications/pages/contact-info-actualization/index.tsx",
+      "src/pages/teachers-applications/pages/data-verification/index.tsx",
+      "src/pages/personal-notifications/index.tsx",
+      "src/pages/teachers-applications/index.tsx",
+      "src/pages/teachers-applications/pages/arbitrary-request/index.tsx",
+      "src/pages/teachers-applications/pages/certificate-of-work-experience/index.tsx",
+      "src/pages/teachers-applications/pages/certificate-time-parental-leave/index.tsx",
+      "src/pages/teachers-applications/pages/connecting-computer/index.tsx",
+      "src/pages/teachers-applications/pages/copy-of-the-employment-record/index.tsx",
+      "src/pages/teachers-applications/pages/courier/index.tsx",
+      "src/pages/teacher-physical-education/index.tsx",
+      "src/pages/pe-student/index.tsx",
+      "src/pages/teachers-applications/pages/getting-computer-equipment/index.tsx",
+      "src/pages/teachers-applications/pages/issuance-of-licenses/index.tsx",
+      "src/pages/teachers-applications/pages/number-of-unused-vacation-days/index.tsx",
+      "src/pages/teachers-applications/pages/other-it-services/index.tsx",
+      "src/pages/teachers-applications/pages/payment-for-child-care/index.tsx",
+      "src/pages/teachers-applications/pages/payment-of-child-birth-allowance/index.tsx",
+      "src/pages/teachers-applications/pages/persona-income-tax-reference/index.tsx",
+      "src/pages/teachers-applications/pages/printer-maintenance/index.tsx",
+      "src/pages/teachers-applications/pages/question-personal-account/index.tsx",
+      "src/pages/teachers-applications/pages/question-sed/index.tsx",
+      "src/pages/teachers-applications/pages/visa-certificate/index.tsx",
+      "src/pages/teachers-applications/pages/work-on-the-terms-of-external-concurrency/index.tsx",
+      "src/pages/teachers-applications/pages/campus-office/living-in-residential-premises/index.tsx",
+      "src/pages/teachers-applications/pages/campus-office/guests-accomodation-on-campus/index.tsx",
+      "src/pages/teachers-applications/pages/campus-office/guests-passage-to-campus/index.tsx",
+      "src/pages/teachers-applications/pages/campus-office/relocation/index.tsx",
+      "src/pages/teachers-applications/pages/campus-office/termination-of-agreement/index.tsx",
+      "src/pages/teachers-applications/pages/pass-office/issuance-of-pass/index.tsx",
+      "src/pages/teachers-applications/pages/pass-office/guest-pass/index.tsx",
+      "src/pages/teachers-applications/pages/control-and-records-management-office/certification-and-issuance-of-docs/index.tsx",
+      "src/pages/teachers-applications/pages/mobilization-department/deferment-from-conscription/index.tsx",
+      "src/pages/teachers-applications/pages/mobilization-department/certified-copies-of-military-docs/index.tsx",
+      "src/pages/vacation-schedule/index.tsx",
+      "src/pages/all-teachers/index.tsx",
+      "src/pages/helpful-information/index.tsx",
+      "src/pages/hr-applications/index.tsx",
+      "src/pages/hr-applications/pages/part-time-employment/index.tsx",
+      "src/pages/hr-applications/pages/dismissal/index.tsx",
+      "src/pages/hr-applications/pages/extra-holiday-coll/index.tsx",
+      "src/pages/hr-applications/pages/holiday-work/index.tsx",
+      "src/pages/hr-applications/pages/medical-examination/index.tsx",
+      "src/pages/hr-applications/pages/holiday-planning/index.tsx",
+      "src/pages/hr-applications/pages/holiday-transfer/index.tsx",
+      "src/pages/hr-applications/pages/work-transfer/index.tsx",
+      "src/pages/hr-applications/pages/work-transfer-change-rate/index.tsx",
+      "src/pages/onboarding/index.tsx",
+      "src/pages/all-pages/index.tsx",
+      "src/pages/all-students/index.tsx",
+      "src/pages/all-teachers/index.tsx",
+      "src/pages/cant-access/index.tsx",
+      "src/pages/chat/index.tsx",
+      "src/pages/electronic-interaction-agreement/index.tsx",
+      "src/pages/feedback/index.tsx",
+      "src/pages/forgot-password/index.tsx",
+      "src/pages/alerts/index.tsx",
+      "src/pages/home/index.tsx",
+      "src/pages/instructions/index.tsx",
+      "src/pages/profile/index.tsx",
+      "src/pages/schedule/index.tsx",
+      "src/pages/schedule/ui/current-schedule/index.tsx",
+      "src/pages/schedule/ui/semestr-schedule/index.tsx",
+      "src/pages/schedule/ui/session-schedule/index.tsx",
+      "src/pages/schedule/ui/retake-schedule/index.tsx",
+      "src/pages/settings/index.tsx",
+      "src/pages/settings/pages/account/index.tsx",
+      "src/pages/settings/pages/appearance/index.tsx",
+      "src/pages/settings/pages/security/index.tsx",
+      "src/pages/decreis-directives/index.tsx",
+      "src/pages/get-your-login/index.tsx",
+      "src/pages/memo-freshmen/index.tsx",
+      "src/pages/memo-teacher/index.tsx",
+      "src/pages/medical-certificate/index.tsx",
+      "src/pages/onboarding/index.tsx",
+      "src/pages/lk-notifications/index.tsx",
+      "src/pages/application-for-superior-room/index.tsx",
+      "src/pages/acad-performance/index.tsx",
+      "src/pages/dormitory/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/clarification-of-passport-data/index.tsx",
+      "src/pages/applications/pages/trade-union-organization/social-scollarship/index.tsx",
+      "src/pages/pe-student/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/certificate-of-attendance/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/social-agencies/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/paper-call/index.tsx",
+      "src/pages/applications/pages/campus-management/regular-accommodation/index.tsx",
+      "src/pages/applications/index.tsx",
+      "src/pages/project-activities/index.tsx",
+      "src/pages/applications/pages/campus-management/academic-leave-accommodation/index.tsx",
+      "src/pages/applications/pages/campus-management/preferential-accommodation/index.tsx",
+      "src/pages/applications/pages/campus-management/termination-of-employment-contract/index.tsx",
+      "src/pages/applications/pages/campus-management/relocation-inside-hostel/index.tsx",
+      "src/pages/applications/pages/campus-management/accommodation-for-graduates/index.tsx",
+      "src/pages/applications/pages/campus-management/relocation-to-another-hostel/index.tsx",
+      "src/pages/applications/pages/department-of-paid-services/paymnet-recipient/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/restoring-the-magnetic-pass/index.tsx",
+      "src/pages/applications/pages/trade-union-organization/increased-state-academic-scholarship/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/retake-for-diploma/index.tsx",
+      "src/pages/applications/pages/mobilization-department/military-registration-documents/index.tsx",
+      "src/pages/applications/pages/trade-union-organization/financial-support/index.tsx",
+      "src/pages/applications/pages/trade-union-organization/financial-assistance/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/changing-personal-data/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/student-status/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/state-accreditation/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/holidays-after-training/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/provision-academic-leave/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/independently-deducted/index.tsx",
+      "src/pages/applications/pages/multifunctional-center/extension-attestation/index.tsx",
+      "src/pages/applications/pages/mobilization-department/military-registration-card/index.tsx",
+      "src/pages/applications/pages/campus-management/accommodation-correspondence-form/index.tsx",
+      "src/pages/applications/pages/campus-management/family-room/index.tsx",
+      "src/pages/applications/pages/other/arbitrary-request/index.tsx",
+      "src/pages/applications/pages/other/student-employment/index.tsx"
+    ],
+    "file": "assets/index-96298632.js",
+    "imports": [
+      "_vendor-2324f29b.js"
+    ],
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/pages/acad-performance/index.tsx": {
+    "file": "assets/index-38873dd5.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/acad-performance/index.tsx"
+  },
+  "src/pages/alerts/index.tsx": {
+    "file": "assets/index-0901a4bd.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_alert-item-3abc138e.js",
+      "_is-valid-url-08a91344.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/alerts/index.tsx"
+  },
+  "src/pages/all-pages/index.tsx": {
+    "file": "assets/index-3a5c039d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/all-pages/index.tsx"
+  },
+  "src/pages/all-students/index.tsx": {
+    "file": "assets/index-4968baf8.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-56c1cef8.js",
+      "_index-140d8f78.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/all-students/index.tsx"
+  },
+  "src/pages/all-teachers/index.tsx": {
+    "file": "assets/index-d4e1f9a7.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-56c1cef8.js",
+      "_index-140d8f78.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/all-teachers/index.tsx"
+  },
+  "src/pages/application-for-superior-room/index.tsx": {
+    "file": "assets/index-f21b4fbf.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/application-for-superior-room/index.tsx"
+  },
+  "src/pages/applications/index.tsx": {
+    "file": "assets/index-8f486781.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-596e848b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/academic-leave-accommodation/index.tsx": {
+    "file": "assets/index-e723b21b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/academic-leave-accommodation/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/accommodation-correspondence-form/index.tsx": {
+    "file": "assets/index-5a7c71a3.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/accommodation-correspondence-form/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/accommodation-for-graduates/index.tsx": {
+    "file": "assets/index-6bfcd4d1.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/accommodation-for-graduates/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/family-room/index.tsx": {
+    "file": "assets/index-937baf6d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/family-room/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/preferential-accommodation/index.tsx": {
+    "file": "assets/index-03005e7a.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/preferential-accommodation/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/regular-accommodation/index.tsx": {
+    "file": "assets/index-9b76838d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/regular-accommodation/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/relocation-inside-hostel/index.tsx": {
+    "file": "assets/index-c2243dc2.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/relocation-inside-hostel/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/relocation-to-another-hostel/index.tsx": {
+    "file": "assets/index-efe8f046.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/relocation-to-another-hostel/index.tsx"
+  },
+  "src/pages/applications/pages/campus-management/termination-of-employment-contract/index.tsx": {
+    "file": "assets/index-cbfa2f52.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/campus-management/termination-of-employment-contract/index.tsx"
+  },
+  "src/pages/applications/pages/department-of-paid-services/paymnet-recipient/index.tsx": {
+    "file": "assets/index-5fa57875.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/department-of-paid-services/paymnet-recipient/index.tsx"
+  },
+  "src/pages/applications/pages/mobilization-department/military-registration-card/index.tsx": {
+    "file": "assets/index-0493fc2d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/mobilization-department/military-registration-card/index.tsx"
+  },
+  "src/pages/applications/pages/mobilization-department/military-registration-documents/index.tsx": {
+    "file": "assets/index-e2ae723d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/mobilization-department/military-registration-documents/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/certificate-of-attendance/index.tsx": {
+    "file": "assets/index-da6aa275.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_find-current-in-select-ba4611d5.js",
+      "_get-student-subdivisions-5a2f2c8d.js",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/certificate-of-attendance/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/changing-personal-data/index.tsx": {
+    "file": "assets/index-22a13742.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/changing-personal-data/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/clarification-of-passport-data/index.tsx": {
+    "file": "assets/index-a6ce0cd4.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/clarification-of-passport-data/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/extension-attestation/index.tsx": {
+    "file": "assets/index-d04ac89e.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/extension-attestation/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/holidays-after-training/index.tsx": {
+    "file": "assets/index-a87d5b82.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/holidays-after-training/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/independently-deducted/index.tsx": {
+    "file": "assets/index-d20ae811.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/independently-deducted/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/paper-call/index.tsx": {
+    "file": "assets/index-8595f96b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-student-subdivisions-5a2f2c8d.js",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/paper-call/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/provision-academic-leave/index.tsx": {
+    "file": "assets/index-26ef9712.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/provision-academic-leave/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/restoring-the-magnetic-pass/index.tsx": {
+    "file": "assets/index-507c22f7.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/restoring-the-magnetic-pass/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/retake-for-diploma/index.tsx": {
+    "file": "assets/index-93a57a34.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_BoldText-34495506.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/retake-for-diploma/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/social-agencies/index.tsx": {
+    "file": "assets/index-eb0654f0.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-student-subdivisions-5a2f2c8d.js",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/social-agencies/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/state-accreditation/index.tsx": {
+    "file": "assets/index-a58fd5f9.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-student-subdivisions-5a2f2c8d.js",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/state-accreditation/index.tsx"
+  },
+  "src/pages/applications/pages/multifunctional-center/student-status/index.tsx": {
+    "file": "assets/index-75c223a2.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-student-subdivisions-5a2f2c8d.js",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/multifunctional-center/student-status/index.tsx"
+  },
+  "src/pages/applications/pages/other/arbitrary-request/index.tsx": {
+    "file": "assets/index-cdf0e3c8.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-divisions-96cfa1b1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/other/arbitrary-request/index.tsx"
+  },
+  "src/pages/applications/pages/other/student-employment/index.tsx": {
+    "file": "assets/index-d0286e77.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/other/student-employment/index.tsx"
+  },
+  "src/pages/applications/pages/trade-union-organization/financial-assistance/index.tsx": {
+    "file": "assets/index-50a7d4bf.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/trade-union-organization/financial-assistance/index.tsx"
+  },
+  "src/pages/applications/pages/trade-union-organization/financial-support/index.tsx": {
+    "file": "assets/index-8a46939f.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/trade-union-organization/financial-support/index.tsx"
+  },
+  "src/pages/applications/pages/trade-union-organization/increased-state-academic-scholarship/index.tsx": {
+    "file": "assets/index-6342b974.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/trade-union-organization/increased-state-academic-scholarship/index.tsx"
+  },
+  "src/pages/applications/pages/trade-union-organization/social-scollarship/index.tsx": {
+    "file": "assets/index-a8ae94e3.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/applications/pages/trade-union-organization/social-scollarship/index.tsx"
+  },
+  "src/pages/cant-access/index.tsx": {
+    "file": "assets/index-a6bdf888.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/cant-access/index.tsx"
+  },
+  "src/pages/chat/index.tsx": {
+    "file": "assets/index-5d6a9939.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index.esm-d8bc35f4.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/chat/index.tsx"
+  },
+  "src/pages/decreis-directives/index.tsx": {
+    "file": "assets/index-469d42b4.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-53d71dd9.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/decreis-directives/index.tsx"
+  },
+  "src/pages/dormitory/index.tsx": {
+    "file": "assets/index-b7f0939d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/dormitory/index.tsx"
+  },
+  "src/pages/electronic-interaction-agreement/index.tsx": {
+    "file": "assets/index-0b7c4eb0.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/electronic-interaction-agreement/index.tsx"
+  },
+  "src/pages/feedback/index.tsx": {
+    "file": "assets/index-661dcdfd.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_help-links-1a8d01aa.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/feedback/index.tsx"
+  },
+  "src/pages/forgot-password/index.tsx": {
+    "file": "assets/index-1a696d6f.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/forgot-password/index.tsx"
+  },
+  "src/pages/get-your-login/index.tsx": {
+    "file": "assets/index-8da95f95.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/get-your-login/index.tsx"
+  },
+  "src/pages/helpful-information/index.tsx": {
+    "file": "assets/index-9492ee19.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/helpful-information/index.tsx"
+  },
+  "src/pages/home/index.tsx": {
+    "file": "assets/index-48e253f2.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-53f917b4.js",
+      "_alert-item-3abc138e.js",
+      "_is-valid-url-08a91344.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/home/index.tsx"
+  },
+  "src/pages/hr-applications/index.tsx": {
+    "file": "assets/index-d739681b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/index.tsx"
+  },
+  "src/pages/hr-applications/pages/dismissal/index.tsx": {
+    "file": "assets/index-977d5c56.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/dismissal/index.tsx"
+  },
+  "src/pages/hr-applications/pages/extra-holiday-coll/index.tsx": {
+    "file": "assets/index-565d4bf2.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/extra-holiday-coll/index.tsx"
+  },
+  "src/pages/hr-applications/pages/holiday-planning/index.tsx": {
+    "file": "assets/index-e38a5d25.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/holiday-planning/index.tsx"
+  },
+  "src/pages/hr-applications/pages/holiday-transfer/index.tsx": {
+    "file": "assets/index-d8e753e4.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/holiday-transfer/index.tsx"
+  },
+  "src/pages/hr-applications/pages/holiday-work/index.tsx": {
+    "file": "assets/index-c90aafa3.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/holiday-work/index.tsx"
+  },
+  "src/pages/hr-applications/pages/medical-examination/index.tsx": {
+    "file": "assets/index-d5b5ae3d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/medical-examination/index.tsx"
+  },
+  "src/pages/hr-applications/pages/part-time-employment/index.tsx": {
+    "file": "assets/index-2293bb0b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/part-time-employment/index.tsx"
+  },
+  "src/pages/hr-applications/pages/work-transfer-change-rate/index.tsx": {
+    "file": "assets/index-ba950452.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_send-hr-form-work-transfer-e26559cb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/work-transfer-change-rate/index.tsx"
+  },
+  "src/pages/hr-applications/pages/work-transfer/index.tsx": {
+    "file": "assets/index-49a5f825.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_send-hr-form-work-transfer-e26559cb.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/hr-applications/pages/work-transfer/index.tsx"
+  },
+  "src/pages/instructions/index.tsx": {
+    "file": "assets/index-0bac042f.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/instructions/index.tsx"
+  },
+  "src/pages/lk-notifications/index.tsx": {
+    "file": "assets/index-d71a13f6.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/lk-notifications/index.tsx"
+  },
+  "src/pages/medical-certificate/index.tsx": {
+    "file": "assets/index-f1a9c0cd.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/medical-certificate/index.tsx"
+  },
+  "src/pages/memo-freshmen/index.tsx": {
+    "file": "assets/index-d0ae4688.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_help-links-1a8d01aa.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/memo-freshmen/index.tsx"
+  },
+  "src/pages/memo-teacher/index.tsx": {
+    "file": "assets/index-4e985edb.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_help-links-1a8d01aa.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/memo-teacher/index.tsx"
+  },
+  "src/pages/onboarding/index.tsx": {
+    "file": "assets/index-a6984438.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_BoldText-34495506.js",
+      "_help-links-1a8d01aa.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/onboarding/index.tsx"
+  },
+  "src/pages/pe-student/index.tsx": {
+    "file": "assets/index-18984d3a.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_ui-5e47f4cf.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/pe-student/index.tsx"
+  },
+  "src/pages/personal-notifications/index.tsx": {
+    "file": "assets/index-551a3442.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-53d71dd9.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/personal-notifications/index.tsx"
+  },
+  "src/pages/profile/index.tsx": {
+    "file": "assets/index-e89bdb12.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/profile/index.tsx"
+  },
+  "src/pages/project-activities/index.tsx": {
+    "file": "assets/index-b353a486.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_is-valid-url-08a91344.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/project-activities/index.tsx"
+  },
+  "src/pages/schedule/index.tsx": {
+    "file": "assets/index-efecd485.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-53f917b4.js",
+      "_index-140d8f78.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/schedule/index.tsx"
+  },
+  "src/pages/schedule/ui/current-schedule/index.tsx": {
+    "file": "assets/index-f275a022.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-fafb2aca.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/schedule/ui/current-schedule/index.tsx"
+  },
+  "src/pages/schedule/ui/retake-schedule/index.tsx": {
+    "file": "assets/index-f9137244.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/schedule/ui/retake-schedule/index.tsx"
+  },
+  "src/pages/schedule/ui/semestr-schedule/index.tsx": {
+    "file": "assets/index-96ab4ea9.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-fafb2aca.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/schedule/ui/semestr-schedule/index.tsx"
+  },
+  "src/pages/schedule/ui/session-schedule/index.tsx": {
+    "file": "assets/index-7173b066.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-fafb2aca.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/schedule/ui/session-schedule/index.tsx"
+  },
+  "src/pages/settings/index.tsx": {
+    "file": "assets/index-64e1e35d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index.esm-d8bc35f4.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/settings/index.tsx"
+  },
+  "src/pages/settings/pages/account/index.tsx": {
+    "file": "assets/index-973bbc85.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/settings/pages/account/index.tsx"
+  },
+  "src/pages/settings/pages/appearance/index.tsx": {
+    "file": "assets/index-e02f87a3.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/settings/pages/appearance/index.tsx"
+  },
+  "src/pages/settings/pages/security/index.tsx": {
+    "file": "assets/index-00c9bdd8.js",
+    "imports": [
+      "_vendor-2324f29b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/settings/pages/security/index.tsx"
+  },
+  "src/pages/teacher-physical-education/index.tsx": {
+    "file": "assets/index-25af287a.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_ui-5e47f4cf.js",
+      "_index-140d8f78.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teacher-physical-education/index.tsx"
+  },
+  "src/pages/teachers-applications/index.tsx": {
+    "file": "assets/index-09b291a3.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-596e848b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/arbitrary-request/index.tsx": {
+    "file": "assets/index-15facf75.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/arbitrary-request/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/campus-office/guests-accomodation-on-campus/index.tsx": {
+    "file": "assets/index-dad25986.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/campus-office/guests-accomodation-on-campus/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/campus-office/guests-passage-to-campus/index.tsx": {
+    "file": "assets/index-fe664434.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/campus-office/guests-passage-to-campus/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/campus-office/living-in-residential-premises/index.tsx": {
+    "file": "assets/index-69b241f0.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/campus-office/living-in-residential-premises/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/campus-office/relocation/index.tsx": {
+    "file": "assets/index-ca619027.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/campus-office/relocation/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/campus-office/termination-of-agreement/index.tsx": {
+    "file": "assets/index-0e82bfd9.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/campus-office/termination-of-agreement/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/certificate-from-the-place-of-work/index.tsx": {
+    "file": "assets/index-0b787222.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-default-subdivision-17957fb0.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/certificate-from-the-place-of-work/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/certificate-of-work-experience/index.tsx": {
+    "file": "assets/index-2c988d7e.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/certificate-of-work-experience/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/certificate-time-parental-leave/index.tsx": {
+    "file": "assets/index-0a25f970.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/certificate-time-parental-leave/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/connecting-computer/index.tsx": {
+    "file": "assets/index-fe53dda6.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/connecting-computer/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/contact-info-actualization/index.tsx": {
+    "file": "assets/index-0be73b30.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_index-f4ab0535.js",
+      "_get-method-obstaing-c0726de9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/contact-info-actualization/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/control-and-records-management-office/certification-and-issuance-of-docs/index.tsx": {
+    "file": "assets/index-bd6f3315.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/control-and-records-management-office/certification-and-issuance-of-docs/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/copies-of-documents-from-the-personal-file/index.tsx": {
+    "file": "assets/index-fba29983.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/copies-of-documents-from-the-personal-file/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/copy-of-the-employment-record/index.tsx": {
+    "file": "assets/index-c74e2e2b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/copy-of-the-employment-record/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/courier/index.tsx": {
+    "file": "assets/index-58544b85.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/courier/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/data-verification/index.tsx": {
+    "file": "assets/index-626a107c.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html",
+      "_find-current-in-select-ba4611d5.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/data-verification/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/getting-computer-equipment/index.tsx": {
+    "file": "assets/index-95b95536.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/getting-computer-equipment/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/issuance-of-licenses/index.tsx": {
+    "file": "assets/index-9d48f8ea.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/issuance-of-licenses/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/mobilization-department/certified-copies-of-military-docs/index.tsx": {
+    "file": "assets/index-66803a71.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/mobilization-department/certified-copies-of-military-docs/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/mobilization-department/deferment-from-conscription/index.tsx": {
+    "file": "assets/index-e364177a.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/mobilization-department/deferment-from-conscription/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/number-of-unused-vacation-days/index.tsx": {
+    "file": "assets/index-b9ca9802.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-default-subdivision-17957fb0.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/number-of-unused-vacation-days/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/other-it-services/index.tsx": {
+    "file": "assets/index-c23e99f0.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/other-it-services/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/pass-office/guest-pass/index.tsx": {
+    "file": "assets/index-440400db.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/pass-office/guest-pass/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/pass-office/issuance-of-pass/index.tsx": {
+    "file": "assets/index-e58354c7.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/pass-office/issuance-of-pass/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/payment-for-child-care/index.tsx": {
+    "file": "assets/index-d751829b.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_get-last-year-for-period-e1de6b16.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/payment-for-child-care/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/payment-of-child-birth-allowance/index.tsx": {
+    "file": "assets/index-e5fad227.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/payment-of-child-birth-allowance/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/persona-income-tax-reference/index.tsx": {
+    "file": "assets/index-798213e4.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_get-last-year-for-period-e1de6b16.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/persona-income-tax-reference/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/printer-maintenance/index.tsx": {
+    "file": "assets/index-5eeb7e3c.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-0d1cdebe.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/printer-maintenance/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/question-personal-account/index.tsx": {
+    "file": "assets/index-cff4bd1e.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/question-personal-account/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/question-sed/index.tsx": {
+    "file": "assets/index-86bbf24d.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-site-and-topic-a96b5f53.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/question-sed/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/visa-certificate/index.tsx": {
+    "file": "assets/index-cd45da6f.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-default-subdivision-17957fb0.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/visa-certificate/index.tsx"
+  },
+  "src/pages/teachers-applications/pages/work-on-the-terms-of-external-concurrency/index.tsx": {
+    "file": "assets/index-9fdedbfe.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "_index-f4ab0535.js",
+      "_get-basic-fields-application-teacher-53f7b63c.js",
+      "_get-method-obtaining-fields-de6a3bf9.js",
+      "_get-teacher-subdivisions-5cd556a9.js",
+      "_index-0d1cdebe.js",
+      "index.html",
+      "_get-method-obstaing-c0726de9.js",
+      "_get-default-subdivision-17957fb0.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/teachers-applications/pages/work-on-the-terms-of-external-concurrency/index.tsx"
+  },
+  "src/pages/vacation-schedule/index.tsx": {
+    "file": "assets/index-ef6e39a2.js",
+    "imports": [
+      "_vendor-2324f29b.js",
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/vacation-schedule/index.tsx"
+  },
+  "src/shared/images/loading.gif": {
+    "file": "assets/loading-c8041cd3.gif",
+    "src": "src/shared/images/loading.gif"
+  },
+  "src/shared/images/logo.png": {
+    "file": "assets/logo-4d9aa449.png",
+    "src": "src/shared/images/logo.png"
+  },
+  "src/shared/images/mospolytech-logo-white.png": {
+    "file": "assets/mospolytech-logo-white-b1e4f630.png",
+    "src": "src/shared/images/mospolytech-logo-white.png"
+  },
+  "src/shared/images/sad-emoji.gif": {
+    "file": "assets/sad-emoji-0c60bf90.gif",
+    "src": "src/shared/images/sad-emoji.gif"
+  },
+  "src/shared/images/sleep.gif": {
+    "file": "assets/sleep-54d590c1.gif",
+    "src": "src/shared/images/sleep.gif"
+  },
+  "src/shared/images/thinking-emoji.gif": {
+    "file": "assets/thinking-emoji-f3c10f79.gif",
+    "src": "src/shared/images/thinking-emoji.gif"
+  }
+}

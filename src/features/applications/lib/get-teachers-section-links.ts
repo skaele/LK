@@ -18,7 +18,6 @@ import {
     COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE,
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
-    DATA_VERIFICATION_ROUTE,
     DEFERMENT_FROM_CONSCRIPTION,
     GETTING_COMPUTER_EQUIPMENT,
     GUESTS_ACCOMODATION_ON_CAMPUS,
@@ -59,10 +58,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Общее',
-            links: [
-                { link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' },
-                { link: DATA_VERIFICATION_ROUTE, title: 'Анкета для сверки данных' },
-            ],
+            links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
         },
         {
             title: 'ИТ-обслуживание',

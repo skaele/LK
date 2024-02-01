@@ -141,18 +141,53 @@ const DataVerificationPage = () => {
                             icon={<FiCheckCircle />}
                             visible={validated}
                         />
-                        <InputArea {...personalData} setData={setPersonalData as LoadedState} divider />
-                        <InputArea {...contactInfo} setData={setContactInfo as LoadedState} divider />
-                        <InputArea {...passport} setData={setPassport as LoadedState} divider />
-                        <InputArea {...registration} setData={setRegistration as LoadedState} divider />
-                        <InputArea {...location} setData={setLocation as LoadedState} divider />
-                        <InputArea {...familyStatus} setData={setFamilyStatus as LoadedState} divider />
-                        <InputArea {...family} setData={setFamily as LoadedState} divider />
-                        <InputArea {...education} setData={setEducation as LoadedState} divider />
-                        <InputArea {...language} setData={setLanguage as LoadedState} divider />
-                        <InputArea {...driveLicense} setData={setDriveLicense as LoadedState} divider />
-                        <InputArea {...disability} setData={setDisability as LoadedState} divider />
-                        <InputArea {...army} setData={setArmy as LoadedState} divider />
+                        <InputArea
+                            {...personalData}
+                            setData={setPersonalData as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea
+                            {...contactInfo}
+                            setData={setContactInfo as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea {...passport} setData={setPassport as LoadedState} divider defaultOpenArea={false} />
+                        <InputArea
+                            {...registration}
+                            setData={setRegistration as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea {...location} setData={setLocation as LoadedState} divider defaultOpenArea={false} />
+                        <InputArea
+                            {...familyStatus}
+                            setData={setFamilyStatus as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea {...family} setData={setFamily as LoadedState} divider defaultOpenArea={false} />
+                        <InputArea
+                            {...education}
+                            setData={setEducation as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea {...language} setData={setLanguage as LoadedState} divider defaultOpenArea={false} />
+                        <InputArea
+                            {...driveLicense}
+                            setData={setDriveLicense as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea
+                            {...disability}
+                            setData={setDisability as LoadedState}
+                            divider
+                            defaultOpenArea={false}
+                        />
+                        <InputArea {...army} setData={setArmy as LoadedState} divider defaultOpenArea={false} />
                         <>
                             <Checkbox
                                 checked={confirmAll}

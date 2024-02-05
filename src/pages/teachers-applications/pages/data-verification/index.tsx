@@ -226,18 +226,18 @@ const DataVerificationPage = () => {
                                 buttonSuccessText="Отправлено"
                                 repeatable={true}
                                 isActive={
-                                    !!army.confirmed &&
-                                    !!driveLicense.confirmed &&
-                                    !!personalData.confirmed &&
-                                    !!location.confirmed &&
-                                    !!passport.confirmed &&
-                                    !!education.confirmed &&
-                                    !!disability.confirmed &&
-                                    !!family.confirmed &&
-                                    !!familyStatus.confirmed &&
-                                    !!registration.confirmed &&
-                                    !!language.confirmed &&
-                                    !!contactInfo.confirmed &&
+                                    // !!army.confirmed &&
+                                    // !!driveLicense.confirmed &&
+                                    // !!personalData.confirmed &&
+                                    // !!location.confirmed &&
+                                    // !!passport.confirmed &&
+                                    // !!education.confirmed &&
+                                    // !!disability.confirmed &&
+                                    // !!family.confirmed &&
+                                    // !!familyStatus.confirmed &&
+                                    // !!registration.confirmed &&
+                                    // !!language.confirmed &&
+                                    // !!contactInfo.confirmed &&
                                     !!confirmAll
                                 }
                                 popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были подтверждены'}

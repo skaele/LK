@@ -64,6 +64,7 @@ export const Icon = styled.div<{
 
     svg {
         transition: 0.3s transform;
+        z-index: 1;
         width: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
         height: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
     }
@@ -213,9 +214,11 @@ export const NewPageIndication = styled.div<{
     padding: 2px 6px;
     font-size: 0.6rem;
     border-radius: 5px;
+    z-index: 2;
     transform: ${({ orientation }) => (orientation === 'horizontal' ? 'scale(0.65)' : 'scale(1)')};
 `
 
 export const AdminPageIndication = styled(NewPageIndication)`
     background: ${Colors.pink.main};
+    z-index: 2;
 `

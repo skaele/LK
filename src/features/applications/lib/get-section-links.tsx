@@ -6,6 +6,7 @@ import {
     CERTIFICATE_OF_ATTENDANCE,
     CHANGING_PERSONAL_DATA,
     CLARIFICATION_OF_PASSPORT_DATA_ROUTE,
+    EXIT_ACADEMIC_LEAVE,
     EXTENSION_ATTESTATION,
     FAMILY_ROOM,
     FINANCIAL_ASSISTANCE,
@@ -28,7 +29,6 @@ import {
     SOCIAL_AGENCIES,
     SOCIAL_SCOLLARSHIP,
     STATE_ACCREDITATION,
-    EXIT_ACADEMIC_LEAVE,
     STUDENT_EMPLOYMENT_ROUTE,
     STUDENT_STATUS,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
@@ -41,7 +41,6 @@ import { FiRotateCcw } from 'react-icons/fi'
 import {
     HiOutlineCalendar,
     HiOutlineClipboard,
-    HiOutlineHand,
     HiOutlineIdentification,
     HiOutlineKey,
     HiOutlineLibrary,
@@ -51,6 +50,7 @@ import {
     HiOutlineUserGroup,
     HiOutlineX,
 } from 'react-icons/hi'
+import { LuHelpingHand, LuSend } from 'react-icons/lu'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -112,6 +112,12 @@ const getSectionLinks = (): Section[] => {
                     color: 'purple',
                 },
                 { link: PROVISION_ACADEMIC_LEAVE, title: 'Предоставление академического отпуска', color: 'purple' },
+                {
+                    link: EXIT_ACADEMIC_LEAVE,
+                    title: 'Выход из академического отпуска',
+                    color: 'purple',
+                    icon: <HiOutlineLogout />,
+                },
                 { link: EXTENSION_ATTESTATION, title: 'Продление промежуточной аттестации или ГИА', color: 'purple' },
                 {
                     link: INDEPENDENTLY_DEDUCTED,
@@ -119,18 +125,6 @@ const getSectionLinks = (): Section[] => {
                     icon: <HiOutlineLogout />,
                     color: 'red',
                 },
-                { link: SOCIAL_AGENCIES, title: 'Справка в социальные учреждения (Пенсионный фонд, УСЗН и пр.)' },
-                { link: PAPER_CALL, title: 'Справка-вызов' },
-                { link: RETAKE_FOR_DIPLOMA, title: 'Заявление на пересдачу для получения диплома с отличием' },
-                { link: CHANGING_PERSONAL_DATA, title: 'Запрос на изменение персональных данных' },
-                { link: RESTORING_THE_MAGNETIC_PASS, title: 'Запрос на восстановление магнитного пропуска' },
-                { link: CLARIFICATION_OF_PASSPORT_DATA_ROUTE, title: 'Уточнение паспортных данных' },
-                { link: STATE_ACCREDITATION, title: 'Выдача лицензий и свидетельств о государственной аккредитации' },
-                { link: HOLIDAYS_AFTER_TRAINING, title: 'Предоставление каникул в связи с окончанием университета' },
-                { link: PROVISION_ACADEMIC_LEAVE, title: 'Предоставление академического отпуска' },
-                { link: EXIT_ACADEMIC_LEAVE, title: 'Выход из академического отпуска' },
-                { link: INDEPENDENTLY_DEDUCTED, title: 'Отчисление по инициативе обучающегося' },
-                { link: EXTENSION_ATTESTATION, title: 'Продление промежуточной аттестации или ГИА' },
             ],
         },
         {
@@ -219,19 +213,26 @@ const getSectionLinks = (): Section[] => {
                 {
                     link: FINANCIAL_SUPPORT,
                     title: 'Оформить материальную поддержку остронуждающимся студентам (Дотацию)',
-                    icon: <HiOutlineHand />,
+                    icon: <LuHelpingHand />,
                     color: 'pink',
                 },
-                { link: FINANCIAL_ASSISTANCE, title: 'Заявка на материальную помощь' },
+                {
+                    link: FINANCIAL_ASSISTANCE,
+                    title: 'Заявка на материальную помощь',
+                    icon: <LuHelpingHand />,
+                    color: 'pink',
+                },
                 {
                     link: SOCIAL_SCOLLARSHIP,
                     title: 'Оформить социальную стипендию',
-                    icon: <HiOutlineHand />,
+                    icon: <LuHelpingHand />,
                     color: 'pink',
                 },
                 {
                     link: INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
                     title: 'Отправить характеристику-рекомендацию на получение повышенной государственной академической стипендии',
+                    icon: <LuSend />,
+                    color: 'pink',
                 },
             ],
         },

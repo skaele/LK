@@ -3,7 +3,7 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiBookReader, BiGroup, BiPalette } from 'react-icons/bi'
+import { BiGroup, BiPalette } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -37,7 +37,6 @@ import {
 
 import { PETeacher } from '@entities/pe-teacher/types'
 import { ExtSize } from '@shared/ui/types'
-import { BsFileMedical } from 'react-icons/bs'
 import { FiClock, FiLock, FiRotateCcw, FiXCircle } from 'react-icons/fi'
 import {
     HiOutlineBell,
@@ -57,6 +56,7 @@ import {
     HiOutlineUserGroup,
     HiOutlineViewGrid,
 } from 'react-icons/hi'
+import { LuGraduationCap, LuSyringe } from 'react-icons/lu'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 
 export const LOGIN_ROUTE = '/login'
@@ -336,7 +336,7 @@ export const generalRoutes: IRoutes = {
     'all-teachers': {
         id: 'all-teachers',
         title: 'Сотрудники',
-        icon: <BiBookReader />,
+        icon: <LuGraduationCap />,
         path: ALL_TEACHERS_ROUTE,
         Component: AllTeachersPage,
         color: 'orange',
@@ -354,6 +354,18 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'COMMUNICATION',
     },
+    vaccination: {
+        id: 'vaccination',
+        title: 'Вакцинация',
+        icon: <LuSyringe />,
+        path: VACCINATION,
+        Component: () => PageIsNotReady({ oldVersionUrl: VACCINATION, forceForward: true }),
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+        keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
+        isOldLkPage: true,
+    },
     'medical-certificate': {
         id: 'medical-certificate',
         title: 'Предоставление медицинских справок',
@@ -363,18 +375,6 @@ export const generalRoutes: IRoutes = {
         color: 'red',
         isTemplate: false,
         group: 'GENERAL',
-    },
-    vaccination: {
-        id: 'vaccination',
-        title: 'Вакцинация',
-        icon: <BsFileMedical />,
-        path: VACCINATION,
-        Component: () => PageIsNotReady({ oldVersionUrl: VACCINATION, forceForward: true }),
-        color: 'blue',
-        isTemplate: false,
-        group: 'GENERAL',
-        keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
-        isOldLkPage: true,
     },
 }
 

@@ -64,7 +64,6 @@ export const Icon = styled.div<{
 
     svg {
         transition: 0.3s transform;
-
         width: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
         height: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
     }
@@ -76,7 +75,7 @@ export const Icon = styled.div<{
             height: ${({ showBackground, smallInMobile }) =>
                 !showBackground ? '19px' : smallInMobile ? '10px' : '22px'};
             border-radius: ${({ showBackground, smallInMobile }) =>
-                showBackground ? (smallInMobile ? '8px' : '15px') : '0'};
+                showBackground ? (smallInMobile ? '11px' : '15px') : '0'};
         }
 
         svg {
@@ -152,7 +151,7 @@ export const LinkItemStyled = styled.div<{
 
     ${MEDIA_QUERIES.isMobile} {
         padding: ${({ type }) => (type === 'vertical' ? '4px' : '10px')};
-        min-width: ${({ smallInMobile, minWidth }) => (smallInMobile ? '90px' : minWidth)};
+        min-width: ${({ smallInMobile, minWidth }) => (smallInMobile ? '92px' : minWidth)};
     }
 
     @media (hover: hover) {
@@ -196,8 +195,7 @@ export const LinkItemStyled = styled.div<{
 export const LinkIcon = styled.div<{ isHorizontal: boolean }>`
     position: absolute;
     top: ${({ isHorizontal }) => (isHorizontal ? '4px' : '8px')};
-    right: ${({ isHorizontal }) => (isHorizontal ? 'auto' : '8px')};
-    left: ${({ isHorizontal }) => (!isHorizontal ? 'auto' : '28px')};
+    left: ${({ isHorizontal }) => (!isHorizontal ? '8px' : '28px')};
     opacity: 0.5;
     transform: scale(${({ isHorizontal }) => (isHorizontal ? '0.8' : '1')});
     z-index: 1;

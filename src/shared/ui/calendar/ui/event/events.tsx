@@ -1,14 +1,12 @@
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
-import { Sleep } from '@shared/images'
-import { Error } from '@shared/ui/error'
 import React from 'react'
 import { CurrentTimeLine } from '../../calendars/day/ui/current-time-line'
+import { TIMES } from '../../consts'
 import { DayCalendarEvent } from '../../types'
 import EventItem from './event-item'
 import { checkIfEventIsCurrent } from './lib/check-if-event-is-current'
 import { prepareEvents } from './lib/prepare-events'
 import { EventsWrapper } from './styles'
-import { TIMES } from '../../consts'
 
 type Props = {
     currentDay?: number
@@ -54,9 +52,7 @@ const Events = ({
                     interval={interval}
                 />
             )}
-            {noEvents && !shortInfo && (
-                <Error text={'В этот день нет пар. Можно поспать'} size={'100px'} image={Sleep} />
-            )}
+
             {Object.keys(eventsPrepared).map((key, i) => {
                 return eventsPrepared[key].map((event, index) => {
                     return (

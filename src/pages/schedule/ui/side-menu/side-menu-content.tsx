@@ -1,5 +1,6 @@
 import { scheduleRoutes } from '@app/routes/general-routes'
 import { scheduleModel } from '@entities/schedule'
+import { userModel } from '@entities/user'
 import { TeacherGroupSearch } from '@features/teacher-group-search'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
@@ -9,8 +10,6 @@ import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { SideMenuProps } from './types'
-import { userModel } from '@entities/user'
-import { useLocation } from 'react-router'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,
@@ -22,7 +21,6 @@ export const SideMenuContent = ({
     const {
         data: { searchValue, filter },
     } = scheduleModel.selectors.useSchedule()
-    const location = useLocation()
     const {
         data: { user },
     } = userModel.selectors.useUser()
@@ -65,8 +63,6 @@ export const SideMenuContent = ({
                             {...route}
                             title={route.shortTitle ?? route.title}
                             path={normalizedPath}
-                            isCurrent={location.pathname === normalizedPath}
-                            route={{ ...route, path: normalizedPath }}
                         />
                     )
                 })}

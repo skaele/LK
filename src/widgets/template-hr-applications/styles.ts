@@ -68,13 +68,7 @@ export const CreateApplicationListWrapper = styled.div`
 
 export const LinksList = styled.div`
     padding: 12px;
-    box-shadow: var(--block-shadow);
+    box-shadow: var(--block-shadow-1);
     border-radius: 8px;
     margin: 10px 0;
-
-    .links {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
 `

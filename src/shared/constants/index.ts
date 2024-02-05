@@ -107,7 +107,7 @@ export const Colors: IColors = {
     },
     lightBlue: {
         dark3: '#5278cd',
-        dark2: '#668de4',
+        dark2: '#406bc9',
         dark1: '#789ff6',
         main: '#9cbbff',
         light1: '#b9cfff',
@@ -167,7 +167,7 @@ export const Colors: IColors = {
     },
     orange: {
         dark3: '#815b32',
-        dark2: '#a76821',
+        dark2: '#955b1a',
         dark1: '#ca8231',
         main: '#ee9e44',
         light1: '#fcb566',

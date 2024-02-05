@@ -106,6 +106,7 @@ const createNotification = (type: NotificationType, id: string, title?: string, 
             type: 'electronic-interaction',
             goTo: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
             pageId: 'electronic-interaction-agreement',
+            canClose: false,
         },
     }
 

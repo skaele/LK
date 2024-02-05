@@ -8,7 +8,7 @@ import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
 import { BiIdCard, BiRuble, BiStar } from 'react-icons/bi'
-import { FiBriefcase, FiFileText } from 'react-icons/fi'
+import { FiBriefcase, FiDribbble } from 'react-icons/fi'
 import {
     HiOutlineDocumentAdd,
     HiOutlineInformationCircle,
@@ -65,6 +65,7 @@ import {
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
+import { LuBedSingle } from 'react-icons/lu'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -140,7 +141,7 @@ export const privateRoutes: () => IRoutes = () => ({
     dormitory: {
         id: 'dormitory',
         title: 'Список ожидания на заселение в общежитие',
-        icon: <MdOutlineBedroomChild />,
+        icon: <LuBedSingle />,
         path: DORMITORY,
         Component: DormitoryPage,
         color: 'blue',
@@ -162,7 +163,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'physical-education': {
         id: 'physical-education',
         title: 'Физическая культура',
-        icon: <FiFileText />,
+        icon: <FiDribbble />,
         color: 'lightGreen',
         path: PHYSICAL_EDUCATION_STUDENT,
         pageSize: 'big',
@@ -175,6 +176,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'project-activity': {
         id: 'project-activity',
         title: 'Проектная деятельность',
+        shortTitle: 'ПД',
         icon: <HiOutlineLightBulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
         Component: ProjectActivitiesPage,

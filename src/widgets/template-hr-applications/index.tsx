@@ -7,10 +7,10 @@ import { Message, Title, Wrapper } from '@ui/atoms'
 import { Error } from '@ui/error'
 import { LocalSearch } from '@ui/molecules'
 import React, { useState } from 'react'
-import { FiInfo } from 'react-icons/fi'
 import { HiOutlineDocument } from 'react-icons/hi'
-import { Section } from './types'
 import { CreateApplicationListWrapper, LinksList } from './styles'
+import Flex from '@shared/ui/flex'
+import { Section } from '@features/applications/ui/molecules/create-application-list'
 
 interface Props {
     isTeachers: boolean
@@ -21,7 +21,7 @@ const TeachersHrApplicationsPage = ({}: Props) => {
         data: { listApplication },
         error,
     } = applicationsModel.selectors.useApplications()
-    const sections: Section[] = getTeachersHRSectionLinks()
+    const sections = getTeachersHRSectionLinks()
     const [search, setSearch] = useState<string>('')
 
     const [foundSections, setFoundSections] = useState<Section[] | null>(sections)
@@ -33,12 +33,12 @@ const TeachersHrApplicationsPage = ({}: Props) => {
             data={listApplication}
         >
             <PageBlock>
-                <Message type="info" title="Информация" icon={<FiInfo />}>
+                <Message type="info" lineHeight="1.4rem" fontSize="0.85rem">
                     Данный сервис создан для упрощения оборота кадровых документов внутри Университета.
                 </Message>
 
                 <CreateApplicationListWrapper>
-                    <Title size={3} align="left" bottomGap>
+                    <Title size={4} align="left" bottomGap>
                         Создать заявление
                     </Title>
 
@@ -51,27 +51,25 @@ const TeachersHrApplicationsPage = ({}: Props) => {
                     />
                     <LinksList>
                         {(foundSections ?? sections).map((section) => {
+                            if (section.disabled) return
+
                             return (
-                                <div className="link-list" key={section.title}>
-                                    {!section.disabled && (
-                                        <div className="links">
-                                            {section.links.map((link) => (
-                                                <LinkItem
-                                                    key={link.link}
-                                                    title={link.title}
-                                                    path={link.link}
-                                                    id={link.title + link.link}
-                                                    color={'blue'}
-                                                    showMore={false}
-                                                    icon={<HiOutlineDocument />}
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
+                                <Flex gap="4px" d="column" key={section.title}>
+                                    {section.links.map((link) => (
+                                        <LinkItem
+                                            key={link.link}
+                                            title={link.title}
+                                            path={link.link}
+                                            id={link.title + link.link}
+                                            color={link.color ?? 'blue'}
+                                            showMore={false}
+                                            icon={link.icon ?? <HiOutlineDocument />}
+                                        />
+                                    ))}
+                                </Flex>
                             )
                         })}
-                        {!foundSections?.length && !!search.length && (
+                        {!foundSections?.length && search.length > 0 && (
                             <Error text={`По запросу ${search} ничего не найдено`} />
                         )}
                     </LinksList>

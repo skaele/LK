@@ -5,21 +5,29 @@ import {
     CertificateFromPlaceOfWorkPage,
     CertificateOfWorkExperiencePage,
     CertificateTimeParentalLeavePage,
+    CertificationAndIssuanceOfDocs,
+    CertifiedCopiesOfMilitaryDocs,
     ConnectingComputerPage,
     ContactInfoActualizationPage,
     CopiesOfDocumentsFromPersonalFilePage,
     CopyOfEmploymentRecordPage,
     CourierPage,
     DataVerificationPage,
+    DefermentFromConscription,
     Dismissal,
     ExtraHolidayColl,
     GettingComputerEquipmentPage,
+    GuestPass,
+    GuestsAccomodationOnCampus,
+    GuestsPassageToCampus,
     HelpfulInformation,
     HolidayPlanning,
     HolidayTransfer,
     HolidayWork,
     HrApplicationsPage,
     IssuanceOfLicensesPage,
+    IssuanceOfPass,
+    LivingInResidentialPremises,
     MedicalExamination,
     NumberOfUnusedVacationDaysPage,
     OtherItServicesPage,
@@ -32,22 +40,14 @@ import {
     PrinterMaintenancePage,
     QuestionPersonalAccountPage,
     QuestionSedPage,
+    Relocation,
     TeacherPhysicalEducation,
     TeachersApplicationsPage,
+    TerminationOfAgreement,
     VacationSchedule,
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
     WorkTransfer,
-    LivingInResidentialPremises,
-    GuestsAccomodationOnCampus,
-    GuestsPassageToCampus,
-    Relocation,
-    TerminationOfAgreement,
-    IssuanceOfPass,
-    GuestPass,
-    CertificationAndIssuanceOfDocs,
-    CertifiedCopiesOfMilitaryDocs,
-    DefermentFromConscription,
     WorkTransferChangeRate,
 } from './pages'
 
@@ -67,7 +67,6 @@ import {
     BiIdCard,
     BiPlusMedical,
     BiRuble,
-    BiWifi,
 } from 'react-icons/bi'
 import { RiNotificationBadgeLine } from 'react-icons/ri'
 import { Redirect } from 'react-router-dom'
@@ -89,12 +88,13 @@ import {
     HiOutlineDesktopComputer,
     HiOutlineDocumentAdd,
     HiOutlineDocumentText,
+    HiOutlineInformationCircle,
     HiOutlineLightBulb,
     HiOutlineStar,
+    HiOutlineWifi,
 } from 'react-icons/hi'
-import { MdGroups, MdPsychology } from 'react-icons/md'
+import { LuBaby, LuBrain, LuGitFork, LuMedal, LuSmilePlus } from 'react-icons/lu'
 import { Onboarding } from '../general-routes/pages'
-import { BsPeople } from 'react-icons/bs'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -196,7 +196,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
-        icon: <BiIdCard />,
+        icon: <LuSmilePlus />,
         path: ONBOARDING,
         Component: Onboarding,
         color: 'orange',
@@ -219,7 +219,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     children: {
         id: 'children',
         title: 'Дети и внуки',
-        icon: <BsPeople />,
+        icon: <LuBaby />,
         path: CHILDREN_ROUTE,
         Component: () => PageIsNotReady({ oldVersionUrl: CHILDREN_ROUTE, forceForward: true }),
         color: 'green',
@@ -227,7 +227,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'GENERAL',
         pageSize: 'big',
         isOldLkPage: true,
-        keywords: ['Ltnb b dyerb'],
     },
     'electronic-statements': {
         id: 'electronic-statements',
@@ -277,7 +276,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'pps-contest': {
         id: 'pps-contest',
         title: 'Конкурс ППС',
-        icon: <BiIdCard />,
+        icon: <LuMedal />,
         path: 'https://mospolytech.ru/contest-pps/',
         Component: () => null,
         isExternalPage: true,
@@ -416,7 +415,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     info: {
         id: 'info',
         title: 'Полезная информация',
-        icon: <HiOutlineDocumentText />,
+        icon: <HiOutlineInformationCircle />,
         path: INFO_ROUTE,
         Component: HelpfulInformation,
         color: 'blue',
@@ -1162,7 +1161,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
             return <Redirect to={ONBOARDING} />
         },
-        icon: <MdPsychology />,
+        icon: <LuBrain />,
         isTemplate: false,
         path: PSYCHOLOGICAL_HELP,
         backButtonText: 'Новому работнику',
@@ -1197,13 +1196,14 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
             return <Redirect to={ONBOARDING} />
         },
-        icon: <BiWifi />,
+        icon: <HiOutlineWifi />,
         isTemplate: false,
         path: WIFI_AT_THE_UNIVERSITY,
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
         isExternalPage: true,
+        keywords: ['вайфай', 'вифи', 'цшаш', 'в универ'],
     },
     brandbook: {
         id: 'Брендбук',
@@ -1243,7 +1243,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'structure-of-the-university': {
         id: 'structure-of-the-university',
         title: 'Структура университета',
-        icon: <MdGroups />,
+        icon: <LuGitFork />,
         path: STRUCTURE_OF_THE_UNIVERSITY,
         Component: () => {
             window.location.href =

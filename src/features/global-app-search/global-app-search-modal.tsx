@@ -28,12 +28,12 @@ const GlobalAppSearchModal = () => {
         showMessage,
         showSearchResult,
         searchValue,
-        setSearchValue,
         currentPage,
-        setCurrentPage,
         loading,
         config,
         searchHistory,
+        setSearchValue,
+        setCurrentPage,
     } = useGlobalAppSearch()
 
     const searchHints = getSearchHistoryHints(loading, searchValue, searchHistory)

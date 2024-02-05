@@ -1,7 +1,7 @@
 import { IRoute } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
-import { PageLink } from '@features/all-pages'
 import Flex from '@shared/ui/flex'
+import { LinkItem } from '@shared/ui/link-item'
 import React from 'react'
 
 export const LinkList = () => {
@@ -17,10 +17,11 @@ export const LinkList = () => {
         allRoutes['brandbook'],
         allRoutes['addresses-and-contacts'],
     ]
+
     return (
         <Flex gap="8px" $wrap>
             {links.map((el) => {
-                return <PageLink key={el.id} {...el} />
+                return <LinkItem showMore={false} type="vertical" key={el.id} {...el} />
             })}
         </Flex>
     )

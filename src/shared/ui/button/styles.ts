@@ -28,7 +28,7 @@ export const ButtonWrapper = styled.button<{
     padding: ${({ padding }) => padding ?? '10px'};
     border-radius: 10px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
     transition: 0.2s transform;
     width: ${({ width }) => (width ? width : 'fit-content')};
     min-width: ${({ minWidth }) => minWidth && minWidth};

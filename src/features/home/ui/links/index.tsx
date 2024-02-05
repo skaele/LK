@@ -56,6 +56,7 @@ const Links = ({ links }: Props) => {
                             textIconGap="0px"
                             showMore={false}
                             {...links[key]}
+                            title={links[key].shortTitle ?? links[key].title}
                             type="vertical"
                         />
                         {index !== linksKeysArray.length - 1 && (

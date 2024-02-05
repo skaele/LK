@@ -195,7 +195,7 @@ const useSearchConfig = () => {
                     preconfig[0].search(value)
                     preconfig[5].search(value)
                     preconfig[6].search(value)
-                    if (getDataLength(preconfig[0].data) === 0) {
+                    if (getDataLength(preconfig[0].data) === 0 && value.length >= 3) {
                         // Other Search
                         await preconfig[1].search(value)
                         await preconfig[2].search(value)

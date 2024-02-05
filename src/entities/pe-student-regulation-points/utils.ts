@@ -15,3 +15,17 @@ export const getAddPEStudentRegulationPoints = (model: AddStudentRegulationPoint
         }
       }`
 }
+
+export const getRemovePEStudentRegulationPoints = (id: string) => {
+    return `mutation RemoveStudentRegulationPoints {
+      deleteStandardPoints(input: { historyId: ${id} }) {
+        success
+        errors {
+          ... on Error {
+            message
+          }
+        }
+      }
+    }
+    `
+}

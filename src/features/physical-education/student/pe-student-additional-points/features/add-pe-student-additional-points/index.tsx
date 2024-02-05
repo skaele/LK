@@ -9,7 +9,7 @@ import Input from '@shared/ui/input'
 import { TextArea } from '@shared/ui/textarea'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
-import { selectorData } from '../../constants'
+import { SelectorData } from '../../constants'
 import { Wrapper } from './styled'
 
 export const AddPEStudentAdditionalPoints = () => {
@@ -18,7 +18,7 @@ export const AddPEStudentAdditionalPoints = () => {
         peStudentCompetitionModel.stores.$competitions,
     ])
     const [competition, setCompetition] = useState<SelectPage | null>(null)
-    const [date, setDate] = useState<string>('')
+    const [date, setDate] = useState<string>(new Date().toISOString())
     const [type, setType] = useState<SelectPage | null>(null)
     const [pointsAmount, setPointsAmount] = useState<string>('0')
     const [comment, setComment] = useState<string>('')
@@ -37,6 +37,15 @@ export const AddPEStudentAdditionalPoints = () => {
         peStudentCompetitionModel.events.load()
     }, [])
 
+    useEffect(() => {
+        if (type?.id === WorkType.Competition && pointsAmount === '0') {
+            setPointsAmount('5')
+        }
+        if (type?.id === WorkType.InternalTeam && pointsAmount === '0') {
+            setPointsAmount('50')
+        }
+    }, [type?.id])
+
     const selectedDate = new Date(date)
 
     const isDateValid = selectedDate.getDay() !== 0 && selectedDate.getDay() !== 1
@@ -45,9 +54,17 @@ export const AddPEStudentAdditionalPoints = () => {
 
     return (
         <Wrapper>
-            <Select size="big" title={'Тип работ'} items={selectorData} selected={type} setSelected={setType} />
+            <Select
+                width="100%"
+                size="big"
+                title={'Тип работ'}
+                items={SelectorData}
+                selected={type}
+                setSelected={setType}
+            />
             {type?.id === WorkType.Competition && (
                 <Select
+                    width="100%"
                     size="big"
                     title={'Соревнование'}
                     items={competitionsSelectItems}
@@ -66,6 +83,7 @@ export const AddPEStudentAdditionalPoints = () => {
             />
 
             <Input
+                width="100%"
                 size="big"
                 title={'Количество баллов'}
                 setValue={setPointsAmount}
@@ -76,7 +94,7 @@ export const AddPEStudentAdditionalPoints = () => {
             />
 
             {type?.id !== WorkType.Competition && (
-                <TextArea setValue={setComment} value={comment} title={'Комментарий'} />
+                <TextArea width="100%" setValue={setComment} value={comment} title={'Комментарий'} />
             )}
 
             <Button

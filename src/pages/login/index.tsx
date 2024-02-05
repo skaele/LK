@@ -5,7 +5,7 @@ import { MEDIA_QUERIES } from '@shared/constants'
 
 const LoginWrapper = styled.div`
     width: 100%;
-    height: 100vh;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

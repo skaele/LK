@@ -9,6 +9,7 @@ export const ClarificationOfPassportDataApplication = lazy(
 export const ApplicationForSocialScrollarship = lazy(
     () => import('@pages/applications/pages/trade-union-organization/social-scollarship'),
 )
+export const PhysicalEducationStudent = lazy(() => import('@pages/pe-student'))
 
 export const ApplicationForCertificateOfAttendance = lazy(
     () => import('@pages/applications/pages/multifunctional-center/certificate-of-attendance'),
@@ -100,6 +101,10 @@ export const ApplicationHolidaysAfterTraining = lazy(
 
 export const ApplicationProvisionAcademicLeave = lazy(
     () => import('@pages/applications/pages/multifunctional-center/provision-academic-leave'),
+)
+
+export const ExitAcademicLeave = lazy(
+    () => import('@pages/applications/pages/multifunctional-center/exit-academic-leave'),
 )
 
 export const ApplicationIndependentlyDeduction = lazy(

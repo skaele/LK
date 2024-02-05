@@ -24,7 +24,7 @@ sample({
     clock: removeFx.failData,
     fn: () => ({
         message: 'Не удалось удалить соревнование',
-        type: 'failure' as any,
+        type: 'failure' as const,
         time: 3000,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
@@ -34,7 +34,7 @@ sample({
     clock: removeFx.doneData,
     fn: () => ({
         message: 'Соревнование удалено',
-        type: 'success' as any,
+        type: 'success' as const,
         time: 3000,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,

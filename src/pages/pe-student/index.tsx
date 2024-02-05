@@ -1,8 +1,10 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
+import { peTeacherModel } from '@entities/pe-teacher'
+import { $userStore } from '@entities/user/model'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
-import { CenterPage } from '@shared/ui/atoms'
+import { CenterPage, Error } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
@@ -13,16 +15,28 @@ import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 
 const PEStudent = () => {
-    const { studentId } = useParams<{ studentId: string }>()
-    const [currentPage, setCurrentPage] = useState<number>(0)
+    const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
+    const [student, { currentUser }, isTeacherLoading, isStudentLoading] = useUnit([
+        selectedPEStudentModel.stores.$selectedStudent,
+        $userStore,
+        peTeacherModel.stores.isLoading,
+        selectedPEStudentModel.stores.$loading,
+    ])
 
-    const [student] = useUnit([selectedPEStudentModel.stores.$selectedStudent])
+    const studentId = currentUser?.user_status === 'staff' ? studentIdFromParams : currentUser?.guid ?? ''
+    const [currentPage, setCurrentPage] = useState<number>(0)
 
     useEffect(() => {
         selectedPEStudentModel.events.setCurrentStudentId(studentId)
 
+        peTeacherModel.events.load()
+
         return () => selectedPEStudentModel.events.resetStudentId()
     }, [studentId])
+
+    if (!student && studentId && !isTeacherLoading && !isStudentLoading) {
+        return <Error text="Нет данных" />
+    }
 
     if (!student) return null
 

@@ -10,25 +10,28 @@ import { AdminPanel } from './admin-panel'
 import { MyGroups } from './my-groups'
 import { $page, pageIndexChanged, pageLoaded } from './page-model'
 import { StudentsList } from './students-list'
+import { StudentsExam } from './students-exam'
 
 const TeacherPhysicalEducation = () => {
-    const [peTeacher, currentPageIndex] = useUnit([peTeacherModel.stores.$peTeacher, $page])
+    const [peTeacher, currentPageIndex] = useUnit([peTeacherModel.stores.peTeacher, $page])
 
     useEffect(() => {
         pageLoaded()
     }, [])
 
     const pages = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some((permission) =>
-        peTeacher?.permissions.includes(permission),
+        peTeacher?.permissions?.includes(permission),
     )
         ? [
               { title: 'Студенты', content: <StudentsList /> },
               { title: 'Управление', content: <AdminPanel /> },
               { title: 'Мои Группы', content: <MyGroups /> },
+              { title: 'Проведение зачета', content: <StudentsExam /> },
           ]
         : [
               { title: 'Студенты', content: <StudentsList /> },
               { title: 'Мои Группы', content: <MyGroups /> },
+              { title: 'Проведение зачета', content: <StudentsExam /> },
           ]
 
     return (

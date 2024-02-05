@@ -35,7 +35,9 @@ import {
     SettingsPage,
 } from './pages'
 
+import { PETeacher } from '@entities/pe-teacher/types'
 import { ExtSize } from '@shared/ui/types'
+import { BsFileMedical } from 'react-icons/bs'
 import { FiClock, FiLock, FiRotateCcw, FiXCircle } from 'react-icons/fi'
 import {
     HiOutlineBell,
@@ -60,6 +62,7 @@ import { DOCLIST_ROUTE } from '../teacher-routes'
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
 export const MEDICAL_CERTIFICATE = '/medical-certificate'
+export const VACCINATION = '/vaccination'
 
 export const ALL_ROUTE = '/all'
 export const HOME_ROUTE = '/home'
@@ -144,6 +147,7 @@ export interface IRoute {
     pageSize?: ExtSize
     isExternalPage?: boolean
     isOldLkPage?: boolean
+    getIsVisibleForCurrentUser?: (peTeacher: PETeacher | null) => boolean
 }
 
 export const publicRoutes = [
@@ -281,7 +285,7 @@ export const generalRoutes: IRoutes = {
     },
     'electronic-interaction-agreement': {
         id: 'electronic-interaction-agreement',
-        title: 'Соглашение об электронном взаимодействии',
+        title: 'Соглашение об электронном взаимодействии',
         shortTitle: 'Соглашение об электр...',
         icon: <HiOutlineClipboardCheck />,
         path: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
@@ -358,7 +362,19 @@ export const generalRoutes: IRoutes = {
         Component: MedicalCertificate,
         color: 'red',
         isTemplate: false,
-        group: 'FINANCES_DOCS',
+        group: 'GENERAL',
+    },
+    vaccination: {
+        id: 'vaccination',
+        title: 'Вакцинация',
+        icon: <BsFileMedical />,
+        path: VACCINATION,
+        Component: () => PageIsNotReady({ oldVersionUrl: VACCINATION, forceForward: true }),
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+        keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
+        isOldLkPage: true,
     },
 }
 

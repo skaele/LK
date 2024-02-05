@@ -6,8 +6,7 @@ import { Colors, IColors } from '@shared/constants'
 import BlockWrapper from '@ui/block/styles'
 import { Button } from '@ui/button'
 import getCorrectWordForm from '@utils/get-correct-word-form'
-import getShortStirng from '@utils/get-short-string'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { FiArrowLeftCircle, FiPlus, FiX } from 'react-icons/fi'
 import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 import styled from 'styled-components'
@@ -48,6 +47,7 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
     }
 
     .outside {
+        position: static;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -124,7 +124,6 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
         color,
         shadow,
         notifications,
-        maxWordLength,
         title,
         isNew,
         icon,
@@ -139,19 +138,6 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
     const isVertical = orientation === 'vertical'
     const { settings } = settingsModel.selectors.useSettings()
     const isAdded = !!(settings['settings-home-page'].property.pages as string[])?.find((el) => el === id)
-
-    const maxFirstWordLength = 11
-
-    const getHyphenatedTitle = useMemo(
-        () => (title: string, maxLength: number) => {
-            const firstWord = title.split(' ')[0]
-
-            return firstWord.length > maxLength && firstWord.length !== maxLength + 1 && isVertical
-                ? `${title.substring(0, maxLength)}-${title.substring(maxLength, title.length)}`
-                : title
-        },
-        [],
-    )
 
     return (
         <PageLinkWrapper
@@ -176,7 +162,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                 <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
-                <b>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
+                <b title={title}>{title}</b>
                 {!!notifications && (
                     <span className="notifications-title">
                         {notifications}{' '}

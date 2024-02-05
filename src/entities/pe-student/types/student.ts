@@ -4,6 +4,7 @@ export interface PEStudent {
     studentGuid: string
     fullName: string
     groupNumber: string
+    hasDebtFromPreviousSemester: boolean
     visits: number
     additionalPoints: number
     pointsForStandards: number
@@ -21,6 +22,7 @@ export type PEStudentProfile = PEStudent & {
     visitsHistory: {
         id: number
         date: string
+        teacherGuid: string
         teacher: {
             fullName: string
         }
@@ -31,6 +33,7 @@ export type PEStudentProfile = PEStudent & {
         comment: string
         date: string
         points: number
+        teacherGuid: string
     }[]
     standardsHistory: {
         id: string
@@ -39,5 +42,7 @@ export type PEStudentProfile = PEStudent & {
             fullName: string
         }
         points: number
+        date: string
+        teacherGuid: string
     }[]
 }

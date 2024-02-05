@@ -9,6 +9,8 @@ import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { SideMenuProps } from './types'
+import { userModel } from '@entities/user'
+import { useLocation } from 'react-router'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,
@@ -20,6 +22,11 @@ export const SideMenuContent = ({
     const {
         data: { searchValue, filter },
     } = scheduleModel.selectors.useSchedule()
+    const location = useLocation()
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
+    const isStaff = user?.user_status === 'staff'
 
     return (
         <>
@@ -45,6 +52,10 @@ export const SideMenuContent = ({
                     const { id, path } = route
                     const normalizedPath = filter ? `${path}/${filter}` : path
 
+                    if (id === 'schedule-session' && isStaff) {
+                        return null
+                    }
+
                     return (
                         <LinkItem
                             type="horizontal"
@@ -54,6 +65,8 @@ export const SideMenuContent = ({
                             {...route}
                             title={route.shortTitle ?? route.title}
                             path={normalizedPath}
+                            isCurrent={location.pathname === normalizedPath}
+                            route={{ ...route, path: normalizedPath }}
                         />
                     )
                 })}

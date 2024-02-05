@@ -21,7 +21,7 @@ sample({
     clock: startNewSemesterFx.doneData,
     fn: () => ({
         message: 'Новый семестр начат',
-        type: 'success' as any,
+        type: 'success' as const,
         time: 3000,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
@@ -31,7 +31,7 @@ sample({
     clock: startNewSemesterFx.failData,
     fn: () => ({
         message: 'Не удалось начать новый семестр',
-        type: 'failure' as any,
+        type: 'failure' as const,
         time: 3000,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,

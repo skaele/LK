@@ -6,7 +6,7 @@ import { LinkItem } from '@shared/ui/link-item'
 import React from 'react'
 import styled from 'styled-components'
 
-const LinksStyled = styled.div`
+const LinksStyled = styled.div<{ componentHeight?: number }>`
     width: 100%;
     display: flex;
     align-items: center;
@@ -15,7 +15,12 @@ const LinksStyled = styled.div`
     background: var(--block);
     box-shadow: var(--very-mild-shadow);
     overflow-y: hidden;
-    height: 90px;
+    height: ${({ componentHeight }) =>
+        !!componentHeight && componentHeight > 33
+            ? '120px'
+            : !!componentHeight && componentHeight > 10
+            ? '110px'
+            : '100px'};
 
     ${MEDIA_QUERIES.isNotMobile} {
         &::-webkit-scrollbar {

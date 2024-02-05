@@ -10,7 +10,9 @@ import Router from './routers/router'
 const Background = styled.div`
     background: var(--theme);
     overflow-y: auto;
-    height: 100vh;
+    flex: 1;
+    display: flex;
+    width: 100%;
 `
 
 releaseClear()

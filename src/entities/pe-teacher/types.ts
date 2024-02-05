@@ -1,4 +1,5 @@
 export type PETeacher = {
+    id: string
     permissions: PeTeacherPermission[]
     fullName: string
 }

@@ -38,6 +38,16 @@ import {
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
     WorkTransfer,
+    LivingInResidentialPremises,
+    GuestsAccomodationOnCampus,
+    GuestsPassageToCampus,
+    Relocation,
+    TerminationOfAgreement,
+    IssuanceOfPass,
+    GuestPass,
+    CertificationAndIssuanceOfDocs,
+    CertifiedCopiesOfMilitaryDocs,
+    DefermentFromConscription,
     WorkTransferChangeRate,
 } from './pages'
 
@@ -84,6 +94,7 @@ import {
 } from 'react-icons/hi'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import { Onboarding } from '../general-routes/pages'
+import { BsPeople } from 'react-icons/bs'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -121,7 +132,7 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
-export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
+export const DATA_VERIFICATION_ROUTE = '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
 export const CONNECTING_COMPUTER = APPLICATIONS_ROUTE + '/connecting-computer'
@@ -147,11 +158,11 @@ export const HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/holiday-postponed'
 export const DISMISSAL = HR_APPLICATIONS_ROUTE + '/dismissal/:id'
 export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer/:id'
 export const EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/extra-holiday-coll'
-export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning/:id'
+export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning'
 export const HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/holiday-transfer/:id'
 export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
 export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
-export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination/:id'
+export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
 export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
 // export const BUFFER_EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/buffer-extra-holiday-coll'
 export const BUFFER_HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/buffer-holiday-planning'
@@ -162,6 +173,21 @@ export const BUFFER_WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-work-transf
 // export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
 export const BUFFER_PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/buffer-part-time-deployment'
 export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
+
+export const LIVING_IN_RESIDENTIAL_PREMISES = APPLICATIONS_ROUTE + '/living-in-residential-premises'
+export const GUESTS_ACCOMODATION_ON_CAMPUS = APPLICATIONS_ROUTE + '/guests-accomodation-on-campus'
+export const GUESTS_PASSAGE_TO_CAMPUS = APPLICATIONS_ROUTE + '/guests-passage-to-campus'
+export const RELOCATION = APPLICATIONS_ROUTE + '/relocation'
+export const TERMINATION_OF_AGREEMENT = APPLICATIONS_ROUTE + '/termination-of-agreement'
+
+export const ISSUANCE_OF_PASS = APPLICATIONS_ROUTE + '/issuance-of-pass'
+export const GUEST_PASS = APPLICATIONS_ROUTE + '/guest-pass'
+
+export const CERTIFICATION_AND_ISSUANCE_OF_DOCS = APPLICATIONS_ROUTE + '/certification-and-issuance-of-docs'
+
+export const DEFERMENT_FROM_CONSCRIPTION = APPLICATIONS_ROUTE + '/deferment-from-conscription'
+export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certified-copies-of-military-docs'
+
 // export const GENERATE_SCHEDULE = '/generate-schedule'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
@@ -181,7 +207,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     'download-agreements': {
         id: 'download-agreements',
-        title: 'Административная панель',
+        title: 'Админ панель',
         icon: <HiOutlineArrowCircleDown />,
         path: DOWNLOAD_AGREEMENTS_FILES_ROUTE,
         Component: DownloadAdminFilesPage,
@@ -189,6 +215,19 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'GENERAL',
         isAdmin: true,
+    },
+    children: {
+        id: 'children',
+        title: 'Дети и внуки',
+        icon: <BsPeople />,
+        path: CHILDREN_ROUTE,
+        Component: () => PageIsNotReady({ oldVersionUrl: CHILDREN_ROUTE, forceForward: true }),
+        color: 'green',
+        isTemplate: false,
+        group: 'GENERAL',
+        pageSize: 'big',
+        isOldLkPage: true,
+        keywords: ['Ltnb b dyerb'],
     },
     'electronic-statements': {
         id: 'electronic-statements',
@@ -259,8 +298,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-admin': {
         id: 'kpi-admin',
-        // title: 'Экспертиза рейтинговой системы ППС',
-        title: 'Экспертиза рейтинго...',
+        title: 'Экспертиза рейтинговой системы ППС',
         icon: <HiOutlineDesktopComputer />,
         path: KPI_ADMIN_ROUTE,
         Component: () => PageIsNotReady({ oldVersionUrl: KPI_ADMIN_ROUTE, forceForward: true }),
@@ -334,8 +372,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         path: PHYSICAL_EDUCATION,
         pageSize: 'big',
         Component: TeacherPhysicalEducation,
+        getIsVisibleForCurrentUser: (peTeacher) => !!peTeacher?.permissions?.length,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'LEARNING_ACTIVITIES',
     },
     'physical-education-student': {
         id: 'physical-education-student',
@@ -386,7 +425,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'pps-vote': {
         id: 'pps-vote',
-        title: 'Опрос для проверки уровня цифровой грамотности',
+        title: 'Опрос для проверки уровня цифровой грамотности',
         icon: <BiBookReader />,
         path: PPS_VOTE_ROUTE,
         isOldLkPage: true,
@@ -405,7 +444,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : TeachersApplicationsPage,
         color: 'red',
         isTemplate: false,
-        pageSize: 'big',
+        pageSize: 'large',
         group: 'FINANCES_DOCS',
         keywords: ['заявления', 'справки', 'заявление', 'справка'],
     },
@@ -421,6 +460,17 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+    },
+    'data-verification': {
+        id: 'data-verification',
+        title: 'Анкета для сверки данных',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: DATA_VERIFICATION_ROUTE,
+        Component: DataVerificationPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        backButtonText: 'Назад к цифровым сервисам',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',
@@ -451,82 +501,94 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    dismissal: {
-        id: 'dismissal2',
+    'buffer-dismissal': {
+        id: 'buffer-dismissal',
         title: 'Заявление на увольнение',
         path: BUFFER_DISMISSAL,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : DismissalBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
-    'holiday-work': {
-        id: 'part-time-employment',
+    'buffer-holiday-work': {
+        id: 'buffer-holiday-work',
         title: 'Заявление о привлечении к работе в выходной день',
         path: BUFFER_HOLIDAY_WORK,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayWorkBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
-    'medical-examination': {
-        id: 'part-time-employment',
+    'buffer-medical-examination': {
+        id: 'buffer-medical-examination',
         title: 'Заявление о диспансеризации',
         path: BUFFER_MEDICAL_EXAMINATION,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : MedicalExaminationBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
-    'holiday-planning': {
-        id: 'holiday-postponed',
+    'buffer-holiday-planning': {
+        id: 'buffer-holiday-planning',
         title: 'Заявление о предоставлении отпуска',
         path: BUFFER_HOLIDAY_PLANNING,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayPlanningBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
+        subPageHeaderTitle: 'Заявление на отпуск',
     },
-    'holiday-transfer': {
-        id: 'holiday-transfer',
+    'buffer-holiday-transfer': {
+        id: 'buffer-holiday-transfer',
         title: 'Заявление о переносе отпуска',
         path: BUFFER_HOLIDAY_TRANSFER,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayTransferBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
-
-    'work-transfer': {
-        id: 'dismissal',
+    'buffer-work-transfer': {
+        id: 'buffer-work-transfer',
         title: 'Заявление на перевод',
         path: BUFFER_WORK_TRANSFER,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransferBufferPage,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        pageSize: 'large',
     },
 
     'part-time-employment': {
@@ -538,38 +600,53 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: isProduction ? ApplicationRedirect : PartTimeEmployment,
         isTemplate: false,
         group: 'OTHER',
+        isSubPage: true,
+        backButtonText: 'Назад к кадровым заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
     },
-    'holiday-work-form': {
-        id: 'part-time-employment',
+    'holiday-work': {
+        id: 'holiday-work',
         title: 'Заявление о привлечении к работе в выходной день',
         path: HOLIDAY_WORK,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayWork,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: BUFFER_HOLIDAY_WORK,
     },
-    'medical-examination-form': {
-        id: 'part-time-employment',
+    'medical-examination': {
+        id: 'medical-examination',
         title: 'Заявление о диспансеризации',
         path: MEDICAL_EXAMINATION,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : MedicalExamination,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: BUFFER_MEDICAL_EXAMINATION,
     },
-    'holiday-planning-form': {
-        id: 'holiday-postponed',
+    'holiday-planning': {
+        id: 'holiday-planning',
         title: 'Заявление о предоставлении отпуска',
         path: HOLIDAY_PLANNING,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayPlanning,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        fallbackPrevPage: BUFFER_HOLIDAY_PLANNING,
     },
-    'holiday-transfer-form': {
+    'holiday-transfer': {
         id: 'holiday-transfer',
         title: 'Заявление о переносе отпуска',
         path: HOLIDAY_TRANSFER,
@@ -577,31 +654,36 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayTransfer,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        fallbackPrevPage: BUFFER_HOLIDAY_TRANSFER,
     },
-    'work-transfer-form': {
-        id: 'work-transfer-form',
+    'work-transfer': {
+        id: 'work-transfer',
         title: 'Заявление на перевод',
         path: WORK_TRANSFER,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransfer,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
-        backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        backButtonText: 'Назад',
+        fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
-    'work-transfer-change-rate-form': {
-        id: 'work-transfer-form',
-        title: 'Заявление на перевод',
+    'work-transfer-change-rate': {
+        id: 'work-transfer-change-rate',
+        title: 'Заявление на изменение ставки',
         path: WORK_TRANSFER_CHANGE_RATE,
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransferChangeRate,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        fallbackPrevPage: BUFFER_WORK_TRANSFER,
     },
     'extra-holiday-coll': {
         id: 'dismissal',
@@ -613,7 +695,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'OTHER',
     },
-    dismissal_form: {
+    dismissal: {
         id: 'dismissal',
         title: 'Заявление на увольнение',
         path: DISMISSAL,
@@ -621,11 +703,11 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : Dismissal,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
-        backButtonText: 'Назад к кадровым заявлениям',
+        backButtonText: 'Назад',
         subPageHeaderTitle: '',
-        fallbackPrevPage: HR_APPLICATIONS_ROUTE,
+        fallbackPrevPage: BUFFER_DISMISSAL,
     },
     'getting-computer-equipment': {
         id: 'getting-computer-equipment',
@@ -727,7 +809,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'visa-certificate': {
         id: 'visa-certificate',
-        title: 'Справка на визу',
+        title: 'Справка с места работы для предоставления в визовый центр',
         icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: VISA_CERTIFICATE,
@@ -908,13 +990,14 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'data-verification': {
-        id: 'data-verification',
-        title: 'Анкета для сверки данных',
+
+    'living-in-residential-premises': {
+        id: 'living-in-residential-premises',
+        title: 'Предоставление права проживания в жилом помещении',
         icon: <HiOutlineDocumentText />,
         color: 'blue',
-        path: DATA_VERIFICATION_ROUTE,
-        Component: DataVerificationPage,
+        path: LIVING_IN_RESIDENTIAL_PREMISES,
+        Component: isProduction ? ApplicationRedirect : LivingInResidentialPremises,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -922,6 +1005,136 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
+    'guests-accomodation-on-campus': {
+        id: 'guests-accomodation-on-campus',
+        title: 'Временное размещение гостей в студгородке',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: GUESTS_ACCOMODATION_ON_CAMPUS,
+        Component: isProduction ? ApplicationRedirect : GuestsAccomodationOnCampus,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'guests-passage-to-campus': {
+        id: 'guests-passage-to-campus',
+        title: 'Проход гостей на территорию студенческого городка',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: GUESTS_PASSAGE_TO_CAMPUS,
+        Component: isProduction ? ApplicationRedirect : GuestsPassageToCampus,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    relocation: {
+        id: 'relocation',
+        title: 'Переселение',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: RELOCATION,
+        Component: isProduction ? ApplicationRedirect : Relocation,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'termination-of-agreement': {
+        id: 'termination-of-agreement',
+        title: 'Расторжение договора найма жилого помещения',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: TERMINATION_OF_AGREEMENT,
+        Component: isProduction ? ApplicationRedirect : TerminationOfAgreement,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'issuance-of-pass': {
+        id: 'issuance-of-pass',
+        title: 'Выдача пропуска (повторная)',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: ISSUANCE_OF_PASS,
+        Component: isProduction ? ApplicationRedirect : IssuanceOfPass,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'guest-pass': {
+        id: 'guest-pass',
+        title: 'Заказ гостевого пропуска',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: GUEST_PASS,
+        Component: isProduction ? ApplicationRedirect : GuestPass,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'certification-and-issuance-of-docs': {
+        id: 'certification-and-issuance-of-docs',
+        title: 'Заверение и выдача копий внутренних документов',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: CERTIFICATION_AND_ISSUANCE_OF_DOCS,
+        Component: isProduction ? ApplicationRedirect : CertificationAndIssuanceOfDocs,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
+    'deferment-from-conscription': {
+        id: 'deferment-from-conscription',
+        title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: DEFERMENT_FROM_CONSCRIPTION,
+        Component: isProduction ? ApplicationRedirect : DefermentFromConscription,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'certified-copies-of-military-docs': {
+        id: 'certified-copies-of-military-docs',
+        title: 'Заверенные копии документов по воинскому учету из личного дела',
+        icon: <HiOutlineDocumentText />,
+        color: 'blue',
+        path: CERTIFIED_COPIES_OF_MILITARY_DOCS,
+        Component: isProduction ? ApplicationRedirect : CertifiedCopiesOfMilitaryDocs,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+
     'social-environment': {
         id: 'Социальная среда',
         title: 'Социальная среда',
@@ -937,6 +1150,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'psychological-help': {
         id: 'Психологическая помощь',
@@ -954,6 +1168,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'health-care': {
         id: 'Медицинская помощь',
@@ -970,6 +1185,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'wifi-at-the-university': {
         id: 'WI-FI  в университете',
@@ -987,6 +1203,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     brandbook: {
         id: 'Брендбук',
@@ -1003,6 +1220,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'addresses-and-contacts': {
         id: 'addresses-and-contacts',
@@ -1020,6 +1238,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
     'structure-of-the-university': {
         id: 'structure-of-the-university',
@@ -1038,5 +1257,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
+        isExternalPage: true,
     },
 })

@@ -26,6 +26,11 @@ const tableColumns: ColumnProps[] = [
         field: 'actualVacationPeriods',
         showFull: true,
     },
+    {
+        title: 'Остаток отпуска',
+        field: 'unusedVacationPeriods',
+        showFull: true,
+    },
 ]
 
 export type OldVacationChedule = {
@@ -34,14 +39,17 @@ export type OldVacationChedule = {
     vacations?: {
         plannedVacationPeriods?: string
         actualVacationPeriods?: string
+        unusedVacationPeriods?: string
     }[]
     allPlannedVacationPeriods?: number
     allActualVacationPeriods?: number
+    allUnusedVacationPeriods?: number
     oldAllVacationRest?: number
 }
 
 const Vacation = (props: VacationSchedule) => {
-    const { division, post, vacations, allActualVacationPeriods, allPlannedVacationPeriods } = mapper(props)
+    const { division, post, vacations, allActualVacationPeriods, allPlannedVacationPeriods, allUnusedVacationPeriods } =
+        mapper(props)
 
     return (
         <>
@@ -56,6 +64,7 @@ const Vacation = (props: VacationSchedule) => {
                     const footer = {
                         allPlannedVacationPeriods: formFooterField(allPlannedVacationPeriods),
                         allActualVacationPeriods: formFooterField(allActualVacationPeriods),
+                        allUnusedVacationPeriods: formFooterField(allUnusedVacationPeriods),
                     } as IndexedProperties
 
                     return footer
@@ -68,16 +77,16 @@ const Vacation = (props: VacationSchedule) => {
 export default Vacation
 
 function formFooterField(field?: number) {
-    return `Всего: ${field} ${getCorrectWordForm(field ?? 0, RULES)}`
+    return `Всего: ${field} ${getCorrectWordForm(Math.trunc(field || 0), RULES)}`
 }
 
 function mapper(newVacation: VacationSchedule): OldVacationChedule {
-    const { fact, plan, division, post } = newVacation
+    const { fact, plan, unused, division, post } = newVacation
 
     return {
         division,
         post,
-        vacations: getVacations(fact, plan),
+        vacations: getVacations(fact, plan, unused),
         allActualVacationPeriods: fact.reduce<number>((acc, { numdays }) => {
             acc += +numdays
 
@@ -88,21 +97,29 @@ function mapper(newVacation: VacationSchedule): OldVacationChedule {
 
             return acc
         }, 0),
+        allUnusedVacationPeriods: unused.reduce<number>((acc, { numdays }) => {
+            acc += +numdays
+
+            return acc
+        }, 0),
     }
 }
 
-function getVacations(fact: VacationType[], plan: VacationType[]) {
-    const maxVacationLength = Math.max(fact.length, plan.length)
+function getVacations(fact: VacationType[], plan: VacationType[], unused: VacationType[]) {
+    const maxVacationLength = Math.max(fact.length, plan.length, unused.length)
     const vacations = []
 
     for (let i = 0; i < maxVacationLength; i++) {
         const factVacation = fact[i]
         const planVacation = plan[i]
-        const vacation = { actualVacationPeriods: '', plannedVacationPeriods: '' }
+        const unusedVacation = unused[i]
+        const vacation = { actualVacationPeriods: '', plannedVacationPeriods: '', unusedVacationPeriods: '' }
         const factFrom = localizeDate(factVacation?.from, 'numeric')
         const factTo = localizeDate(factVacation?.to, 'numeric')
         const planFrom = localizeDate(planVacation?.from, 'numeric')
         const planTo = localizeDate(planVacation?.to, 'numeric')
+        const unusedFrom = localizeDate(unusedVacation?.from, 'numeric')
+        const unusedTo = localizeDate(unusedVacation?.to, 'numeric')
 
         if (factVacation) {
             vacation.actualVacationPeriods = `${factFrom} - ${factTo} (${factVacation.numdays} ${getCorrectWordForm(
@@ -117,6 +134,13 @@ function getVacations(fact: VacationType[], plan: VacationType[]) {
                 RULES,
             )})`
         }
+
+        if (unusedVacation) {
+            vacation.unusedVacationPeriods = `${unusedFrom} - ${unusedTo} (${
+                unusedVacation.numdays
+            } ${getCorrectWordForm(Math.trunc(Number(unusedVacation.numdays)) || 0, RULES)})`
+        }
+
         vacations.push(vacation)
     }
 

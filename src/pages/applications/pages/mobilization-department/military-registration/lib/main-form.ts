@@ -198,7 +198,6 @@ export const getFamilyCompositionForm = (): IInputArea => {
                     items: familyMembers,
                     width: '100%',
                 },
-
                 {
                     fieldName: 'fio',
                     title: 'ФИО',
@@ -206,7 +205,6 @@ export const getFamilyCompositionForm = (): IInputArea => {
                     required: true,
                     width: '40%',
                 },
-
                 {
                     fieldName: 'bdate',
                     title: 'Дата рождения',

@@ -15,16 +15,17 @@ const GetButtons = ({ confirmed, changeInputArea, setData, setChangeInputArea, h
     if (confirmed)
         return (
             <Button
-                onClick={() =>
+                onClick={() => {
                     setData((area: IInputArea) => {
                         area.confirmed = false
                         return { ...area }
                     })
-                }
-                text="Отменить"
-                icon={<FiXCircle />}
-                textColor={Colors.red.main}
-                hoverBackground={Colors.red.transparent3}
+                    setChangeInputArea(true)
+                }}
+                text="Изменить"
+                icon={<FiEdit3 />}
+                textColor={Colors.blue.main}
+                hoverBackground={Colors.blue.transparent3}
                 background="transparent"
                 width="130px"
             />

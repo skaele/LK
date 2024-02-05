@@ -2,15 +2,16 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     display: flex;
+    flex: 1;
     background: var(--theme);
-    height: 100vh;
-    height: 100dvh;
-    height: 100svh;
+    width: 100%;
 `
 
 export const ContentWrapper = styled.div`
+    display: flex;
     width: 100%;
-    height: 100%;
+    max-height: 100%;
+    flex: 1;
     z-index: 3;
     background: var(--theme);
     overflow: hidden;
@@ -24,14 +25,13 @@ export const ContentWrapper = styled.div`
 export const PageContent = styled.div<{ withHeader?: boolean }>`
     position: relative;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     scrollbar-gutter: stable;
     padding-top: ${({ withHeader }) => (withHeader ? 'var(--header-height)' : '0')};
     width: 100%;
-    height: 100%;
+    flex: 1;
 
     @media (max-width: 1000px) {
         margin-bottom: var(--mobile-bottom-menu-height);
-        height: calc(100% - var(--mobile-bottom-menu-height));
     }
 `

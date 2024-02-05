@@ -1,9 +1,13 @@
 import { pEStudentVisitModel } from '@entities/pe-student/model'
+import { peTeacherModel } from '@entities/pe-teacher'
+import { PeTeacherPermission } from '@entities/pe-teacher/types'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
+import { isWithinInterval, subWeeks } from 'date-fns'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -12,15 +16,23 @@ interface Props {
 
 export const AddPeStudentVisits = ({ studentGuid }: Props) => {
     const [date, setDate] = useState(new Date().toISOString())
-
-    // TODO: uncomment after release
-    // const minDate = new Date(new Date().getDate() - 7 * 24 * 60 * 60 * 1000)
-    // selectedDate >= minDate &&
-    const maxDate = new Date()
+    const [isPendingAddVisit, teacher] = useUnit([
+        pEStudentVisitModel.stores.pendingAddVisit,
+        peTeacherModel.stores.peTeacher,
+    ])
 
     const selectedDate = new Date(date)
 
-    const isDateValid = selectedDate <= maxDate && selectedDate.getDay() !== 0 && selectedDate.getDay() !== 1
+    const isAdmin = [
+        PeTeacherPermission.AdminAccess,
+        PeTeacherPermission.SuperUser,
+        PeTeacherPermission.SecretaryAccess,
+    ].some((permission) => teacher?.permissions?.includes(permission))
+
+    const isDateValid =
+        (isWithinInterval(selectedDate, { start: subWeeks(new Date(), 1), end: new Date() }) || isAdmin) &&
+        selectedDate.getDay() !== 0 &&
+        selectedDate.getDay() !== 1
 
     useEffect(() => {
         setDate(new Date().toISOString())
@@ -41,7 +53,7 @@ export const AddPeStudentVisits = ({ studentGuid }: Props) => {
             />
 
             <Button
-                isActive={isDateValid}
+                isActive={isDateValid && !isPendingAddVisit}
                 text={`Добавить посещение ${localizeDate(date, 'numeric')}`}
                 onClick={handleClick}
                 width="100%"

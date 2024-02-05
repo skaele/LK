@@ -47,7 +47,15 @@ const PaginationWrapper = styled.div`
     align-items: center;
 `
 
-const Body = ({ data, loading, columns, maxOnPage, onRowClick, filter }: TableProps & { filter: TableCatalogType }) => {
+const Body = ({
+    data,
+    loading,
+    columns,
+    columnsExtended,
+    maxOnPage,
+    onRowClick,
+    filter,
+}: TableProps & { filter: TableCatalogType }) => {
     const [currentPage, setCurrentPage] = useState<number>(0)
     const pages = Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
     const result = maxOnPage ? data?.slice(currentPage * maxOnPage, (currentPage + 1) * maxOnPage) : data
@@ -59,7 +67,16 @@ const Body = ({ data, loading, columns, maxOnPage, onRowClick, filter }: TablePr
     return !loading ? (
         <BodyWrapper>
             {result?.map((el, i) => {
-                return <Row onRowClick={onRowClick} columns={columns} el={el} key={i} index={i} />
+                return (
+                    <Row
+                        onRowClick={onRowClick}
+                        columns={columns}
+                        columnsExtended={columnsExtended}
+                        el={el}
+                        key={i}
+                        index={i}
+                    />
+                )
             })}
             {!result?.length && <Error text="Нет данных" />}
             {pages > 0 && <Divider margin="0" width="100%" />}

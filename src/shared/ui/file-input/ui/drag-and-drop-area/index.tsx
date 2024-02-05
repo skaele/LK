@@ -66,7 +66,7 @@ const DragAndDropArea = ({ files, maxFiles, setFiles, isActive, formats, maxFile
                     <DotSeparatedWords
                         words={[
                             `Форматы: ${!formats ? 'jpg, png, pdf' : formats.map((t) => getFormatName(t)).join(', ')}`,
-                            `Макс. файлов: ${maxFiles}`,
+                            !!maxFiles ? `Макс. файлов: ${maxFiles}` : '',
                         ]}
                     />
                 </Subtext>

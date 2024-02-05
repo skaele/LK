@@ -3,6 +3,7 @@ export type VacationSchedule = {
     post: string
     fact: Vacation[]
     plan: Vacation[]
+    unused: Vacation[]
 }
 
 export type Vacation = {

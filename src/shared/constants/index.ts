@@ -35,7 +35,8 @@ export const DEFAULT_SETTINGS: IDefaultSettings = {
 }
 
 export const UNION_ORGANIZATION = 'https://lk.eseur.ru/signup'
-export const RECEPTION_COMMISSION = 'https://old.mospolytech.ru/index.php?id=3428'
+export const RECEPTION_COMMISSION =
+    'https://mospolytech.ru/obuchauschimsya/izmenenie-uslovij-obucheniya-i-vosstanovlenie'
 
 export const SETTINGS = 'settings'
 

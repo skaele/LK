@@ -1,13 +1,14 @@
 import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
 import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
 import { BiIdCard, BiRuble, BiStar } from 'react-icons/bi'
-import { FiBriefcase } from 'react-icons/fi'
+import { FiBriefcase, FiFileText } from 'react-icons/fi'
 import {
     HiOutlineDocumentAdd,
     HiOutlineInformationCircle,
@@ -50,6 +51,7 @@ import {
     MilitaryRegistrationCard,
     MilitaryRegistrationDocuments,
     PaymentRecipient,
+    PhysicalEducationStudent,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
@@ -102,8 +104,10 @@ export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
 export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
 export const HOLIDAYS_AFTER_TRAINING = APPLICATIONS_ROUTE + '/holidays-after-training'
 export const PROVISION_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/provision-academic-leave'
+export const EXIT_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/exit-academic-leave'
 export const INDEPENDENTLY_DEDUCTED = APPLICATIONS_ROUTE + '/independently-deducted'
 export const EXTENSION_ATTESTATION = APPLICATIONS_ROUTE + '/extension-attestation'
+export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
@@ -124,7 +128,7 @@ export const privateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     payments: {
         id: 'payments',
-        title: 'Договоры и оплаты',
+        title: 'Договоры и оплаты',
         icon: <BiRuble />,
         path: PAYMENTS_ROUTE,
         Component: PaymentsPage,
@@ -135,7 +139,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     dormitory: {
         id: 'dormitory',
-        title: 'Список ожидания на заселение в общежитие',
+        title: 'Список ожидания на заселение в общежитие',
         icon: <MdOutlineBedroomChild />,
         path: DORMITORY,
         Component: DormitoryPage,
@@ -154,6 +158,19 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
         keywords: ['оценки', 'экзамены', 'зачеты'],
+    },
+    'physical-education': {
+        id: 'physical-education',
+        title: 'Физическая культура',
+        icon: <FiFileText />,
+        color: 'lightGreen',
+        path: PHYSICAL_EDUCATION_STUDENT,
+        pageSize: 'big',
+        Component: PhysicalEducationStudent,
+        isTemplate: false,
+        isNew: true,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['физра', 'физическая культура'],
     },
     'project-activity': {
         id: 'project-activity',
@@ -179,7 +196,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     'application-for-superior-room': {
         id: 'application-for-superior-room',
-        title: 'Заявка на комнату повышенной комфортности',
+        title: 'Заявка на комнату повышенной комфортности',
         icon: <MdOutlineBedroomChild />,
         path: APPLICATION_FOR_SUPERIOR_ROOM_ROUTE,
         Component: ApplicationForSuperiorRoom,
@@ -607,6 +624,20 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: <BiIdCard />,
         path: PROVISION_ACADEMIC_LEAVE,
         Component: ApplicationProvisionAcademicLeave,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'exit-academic-leave': {
+        id: 'exit-academic-leave',
+        title: 'Выход из академического отпуска',
+        icon: <BiIdCard />,
+        path: EXIT_ACADEMIC_LEAVE,
+        Component: ApplicationExitAcademicLeave,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

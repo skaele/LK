@@ -12,7 +12,10 @@ const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<Rea
                     const obj = {}
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
-                    if (!!l?.fieldName) obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : l.value.title
+                    if (!!l?.fieldName)
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : l.value?.title ?? null
                     return obj
                 })
             } else {

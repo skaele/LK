@@ -397,14 +397,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение внутри общежития',
         icon: <BiIdCard />,
         path: RELOCATION_INSIDE_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение внутри общежития будет осуществляться с 01.10.2023"
-                  />
-              )
-            : RelocationInsideHostelPage,
+        Component: RelocationInsideHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -417,14 +410,15 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение в другое общежитие завершен 15.06.2023"
-                  />
-              )
-            : RelocationToAnotherHostelPage,
+        Component:
+            Date.now() > new Date('2024-07-01').getTime()
+                ? () => (
+                      <PageIsNotReady
+                          isRedirectButtonVisible={false}
+                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
+                      />
+                  )
+                : RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

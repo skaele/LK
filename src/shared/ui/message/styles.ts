@@ -40,7 +40,7 @@ export const MessageWrapper = styled.div<{
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: ${({ gap }) => gap ?? '6px'};
     font-weight: 500;
     justify-content: flex-end;
     line-height: ${({ lineHeight }) => lineHeight};
@@ -59,6 +59,7 @@ export const MessageWrapper = styled.div<{
         display: flex;
         flex-direction: column;
         gap: ${({ gap }) => gap ?? 0};
+        margin-left: 28px;
     }
 
     a {

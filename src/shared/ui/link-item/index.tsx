@@ -4,7 +4,7 @@ import { Colors } from '@shared/constants'
 import getShortStirng from '@shared/lib/get-short-string'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React from 'react'
-import { HiOutlineDotsVertical, HiOutlineExternalLink } from 'react-icons/hi'
+import { HiOutlineArrowCircleLeft, HiOutlineDotsVertical, HiOutlineExternalLink } from 'react-icons/hi'
 import { useLocation } from 'react-router'
 import Badge from '../badge'
 import Checkbox from '../checkbox'
@@ -15,15 +15,16 @@ import {
     Icon,
     ItemTitle,
     LinkIcon,
-    MenuItemLink,
-    MenuItemStyled,
+    LinkItemLink,
+    LinkItemStyled,
     MoreIcon,
     NewPageIndication,
     NotificationBadge,
 } from './styles'
-import { MenuItemProps } from './types'
+import { LinkItemProps } from './types'
+import { Link } from 'react-router-dom'
 
-export const MenuItem = (props: MenuItemProps) => {
+export const LinkItem = (props: LinkItemProps) => {
     const {
         id,
         path,
@@ -40,7 +41,15 @@ export const MenuItem = (props: MenuItemProps) => {
         notifications,
         onChoose,
         onClick,
+        isOpenInNewWindow,
         collapsed,
+        height,
+        minWidth,
+        as,
+        smallInMobile = false,
+        showMore = true,
+        showBoxShadow = true,
+        textIconGap = '12px',
         type = 'horizontal',
         disabled = false,
         showCurrent = true,
@@ -68,7 +77,7 @@ export const MenuItem = (props: MenuItemProps) => {
     }
     const itemTitle = isHorizontal ? title : getShortStirng(title, 50)
     const showTopIcon = isOldLkPage || isExternalPage
-    const isDoubleSize = title.length > 23
+    const isDoubleSize = title.length > 27
 
     const handleClickMore: React.MouseEventHandler<HTMLDivElement> = (e) => {
         e.preventDefault()
@@ -81,21 +90,44 @@ export const MenuItem = (props: MenuItemProps) => {
     }
 
     return (
-        <MenuItemLink isDoubleSize={isDoubleSize} to={to} onClick={handleClick} orientation={type}>
-            <MenuItemStyled disabled={disabled} background={background} color={textColor} type={type}>
+        <LinkItemLink
+            as={as ?? (isExternalPage ? 'a' : Link)}
+            href={to}
+            isDoubleSize={isDoubleSize}
+            to={to}
+            target={isOpenInNewWindow ? '_blank' : '_self'}
+            rel="noopener noreferrer"
+            onClick={handleClick}
+            orientation={type}
+        >
+            <LinkItemStyled
+                showBoxShadow={showBoxShadow}
+                disabled={disabled}
+                background={background}
+                color={textColor}
+                type={type}
+                height={height}
+                minWidth={minWidth}
+                smallInMobile={smallInMobile}
+            >
                 {showTopIcon && (
-                    <LinkIcon>
-                        {isOldLkPage && <Subtext fontSize="0.76rem">old</Subtext>}
+                    <LinkIcon isHorizontal={isHorizontal}>
+                        {isOldLkPage && <HiOutlineArrowCircleLeft title="Раздел в старом лк" />}
                         {isExternalPage && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
                     </LinkIcon>
                 )}
-                {chosen === undefined && !collapsed && (
+                {showMore && chosen === undefined && !collapsed && (
                     <MoreIcon orientation={type} onClick={handleClickMore}>
                         <HiOutlineDotsVertical />
                     </MoreIcon>
                 )}
-                <Flex gap="12px" d={direction}>
-                    <Icon showBackground={type === 'vertical'} pallete={Colors[color]} theme={theme}>
+                <Flex gap={textIconGap} d={direction}>
+                    <Icon
+                        smallInMobile={smallInMobile}
+                        showBackground={type === 'vertical'}
+                        pallete={Colors[color]}
+                        theme={theme}
+                    >
                         {icon}
                         <NotificationBadge visible={(notifications ?? 0) > 0 && type === 'vertical'}>
                             {notifications}
@@ -108,6 +140,7 @@ export const MenuItem = (props: MenuItemProps) => {
                     >
                         {!collapsed && (
                             <ItemTitle
+                                smallInMobile={smallInMobile}
                                 showFullTitle={showFullTitle}
                                 orientation={type}
                                 dangerouslySetInnerHTML={{ __html: itemTitle }}
@@ -124,7 +157,7 @@ export const MenuItem = (props: MenuItemProps) => {
                     <Badge visible={(notifications ?? 0) > 0 && isHorizontal}>{notifications}</Badge>
                     {chosen !== undefined && onChoose && <Checkbox checked={chosen} setChecked={() => null} />}
                 </Flex>
-            </MenuItemStyled>
-        </MenuItemLink>
+            </LinkItemStyled>
+        </LinkItemLink>
     )
 }

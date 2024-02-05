@@ -5,10 +5,12 @@ export type DividerProps = {
     direction?: Direction
     margin?: string
     width?: string
+    minWidth?: string
 }
 
 export const Divider = styled.div<DividerProps>`
     width: ${({ direction = 'horizontal', width }) => (direction === 'horizontal' ? width ?? '90%' : '0.5px')};
+    min-width: ${({ minWidth }) => minWidth};
     height: ${({ direction = 'horizontal', width }) => (direction === 'horizontal' ? '0.5px' : width ?? '90%')};
     min-height: ${({ direction = 'horizontal', width }) => (direction === 'horizontal' ? '0.5px' : width ?? '90%')};
     background: var(--almostTransparentOpposite);

@@ -23,9 +23,10 @@ export const Container = styled.div<{
     width: ${({ width }) => width ?? '160px'};
     min-width: ${({ width }) => width ?? '160px'};
     height: ${({ height }) => height ?? '160px'};
-
+    cursor: pointer;
     margin-right: ${({ marginRight }) => marginRight ?? '32px'};
     box-shadow: ${({ boxShadow }) => boxShadow ?? '0'};
+    transition: transform 0.2s, box-shadow 0.2s;
 
     .icon {
         position: absolute;

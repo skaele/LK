@@ -6,7 +6,7 @@ import {
 } from '@app/routes/general-routes'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { scheduleModel } from '@entities/schedule'
-import { View } from '@entities/schedule/consts'
+import { MAX_SCALE, MIN_SCALE, SCALE_VALUES, View } from '@entities/schedule/consts'
 import { userModel } from '@entities/user'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Hint } from '@shared/ui/search'
@@ -23,10 +23,10 @@ const useSchedule = () => {
         data: { user },
     } = userModel.selectors.useUser()
     const {
-        data: { filter, view, errorInData },
+        data: { filter, view, errorInData, scale },
     } = scheduleModel.selectors.useSchedule()
 
-    const { isTablet, isMobile } = useCurrentDevice()
+    const { isTablet, isMobile, currentDevice } = useCurrentDevice()
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(true)
     const location = useLocation()
     const history = useHistory()
@@ -39,6 +39,7 @@ const useSchedule = () => {
     const isSemestrPage = location.pathname.includes(SCHEDULE_SEMESTR_ROUTE)
     const showMonth = isSessionPage || isSemestrPage
     const { open } = useModal()
+    const scaleValue = `${Math.floor((scale[currentDevice] / SCALE_VALUES[currentDevice]) * 100)}%`
 
     const handleReturnToMySchedule = () => {
         if (filter) {
@@ -134,6 +135,27 @@ const useSchedule = () => {
         })
     }
 
+    const handleScaleMinus = () => {
+        scheduleModel.events.changeScale({
+            device: currentDevice,
+            scale: Math.max(scale[currentDevice] - 0.1, MIN_SCALE),
+        })
+    }
+
+    const handleScalePlus = () => {
+        scheduleModel.events.changeScale({
+            device: currentDevice,
+            scale: Math.min(scale[currentDevice] + 0.1, MAX_SCALE),
+        })
+    }
+
+    const handleResetScale = () => {
+        scheduleModel.events.changeScale({
+            device: currentDevice,
+            scale: SCALE_VALUES[currentDevice],
+        })
+    }
+
     return {
         isSideMenuOpen,
         shouldShowSlider,
@@ -141,12 +163,16 @@ const useSchedule = () => {
         isSessionPage,
         baseSearchValue,
         showMonth,
+        scaleValue,
         handleErrorClick,
         handleValue,
         onHintClick,
         handleReturnToMySchedule,
         handleLoad,
         handleOpenSideMenu,
+        handleScaleMinus,
+        handleScalePlus,
+        handleResetScale,
     }
 }
 

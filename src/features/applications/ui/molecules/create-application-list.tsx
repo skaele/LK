@@ -3,8 +3,10 @@ import createApplicationSearch from '@features/applications/lib/create-applicati
 import getSectionLinks from '@features/applications/lib/get-section-links'
 import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers-section-links'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
+import { IColors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
+import Subtext from '@shared/ui/subtext'
 import { Error } from '@ui/error'
 import { LocalSearch } from '@ui/molecules'
 import { Title } from '@ui/title'
@@ -23,6 +25,7 @@ const CreateApplicationListWrapper = styled.div`
 
     display: flex;
     flex-direction: column;
+    gap: 10px;
     height: 70vh;
 
     .list {
@@ -81,6 +84,8 @@ export interface Section {
         isExternalLink?: boolean
         isOpenInNewWindow?: boolean
         disabled?: boolean
+        color?: keyof IColors
+        icon?: React.ReactNode
         exceptionalFormEducationList?: User['educationForm'][]
     }[]
 }
@@ -115,6 +120,7 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                 <div className="link-list" key={section.title}>
                                     <Title size={4} align="left" bottomGap>
                                         {section.title}
+                                        <Subtext>{section.links.length}</Subtext>
                                     </Title>
                                     <Flex $wrap gap="8px">
                                         {section.links.map((link, index) => {
@@ -127,26 +133,19 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                             )
                                                 return
 
-                                            return link.isExternalLink ? (
-                                                <a
-                                                    key={link.link + index}
-                                                    href={link.link}
-                                                    target={link.isOpenInNewWindow ? '_blank' : '_self'}
-                                                    rel="noreferrer"
-                                                >
-                                                    {link.title}
-                                                </a>
-                                            ) : (
-                                                <MenuItem
+                                            return (
+                                                <LinkItem
                                                     title={link.title}
                                                     key={link.link + index}
                                                     onClick={close}
                                                     id={link.title}
-                                                    icon={<HiOutlineDocumentText />}
+                                                    isOpenInNewWindow={link.isOpenInNewWindow}
+                                                    isExternalPage={link.isExternalLink}
+                                                    icon={link?.icon ?? <HiOutlineDocumentText />}
                                                     path={link.link}
-                                                    color="blue"
+                                                    color={link.color ?? 'blue'}
                                                     type="horizontal"
-                                                ></MenuItem>
+                                                />
                                             )
                                         })}
                                     </Flex>

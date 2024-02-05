@@ -1,4 +1,6 @@
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
+import { Sleep } from '@shared/images'
+import { Error } from '@shared/ui/error'
 import React from 'react'
 import { CurrentTimeLine } from '../../calendars/day/ui/current-time-line'
 import { DayCalendarEvent } from '../../types'
@@ -6,6 +8,7 @@ import EventItem from './event-item'
 import { checkIfEventIsCurrent } from './lib/check-if-event-is-current'
 import { prepareEvents } from './lib/prepare-events'
 import { EventsWrapper } from './styles'
+import { TIMES } from '../../consts'
 
 type Props = {
     currentDay?: number
@@ -37,9 +40,11 @@ const Events = ({
 
     const isCurrent = isCurrentDay ?? new Date().getDay() === weekDay
     const isTimelineVisible = currentDay !== undefined ? currentDay + 1 === weekDay : undefined
+    const noEvents = !events || events?.length === 0
+    const times = TIMES.slice(interval[0], interval[1] + 1)
 
     return (
-        <EventsWrapper h="100%" d="column">
+        <EventsWrapper scale={scale} timesLen={times.length - 1} d="column" noEvents={noEvents}>
             {isCurrent && (
                 <CurrentTimeLine
                     isVisible={isTimelineVisible}
@@ -48,6 +53,9 @@ const Events = ({
                     shift={shift}
                     interval={interval}
                 />
+            )}
+            {noEvents && !shortInfo && (
+                <Error text={'В этот день нет пар. Можно поспать'} size={'100px'} image={Sleep} />
             )}
             {Object.keys(eventsPrepared).map((key, i) => {
                 return eventsPrepared[key].map((event, index) => {

@@ -1,10 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
 import { RetakeLink } from '@features/schedule/types/retake-types'
-import { Title } from '@ui/title'
+import { LinkItem } from '@shared/ui/link-item'
+import React from 'react'
+import { FaFilePdf } from 'react-icons/fa'
+import styled from 'styled-components'
 
 const Container = styled.div`
-    width: 600px;
+    width: 400px;
 
     @media (max-width: 800px) {
         width: 100%;
@@ -12,27 +13,23 @@ const Container = styled.div`
     }
 `
 
-const CustomLink = styled.a`
-    display: inline-block;
-    font-size: 18px;
-    line-height: 22px;
-    :not(:first-child) {
-        margin-top: 20px;
-    }
-`
-
 type Props = Pick<RetakeLink, 'fullTitle' | 'links'>
 
-const RetakeModal = ({ links, fullTitle }: Props) => {
+const RetakeModal = ({ links }: Props) => {
     return (
         <Container>
-            <Title size={2} align="left">
-                {fullTitle}
-            </Title>
             {links.map(({ href, title }, i) => (
-                <CustomLink key={i + title} href={href} target="_blank">
-                    {title}
-                </CustomLink>
+                <LinkItem
+                    title={title}
+                    isExternalPage
+                    key={i + title}
+                    id={href}
+                    isOpenInNewWindow
+                    icon={<FaFilePdf />}
+                    path={href}
+                    showMore={false}
+                    color={'red'}
+                />
             ))}
         </Container>
     )

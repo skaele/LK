@@ -384,9 +384,11 @@ export const MEDIA_QUERIES = {
     isMobile: `@media ${MOBILE_SCREEN}`,
     isNotMobile: `@media ${NOT_MOBILE_SCREEN}`,
     isTablet: `@media ${TABLET_SCREEN}`,
-    isSmallTesktop: `@media ${SMALL_DESKTOP}`,
-    isMiddleTesktop: `@media ${MIDDLE_DESKTOP}`,
+    isSmallDesktop: `@media ${SMALL_DESKTOP}`,
+    isMiddleDesktop: `@media ${MIDDLE_DESKTOP}`,
 } as const
+
+export type TDevices = Exclude<keyof typeof MEDIA_QUERIES, 'isNotMobile'>
 
 export const JS_QUERIES = [
     { query: MOBILE_SCREEN, title: 'isMobile', value: 'mobile' },

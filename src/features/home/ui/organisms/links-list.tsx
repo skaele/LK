@@ -1,7 +1,7 @@
 import { IRoutes } from '@app/routes/general-routes'
 import AllPagesLink from '@features/all-pages/ui/molecules/all-pages-link'
 import Flex from '@shared/ui/flex'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
 import { Title } from '@shared/ui/title'
 import { Align } from '@ui/types'
 import React from 'react'
@@ -25,7 +25,7 @@ const LinksList = ({ title, links, doNotShow, orientation }: Props) => {
                 {Object.values(links).map((el) => {
                     if (el?.show !== false && doNotShow !== el?.id)
                         return (
-                            <MenuItem
+                            <LinkItem
                                 type={orientation}
                                 key={el.id}
                                 {...el}

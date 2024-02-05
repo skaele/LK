@@ -70,7 +70,7 @@ const useSearchConfig = () => {
     const preconfig: SearchConfig = [
         {
             title: 'Разделы',
-            content: <FoundPages pages={foundPages} showNotFound={false} />,
+            content: <FoundPages key={'pages'} pages={foundPages} showNotFound={false} />,
             clear: () => {
                 setFoundPages(null)
             },
@@ -84,7 +84,7 @@ const useSearchConfig = () => {
         },
         {
             title: 'Студенты',
-            content: <FoundPeople people={students} type="stud" />,
+            content: <FoundPeople key={'students'} people={students} type="stud" />,
             data: students,
             clear: () => {
                 setStudents(null)
@@ -96,7 +96,7 @@ const useSearchConfig = () => {
         },
         {
             title: 'Сотрудники',
-            content: <FoundPeople people={staff} type="staff" />,
+            content: <FoundPeople key={'staff'} people={staff} type="staff" />,
             data: staff,
             clear: () => {
                 setStaff(null)
@@ -108,7 +108,7 @@ const useSearchConfig = () => {
         },
         {
             title: 'Группы',
-            content: <GroupsList groups={groups} />,
+            content: <GroupsList key={'groups'} groups={groups} />,
             data: groups,
             clear: () => {
                 setGroups(null)
@@ -120,7 +120,7 @@ const useSearchConfig = () => {
         },
         {
             title: 'Подразделения',
-            content: <DivisionsList divisions={divisions} />,
+            content: <DivisionsList key={'subdivs'} divisions={divisions} />,
             data: divisions,
             clear: () => {
                 setDivisions(null)
@@ -132,7 +132,13 @@ const useSearchConfig = () => {
         },
         {
             title: 'Уведомления',
-            content: <NotificationList notifications={foundNotifications} loadingRemove={removeNotificationLoading} />,
+            content: (
+                <NotificationList
+                    key={'notifs'}
+                    notifications={foundNotifications}
+                    loadingRemove={removeNotificationLoading}
+                />
+            ),
             clear: () => {
                 setFoundNotifications(null)
             },
@@ -144,7 +150,7 @@ const useSearchConfig = () => {
         },
         {
             title: 'Полезная информация',
-            content: <BlocksList blocks={foundHelpfullPages} isStaff={isStaff} />,
+            content: <BlocksList key={'userfull-info'} blocks={foundHelpfullPages} isStaff={isStaff} />,
             clear: () => {
                 setFoundHelpfullPages(null)
             },

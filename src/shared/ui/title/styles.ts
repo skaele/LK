@@ -13,7 +13,7 @@ export const TitleWrapper = styled.div<{ align: Align; bottomGap: boolean | stri
     svg {
         min-width: ${({ size }) => `${58 - size * 10}px`};
         height: ${({ size }) => `${58 - size * 10}px`};
-        margin-right: 8px;
+        margin-right: 10px;
         color: ${({ iconColor }) => iconColor};
     }
 `

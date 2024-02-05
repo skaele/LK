@@ -1,8 +1,9 @@
 import retakeRoutes from '@features/schedule/config/retake-routes'
-import List from '@ui/list'
+import Flex from '@shared/ui/flex'
+import { LinkItem } from '@shared/ui/link-item'
 import React from 'react'
 import styled from 'styled-components'
-import RetakeLink from '../../../../features/schedule/ui/molecules/retake-link'
+import { useModal } from 'widgets'
 
 const LinksListWrapper = styled.div`
     width: 100%;
@@ -12,20 +13,32 @@ const LinksListWrapper = styled.div`
 `
 
 const RetakeSchedule = () => {
+    const { open } = useModal()
+
     return (
         <LinksListWrapper>
-            <List
-                direction="horizontal"
-                gap={10}
-                horizontalAlign={'left'}
-                scroll={false}
-                wrap={true}
-                wrapOnMobile={true}
-            >
-                {Object.values(retakeRoutes).map((el) => {
-                    return <RetakeLink key={el.id} {...el} />
+            <Flex $wrap gap="8.2px">
+                {Object.values(retakeRoutes).map(({ Component: Modal, id, title, color, icon, path }) => {
+                    const hasModal = !!Modal({})
+
+                    return (
+                        <LinkItem
+                            key={id}
+                            as={hasModal ? 'button' : 'a'}
+                            title={title}
+                            path={hasModal ? '' : path}
+                            id={id}
+                            color={color}
+                            icon={icon}
+                            showMore={false}
+                            onClick={hasModal ? () => open(<Modal />, title) : undefined}
+                            showCurrent={false}
+                            isExternalPage={!hasModal}
+                            type="vertical"
+                        />
+                    )
                 })}
-            </List>
+            </Flex>
         </LinksListWrapper>
     )
 }

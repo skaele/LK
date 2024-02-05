@@ -6,7 +6,8 @@ const search = (value: string, routes: IRoutes) => {
     return Object.values(routes).reduce((acc, el) => {
         const searchValue = normalizeString(value)
         const title = normalizeString(el.title)
-        const newTitleIndex = el.title.toLocaleLowerCase().indexOf(searchValue)
+        const newTitleIndex = title.indexOf(searchValue)
+
         if (title.includes(searchValue) || el?.keywords?.find((word) => normalizeString(word).includes(searchValue))) {
             const title = getTitleWithSearchHighlight(newTitleIndex, el.title, value)
 

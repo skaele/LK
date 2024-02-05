@@ -1,7 +1,8 @@
 import { IRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
+import { MEDIA_QUERIES } from '@shared/constants'
 import { Divider } from '@shared/ui/divider'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -16,7 +17,13 @@ const LinksStyled = styled.div`
     overflow-y: hidden;
     height: 90px;
 
-    @media (max-width: 1000px) {
+    ${MEDIA_QUERIES.isNotMobile} {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    ${MEDIA_QUERIES.isTablet} {
         height: 75px;
     }
 `
@@ -36,7 +43,16 @@ const Links = ({ links }: Props) => {
             {linksKeysArray.map((key, index) => {
                 return (
                     <React.Fragment key={key}>
-                        <MenuItem {...links[key]} type="vertical" />
+                        <LinkItem
+                            smallInMobile
+                            height="90px"
+                            minWidth="120px"
+                            showBoxShadow={false}
+                            textIconGap="0px"
+                            showMore={false}
+                            {...links[key]}
+                            type="vertical"
+                        />
                         {index !== linksKeysArray.length - 1 && (
                             <Divider direction="vertical" margin="10px 0" width="70%" />
                         )}

@@ -1,6 +1,5 @@
-export const SCALE_VALUES = {
-    isMiddleDesktop: 1.35,
-    isSmallDesktop: 1.35,
-    isTablet: 1.5,
-    isMobile: 1.2,
-}
+import get2DigitDumber from '@shared/lib/get-2-digit-number'
+
+export const TIMES = Array(24)
+    .fill(0)
+    .map((_, i) => `${get2DigitDumber(i)}:00`)

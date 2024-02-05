@@ -81,7 +81,11 @@ const ThemeToggle = ({ type, onClick }: Props) => {
             padding="0"
             background={Colors.white.transparent2}
             icon={
-                <IconWrapper width="30px" background={Colors.green.main}>
+                <IconWrapper
+                    width="30px"
+                    color={Colors[theme === 'light' ? 'orange' : 'darkBlue'][theme === 'light' ? 'dark2' : 'light3']}
+                    background={Colors[theme === 'light' ? 'orange' : 'darkBlue'].transparent3}
+                >
                     {icon}
                 </IconWrapper>
             }

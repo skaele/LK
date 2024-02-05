@@ -68,17 +68,27 @@ export const Buttons = styled.div`
 `
 
 export const IconWrapper = styled.div<{ background: string; width?: string }>`
-    min-width: ${({ width }) => width ?? '35px'};
-    height: ${({ width }) => width ?? '35px'};
+    min-width: ${({ width }) => width ?? '30px'};
+    height: ${({ width }) => width ?? '30px'};
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
     color: #fff;
+    margin-bottom: 10px;
     background: ${({ background }) => background ?? 'var(--almostTransparent)'};
+    color: ${({ color }) => color ?? 'var(--text)'};
+
+    svg {
+        width: ${({ width }) => `calc(${width} - 45%)` ?? '35px'} !important;
+        height: ${({ width }) => `calc(${width} - 45%)` ?? '35px'} !important;
+        max-height: ${({ width }) => `calc(${width} - 45%)` ?? '35px'} !important;
+        max-width: ${({ width }) => `calc(${width} - 45%)` ?? '35px'} !important;
+    }
 
     @media (max-width: 1000px) {
         background: none;
+        margin-bottom: 0px;
         color: var(--text);
         /* color: ${({ background }) => background ?? 'var(--almostTransparent)'}; */
     }

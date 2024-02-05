@@ -66,8 +66,8 @@ const LoginBlockStyled = styled(BlockWrapper)<{ isAuthenticated: boolean }>`
     }
 
     @media (max-width: 675px) {
-        max-width: 400px;
-        max-height: 90%;
+        width: 100%;
+        height: 100%;
         flex-direction: column-reverse;
         overflow-y: auto;
         justify-content: flex-start;

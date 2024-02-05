@@ -4,7 +4,8 @@ import { Menu } from '@entities/menu/model'
 import { settingsModel } from '@entities/settings'
 import search from '@features/all-pages/lib/search'
 import { Divider } from '@shared/ui/divider'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
+import { Message } from '@shared/ui/message'
 import { LocalSearch } from '@shared/ui/molecules'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -23,11 +24,12 @@ const CustomizeMenuStyled = styled.div`
 type Props = {
     enabledList: keyof Omit<Menu, 'isOpen' | 'currentPage'>
     requiredList: string[]
+    maxElements?: number
     remove: (id: string, settings: settingsModel.Param, requiredList: string[]) => void
     add: (id: string, settings: settingsModel.Param, maxLength: number, requiredList: string[]) => void
 }
 
-const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
+const CustomizeMenu = ({ enabledList, requiredList, maxElements, add, remove }: Props) => {
     const { settings } = settingsModel.selectors.useSettings()
     const menu = menuModel.selectors.useMenu()
     const { visibleRoutes } = menuModel.selectors.useMenu()
@@ -47,6 +49,9 @@ const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
 
     return (
         <CustomizeMenuStyled>
+            <Message type="info" fontSize="0.9rem" visible={maxElements !== undefined}>
+                Можно добавить не более {maxElements} элементов
+            </Message>
             <LocalSearch
                 placeholder="Поиск"
                 whereToSearch={visibleRoutes}
@@ -56,7 +61,7 @@ const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
             {Object.values(searchResult ?? visibleRoutes).map((el: IRoute) => {
                 return (
                     <React.Fragment key={el.id}>
-                        <MenuItem
+                        <LinkItem
                             {...el}
                             disabled={requiredList.includes(el.id)}
                             chosen={!!enabled[el.id]}

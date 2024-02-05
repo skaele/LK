@@ -1,7 +1,9 @@
 import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
+import { LinkItem } from '@shared/ui/link-item'
 import List from '@shared/ui/list'
 import { Title } from '@shared/ui/title'
 import React from 'react'
+import { AiFillFilePdf } from 'react-icons/ai'
 import styled from 'styled-components'
 
 const CustomBlock = styled.div`
@@ -40,9 +42,17 @@ const BlocksList = ({ blocks, isStaff }: Props) => {
                                 }
 
                                 return (
-                                    <a key={linkTitle + index} href={href} target="_blank" rel="noreferrer">
-                                        {linkTitle}
-                                    </a>
+                                    <LinkItem
+                                        key={linkTitle + index}
+                                        title={linkTitle}
+                                        path={href}
+                                        id={title + index}
+                                        color={'red'}
+                                        isExternalPage
+                                        isOpenInNewWindow
+                                        showMore={false}
+                                        icon={<AiFillFilePdf />}
+                                    />
                                 )
                             })}
                         </List>

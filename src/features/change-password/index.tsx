@@ -13,6 +13,7 @@ import getPasswordStrength from './lib/get-password-strength'
 import { Buttons, ChangePasswordStyled, CheckStyled, FormStyled, InputsStyled, LeftSide, TopLeftSide } from './styles'
 import { useModal } from 'widgets'
 import Flex from '@shared/ui/flex'
+import { HiOutlineSparkles } from 'react-icons/hi'
 
 const ChangePassword = () => {
     const [old, setOld] = useState('')
@@ -58,7 +59,7 @@ const ChangePassword = () => {
                     <Subtext width="100%" align="left" fontSize="0.9rem">
                         Обязательные требования
                     </Subtext>
-                    <Flex d="column" ai="flex-start" gap="8px">
+                    <Flex d="column" ai="flex-start" gap="16px">
                         {MANDATORY_RULES.map((rule) => {
                             return (
                                 <Checkbox
@@ -91,6 +92,7 @@ const ChangePassword = () => {
                 {!isActive && (
                     <Button
                         width="100%"
+                        icon={<HiOutlineSparkles />}
                         text="Сгенерировать пароль"
                         onClick={handleGeneratePassword}
                         background="var(--theme-2)"

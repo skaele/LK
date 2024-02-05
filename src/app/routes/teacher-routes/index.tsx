@@ -72,10 +72,12 @@ import {
 import DownloadAdminFilesPage from '@pages/download-admin-files'
 import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import PaymentsPage from '@pages/payments'
+import { FiDribbble } from 'react-icons/fi'
 import {
     HiOutlineArrowCircleDown,
     HiOutlineCalendar,
     HiOutlineDesktopComputer,
+    HiOutlineDocumentAdd,
     HiOutlineDocumentText,
     HiOutlineLightBulb,
     HiOutlineStar,
@@ -237,14 +239,8 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         id: 'pps-contest',
         title: 'Конкурс ППС',
         icon: <BiIdCard />,
-        path: PPS_CONTEST_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace('https://mospolytech.ru/contest-pps/')
-            }, [])
-
-            return null
-        },
+        path: 'https://mospolytech.ru/contest-pps/',
+        Component: () => null,
         isExternalPage: true,
         color: 'blue',
         isTemplate: false,
@@ -255,13 +251,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Рейтинговая система ППС',
         icon: <HiOutlineStar />,
         path: KPI_PPS_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace(`${OLD_LK_URL}/?p=${KPI_PPS_ROUTE?.slice(1, KPI_PPS_ROUTE.length)}`)
-            }, [])
-
-            return null
-        },
+        Component: () => PageIsNotReady({ oldVersionUrl: KPI_PPS_ROUTE, forceForward: true }),
         isOldLkPage: true,
         color: 'pink',
         isTemplate: false,
@@ -273,13 +263,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Экспертиза рейтинго...',
         icon: <HiOutlineDesktopComputer />,
         path: KPI_ADMIN_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace(`${OLD_LK_URL}/?p=${KPI_ADMIN_ROUTE?.slice(1, KPI_ADMIN_ROUTE.length)}`)
-            }, [])
-
-            return null
-        },
+        Component: () => PageIsNotReady({ oldVersionUrl: KPI_ADMIN_ROUTE, forceForward: true }),
         isOldLkPage: true,
         color: 'lightBlue',
         isTemplate: false,
@@ -345,7 +329,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'physical-education': {
         id: 'physical-education',
         title: 'Физическая культура',
-        icon: <HiOutlineDocumentText />,
+        icon: <FiDribbble />,
         color: 'lightGreen',
         path: PHYSICAL_EDUCATION,
         pageSize: 'big',
@@ -356,7 +340,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'physical-education-student': {
         id: 'physical-education-student',
         title: 'Физическая культура',
-        icon: <HiOutlineDocumentText />,
+        icon: <FiDribbble />,
         color: 'pink',
         show: false,
         path: PHYSICAL_EDUCATION_STUDENT,
@@ -416,7 +400,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
-        icon: <HiOutlineDocumentText />,
+        icon: <HiOutlineDocumentAdd />,
         path: APPLICATIONS_ROUTE,
         Component: isProduction ? ApplicationRedirect : TeachersApplicationsPage,
         color: 'red',

@@ -8,7 +8,7 @@ import { useRouteMatch } from 'react-router'
 import { MEDIA_QUERIES } from '@shared/constants'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
 import styled from 'styled-components'
 import SearchResultField from '../fields/search-result-field'
 import search from '../lib/search'
@@ -68,11 +68,12 @@ const ListOfSettings = ({ settingsConfig }: Props) => {
                 listOfSettings.map((route) => {
                     if ((isMobile && route.id !== 'settings-customize-menu') || !isMobile) {
                         return (
-                            <MenuItem
+                            <LinkItem
                                 {...route}
                                 title={route.title.slice(11, route.title.length)}
                                 key={route.id}
                                 type="horizontal"
+                                showMore={false}
                             />
                         )
                     }

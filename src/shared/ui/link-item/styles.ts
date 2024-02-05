@@ -2,18 +2,14 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Colors, IColorPalette, MEDIA_QUERIES, ThemeType } from '@shared/constants'
 import Badge from '../badge'
-import { MenuItemType } from './types'
+import { LinkItemType } from './types'
 import { getBoxShadow } from './lib/get-box-shadow'
 
-export const MenuItemLink = styled(Link)<{ orientation: MenuItemType; isDoubleSize: boolean }>`
+export const LinkItemLink = styled(Link)<{ orientation: LinkItemType; isDoubleSize: boolean }>`
     width: ${({ orientation, isDoubleSize }) =>
         orientation === 'horizontal' ? '100%' : isDoubleSize ? '258px' : '125px'};
     border-radius: 10px;
-
-    .dsadaada {
-        font-weight: 600;
-        color: ${Colors.blue.main};
-    }
+    border: none;
 
     ${MEDIA_QUERIES.isMobile} {
         width: ${({ orientation, isDoubleSize }) =>
@@ -21,7 +17,7 @@ export const MenuItemLink = styled(Link)<{ orientation: MenuItemType; isDoubleSi
     }
 `
 
-export const ItemTitle = styled.div<{ orientation: MenuItemType; showFullTitle: boolean }>`
+export const ItemTitle = styled.div<{ smallInMobile: boolean; orientation: LinkItemType; showFullTitle: boolean }>`
     text-align: ${({ orientation }) => (orientation === 'horizontal' ? 'left' : 'center')};
     hyphens: auto;
     width: 100%;
@@ -29,13 +25,24 @@ export const ItemTitle = styled.div<{ orientation: MenuItemType; showFullTitle: 
     align-items: center;
     justify-content: center;
     font-size: ${({ orientation }) => (orientation === 'horizontal' ? '1rem' : '0.80rem')};
-    height: ${({ orientation }) => (orientation === 'horizontal' ? 'fit-content' : '34px')};
+    height: ${({ orientation }) => (orientation === 'horizontal' ? 'fit-content' : '26px')};
     white-space: ${({ showFullTitle }) => (showFullTitle ? 'normal' : 'nowrap')};
     text-overflow: ${({ showFullTitle }) => (showFullTitle ? 'unset' : 'ellipsis')};
     overflow: ${({ showFullTitle }) => (showFullTitle ? 'visible' : 'hidden')};
+
+    ${MEDIA_QUERIES.isMobile} {
+        font-size: ${({ orientation, smallInMobile }) =>
+            smallInMobile ? '0.6rem' : orientation === 'horizontal' ? '1rem' : '0.80rem'};
+        height: ${({ orientation }) => (orientation === 'horizontal' ? 'fit-content' : '14px')};
+    }
 `
 
-export const Icon = styled.div<{ pallete: IColorPalette; showBackground: boolean; theme: ThemeType }>`
+export const Icon = styled.div<{
+    smallInMobile: boolean
+    pallete: IColorPalette
+    showBackground: boolean
+    theme: ThemeType
+}>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,6 +68,24 @@ export const Icon = styled.div<{ pallete: IColorPalette; showBackground: boolean
         width: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
         height: ${({ showBackground }) => (!showBackground ? '21px' : '22px')};
     }
+
+    ${MEDIA_QUERIES.isMobile} {
+        &::before {
+            width: ${({ showBackground, smallInMobile }) =>
+                !showBackground ? '19px' : smallInMobile ? '10px' : '22px'};
+            height: ${({ showBackground, smallInMobile }) =>
+                !showBackground ? '19px' : smallInMobile ? '10px' : '22px'};
+            border-radius: ${({ showBackground, smallInMobile }) =>
+                showBackground ? (smallInMobile ? '8px' : '15px') : '0'};
+        }
+
+        svg {
+            width: ${({ showBackground, smallInMobile }) =>
+                !showBackground ? '21px' : smallInMobile ? '17px' : '22px'};
+            height: ${({ showBackground, smallInMobile }) =>
+                !showBackground ? '21px' : smallInMobile ? '17px' : '22px'};
+        }
+    }
 `
 
 export const NotificationBadge = styled(Badge)`
@@ -71,7 +96,7 @@ export const NotificationBadge = styled(Badge)`
     transition: 0.2s transform, 0.2s opacity;
 `
 
-export const MoreIcon = styled.div<{ orientation: MenuItemType }>`
+export const MoreIcon = styled.div<{ orientation: LinkItemType }>`
     position: absolute;
     top: ${({ orientation }) => (orientation === 'vertical' ? '10px' : '50%')};
     transform: ${({ orientation }) => (orientation === 'vertical' ? 'translateY(0)' : 'translateY(-50%)')};
@@ -97,15 +122,20 @@ export const MoreIcon = styled.div<{ orientation: MenuItemType }>`
     }
 `
 
-export const MenuItemStyled = styled.div<{
+export const LinkItemStyled = styled.div<{
     disabled: boolean
     background: string
     color: string
-    type: MenuItemType
+    type: LinkItemType
+    showBoxShadow: boolean
+    height?: string
+    minWidth?: string
+    smallInMobile: boolean
 }>`
     color: var(--text);
     font-weight: 500;
     width: 100%;
+    min-width: ${({ minWidth }) => minWidth};
     border-radius: 8px;
     overflow: hidden;
     display: flex;
@@ -116,9 +146,14 @@ export const MenuItemStyled = styled.div<{
     opacity: ${({ disabled }) => (disabled ? '0.4' : '1')};
     pointer-events: ${({ disabled }) => (disabled ? 'none' : 'all')};
     box-shadow: ${getBoxShadow};
-    height: ${({ type }) => (type === 'horizontal' ? 'fit-content' : '135px')};
+    height: ${({ type, height }) => (type === 'horizontal' ? 'fit-content' : height ?? '135px')};
     position: relative;
-    padding: 12px;
+    padding: 10px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        padding: ${({ type }) => (type === 'vertical' ? '4px' : '10px')};
+        min-width: ${({ smallInMobile, minWidth }) => (smallInMobile ? '90px' : minWidth)};
+    }
 
     @media (hover: hover) {
         &:hover {
@@ -158,15 +193,18 @@ export const MenuItemStyled = styled.div<{
     }
 `
 
-export const LinkIcon = styled.div`
+export const LinkIcon = styled.div<{ isHorizontal: boolean }>`
     position: absolute;
-    top: 8px;
-    right: 8px;
-    opacity: 0.7;
+    top: ${({ isHorizontal }) => (isHorizontal ? '4px' : '8px')};
+    right: ${({ isHorizontal }) => (isHorizontal ? 'auto' : '8px')};
+    left: ${({ isHorizontal }) => (!isHorizontal ? 'auto' : '28px')};
+    opacity: 0.5;
+    transform: scale(${({ isHorizontal }) => (isHorizontal ? '0.8' : '1')});
+    z-index: 1;
 `
 
 export const NewPageIndication = styled.div<{
-    orientation: MenuItemType
+    orientation: LinkItemType
 }>`
     position: absolute;
     left: ${({ orientation }) => (orientation === 'horizontal' ? '12px' : '4px')};

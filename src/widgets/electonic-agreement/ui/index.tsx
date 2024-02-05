@@ -15,7 +15,11 @@ import { useUnit } from 'effector-react'
 const ElectornicAgreementStyled = styled.div`
     .info-text {
         margin: 16px 0;
-        line-height: 1.7rem;
+        line-height: 2rem;
+
+        p {
+            line-height: 1.7rem;
+        }
     }
 
     b {

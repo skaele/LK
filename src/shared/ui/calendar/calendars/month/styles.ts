@@ -26,7 +26,7 @@ export const Cells = styled.div`
     scroll-snap-type: y mandatory;
     scroll-padding-top: 100px;
 
-    ${MEDIA_QUERIES.isMiddleTesktop} {
+    ${MEDIA_QUERIES.isMiddleDesktop} {
         &::-webkit-scrollbar {
             display: none;
         }

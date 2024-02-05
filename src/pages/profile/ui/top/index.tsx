@@ -1,20 +1,20 @@
 import { SETTINGS_PERSONAl_ROUTE, SETTINGS_ROUTE } from '@app/routes/general-routes'
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { User } from '@shared/api/model'
-import { Colors } from '@shared/constants'
+import { Colors, IColors } from '@shared/constants'
 import { Button } from '@shared/ui/button'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Subtext from '@shared/ui/subtext'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 import React from 'react'
-import { FiEdit2, FiLogOut, FiSettings } from 'react-icons/fi'
+import { FiEdit2, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import Slider from 'widgets/slider'
 
+import LogoutButton from '@features/logout-button'
 import ThemeToggle from '@features/theme-toggle'
 import { AvatarWrapper, BlocksList, Buttons, IconWrapper, Info, InfoWrapper, TopInfoBlock, TopStyled } from './styles'
+import useTheme from '@shared/lib/hooks/use-theme'
 
 type Props = {
     pages: { title: string }[]
@@ -26,21 +26,11 @@ type Props = {
 const Top = ({ pages, user, currentPage, setCurrentPage }: Props) => {
     const { fullName, avatar, user_status, degreeLevel } = user
     const userStatus = user_status === 'stud' ? 'Студент' : 'Сотрудник'
-
-    // const handleMore = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    //     contextMenuModel.events.open({
-    //         e,
-    //         height: 100,
-    //         content: <UserContextMenu />,
-    //     })
-    // }
-
-    const logout = () => {
-        confirmModel.events.evokeConfirm({
-            message: 'Вы точно хотите выйти из аккаунта?',
-            onConfirm: userModel.events.logout,
-        })
-    }
+    const { theme } = useTheme()
+    const buttonStyles = (color: keyof IColors) => ({
+        color: Colors[color][theme === 'light' ? 'dark2' : 'light3'],
+        background: Colors[color].transparent3,
+    })
 
     return (
         <TopStyled>
@@ -80,7 +70,7 @@ const Top = ({ pages, user, currentPage, setCurrentPage }: Props) => {
                             <Button
                                 background={Colors.white.transparent2}
                                 icon={
-                                    <IconWrapper width="30px" background={Colors.grey.main}>
+                                    <IconWrapper {...buttonStyles('grey')}>
                                         <FiSettings />
                                     </IconWrapper>
                                 }
@@ -96,7 +86,7 @@ const Top = ({ pages, user, currentPage, setCurrentPage }: Props) => {
                             <Button
                                 background={Colors.white.transparent2}
                                 icon={
-                                    <IconWrapper width="30px" background={Colors.purple.main}>
+                                    <IconWrapper {...buttonStyles('purple')}>
                                         <FiEdit2 />
                                     </IconWrapper>
                                 }
@@ -107,20 +97,7 @@ const Top = ({ pages, user, currentPage, setCurrentPage }: Props) => {
                                 shrinkTextInMobile
                             />
                         </Link>
-                        <Button
-                            background={Colors.white.transparent2}
-                            icon={
-                                <IconWrapper width="30px" background={Colors.red.main}>
-                                    <FiLogOut />
-                                </IconWrapper>
-                            }
-                            text="Выйти"
-                            height="73px"
-                            onClick={logout}
-                            width="calc(50% - 5px)"
-                            direction="vertical"
-                            shrinkTextInMobile
-                        />
+                        <LogoutButton type="v-button" />
                     </Buttons>
                 </TopInfoBlock>
             </BlocksList>

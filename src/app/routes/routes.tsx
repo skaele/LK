@@ -9,11 +9,11 @@ import React from 'react'
 import { BiIdCard, BiRuble, BiStar } from 'react-icons/bi'
 import { FiBriefcase } from 'react-icons/fi'
 import {
-    HiOutlineCheckCircle,
-    HiOutlineDocumentText,
+    HiOutlineDocumentAdd,
     HiOutlineInformationCircle,
     HiOutlineLightBulb,
     HiOutlineLogout,
+    HiOutlineTrendingUp,
 } from 'react-icons/hi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
 import {
@@ -112,7 +112,7 @@ export const privateRoutes: () => IRoutes = () => ({
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
-        icon: <HiOutlineDocumentText />,
+        icon: <HiOutlineDocumentAdd />,
         path: APPLICATIONS_ROUTE,
         Component: ApplicationsPage,
         color: 'red',
@@ -147,7 +147,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'acad-performance': {
         id: 'acad-performance',
         title: 'Успеваемость',
-        icon: <HiOutlineCheckCircle />,
+        icon: <HiOutlineTrendingUp />,
         path: ACAD_PERFORMANCE_ROUTE,
         Component: AcadPerformance,
         color: 'green',

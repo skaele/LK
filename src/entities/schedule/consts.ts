@@ -1,5 +1,5 @@
 import { IFullSchedule, IWeekEventSchedule } from '@shared/api/model'
-import { IWeekDays, WEEK_DAYS } from '@shared/constants'
+import { IWeekDays, TDevices, WEEK_DAYS } from '@shared/constants'
 
 export enum View {
     day,
@@ -50,3 +50,13 @@ export const SCHEDULE_NO_RESULT: GetScheduleResult = {
     },
     teachers: [],
 }
+
+export const SCALE_VALUES: Record<TDevices, number> = {
+    isMiddleDesktop: 1.35,
+    isSmallDesktop: 1.35,
+    isTablet: 1.5,
+    isMobile: 1.2,
+}
+
+export const MAX_SCALE = 2
+export const MIN_SCALE = 0.7

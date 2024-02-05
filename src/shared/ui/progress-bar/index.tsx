@@ -30,14 +30,14 @@ const BarStyled = styled.div<{ value: number; coloring: boolean; size: Size }>`
     width: ${({ value }) => value + '%'};
     border-radius: var(--brLight);
     height: ${({ size }) => SIZES[size]}px;
-    transition: 0.2s;
+    transition: 0.5s;
     background: ${({ coloring, value }) => (coloring ? Colors[getColorFromValue(value)].main : 'var(--block)')};
 `
 
 const Container = styled.div<{ size: Size }>`
     width: 100%;
     border-radius: var(--brLight);
-    background-color: var(--theme-2);
+    background-color: var(--theme-4);
     height: ${({ size }) => SIZES[size]}px;
     overflow: hidden;
 `
@@ -56,7 +56,7 @@ const ProgressBar = ({ title, value, size = 'middle', coloring = true }: Props) 
                 {title}
             </Title>
             <Container size={size}>
-                <BarStyled size={size} coloring={coloring} value={value} />
+                <BarStyled className="progress-bar-line" size={size} coloring={coloring} value={value} />
             </Container>
         </ProgressBarStyled>
     )

@@ -4,7 +4,7 @@ import { TeacherGroupSearch } from '@features/teacher-group-search'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
-import { MenuItem } from '@shared/ui/menu-item'
+import { LinkItem } from '@shared/ui/link-item'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
@@ -46,7 +46,7 @@ export const SideMenuContent = ({
                     const normalizedPath = filter ? `${path}/${filter}` : path
 
                     return (
-                        <MenuItem
+                        <LinkItem
                             type="horizontal"
                             key={id}
                             collapsed={!isSideMenuOpen}

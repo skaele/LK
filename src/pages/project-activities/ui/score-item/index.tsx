@@ -17,10 +17,10 @@ const ScoreItemWrapper = styled.div<{ bold?: boolean; color: string }>`
     box-sizing: border-box;
     border-radius: var(--brLight);
     font-size: 0.9rem;
-    font-weight: ${({ bold }) => (bold ? 600 : 400)};
+    font-weight: ${({ bold }) => (bold ? 500 : 400)};
 
     span {
-        font-weight: bold;
+        font-weight: 600;
         color: ${({ color }) => color};
     }
 `

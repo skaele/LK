@@ -1,9 +1,9 @@
 import { MEDIA_QUERIES } from '@shared/constants'
-import get2DigitDumber from '@shared/lib/get-2-digit-number'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import styled from 'styled-components'
+import { TIMES } from '../../consts'
 
 const TimeWrapper = styled(Flex)<{ scale: number; timesLen: number }>`
     position: absolute;
@@ -36,23 +36,13 @@ const SubtextStyled = styled(Subtext)`
     }
 `
 
-const TIMES = Array(24)
-    .fill(0)
-    .map((_, i) => `${get2DigitDumber(i)}:00`)
-
 type Props = {
     interval: [number, number]
     scale: number
-    shortTimes?: boolean
 }
 
-const Times = ({ interval, scale, shortTimes = false }: Props) => {
-    const times = shortTimes
-        ? Array(24)
-              .fill(0)
-              .map((_, i) => `${i}`)
-              .slice(interval[0], interval[1] + 1)
-        : TIMES.slice(interval[0], interval[1] + 1)
+const Times = ({ interval, scale }: Props) => {
+    const times = TIMES.slice(interval[0], interval[1] + 1)
 
     return (
         <TimeWrapper

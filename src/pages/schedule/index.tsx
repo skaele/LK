@@ -12,6 +12,8 @@ import { Redirect, Route, Switch } from 'react-router'
 import { Slider } from 'widgets'
 import useSchedule from './hooks/use-schedule'
 import { SideMenu } from './ui/side-menu'
+import { HiOutlineMinus, HiOutlinePlus } from 'react-icons/hi'
+import Subtext from '@shared/ui/subtext'
 
 const Schedule = () => {
     const {
@@ -26,12 +28,16 @@ const Schedule = () => {
         showMonth,
         baseSearchValue,
         isMobile,
+        scaleValue,
         onHintClick,
         handleValue,
         handleReturnToMySchedule,
         handleLoad,
         handleOpenSideMenu,
         handleErrorClick,
+        handleScaleMinus,
+        handleScalePlus,
+        handleResetScale,
     } = useSchedule()
 
     return (
@@ -50,8 +56,36 @@ const Schedule = () => {
                     )
                 }
                 topRightCornerElement={
-                    <Flex w="fit-content" gap="20px">
+                    <Flex w="fit-content" gap="10px">
                         {<ErrorIconIndicator visible={!!errorInData} onClick={handleErrorClick} />}
+                        {shouldShowSlider && (
+                            <Flex gap="4px">
+                                {scaleValue !== '100%' && (
+                                    <Button
+                                        onClick={handleResetScale}
+                                        background="var(--block)"
+                                        height="30px"
+                                        textColor="grey"
+                                        text="Сбросить"
+                                    />
+                                )}
+                                <Button
+                                    onClick={handleScaleMinus}
+                                    background="var(--block)"
+                                    width="30px"
+                                    height="30px"
+                                    icon={<HiOutlineMinus />}
+                                />
+                                <Subtext>{scaleValue}</Subtext>
+                                <Button
+                                    onClick={handleScalePlus}
+                                    background="var(--block)"
+                                    width="30px"
+                                    height="30px"
+                                    icon={<HiOutlinePlus />}
+                                />
+                            </Flex>
+                        )}
                         <Button
                             icon={isMobile ? <FiMenu /> : <FiSidebar />}
                             width="36px"

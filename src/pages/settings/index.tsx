@@ -13,7 +13,7 @@ const SettingsPage = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
-                <Flex ai="stretch">
+                <Flex ai="stretch" h="500px">
                     <ListOfSettings settingsConfig={fullSettings} />
                     <SettingsContent settingsConfig={fullSettings} />
                 </Flex>

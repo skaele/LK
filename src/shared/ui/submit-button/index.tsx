@@ -3,6 +3,7 @@ import { ImCheckmark } from 'react-icons/im'
 import styled from 'styled-components'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { Loading } from '../loading'
+import { TIME_IN_MS } from '@shared/constants'
 
 type StyledProps = {
     isLoading: boolean
@@ -192,6 +193,7 @@ const SubmitButton = ({
             popUpMessageModel.events.evokePopUpMessage({
                 message: popUpFailureMessage,
                 type: 'failure',
+                time: TIME_IN_MS.ten_seconds,
             })
     }
 

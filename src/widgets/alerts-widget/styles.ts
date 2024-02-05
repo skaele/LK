@@ -22,7 +22,7 @@ export const AlertItemStyled = styled.div<{ orientation: Direction }>`
     }
 `
 
-export const Image = styled.div<{ orientation: Direction }>`
+export const Image = styled.div<{ orientation: Direction; iconColor: string }>`
     height: ${({ orientation }) => (orientation === 'vertical' ? '50px' : 'auto')};
     width: ${({ orientation }) => (orientation === 'vertical' ? '50px' : '65px')};
     min-width: ${({ orientation }) => (orientation === 'vertical' ? '50px' : '65px')};
@@ -40,7 +40,7 @@ export const Image = styled.div<{ orientation: Direction }>`
     svg {
         width: 45%;
         height: 45%;
-        color: ${Colors.purple.dark2};
+        color: ${({ iconColor }) => iconColor};
     }
 
     img {

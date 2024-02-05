@@ -397,14 +397,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение внутри общежития',
         icon: <BiIdCard />,
         path: RELOCATION_INSIDE_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение внутри общежития будет осуществляться с 01.10.2023"
-                  />
-              )
-            : RelocationInsideHostelPage,
+        Component: RelocationInsideHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

@@ -17,7 +17,6 @@ import {
     DecreisDirectivesPage,
     ElectronicInteractionAgreementPage,
     FeedbackPage,
-    ForgotPasswordPage,
     GetYourLoginPage,
     Home,
     LkNotificationsPage,
@@ -157,13 +156,6 @@ export const publicRoutes = [
         icon: '',
         path: LOGIN_ROUTE,
         Component: LoginPage,
-    },
-    {
-        id: 1,
-        title: '',
-        icon: '',
-        path: FORGOT_PASSWORD_ROUTE,
-        Component: ForgotPasswordPage,
     },
     {
         id: 2,

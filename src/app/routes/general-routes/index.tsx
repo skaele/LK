@@ -124,7 +124,7 @@ export interface IRoute {
     menuPath?: string
     path: string
     color: keyof IColors
-    Component: (() => JSX.Element | null) | LazyExoticComponent<() => JSX.Element | null>
+    Component: (() => JSX.Element | null) | LazyExoticComponent<React.ComponentType<any>>
     isTemplate: boolean
     shortTitle?: string
     isAdmin?: boolean

@@ -4,6 +4,16 @@ import checker from 'vite-plugin-checker'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+import { dependencies } from './package.json'
+function renderChunks(deps: Record<string, string>) {
+    let chunks = {}
+    Object.keys(deps).forEach((key) => {
+        if (['react', 'react-router-dom', 'react-dom'].includes(key)) return
+        chunks[key] = [key]
+    })
+    return chunks
+}
+
 export default defineConfig((conf) => {
     return {
         server: {
@@ -25,6 +35,15 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
+            sourcemap: false,
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        vendor: ['react', 'react-router-dom', 'react-dom'],
+                        ...renderChunks(dependencies),
+                    },
+                },
+            },
         },
     }
 })

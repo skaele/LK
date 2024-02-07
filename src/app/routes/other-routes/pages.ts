@@ -1,139 +1,129 @@
-import reactLazyWithRetry from '@fatso83/retry-dynamic-import/react-lazy'
+import { lazy } from 'lazy-with-reload'
 
-export const ApplicationForSuperiorRoom = reactLazyWithRetry(() => import('@pages/application-for-superior-room'))
-export const AcadPerformance = reactLazyWithRetry(() => import('@pages/acad-performance'))
-export const DormitoryPage = reactLazyWithRetry(() => import('@pages/dormitory'))
-export const ClarificationOfPassportDataApplication = reactLazyWithRetry(
+export const ApplicationForSuperiorRoom = lazy(() => import('@pages/application-for-superior-room'))
+export const AcadPerformance = lazy(() => import('@pages/acad-performance'))
+export const DormitoryPage = lazy(() => import('@pages/dormitory'))
+export const ClarificationOfPassportDataApplication = lazy(
     () => import('@pages/applications/pages/multifunctional-center/clarification-of-passport-data'),
 )
-export const ApplicationForSocialScrollarship = reactLazyWithRetry(
+export const ApplicationForSocialScrollarship = lazy(
     () => import('@pages/applications/pages/trade-union-organization/social-scollarship'),
 )
-export const PhysicalEducationStudent = reactLazyWithRetry(() => import('@pages/pe-student'))
+export const PhysicalEducationStudent = lazy(() => import('@pages/pe-student'))
 
-export const ApplicationForCertificateOfAttendance = reactLazyWithRetry(
+export const ApplicationForCertificateOfAttendance = lazy(
     () => import('@pages/applications/pages/multifunctional-center/certificate-of-attendance'),
 )
 
-export const ApplicationSocialAgencies = reactLazyWithRetry(
+export const ApplicationSocialAgencies = lazy(
     () => import('@pages/applications/pages/multifunctional-center/social-agencies'),
 )
 
-export const ApplicationPaperCall = reactLazyWithRetry(
-    () => import('@pages/applications/pages/multifunctional-center/paper-call'),
-)
+export const ApplicationPaperCall = lazy(() => import('@pages/applications/pages/multifunctional-center/paper-call'))
 
-export const RegularAccommodationPage = reactLazyWithRetry(
+export const RegularAccommodationPage = lazy(
     () => import('@pages/applications/pages/campus-management/regular-accommodation'),
 )
 
-export const ApplicationsPage = reactLazyWithRetry(() => import('@pages/applications'))
+export const ApplicationsPage = lazy(() => import('@pages/applications'))
 
-export const ProjectActivitiesPage = reactLazyWithRetry(() => import('@pages/project-activities'))
+export const ProjectActivitiesPage = lazy(() => import('@pages/project-activities'))
 
-export const AcademicLeaveAccommodationPage = reactLazyWithRetry(
+export const AcademicLeaveAccommodationPage = lazy(
     () => import('@pages/applications/pages/campus-management/academic-leave-accommodation'),
 )
 
-export const PreferentialAccommodationPage = reactLazyWithRetry(
+export const PreferentialAccommodationPage = lazy(
     () => import('@pages/applications/pages/campus-management/preferential-accommodation'),
 )
 
-export const TerminationOfEmploymentContractPage = reactLazyWithRetry(
+export const TerminationOfEmploymentContractPage = lazy(
     () => import('@pages/applications/pages/campus-management/termination-of-employment-contract'),
 )
 
-export const RelocationInsideHostelPage = reactLazyWithRetry(
+export const RelocationInsideHostelPage = lazy(
     () => import('@pages/applications/pages/campus-management/relocation-inside-hostel'),
 )
 
-export const AccommodationForGraduatesPage = reactLazyWithRetry(
+export const AccommodationForGraduatesPage = lazy(
     () => import('@pages/applications/pages/campus-management/accommodation-for-graduates'),
 )
 
-export const RelocationToAnotherHostelPage = reactLazyWithRetry(
+export const RelocationToAnotherHostelPage = lazy(
     () => import('@pages/applications/pages/campus-management/relocation-to-another-hostel'),
 )
 
-export const PaymentRecipient = reactLazyWithRetry(
+export const PaymentRecipient = lazy(
     () => import('@pages/applications/pages/department-of-paid-services/paymnet-recipient'),
 )
 
-export const RestoringTheMagneticPass = reactLazyWithRetry(
+export const RestoringTheMagneticPass = lazy(
     () => import('@pages/applications/pages/multifunctional-center/restoring-the-magnetic-pass'),
 )
 
-export const IncreasedStateAcademicScholarship = reactLazyWithRetry(
+export const IncreasedStateAcademicScholarship = lazy(
     () => import('@pages/applications/pages/trade-union-organization/increased-state-academic-scholarship'),
 )
 
-export const RetakeForDiploma = reactLazyWithRetry(
+export const RetakeForDiploma = lazy(
     () => import('@pages/applications/pages/multifunctional-center/retake-for-diploma'),
 )
 
-export const MilitaryRegistrationDocuments = reactLazyWithRetry(
+export const MilitaryRegistrationDocuments = lazy(
     () => import('@pages/applications/pages/mobilization-department/military-registration-documents'),
 )
 
-export const MilitaryRegistration = reactLazyWithRetry(
+export const MilitaryRegistration = lazy(
     () => import('@pages/applications/pages/mobilization-department/military-registration'),
 )
 
-export const FinancialSupport = reactLazyWithRetry(
+export const FinancialSupport = lazy(
     () => import('@pages/applications/pages/trade-union-organization/financial-support'),
 )
 
-export const ApplicationForFinancialAssistance = reactLazyWithRetry(
+export const ApplicationForFinancialAssistance = lazy(
     () => import('@pages/applications/pages/trade-union-organization/financial-assistance'),
 )
 
-export const ChangingPersonalData = reactLazyWithRetry(
+export const ChangingPersonalData = lazy(
     () => import('@pages/applications/pages/multifunctional-center/changing-personal-data'),
 )
 
-export const StudentStatus = reactLazyWithRetry(
-    () => import('@pages/applications/pages/multifunctional-center/student-status'),
-)
+export const StudentStatus = lazy(() => import('@pages/applications/pages/multifunctional-center/student-status'))
 
-export const StateAccreditation = reactLazyWithRetry(
+export const StateAccreditation = lazy(
     () => import('@pages/applications/pages/multifunctional-center/state-accreditation'),
 )
 
-export const ApplicationHolidaysAfterTraining = reactLazyWithRetry(
+export const ApplicationHolidaysAfterTraining = lazy(
     () => import('@pages/applications/pages/multifunctional-center/holidays-after-training'),
 )
 
-export const ApplicationProvisionAcademicLeave = reactLazyWithRetry(
+export const ApplicationProvisionAcademicLeave = lazy(
     () => import('@pages/applications/pages/multifunctional-center/provision-academic-leave'),
 )
 
-export const ExitAcademicLeave = reactLazyWithRetry(
+export const ExitAcademicLeave = lazy(
     () => import('@pages/applications/pages/multifunctional-center/exit-academic-leave'),
 )
 
-export const ApplicationIndependentlyDeduction = reactLazyWithRetry(
+export const ApplicationIndependentlyDeduction = lazy(
     () => import('@pages/applications/pages/multifunctional-center/independently-deducted'),
 )
 
-export const ApplicationExtensionAttestation = reactLazyWithRetry(
+export const ApplicationExtensionAttestation = lazy(
     () => import('@pages/applications/pages/multifunctional-center/extension-attestation'),
 )
 
-export const MilitaryRegistrationCard = reactLazyWithRetry(
+export const MilitaryRegistrationCard = lazy(
     () => import('@pages/applications/pages/mobilization-department/military-registration-card'),
 )
 
-export const AccommodationCorrespondenceFormPage = reactLazyWithRetry(
+export const AccommodationCorrespondenceFormPage = lazy(
     () => import('@pages/applications/pages/campus-management/accommodation-correspondence-form'),
 )
 
-export const FamilyRoomPage = reactLazyWithRetry(
-    () => import('@pages/applications/pages/campus-management/family-room'),
-)
+export const FamilyRoomPage = lazy(() => import('@pages/applications/pages/campus-management/family-room'))
 
-export const ArbitraryRequestPage = reactLazyWithRetry(
-    () => import('@pages/applications/pages/other/arbitrary-request'),
-)
-export const StudentEmploymentPage = reactLazyWithRetry(
-    () => import('@pages/applications/pages/other/student-employment'),
-)
+export const ArbitraryRequestPage = lazy(() => import('@pages/applications/pages/other/arbitrary-request'))
+export const StudentEmploymentPage = lazy(() => import('@pages/applications/pages/other/student-employment'))

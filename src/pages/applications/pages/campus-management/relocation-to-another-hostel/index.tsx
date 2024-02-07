@@ -31,27 +31,6 @@ const RelocationToAnotherHostelPage = () => {
             {!!form && !!setForm && (
                 <FormBlock>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
-                    <SubmitButton
-                        text={'Отправить'}
-                        action={() =>
-                            globalAppSendForm(
-                                ApplicationFormCodes.USG_RELOCATION,
-                                [form],
-                                setLoading,
-                                setCompleted,
-                                false,
-                            )
-                        }
-                        isLoading={loading}
-                        completed={completed}
-                        setCompleted={setCompleted}
-                        repeatable={false}
-                        buttonSuccessText="Отправлено"
-                        isDone={isDone}
-                        isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
-                        popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
-                        popUpSuccessMessage="Данные формы успешно отправлены"
-                    />
                 </FormBlock>
             )}
         </BaseApplicationWrapper>

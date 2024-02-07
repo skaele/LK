@@ -43,6 +43,6 @@ function createDynamicImportWithRetry<T extends number>(maxRetries: PositiveInte
 
 const defaultDynamicImportWithRetry = createDynamicImportWithRetry(3)
 
-export function lazy(importer: () => Promise<{ default: React.ComponentType<any> }>) {
+export function lazy(importer: () => Promise<any>) {
     return React.lazy(() => defaultDynamicImportWithRetry(importer))
 }

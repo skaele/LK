@@ -1,8 +1,7 @@
 import React from 'react'
-
 type PositiveInteger<T extends number> = `${T}` extends '0' | `-${any}` | `${any}.${any}` ? never : T
 
-const importFunction = (path: string) => import(/* @vite-ignore */ path)
+const noop = () => {}
 
 const identity = (e: any) => e
 const uriOrRelativePathRegex = /"((\w+:(\/?\/?))?[^\s]+)"/
@@ -13,14 +12,62 @@ function parseModulePathFromImporterBody(importer: () => any): string | null {
     return match.filter(identity)[1]
 }
 
-function createDynamicImportWithRetry<T extends number>(maxRetries: PositiveInteger<T>) {
+type UrlStrategy = (error: Error, importer: () => any) => string | null
+export type StrategyName = 'PARSE_ERROR_MESSAGE' | 'PARSE_IMPORTER_FUNCTION_BODY'
+
+const strategies: Record<StrategyName, UrlStrategy> = {
+    /** This only works in Chromium browsers, as other engines (like Firefox) do not carry the module url in the error message */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    PARSE_ERROR_MESSAGE: (error: Error, _: () => any) => {
+        // this assumes that the exception will contain this specific text with the url of the module
+        // if not, the url will not be able to parse and we'll get an error on that
+        // eg. "Failed to fetch dynamically imported module: https://example.com/assets/Home.tsx"
+        const urlAsString = error.message.replace('Failed to fetch dynamically imported module: ', '').trim()
+
+        const url = new URL(urlAsString)
+        return url.href
+    },
+    /** Should work in most browsers */
+    PARSE_IMPORTER_FUNCTION_BODY: (_: Error, importer: () => any) => {
+        return parseModulePathFromImporterBody(importer)
+    },
+}
+
+const defaultOpts = {
+    strategy: 'PARSE_IMPORTER_FUNCTION_BODY' as const,
+    importFunction: (path: string) => import(/* @vite-ignore */ path),
+    logger: noop,
+}
+/**
+ * Future improvements:
+ * - cache successful variations to skip unnecessary lag on subsequent reloads
+ */
+export default function createDynamicImportWithRetry<T extends number>(
+    maxRetries: PositiveInteger<T>,
+    opts: Partial<{
+        strategy: StrategyName
+        importFunction: () => Promise<any>
+        logger: (...args: any[]) => void
+    }> = {},
+) {
+    const resolvedOpts = {
+        ...defaultOpts,
+        ...opts,
+    }
+    const { logger, importFunction, strategy } = resolvedOpts
+
     return async (importer: () => Promise<any>) => {
         try {
             return await importer()
         } catch (error: any) {
-            const modulePath = parseModulePathFromImporterBody(importer)
+            logger(Date.now(), `Importing failed: `, error)
+
+            const modulePath = strategies[strategy](error, importer)
+            logger(`Parsed url using ${strategy}:${modulePath}`)
 
             if (!modulePath) {
+                logger('Unable to determine path to module when trying to reload')
+                // nothing we can do ...
                 throw error
             }
 
@@ -28,11 +75,14 @@ function createDynamicImportWithRetry<T extends number>(maxRetries: PositiveInte
             //
             for (let i = 0; i < maxRetries; i++) {
                 // add a timestamp to the url to force a reload the module (and not use the cached version - cache busting)
-                const cacheBustedPath = `${modulePath}?t=${+new Date()}`
+                // eslint-disable-next-line prefer-const
+                let cacheBustedPath = `${modulePath}?t=${+new Date()}`
+                logger(Date.now(), `Trying re-import module using cache busted path: ${cacheBustedPath}`)
 
                 try {
                     return await importFunction(cacheBustedPath)
                 } catch (e) {
+                    logger(`Import for ${cacheBustedPath} failed`)
                     await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** (i - 1)))
                 }
             }
@@ -41,8 +91,8 @@ function createDynamicImportWithRetry<T extends number>(maxRetries: PositiveInte
     }
 }
 
-const defaultDynamicImportWithRetry = createDynamicImportWithRetry(3)
+const defaultDynamicImportWithRetry = createDynamicImportWithRetry(5)
 
-export function lazy(importer: () => Promise<{ default: React.ComponentType<any> }>) {
+export function lazy(importer: () => Promise<any>) {
     return React.lazy(() => defaultDynamicImportWithRetry(importer))
 }

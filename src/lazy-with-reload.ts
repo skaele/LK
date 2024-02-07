@@ -1,3 +1,5 @@
+import React from 'react'
+
 type PositiveInteger<T extends number> = `${T}` extends '0' | `-${any}` | `${any}.${any}` ? never : T
 
 const importFunction = (path: string) => import(/* @vite-ignore */ path)
@@ -39,4 +41,10 @@ function createDynamicImportWithRetry<T extends number>(maxRetries: PositiveInte
     }
 }
 
-export const lazy = createDynamicImportWithRetry(3)
+const defaultDynamicImportWithRetry = createDynamicImportWithRetry(3)
+
+export function lazy(
+    importer: () => Promise<{ default: React.ComponentType<any> }>,
+): React.LazyExoticComponent<() => JSX.Element | null> {
+    return React.lazy(() => defaultDynamicImportWithRetry(importer))
+}

@@ -6,6 +6,7 @@ import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
+import transformStatusApplication from './transform-status-application'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -94,19 +95,6 @@ const getApplicationsColumns = (): ColumnProps[] => {
         //         ),
         // },
     ]
-}
-
-const transformStatusApplication = (status: string): string => {
-    switch (status) {
-        case 'На рассмотрении':
-            return ApplicationsConstants.pending
-        case 'Принято в работу':
-            return ApplicationsConstants.pending
-        case 'Получено':
-            return ApplicationsConstants.ready
-        default:
-            return status
-    }
 }
 
 export default getApplicationsColumns

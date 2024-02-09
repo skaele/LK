@@ -1,4 +1,5 @@
 import { User } from '@api/model/user'
+import { FilterStatusType } from '@entities/applications/consts'
 import { divisionT } from '@features/applications/lib/get-divisions'
 
 export interface Application {
@@ -6,11 +7,15 @@ export interface Application {
     regNumber: string
     requestTitle: string
     requestBody: string
-    status: 'Готово' | 'Принято в работу' | 'Отклонено' | 'Получено'
+    status: 'Готово' | 'На рассмотрении' | 'Принято в работу' | 'Отклонено' | 'Получено' | 'Выдано'
     statusDate: string
     structuralSubdivision: string
     notes: string
     files_output?: ApplicationFileOutput
+}
+
+export type ApplicationFilterType = Omit<Application, 'status'> & {
+    status: FilterStatusType
 }
 
 export interface Subdivision {

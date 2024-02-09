@@ -6,7 +6,7 @@ export interface HrApplication {
     regNumber: string
     requestTitle: string
     requestBody: string
-    status: 'Готово' | 'Принято в работу' | 'Отклонено' | 'Получено'
+    status: 'Готово' | 'На рассмотрении' | 'Принято в работу' | 'Отклонено' | 'Получено' | 'Выдано'
     statusDate: string
     structuralSubdivision: string
     notes: string

@@ -2,7 +2,7 @@ export const ApplicationsConstants = {
     ready: 'Готово',
     pending: 'В работе',
     rejected: 'Отклонено',
-}
+} as const
 
 export const hrApplicationsConstants = {
     agreeding: 'На согласовании',
@@ -82,3 +82,7 @@ export type SpecialFieldsName =
     | null
 
 export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }
+
+// Категории для фильтрации по статусу готовности:
+// 'Готово' | 'В работе' | 'Отклонено'
+export type FilterStatusType = (typeof ApplicationsConstants)[keyof typeof ApplicationsConstants]

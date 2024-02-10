@@ -5,7 +5,7 @@ import calcTimeLeft from '@shared/lib/dates/calc-time-left'
 import getShortString from '@shared/lib/get-short-string'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import useTheme from '@shared/lib/hooks/use-theme'
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
     HiOutlineCalendar,
     HiOutlineExternalLink,
@@ -13,11 +13,11 @@ import {
     HiOutlineUserCircle,
     HiOutlineUserGroup,
 } from 'react-icons/hi'
-import DotSeparatedWords from '../../../dot-separated-words'
-import Flex from '../../../flex'
-import IconText from '../../calendars/day/ui/icon-text'
-import { getTimeInterval } from '../../lib/get-time-interval'
-import { DayCalendarEvent } from '../../types'
+import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import Flex from '@shared/ui/flex'
+import IconText from '@shared/ui/calendar/calendars/day/ui/icon-text'
+import { getTimeInterval } from '@shared/ui/calendar/lib/get-time-interval'
+import { type DayCalendarEvent } from '@shared/ui/calendar'
 import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'
 import { UIProps } from './types'
@@ -55,12 +55,17 @@ const EventItem = (props: Props) => {
     const handleClick = () => onClick(props)
     const hideSomeInfo = (isMobile || quantity > 1) && shortInfo
     const extremeSmallSize = isMobile && quantity >= 2 && shortInfo
-    const shortNames = people?.map((n) => {
-        const splitted = n.split(' ')
-        const result = `${splitted[0] ?? ''} ${splitted[1]?.[0] ?? ''}.${splitted[2]?.[0] ?? ''}.`
+    const hasPeople = people && !!people.length && !!people[0]
+    const shortNames = useMemo(() => {
+        return hasPeople
+            ? people.map((n) => {
+                  const splitted = n.split(' ')
+                  const result = `${splitted[0] ?? ''} ${splitted[1]?.[0] ?? ''}.${splitted[2]?.[0] ?? ''}.`
 
-        return result
-    })
+                  return result
+              })
+            : []
+    }, [people])
     const top = getEventTopPosition(startTime, shift, scale)
     const normalizedTitle = getSubjectName(title)
     const eventTitle = !extremeSmallSize
@@ -84,8 +89,20 @@ const EventItem = (props: Props) => {
             <MobileIcon>{icon}</MobileIcon>
 
             {/* {!listView && <EventBackground icon={icon} background={background} />} */}
-            <Flex className="event-body" gap="0px" ai="flex-start">
-                <EventFront scale={scale} d="column" ai="flex-start" shortInfo={shortInfo}>
+            <Flex
+                className="event-body"
+                gap="0px"
+                ai="flex-start"
+                h={!hasPeople ? '100%' : undefined}
+                mh={!hasPeople ? '100px' : undefined}
+            >
+                <EventFront
+                    scale={scale}
+                    d="column"
+                    ai="flex-start"
+                    shortInfo={shortInfo}
+                    jc={!hasPeople ? 'space-between' : undefined}
+                >
                     <Flex d="column" gap="2px">
                         {!shortInfo && (
                             <Flex gap="8px">
@@ -129,7 +146,7 @@ const EventItem = (props: Props) => {
                         </EventTitle>
                     </Flex>
 
-                    {!!people.length && !hideSomeInfo && (
+                    {hasPeople && !hideSomeInfo && (
                         <IconText
                             shortInfo={shortInfo}
                             text={<DotSeparatedWords words={shortInfo ? [shortNames[0]] : shortNames} />}

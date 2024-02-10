@@ -2,7 +2,7 @@ import { TimeIntervals } from '@shared/api/model'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { DayCalendarEvent } from '@shared/ui/calendar'
 import { useCalendarGeneral } from '@shared/ui/calendar/hooks/use-calendar-general'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { getCurrentDay } from '../lib/get-current-day'
 import { getEndTime } from '../lib/get-end-time'
 import { DayCalendarProps } from '../types'
@@ -37,10 +37,13 @@ export const useCalendarDay = ({
         ? (`${chosenEvent.startTime} - ${getEndTime(chosenEvent.startTime, chosenEvent.duration)}` as TimeIntervals)
         : ('9:00' as TimeIntervals)
 
-    const onEventClick = (event: DayCalendarEvent) => {
-        if (isSmallDesktop) handleOpenModal(event)
-        else setChosenEvent(event)
-    }
+    const onEventClick = useCallback(
+        (event: DayCalendarEvent) => {
+            if (isSmallDesktop) handleOpenModal(event)
+            else setChosenEvent(event)
+        },
+        [isSmallDesktop],
+    )
 
     const handleCarouselScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
         const pageIndex = Math.floor(e.currentTarget.scrollLeft / e.currentTarget.clientWidth)

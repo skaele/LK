@@ -5,7 +5,7 @@ import calcTimeLeft from '@shared/lib/dates/calc-time-left'
 import getShortString from '@shared/lib/get-short-string'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import useTheme from '@shared/lib/hooks/use-theme'
-import React, { useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 import {
     HiOutlineCalendar,
     HiOutlineExternalLink,
@@ -178,4 +178,4 @@ const EventItem = (props: Props) => {
     )
 }
 
-export default EventItem
+export default memo(EventItem)

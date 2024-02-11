@@ -99,3 +99,5 @@ export const WorkTransfer = lazy(() => import('@pages/hr-applications/pages/work
 export const WorkTransferChangeRate = lazy(() => import('@pages/hr-applications/pages/work-transfer-change-rate'))
 export const DismissalBufferPage = lazy(() => import('@pages/hr-applications/pages/buffer-dismissal'))
 export const Onboarding = lazy(() => import('@pages/onboarding'))
+
+export const ProjectActivitiesManagerPage = lazy(() => import('@pages/project-activities-manager'))

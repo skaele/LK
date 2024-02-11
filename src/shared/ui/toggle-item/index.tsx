@@ -53,24 +53,26 @@ const ToggleItemBlock = styled.div<{ disabled?: boolean }>`
 `
 
 type Props = {
+    id?: string
     title: string
     state: boolean
     action: (state: boolean) => void
     icon?: React.ReactNode
     disabled?: boolean
+    className?: string
 }
 
-const ToggleItem = ({ title, state, action, icon, disabled }: Props) => {
+const ToggleItem = ({ id, title, state, action, icon, disabled, className }: Props) => {
     const handleToggle = () => {
         action(!state)
     }
 
     return (
-        <ToggleItemBlock key={title} disabled={disabled}>
+        <ToggleItemBlock key={id ?? title} disabled={disabled} className={className}>
             {icon && <div className="icon">{icon}</div>}
             <label>
                 <b>{title}</b>
-                <SwitchToggle id={title} isToggled={state} setIsToggled={handleToggle} key={title} />
+                <SwitchToggle id={id ?? title} isToggled={state} setIsToggled={handleToggle} key={id ?? title} />
             </label>
         </ToggleItemBlock>
     )

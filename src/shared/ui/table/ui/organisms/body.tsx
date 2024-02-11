@@ -40,11 +40,13 @@ const LoadingWrapper = styled.div`
     }
 `
 
-const PaginationWrapper = styled.div`
+const PaginationWrapper = styled.div<{ alignSelfLeft?: boolean }>`
     padding: 10px 0;
+    margin: 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-self: ${({ alignSelfLeft }) => (alignSelfLeft ? 'flex-start' : 'none')};
 `
 
 const Body = ({
@@ -55,6 +57,7 @@ const Body = ({
     maxOnPage,
     onRowClick,
     filter,
+    alignLeftPagination = false,
 }: TableProps & { filter: TableCatalogType }) => {
     const [currentPage, setCurrentPage] = useState<number>(0)
     const pages = Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
@@ -80,7 +83,7 @@ const Body = ({
             })}
             {!result?.length && <Error text="Нет данных" />}
             {pages > 0 && <Divider margin="0" width="100%" />}
-            <PaginationWrapper>
+            <PaginationWrapper alignSelfLeft={alignLeftPagination}>
                 <Pagination
                     pages={pages}
                     condition={!!maxOnPage && !!result?.length}

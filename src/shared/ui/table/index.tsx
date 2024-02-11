@@ -14,7 +14,16 @@ const TableWrapper = styled.div`
     overflow: hidden;
 `
 
-const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
+const Table = ({
+    columns,
+    columnsExtended,
+    data,
+    maxOnPage,
+    onRowClick,
+    footer,
+    loading = false,
+    alignLeftPagination = false,
+}: TableProps) => {
     const {
         sort,
         setSort,
@@ -56,6 +65,7 @@ const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, 
                 columnsExtended={columnsExtended}
                 data={resultData}
                 maxOnPage={maxOnPage}
+                alignLeftPagination={alignLeftPagination}
             />
             <Footer footer={footer} data={data} columns={columns} />
         </TableWrapper>

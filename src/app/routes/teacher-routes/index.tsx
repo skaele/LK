@@ -49,6 +49,7 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
+    ProjectActivitiesManagerPage,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -250,17 +251,14 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Проектная деятельность',
         icon: <FaRegLightbulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace(`${OLD_LK_URL}/?p=proj_main`)
-            }, [])
-
-            return null
-        },
+        Component: isProduction
+            ? () => PageIsNotReady({ oldVersionUrl: `${OLD_LK_URL}/?p=proj_main` })
+            : ProjectActivitiesManagerPage,
         isOldLkPage: true,
         color: 'orange',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
+        pageSize: isProduction ? undefined : 'large',
     },
     payments: {
         id: 'payments',

@@ -1,7 +1,7 @@
 import Search, { Hint } from '@shared/ui/search'
 import { Size } from '@shared/ui/types'
 import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 type Props<T> = {
     placeholder: string
@@ -14,10 +14,13 @@ type Props<T> = {
     size?: Size
     transformRequest?: (el: T) => string
     setValue: (value: string) => void
-    onHintClick: (hint: Hint | undefined) => void
+    onHintClick?: (hint: Hint | undefined) => void
     onValueEmpty?: () => void
     request: (value: string) => Promise<AxiosResponse<{ items: T[] }, any>>
     customMask?: (value: string, prevValue?: string) => string
+    requestOnMount?: boolean
+    hintsListPortalMode?: boolean
+    hideInputCross?: boolean
 }
 
 const SeachWithHints = <T,>({
@@ -35,32 +38,45 @@ const SeachWithHints = <T,>({
     customMask,
     onHintClick,
     size,
+    requestOnMount = true,
+    hintsListPortalMode = false,
+    hideInputCross = false,
 }: Props<T>) => {
     const [hints, setHints] = useState<Hint[]>([])
     const [loadingHints, setLoadingHints] = useState(false)
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
-        if (value.length > 0) {
-            setLoadingHints(true)
-            request(value)
-                .then((groups) => {
-                    setHints(
-                        groups.data.items.map((hint) => {
-                            const hintString = transformRequest ? transformRequest(hint) : (hint as string)
-                            return { id: hintString, title: hintString, value: hintString, icon: hintIcon }
-                        }),
-                    )
-                    setLoadingHints(false)
-                })
-                .catch(() => {
-                    setLoadingHints(false)
-                    setHints([])
-                })
-        } else {
-            setLoadingHints(false)
-            setHints([])
-            onValueEmpty?.()
-        }
+        ;(() => {
+            if (isFirstRender.current && !requestOnMount) {
+                isFirstRender.current = false
+                return
+            }
+
+            if (value.length > 0) {
+                setLoadingHints(true)
+                request(value)
+                    .then((groups) => {
+                        setHints(
+                            groups.data.items.map((hint) => {
+                                const hintString = transformRequest ? transformRequest(hint) : (hint as string)
+                                return { id: hintString, title: hintString, value: hintString, icon: hintIcon }
+                            }),
+                        )
+                        setLoadingHints(false)
+                    })
+                    .catch(() => {
+                        setLoadingHints(false)
+                        setHints([])
+                    })
+            } else {
+                setLoadingHints(false)
+                setHints([])
+                onValueEmpty?.()
+            }
+
+            isFirstRender.current = false
+        })()
     }, [value])
 
     return (
@@ -76,6 +92,8 @@ const SeachWithHints = <T,>({
             onHintClick={onHintClick}
             customMask={customMask}
             size={size}
+            hintsListPortalMode={hintsListPortalMode}
+            hideInputCross={hideInputCross}
         />
     )
 }

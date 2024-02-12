@@ -8,6 +8,7 @@ import DownloadAccepts from './pages/accepts'
 import AdditionalAgreements from './pages/additional-agreements'
 import DownloadCheckdata from './pages/checkdata'
 import { CenterPage } from '@shared/ui/atoms'
+import { DownloadPhonebookData } from './pages/phonebook'
 
 const DownloadAdminFilesPage = () => {
     const { data } = adminLinksModel.selectors.useData()
@@ -23,6 +24,11 @@ const DownloadAdminFilesPage = () => {
                             title: 'Доп. соглашения',
                             content: <AdditionalAgreements />,
                             condition: !!data?.agreements.length,
+                        },
+                        {
+                            title: 'Телефонный справочник',
+                            content: <DownloadPhonebookData />,
+                            condition: !!data?.phonebook.length,
                         },
                         {
                             title: 'Логины студентов',

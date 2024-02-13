@@ -4,8 +4,8 @@ import Table from '@shared/ui/table'
 import React, { useState, useEffect } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import styled from 'styled-components'
-import getHolidayWorkHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 import { bufferHolidayWorkModel } from '../model'
+import getHolidayWorkHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 
 const History = () => {
     const [openedHistory, setOpenedHistory] = useState<boolean>(false)

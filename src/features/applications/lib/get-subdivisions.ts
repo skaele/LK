@@ -8,3 +8,12 @@ export const getFormattedSubDivisions = (subdivisions: Subdivision[] = []) => {
         }
     })
 }
+
+export const getFormattedSubDivisionsWithRate = (subdivisions: Subdivision[] = []) => {
+    return subdivisions.map((subdivision) => {
+        return {
+            id: subdivision.guid_staff,
+            title: `${subdivision.subdivision} (${subdivision.post}, ${subdivision.wage})`,
+        }
+    })
+}

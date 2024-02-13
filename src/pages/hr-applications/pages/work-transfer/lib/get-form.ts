@@ -1,12 +1,12 @@
-import { UserApplication, WorkerApplication } from '@api/model'
+import { UserApplication } from '@api/model'
+import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { IInputArea } from '@ui/input-area/model'
 import React from 'react'
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
-    currentIndex: number,
     employment: any | null,
     setEmployment: React.Dispatch<React.SetStateAction<any | null>>,
     newPost: string | null,
@@ -20,8 +20,14 @@ const getForm = (
     partTimeType: string | null,
     setPartTimeType: React.Dispatch<React.SetStateAction<string | null>>,
     suggestions: any,
+    jobTitle: string | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    jobGuid: string | null,
+    setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
-    const { surname, name, patronymic } = dataUserApplication
+    const { surname, name, patronymic, subdivisions } = dataUserApplication
+    const jobGuidData = !!jobGuid ? jobGuid : ''
+    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
     return {
         title: 'Заявление на перевод',
         data: [
@@ -33,13 +39,6 @@ const getForm = (
                 visible: true,
             },
             {
-                title: '',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].jobGuid.toString(),
-                fieldName: 'jobGuid',
-                visible: false,
-            },
-            {
                 title: 'Текущее место работы',
                 type: 'text-header',
                 fieldName: 'post',
@@ -47,26 +46,26 @@ const getForm = (
                 visible: true,
             },
             {
-                title: 'Должность',
-                type: 'simple-text',
-                fieldName: 'post',
-                value: dataWorkerApplication[currentIndex].jobTitle.toString(),
-                visible: true,
+                title: 'Подразделение/должность',
+                value: jobTitleData,
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisionsWithRate(subdivisions),
+                isSpecificSelect: true,
+                onChange: (value) => {
+                    setJobTitle(value)
+                    setJobGuid(value.id)
+                },
             },
-
             {
-                title: 'Подразделение',
+                title: '',
                 type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].subDivision.toString(),
-                fieldName: 'subDivision',
-                visible: true,
-            },
-            {
-                title: 'Cтавка',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].rate.toString(),
-                fieldName: 'currentRate',
-                visible: true,
+                value: jobGuidData,
+                fieldName: 'jobGuid',
+                visible: false,
             },
             {
                 title: 'Новое место работы',

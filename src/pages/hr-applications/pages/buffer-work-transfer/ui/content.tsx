@@ -1,51 +1,83 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
-import { useState } from 'react'
-import History from './history'
-import JobTitle from './job-title'
 import styled from 'styled-components'
+import { Button, Loading, Wrapper } from '@shared/ui/atoms'
+import { bufferWorkTransferModel } from '../model'
+import Flex from '@shared/ui/flex'
+import { Link } from 'react-router-dom'
+import { FiPlus } from 'react-icons/fi'
+import Block from '@shared/ui/block'
+import Table from '@shared/ui/table'
+import { compareDesc } from 'date-fns'
+import { getExtendedWorkTransferHistoryColumns } from '../lib/get-extended-work-transfer-history-columns'
+import { getWorkTransferHistoryColumns } from '../lib/get-work-transfer-history-columns'
 
 const Content = () => {
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
-    const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
+    const { data, getDataLoading } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
+    const load = () => bufferWorkTransferModel.events.loadBufferWorkTransfer()
 
-    if (!dataWorkerApplication) {
-        return null
-    }
-    // async function fetchData() {
-    //     const data = await getDivisions()
-    //     //console.log(data.data) // { hello: 'world' }
-    // }
-    // fetchData()
-    // getDivisions().then((data) => {
-    //     let items
-    //     data.data.divisions.map((item: any, index: number) => {
-    //         items[index] = { id: index, title: item.divisionName }
-    //     })
-    // })
+    const jobVacations =
+        data &&
+        data
+            .map((job) => {
+                return [
+                    ...job.notTakenChangeInShareOfRate.map((rates) => ({
+                        ...rates,
+                        jobTitle: 'ДОЛЖНОСТЬ',
+                    })),
+                ]
+            })
+            .flat()
+            .sort((a, b) => compareDesc(new Date(a.transferDate), new Date(b.transferDate)))
 
     return (
-        <Wrapper>
-            {dataWorkerApplication.map((jobTitleInfo, index) => {
-                if (jobTitleInfo.isDismissal) {
-                    historyIsEmpty && setHistoryIsEmpty(false)
-                    return null
-                } else return <JobTitle info={jobTitleInfo} index={index} />
-            })}
-            {/* {data.map((info, index) => {
-                return <JobTitle info={info} index={index} />
-            })} */}
-            <History />
+        <Wrapper load={load} error={null} data={data}>
+            <>
+                <Flex jc="space-between" m="10px 0">
+                    <BlockHeader>История заявлений на перевод:</BlockHeader>
+                    <Link to={`/hr-applications/work-transfer`}>
+                        <Button
+                            text="Перевод"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth={'35px'}
+                            height="36px"
+                            shrinkTextInMobile
+                        />
+                    </Link>
+                </Flex>
+                {getDataLoading ? (
+                    <Flex w="100%" jc="center" ai="center">
+                        <Loading />
+                    </Flex>
+                ) : (
+                    <Block
+                        orientation={'vertical'}
+                        alignItems={'flex-start'}
+                        justifyContent={'flex-start'}
+                        gap={'10px'}
+                        width="100%"
+                        maxWidth="100%"
+                        height="fit-content"
+                    >
+                        <Table
+                            columns={getWorkTransferHistoryColumns()}
+                            columnsExtended={getExtendedWorkTransferHistoryColumns()}
+                            data={jobVacations}
+                            maxOnPage={10}
+                        />
+                    </Block>
+                )}
+            </>
         </Wrapper>
     )
 }
 
-export default Content
-
-const Wrapper = styled.div`
+const BlockHeader = styled.div`
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 `
+
+export default Content

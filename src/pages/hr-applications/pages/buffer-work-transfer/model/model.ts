@@ -25,8 +25,7 @@ const sendBufferWorkTransferFx = createEffect(async (data: BufferWorkTransferFor
 
 sample({ clock: sendBufferWorkTransfer, target: sendBufferWorkTransferFx })
 
-const $bufferWorkTransferOrders = createStore<BufferWorkTransferHistories[]>([])
-const $bufferWorkTransferLoading = sendBufferWorkTransferFx.pending
+const $bufferWorkTransferOrders = createStore<BufferWorkTransferHistories[] | null>(null)
 
 sample({ clock: loadBufferWorkTransferFx.doneData, target: $bufferWorkTransferOrders })
 sample({
@@ -70,11 +69,13 @@ export const events = {
 }
 
 export const effects = {
+    loadBufferWorkTransferFx,
     sendBufferWorkTransferFx,
 }
 export const selectors = {
     useBufferWorkTransfer: () => ({
         data: useStore($bufferWorkTransferOrders),
-        loading: useStore($bufferWorkTransferLoading),
+        loading: useStore(sendBufferWorkTransferFx.pending),
+        getDataLoading: useStore(loadBufferWorkTransferFx.pending),
     }),
 }

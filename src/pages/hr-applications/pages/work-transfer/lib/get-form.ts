@@ -209,6 +209,7 @@ const getForm = (
                 },
             },
         ],
+        documents: { files: [], fieldName: 'docs', required: false },
     }
 }
 

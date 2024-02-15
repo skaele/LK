@@ -1,5 +1,5 @@
 import { type DayCalendarEvent } from '@shared/ui/calendar'
-import { Colors, IColorPalette, IWeekDayNames } from '../../constants'
+import { Colors, IColorPalette, IWeekDayNames, TDevices } from '../../constants'
 import { View } from '@entities/schedule/consts'
 
 export interface ITimeIntervalColor {
@@ -82,6 +82,7 @@ export interface ISchedule {
         searchValue: string
         hasNoSchedule: boolean
         errorInData?: string
+        scale: Record<TDevices, number>
     }
     loading: boolean
     error: string | null

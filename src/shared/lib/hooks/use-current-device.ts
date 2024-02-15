@@ -1,4 +1,4 @@
-import { JS_QUERIES } from '@shared/constants'
+import { JS_QUERIES, TDevices } from '@shared/constants'
 import { useLayoutEffect, useState } from 'react'
 
 type QueryType = typeof JS_QUERIES
@@ -36,8 +36,8 @@ const useCurrentDevice = () => {
 
     return {
         ...values,
-        currentDevice:
-            Object.keys(values).find((el: string) => values[el as keyof typeof values] === true) ?? 'desktop',
+        currentDevice: (Object.keys(values).find((el: string) => values[el as keyof typeof values] === true) ??
+            'isMiddleDesktop') as TDevices,
     }
 }
 

@@ -1,4 +1,6 @@
 import { userModel } from '@entities/user'
+import { Email } from '@shared/ui/email'
+import { Telephone } from '@shared/ui/telephone'
 import { LinkButton } from '@ui/atoms'
 import React from 'react'
 import styled from 'styled-components'
@@ -8,7 +10,6 @@ const MistakeModalWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
     row-gap: 10px;
 
     & > span {
@@ -45,13 +46,11 @@ const MistakeModal = () => {
                     Для изменения данных Вам необходимо обратиться в отдел кадров по телефону
                     <br />
                     <b>
-                        <a href="tel:+7(495) 223-05-23,1130">+7 (495) 223-05-23 доб.1130</a>
+                        <Telephone tel="+7(495) 223-05-23,1130">+7 (495) 223-05-23 доб.1130</Telephone>
                     </b>
                     или написать письмо на
                     <br />
-                    <a href="mailto:ok@mospolytech.ru">
-                        <b>ok@mospolytech.ru</b>
-                    </a>
+                    <Email email="ok@mospolytech.ru" />
                 </>
             )}
         </MistakeModalWrapper>

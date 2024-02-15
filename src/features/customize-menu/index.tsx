@@ -3,10 +3,12 @@ import { menuModel } from '@entities/menu'
 import { Menu } from '@entities/menu/model'
 import { settingsModel } from '@entities/settings'
 import search from '@features/all-pages/lib/search'
+import { Divider } from '@shared/ui/divider'
+import { LinkItem } from '@shared/ui/link-item'
+import { Message } from '@shared/ui/message'
 import { LocalSearch } from '@shared/ui/molecules'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CustomizeLeftsideBarItem } from '../../pages/settings/pages/customize-menu/ui/molecules'
 
 const CustomizeMenuStyled = styled.div`
     display: flex;
@@ -22,11 +24,12 @@ const CustomizeMenuStyled = styled.div`
 type Props = {
     enabledList: keyof Omit<Menu, 'isOpen' | 'currentPage'>
     requiredList: string[]
+    maxElements?: number
     remove: (id: string, settings: settingsModel.Param, requiredList: string[]) => void
     add: (id: string, settings: settingsModel.Param, maxLength: number, requiredList: string[]) => void
 }
 
-const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
+const CustomizeMenu = ({ enabledList, requiredList, maxElements, add, remove }: Props) => {
     const { settings } = settingsModel.selectors.useSettings()
     const menu = menuModel.selectors.useMenu()
     const { visibleRoutes } = menuModel.selectors.useMenu()
@@ -46,20 +49,28 @@ const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
 
     return (
         <CustomizeMenuStyled>
+            <Message type="info" fontSize="0.9rem" visible={maxElements !== undefined}>
+                Можно добавить не более {maxElements} элементов
+            </Message>
             <LocalSearch
                 placeholder="Поиск"
                 whereToSearch={visibleRoutes}
                 searchEngine={search}
                 setResult={setSearchResult}
             />
-            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute, index) => {
+            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute) => {
                 return (
-                    <CustomizeLeftsideBarItem
-                        {...el}
-                        key={index}
-                        chosen={!!enabled[el.id]}
-                        switchMenuItem={switchChosen}
-                    />
+                    <React.Fragment key={el.id}>
+                        <LinkItem
+                            {...el}
+                            disabled={requiredList.includes(el.id)}
+                            chosen={!!enabled[el.id]}
+                            onChoose={switchChosen}
+                            type="horizontal"
+                            showCurrent={false}
+                        />
+                        <Divider width="100%" margin="0" />
+                    </React.Fragment>
                 )
             })}
         </CustomizeMenuStyled>

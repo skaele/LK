@@ -26,7 +26,7 @@ export const EventInfo = styled.div`
     overflow: hidden;
     box-shadow: var(--block-shadow);
 
-    ${MEDIA_QUERIES.isSmallTesktop} {
+    ${MEDIA_QUERIES.isSmallDesktop} {
         display: none;
     }
 `

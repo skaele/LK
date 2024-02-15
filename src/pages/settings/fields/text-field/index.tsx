@@ -7,7 +7,7 @@ import TextFieldModal from './text-field-modal'
 const TextField = (props: FieldProps) => {
     const { open } = useModal()
     const handleClick = () => {
-        open(<TextFieldModal {...props} />)
+        open(<TextFieldModal {...props} />, props.title)
     }
 
     return <TextFieldItem {...props} onClick={handleClick} />

@@ -1,9 +1,10 @@
 import { IRoutes } from '@app/routes/general-routes'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import LinkItem from './link-item'
-import { Divider } from '@shared/ui/divider'
 import { menuModel } from '@entities/menu'
+import { MEDIA_QUERIES } from '@shared/constants'
+import { Divider } from '@shared/ui/divider'
+import { LinkItem } from '@shared/ui/link-item'
+import React from 'react'
+import styled from 'styled-components'
 
 const LinksStyled = styled.div<{ componentHeight?: number }>`
     width: 100%;
@@ -21,13 +22,14 @@ const LinksStyled = styled.div<{ componentHeight?: number }>`
             ? '110px'
             : '100px'};
 
-    @media (max-width: 1000px) {
-        height: ${({ componentHeight }) =>
-            !!componentHeight && componentHeight > 33
-                ? '100px'
-                : !!componentHeight && componentHeight > 10
-                ? '90px'
-                : '75px'};
+    ${MEDIA_QUERIES.isNotMobile} {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    ${MEDIA_QUERIES.isTablet} {
+        height: 75px;
     }
 `
 
@@ -37,32 +39,32 @@ type Props = {
 
 const Links = ({ links }: Props) => {
     const linksKeysArray = Object.keys(links)
-    const amount = linksKeysArray.length < 8 ? 8 : Object.keys(links).length
     const { allRoutes } = menuModel.selectors.useMenu()
-
-    const [longestTitleLength, setLongestTitleLength] = useState(0)
 
     if (!allRoutes) return null
 
-    useEffect(() => {
-        const longestTitle = linksKeysArray.reduce((a, b) => (links[a].title.length > links[b].title.length ? a : b))
-        setLongestTitleLength(links[longestTitle].title.length)
-    }, [linksKeysArray])
-
     return (
-        <LinksStyled componentHeight={longestTitleLength}>
+        <LinksStyled>
             {linksKeysArray.map((key, index) => {
                 return (
                     <React.Fragment key={key}>
-                        <LinkItem item={links[key]} amount={amount} />
+                        <LinkItem
+                            smallInMobile
+                            height="90px"
+                            minWidth="120px"
+                            showBoxShadow={false}
+                            textIconGap="0px"
+                            showMore={false}
+                            {...links[key]}
+                            title={links[key].shortTitle ?? links[key].title}
+                            type="vertical"
+                        />
                         {index !== linksKeysArray.length - 1 && (
                             <Divider direction="vertical" margin="10px 0" width="70%" />
                         )}
                     </React.Fragment>
                 )
             })}
-            <Divider direction="vertical" margin="10px 0" width="70%" />
-            <LinkItem item={allRoutes['all']} amount={amount} />
         </LinksStyled>
     )
 }

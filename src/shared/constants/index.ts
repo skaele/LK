@@ -107,7 +107,7 @@ export const Colors: IColors = {
     },
     lightBlue: {
         dark3: '#5278cd',
-        dark2: '#668de4',
+        dark2: '#406bc9',
         dark1: '#789ff6',
         main: '#9cbbff',
         light1: '#b9cfff',
@@ -167,7 +167,7 @@ export const Colors: IColors = {
     },
     orange: {
         dark3: '#815b32',
-        dark2: '#a76821',
+        dark2: '#955b1a',
         dark1: '#ca8231',
         main: '#ee9e44',
         light1: '#fcb566',
@@ -385,9 +385,11 @@ export const MEDIA_QUERIES = {
     isMobile: `@media ${MOBILE_SCREEN}`,
     isNotMobile: `@media ${NOT_MOBILE_SCREEN}`,
     isTablet: `@media ${TABLET_SCREEN}`,
-    isSmallTesktop: `@media ${SMALL_DESKTOP}`,
-    isMiddleTesktop: `@media ${MIDDLE_DESKTOP}`,
+    isSmallDesktop: `@media ${SMALL_DESKTOP}`,
+    isMiddleDesktop: `@media ${MIDDLE_DESKTOP}`,
 } as const
+
+export type TDevices = Exclude<keyof typeof MEDIA_QUERIES, 'isNotMobile'>
 
 export const JS_QUERIES = [
     { query: MOBILE_SCREEN, title: 'isMobile', value: 'mobile' },

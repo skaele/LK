@@ -1,4 +1,5 @@
 import { AcadPerformance } from '@shared/api/model/acad-performance'
+import { Sleep } from '@shared/images'
 import Flex from '@shared/ui/flex'
 import { Image } from '@shared/ui/image'
 import Subtext from '@shared/ui/subtext'
@@ -109,13 +110,68 @@ const AlmostBackground = styled.div`
     }
 `
 
+const NaChilleBackground = styled.div`
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px;
+
+    background: linear-gradient(343deg, #981b9f, #9d8f18, #9d6518);
+    background-size: 600% 600%;
+
+    -webkit-animation: AnimationName 6s ease infinite;
+    -moz-animation: AnimationName 6s ease infinite;
+    animation: AnimationName 6s ease infinite;
+
+    img {
+        filter: drop-shadow(0 0 20px black);
+    }
+
+    @-webkit-keyframes AnimationName {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    @-moz-keyframes AnimationName {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    @keyframes AnimationName {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+`
+
 type Props = {
     data: AcadPerformance[] | null
 }
 
-const analyzeGrades = (data: AcadPerformance[] | null): 'empty' | 'a-student' | 'almost' => {
+const analyzeGrades = (data: AcadPerformance[] | null): 'empty' | 'a-student' | 'almost' | 'chisto-na-chille' => {
     if (!data) return 'empty'
     let amountOfNonFives = 0
+    let amountOfTwos = 0
     let hasBadGrade = false
 
     for (let index = 0; index < data.length; index++) {
@@ -124,6 +180,10 @@ const analyzeGrades = (data: AcadPerformance[] | null): 'empty' | 'a-student' | 
 
         if (grade !== 'Отлично' && grade !== 'Хорошо' && grade !== 'Зачтено') {
             hasBadGrade = true
+
+            if (grade === 'Не зачтено' || grade === 'Не явился' || grade === 'Неудовлетворительно') {
+                amountOfTwos++
+            }
         }
 
         if (grade !== 'Зачтено' && grade !== 'Отлично') {
@@ -131,18 +191,30 @@ const analyzeGrades = (data: AcadPerformance[] | null): 'empty' | 'a-student' | 
         }
     }
 
-    if (hasBadGrade) return 'empty'
-
+    if (amountOfTwos === data.length) return 'chisto-na-chille'
     if (amountOfNonFives === 1) return 'almost'
-    if (amountOfNonFives > 1) return 'empty'
+    if (!hasBadGrade) return 'a-student'
 
-    return 'a-student'
+    return 'empty'
 }
 
 const PerformanceMessage = ({ data }: Props) => {
     const analisys = analyzeGrades(data)
 
     if (analisys === 'empty') return null
+
+    if (analisys === 'chisto-na-chille')
+        return (
+            <NaChilleBackground>
+                <Flex d="column" ai="flex-start" gap="4px">
+                    <Title size={3} align="left">
+                        Видимо, было чем заняться еще)
+                    </Title>
+                    <Subtext>Надеюсь, ты понимаешь, что делаешь</Subtext>
+                </Flex>
+                <Image src={Sleep} width="45px" height="45px" loading={false} />
+            </NaChilleBackground>
+        )
 
     if (analisys === 'almost')
         return (

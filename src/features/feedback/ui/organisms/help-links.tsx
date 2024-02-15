@@ -1,5 +1,6 @@
 import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
 import { ARBITRARY_REQUEST_ROUTE } from '@app/routes/routes'
+import { Email } from '@shared/ui/email'
 import { Message } from '@ui/message'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -19,7 +20,7 @@ export const Ul = styled.div`
 export function HelpLinks() {
     return (
         <>
-            <Message lineHeight="1.4rem" type="alert" title="Внимание!" fontSize="0.85rem">
+            <Message lineHeight="1.3rem" type="alert" title="Внимание!" fontSize="0.85rem">
                 Прежде, чем написать сообщение, убедитесь в том, что указанные ниже случаи не относятся к вашей
                 проблеме:
             </Message>
@@ -27,7 +28,7 @@ export function HelpLinks() {
                 <p>
                     Если у вас проблемы с системой <strong>LMS</strong> (не можете войти, не приходит ответ и т.п), а
                     также любые вопросы по дистанционному обучению - пишите на почту:{' '}
-                    <a href="mailto:lms@mospolytech.ru">lms@mospolytech.ru</a>.
+                    <Email email="lms@mospolytech.ru" />.
                 </p>
                 <p>
                     Если вы - <strong>АБИТУРИЕНТ</strong>, то вам по адресу:{' '}
@@ -39,7 +40,8 @@ export function HelpLinks() {
                 <p>
                     Сотрудники университета и первокурсники получают доступ к личному кабинету через единую учетную
                     запись, которую получают в отделе технической поддержки (БС ауд. А-418, тел. 1111 или почта{' '}
-                    <a href="mailto:help@mospolytech.ru">help@mospolytech.ru</a>).
+                    <Email email="help@mospolytech.ru" />
+                    ).
                 </p>
                 <p>
                     <strong>Неточности в своих персональных данных</strong> (неправильные или отсутствующие ФИО, пол и

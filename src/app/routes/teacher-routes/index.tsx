@@ -1,59 +1,63 @@
 import PageIsNotReady from '@pages/page-is-not-ready'
 
 import {
-    HelpfulInformation,
-    HrApplicationsPage,
-    PartTimeEmployment,
-    Dismissal,
-    ExtraHolidayColl,
-    HolidayWork,
-    HolidayPlanning,
-    IssuanceOfLicensesPage,
-    GettingComputerEquipmentPage,
-    ConnectingComputerPage,
-    OtherItServicesPage,
+    ArbitraryRequestPage,
     CertificateFromPlaceOfWorkPage,
     CertificateOfWorkExperiencePage,
-    NumberOfUnusedVacationDaysPage,
-    CopyOfEmploymentRecordPage,
-    CopiesOfDocumentsFromPersonalFilePage,
     CertificateTimeParentalLeavePage,
-    ArbitraryRequestPage,
+    CertificationAndIssuanceOfDocs,
+    CertifiedCopiesOfMilitaryDocs,
+    ConnectingComputerPage,
+    ContactInfoActualizationPage,
+    CopiesOfDocumentsFromPersonalFilePage,
+    CopyOfEmploymentRecordPage,
     CourierPage,
+    DataVerificationPage,
+    DefermentFromConscription,
+    Dismissal,
+    ExtraHolidayColl,
+    GettingComputerEquipmentPage,
+    GuestPass,
+    GuestsAccomodationOnCampus,
+    GuestsPassageToCampus,
+    HelpfulInformation,
+    HolidayPlanning,
+    HolidayTransfer,
+    HolidayWork,
+    HrApplicationsPage,
+    IssuanceOfLicensesPage,
+    IssuanceOfPass,
+    LivingInResidentialPremises,
+    MedicalExamination,
+    NumberOfUnusedVacationDaysPage,
+    OtherItServicesPage,
+    PartTimeEmployment,
     PaymentForChildCarePage,
     PaymentOfChildBirthAllowancePage,
     PersonaIncomeTaxReferencePage,
-    ContactInfoActualizationPage,
-    HolidayTransfer,
-    DataVerificationPage,
-    TeacherPhysicalEducation,
-    PhysicalEducationStudent,
-    MedicalExamination,
-    WorkTransferChangeRate,
     PersonalNotificationsPage,
+    PhysicalEducationStudent,
     PrinterMaintenancePage,
     QuestionPersonalAccountPage,
     QuestionSedPage,
+    Relocation,
+    TeacherPhysicalEducation,
     TeachersApplicationsPage,
+    TerminationOfAgreement,
     VacationSchedule,
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
     WorkTransfer,
-    LivingInResidentialPremises,
-    GuestsAccomodationOnCampus,
-    GuestsPassageToCampus,
-    Relocation,
-    TerminationOfAgreement,
-    IssuanceOfPass,
-    GuestPass,
-    CertificationAndIssuanceOfDocs,
-    CertifiedCopiesOfMilitaryDocs,
-    DefermentFromConscription,
+    WorkTransferChangeRate,
 } from './pages'
 
+import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
+import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
+import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
+import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
+import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
 import { isProduction, OLD_LK_URL } from '@shared/constants'
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import {
     BiBookOpen,
     BiBookReader,
@@ -63,11 +67,9 @@ import {
     BiIdCard,
     BiPlusMedical,
     BiRuble,
-    BiWifi,
 } from 'react-icons/bi'
-import { FaRegLightbulb } from 'react-icons/fa'
-import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
 import { RiNotificationBadgeLine } from 'react-icons/ri'
+import { Redirect } from 'react-router-dom'
 import {
     generalHiddenRoutes,
     generalRoutes,
@@ -75,18 +77,24 @@ import {
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
 } from '../general-routes'
-import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
-import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
-import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
-import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
-import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
 //import PartTimeEmploymentBufferPage from '@pages/hr-applications/pages/buffer-part-time-employment'
-import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import DownloadAdminFilesPage from '@pages/download-admin-files'
-import { Onboarding } from '../general-routes/pages'
-import { MdGroups, MdPsychology } from 'react-icons/md'
+import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import PaymentsPage from '@pages/payments'
-import { BsPeople } from 'react-icons/bs'
+import { FiDribbble } from 'react-icons/fi'
+import {
+    HiOutlineArrowCircleDown,
+    HiOutlineCalendar,
+    HiOutlineDesktopComputer,
+    HiOutlineDocumentAdd,
+    HiOutlineDocumentText,
+    HiOutlineInformationCircle,
+    HiOutlineLightBulb,
+    HiOutlineStar,
+    HiOutlineWifi,
+} from 'react-icons/hi'
+import { LuBaby, LuBrain, LuGitFork, LuMedal, LuSmilePlus } from 'react-icons/lu'
+import { Onboarding } from '../general-routes/pages'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -188,7 +196,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
-        icon: <BiIdCard />,
+        icon: <LuSmilePlus />,
         path: ONBOARDING,
         Component: Onboarding,
         color: 'orange',
@@ -200,33 +208,25 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'download-agreements': {
         id: 'download-agreements',
         title: 'Админ панель',
-        icon: <FiArrowDownCircle />,
+        icon: <HiOutlineArrowCircleDown />,
         path: DOWNLOAD_AGREEMENTS_FILES_ROUTE,
         Component: DownloadAdminFilesPage,
-        color: 'blue',
+        color: 'pink',
         isTemplate: false,
         group: 'GENERAL',
-
         isAdmin: true,
     },
     children: {
         id: 'children',
         title: 'Дети и внуки',
-        icon: <BsPeople />,
+        icon: <LuBaby />,
         path: CHILDREN_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace('https://e.mospolytech.ru/old/index.php?p=children')
-            }, [])
-
-            return null
-        },
+        Component: () => PageIsNotReady({ oldVersionUrl: CHILDREN_ROUTE, forceForward: true }),
         color: 'green',
         isTemplate: false,
         group: 'GENERAL',
         pageSize: 'big',
         isOldLkPage: true,
-        keywords: ['Ltnb b dyerb'],
     },
     'electronic-statements': {
         id: 'electronic-statements',
@@ -248,7 +248,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'project-activity': {
         id: 'project-activity',
         title: 'Проектная деятельность',
-        icon: <FaRegLightbulb />,
+        icon: <HiOutlineLightBulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
         Component: () => {
             React.useEffect(() => {
@@ -276,15 +276,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'pps-contest': {
         id: 'pps-contest',
         title: 'Конкурс ППС',
-        icon: <BiIdCard />,
-        path: PPS_CONTEST_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace('https://mospolytech.ru/contest-pps/')
-            }, [])
-
-            return null
-        },
+        icon: <LuMedal />,
+        path: 'https://mospolytech.ru/contest-pps/',
+        Component: () => null,
         isExternalPage: true,
         color: 'blue',
         isTemplate: false,
@@ -292,16 +286,10 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-pps': {
         id: 'kpi-pps',
-        title: 'Рейтинговая система ППС',
-        icon: <FiStar />,
+        title: 'Рейтинговая система ППС',
+        icon: <HiOutlineStar />,
         path: KPI_PPS_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace(`${OLD_LK_URL}/?p=${KPI_PPS_ROUTE?.slice(1, KPI_PPS_ROUTE.length)}`)
-            }, [])
-
-            return null
-        },
+        Component: () => PageIsNotReady({ oldVersionUrl: KPI_PPS_ROUTE, forceForward: true }),
         isOldLkPage: true,
         color: 'pink',
         isTemplate: false,
@@ -310,15 +298,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'kpi-admin': {
         id: 'kpi-admin',
         title: 'Экспертиза рейтинговой системы ППС',
-        icon: <FiMonitor />,
+        icon: <HiOutlineDesktopComputer />,
         path: KPI_ADMIN_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace(`${OLD_LK_URL}/?p=${KPI_ADMIN_ROUTE?.slice(1, KPI_ADMIN_ROUTE.length)}`)
-            }, [])
-
-            return null
-        },
+        Component: () => PageIsNotReady({ oldVersionUrl: KPI_ADMIN_ROUTE, forceForward: true }),
         isOldLkPage: true,
         color: 'lightBlue',
         isTemplate: false,
@@ -339,7 +321,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     orders: {
         id: 'orders',
         title: 'Приказы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         path: ORDERS_ROUTE,
         isOldLkPage: true,
         Component: () => PageIsNotReady({ oldVersionUrl: ORDERS_ROUTE }),
@@ -362,8 +344,9 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     doclist: {
         id: 'doclist',
-        title: 'Ознакомление с документами',
-        icon: <FiFileText />,
+        title: 'Ознакомление с документами',
+        shortTitle: 'Ознакомление с док...',
+        icon: <HiOutlineDocumentText />,
         path: DOCLIST_ROUTE,
         Component: PersonalNotificationsPage,
         color: 'blue',
@@ -373,7 +356,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     calendar: {
         id: 'calendar',
         title: 'График отпусков',
-        icon: <FiCalendar />,
+        icon: <HiOutlineCalendar />,
         path: VACATION_ROUTE,
         Component: VacationSchedule,
         color: 'purple',
@@ -383,7 +366,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'physical-education': {
         id: 'physical-education',
         title: 'Физическая культура',
-        icon: <FiFileText />,
+        icon: <FiDribbble />,
         color: 'lightGreen',
         path: PHYSICAL_EDUCATION,
         pageSize: 'big',
@@ -395,7 +378,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'physical-education-student': {
         id: 'physical-education-student',
         title: 'Физическая культура',
-        icon: <FiFileText />,
+        icon: <FiDribbble />,
         color: 'pink',
         show: false,
         path: PHYSICAL_EDUCATION_STUDENT,
@@ -432,7 +415,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     info: {
         id: 'info',
         title: 'Полезная информация',
-        icon: <FiFileText />,
+        icon: <HiOutlineInformationCircle />,
         path: INFO_ROUTE,
         Component: HelpfulInformation,
         color: 'blue',
@@ -455,7 +438,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentAdd />,
         path: APPLICATIONS_ROUTE,
         Component: isProduction ? ApplicationRedirect : TeachersApplicationsPage,
         color: 'red',
@@ -467,7 +450,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'hr-applications': {
         id: 'hr-applications',
         title: 'Кадровые заявления',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         path: HR_APPLICATIONS_ROUTE,
         Component: isProduction
             ? () =>
@@ -480,7 +463,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     'data-verification': {
         id: 'data-verification',
         title: 'Анкета для сверки данных',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: DATA_VERIFICATION_ROUTE,
         Component: DataVerificationPage,
@@ -507,7 +490,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'issuance-of-licenses-page',
         title: 'Выдача лицензий',
         path: ISSUANCE_OF_LICENSES,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : IssuanceOfLicensesPage,
         isTemplate: false,
@@ -521,7 +504,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-dismissal',
         title: 'Заявление на увольнение',
         path: BUFFER_DISMISSAL,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : DismissalBufferPage,
         isTemplate: false,
@@ -536,7 +519,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-holiday-work',
         title: 'Заявление о привлечении к работе в выходной день',
         path: BUFFER_HOLIDAY_WORK,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayWorkBufferPage,
         isTemplate: false,
@@ -551,7 +534,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-medical-examination',
         title: 'Заявление о диспансеризации',
         path: BUFFER_MEDICAL_EXAMINATION,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : MedicalExaminationBufferPage,
         isTemplate: false,
@@ -565,7 +548,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-holiday-planning',
         title: 'Заявление о предоставлении отпуска',
         path: BUFFER_HOLIDAY_PLANNING,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayPlanningBufferPage,
         isTemplate: false,
@@ -580,7 +563,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-holiday-transfer',
         title: 'Заявление о переносе отпуска',
         path: BUFFER_HOLIDAY_TRANSFER,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayTransferBufferPage,
         isTemplate: false,
@@ -595,7 +578,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'buffer-work-transfer',
         title: 'Заявление на перевод',
         path: BUFFER_WORK_TRANSFER,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransferBufferPage,
         isTemplate: false,
@@ -611,7 +594,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'part-time-employment',
         title: 'Заявление на трудоустройство по совместительству',
         path: PARTTIME_EMPLOYMENT,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : PartTimeEmployment,
         isTemplate: false,
@@ -625,7 +608,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'holiday-work',
         title: 'Заявление о привлечении к работе в выходной день',
         path: HOLIDAY_WORK,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayWork,
         isTemplate: false,
@@ -639,7 +622,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'medical-examination',
         title: 'Заявление о диспансеризации',
         path: MEDICAL_EXAMINATION,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : MedicalExamination,
         isTemplate: false,
@@ -653,7 +636,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'holiday-planning',
         title: 'Заявление о предоставлении отпуска',
         path: HOLIDAY_PLANNING,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayPlanning,
         isTemplate: false,
@@ -666,7 +649,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'holiday-transfer',
         title: 'Заявление о переносе отпуска',
         path: HOLIDAY_TRANSFER,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : HolidayTransfer,
         isTemplate: false,
@@ -679,7 +662,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'work-transfer',
         title: 'Заявление на перевод',
         path: WORK_TRANSFER,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransfer,
         isTemplate: false,
@@ -692,7 +675,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'work-transfer-change-rate',
         title: 'Заявление на изменение ставки',
         path: WORK_TRANSFER_CHANGE_RATE,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : WorkTransferChangeRate,
         isTemplate: false,
@@ -705,7 +688,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'dismissal',
         title: 'Заявление о предоставлении дополнительного отпуска по коллективному договору',
         path: EXTRA_HOLIDAY_COLL,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : ExtraHolidayColl,
         isTemplate: false,
@@ -715,7 +698,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         id: 'dismissal',
         title: 'Заявление на увольнение',
         path: DISMISSAL,
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : Dismissal,
         isTemplate: false,
@@ -728,7 +711,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'getting-computer-equipment': {
         id: 'getting-computer-equipment',
         title: 'Получение нового компьютерного оборудования',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: GETTING_COMPUTER_EQUIPMENT,
         Component: isProduction ? ApplicationRedirect : GettingComputerEquipmentPage,
@@ -742,7 +725,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'connecting-computer': {
         id: 'connecting-computer',
         title: 'Подключение компьютера, МФУ, телефона, WiFi',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CONNECTING_COMPUTER,
         Component: isProduction ? ApplicationRedirect : ConnectingComputerPage,
@@ -756,7 +739,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'printer-maintenance': {
         id: 'printer-maintenance',
         title: 'Обслуживание принтеров, МФУ',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: PRINTER_MAINTENANCE,
         Component: isProduction ? ApplicationRedirect : PrinterMaintenancePage,
@@ -770,7 +753,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'question-sed': {
         id: 'question-sed',
         title: 'Вопрос по СЭД Directum и 1С',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: QUESTION_SED,
         Component: isProduction ? ApplicationRedirect : QuestionSedPage,
@@ -784,7 +767,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'question-personal-account': {
         id: 'question-personal-account',
         title: 'Вопрос по Личному кабинету',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: QUESTION_PERSONAL_ACCOUNT,
         Component: isProduction ? ApplicationRedirect : QuestionPersonalAccountPage,
@@ -798,7 +781,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'other-it-services': {
         id: 'other-it-services',
         title: 'Прочее ИТ-обслуживание',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: OTHER_IT_SERVICES,
         Component: isProduction ? ApplicationRedirect : OtherItServicesPage,
@@ -812,7 +795,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'certificate-form-place-of-work': {
         id: 'certificate-form-place-of-work',
         title: 'Справка с места работы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CERTIFICATE_FROM_PLACE_OF_WORK,
         Component: isProduction ? ApplicationRedirect : CertificateFromPlaceOfWorkPage,
@@ -826,7 +809,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'visa-certificate': {
         id: 'visa-certificate',
         title: 'Справка с места работы для предоставления в визовый центр',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: VISA_CERTIFICATE,
         Component: isProduction ? ApplicationRedirect : VisaCertificatePage,
@@ -840,7 +823,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'certificate-of-work-experience': {
         id: 'certificate-of-work-experience',
         title: 'Справка о стаже работы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CERTIFICATE_OF_WORK_EXPERIENCE,
         Component: isProduction ? ApplicationRedirect : CertificateOfWorkExperiencePage,
@@ -854,7 +837,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'number-of-unused-vacation-days': {
         id: 'number-of-unused-vacation-days',
         title: 'Справка о количестве неиспользованных дней отпуска',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: NUMBER_OF_UNUSED_VACATION_DAYS,
         Component: isProduction ? ApplicationRedirect : NumberOfUnusedVacationDaysPage,
@@ -868,7 +851,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'copy-of-employment-record': {
         id: 'copy-of-employment-record',
         title: 'Копия трудовой книжки',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: COPY_OF_EMPLOYMENT_RECORD,
         Component: isProduction ? ApplicationRedirect : CopyOfEmploymentRecordPage,
@@ -882,7 +865,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'copies-of-documents-from-personal-file': {
         id: 'copies-of-documents-from-personal-file',
         title: 'Копии документов из личного дела',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE,
         Component: isProduction ? ApplicationRedirect : CopiesOfDocumentsFromPersonalFilePage,
@@ -896,7 +879,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'work-on-terms-of-external-concurrency': {
         id: 'work-on-terms-of-external-concurrency',
         title: 'Справка о работе на условиях внешнего совместительства для внесения стажа в трудовую книжку',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
         Component: isProduction ? ApplicationRedirect : WorkOnTermsOfExternalConcurrencyPage,
@@ -910,7 +893,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'certificate-time-parental-leave': {
         id: 'certificate-time-parental-leave',
         title: 'Справка об отпуске по уходу за ребенком до 1,5 и 3 лет',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CERTIFICATE_TIME_PARENTAL_LEAVE,
         Component: isProduction ? ApplicationRedirect : CertificateTimeParentalLeavePage,
@@ -924,7 +907,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'arbitrary-request': {
         id: 'arbitrary-request',
         title: 'Произвольный запрос',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: ARBITRARY_REQUEST,
         Component: isProduction ? ApplicationRedirect : ArbitraryRequestPage,
@@ -938,7 +921,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     courier: {
         id: 'courier',
         title: 'Курьер',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: COURIER,
         Component: isProduction ? ApplicationRedirect : CourierPage,
@@ -953,7 +936,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'personal-income-tax-reference': {
         id: 'personal-income-tax-reference',
         title: 'Справка по форме 2-НДФЛ',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: PERSONA_INCOME_TAX_REFERENCE,
         Component: isProduction ? ApplicationRedirect : PersonaIncomeTaxReferencePage,
@@ -967,7 +950,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'payment-of-child-birth-allowance': {
         id: 'payment-of-child-birth-allowance',
         title: 'Справка о выплате (не выплате) единовременного пособия на рождение ребенка',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
         Component: isProduction ? ApplicationRedirect : PaymentOfChildBirthAllowancePage,
@@ -981,7 +964,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'payment-for-child-care': {
         id: 'payment-for-child-care',
         title: 'Справка о ежемесячных выплатах сотрудника, находящегося в отпуске по уходу за ребенком (декрет)',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: PAYMENT_FOR_CHILD_CARE,
         Component: isProduction ? ApplicationRedirect : PaymentForChildCarePage,
@@ -995,7 +978,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'contact-info-actualization': {
         id: 'contact-info-actualization',
         title: 'Актуализация контактных данных',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CONTACT_INFO_ACTUALIZATION,
         Component: ContactInfoActualizationPage,
@@ -1010,7 +993,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'living-in-residential-premises': {
         id: 'living-in-residential-premises',
         title: 'Предоставление права проживания в жилом помещении',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: LIVING_IN_RESIDENTIAL_PREMISES,
         Component: isProduction ? ApplicationRedirect : LivingInResidentialPremises,
@@ -1024,7 +1007,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'guests-accomodation-on-campus': {
         id: 'guests-accomodation-on-campus',
         title: 'Временное размещение гостей в студгородке',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: GUESTS_ACCOMODATION_ON_CAMPUS,
         Component: isProduction ? ApplicationRedirect : GuestsAccomodationOnCampus,
@@ -1038,7 +1021,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'guests-passage-to-campus': {
         id: 'guests-passage-to-campus',
         title: 'Проход гостей на территорию студенческого городка',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: GUESTS_PASSAGE_TO_CAMPUS,
         Component: isProduction ? ApplicationRedirect : GuestsPassageToCampus,
@@ -1052,7 +1035,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     relocation: {
         id: 'relocation',
         title: 'Переселение',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: RELOCATION,
         Component: isProduction ? ApplicationRedirect : Relocation,
@@ -1066,7 +1049,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'termination-of-agreement': {
         id: 'termination-of-agreement',
         title: 'Расторжение договора найма жилого помещения',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: TERMINATION_OF_AGREEMENT,
         Component: isProduction ? ApplicationRedirect : TerminationOfAgreement,
@@ -1081,7 +1064,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'issuance-of-pass': {
         id: 'issuance-of-pass',
         title: 'Выдача пропуска (повторная)',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: ISSUANCE_OF_PASS,
         Component: isProduction ? ApplicationRedirect : IssuanceOfPass,
@@ -1095,7 +1078,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'guest-pass': {
         id: 'guest-pass',
         title: 'Заказ гостевого пропуска',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: GUEST_PASS,
         Component: isProduction ? ApplicationRedirect : GuestPass,
@@ -1110,7 +1093,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'certification-and-issuance-of-docs': {
         id: 'certification-and-issuance-of-docs',
         title: 'Заверение и выдача копий внутренних документов',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CERTIFICATION_AND_ISSUANCE_OF_DOCS,
         Component: isProduction ? ApplicationRedirect : CertificationAndIssuanceOfDocs,
@@ -1125,7 +1108,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'deferment-from-conscription': {
         id: 'deferment-from-conscription',
         title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: DEFERMENT_FROM_CONSCRIPTION,
         Component: isProduction ? ApplicationRedirect : DefermentFromConscription,
@@ -1139,7 +1122,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'certified-copies-of-military-docs': {
         id: 'certified-copies-of-military-docs',
         title: 'Заверенные копии документов по воинскому учету из личного дела',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentText />,
         color: 'blue',
         path: CERTIFIED_COPIES_OF_MILITARY_DOCS,
         Component: isProduction ? ApplicationRedirect : CertifiedCopiesOfMilitaryDocs,
@@ -1178,7 +1161,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
             return <Redirect to={ONBOARDING} />
         },
-        icon: <MdPsychology />,
+        icon: <LuBrain />,
         isTemplate: false,
         path: PSYCHOLOGICAL_HELP,
         backButtonText: 'Новому работнику',
@@ -1213,13 +1196,14 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
 
             return <Redirect to={ONBOARDING} />
         },
-        icon: <BiWifi />,
+        icon: <HiOutlineWifi />,
         isTemplate: false,
         path: WIFI_AT_THE_UNIVERSITY,
         backButtonText: 'Новому работнику',
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
         isExternalPage: true,
+        keywords: ['вайфай', 'вифи', 'цшаш', 'в универ'],
     },
     brandbook: {
         id: 'Брендбук',
@@ -1259,7 +1243,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'structure-of-the-university': {
         id: 'structure-of-the-university',
         title: 'Структура университета',
-        icon: <MdGroups />,
+        icon: <LuGitFork />,
         path: STRUCTURE_OF_THE_UNIVERSITY,
         Component: () => {
             window.location.href =

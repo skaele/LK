@@ -5,19 +5,18 @@ const groupMask = (value: string, prevValue?: string) => {
     return value
 }
 
-const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const russianNumberBeginnings = ['7', '8', '9']
-    const selectionStart = e.target.selectionStart
-    let phoneInput = e.target.value.replace(/\D/g, '')
+export const formatToPhone = (str: string, selectionStart?: number | null, e?: React.ChangeEvent<HTMLInputElement>) => {
+    let phoneInput = str.replace(/\D/g, '')
     let formattedPhone = ''
+    const russianNumberBeginnings = ['7', '8', '9']
 
     if (!phoneInput.length) return ''
 
-    if (e.target.value.length !== selectionStart) {
-        if (/\D/g.test((e.nativeEvent as InputEvent).data ?? '')) {
+    if (selectionStart && str.length !== selectionStart) {
+        if (/\D/g.test((e?.nativeEvent as InputEvent)?.data ?? '')) {
             return phoneInput
         }
-        return e.target.value
+        return str
     }
 
     if (russianNumberBeginnings.indexOf(phoneInput[0]) > -1) {
@@ -43,6 +42,12 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     }
 
     return formattedPhone
+}
+
+const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectionStart = e.target.selectionStart
+
+    return formatToPhone(e.target.value, selectionStart, e)
 }
 
 const Masks = {

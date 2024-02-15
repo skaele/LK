@@ -1,99 +1,16 @@
 import { applicationsModel } from '@entities/applications'
 import createApplicationSearch from '@features/applications/lib/create-application-search'
 import { getTeachersHRSectionLinks } from '@features/applications/lib/get-teachers-section-links'
+import { LinkItem } from '@shared/ui/link-item'
 import PageBlock from '@shared/ui/page-block'
 import { Message, Title, Wrapper } from '@ui/atoms'
 import { Error } from '@ui/error'
 import { LocalSearch } from '@ui/molecules'
 import React, { useState } from 'react'
-import { FiInfo } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
-
-const CreateApplicationListWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-
-    .list {
-        margin-top: 10px;
-        height: 100%;
-
-        .links-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-
-            .link-list {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-                background: var(--block);
-                box-shadow: var(--block-shadow);
-                padding: 10px;
-                border-radius: var(--brLight);
-
-                .links {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    font-size: 0.9em;
-
-                    & a {
-                        text-decoration: none;
-                        color: var(--blue);
-                    }
-                    .disabled-link {
-                        cursor: not-allowed;
-                        opacity: 0.5;
-                        text-decoration: none;
-                        pointer-events: none;
-                    }
-                }
-            }
-        }
-    }
-
-    @media (min-width: 1001px) {
-        .list {
-            .links-wrapper {
-                .link-list {
-                    padding: 5px;
-                }
-            }
-        }
-    }
-
-    @media (max-width: 800px) {
-        .list {
-            .links-wrapper {
-                .link-list {
-                    width: 100%;
-                }
-            }
-        }
-    }
-`
-
-const LinksList = styled.div`
-    padding: 12px;
-    box-shadow: var(--block-shadow);
-    border-radius: 8px;
-    margin: 10px 0;
-
-    .links {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-`
-export interface Section {
-    title: string
-    disabled?: boolean
-    links: { title: string; link: string; isExternalLink?: boolean; isOpenInNewWindow?: boolean }[]
-}
+import { HiOutlineDocument } from 'react-icons/hi'
+import { CreateApplicationListWrapper, LinksList } from './styles'
+import Flex from '@shared/ui/flex'
+import { Section } from '@features/applications/ui/molecules/create-application-list'
 
 interface Props {
     isTeachers: boolean
@@ -104,8 +21,7 @@ const TeachersHrApplicationsPage = ({}: Props) => {
         data: { listApplication },
         error,
     } = applicationsModel.selectors.useApplications()
-    const { close } = useModal()
-    const sections: Section[] = getTeachersHRSectionLinks()
+    const sections = getTeachersHRSectionLinks()
     const [search, setSearch] = useState<string>('')
 
     const [foundSections, setFoundSections] = useState<Section[] | null>(sections)
@@ -117,12 +33,12 @@ const TeachersHrApplicationsPage = ({}: Props) => {
             data={listApplication}
         >
             <PageBlock>
-                <Message type="info" title="Информация" icon={<FiInfo />}>
+                <Message type="info" lineHeight="1.4rem" fontSize="0.85rem">
                     Данный сервис создан для упрощения оборота кадровых документов внутри Университета.
                 </Message>
 
                 <CreateApplicationListWrapper>
-                    <Title size={3} align="left" bottomGap>
+                    <Title size={4} align="left" bottomGap>
                         Создать заявление
                     </Title>
 
@@ -135,32 +51,25 @@ const TeachersHrApplicationsPage = ({}: Props) => {
                     />
                     <LinksList>
                         {(foundSections ?? sections).map((section) => {
+                            if (section.disabled) return
+
                             return (
-                                <div className="link-list" key={section.title}>
-                                    {!section.disabled && (
-                                        <div className="links">
-                                            {section.links.map((link) =>
-                                                link.isExternalLink ? (
-                                                    <a
-                                                        key={link.title}
-                                                        href={link.link}
-                                                        target={link.isOpenInNewWindow ? '_blank' : '_self'}
-                                                        rel="noreferrer"
-                                                    >
-                                                        {link.title}
-                                                    </a>
-                                                ) : (
-                                                    <Link to={link.link} key={link.link} onClick={close}>
-                                                        {link.title}
-                                                    </Link>
-                                                ),
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
+                                <Flex gap="4px" d="column" key={section.title}>
+                                    {section.links.map((link) => (
+                                        <LinkItem
+                                            key={link.link}
+                                            title={link.title}
+                                            path={link.link}
+                                            id={link.title + link.link}
+                                            color={link.color ?? 'blue'}
+                                            showMore={false}
+                                            icon={link.icon ?? <HiOutlineDocument />}
+                                        />
+                                    ))}
+                                </Flex>
                             )
                         })}
-                        {!foundSections?.length && !!search.length && (
+                        {!foundSections?.length && search.length > 0 && (
                             <Error text={`По запросу ${search} ничего не найдено`} />
                         )}
                     </LinksList>

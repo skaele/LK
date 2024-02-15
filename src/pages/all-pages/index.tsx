@@ -9,6 +9,8 @@ import LinksList from '@features/home/ui/organisms/links-list'
 import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
+import englishToRussianKeyboard from '@shared/ui/search/lib/english-to-russian-keyboard'
+import isValidEnglishText from '@shared/ui/search/lib/is-valid-english-text'
 import { LocalSearch } from '@ui/molecules'
 import { useUnit } from 'effector-react'
 import React, { useMemo, useState } from 'react'
@@ -26,13 +28,18 @@ const AllPages = () => {
 
     if (!visibleRoutes) return null
 
+    const handleSearch = () => {
+        const normalizedValue = isValidEnglishText(searchValue) ? englishToRussianKeyboard(searchValue) : searchValue
+        return search(normalizedValue, allRoutes ?? {})
+    }
+
     return (
         <CenterPage padding="10px">
             <PageBlock>
                 <LocalSearch
                     placeholder="Поиск разделов"
                     whereToSearch={allRoutes ?? {}}
-                    searchEngine={search}
+                    searchEngine={handleSearch}
                     setResult={setFoundPages}
                     setExternalValue={setSearchValue}
                     validationCheck
@@ -60,6 +67,7 @@ const AllPages = () => {
                                             doNotShow="all"
                                             align="left"
                                             links={links}
+                                            orientation="vertical"
                                         />
                                     )
                                 })}

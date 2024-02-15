@@ -1,16 +1,15 @@
 import { scheduleRoutes } from '@app/routes/general-routes'
 import { scheduleModel } from '@entities/schedule'
+import { userModel } from '@entities/user'
 import { TeacherGroupSearch } from '@features/teacher-group-search'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
+import { LinkItem } from '@shared/ui/link-item'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
-import { useLocation } from 'react-router'
-import { NewPageLink } from './new-page-link'
 import { SideMenuProps } from './types'
-import { userModel } from '@entities/user'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,
@@ -22,7 +21,6 @@ export const SideMenuContent = ({
     const {
         data: { searchValue, filter },
     } = scheduleModel.selectors.useSchedule()
-    const location = useLocation()
     const {
         data: { user },
     } = userModel.selectors.useUser()
@@ -57,11 +55,14 @@ export const SideMenuContent = ({
                     }
 
                     return (
-                        <NewPageLink
+                        <LinkItem
+                            type="horizontal"
                             key={id}
                             collapsed={!isSideMenuOpen}
-                            isCurrent={location.pathname === normalizedPath}
-                            route={{ ...route, path: normalizedPath }}
+                            disabled={id === 'schedule-retake' && !!filter}
+                            {...route}
+                            title={route.shortTitle ?? route.title}
+                            path={normalizedPath}
                         />
                     )
                 })}

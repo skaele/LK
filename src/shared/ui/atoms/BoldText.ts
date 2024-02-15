@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
 export const BoldText = styled.span`
-    font-weight: bold;
+    font-weight: 600;
 `

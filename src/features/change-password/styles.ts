@@ -35,7 +35,7 @@ export const LeftSide = styled.div`
 
 export const TopLeftSide = styled.div`
     height: 100%;
-    gap: 8px;
+    gap: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;

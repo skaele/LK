@@ -5,6 +5,7 @@ import getNameFirstLetters from '@utils/get-name-first-letters'
 import React, { useState } from 'react'
 import { useModal } from 'widgets'
 import { Container, Img } from '../atoms/avatar'
+import { AvatarModal } from './avatar-modal'
 
 export default Avatar
 
@@ -49,7 +50,7 @@ function Avatar({
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (avatarModal) {
-            open(<Avatar name={name} width="400px" height="400px" marginRight="0" avatar={avatar} />)
+            open(<AvatarModal avatar={avatar} name={name} />)
         } else {
             onClick?.(e)
         }
@@ -66,6 +67,7 @@ function Avatar({
             border={border}
             onClick={handleClick}
             borderRadius={borderRadius}
+            className="avatar-container"
         >
             {avatar && isLoaded ? (
                 <Img

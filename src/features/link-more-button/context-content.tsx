@@ -1,19 +1,20 @@
 import { IRoute } from '@app/routes/general-routes'
 import { contextMenuModel } from '@entities/context-menu'
+import { menuModel } from '@entities/menu'
 import { settingsModel } from '@entities/settings'
-import { Button } from '@ui/button'
-import { Divider } from '@ui/divider'
-import { FiPlus, FiXCircle } from 'react-icons/fi'
-import styled from 'styled-components'
-import Icon from '../all-pages/ui/atoms/icon'
-import React from 'react'
-import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
+import { userModel } from '@entities/user'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
-import { menuModel } from '@entities/menu'
+import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
 import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { userModel } from '@entities/user'
+import { Button } from '@ui/button'
+import { Divider } from '@ui/divider'
+import React from 'react'
+import { FiPlus } from 'react-icons/fi'
+import { HiOutlineX } from 'react-icons/hi'
+import styled from 'styled-components'
+import Icon from '../all-pages/ui/atoms/icon'
 
 const ContextContentWrapper = styled.div`
     .top {
@@ -34,7 +35,7 @@ const PageName = styled.span`
     font-weight: 500;
 `
 
-const ContextContent = (props: IRoute) => {
+const ContextContent = (props: Omit<IRoute, 'Component' | 'isTemplate'>) => {
     const { id, icon, title, color } = props
     const { settings } = settingsModel.selectors.useSettings()
     const { data } = userModel.selectors.useUser()
@@ -54,6 +55,16 @@ const ContextContent = (props: IRoute) => {
         contextMenuModel.events.close()
     }
 
+    const handleRemoveFromHome = () => {
+        deletePageFromHome(id, settings)
+        contextMenuModel.events.close()
+    }
+
+    const handleRemoveFromMenu = () => {
+        deletePageFromSidebar(id, settings, requiredLeftsideBarItems)
+        contextMenuModel.events.close()
+    }
+
     return (
         <ContextContentWrapper>
             <div className="top">
@@ -66,14 +77,11 @@ const ContextContent = (props: IRoute) => {
             {isAddedToHome ? (
                 <Button
                     text="Убрать с главной"
-                    icon={<FiXCircle />}
+                    icon={<HiOutlineX />}
                     width="100%"
                     align="left"
                     background="var(--block)"
-                    onClick={() => {
-                        deletePageFromHome(id, settings)
-                        contextMenuModel.events.close()
-                    }}
+                    onClick={handleRemoveFromHome}
                 />
             ) : (
                 <Button
@@ -97,11 +105,11 @@ const ContextContent = (props: IRoute) => {
             ) : (
                 <Button
                     text="Убрать из меню"
-                    icon={<FiXCircle />}
+                    icon={<HiOutlineX />}
                     width="100%"
                     align="left"
                     background="var(--block)"
-                    onClick={() => deletePageFromSidebar(id, settings, requiredLeftsideBarItems)}
+                    onClick={handleRemoveFromMenu}
                 />
             )}
         </ContextContentWrapper>

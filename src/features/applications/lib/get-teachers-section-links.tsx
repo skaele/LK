@@ -41,6 +41,10 @@ import {
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
 import { UNION_ORGANIZATION } from '@shared/constants'
+import React from 'react'
+import { LuArrowRightSquare, LuBriefcase, LuCalendarCheck, LuCalendarClock, LuSun, LuSyringe } from 'react-icons/lu'
+import { Section } from '../ui/molecules/create-application-list'
+import { HiOutlineLogout } from 'react-icons/hi'
 
 const getTeachersSectionLinks = () => {
     return [
@@ -159,21 +163,33 @@ const getTeachersSectionLinks = () => {
         },
     ]
 }
-const getTeachersHRSectionLinks = () => {
+const getTeachersHRSectionLinks = (): Section[] => {
     return [
         {
             title: '',
             links: [
                 //{ link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
                 //{ link: HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
-                { link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
+                {
+                    link: PARTTIME_EMPLOYMENT,
+                    title: 'Заявление на трудоустройство по совместительству',
+                    icon: <LuBriefcase />,
+                },
                 // { link: BUFFER_HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
-                { link: BUFFER_DISMISSAL, title: 'Заявление на увольнение' },
-                { link: BUFFER_HOLIDAY_WORK, title: 'Заявление о привлечении к работе в выходной день' },
-                { link: BUFFER_HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска' },
-                { link: BUFFER_HOLIDAY_TRANSFER, title: 'Заявление о переносе отпуска' },
-                { link: BUFFER_MEDICAL_EXAMINATION, title: 'Заявление о диспансеризации' },
-                { link: BUFFER_WORK_TRANSFER, title: 'Заявление на перевод' },
+                {
+                    link: BUFFER_HOLIDAY_WORK,
+                    title: 'Заявление о привлечении к работе в выходной день',
+                    icon: <LuCalendarCheck />,
+                },
+                { link: BUFFER_HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска', icon: <LuSun /> },
+                { link: BUFFER_HOLIDAY_TRANSFER, title: 'Заявление о переносе отпуска', icon: <LuCalendarClock /> },
+                {
+                    link: BUFFER_MEDICAL_EXAMINATION,
+                    title: 'Заявление о диспансеризации',
+                    icon: <LuSyringe />,
+                },
+                { link: BUFFER_WORK_TRANSFER, title: 'Заявление на перевод', icon: <LuArrowRightSquare /> },
+                { link: BUFFER_DISMISSAL, title: 'Заявление на увольнение', icon: <HiOutlineLogout />, color: 'red' },
                 // {
                 //     link: BUFFER_EXTRA_HOLIDAY_COLL,
                 //     title: 'Заявление о предоставлении дополнительного отпуска по коллективному договору',
@@ -190,4 +206,4 @@ const getTeachersHRSectionLinks = () => {
         },
     ]
 }
-export { getTeachersSectionLinks, getTeachersHRSectionLinks }
+export { getTeachersHRSectionLinks, getTeachersSectionLinks }

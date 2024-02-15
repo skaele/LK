@@ -1,8 +1,7 @@
 import { PROFILE_ROUTE, SETTINGS_ROUTE } from '@app/routes/general-routes'
-import { confirmModel } from '@entities/confirm'
 import { contextMenuModel } from '@entities/context-menu'
 import { lkNotificationModel } from '@entities/lk-notifications'
-import { userModel } from '@entities/user'
+import LogoutButton from '@features/logout-button'
 import ThemeToggle from '@features/theme-toggle'
 import { NotificationsModal } from '@features/user-info/notification-bell'
 import { OLD_LK_URL } from '@shared/constants'
@@ -12,7 +11,7 @@ import NewVersionMessage from '@shared/ui/new-version-message'
 import Notification from '@ui/notification'
 import React from 'react'
 import { BiUserCircle } from 'react-icons/bi'
-import { FiArrowLeftCircle, FiBell, FiLogOut, FiSettings } from 'react-icons/fi'
+import { FiArrowLeftCircle, FiBell, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { AvailableAccounts, WhatsNew, useModal } from 'widgets'
@@ -26,14 +25,6 @@ const UserContextMenu = () => {
     const { notifications } = lkNotificationModel.selectors.useLkNotifications()
 
     const handleClose = () => contextMenuModel.events.close()
-
-    const logout = () => {
-        confirmModel.events.evokeConfirm({
-            message: 'Вы точно хотите выйти из аккаунта?',
-            onConfirm: userModel.events.logout,
-        })
-        handleClose()
-    }
 
     const handleWhatsNew = () => {
         contextMenuModel.events.close()
@@ -98,15 +89,7 @@ const UserContextMenu = () => {
                 />
             </a>
             <Divider />
-            <Button
-                align="left"
-                icon={<FiLogOut />}
-                onClick={logout}
-                text="Выйти"
-                width="100%"
-                background="var(--block)"
-                padding="10px"
-            />
+            <LogoutButton type="h-button" />
             <Divider />
             <Button
                 align="left"

@@ -95,11 +95,12 @@ export const MobileIcon = styled.div`
     }
 `
 
-export const EventsWrapper = styled(Flex)`
-    height: 100%;
+export const EventsWrapper = styled(Flex)<{ noEvents: boolean; scale: number; timesLen: number }>`
+    height: auto;
     z-index: 1;
     position: relative;
     margin-top: 10px;
     margin-left: 0px;
     margin-right: 0px;
+    background: ${({ noEvents }) => (noEvents ? 'var(--theme-2t)' : 'transparent')};
 `

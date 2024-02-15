@@ -7,7 +7,7 @@ import ChangeAvatar from '../../../../features/change-avatar'
 const PhotoField = (props: FieldProps) => {
     const { open } = useModal()
     const handleClick = () => {
-        open(<ChangeAvatar {...props} />)
+        open(<ChangeAvatar />)
     }
     return <TextFieldItem {...props} onClick={handleClick} />
 }

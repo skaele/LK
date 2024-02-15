@@ -1,6 +1,5 @@
 import { confirmModel } from '@entities/confirm'
 import { userModel } from '@entities/user'
-import { FieldProps } from '@pages/settings/model'
 import { changeAvatar } from '@shared/api/user-api'
 import { Colors } from '@shared/constants'
 import { Message, SubmitButton } from '@shared/ui/atoms'
@@ -21,8 +20,7 @@ const ChangeAvatarStyled = styled.div`
     }
 `
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ChangeAvatar = (props: FieldProps) => {
+const ChangeAvatar = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()

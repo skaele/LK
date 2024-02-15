@@ -19,7 +19,7 @@ import IconText from '../../calendars/day/ui/icon-text'
 import { getTimeInterval } from '../../lib/get-time-interval'
 import { DayCalendarEvent } from '../../types'
 import { getEventTopPosition } from './lib/get-event-top-position'
-import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'
+import { EventFront, EventItemStyled, EventTitle } from './styles'
 import { UIProps } from './types'
 
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
@@ -28,7 +28,6 @@ const EventItem = (props: Props) => {
     const {
         title,
         duration,
-        icon,
         startTime,
         place,
         people,
@@ -51,7 +50,7 @@ const EventItem = (props: Props) => {
     const { theme } = useTheme()
     const { isMobile } = useCurrentDevice()
     const textColor = theme === 'light' ? color.dark3 : color.light3
-    const background = theme === 'light' ? color.transparent1 : color.transparent2
+    const background = theme === 'light' ? color.transparent1 : color.transparent3
     const handleClick = () => onClick(props)
     const hideSomeInfo = (isMobile || quantity > 1) && shortInfo
     const extremeSmallSize = isMobile && quantity >= 2 && shortInfo
@@ -61,6 +60,7 @@ const EventItem = (props: Props) => {
 
         return result
     })
+    const smallerThanUsual = duration < 90
     const top = getEventTopPosition(startTime, shift, scale)
     const normalizedTitle = getSubjectName(title)
     const eventTitle = !extremeSmallSize
@@ -81,11 +81,8 @@ const EventItem = (props: Props) => {
             onClick={handleClick}
             shortInfo={shortInfo}
         >
-            <MobileIcon>{icon}</MobileIcon>
-
-            {/* {!listView && <EventBackground icon={icon} background={background} />} */}
             <Flex className="event-body" gap="0px" ai="flex-start">
-                <EventFront scale={scale} d="column" ai="flex-start" shortInfo={shortInfo}>
+                <EventFront scale={scale} d="column" ai="flex-start" shortInfo={shortInfo || smallerThanUsual}>
                     <Flex d="column" gap="2px">
                         {!shortInfo && (
                             <Flex gap="8px">
@@ -144,6 +141,7 @@ const EventItem = (props: Props) => {
                             text={<DotSeparatedWords words={rooms} />}
                         />
                     )}
+
                     {!!link && shortInfo && !hideSomeInfo && (
                         <a href={link} target="_blank" rel="noreferrer">
                             <IconText shortInfo={shortInfo} icon={<HiOutlineExternalLink />} text={place} />

@@ -126,15 +126,15 @@ export const CurrentTimeLineStyled = styled.div<{ currentTime: number }>`
         min-width: 10px;
         height: 10px;
         border-radius: 12px;
-        background: ${Colors.red.main};
+        background: ${Colors.red.light1};
     }
 
     &::after {
         content: '';
         display: block;
         width: 100%;
-        height: 2px;
-        background: ${Colors.red.main};
+        height: 1.5px;
+        background: ${Colors.red.light1};
     }
 `
 
@@ -146,7 +146,7 @@ export const CurrentTime = styled.div`
     font-size: 0.82rem;
     width: var(--time-width);
     left: calc(var(--time-width) * -1);
-    box-shadow: -26px 0 26px 26px var(--block);
+    box-shadow: -34px 0 26px 26px var(--block);
 
     ${MEDIA_QUERIES.isMobile} {
         background: var(--theme);

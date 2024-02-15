@@ -80,6 +80,7 @@ const GlobalStyles = createGlobalStyle`
 		--theme-4: #494949;
 		--theme-3: #3b3b3b;
 		--theme-3-shadow: 5px 5px 10px rgba(0,0,0,0.377);
+		--theme-2t: #2222228c;
 		--theme-2: rgb(34, 34, 34);
 		--theme-1t: #0000001f;
 		--theme-1: #363636;
@@ -98,7 +99,7 @@ const GlobalStyles = createGlobalStyle`
 		--green: #94f0b9;
 		--greenTransparent: #94f0b9b0;
 		--red: #e27992;
-		--reallyBlue: #567dff;
+		--reallyBlue: #7c99ff;
 		--almostTransparent: rgba(0,0,0,0.281);
 		--almostTransparentOpposite: hsla(0,0%,100%,0.103);
 		--block: #2e2e2e;
@@ -113,6 +114,7 @@ const GlobalStyles = createGlobalStyle`
 		--theme-4: #f1f1f1;
 		--theme-3: #f1f1f1;
 		--theme-3-shadow: 5px 5px 10px hsla(0,0%,40.8%,0.24);
+		--theme-2t: #2222220d;
 		--theme-2: rgb(243, 243, 243);
 		--theme-1t: #00000005;
 		--theme-1: #f5f5f5;
@@ -160,6 +162,11 @@ const GlobalStyles = createGlobalStyle`
 			transform: translateY(0px);
 			opacity: 1;
 		}
+	}
+
+	.search-hit {
+		background:var(--blue);
+		font-weight: 600;
 	}
 `
 

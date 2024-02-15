@@ -5,7 +5,11 @@ import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { changeEmail, changePhone } from '@shared/api/user-api'
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
+import {
+    ADDITIONAL_MENU_ITEMS_LIMIT_SIZE,
+    REQUIRED_LEFTSIDE_BAR_CONFIG,
+    REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG,
+} from '@shared/constants'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'widgets'
@@ -48,6 +52,7 @@ const useSettings = () => {
                                     requiredList={requiredLeftsideBarItems}
                                     remove={deletePageFromSidebar}
                                     add={addPageToSidebar}
+                                    maxElements={3 + ADDITIONAL_MENU_ITEMS_LIMIT_SIZE}
                                 />,
                                 'Настройка меню',
                             ),

@@ -98,6 +98,69 @@ const getSettingsModel: TSettingsModel = ({
     menu,
     settings,
 }) => ({
+    'settings-personal': [
+        {
+            title: 'Данные',
+            fields: [
+                {
+                    title: 'Фото профиля',
+                    type: 'photo',
+                    value: avatar.value,
+                    icon: avatar.icon,
+                    description: avatar.description,
+                    action: () => null,
+                },
+                {
+                    title: 'Email',
+                    type: 'text',
+                    value: email.value,
+                    icon: <FiMail />,
+                    description: email.description,
+                    action: email.action,
+                    additionalActions: email.additionalActions,
+                },
+                {
+                    title: 'Телефон',
+                    type: 'tel',
+                    value: phone.value,
+                    icon: <FiPhone />,
+                    description: phone.description,
+                    action: phone.action,
+                    additionalActions: phone.additionalActions,
+                },
+                {
+                    title: 'Пароль',
+                    type: 'password',
+                    value: '',
+                    icon: <MdOutlinePassword />,
+                    description: 'Смена пароля',
+                    action: () => null,
+                },
+            ],
+        },
+        {
+            title: 'Действия',
+            fields: [
+                // {
+                //     title: 'Сменить аккаунт',
+                //     type: 'link',
+                //     icon: <FiUsers />,
+                //     action: () => null,
+                //     visible: 1 == 1,
+                // },
+                {
+                    title: 'Выйти из аккаунта',
+                    type: 'display',
+                    icon: <FiLogOut />,
+                    action: () =>
+                        confirmModel.events.evokeConfirm({
+                            message: 'Вы точно хотите выйти из аккаунта?',
+                            onConfirm: userModel.events.logout,
+                        }),
+                },
+            ],
+        },
+    ],
     'settings-appearance': [
         {
             title: 'Тема',
@@ -184,69 +247,7 @@ const getSettingsModel: TSettingsModel = ({
             ],
         },
     ],
-    'settings-personal': [
-        {
-            title: 'Данные',
-            fields: [
-                {
-                    title: 'Фото профиля',
-                    type: 'photo',
-                    value: avatar.value,
-                    icon: avatar.icon,
-                    description: avatar.description,
-                    action: () => null,
-                },
-                {
-                    title: 'Email',
-                    type: 'text',
-                    value: email.value,
-                    icon: <FiMail />,
-                    description: email.description,
-                    action: email.action,
-                    additionalActions: email.additionalActions,
-                },
-                {
-                    title: 'Телефон',
-                    type: 'tel',
-                    value: phone.value,
-                    icon: <FiPhone />,
-                    description: phone.description,
-                    action: phone.action,
-                    additionalActions: phone.additionalActions,
-                },
-                {
-                    title: 'Пароль',
-                    type: 'password',
-                    value: '',
-                    icon: <MdOutlinePassword />,
-                    description: 'Смена пароля',
-                    action: () => null,
-                },
-            ],
-        },
-        {
-            title: 'Действия',
-            fields: [
-                // {
-                //     title: 'Сменить аккаунт',
-                //     type: 'link',
-                //     icon: <FiUsers />,
-                //     action: () => null,
-                //     visible: 1 == 1,
-                // },
-                {
-                    title: 'Выйти из аккаунта',
-                    type: 'display',
-                    icon: <FiLogOut />,
-                    action: () =>
-                        confirmModel.events.evokeConfirm({
-                            message: 'Вы точно хотите выйти из аккаунта?',
-                            onConfirm: userModel.events.logout,
-                        }),
-                },
-            ],
-        },
-    ],
+
     'settings-notifications': [
         {
             title: 'Получать уведомления',

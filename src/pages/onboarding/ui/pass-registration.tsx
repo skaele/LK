@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScheduleTable } from './schedule-table'
 import { Contacts } from './contacts'
+import { Telephone } from '@shared/ui/telephone'
 
 export const PassRegistration = () => (
     <>
@@ -19,7 +20,7 @@ export const PassRegistration = () => (
         <Contacts>
             г. Москва, ул. Большая Семеновская, д. 38, каб. Н-514
             <br />
-            <a href="tel:+74952230523,1520">Тел. : +7 (495) 223-05-23 доб. 1520</a>
+            <Telephone tel="+74952230523,1520">+7 (495) 223-05-23 доб. 1520</Telephone>
         </Contacts>
     </>
 )

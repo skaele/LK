@@ -1,9 +1,10 @@
 import { IFullSchedule, ISchedule, User } from '@api/model'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
-import { EMPTY_WEEK, View } from '../consts'
+import { EMPTY_WEEK, SCALE_VALUES, View } from '../consts'
 import { getGroupSchedule } from '../lib/get-group-schedule'
 import { getTeacherSchedule } from '../lib/get-teacher-schedule'
+import { TDevices } from '@shared/constants'
 
 const DEFAULT_STORE: ISchedule = {
     data: {
@@ -13,6 +14,7 @@ const DEFAULT_STORE: ISchedule = {
         filter: '',
         searchValue: '',
         hasNoSchedule: false,
+        scale: { ...SCALE_VALUES },
     },
     loading: false,
     error: null,
@@ -63,6 +65,7 @@ const clearStore = createEvent()
 const setFilter = createEvent<string>()
 const setSearchValue = createEvent<string>()
 const resetExternalSchedule = createEvent()
+const changeScale = createEvent<{ device: TDevices; scale: number }>()
 
 const $schedule = createStore(DEFAULT_STORE)
     .on(getScheduleFx, (oldData) => ({
@@ -182,6 +185,16 @@ sample({
     target: $schedule,
 })
 
+sample({
+    clock: changeScale,
+    source: $schedule,
+    fn: (store, { device, scale }) => ({
+        ...store,
+        data: { ...store.data, scale: { ...store.data.scale, [device]: scale } },
+    }),
+    target: $schedule,
+})
+
 export const selectors = {
     useSchedule,
 }
@@ -194,6 +207,7 @@ export const events = {
     resetExternalSchedule,
     setSearchValue,
     setFilter,
+    changeScale,
 }
 
 export const effects = {

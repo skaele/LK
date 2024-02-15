@@ -5,7 +5,7 @@ import PageBlock from '@shared/ui/page-block'
 import { Button, Message, Wrapper } from '@ui/atoms'
 import Table from '@ui/table'
 import React from 'react'
-import { FiInfo, FiPlus } from 'react-icons/fi'
+import { FiPlus } from 'react-icons/fi'
 import { useModal } from 'widgets'
 
 interface Props {
@@ -47,7 +47,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                     />
                 }
             >
-                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                <Message type="info" lineHeight="1.4rem" fontSize="0.85rem">
                     Данный сервис позволяет заказать необходимую справку, подать заявление, запрос. Статус (информация о
                     степени готовности) заказанных справок меняется согласно действиям оператора. В колонке «Структурное
                     подразделение, адрес» указывается название подразделения и адрес, куда необходимо приехать за

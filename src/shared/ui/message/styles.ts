@@ -40,10 +40,9 @@ export const MessageWrapper = styled.div<{
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: ${({ gap }) => gap ?? '6px'};
     font-weight: 500;
     justify-content: flex-end;
-    line-height: ${({ lineHeight }) => lineHeight};
     align-items: ${({ align }) => (align === 'left' ? 'flex-start' : align === 'center' ? 'center' : 'flex-end')};
 
     .close-button {
@@ -59,6 +58,8 @@ export const MessageWrapper = styled.div<{
         display: flex;
         flex-direction: column;
         gap: ${({ gap }) => gap ?? 0};
+        margin-left: 28px;
+        line-height: ${({ lineHeight }) => lineHeight};
     }
 
     a {

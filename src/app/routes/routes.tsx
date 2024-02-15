@@ -7,22 +7,27 @@ import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
-import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
-import { FaRegLightbulb } from 'react-icons/fa'
-import { FiBriefcase, FiFileText } from 'react-icons/fi'
+import { BiIdCard, BiRuble, BiStar } from 'react-icons/bi'
+import { FiBriefcase, FiDribbble } from 'react-icons/fi'
+import {
+    HiOutlineDocumentAdd,
+    HiOutlineInformationCircle,
+    HiOutlineLightBulb,
+    HiOutlineLogout,
+    HiOutlineTrendingUp,
+} from 'react-icons/hi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
 import {
-    generalHiddenRoutes,
-    generalRoutes,
     IRoutes,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     USEFUL_INFO_ROUTE,
+    generalHiddenRoutes,
+    generalRoutes,
 } from './general-routes'
 import {
-    PhysicalEducationStudent,
-    AcademicLeaveAccommodationPage,
     AcadPerformance,
+    AcademicLeaveAccommodationPage,
     AccommodationCorrespondenceFormPage,
     AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
@@ -46,6 +51,7 @@ import {
     MilitaryRegistrationCard,
     MilitaryRegistrationDocuments,
     PaymentRecipient,
+    PhysicalEducationStudent,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
@@ -59,6 +65,7 @@ import {
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
+import { LuBedSingle } from 'react-icons/lu'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -110,7 +117,7 @@ export const privateRoutes: () => IRoutes = () => ({
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
-        icon: <FiFileText />,
+        icon: <HiOutlineDocumentAdd />,
         path: APPLICATIONS_ROUTE,
         Component: ApplicationsPage,
         color: 'red',
@@ -134,7 +141,7 @@ export const privateRoutes: () => IRoutes = () => ({
     dormitory: {
         id: 'dormitory',
         title: 'Список ожидания на заселение в общежитие',
-        icon: <MdOutlineBedroomChild />,
+        icon: <LuBedSingle />,
         path: DORMITORY,
         Component: DormitoryPage,
         color: 'blue',
@@ -145,7 +152,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'acad-performance': {
         id: 'acad-performance',
         title: 'Успеваемость',
-        icon: <BiCheckCircle />,
+        icon: <HiOutlineTrendingUp />,
         path: ACAD_PERFORMANCE_ROUTE,
         Component: AcadPerformance,
         color: 'green',
@@ -156,7 +163,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'physical-education': {
         id: 'physical-education',
         title: 'Физическая культура',
-        icon: <FiFileText />,
+        icon: <FiDribbble />,
         color: 'lightGreen',
         path: PHYSICAL_EDUCATION_STUDENT,
         pageSize: 'big',
@@ -169,7 +176,8 @@ export const privateRoutes: () => IRoutes = () => ({
     'project-activity': {
         id: 'project-activity',
         title: 'Проектная деятельность',
-        icon: <FaRegLightbulb />,
+        shortTitle: 'ПД',
+        icon: <HiOutlineLightBulb />,
         path: PROJECT_ACTIVITIES_ROUTE,
         Component: ProjectActivitiesPage,
         color: 'orange',
@@ -181,7 +189,7 @@ export const privateRoutes: () => IRoutes = () => ({
     'helpful-information': {
         id: 'helpful-information',
         title: 'Полезная информация',
-        icon: <BiInfoCircle />,
+        icon: <HiOutlineInformationCircle />,
         path: USEFUL_INFO_ROUTE,
         Component: HelpfulInformation,
         color: 'blue',
@@ -637,10 +645,10 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     'independently-deducted': {
         id: 'independently-deducted',
         title: 'Отчисление по инициативе обучающегося',
-        icon: <BiIdCard />,
+        icon: <HiOutlineLogout />,
         path: INDEPENDENTLY_DEDUCTED,
         Component: ApplicationIndependentlyDeduction,
-        color: 'blue',
+        color: 'red',
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

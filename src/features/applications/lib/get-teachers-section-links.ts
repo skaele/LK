@@ -15,6 +15,7 @@ import {
     CERTIFIED_COPIES_OF_MILITARY_DOCS,
     CONNECTING_COMPUTER,
     CONTACT_INFO_ACTUALIZATION,
+    CONTACT_INFO_ACTUALIZATION_TEST,
     COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE,
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
@@ -32,6 +33,7 @@ import {
     PAYMENT_FOR_CHILD_CARE,
     PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
     PERSONA_INCOME_TAX_REFERENCE,
+    PHONEBOOK,
     PRINTER_MAINTENANCE,
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
@@ -40,7 +42,7 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
-import { UNION_ORGANIZATION } from '@shared/constants'
+import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
 
 const getTeachersSectionLinks = () => {
     return [
@@ -59,6 +61,15 @@ const getTeachersSectionLinks = () => {
         {
             title: 'Общее',
             links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
+        },
+        {
+            title: 'Общее (в разработке)',
+            disabled: isProduction,
+            links: [
+                { link: PHONEBOOK, title: 'Форма телефонного справочника' },
+
+                { link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' },
+            ],
         },
         {
             title: 'ИТ-обслуживание',

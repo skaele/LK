@@ -49,6 +49,9 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
+    PhonebookPage,
+    ContactInfoActualizationTestPage,
+    PhonebookForm,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -124,7 +127,10 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
-export const DATA_VERIFICATION_ROUTE = '/data-verification'
+export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
+export const PHONEBOOK = APPLICATIONS_ROUTE + '/phonebook'
+export const PHONEBOOK_FORM = APPLICATIONS_ROUTE + '/phonebook/:guid'
+export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
 export const CONNECTING_COMPUTER = APPLICATIONS_ROUTE + '/connecting-computer'
@@ -999,6 +1005,63 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         path: CONTACT_INFO_ACTUALIZATION,
         Component: ContactInfoActualizationPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    phonebook: {
+        id: 'phonebook',
+        title: 'Телефонный справочник',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: PHONEBOOK,
+        Component: isProduction ? ApplicationRedirect : PhonebookPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
+    },
+    'phonebook-form': {
+        id: 'phonebook-form',
+        title: 'Телефонный справочник',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: PHONEBOOK_FORM,
+        Component: isProduction ? ApplicationRedirect : PhonebookForm,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад',
+        fallbackPrevPage: PHONEBOOK,
+        show: !isProduction,
+    },
+    'data-actualization': {
+        id: 'data-actualization',
+        title: 'Актуализация контактных данных (тест)',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_INFO_ACTUALIZATION_TEST,
+        Component: isProduction ? ContactInfoActualizationPage : ContactInfoActualizationTestPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
+    },
+    'data-verification': {
+        id: 'data-verification',
+        title: 'Анкета для сверки данных',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: DATA_VERIFICATION_ROUTE,
+        Component: DataVerificationPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

@@ -2,20 +2,20 @@ import { useEffect } from 'react'
 
 const keys_pressed = new Set()
 
-const useShortCutKeys = (keys: string[], onPressed: () => void) => {
+const useShortCutKeys = (keys: number[], onPressed: () => void) => {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            keys_pressed.add(event.key)
+            keys_pressed.add(event.which)
             const sliced = keys.slice(0, keys.length - 1)
 
-            if (!sliced.find((k) => !keys_pressed.has(k)) && keys[keys.length - 1] === event.key) {
+            if (!sliced.find((k) => !keys_pressed.has(k)) && keys[keys.length - 1] === event.which) {
                 event.preventDefault()
                 onPressed()
             }
         }
 
         const handleKeyUp = (event: KeyboardEvent) => {
-            keys_pressed.delete(event.key)
+            keys_pressed.delete(event.which)
         }
 
         window.addEventListener('keydown', handleKeyDown)

@@ -205,7 +205,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     'download-agreements': {
         id: 'download-agreements',
-        title: 'Административная панель',
+        title: 'Админ панель',
         icon: <FiArrowDownCircle />,
         path: DOWNLOAD_AGREEMENTS_FILES_ROUTE,
         Component: DownloadAdminFilesPage,
@@ -217,7 +217,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     children: {
         id: 'children',
-        title: 'Дети и внуки',
+        title: 'Дети и внуки',
         icon: <BsPeople />,
         path: CHILDREN_ROUTE,
         Component: () => {
@@ -298,7 +298,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-pps': {
         id: 'kpi-pps',
-        title: 'Рейтинговая система ППС',
+        title: 'Рейтинговая система ППС',
         icon: <FiStar />,
         path: KPI_PPS_ROUTE,
         Component: () => {
@@ -315,8 +315,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'kpi-admin': {
         id: 'kpi-admin',
-        // title: 'Экспертиза рейтинговой системы ППС',
-        title: 'Экспертиза рейтинго...',
+        title: 'Экспертиза рейтинговой системы ППС',
         icon: <FiMonitor />,
         path: KPI_ADMIN_ROUTE,
         Component: () => {
@@ -369,8 +368,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     doclist: {
         id: 'doclist',
-        title: 'Ознакомление с документами',
-        shortTitle: 'Ознакомление с док...',
+        title: 'Ознакомление с документами',
         icon: <FiFileText />,
         path: DOCLIST_ROUTE,
         Component: PersonalNotificationsPage,
@@ -449,7 +447,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     },
     'pps-vote': {
         id: 'pps-vote',
-        title: 'Опрос для проверки уровня цифровой грамотности',
+        title: 'Опрос для проверки уровня цифровой грамотности',
         icon: <BiBookReader />,
         path: PPS_VOTE_ROUTE,
         isOldLkPage: true,
@@ -484,6 +482,17 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+    },
+    'data-verification': {
+        id: 'data-verification',
+        title: 'Анкета для сверки данных',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: DATA_VERIFICATION_ROUTE,
+        Component: DataVerificationPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        backButtonText: 'Назад к цифровым сервисам',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

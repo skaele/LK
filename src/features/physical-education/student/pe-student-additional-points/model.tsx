@@ -42,6 +42,20 @@ export const $additionalPointsColumns = combine(
             field: 'teacher',
             render: (data) => data.fullName,
         },
+        {
+            title: 'Комментарий',
+            field: 'comment',
+            priority: 'five',
+            render: (_, row) => {
+                const workType = SelectorData.find(({ id }) => id === row.workType)
+
+                if (workType?.id !== WorkType.Competition) {
+                    return row.comment
+                }
+
+                return null
+            },
+        },
         ...(teacher?.permissions?.length
             ? [
                   {

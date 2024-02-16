@@ -37,7 +37,7 @@ interface Props {
 
 const Contract = ({ contract }: Props) => {
     if (!contract) return null
-    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student } = contract
+    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date } = contract
     const { open } = useModal()
     const [copied, setCopied] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
@@ -56,6 +56,10 @@ const Contract = ({ contract }: Props) => {
         {
             text: 'Действует до',
             info: localizeDate(endDatePlan),
+        },
+        {
+            text: 'Подписан',
+            info: localizeDate(signed_user_date),
         },
         {
             text: 'Заказчик',

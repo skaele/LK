@@ -25,7 +25,10 @@ export const normalizeSessionSchedule = (schedule: RawSessionScheduleResponse) =
 
             if (weekday === 'sunday') continue
 
-            result[weekday] = getCalendarSchedule(schedule[day].lessons, WEEK_DAYS[weekday].short)
+            result[weekday] = [
+                ...result[weekday],
+                ...getCalendarSchedule(schedule[day].lessons, WEEK_DAYS[weekday].short),
+            ]
         }
     }
 

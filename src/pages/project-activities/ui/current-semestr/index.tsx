@@ -25,7 +25,7 @@ const CurrentSemestr = ({ data }: Props) => {
             </Title>
             <Message type="failure" visible={data?.arrear_result === 'не зачтено'} title={'Внимание'} icon={null}>
                 Перенос баллов с прошлого семестра: {lastSemestr}. Для закрытия задолженности необходимо в этом семестре
-                набрать дополнительно {60 - lastSemestr} баллов.
+                набрать дополнительно {data?.arrear} баллов.
             </Message>
             <ScoreItem title="Первая аттестация" score={first} color="var(--text)" />
             <ScoreItem title="Вторая аттестация" score={second} color="var(--text)" />

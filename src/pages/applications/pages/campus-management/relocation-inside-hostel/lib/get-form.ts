@@ -46,7 +46,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
             {
                 title: 'Комментарий',
                 type: 'textarea',
-                fieldName: 'comment',
+                fieldName: 'reason_for_relocation',
                 value: '',
                 placeholder: 'Укажите необходимость переселения',
                 editable: true,

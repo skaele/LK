@@ -52,14 +52,29 @@ const Shortcuts = styled(Flex)`
 const getShortCut = () => {
     const os = getUsersOS()
 
+    // CTRL === 17
+    // Meta === 91
+    // K === 75
     const shortcuts = {
-        Windows: [{ title: 'CTRL', key: 'Control' }, { key: 'k' }],
-        Linux: [{ title: 'CTRL', key: 'Control' }, { key: 'k' }],
-        UNIX: [{ title: 'CTRL', key: 'Control' }, { key: 'k' }],
-        MacOS: [{ title: 'CMD', key: 'Meta', icon: <FiCommand /> }, { key: 'k' }],
+        Windows: [
+            { title: 'CTRL', key: 17 },
+            { title: 'K', key: 75 },
+        ],
+        Linux: [
+            { title: 'CTRL', key: 17 },
+            { title: 'K', key: 75 },
+        ],
+        UNIX: [
+            { title: 'CTRL', key: 17 },
+            { title: 'K', key: 75 },
+        ],
+        MacOS: [
+            { title: 'CMD', key: 91, icon: <FiCommand /> },
+            { title: 'K', key: 75 },
+        ],
         iOS: [],
         Android: [],
-    } as Record<typeof os, { title?: string; key: string; icon?: React.ReactNode }[]>
+    } as Record<typeof os, { title?: string; key: number; icon?: React.ReactNode }[]>
 
     return shortcuts[os]
 }
@@ -114,7 +129,7 @@ const GlobalAppSearch = ({ size = 'large' }: Props) => {
             </Subtext>
             <Shortcuts w="fit-content" gap="4px">
                 {shortCut.map((k) => (
-                    <Key key={k.key}>{k?.icon ?? (k.title ?? k.key).toUpperCase()}</Key>
+                    <Key key={k.key}>{k?.icon ?? k.title ?? ''}</Key>
                 ))}
             </Shortcuts>
         </GlobalAppSearchStyled>

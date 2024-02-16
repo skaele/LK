@@ -14,24 +14,24 @@ import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
 
 const Content = () => {
-    const { data, loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const {
         data: { dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
 
     const jobExaminations =
+        dataWorkerApplication &&
         data &&
         data
             .map((job) => {
-                const currentJob =
-                    dataWorkerApplication && dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
+                const currentJob = dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
                 return [...job.notTaken.map((exam) => ({ ...exam, jobTitle: currentJob?.jobTitle }))]
             })
             .flat()
-            .filter((exam) => {
-                if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
-            })
-            .sort((a, b) => compareDesc(new Date(a.creationDate), new Date(b.creationDate)))
+            // .filter((exam) => {
+            //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
+            // })
+            .sort((a, b) => compareDesc(new Date(a.startDate), new Date(b.startDate)))
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
@@ -49,7 +49,7 @@ const Content = () => {
                     />
                 </Link>
             </Flex>
-            {loading ? (
+            {getDataLoading ? (
                 <Flex w="100%" jc="center" ai="center">
                     <Loading />
                 </Flex>

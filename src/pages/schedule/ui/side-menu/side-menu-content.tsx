@@ -10,6 +10,7 @@ import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useLocation } from 'react-router'
 import { NewPageLink } from './new-page-link'
 import { SideMenuProps } from './types'
+import { userModel } from '@entities/user'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,
@@ -22,6 +23,10 @@ export const SideMenuContent = ({
         data: { searchValue, filter },
     } = scheduleModel.selectors.useSchedule()
     const location = useLocation()
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
+    const isStaff = user?.user_status === 'staff'
 
     return (
         <>
@@ -46,6 +51,10 @@ export const SideMenuContent = ({
                     const route = scheduleRoutes[key]
                     const { id, path } = route
                     const normalizedPath = filter ? `${path}/${filter}` : path
+
+                    if (id === 'schedule-session' && isStaff) {
+                        return null
+                    }
 
                     return (
                         <NewPageLink

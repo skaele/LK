@@ -1,4 +1,4 @@
-import { userApi } from '@api'
+import { applicationApi, userApi } from '@api'
 import { ADName, User, UserToken } from '@api/model'
 import { LoginData } from '@api/user-api'
 import createFullName from '@features/home/lib/create-full-name'
@@ -7,7 +7,7 @@ import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 import clearAllStores from '../lib/clear-all-stores'
-import { parseJwt } from '../lib/jwt-token'
+import { clearTokens } from '../lib/clear-tokens'
 
 interface UserStore {
     currentUser: User | null
@@ -36,6 +36,8 @@ const getUserTokenFx = createEffect<LoginData, UserToken>(async (params: LoginDa
             await axios.post('/old', form)
         } catch {}
 
+        clearTokens()
+
         if (savePasswordInStorage()) {
             localStorage.setItem(BrowserStorageKey.Token, data.token)
             localStorage.setItem(BrowserStorageKey.JWT, data?.jwt ?? '')
@@ -43,6 +45,7 @@ const getUserTokenFx = createEffect<LoginData, UserToken>(async (params: LoginDa
         } else {
             sessionStorage.setItem(BrowserStorageKey.Token, data.token)
             sessionStorage.setItem(BrowserStorageKey.JWT, data?.jwt ?? '')
+            localStorage.setItem(BrowserStorageKey.JWTRefresh, data.jwt_refresh ?? '')
         }
         return data
     } catch (e) {
@@ -52,14 +55,18 @@ const getUserTokenFx = createEffect<LoginData, UserToken>(async (params: LoginDa
 
 const getUserFx = createEffect<Pick<UserToken, 'jwt' | 'token'>, UserStore>(async (token): Promise<UserStore> => {
     try {
-        const userResponse = await userApi.getUser(token.token)
+        const [userResponse, appResponse] = await Promise.all([
+            userApi.getUser(token.token),
+            applicationApi.getAppData(),
+        ])
+
         const user = userResponse.data.user
         const { name, surname, patronymic } = user
 
         return {
             currentUser: {
                 ...user,
-                guid: token.jwt ? parseJwt(token.jwt).IndividualGuid : '',
+                guid: appResponse.data.guid_person,
                 fullName: createFullName({ name, surname, patronymic }),
             },
             isAuthenticated: !!token,
@@ -70,7 +77,7 @@ const getUserFx = createEffect<Pick<UserToken, 'jwt' | 'token'>, UserStore>(asyn
         // eslint-disable-next-line no-console
         console.log(error)
 
-        throw new Error('Возникла какая-то ошибка')
+        throw new Error(`Возникла какая-то ошибка: ${(error as Error).message}`)
     }
 })
 

@@ -116,15 +116,22 @@ type Props = {
 const analyzeGrades = (data: AcadPerformance[] | null): 'empty' | 'a-student' | 'almost' => {
     if (!data) return 'empty'
     let amountOfNonFives = 0
+    let hasBadGrade = false
 
     for (let index = 0; index < data.length; index++) {
         const { grade } = data[index]
         if (!grade) return 'empty'
 
+        if (grade !== 'Отлично' && grade !== 'Хорошо' && grade !== 'Зачтено') {
+            hasBadGrade = true
+        }
+
         if (grade !== 'Зачтено' && grade !== 'Отлично') {
             amountOfNonFives++
         }
     }
+
+    if (hasBadGrade) return 'empty'
 
     if (amountOfNonFives === 1) return 'almost'
     if (amountOfNonFives > 1) return 'empty'

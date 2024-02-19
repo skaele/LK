@@ -7,6 +7,25 @@ export const getAddPEStudentAdditionalPoints = (model: AddStudentAdditionalPoint
           input: ${jsonStringifyGraphql(model, ['workType'])}
         ) {
           success
+          errors {
+            ... on Error {
+              message
+            }
+          }
         }
       }`
+}
+
+export const getRemovePEStudentAdditionalPoints = (id: string) => {
+    return `mutation removePointsFromStudent {
+      deletePoints(input: {historyId : ${id}}) {
+        success
+        errors {
+          ... on Error {
+            message
+          }
+        }
+          
+      }
+    }`
 }

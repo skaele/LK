@@ -1,5 +1,6 @@
 import { Groups, IRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
+import { peTeacherModel } from '@entities/pe-teacher'
 import { userModel } from '@entities/user'
 import { FoundPages } from '@features/all-pages'
 import getGroupPages, { routesOrder } from '@features/all-pages/lib/get-group-pages'
@@ -9,13 +10,15 @@ import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import { LocalSearch } from '@ui/molecules'
+import { useUnit } from 'effector-react'
 import React, { useMemo, useState } from 'react'
 
 const AllPages = () => {
     const { visibleRoutes, allRoutes } = menuModel.selectors.useMenu()
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [searchValue, setSearchValue] = useState<string>('')
-    const groupedPages = useMemo(() => getGroupPages(visibleRoutes), [visibleRoutes])
+    const peTeacher = useUnit(peTeacherModel.stores.peTeacher)
+    const groupedPages = useMemo(() => getGroupPages(visibleRoutes, peTeacher), [visibleRoutes, peTeacher])
 
     const {
         data: { user },

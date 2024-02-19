@@ -1,36 +1,36 @@
-import localizeDate from '@shared/lib/localize-date'
+import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@shared/ui/message'
 import React from 'react'
 import { ColumnProps } from '@ui/table/types'
+import { Button } from '@shared/ui/button'
+import downloadFile from '@pages/hr-applications/lib/get-file'
 
 export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [
-        // {
-        //     title: 'Статус заявления',
-        //     field: 'vacation',
-        //     width: '200px',
-        //     render: (value) => {
-        //         return value.status.orderStatus
-        //     },
-        // },
         {
-            title: 'Статус заявления',
-            field: 'medicalExamination',
-            width: '200px',
+            title: 'Дата',
+            field: 'creationDate',
+            width: '100px',
+            sort: true,
+            type: 'date',
+        },
+        {
+            title: 'Статус',
+            field: 'orderStatus',
+            width: '150px',
             render: (value) => {
                 return (
                     <Message
                         type={
-                            value.status.orderStatus === 'Согласовано'
+                            value === 'Согласовано'
                                 ? 'success'
-                                : value.status.orderStatus === 'На регистрации'
+                                : value === 'На регистрации'
                                 ? 'info'
-                                : value.status.orderStatus === 'Не утвержден' ||
-                                  value.status.orderStatus === 'Не создано'
+                                : value === 'Не утвержден' || value === 'Не создано'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value.status.orderStatus}
+                        title={value || '-'}
                         align="center"
                         width="100%"
                         icon={null}
@@ -40,31 +40,46 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             },
         },
         {
+            title: 'Должность',
+            field: 'jobTitle',
+            sort: true,
+        },
+        {
             title: 'Период',
             field: 'medicalExamination',
             align: 'center',
-            render: (value) => {
-                return `${localizeDate(value?.period?.startDate, 'numeric')} - ${localizeDate(
-                    value?.period?.endDate,
-                    'numeric',
-                )}`
+            width: '200px',
+            render: (_, data) => {
+                return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
             },
         },
-        // {
-        //     title: 'Номер приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
-        //     align: 'center',
-        //     render: (value) => value.orderNumber,
-        // },
-        // {
-        //     title: 'Дата приказа',
-        //     field: 'vacation',
-        //     type: 'date',
-        //     priority: 'one',
-        //     align: 'center',
-        //     render: (value) => localizeDate(value.status.orderDate, 'numeric'),
-        // },
-        // { title: 'Файл заявления', priority: 'one', field: 'file', type: 'file' },
+        {
+            title: 'Файл заявления',
+            priority: 'one',
+            field: 'downloadable',
+            type: 'file',
+            width: '200px',
+            align: 'center',
+            render: (_, data) => {
+                if (data?.downloadApplication)
+                    return (
+                        <Button
+                            text="Скачать файл"
+                            background="rgb(60,210,136)"
+                            textColor="#fff"
+                            id="downloadButton"
+                            width={'150px'}
+                            align="center"
+                            minWidth={'150px'}
+                            height="30px"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                downloadFile(data?.documentGuid, '0')
+                            }}
+                        />
+                    )
+                else return '-'
+            },
+        },
     ]
 }

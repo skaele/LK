@@ -5,13 +5,14 @@ import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
-import { BufferHolidayTransfer, BufferHolidayTransferForm } from '../types'
+import { BufferHolidayTransferForm } from '../types'
+import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
 const loadBufferHolidayTransfer = createEvent()
 const sendBufferHolidayTransfer = createEvent<BufferHolidayTransferForm>()
 
 const loadBufferHolidayTransferFx = createEffect(async () => {
-    const { data } = await $hrApi.get<BufferHolidayTransfer>(
+    const { data } = await $hrApi.get<BufferHoliday>(
         `CarryForwardVacation.GetAllHistory?personalGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
     )
     return data
@@ -20,15 +21,14 @@ const loadBufferHolidayTransferFx = createEffect(async () => {
 sample({ clock: loadBufferHolidayTransfer, target: loadBufferHolidayTransferFx })
 
 const sendBufferHolidayTransferFx = createEffect(async (data: BufferHolidayTransferForm) => {
-    const result = await $hrApi.post<BufferHolidayTransfer>('CarryForwardVacation.AddCarryForwardVacation', data)
+    const result = await $hrApi.post<BufferHoliday>('CarryForwardVacation.AddCarryForwardVacation', data)
 
     return result.data
 })
 
 sample({ clock: sendBufferHolidayTransfer, target: sendBufferHolidayTransferFx })
 
-const $bufferHolidayTransfer = createStore<BufferHolidayTransfer['employeeVacations']>([])
-const $bufferHolidayTransferLoading = sendBufferHolidayTransferFx.pending
+const $bufferHolidayTransfer = createStore<BufferHoliday['employeeVacations']>([])
 
 sample({
     clock: loadBufferHolidayTransferFx.doneData,
@@ -64,7 +64,7 @@ sample({
 sample({
     clock: loadBufferHolidayTransferFx.failData,
     fn: (response) => {
-        const message = isAxiosError(response) ? response.response?.data.error : 'Не удалось загрузить данные'
+        const message = isAxiosError(response) ? (response.response?.data as any).error : 'Не удалось загрузить данные'
 
         return {
             message,
@@ -78,7 +78,7 @@ sample({
 sample({
     clock: sendBufferHolidayTransferFx.failData,
     fn: (response) => {
-        const message = isAxiosError(response) ? response.response?.data.error : 'Не удалось отправить данные'
+        const message = isAxiosError(response) ? (response.response?.data as any).error : 'Не удалось отправить данные'
 
         return {
             message,
@@ -100,6 +100,6 @@ export const effects = {
 export const selectors = {
     useBufferHolidayTransfer: () => ({
         data: useStore($bufferHolidayTransfer),
-        loading: useStore($bufferHolidayTransferLoading),
+        loading: useStore(sendBufferHolidayTransferFx.pending),
     }),
 }

@@ -4,13 +4,14 @@ import { Colors } from '@shared/constants'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
 import { Button, LinkButton, SubmitButton } from '@ui/atoms'
-import localizeDate from '@utils/localize-date'
+import localizeDate from '@shared/lib/dates/localize-date'
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import TechicalErrorMessage from './technical-error-message'
 import { formatNumber } from '@shared/lib/get-number-with-spaces-format'
+import { useUnit } from 'effector-react'
 
 const ContractWrapper = styled.div`
     display: flex;
@@ -36,12 +37,12 @@ interface Props {
 
 const Contract = ({ contract }: Props) => {
     if (!contract) return null
-    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student } = contract
+    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date } = contract
     const { open } = useModal()
     const [copied, setCopied] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
-    const { error } = paymentsModel.selectors.usePayments()
+    const error = useUnit(paymentsModel.stores.$error)
 
     const contractInfo = [
         {
@@ -55,6 +56,10 @@ const Contract = ({ contract }: Props) => {
         {
             text: 'Действует до',
             info: localizeDate(endDatePlan),
+        },
+        {
+            text: 'Подписан',
+            info: localizeDate(signed_user_date),
         },
         {
             text: 'Заказчик',
@@ -138,7 +143,7 @@ const Contract = ({ contract }: Props) => {
                         popUpSuccessMessage="Номер договора скопирован в буфер"
                         isActive
                     />
-                    <LinkButton onClick={() => null} href={file ?? ''} icon={<FiDownload />} width="45px" />
+                    {file && <LinkButton onClick={() => null} href={file ?? ''} icon={<FiDownload />} width="45px" />}
                 </Flex>
             )}
         </ContractWrapper>

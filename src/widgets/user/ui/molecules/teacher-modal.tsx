@@ -1,4 +1,5 @@
-import { SCHEDULE_ROUTE } from '@app/routes/general-routes'
+import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
+import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import getLettersColors from '@shared/lib/get-letters-colors'
 import { Button } from '@ui/button'
 import React from 'react'
@@ -23,13 +24,19 @@ const TeacherModal = (props: Props) => {
         <UserModal type="staff" {...props}>
             {!token && (
                 <>
-                    <Link to={`${SCHEDULE_ROUTE}/${name}`}>
+                    <Link
+                        to={getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                            page: 'current',
+                            filter: name,
+                        })}
+                    >
                         <Button
                             icon={<FiClock />}
                             text={'Расписание'}
                             onClick={() => {
                                 close()
                             }}
+                            background="var(--theme-4)"
                             width="100%"
                         />
                     </Link>
@@ -38,6 +45,7 @@ const TeacherModal = (props: Props) => {
                         text={'Написать'}
                         onClick={() => close()}
                         width="100%"
+                        background="var(--theme-4)"
                         isActive={false}
                     />
                 </>

@@ -1,6 +1,6 @@
-import { Payments } from '@api/model'
+import { Payments, PaymentsContract } from '@api/model'
 import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
-import { IColors } from '@shared/constants'
+import { IColors, MEDIA_QUERIES } from '@shared/constants'
 import { paymentsModel } from '@entities/payments'
 import PaymentButton from '@features/payment-button'
 import Debt from '@features/payments/debt'
@@ -13,13 +13,14 @@ import React from 'react'
 import { FiCheck, FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useUnit } from 'effector-react'
 
 const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
     max-width: 400px;
     min-width: calc(100% / 3);
     width: 100%;
     height: 156px;
-    background: var(--scheduleBg);
+    background: var(--theme-2);
     border-radius: 15px;
     padding: 6px;
     display: flex;
@@ -29,7 +30,7 @@ const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
     .payment-info {
         width: 100%;
         height: 100%;
-        background: var(--schedule);
+        background: var(--block);
         border-radius: 11px;
         padding: 10px;
         display: flex;
@@ -46,7 +47,7 @@ const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
         }
     }
 
-    @media (max-width: 600px) {
+    ${MEDIA_QUERIES.isMobile} {
         width: 100%;
         min-width: 100%;
         max-width: 100%;
@@ -126,24 +127,33 @@ const TopMessage = ({
     )
 }
 
+const countPayment = (contracts: PaymentsContract[]) => {
+    if (contracts.some((contract) => Number(contract.balance_currdate) > 0)) {
+        return contracts.reduce(
+            (sum, contract) => (Number(contract.balance_currdate) > 0 ? Number(contract.balance_currdate) + sum : sum),
+            0,
+        )
+    }
+    return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
+}
+
 const PaymentsWidget = () => {
-    const { data, error } = paymentsModel.selectors.usePayments()
+    const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
     if (error) return <ErrorMessage />
 
-    if (!data) return <SkeletonLoading />
+    if (!payments) return <SkeletonLoading />
 
-    if (!!data && !data.dormitory.length && !data.education.length) return null
-
-    const dormPayment = +data?.dormitory[0]?.balance_currdate
-    const eduPayment = +data?.education[0]?.balance_currdate
+    if (!!payments && !payments.dormitory.length && !payments.education.length) return null
+    const dormPayment = countPayment(payments?.dormitory)
+    const eduPayment = countPayment(payments?.education)
 
     const hasToPay = dormPayment > 0 || eduPayment > 0
 
     return (
         <PaymentsWidgetWrapper background={hasToPay ? 'red' : 'green'}>
-            <TopMessage data={data.dormitory} balance={dormPayment} section={'Общежитие'} />
-            <TopMessage data={data.education} balance={eduPayment} section={'Обучение'} />
+            <TopMessage data={payments.dormitory} balance={dormPayment} section={'Общежитие'} />
+            <TopMessage data={payments.education} balance={eduPayment} section={'Обучение'} />
         </PaymentsWidgetWrapper>
     )
 }

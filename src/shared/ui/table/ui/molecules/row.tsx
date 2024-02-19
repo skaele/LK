@@ -11,12 +11,13 @@ interface Props {
     el: { [key: string]: any }
     index: number
     columns: ColumnProps[]
+    columnsExtended?: ColumnProps[]
     onRowClick?: (obj: IndexedProperties) => void
 }
 
-const Row = ({ columns, el, index, onRowClick }: Props) => {
+const Row = ({ columns, columnsExtended, el, index, onRowClick }: Props) => {
     const { open } = useModal()
-    const defaultOnClick = () => open(<RowModal obj={el} columns={columns} />, 'Информация')
+    const defaultOnClick = () => open(<RowModal obj={el} columns={columnsExtended || columns} />, 'Информация')
     return (
         <RowWrapper even={index % 2 === 0} onClick={() => (onRowClick ? onRowClick(el) : defaultOnClick())}>
             {columns.map((column) => {
@@ -28,6 +29,12 @@ const Row = ({ columns, el, index, onRowClick }: Props) => {
                             className={column.priority?.toString() ?? 'one'}
                             key={column.field}
                             align={column.align}
+                            onClick={(e) => {
+                                if (column.onClick) {
+                                    e.stopPropagation()
+                                    column.onClick(el)
+                                }
+                            }}
                         >
                             {column.render
                                 ? column.render(displayWithType(el[column.field], column.type), el)

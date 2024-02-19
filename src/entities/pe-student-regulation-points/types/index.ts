@@ -3,6 +3,7 @@ export interface AddStudentRegulationPoints {
     standardType: RegulationType
     date: string
     pointsAmount: number
+    isOverride: boolean
 }
 
 export enum RegulationType {
@@ -14,4 +15,5 @@ export enum RegulationType {
     Squats = 'SQUATS', // приседания
     Tilts = 'TILTS', // наклон
     TorsoLifts = 'TORSO_LIFTS', // подъемы туловища
+    Other = 'OTHER', // другое
 }

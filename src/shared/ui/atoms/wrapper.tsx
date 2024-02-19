@@ -56,10 +56,6 @@ const WrapperBlock = styled.div.withConfig({
     @media (max-width: 550px) {
         padding: 10px;
     }
-
-    @media (max-width: 1000px) {
-        margin-top: 25px;
-    }
 `
 
 interface Props {
@@ -75,7 +71,9 @@ interface Props {
 
 const Wrapper = ({ children, load, error, data, deps = [], noDataCheck = false, loadEveryVisit = false }: Props) => {
     useEffect(() => {
-        if (!data || loadEveryVisit) load()
+        if (!data || loadEveryVisit) {
+            load()
+        }
     }, deps)
 
     return (

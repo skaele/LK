@@ -2,20 +2,28 @@ import { IInputArea } from '@ui/input-area/model'
 import { UserApplication, WorkerApplication } from '@api/model'
 import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 
 const getForm = (
     dataUserApplication: UserApplication,
     dataWorkerApplication: WorkerApplication[],
-    currentIndex: number,
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
     isRetirement: string | null,
     setIsRetirement: React.Dispatch<React.SetStateAction<string | null>>,
+    jobTitle: string | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    jobGuid: string | null,
+    setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
-    const { surname, name, patronymic } = dataUserApplication
+    const { surname, name, patronymic, subdivisions } = dataUserApplication
     const firstDayOff = !!startDate ? new Date(startDate) : new Date()
+    const jobGuidData = !!jobGuid ? jobGuid : ''
+    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
     const secondDayOff = new Date(firstDayOff.getTime() + 24 * 60 * 60 * 1000)
-    const isTutor = getIsTutor(dataWorkerApplication[currentIndex].jobGuid.toString()) === 'true' ? true : false
+    const isTutor = getIsTutor(jobGuidData) === 'true' ? true : false
+
     if (isTutor && firstDayOff.getDay() === 5) {
         secondDayOff.setDate(firstDayOff.getDate() + 1)
     } else if (firstDayOff.getDay() === 5 || firstDayOff.getDay() === 6 || firstDayOff.getDay() === 0) {
@@ -33,18 +41,19 @@ const getForm = (
                 visible: true,
             },
             {
-                title: 'Должность',
-                type: 'simple-text',
-                fieldName: 'post',
-                value: dataWorkerApplication[currentIndex].jobTitle.toString(),
-                visible: true,
-            },
-            {
-                title: 'Подразделение',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].subDivision.toString(),
-                fieldName: 'subDivision',
-                visible: true,
+                title: 'Подразделение/должность',
+                value: jobTitleData,
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisions(subdivisions),
+                isSpecificSelect: true,
+                onChange: (value) => {
+                    setJobTitle(value)
+                    setJobGuid(value.id)
+                },
             },
             {
                 title: 'Дата прохождения диспансеризации',
@@ -86,8 +95,9 @@ const getForm = (
             {
                 title: '',
                 type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].jobGuid.toString(),
+                value: jobGuidData,
                 fieldName: 'jobGuid',
+                visible: false,
             },
         ],
     }

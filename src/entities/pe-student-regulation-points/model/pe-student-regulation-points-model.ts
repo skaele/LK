@@ -1,11 +1,21 @@
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { pERequest } from '@shared/api/config/pe-config'
 import { createEffect, createEvent, sample } from 'effector'
 import { modalModel } from 'widgets/modal/model'
 import { AddStudentRegulationPoints } from '../types'
 
-import { getAddPEStudentRegulationPoints } from '../utils'
+import { getAddPEStudentRegulationPoints, getRemovePEStudentRegulationPoints } from '../utils'
 
 const addRegulationPoints = createEvent<AddStudentRegulationPoints>()
+const removeRegulationPoints = createEvent<{ id: string }>()
+
+const removeRegulationPointsFx = createEffect(async ({ id }: { id: string }) => {
+    await pERequest(getRemovePEStudentRegulationPoints(id))
+})
+
+sample({ clock: removeRegulationPoints, target: removeRegulationPointsFx })
+
+const $pendingRemoveRegulationPoints = removeRegulationPointsFx.pending
 
 const addRegulationPointsFx = createEffect(async (payload: AddStudentRegulationPoints) => {
     await pERequest(getAddPEStudentRegulationPoints(payload))
@@ -16,10 +26,45 @@ const addRegulationPointsFx = createEffect(async (payload: AddStudentRegulationP
 sample({ clock: addRegulationPoints, target: addRegulationPointsFx })
 sample({ clock: addRegulationPointsFx.doneData, target: modalModel.events.close })
 
+sample({
+    clock: addRegulationPointsFx.failData,
+    fn: () => ({
+        message: 'Не удалось добавить норматив',
+        type: 'failure' as const,
+        time: 3000,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: removeRegulationPointsFx.doneData,
+    fn: () => ({
+        message: 'Норматив удален',
+        type: 'success' as const,
+        time: 3000,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: removeRegulationPointsFx.failData,
+    fn: () => ({
+        message: 'Не удалось удалить норматив',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
 export const events = {
     addRegulationPoints,
+    removeRegulationPoints,
 }
 
 export const effects = {
     addRegulationPointsFx,
+    removeRegulationPointsFx,
+}
+
+export const stores = {
+    pendingRemoveRegulationPoints: $pendingRemoveRegulationPoints,
 }

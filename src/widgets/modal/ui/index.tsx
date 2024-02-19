@@ -16,7 +16,8 @@ const Modal = () => {
     const { isOpen, component: Component, canBack, back, close, title } = useCoreModal()
     const ref = useRef(null)
     const isValid = useMemo(() => isOpen && !!Component, [isOpen, Component])
-    useShortCutKeys(['Escape'], close)
+    // Escape === 27
+    useShortCutKeys([27], close)
 
     useOnClickOutside(ref, () => {
         close()
@@ -51,7 +52,7 @@ const Modal = () => {
                     height="35px"
                     minWidth="35px"
                     width="35px"
-                    background="var(--search)"
+                    background="var(--almostTransparent)"
                 />
 
                 <Content>{Component}</Content>

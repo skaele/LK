@@ -56,7 +56,7 @@ const SendHrFormMedicalExamination = async (
         end: result.isRetirement ? result.extra_examination_date_2 : result.extra_examination_date,
     })
 
-    !response.isError && setCompleted(true)
+    !response?.isError && setCompleted(true)
 }
 
 export default SendHrFormMedicalExamination

@@ -22,12 +22,14 @@ export interface ColumnProps {
     catalogs?: SelectPage[]
     type?: ColumnType
     render?: (value: any, obj: IndexedProperties) => ChildrenType
+    onClick?: (obj: IndexedProperties) => void
 }
 
 export type Footer = (props: { [key: string]: any[] } | null) => IndexedProperties
 
 export interface TableProps {
     columns: ColumnProps[]
+    columnsExtended?: ColumnProps[]
     footer?: Footer
     data: Nullable<IndexedProperties[]>
     maxOnPage?: number

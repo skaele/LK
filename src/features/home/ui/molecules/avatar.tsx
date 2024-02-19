@@ -1,4 +1,4 @@
-import Checkbox from '@ui/atoms/checkbox'
+import Checkbox from '@ui/checkbox'
 import Notification from '@ui/notification'
 import getLettersColors from '@utils/get-letters-colors'
 import getNameFirstLetters from '@utils/get-name-first-letters'
@@ -85,7 +85,7 @@ function Avatar({
                 visible={checked !== undefined}
                 setChecked={() => null}
             />
-            <Notification left="80%" top="90%" outline="4px solid var(--schedule)" visible={!!notifications}>
+            <Notification left="80%" top="90%" outline="4px solid var(--block)" visible={!!notifications}>
                 {notifications}
             </Notification>
         </Container>

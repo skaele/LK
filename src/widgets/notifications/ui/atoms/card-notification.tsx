@@ -5,7 +5,7 @@ import { userModel } from '@entities/user'
 import Subtext from '@shared/ui/subtext'
 import { LinkButton, SubmitButton } from '@ui/atoms'
 import getRightGenderWord from '@utils/get-right-gender-word'
-import localizeDate from '@utils/localize-date'
+import localizeDate from '@shared/lib/dates/localize-date'
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -17,8 +17,8 @@ const CardNotificationWrapper = styled.div`
     justify-content: space-between;
     padding: 20px;
     border-radius: var(--brLight);
-    background: var(--form);
-    box-shadow: var(--schedule-shadow);
+    background: var(--block-content);
+    box-shadow: var(--block-shadow);
     row-gap: 20px;
     min-height: 70px;
 
@@ -66,10 +66,12 @@ const CardNotification = ({ data }: Props) => {
         <CardNotificationWrapper>
             <InfoNotification>
                 <TitleCardNotification>{data.event || data.post}</TitleCardNotification>
-                {data.startDate && (
+                {data.startDate && data.endDate !== '0000-00-00' ? (
                     <Subtext>
                         Период: {localizeDate(data.startDate, 'numeric')} - {localizeDate(data.endDate, 'numeric')}
                     </Subtext>
+                ) : (
+                    <Subtext>Дата: {localizeDate(data.startDate, 'numeric')}</Subtext>
                 )}
             </InfoNotification>
             <BlockButtons>

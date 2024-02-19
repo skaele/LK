@@ -1,26 +1,24 @@
-import React from 'react'
-import { Colors, IColors } from '@shared/constants'
 import { settingsModel } from '@entities/settings'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import LinkMoreButton from '@features/link-more-button'
+import { Colors, IColors } from '@shared/constants'
 import BlockWrapper from '@ui/block/styles'
 import { Button } from '@ui/button'
 import getCorrectWordForm from '@utils/get-correct-word-form'
-import getShortStirng from '@utils/get-short-string'
-import { useMemo } from 'react'
-import { FiPlus, FiX } from 'react-icons/fi'
+import React from 'react'
+import { FiArrowLeftCircle, FiPlus, FiX } from 'react-icons/fi'
+import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 import styled from 'styled-components'
 import Icon from '../atoms/icon'
 import { PageLinkProps } from './page-link'
-import { HiOutlineFolder } from 'react-icons/hi'
 
 export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical: boolean; hasNotifications: boolean }>`
     position: relative;
     cursor: pointer;
     text-decoration: none;
     border-radius: var(--brLight);
-    background: var(--form);
+    background: var(--block-content);
 
     .new {
         position: absolute;
@@ -35,7 +33,6 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
         font-weight: bold;
         color: #fff;
         padding: 5px 10px;
-        /* box-shadow: 0 0 60px ${Colors.red.light2}; */
     }
 
     .more-button {
@@ -50,6 +47,7 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
     }
 
     .outside {
+        position: static;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -114,15 +112,23 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
     }
 `
 
+const LinkIcon = styled.div`
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    opacity: 0.7;
+`
+
 const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
     const {
         color,
         shadow,
         notifications,
-        maxWordLength,
         title,
         isNew,
         icon,
+        isExternalPage,
+        isOldLkPage,
         mode,
         id,
         background,
@@ -132,19 +138,6 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
     const isVertical = orientation === 'vertical'
     const { settings } = settingsModel.selectors.useSettings()
     const isAdded = !!(settings['settings-home-page'].property.pages as string[])?.find((el) => el === id)
-
-    const maxFirstWordLength = 11
-
-    const getHyphenatedTitle = useMemo(
-        () => (title: string, maxLength: number) => {
-            const firstWord = title.split(' ')[0]
-
-            return firstWord.length > maxLength && firstWord.length !== maxLength + 1 && isVertical
-                ? `${title.substr(0, maxLength)}-${title.substr(maxLength, title.length)}`
-                : title
-        },
-        [],
-    )
 
     return (
         <PageLinkWrapper
@@ -159,11 +152,17 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             hasNotifications={!!notifications}
             background={background}
         >
+            {(isOldLkPage || isExternalPage) && isVertical && (
+                <LinkIcon>
+                    {isOldLkPage && <FiArrowLeftCircle title="Раздел в старом ЛК" />}
+                    {isExternalPage && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
+                </LinkIcon>
+            )}
             <div className="outside">
                 <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
-                <b>{getShortStirng(getHyphenatedTitle(title, maxFirstWordLength), maxWordLength)}</b>
+                <b title={title}>{title}</b>
                 {!!notifications && (
                     <span className="notifications-title">
                         {notifications}{' '}
@@ -184,7 +183,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                         width="80px"
                         align="center"
                         textColor="var(--red)"
-                        background="var(--schedule)"
+                        background="var(--block)"
                         onClick={() => deletePageFromHome(id, settings)}
                     />
                 ) : (
@@ -194,7 +193,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                         width="80px"
                         textColor="var(--green)"
                         align="center"
-                        background="var(--schedule)"
+                        background="var(--block)"
                         onClick={() => addPageToHome(id, settings)}
                     />
                 )

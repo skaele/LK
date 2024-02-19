@@ -5,4 +5,8 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    justify-content: center;
+    @media (max-width: 800px) {
+        min-height: 40vh;
+    }
 `

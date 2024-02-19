@@ -8,8 +8,24 @@ export const getAddPEStudentRegulationPoints = (model: AddStudentRegulationPoint
         ) {
           success
           errors {
-            __typename
+            ... on Error {
+              message
+            }
           }
         }
       }`
+}
+
+export const getRemovePEStudentRegulationPoints = (id: string) => {
+    return `mutation RemoveStudentRegulationPoints {
+      deleteStandardPoints(input: { historyId: ${id} }) {
+        success
+        errors {
+          ... on Error {
+            message
+          }
+        }
+      }
+    }
+    `
 }

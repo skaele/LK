@@ -4,6 +4,11 @@ import { Direction } from './types'
 
 export const TooltipWrapper = styled.div<{ direction: Direction }>`
     position: relative;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: ${({ direction }) => (direction === 'left' ? 'row-reverse' : 'row')};
 
     &:hover > div {
         transform: ${({ direction }) => findPosition(direction)};

@@ -16,7 +16,7 @@ const sendForm = async <T>(
     const data = prepareFormData<T>(form)
 
     try {
-        await post({ ...data, formId: formId })
+        formId ? await post({ ...data, formId: formId }) : await post({ ...data })
         // await post(data)
         setLoading(false)
         setCompleted({ completed: true })

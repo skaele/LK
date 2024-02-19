@@ -1,6 +1,6 @@
 import { Colors, FileFormats } from '@shared/constants'
 import { Button, Divider, FileLink, Message } from '@ui/atoms'
-import Checkbox from '@ui/atoms/checkbox'
+import Checkbox from '@ui/checkbox'
 import FileInput from '@ui/file-input'
 import React from 'react'
 import { FiAlertCircle, FiInfo, FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
@@ -29,7 +29,8 @@ const InputArea = ({
     collapsed,
     links,
     specialFieldsNameConfig,
-}: IInputArea & { setData: SetData; divider?: boolean }) => {
+    defaultOpenArea = true,
+}: IInputArea & { setData: SetData; divider?: boolean; defaultOpenArea?: boolean }) => {
     //TODO: rewrite, this hook binds the inputs and their wrapper too much, so I can't quickly rewrite
     const {
         openArea,
@@ -51,6 +52,7 @@ const InputArea = ({
         optional,
         collapsed,
         confirmed,
+        defaultOpenArea,
     })
     return (
         <>

@@ -1,18 +1,18 @@
-import React from 'react'
 import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
 import { pEStudentModel } from '@entities/pe-student/model'
 import { PEStudent } from '@entities/pe-student/types'
+import { PEStudentsFilter } from '@features/pe-students-filter'
+import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
 import Pagination from '@shared/ui/pagination'
 import Search from '@shared/ui/search'
 import Table from '@shared/ui/table'
 import { useUnit } from 'effector-react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useModal } from 'widgets'
 import { pEStudentIsExamModel, pEStudentSearchModel } from '../model'
-import { peStudentColumns, examPeStudentColumns } from './constants'
-import { TableWrapper, Wrapper } from './styled'
-import { PEStudentsFilter } from '@features/pe-students-filter'
-import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
+import { examPeStudentColumns, peStudentColumns } from './constants'
+import { pageLoaded } from './model'
+import { FiltersWrapper, TableWrapper, Wrapper } from './styled'
 
 export const StudentsList = () => {
     const { open } = useModal()
@@ -27,24 +27,22 @@ export const StudentsList = () => {
     })
 
     useEffect(() => {
-        pEStudentModel.events.load()
+        pageLoaded()
     }, [])
 
     return (
         <Wrapper>
             <TableWrapper>
-                <Search value={search} setValue={pEStudentSearchModel.events.update} />
-                <PEStudentsFilter />
+                <FiltersWrapper>
+                    <Search value={search} setValue={pEStudentSearchModel.events.update} size={'big'} />
+                    <PEStudentsFilter />
+                </FiltersWrapper>
                 <Table
                     loading={loading}
                     data={students}
                     columns={!isExam ? peStudentColumns : examPeStudentColumns}
-                    onRowClick={({ studentGuid }) => {
-                        open(
-                            <PEStudentModal
-                                student={students.find((s) => s.studentGuid === studentGuid) as PEStudent}
-                            />,
-                        )
+                    onRowClick={(student) => {
+                        open(<PEStudentModal student={student as PEStudent} />, (student as PEStudent).fullName)
                     }}
                 />
                 <Pagination

@@ -21,7 +21,6 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 required: true,
                 value: dataUserApplication.phone,
             },
-
             {
                 title: 'Email',
                 type: 'email',

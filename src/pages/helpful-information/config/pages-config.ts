@@ -162,6 +162,11 @@ const pages: HelpfulPages = [
                 title: 'Безопасность',
                 links: [
                     {
+                        title: 'Действия работников и обучающихся при вооруженном нападении на учебный корпус (антитеррористическая защищенность)',
+                        visible: 'all',
+                        href: 'https://youtu.be/cH7-sC7kRwc',
+                    },
+                    {
                         title: 'Если оказались на территории вуза в момент наступившей чрезвычайной ситуации',
                         visible: 'all',
                         href: 'https://e.mospolytech.ru/old/storage/files/notes/Metodicheskie_ukazaniya_i_pamyatki_2_Esli_okazalis_na_territorii_vuza_v_moment_nastupivshej_chrezvychajnoj_situatsii.pdf',
@@ -174,7 +179,7 @@ const pages: HelpfulPages = [
                     {
                         title: 'Памятка студента по действиям в экстремальных ситуациях',
                         visible: 'all',
-                        href: 'https://e.mospolytech.ru/old/storage/files/notes/Metodicheskie_ukazaniya_i_pamyatki_4_Pamyatka_studenta_po_dejstviyam_v_ekstremalnyh_situatsiyah.pdf',
+                        href: 'https://e.mospolytech.ru/old/storage/files/Metodicheskie_ukazaniya_i_pamyatki_4_Pamyatka_studenta_po_dejstviyam_v_ekstremalnyh_situatsiyah.pdf',
                     },
                     {
                         title: 'Алгоритм действий при возникновении паники в толпе или в месте массового пребывания людей',

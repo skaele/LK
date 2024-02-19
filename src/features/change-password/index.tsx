@@ -1,7 +1,7 @@
 import { changePassword } from '@shared/api/user-api'
 import useFormValidation from '@shared/lib/hooks/use-form-validation'
 import { AnimatedCheck, Button, Input, SubmitButton, Title } from '@shared/ui/atoms'
-import Checkbox from '@shared/ui/atoms/checkbox'
+import Checkbox from '@shared/ui/checkbox'
 import List from '@shared/ui/list'
 import { Message } from '@shared/ui/message'
 import ProgressBar from '@shared/ui/progress-bar'
@@ -95,7 +95,7 @@ const ChangePassword = () => {
                         width="100%"
                         text="Сгенерировать пароль"
                         onClick={handleGeneratePassword}
-                        background="var(--scheduleBg)"
+                        background="var(--theme-2)"
                     />
                 )}
                 {isActive && (

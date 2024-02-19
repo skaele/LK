@@ -11,9 +11,19 @@ interface Props {
     setData: React.Dispatch<React.SetStateAction<IInputArea>>
     collapsed?: boolean
     confirmed?: boolean
+    defaultOpenArea?: boolean
 }
 
-const useInputArea = ({ documents, optionalCheckbox, data, setData, optional, collapsed, confirmed }: Props) => {
+const useInputArea = ({
+    documents,
+    optionalCheckbox,
+    data,
+    setData,
+    optional,
+    collapsed,
+    confirmed,
+    defaultOpenArea,
+}: Props) => {
     const [changeInputArea, setChangeInputArea] = useState(confirmed === undefined)
     const [openArea, setOpenArea] = useState(!collapsed ? true : false)
     const [included, setIncluded] = useState(false)
@@ -197,7 +207,7 @@ const useInputArea = ({ documents, optionalCheckbox, data, setData, optional, co
         if (!included && optional) {
             setOpenArea(false)
         } else {
-            setOpenArea(!collapsed ? true : false)
+            setOpenArea(collapsed ? !collapsed : !!defaultOpenArea)
         }
     }, [included, collapsed])
 

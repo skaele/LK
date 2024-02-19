@@ -35,7 +35,6 @@ const ClickField = styled.div<{ right?: string; left?: string }>`
     justify-content: center;
     align-items: center;
     width: 25%;
-    /* background: red; */
     z-index: 3;
     opacity: 0;
 
@@ -77,6 +76,10 @@ const Story = () => {
 
     const [playing, setPlaying] = useState(true)
     const page = pages[currentPage]
+
+    if (pages.length === 0) {
+        return null
+    }
 
     return (
         <ModalWrapper isOpen={isOpen}>

@@ -7,14 +7,14 @@ import { Body, Header, Search, Footer } from './ui'
 
 const TableWrapper = styled.div`
     width: 100%;
-    box-shadow: var(--schedule-shadow);
+    box-shadow: var(--block-shadow);
     border-radius: var(--brLight);
     color: var(--text);
-    background: var(--form);
+    background: var(--block-content);
     overflow: hidden;
 `
 
-const Table = ({ columns, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
+const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
     const {
         sort,
         setSort,
@@ -53,6 +53,7 @@ const Table = ({ columns, data, maxOnPage, onRowClick, footer, loading = false }
                 onRowClick={onRowClick}
                 filter={filter}
                 columns={columns}
+                columnsExtended={columnsExtended}
                 data={resultData}
                 maxOnPage={maxOnPage}
             />

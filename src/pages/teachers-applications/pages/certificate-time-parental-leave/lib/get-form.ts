@@ -11,14 +11,14 @@ const getForm = (data: UserApplication): IInputArea => {
         data: [
             ...getBasicFieldsApplicationTeacher(data),
             {
-                title: 'Комментарий к заявке',
+                title: 'Текст заявки',
                 type: 'textarea',
                 fieldName: 'commentary',
                 value: '',
                 editable: true,
             },
             ...getMethodObtainingFields(),
-            ...getTeacherSubdivisions(),
+            ...getTeacherSubdivisions('buhg'),
             ...getAddressFields(),
         ],
         documents: { files: [], fieldName: 'docs', maxFiles: 4, required: false },

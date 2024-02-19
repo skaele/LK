@@ -1,7 +1,12 @@
-import React from 'react'
-import { isProduction } from '@shared/constants'
+import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
+import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 import PageIsNotReady from '@pages/page-is-not-ready'
+import PaymentsPage from '@pages/payments'
+import { User } from '@shared/api/model'
+import { isProduction } from '@shared/constants'
+import React from 'react'
 import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
@@ -15,9 +20,11 @@ import {
     USEFUL_INFO_ROUTE,
 } from './general-routes'
 import {
+    PhysicalEducationStudent,
     AcademicLeaveAccommodationPage,
     AcadPerformance,
     AccommodationCorrespondenceFormPage,
+    AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
     ApplicationForCertificateOfAttendance,
     ApplicationForFinancialAssistance,
@@ -29,6 +36,7 @@ import {
     ApplicationProvisionAcademicLeave,
     ApplicationSocialAgencies,
     ApplicationsPage,
+    ArbitraryRequestPage,
     ChangingPersonalData,
     ClarificationOfPassportDataApplication,
     DormitoryPage,
@@ -36,26 +44,21 @@ import {
     FinancialSupport,
     IncreasedStateAcademicScholarship,
     MilitaryRegistrationCard,
+    MilitaryRegistrationDocuments,
     PaymentRecipient,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
     RelocationInsideHostelPage,
     RelocationToAnotherHostelPage,
-    AccommodationForGraduatesPage,
     RestoringTheMagneticPass,
     RetakeForDiploma,
     StateAccreditation,
+    StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
-    ArbitraryRequestPage,
-    MilitaryRegistrationDocuments,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
-import { User } from '@shared/api/model'
-import PaymentsPage from '@pages/payments'
-import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
-import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -66,6 +69,7 @@ export const DORMITORY = '/dormitory'
 //hidden routes
 export const CLARIFICATION_OF_PASSPORT_DATA_ROUTE = APPLICATIONS_ROUTE + '/clarification-of-passport-data'
 export const ARBITRARY_REQUEST_ROUTE = APPLICATIONS_ROUTE + '/arbitrary-request'
+export const STUDENT_EMPLOYMENT_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
 export const SOCIAL_SCOLLARSHIP = APPLICATIONS_ROUTE + '/social-scollarship'
 export const CERTIFICATE_OF_ATTENDANCE = APPLICATIONS_ROUTE + '/certificate-of-attendance'
 export const SOCIAL_AGENCIES = APPLICATIONS_ROUTE + '/social-agencies'
@@ -94,8 +98,10 @@ export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
 export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
 export const HOLIDAYS_AFTER_TRAINING = APPLICATIONS_ROUTE + '/holidays-after-training'
 export const PROVISION_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/provision-academic-leave'
+export const EXIT_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/exit-academic-leave'
 export const INDEPENDENTLY_DEDUCTED = APPLICATIONS_ROUTE + '/independently-deducted'
 export const EXTENSION_ATTESTATION = APPLICATIONS_ROUTE + '/extension-attestation'
+export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
@@ -116,7 +122,7 @@ export const privateRoutes: () => IRoutes = () => ({
     ...generalRoutes,
     payments: {
         id: 'payments',
-        title: 'Договоры и оплаты',
+        title: 'Договоры и оплаты',
         icon: <BiRuble />,
         path: PAYMENTS_ROUTE,
         Component: PaymentsPage,
@@ -127,7 +133,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     dormitory: {
         id: 'dormitory',
-        title: 'Список ожидания на заселение в общежитие',
+        title: 'Список ожидания на заселение в общежитие',
         icon: <MdOutlineBedroomChild />,
         path: DORMITORY,
         Component: DormitoryPage,
@@ -146,6 +152,19 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
         keywords: ['оценки', 'экзамены', 'зачеты'],
+    },
+    'physical-education': {
+        id: 'physical-education',
+        title: 'Физическая культура',
+        icon: <FiFileText />,
+        color: 'lightGreen',
+        path: PHYSICAL_EDUCATION_STUDENT,
+        pageSize: 'big',
+        Component: PhysicalEducationStudent,
+        isTemplate: false,
+        isNew: true,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['физра', 'физическая культура'],
     },
     'project-activity': {
         id: 'project-activity',
@@ -171,7 +190,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     'application-for-superior-room': {
         id: 'application-for-superior-room',
-        title: 'Заявка на комнату повышенной комфортности',
+        title: 'Заявка на комнату повышенной комфортности',
         icon: <MdOutlineBedroomChild />,
         path: APPLICATION_FOR_SUPERIOR_ROOM_ROUTE,
         Component: ApplicationForSuperiorRoom,
@@ -204,6 +223,20 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: <FiBriefcase />,
         path: ARBITRARY_REQUEST_ROUTE,
         Component: ArbitraryRequestPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'student-employment': {
+        id: 'student-employment',
+        title: 'Трудоустройство студентов',
+        icon: <FiBriefcase />,
+        path: STUDENT_EMPLOYMENT_ROUTE,
+        Component: isProduction ? ApplicationRedirect : StudentEmploymentPage,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',
@@ -364,14 +397,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение внутри общежития',
         icon: <BiIdCard />,
         path: RELOCATION_INSIDE_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение внутри общежития будет осуществляться с 01.10.2023"
-                  />
-              )
-            : RelocationInsideHostelPage,
+        Component: RelocationInsideHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -384,14 +410,15 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение в другое общежитие завершен 15.06.2023"
-                  />
-              )
-            : RelocationToAnotherHostelPage,
+        Component:
+            Date.now() > new Date('2024-07-01').getTime()
+                ? () => (
+                      <PageIsNotReady
+                          isRedirectButtonVisible={false}
+                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
+                      />
+                  )
+                : RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -585,6 +612,20 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: <BiIdCard />,
         path: PROVISION_ACADEMIC_LEAVE,
         Component: ApplicationProvisionAcademicLeave,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'exit-academic-leave': {
+        id: 'exit-academic-leave',
+        title: 'Выход из академического отпуска',
+        icon: <BiIdCard />,
+        path: EXIT_ACADEMIC_LEAVE,
+        Component: ApplicationExitAcademicLeave,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

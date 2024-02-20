@@ -47,7 +47,8 @@ import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
 const getTeachersSectionLinks = () => {
     return [
         {
-            title: 'Цифровые сервисы',
+            title: 'Цифровые сервисы (в разработке)',
+            disabled: isProduction,
             links: [
                 { link: CERTIFICATE_OF_WORK_EXPERIENCE, title: 'Справка о стаже работы' },
                 { link: COPY_OF_EMPLOYMENT_RECORD, title: 'Копия трудовой книжки' },
@@ -59,6 +60,7 @@ const getTeachersSectionLinks = () => {
             ],
         },
         {
+            disabled: isProduction,
             title: 'Общее',
             links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
         },
@@ -73,6 +75,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'ИТ-обслуживание',
+            disabled: isProduction,
             links: [
                 { link: GETTING_COMPUTER_EQUIPMENT, title: 'Получение нового компьютерного оборудования' },
                 { link: CONNECTING_COMPUTER, title: 'Подключение компьютера, МФУ, телефона, WiFi' },
@@ -83,7 +86,7 @@ const getTeachersSectionLinks = () => {
             ],
         },
         {
-            title: 'Отдел кадров',
+            title: 'Цифровые сервисы',
             links: [
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
@@ -92,6 +95,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Бухгалтерия',
+            disabled: isProduction,
             links: [
                 { link: PERSONA_INCOME_TAX_REFERENCE, title: 'Справка по форме 2-НДФЛ' },
                 {
@@ -110,6 +114,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Управление студенческого городка',
+            disabled: isProduction,
             links: [
                 { link: LIVING_IN_RESIDENTIAL_PREMISES, title: 'Предоставление права проживания в жилом помещении' },
                 { link: GUESTS_ACCOMODATION_ON_CAMPUS, title: 'Временное размещение гостей в студгородке' },
@@ -120,6 +125,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Бюро пропусков',
+            disabled: isProduction,
             links: [
                 { link: ISSUANCE_OF_PASS, title: 'Выдача пропуска (повторная)' },
                 { link: GUEST_PASS, title: 'Заказ гостевого пропуска' },
@@ -127,22 +133,26 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Отдел контроля и делопроизводства',
+            disabled: isProduction,
             links: [
                 { link: CERTIFICATION_AND_ISSUANCE_OF_DOCS, title: 'Заверение и выдача копий внутренних документов' },
             ],
         },
         {
             title: 'Многофункциональный центр',
+            disabled: isProduction,
             links: [
                 { link: ISSUANCE_OF_LICENSES, title: 'Выдача лицензий и свидетельств о государственной аккредитации' },
             ],
         },
         {
             title: 'Экспедиция отдела контроля и делопроизводства',
+            disabled: isProduction,
             links: [{ link: COURIER, title: 'Курьер' }],
         },
         {
             title: 'Мобилизационный отдел',
+            disabled: isProduction,
             links: [
                 {
                     link: DEFERMENT_FROM_CONSCRIPTION,
@@ -156,6 +166,7 @@ const getTeachersSectionLinks = () => {
         },
         {
             title: 'Прочее',
+            disabled: isProduction,
             links: [
                 {
                     link: ARBITRARY_REQUEST,

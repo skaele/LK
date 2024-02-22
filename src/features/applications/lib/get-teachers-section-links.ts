@@ -49,127 +49,139 @@ const getTeachersSectionLinks = () => {
         {
             title: 'Цифровые сервисы',
             links: [
-                { link: CERTIFICATE_OF_WORK_EXPERIENCE, title: 'Справка о стаже работы' },
-                { link: COPY_OF_EMPLOYMENT_RECORD, title: 'Копия трудовой книжки' },
-                { link: COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE, title: 'Копии документов из личного дела' },
-                {
-                    link: WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
-                    title: 'Справка о работе на условиях внешнего совместительства для внесения стажа в трудовую книжку',
-                },
-            ],
-        },
-        {
-            title: 'Общее',
-            links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
-        },
-        {
-            title: 'Общее (в разработке)',
-            disabled: isProduction,
-            links: [
-                { link: PHONEBOOK, title: 'Форма телефонного справочника' },
-
-                { link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' },
-            ],
-        },
-        {
-            title: 'ИТ-обслуживание',
-            links: [
-                { link: GETTING_COMPUTER_EQUIPMENT, title: 'Получение нового компьютерного оборудования' },
-                { link: CONNECTING_COMPUTER, title: 'Подключение компьютера, МФУ, телефона, WiFi' },
-                { link: PRINTER_MAINTENANCE, title: 'Обслуживание принтеров, МФУ' },
-                { link: QUESTION_SED, title: 'Вопрос по СЭД Directum и 1С' },
-                { link: QUESTION_PERSONAL_ACCOUNT, title: 'Вопрос по Личному кабинету' },
-                { link: OTHER_IT_SERVICES, title: 'Прочее ИТ-обслуживание' },
-            ],
-        },
-        {
-            title: 'Отдел кадров',
-            links: [
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
             ],
         },
-        {
-            title: 'Бухгалтерия',
-            links: [
-                { link: PERSONA_INCOME_TAX_REFERENCE, title: 'Справка по форме 2-НДФЛ' },
-                {
-                    link: PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
-                    title: 'Справка о выплате (не выплате) единовременного пособия на рождение ребенка',
-                },
-                {
-                    link: CERTIFICATE_TIME_PARENTAL_LEAVE,
-                    title: 'Справка об отпуске по уходу за ребенком до 1,5 и 3 лет',
-                },
-                {
-                    link: PAYMENT_FOR_CHILD_CARE,
-                    title: 'Справка о ежемесячных выплатах сотрудника, находящегося в отпуске по уходу за ребенком (декрет)',
-                },
-            ],
-        },
-        {
-            title: 'Управление студенческого городка',
-            links: [
-                { link: LIVING_IN_RESIDENTIAL_PREMISES, title: 'Предоставление права проживания в жилом помещении' },
-                { link: GUESTS_ACCOMODATION_ON_CAMPUS, title: 'Временное размещение гостей в студгородке' },
-                { link: GUESTS_PASSAGE_TO_CAMPUS, title: 'Проход гостей на территорию студенческого городка' },
-                { link: RELOCATION, title: 'Переселение' },
-                { link: TERMINATION_OF_AGREEMENT, title: 'Расторжение договора найма жилого помещения' },
-            ],
-        },
-        {
-            title: 'Бюро пропусков',
-            links: [
-                { link: ISSUANCE_OF_PASS, title: 'Выдача пропуска (повторная)' },
-                { link: GUEST_PASS, title: 'Заказ гостевого пропуска' },
-            ],
-        },
-        {
-            title: 'Отдел контроля и делопроизводства',
-            links: [
-                { link: CERTIFICATION_AND_ISSUANCE_OF_DOCS, title: 'Заверение и выдача копий внутренних документов' },
-            ],
-        },
-        {
-            title: 'Многофункциональный центр',
-            links: [
-                { link: ISSUANCE_OF_LICENSES, title: 'Выдача лицензий и свидетельств о государственной аккредитации' },
-            ],
-        },
-        {
-            title: 'Экспедиция отдела контроля и делопроизводства',
-            links: [{ link: COURIER, title: 'Курьер' }],
-        },
-        {
-            title: 'Мобилизационный отдел',
-            links: [
-                {
-                    link: DEFERMENT_FROM_CONSCRIPTION,
-                    title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
-                },
-                {
-                    link: CERTIFIED_COPIES_OF_MILITARY_DOCS,
-                    title: 'Заверенные копии документов по воинскому учету из личного дела',
-                },
-            ],
-        },
-        {
-            title: 'Прочее',
-            links: [
-                {
-                    link: ARBITRARY_REQUEST,
-                    title: 'Произвольный запрос',
-                },
-                {
-                    link: UNION_ORGANIZATION,
-                    title: 'Вступить в Профсоюз',
-                    isExternalLink: true,
-                },
-            ],
-        },
+        ...getInDevelopmentStaffLinks(),
     ]
 }
+
+const getInDevelopmentStaffLinks = () => [
+    {
+        title: 'Цифровые сервисы (в разработке)',
+        disabled: isProduction,
+        links: [
+            { link: CERTIFICATE_OF_WORK_EXPERIENCE, title: 'Справка о стаже работы' },
+            { link: COPY_OF_EMPLOYMENT_RECORD, title: 'Копия трудовой книжки' },
+            { link: COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE, title: 'Копии документов из личного дела' },
+            {
+                link: WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
+                title: 'Справка о работе на условиях внешнего совместительства для внесения стажа в трудовую книжку',
+            },
+        ],
+    },
+    {
+        disabled: isProduction,
+        title: 'Общее',
+        links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
+    },
+    {
+        title: 'Общее (в разработке)',
+        disabled: isProduction,
+        links: [
+            { link: PHONEBOOK, title: 'Форма телефонного справочника' },
+
+            { link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' },
+        ],
+    },
+    {
+        title: 'ИТ-обслуживание',
+        disabled: isProduction,
+        links: [
+            { link: GETTING_COMPUTER_EQUIPMENT, title: 'Получение нового компьютерного оборудования' },
+            { link: CONNECTING_COMPUTER, title: 'Подключение компьютера, МФУ, телефона, WiFi' },
+            { link: PRINTER_MAINTENANCE, title: 'Обслуживание принтеров, МФУ' },
+            { link: QUESTION_SED, title: 'Вопрос по СЭД Directum и 1С' },
+            { link: QUESTION_PERSONAL_ACCOUNT, title: 'Вопрос по Личному кабинету' },
+            { link: OTHER_IT_SERVICES, title: 'Прочее ИТ-обслуживание' },
+        ],
+    },
+    {
+        title: 'Бухгалтерия',
+        disabled: isProduction,
+        links: [
+            { link: PERSONA_INCOME_TAX_REFERENCE, title: 'Справка по форме 2-НДФЛ' },
+            {
+                link: PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
+                title: 'Справка о выплате (не выплате) единовременного пособия на рождение ребенка',
+            },
+            {
+                link: CERTIFICATE_TIME_PARENTAL_LEAVE,
+                title: 'Справка об отпуске по уходу за ребенком до 1,5 и 3 лет',
+            },
+            {
+                link: PAYMENT_FOR_CHILD_CARE,
+                title: 'Справка о ежемесячных выплатах сотрудника, находящегося в отпуске по уходу за ребенком (декрет)',
+            },
+        ],
+    },
+    {
+        title: 'Управление студенческого городка',
+        disabled: isProduction,
+        links: [
+            { link: LIVING_IN_RESIDENTIAL_PREMISES, title: 'Предоставление права проживания в жилом помещении' },
+            { link: GUESTS_ACCOMODATION_ON_CAMPUS, title: 'Временное размещение гостей в студгородке' },
+            { link: GUESTS_PASSAGE_TO_CAMPUS, title: 'Проход гостей на территорию студенческого городка' },
+            { link: RELOCATION, title: 'Переселение' },
+            { link: TERMINATION_OF_AGREEMENT, title: 'Расторжение договора найма жилого помещения' },
+        ],
+    },
+    {
+        title: 'Бюро пропусков',
+        disabled: isProduction,
+        links: [
+            { link: ISSUANCE_OF_PASS, title: 'Выдача пропуска (повторная)' },
+            { link: GUEST_PASS, title: 'Заказ гостевого пропуска' },
+        ],
+    },
+    {
+        title: 'Отдел контроля и делопроизводства',
+        disabled: isProduction,
+        links: [{ link: CERTIFICATION_AND_ISSUANCE_OF_DOCS, title: 'Заверение и выдача копий внутренних документов' }],
+    },
+    {
+        title: 'Многофункциональный центр',
+        disabled: isProduction,
+        links: [{ link: ISSUANCE_OF_LICENSES, title: 'Выдача лицензий и свидетельств о государственной аккредитации' }],
+    },
+    {
+        title: 'Экспедиция отдела контроля и делопроизводства',
+        disabled: isProduction,
+        links: [{ link: COURIER, title: 'Курьер' }],
+    },
+    {
+        title: 'Мобилизационный отдел',
+        disabled: isProduction,
+        links: [
+            {
+                link: DEFERMENT_FROM_CONSCRIPTION,
+                title: 'Заполнить личную карточку по воинскому учету для получения отсрочки от призыва на военную службу',
+            },
+            {
+                link: CERTIFIED_COPIES_OF_MILITARY_DOCS,
+                title: 'Заверенные копии документов по воинскому учету из личного дела',
+            },
+        ],
+    },
+    {
+        title: 'Прочее',
+        disabled: isProduction,
+        links: [
+            {
+                link: ARBITRARY_REQUEST,
+                title: 'Произвольный запрос',
+            },
+            {
+                link: UNION_ORGANIZATION,
+                title: 'Вступить в Профсоюз',
+                isExternalLink: true,
+            },
+        ],
+    },
+]
+
 const getTeachersHRSectionLinks = () => {
     return [
         {

@@ -54,11 +54,11 @@ const getTeachersSectionLinks = () => {
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
             ],
         },
-        ...getInDevelopmentEmployeeLinks(),
+        ...getInDevelopmentStaffLinks(),
     ]
 }
 
-const getInDevelopmentEmployeeLinks = () => [
+const getInDevelopmentStaffLinks = () => [
     {
         title: 'Цифровые сервисы (в разработке)',
         disabled: isProduction,

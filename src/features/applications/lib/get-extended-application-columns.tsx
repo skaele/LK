@@ -3,11 +3,11 @@ import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 import { Colors } from '@shared/constants'
 import { ApplicationFileOutput } from '@shared/api/model'
-import getApplicationsColumns from './get-applications-columns'
+import { getCommonApplicationsColumns } from './get-applications-columns'
 
 export const getExtendedApplicationsColumns = (): ColumnProps[] => {
     return [
-        ...getApplicationsColumns(),
+        ...getCommonApplicationsColumns(),
         {
             title: 'Файлы для скачивания',
             align: 'center',

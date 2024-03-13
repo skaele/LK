@@ -42,4 +42,5 @@ export interface BufferMedicalExaminationForm {
     employeeGuid: string
     start: string
     end: string
+    files: (File[] | undefined)[]
 }

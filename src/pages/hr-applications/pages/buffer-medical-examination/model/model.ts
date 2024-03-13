@@ -33,7 +33,23 @@ const loadBufferMedicalExaminationFx = createEffect(async () => {
 
 const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalExaminationForm) => {
     try {
-        const result = await $hrApi.post<BufferMedicalExamination>('MedicalExamination.AddMedicalExamination', data)
+        const { files } = data
+        const formData = new FormData()
+
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== 'files') formData.set(key, value)
+        }
+        if (!!files[0]) {
+            for (let i = 0; i < files[0].length; i++) {
+                formData.set('files', files[0][i])
+            }
+        }
+
+        const result = await $hrApi.post(`MedicalExamination.AddMedicalExamination`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
 
         if (result.data.isError) {
             throw new Error()

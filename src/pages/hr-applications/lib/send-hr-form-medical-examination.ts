@@ -1,5 +1,6 @@
 import { IInputArea } from '@ui/input-area/model'
 import { bufferMedicalExaminationModel } from '../pages/buffer-medical-examination/model'
+import { IndexedProperties } from '@shared/models/indexed-properties'
 
 const SendHrFormMedicalExamination = async (
     employeeId: string,
@@ -48,12 +49,17 @@ const SendHrFormMedicalExamination = async (
         })
         .flat()
 
-    const result = Object.assign({}, ...form)
+    const files = inputAreas.map((area) => {
+        return area.documents?.files
+    })
+
+    const result = Object.assign({}, ...form, ...files)
 
     const response = await bufferMedicalExaminationModel.effects.sendBufferMedicalExaminationFx({
         employeeGuid: result.jobGuid,
         start: result.extra_examination_date,
         end: result.isRetirement ? result.extra_examination_date_2 : result.extra_examination_date,
+        files,
     })
 
     !response?.isError && setCompleted(true)

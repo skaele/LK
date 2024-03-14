@@ -32,6 +32,14 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 required: true,
             },
             {
+                title: 'по',
+                type: 'date',
+                fieldName: 'time-to',
+                value: '',
+                editable: true,
+                required: true,
+            },
+            {
                 title: 'Комментарий к заявке',
                 type: 'textarea',
                 fieldName: 'comment',
@@ -39,6 +47,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 editable: true,
             },
         ],
+        hint: 'Точные сроки предоставления каникул уточняйте в своем отделении Центра по работе со студентами',
         documents: { files: [], fieldName: 'docs', maxFiles: 6, required: false },
     }
 }

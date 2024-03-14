@@ -33,7 +33,7 @@ const Router = () => {
             applicationsModel.effects.getUserDataApplicationsFx()
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
-                applicationsModel.effects.getWorkerPosts()
+                // applicationsModel.effects.getWorkerPosts()
                 loadDivisions()
             }
             peTeacherModel.events.load()

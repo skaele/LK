@@ -1,4 +1,4 @@
-import { IColors } from '@shared/constants'
+import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
@@ -22,7 +22,6 @@ import {
     Home,
     InstructionsPage,
     LkNotificationsPage,
-    MedicalCertificate,
     MemoFreshmenPage,
     MemoTeacherPage,
     ProfilePage,
@@ -360,16 +359,6 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         show: false,
     },
-    'medical-certificate': {
-        id: 'medical-certificate',
-        title: 'Предоставление медицинских справок',
-        icon: <BsFileMedical />,
-        path: MEDICAL_CERTIFICATE,
-        Component: MedicalCertificate,
-        color: 'blue',
-        isTemplate: false,
-        group: 'GENERAL',
-    },
     vaccination: {
         id: 'vaccination',
         title: 'Вакцинация',
@@ -387,6 +376,7 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
+        show: !isProduction,
     },
 }
 

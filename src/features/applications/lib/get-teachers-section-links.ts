@@ -33,7 +33,6 @@ import {
     PAYMENT_FOR_CHILD_CARE,
     PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
     PERSONA_INCOME_TAX_REFERENCE,
-    PHONEBOOK,
     PRINTER_MAINTENANCE,
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
@@ -80,11 +79,7 @@ const getInDevelopmentStaffLinks = () => [
     {
         title: 'Общее (в разработке)',
         disabled: isProduction,
-        links: [
-            { link: PHONEBOOK, title: 'Форма телефонного справочника' },
-
-            { link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' },
-        ],
+        links: [{ link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' }],
     },
     {
         title: 'ИТ-обслуживание',

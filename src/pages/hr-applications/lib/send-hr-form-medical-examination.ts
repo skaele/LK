@@ -1,6 +1,5 @@
 import { IInputArea } from '@ui/input-area/model'
 import { bufferMedicalExaminationModel } from '../pages/buffer-medical-examination/model'
-import { IndexedProperties } from '@shared/models/indexed-properties'
 
 const SendHrFormMedicalExamination = async (
     employeeId: string,

@@ -28,12 +28,6 @@ export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
             render: (value) => value?.status?.applicationApporvalStatus || '-',
         },
         {
-            title: 'Категория',
-            field: 'vacation',
-            align: 'center',
-            render: () => 'Тут должна быть категория',
-        },
-        {
             title: 'Перенесен',
             field: 'vacation',
             align: 'center',

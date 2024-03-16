@@ -11,8 +11,12 @@ import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import PageBlock from '@shared/ui/page-block'
+import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
+import { VacationList } from './vacation-list'
+import { getJob } from './lib/get-job'
 
 const HolidayPlanning = () => {
+    const [jobForm, setJobForm] = useState<IInputArea | null>(null)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
@@ -30,10 +34,10 @@ const HolidayPlanning = () => {
 
     useEffect(() => {
         if (!!dataUserApplication && !!dataWorkerApplication && !loading) {
+            setJobForm(getJob(dataUserApplication, jobTitle, setJobTitle, setJobGuid))
             setForm(
                 getForm(
                     dataUserApplication,
-                    dataWorkerApplication,
                     startDate,
                     setStartDate,
                     endDate,
@@ -42,10 +46,7 @@ const HolidayPlanning = () => {
                     setCollType,
                     holidayType,
                     setHolidayType,
-                    jobTitle,
-                    setJobTitle,
                     jobGuid,
-                    setJobGuid,
                 ),
             )
         }
@@ -57,11 +58,34 @@ const HolidayPlanning = () => {
         }
     }, [form])
 
+    const [openArea, setOpenArea] = useState(false)
+    const [included, setIncluded] = useState(false)
+
     return (
         <PageBlock>
-            <BaseApplicationWrapper isDone={isDone}>
-                {!!form && !!setForm && (
+            <BaseApplicationWrapper isDone={isDone} flexDirection="column">
+                {!!form && !!setForm && !!jobForm && !!setJobForm && (
                     <FormBlock>
+                        <InputAreaWrapper openArea={openArea}>
+                            <AreaTitle
+                                title={'График отпусков'}
+                                included={included}
+                                optional={false}
+                                setOpenArea={setOpenArea}
+                                setIncluded={setIncluded}
+                                collapsed={false}
+                                openArea={openArea}
+                            />
+                            <div className="inputs">
+                                <VacationList jobGuid={jobGuid} />
+                            </div>
+                        </InputAreaWrapper>
+                        <InputArea
+                            {...jobForm}
+                            collapsed={isDone}
+                            setData={setJobForm as any}
+                            specialFieldsNameConfig={specialFieldsName}
+                        />
                         <InputArea
                             {...form}
                             collapsed={isDone}

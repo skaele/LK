@@ -76,7 +76,7 @@ const Vacation = (props: VacationSchedule) => {
 
 export default Vacation
 
-function formFooterField(field?: number) {
+export function formFooterField(field?: number) {
     return `Всего: ${field} ${getCorrectWordForm(Math.trunc(field || 0), RULES)}`
 }
 

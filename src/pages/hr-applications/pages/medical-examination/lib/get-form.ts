@@ -1,5 +1,5 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication, WorkerApplication } from '@api/model'
+import { UserApplication } from '@api/model'
 import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
@@ -7,9 +7,10 @@ import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-defa
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
+    endDate: string | null,
+    setEndDate: React.Dispatch<React.SetStateAction<string | null>>,
     isRetirement: string | null,
     setIsRetirement: React.Dispatch<React.SetStateAction<string | null>>,
     jobTitle: string | null,
@@ -84,9 +85,12 @@ const getForm = (
             {
                 title: 'Второй день отдыха',
                 type: 'date',
-                value: secondDayOff.toISOString().substr(0, 10),
+                value: endDate,
+                onChange: (value) => {
+                    setEndDate(value)
+                },
+                editable: true,
                 fieldName: 'extra_examination_date_2',
-                editable: false,
                 mask: true,
                 required: false,
                 specialType: 'Compensation2',

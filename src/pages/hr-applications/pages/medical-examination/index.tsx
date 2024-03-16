@@ -15,6 +15,7 @@ import PageBlock from '@shared/ui/page-block'
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
+    const [endDate, setEndDate] = useState<string | null>(null)
     const [medicalExaminationDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
     const [jobTitle, setJobTitle] = useState<string | null>(null)
@@ -32,9 +33,10 @@ const MedicalExamination = () => {
             setForm(
                 getForm(
                     dataUserApplication,
-                    dataWorkerApplication,
                     startDate,
                     setStartDate,
+                    endDate,
+                    setEndDate,
                     isRetirement,
                     setIsRetirement,
                     jobTitle,
@@ -54,6 +56,7 @@ const MedicalExamination = () => {
     return (
         <PageBlock>
             <BaseApplicationWrapper isDone={isDone}>
+                {console.log(jobGuid)}
                 {!!form && !!setForm && (
                     <FormBlock>
                         <InputArea

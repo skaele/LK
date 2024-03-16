@@ -164,19 +164,23 @@ const getTeachersHRSectionLinks = () => {
         {
             title: '',
             links: [
-                //{ link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
+                { link: BUFFER_HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска' },
+                { link: BUFFER_MEDICAL_EXAMINATION, title: 'Заявление о диспансеризации' },
+            ],
+        },
+        {
+            title: 'В разработке',
+            links: [
                 //{ link: HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
                 { link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
                 // { link: BUFFER_HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
                 { link: BUFFER_DISMISSAL, title: 'Заявление на увольнение' },
                 { link: BUFFER_HOLIDAY_WORK, title: 'Заявление о привлечении к работе в выходной день' },
-                { link: BUFFER_HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска' },
                 { link: BUFFER_HOLIDAY_TRANSFER, title: 'Заявление о переносе отпуска' },
-                { link: BUFFER_MEDICAL_EXAMINATION, title: 'Заявление о диспансеризации' },
                 { link: BUFFER_WORK_TRANSFER, title: 'Заявление на перевод' },
                 // {
                 //     link: BUFFER_EXTRA_HOLIDAY_COLL,
-                //     title: 'Заявление о предоставлении дополнительного отпуска по коллективному договору',
+                //     title: 'Заявление о прведоставлении дополнительного отпуска по коллективному договору',
                 // },
                 // { link: DISMISSAL, title: 'Заявление на увольнение' },
                 //{ link: HOLIDAY_WORK, title: 'Заявление о привлечении к работе в выходной день' },

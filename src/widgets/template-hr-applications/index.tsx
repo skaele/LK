@@ -78,15 +78,44 @@ const CreateApplicationListWrapper = styled.div`
 `
 
 const LinksList = styled.div`
-    padding: 12px;
+    display: flex;
+    flex-direction: column;
     box-shadow: var(--block-shadow);
     border-radius: 8px;
+    gap: 10px;
     margin: 10px 0;
+    .link-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: var(--block);
+        box-shadow: var(--block-shadow);
+        padding: 10px;
+        border-radius: var(--brLight);
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9em;
+
+            & a {
+                text-decoration: none;
+                color: var(--blue);
+            }
+            .disabled-link {
+                cursor: not-allowed;
+                opacity: 0.5;
+                text-decoration: none;
+                pointer-events: none;
+            }
+        }
+    }
 
     .links {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 10px;
     }
 `
 export interface Section {
@@ -137,6 +166,11 @@ const TeachersHrApplicationsPage = ({}: Props) => {
                         {(foundSections ?? sections).map((section) => {
                             return (
                                 <div className="link-list" key={section.title}>
+                                    {section.title && (
+                                        <Title size={4} align="left" bottomGap>
+                                            {section.title}
+                                        </Title>
+                                    )}
                                     {!section.disabled && (
                                         <div className="links">
                                             {section.links.map((link) =>

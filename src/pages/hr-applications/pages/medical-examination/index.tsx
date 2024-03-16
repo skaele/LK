@@ -56,7 +56,6 @@ const MedicalExamination = () => {
     return (
         <PageBlock>
             <BaseApplicationWrapper isDone={isDone}>
-                {console.log(jobGuid)}
                 {!!form && !!setForm && (
                     <FormBlock>
                         <InputArea

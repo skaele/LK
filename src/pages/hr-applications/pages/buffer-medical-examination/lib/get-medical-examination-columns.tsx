@@ -45,12 +45,13 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             sort: true,
         },
         {
-            title: 'Период',
+            title: 'Дни',
             field: 'medicalExamination',
             align: 'center',
             width: '200px',
             render: (_, data) => {
-                return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
+                if (data?.startDate === data?.endDate) return localizeDate(data?.startDate, 'numeric')
+                return `${localizeDate(data?.startDate, 'numeric')}, ${localizeDate(data?.endDate, 'numeric')}`
             },
         },
         {

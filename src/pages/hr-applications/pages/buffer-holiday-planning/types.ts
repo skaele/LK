@@ -3,4 +3,5 @@ export interface BufferHolidayPlanningForm {
     type: number
     start: string
     end: string
+    files: (File[] | undefined)[]
 }

@@ -50,7 +50,11 @@ const sendHrFormHolidayPlanning = async (
         })
         .flat()
 
-    const result = Object.assign({}, ...form)
+    const files = inputAreas.map((area) => {
+        return area.documents?.files
+    })
+
+    const result = Object.assign({}, ...form, ...files)
 
     if (result.holiday_type == 'Ежегодный (основной) оплачиваемый отпуск') result.holiday_type = 1
     else if (result.holiday_type == 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)')
@@ -63,6 +67,7 @@ const sendHrFormHolidayPlanning = async (
         type: result.holiday_type,
         start: result.holiday_start,
         end: result.holiday_end,
+        files,
     })
 
     !response.isError && setCompleted(true)

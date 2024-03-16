@@ -2,7 +2,38 @@ import { UserApplication, WorkerApplication } from '@api/model'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { isProduction } from '@shared/constants'
 import { IInputArea } from '@ui/input-area/model'
+
+const holidayTypes = isProduction
+    ? [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+      ]
+    : [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 1,
+              title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+          {
+              id: 3,
+              title: 'Отпуск по коллективному договору',
+          },
+      ]
 
 const getForm = (
     dataUserApplication: UserApplication,
@@ -63,24 +94,7 @@ const getForm = (
                     setHolidayType(value)
                 },
                 width: '100%',
-                items: [
-                    {
-                        id: 0,
-                        title: 'Ежегодный (основной) оплачиваемый отпуск',
-                    },
-                    {
-                        id: 1,
-                        title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
-                    },
-                    {
-                        id: 2,
-                        title: 'Отпуск без сохранения заработной платы',
-                    },
-                    {
-                        id: 3,
-                        title: 'Отпуск по коллективному договору',
-                    },
-                ],
+                items: holidayTypes,
             },
             {
                 title: 'Категория для предоставления отпуска',
@@ -181,6 +195,12 @@ const getForm = (
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],
+        documents: {
+            files: [],
+            fieldName: 'files',
+            required: false,
+            allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
+        },
     }
 }
 

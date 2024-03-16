@@ -20,9 +20,32 @@ const loadBufferHolidayPlanningFx = createEffect(async () => {
 sample({ clock: loadBufferHolidayPlanning, target: loadBufferHolidayPlanningFx })
 
 const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlanningForm) => {
-    const result = await $hrApi.post<BufferHoliday>('Vacation.AddVacation', data)
+    try {
+        const { files } = data
+        const formData = new FormData()
 
-    return result.data
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== 'files') formData.set(key, value)
+        }
+        if (!!files[0]) {
+            for (let i = 0; i < files[0].length; i++) {
+                formData.set('files', files[0][i])
+            }
+        }
+
+        const result = await $hrApi.post<BufferHoliday>(`Vacation.AddVacation`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+
+        if (result.data.isError) {
+            throw new Error()
+        }
+        return result.data
+    } catch (error) {
+        throw new Error(error as string)
+    }
 })
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })

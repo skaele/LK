@@ -27,6 +27,7 @@ export const Calendars = () => {
                     <LinkButton
                         onClick={() => null}
                         href={calendarUrls.fiveWorkDays}
+                        target="_blank"
                         textColor="var(--reallyBlue)"
                         text="Подробнее"
                         background="transparent"
@@ -43,6 +44,7 @@ export const Calendars = () => {
                     <LinkButton
                         onClick={() => null}
                         href={calendarUrls.sixWorkDays}
+                        target="_blank"
                         textColor="var(--reallyBlue)"
                         text="Подробнее"
                         background="transparent"

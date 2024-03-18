@@ -342,7 +342,7 @@ export const generalRoutes: IRoutes = {
     },
     phonebook: {
         id: 'phonebook',
-        title: 'Сотрудники (справочник)',
+        title: 'Справочный материал',
         icon: <BiBookReader />,
         path: PHONEBOOK,
         Component: Phonebook,

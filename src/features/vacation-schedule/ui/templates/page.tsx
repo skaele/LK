@@ -56,7 +56,7 @@ const Page = () => {
                     }
                 >
                     <Subtext width="100%" maxWidth="100%">
-                        Производственный календарь на 2023 год
+                        Производственный календарь на 2024 год
                     </Subtext>
                     <List scroll={false} direction="horizontal" gap={12} wrapOnMobile>
                         <Card

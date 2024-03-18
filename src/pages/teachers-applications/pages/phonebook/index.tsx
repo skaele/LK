@@ -5,8 +5,8 @@ import { FiInfo } from 'react-icons/fi'
 import { LinkField } from '@pages/settings/fields'
 import { applicationsModel } from '@entities/applications'
 import { useHistory } from 'react-router'
-import { PHONEBOOK } from '@app/routes/teacher-routes'
 import PhonebookForm from './form'
+import { PHONEBOOK_BUFFER } from '@app/routes/teacher-routes'
 
 const PhonebookPage = () => {
     const [hasPartTime, setHasPartTime] = useState(false)
@@ -34,7 +34,7 @@ const PhonebookPage = () => {
                             key={subdivision.guid_staff}
                             title={subdivision.subdivision + ' (' + subdivision.post + ')'}
                             type="link"
-                            action={() => history.push(PHONEBOOK + '/' + subdivision.guid_staff)}
+                            action={() => history.push(PHONEBOOK_BUFFER + '/' + subdivision.guid_staff)}
                         />
                     ))}
                 </PageBlock>

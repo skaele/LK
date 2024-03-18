@@ -24,6 +24,7 @@ import {
     LkNotificationsPage,
     MemoFreshmenPage,
     MemoTeacherPage,
+    Phonebook,
     ProfilePage,
     ScheduleCurrent,
     // ChatPage,
@@ -73,6 +74,7 @@ export const ALL_STUDENTS_ROUTE = '/all-students'
 export const FILTERED_ALL_STUDENTS_ROUTE = '/all-students/:filter'
 export const FILTERED_ALL_TEACHERS_ROUTE = '/all-teachers/:filter'
 export const ALL_TEACHERS_ROUTE = '/all-teachers'
+export const PHONEBOOK = '/phonebook'
 export const PORTFOLIO_ROUTE = '/portfolio'
 export const DECREIS_DIRECTIVES = '/decreis-directives'
 export const FEEDBACK_ROUTE = '/feedback'
@@ -337,6 +339,18 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
+    },
+    phonebook: {
+        id: 'phonebook',
+        title: 'Сотрудники (справочник)',
+        icon: <BiBookReader />,
+        path: PHONEBOOK,
+        Component: Phonebook,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        pageSize: 'big',
     },
     feedback: {
         id: 'feedback',

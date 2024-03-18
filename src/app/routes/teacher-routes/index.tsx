@@ -128,8 +128,8 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
 export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
-export const PHONEBOOK = APPLICATIONS_ROUTE + '/phonebook'
-export const PHONEBOOK_FORM = APPLICATIONS_ROUTE + '/phonebook/:guid'
+export const PHONEBOOK_BUFFER = APPLICATIONS_ROUTE + '/phonebook-form'
+export const PHONEBOOK_FORM = APPLICATIONS_ROUTE + '/phonebook-form/:guid'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -494,12 +494,12 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         backButtonText: 'Назад к цифровым сервисам',
     },
-    phonebook: {
-        id: 'phonebook',
+    'phonebook-buffer': {
+        id: 'phonebook-buffer',
         title: 'Контактные данные',
         icon: <FiFileText />,
         color: 'blue',
-        path: PHONEBOOK,
+        path: PHONEBOOK_BUFFER,
         Component: PhonebookPage,
         isTemplate: false,
         group: 'COMMUNICATION',
@@ -1033,7 +1033,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
-        fallbackPrevPage: PHONEBOOK,
+        fallbackPrevPage: PHONEBOOK_BUFFER,
     },
     'data-actualization': {
         id: 'data-actualization',

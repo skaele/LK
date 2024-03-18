@@ -18,6 +18,7 @@ interface Props {
 type StyledProps = { $loading: boolean }
 
 const WrapperBlock = styled.div`
+    position: relative;
     width: 100%;
     padding: 10px;
     height: 100%;

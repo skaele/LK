@@ -1,5 +1,7 @@
+import { phonebookModel } from '@entities/phonebook'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
+import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -10,27 +12,18 @@ export type ExpandableItemType = {
     }
 }
 
-export const ExpandableItem = ({
-    item,
-    chosen,
-    setChosen,
-    layer,
-}: {
-    item: ExpandableItemType
-    chosen: string
-    setChosen: (value: string) => void
-    layer: number
-}) => {
+export const ExpandableItem = ({ item, layer }: { item: ExpandableItemType; layer: number }) => {
     const title = Object.keys(item)[0]
     const childrens = Object.keys(item[title])
     const [expanded, setExpanded] = useState(false)
+    const chosen = useUnit(phonebookModel.stores.$chosenSubdivision)
     return (
         <Flex p={`0 0 0 ${(layer - 1) * 15}px`} d="column">
             <ButtonLayout
                 $chosen={chosen === title}
                 onClick={() => {
                     setExpanded((prev) => (chosen !== title ? true : !prev))
-                    setChosen(title)
+                    phonebookModel.events.setChosenSubdivision(title)
                 }}
             >
                 <Flex ai="center" jc="space-between" w="100%" gap="5px">
@@ -51,24 +44,15 @@ export const ExpandableItem = ({
             </ButtonLayout>
             {expanded &&
                 childrens.map((children) => (
-                    <ExpandableItem
-                        key={children}
-                        item={{ [children]: item[title][children] }}
-                        chosen={chosen}
-                        setChosen={setChosen}
-                        layer={layer + 1}
-                    />
+                    <ExpandableItem key={children} item={{ [children]: item[title][children] }} layer={layer + 1} />
                 ))}
         </Flex>
     )
 }
-const ButtonLayout = styled.button<{ $chosen: boolean }>`
-    background-color: ${({ $chosen }) => ($chosen ? 'var(--block-content)' : 'transparent')};
-    text-align: start;
+const ButtonLayout = styled.div<{ $chosen: boolean }>`
+    background-color: ${({ $chosen }) => ($chosen ? 'var(--theme-1t)' : 'transparent')};
     padding: 10px 25px 8px 25px;
     border-radius: 10px;
-    border: none;
-    margin: 0;
     width: 100%;
     cursor: pointer;
     color: var(--text);

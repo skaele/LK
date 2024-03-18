@@ -1,32 +1,17 @@
 import React from 'react'
-import { ExpandableItem, ExpandableItemType } from './expandable-item'
+import { ExpandableItem } from './expandable-item'
 import Flex from '@shared/ui/flex'
+import { useUnit } from 'effector-react'
+import { phonebookModel } from '@entities/phonebook'
 
-const subdivs: ExpandableItemType = {
-    'Проректор по цифровому развитию и делопроизводству': {
-        'Центр развития технологий в цифровом образовании': {
-            'Отдел внутренней разработки ': {},
-            'Отдел внедрения и обеспечения технологий цифрового образования': {},
-        },
-        'Центр управления делами': {},
-    },
-    '222': {
-        '333': {},
-    },
-}
+export const Subdivisions = () => {
+    const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
 
-export const Subdivisions = ({ chosen, setChosen }: { chosen: string; setChosen: (value: string) => void }) => {
+    if (!subdivisions) return null
     return (
         <Flex d="column">
-            {Object.keys(subdivs).map((subdivision) => (
-                <React.Fragment key={subdivision}>
-                    <ExpandableItem
-                        item={{ [subdivision]: subdivs[subdivision] }}
-                        chosen={chosen}
-                        setChosen={(title) => setChosen(title)}
-                        layer={1}
-                    />
-                </React.Fragment>
+            {Object.keys(subdivisions).map((subdivision) => (
+                <ExpandableItem key={subdivision} item={{ [subdivision]: subdivisions[subdivision] }} layer={1} />
             ))}
         </Flex>
     )

@@ -1,7 +1,7 @@
 import { applicationsModel } from '@entities/applications'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import sendHrFormHolidayPlanning from '@pages/hr-applications/lib/send-hr-form-holiday-planning'
-import { FormBlock, SubmitButton } from '@ui/atoms'
+import { Divider, FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
@@ -14,6 +14,7 @@ import PageBlock from '@shared/ui/page-block'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import { VacationList } from './vacation-list'
 import { getJob } from './lib/get-job'
+import { Calendars } from '@features/vacation-schedule/ui/templates/calendars'
 
 const HolidayPlanning = () => {
     const [jobForm, setJobForm] = useState<IInputArea | null>(null)
@@ -77,6 +78,8 @@ const HolidayPlanning = () => {
                                 openArea={openArea}
                             />
                             <div className="inputs">
+                                <Calendars />
+                                <Divider />
                                 <VacationList jobGuid={jobGuid} />
                             </div>
                         </InputAreaWrapper>

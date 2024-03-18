@@ -2,20 +2,11 @@ import { userModel } from '@entities/user'
 import { vacationScheduleModel } from '@entities/vacation-schedule'
 import Select, { SelectPage } from '@features/select'
 import PageBlock from '@shared/ui/page-block'
-import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/atoms'
-import Card from '@ui/card'
-import List from '@ui/list'
-import Subtext from '@ui/subtext'
+import { Button, CenterPage, Divider, Title, Wrapper } from '@ui/atoms'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Vacation } from '../organism'
 import { FiPlus } from 'react-icons/fi'
-
-const calendarUrls = {
-    fiveWorkDays:
-        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_2023_pyatidnevnya_rabochaya_nedelya.pdf',
-    sixWorkDays:
-        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_2023_shestidnevnaya_rabochaya_nedelya.pdf',
-}
+import { Calendars } from './calendars'
 
 const Page = () => {
     const {
@@ -55,43 +46,7 @@ const Page = () => {
                         />
                     }
                 >
-                    <Subtext width="100%" maxWidth="100%">
-                        Производственный календарь на 2023 год
-                    </Subtext>
-                    <List scroll={false} direction="horizontal" gap={12} wrapOnMobile>
-                        <Card
-                            title="Для пятидневной рабочей недели"
-                            height="120px"
-                            width="50%"
-                            background="5"
-                            padding="20px 40px 20px 20px"
-                        >
-                            <LinkButton
-                                onClick={() => null}
-                                href={calendarUrls.fiveWorkDays}
-                                textColor="var(--reallyBlue)"
-                                text="Подробнее"
-                                background="transparent"
-                                padding="10px 0"
-                            />
-                        </Card>
-                        <Card
-                            title="Для шестидневной рабочей недели"
-                            height="120px"
-                            width="50%"
-                            background="6"
-                            padding="20px 40px 20px 20px"
-                        >
-                            <LinkButton
-                                onClick={() => null}
-                                href={calendarUrls.sixWorkDays}
-                                textColor="var(--reallyBlue)"
-                                text="Подробнее"
-                                background="transparent"
-                                padding="10px 0"
-                            />
-                        </Card>
-                    </List>
+                    <Calendars />
                     <Divider />
                     <Title size={3} align="left">
                         Сведения о трудоустройстве

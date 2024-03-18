@@ -1,4 +1,4 @@
-import { Phonebook, Subdivision } from '@api/model'
+import { ContactDetails, Subdivision } from '@api/model'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@ui/input-area/model'
 
@@ -73,7 +73,7 @@ const sites = [
     },
 ]
 
-const getForm = (data: Phonebook, subdivision: Subdivision): IInputArea => {
+const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => {
     return {
         title: 'Актуализируйте контактные данные',
         data: [

@@ -1,4 +1,4 @@
-export interface Phonebook {
+export interface ContactDetails {
     site: string
     aud_number: string
     email_staff: string

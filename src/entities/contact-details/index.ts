@@ -1,7 +1,7 @@
-import { phonebookApi } from '@api'
+import { contactDetailsApi } from '@shared/api'
 import { createFormStore } from '@shared/effector/create-form-store'
 
-export const phonebookModel = createFormStore({
+export const contactDetailsModel = createFormStore({
     defaultStore: {
         completed: false,
         error: null,
@@ -9,7 +9,7 @@ export const phonebookModel = createFormStore({
         data: null,
     },
     api: {
-        get: phonebookApi.get,
-        post: phonebookApi.post,
+        get: contactDetailsApi.get,
+        post: contactDetailsApi.post,
     },
 })

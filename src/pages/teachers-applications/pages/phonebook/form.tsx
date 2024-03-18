@@ -6,11 +6,11 @@ import { FormBlock, SubmitButton, Wrapper } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { LoadedState } from 'widgets/template-form'
 import sendForm from '@shared/lib/send-form'
-import { Phonebook } from '@shared/api/model'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { useParams } from 'react-router'
 import { applicationsModel } from '@entities/applications'
-import { phonebookModel } from '@entities/phonebook'
+import { contactDetailsModel } from '@entities/contact-details'
+import { ContactDetails } from '@shared/api/model'
 
 const PhonebookForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -20,7 +20,7 @@ const PhonebookForm = () => {
     const isDone = completed ?? false
     const [guidStaff, setGuidStaff] = useState(guid)
 
-    const { data, error } = phonebookModel.selectors.useForm()
+    const { data, error } = contactDetailsModel.selectors.useForm()
     const {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
@@ -43,7 +43,7 @@ const PhonebookForm = () => {
 
     useEffect(() => {
         return () => {
-            phonebookModel.events.clearStore()
+            contactDetailsModel.events.clearStore()
         }
     }, [])
 
@@ -52,7 +52,7 @@ const PhonebookForm = () => {
     return (
         <Wrapper
             load={() => {
-                phonebookModel.effects.getFormFx(guidStaff)
+                contactDetailsModel.effects.getFormFx(guidStaff)
             }}
             data={dataUserApplication && data}
             error={error}
@@ -64,11 +64,11 @@ const PhonebookForm = () => {
                         <SubmitButton
                             text={!isDone ? 'Отправить' : 'Отправлено'}
                             action={() =>
-                                sendForm<Phonebook>(
+                                sendForm<ContactDetails>(
                                     form,
-                                    phonebookModel.effects.postFormFx,
+                                    contactDetailsModel.effects.postFormFx,
                                     setLoading,
-                                    phonebookModel.events.changeCompleted,
+                                    contactDetailsModel.events.changeCompleted,
                                 )
                             }
                             isLoading={loading}

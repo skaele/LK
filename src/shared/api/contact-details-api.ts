@@ -1,12 +1,12 @@
 import { $api } from '@api/config'
 import token from '@utils/token'
-import { Phonebook } from '@api/model'
+import { ContactDetails } from './model'
 
 export const get = (data?: string) => {
-    return $api.get<Phonebook>(`?getPhoneBookData=${data}&token=${token()}`)
+    return $api.get<ContactDetails>(`?getPhoneBookData=${data}&token=${token()}`)
 }
 
-export const post = (args: Phonebook) => {
+export const post = (args: ContactDetails) => {
     const formData = new FormData()
     formData.set('token', token())
     formData.set('setPhoneBookData', '1')

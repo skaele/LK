@@ -64,10 +64,14 @@ const getForm = (
                 editable: true,
                 onChange: (value) => {
                     setStartDate(value)
+                    const date = new Date(Date.parse(value))
+                    date.setDate(date.getDate() + 1)
+                    setEndDate(date.toISOString().split('T')[0])
                 },
                 mask: true,
                 required: true,
                 maxValueLength: 1,
+                maxValueInput: '9999-12-31',
                 minValueInput: getDelayInDays(0),
             },
             {
@@ -95,6 +99,8 @@ const getForm = (
                 required: false,
                 specialType: 'Compensation2',
                 maxValueLength: 1,
+                maxValueInput: '9999-12-31',
+                minValueInput: getDelayInDays(0),
             },
             {
                 title: '',

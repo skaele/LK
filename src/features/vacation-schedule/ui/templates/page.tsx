@@ -12,9 +12,9 @@ import { FiPlus } from 'react-icons/fi'
 
 const calendarUrls = {
     fiveWorkDays:
-        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_2023_pyatidnevnya_rabochaya_nedelya.pdf',
+        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_na_2024_god_dlya_pyatidnevnoj_rabochej_nedeli.pdf',
     sixWorkDays:
-        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_2023_shestidnevnaya_rabochaya_nedelya.pdf',
+        'https://e.mospolytech.ru/old/storage/files/Proizvodstvennyj_kalendar_na_2024_god_dlya_shestidnevnoj_rabochej.pdf',
 }
 
 const Page = () => {
@@ -56,7 +56,7 @@ const Page = () => {
                     }
                 >
                     <Subtext width="100%" maxWidth="100%">
-                        Производственный календарь на 2023 год
+                        Производственный календарь на 2024 год
                     </Subtext>
                     <List scroll={false} direction="horizontal" gap={12} wrapOnMobile>
                         <Card

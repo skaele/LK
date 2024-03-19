@@ -33,7 +33,7 @@ jobs:
                   docker login --username skaele --password ${{ secrets.GH_PAT }} ghcr.io
                   docker build . --tag ghcr.io/skaele/mospolytech-lk-ghcr:feat
                   docker push ghcr.io/skaele/mospolytech-lk-ghcr:feat
-                  echo "Commit message: ${{ github.event.head_commit.message }}"
+                  echo "Event: ${{ toJson(github.event) }}"
 
     update-server-containers:
         runs-on: ubuntu-latest

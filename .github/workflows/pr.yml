@@ -31,7 +31,7 @@ jobs:
                   ref: ${{ github.event.pull_request.head.sha }}
             - name: Get Head Commit Message
               id: get_head_commit_message
-              run: echo "head-commit-message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+              run: echo "headCommitMsg=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
 
     build-and-publish-image:
         runs-on: ubuntu-latest

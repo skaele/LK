@@ -203,6 +203,16 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
     },
     ...generalRoutes,
+    phonebook: {
+        id: 'phonebook',
+        title: 'Контактные данные',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: PHONEBOOK,
+        Component: PhonebookPage,
+        isTemplate: false,
+        group: 'GENERAL',
+    },
     'download-agreements': {
         id: 'download-agreements',
         title: 'Админ панель',
@@ -493,16 +503,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
         backButtonText: 'Назад к цифровым сервисам',
-    },
-    phonebook: {
-        id: 'phonebook',
-        title: 'Контактные данные',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: PHONEBOOK,
-        Component: PhonebookPage,
-        isTemplate: false,
-        group: 'GENERAL',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

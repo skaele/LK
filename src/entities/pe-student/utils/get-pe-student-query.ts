@@ -22,6 +22,7 @@ export const getPEStudentsQuery = (
                 visitValue
             }
             hasDebtFromPreviousSemester
+            archivedVisitValue
             course
             department
             pointsHistory(where: {workType: {eq: ONLINE_WORK}}) {
@@ -39,6 +40,7 @@ export const getPEStudentQuery = (studentId: string) => `{
         groupNumber
         studentGuid
         hasDebtFromPreviousSemester
+        archivedVisitValue
         visits
         additionalPoints
         pointsForStandards

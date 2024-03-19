@@ -15,6 +15,7 @@ import {
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
+    MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     USEFUL_INFO_ROUTE,
@@ -59,6 +60,8 @@ import {
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
+import { BsFileMedical } from 'react-icons/bs'
+import MedicalCertificate from '@pages/medical-certificate'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -120,6 +123,17 @@ export const privateRoutes: () => IRoutes = () => ({
         keywords: ['справки', 'справка', 'заявления', 'заявление'],
     },
     ...generalRoutes,
+
+    'medical-certificate': {
+        id: 'medical-certificate',
+        title: 'Предоставление медицинских справок',
+        icon: <BsFileMedical />,
+        path: MEDICAL_CERTIFICATE,
+        Component: MedicalCertificate,
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+    },
     payments: {
         id: 'payments',
         title: 'Договоры и оплаты',

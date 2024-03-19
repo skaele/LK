@@ -1,15 +1,8 @@
 import { SelectPage } from '@features/select'
 import { ExpandableItemType } from '@pages/phonebook/expandable-item'
 import { teacherApi } from '@shared/api'
-import { TTeacher } from '@shared/api/model'
+import { Subdivision } from '@shared/api/model/phonebook'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-
-type Subdivision = {
-    title?: string
-    guid?: string
-    head?: TTeacher
-    staff: TTeacher[]
-}
 
 const setChosenSubdivision = createEvent<string>()
 
@@ -18,7 +11,6 @@ const getSubdivisionsFx = createEffect(
     async (request: ServerListRequest<SelectPage | null>): Promise<ExpandableItemType> => {
         const { search = '', page, limit, filter } = request
         // const { data } = await api.get(search, filter?.id.toString() ?? '', page, limit)
-
         const data: ExpandableItemType = {
             'Проректор по цифровому развитию и делопроизводству': {
                 'Центр развития технологий в цифровом образовании': {
@@ -26,9 +18,6 @@ const getSubdivisionsFx = createEffect(
                     'Отдел внедрения и обеспечения технологий цифрового образования': {},
                 },
                 'Центр управления делами': {},
-            },
-            'Отдел тестирования': {
-                'Внутренний отдел тестирования': {},
             },
             'Кафедра "Информатика и информационные технологии"': {},
         }
@@ -45,7 +34,14 @@ const getSubdivisionDataFx = createEffect(
         const group = filter?.title === 'Все' ? '' : filter?.title ?? ''
 
         const { data } = await teacherApi.get(search ?? '', group, page, limit)
-        return { staff: data.items }
+        return {
+            title: group,
+            head: 'Антонова Антонина Антоновна',
+            staff: data.items,
+            phone: '8 (812) 123-45-67',
+            email: 'd.r.khusnulina@mospolytech.ru',
+            cabinet: 'БС А-103',
+        }
     },
 )
 sample({ clock: getSubdivisionData, target: getSubdivisionDataFx })

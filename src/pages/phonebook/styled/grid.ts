@@ -5,6 +5,7 @@ type Props = {
     rows: string
     rowGap?: string
     columnGap?: string
+    padding?: string
 }
 
 export const Grid = styled.div<Props>`
@@ -14,4 +15,5 @@ export const Grid = styled.div<Props>`
     grid-template-rows: ${({ rows }) => rows};
     row-gap: ${({ rowGap }) => rowGap};
     column-gap: ${({ columnGap }) => columnGap};
+    padding: ${({ padding }) => padding};
 `

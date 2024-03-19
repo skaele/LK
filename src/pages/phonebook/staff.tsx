@@ -4,8 +4,11 @@ import { SubdivisionItem } from './subdivision-item'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import { Loader } from '@shared/ui/atoms/loader'
+import { useModal } from 'widgets'
+import { SubdivisionModal } from './subdivision-modal'
+import { EmployeeModal } from './employee-modal'
 
-const head = 'Хуснулина Дария Рашитовна'
+const head = 'Антонова Антонина Антоновна'
 
 export const Staff = () => {
     const { title, subdivision, error } = useUnit({
@@ -21,6 +24,7 @@ export const Staff = () => {
     }, [title])
 
     if (!title) return null
+    const { open } = useModal()
 
     return (
         <Loader
@@ -31,9 +35,33 @@ export const Staff = () => {
             error={error}
         >
             <Flex d="column" ai="flex-start" jc="flex-start" gap="20px">
-                <SubdivisionItem title="Информация" items={[title]} />
-                {head && <SubdivisionItem title="Руководитель" items={[head]} />}
-                {!!staff?.length && staff.length > 0 && <SubdivisionItem title="Сотрудники" items={staff} />}
+                {subdivision && (
+                    <SubdivisionItem
+                        title="Информация"
+                        items={[title]}
+                        action={() => {
+                            open(<SubdivisionModal subdivision={subdivision} />)
+                        }}
+                    />
+                )}
+                {head && (
+                    <SubdivisionItem
+                        title="Руководитель"
+                        items={[subdivision?.head || '-']}
+                        action={(fio) => {
+                            open(<EmployeeModal fio={fio} />)
+                        }}
+                    />
+                )}
+                {!!staff?.length && staff.length > 0 && (
+                    <SubdivisionItem
+                        title="Сотрудники"
+                        items={staff}
+                        action={(fio) => {
+                            open(<EmployeeModal fio={fio} />)
+                        }}
+                    />
+                )}
             </Flex>
         </Loader>
     )

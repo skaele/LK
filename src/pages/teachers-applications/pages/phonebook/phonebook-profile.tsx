@@ -1,4 +1,4 @@
-import { PHONEBOOK } from '@app/routes/teacher-routes'
+import { PHONEBOOK_BUFFER } from '@app/routes/teacher-routes'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import React from 'react'
@@ -19,7 +19,7 @@ export const PhonebookProfile = () => {
                 minWidth={'35px'}
                 height="36px"
                 onClick={() => {
-                    history.replace(PHONEBOOK)
+                    history.replace(PHONEBOOK_BUFFER)
                 }}
             />
         </Flex>

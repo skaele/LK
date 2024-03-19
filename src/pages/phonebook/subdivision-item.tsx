@@ -3,12 +3,22 @@ import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import styled from 'styled-components'
 
-export const SubdivisionItem = ({ title, items }: { title: string; items: string[] }) => {
+export const SubdivisionItem = ({
+    title,
+    items,
+    action,
+}: {
+    title: string
+    items: string[]
+    action: (item: string) => void
+}) => {
     return (
         <Flex d="column" ai="flex-start" gap="7px">
             <Subtext>{title}</Subtext>
             {items.map((item) => (
-                <Button key={item}>{item}</Button>
+                <Button key={item} onClick={() => action(item)}>
+                    {item}
+                </Button>
             ))}
         </Flex>
     )

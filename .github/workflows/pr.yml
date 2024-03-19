@@ -33,7 +33,9 @@ jobs:
                   docker login --username skaele --password ${{ secrets.GH_PAT }} ghcr.io
                   docker build . --tag ghcr.io/skaele/mospolytech-lk-ghcr:feat
                   docker push ghcr.io/skaele/mospolytech-lk-ghcr:feat
-                  echo "Commit message: ${{ github.event.head_commit.message }}"
+                  git fetch --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+                  COMMIT_MESSAGE=$(git log --format=%B -n 1 origin/main)
+                  echo "Commit message: $COMMIT_MESSAGE"
 
     update-server-containers:
         runs-on: ubuntu-latest

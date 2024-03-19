@@ -150,6 +150,7 @@ const getForm = (
                 },
                 required: true,
                 minValueInput: getDelayInDays(5),
+                maxValueInput: '9999-12-31',
             },
             {
                 title: '',

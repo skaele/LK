@@ -24,7 +24,13 @@ const PhonebookPage = () => {
 
     if (hasPartTime)
         return (
-            <Wrapper load={() => {}} data={dataUserApplication} error={error}>
+            <Wrapper
+                load={() => {
+                    applicationsModel.effects.getUserDataApplicationsFx()
+                }}
+                data={dataUserApplication}
+                error={error}
+            >
                 <PageBlock>
                     <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
                         Выберите должность, чтобы заполнить контактные данные по должности.

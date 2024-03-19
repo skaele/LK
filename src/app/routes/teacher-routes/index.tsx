@@ -211,6 +211,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         path: PHONEBOOK,
         Component: PhonebookPage,
         isTemplate: false,
+        isNew: true,
         group: 'GENERAL',
     },
     'download-agreements': {

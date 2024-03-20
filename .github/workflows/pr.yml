@@ -31,8 +31,8 @@ jobs:
             - name: Build and publish
               run: |
                   docker login --username skaele --password ${{ secrets.GH_PAT }} ghcr.io
-                  docker build . --tag ghcr.io/skaele/mospolytech-lk-ghcr:feat
-                  docker push ghcr.io/skaele/mospolytech-lk-ghcr:feat
+                  docker build . --tag ghcr.io/skaele/mospolytech-lk-ghcr:feat2
+                  docker push ghcr.io/skaele/mospolytech-lk-ghcr:feat2
 
     update-server-containers:
         runs-on: ubuntu-latest

@@ -1,11 +1,11 @@
 version: '3.8'
 services:
-  web:
-    image: ghcr.io/skaele/mospolytech-lk-ghcr:latest
-    ports:
-      - "80:80"
-      - "4000:80"
-  feat:
-    image: ghcr.io/skaele/mospolytech-lk-ghcr:feat
-    ports:
-      - "4001:80"
+    web:
+        image: ghcr.io/skaele/mospolytech-lk-ghcr:latest
+        ports:
+            - '80:80'
+            - '4000:80'
+    feat2:
+        image: ghcr.io/skaele/mospolytech-lk-ghcr:feat2
+        ports:
+            - '4002:80'

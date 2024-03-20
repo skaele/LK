@@ -9,7 +9,3 @@ services:
     image: ghcr.io/skaele/mospolytech-lk-ghcr:feat
     ports:
       - "4001:80"
-  feat2:
-    image: ghcr.io/skaele/mospolytech-lk-ghcr:feat2
-    ports:
-      - "4002:80"

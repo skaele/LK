@@ -10,7 +10,7 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
         {
             title: 'Дата',
-            field: 'creationDate',
+            field: 'signedDate',
             type: 'date',
             sort: true,
         },

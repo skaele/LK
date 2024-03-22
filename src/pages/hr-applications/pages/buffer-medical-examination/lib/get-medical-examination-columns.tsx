@@ -9,7 +9,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [
         {
             title: 'Дата',
-            field: 'creationDate',
+            field: 'signedDate',
             width: '100px',
             sort: true,
             type: 'date',

@@ -49,7 +49,7 @@ export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
             width: '200px',
             align: 'center',
             render: (value, data) => {
-                if (data?.status?.downloadApplication)
+                if (data?.status?.downloadOrder)
                     return (
                         <Button
                             text="Скачать файл"

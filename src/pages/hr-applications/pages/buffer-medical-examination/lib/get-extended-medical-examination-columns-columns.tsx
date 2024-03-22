@@ -19,15 +19,16 @@ export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => 
             align: 'center',
             render: (value) => value || '-',
         },
+
         {
-            title: 'Файл заявления',
+            title: 'Файл приказа',
             priority: 'one',
             field: 'downloadable',
             type: 'file',
             width: '200px',
             align: 'center',
             render: (_, data) => {
-                if (data?.downloadApplication)
+                if (data?.status?.downloadOrder)
                     return (
                         <Button
                             text="Скачать файл"
@@ -40,7 +41,7 @@ export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => 
                             height="30px"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                downloadFile(data?.documentGuid, '1')
+                                downloadFile(data.documentGuid, '1')
                             }}
                         />
                     )

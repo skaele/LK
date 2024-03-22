@@ -23,7 +23,7 @@ const Content = () => {
                     ...job.notTaken.map((vac) => ({
                         ...vac,
                         jobTitle: job.jobTitle,
-                        creationDate: vac.vacation.status.creationDate,
+                        signedDate: vac.vacation.status.signedDate,
                     })),
                 ]
             })

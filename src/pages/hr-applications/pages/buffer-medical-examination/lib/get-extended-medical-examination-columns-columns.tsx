@@ -28,7 +28,7 @@ export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => 
             width: '200px',
             align: 'center',
             render: (_, data) => {
-                if (data?.status?.downloadOrder)
+                if (data?.downloadOrder)
                     return (
                         <Button
                             text="Скачать файл"

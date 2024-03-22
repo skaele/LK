@@ -47,7 +47,7 @@ const getForm = (
 ): IInputArea => {
     const { surname, name, patronymic } = dataUserApplication
     const holidayStartDate = !!startDate ? startDate : new Date().toISOString()
-    const holidayEndDate = !!endDate ? endDate : new Date().toISOString()
+    const holidayEndDate = !!endDate ? endDate : null
     const collTypeData = !!collType ? collType : ''
     const jobGuidData = !!jobGuid ? jobGuid : ''
 
@@ -146,7 +146,6 @@ const getForm = (
                 mask: true,
                 onChange: (value) => {
                     setStartDate(value)
-                    setEndDate(value)
                 },
                 required: true,
                 minValueInput: getDelayInDays(5),
@@ -170,7 +169,7 @@ const getForm = (
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: !!endDate ? endDate : getDelayInDays(0),
+                minValueInput: !!endDate ? endDate : getDelayInDays(0, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

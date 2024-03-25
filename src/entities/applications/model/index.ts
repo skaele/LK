@@ -128,10 +128,10 @@ const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
         ...oldData,
         dataWorkerApplication: newData,
     }))
-    .on(getWorkerPostsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
+    // .on(getWorkerPostsFx.failData, (oldData, newData) => ({
+    //     ...oldData,
+    //     error: newData.message,
+    // }))
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))

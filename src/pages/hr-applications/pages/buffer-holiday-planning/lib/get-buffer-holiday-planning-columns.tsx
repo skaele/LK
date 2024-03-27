@@ -1,7 +1,7 @@
-import downloadFile from '@pages/hr-applications/lib/get-file'
+import { PersonnelDownloadButton } from '@pages/hr-applications/ui/atoms/personnel-download-button'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { TypesOfVacation } from '@shared/models/types-of-vacation'
-import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
 import { Message } from '@shared/ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
@@ -67,29 +67,35 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             },
         },
         {
-            title: 'Файл заявления',
+            title: 'Файлы',
             priority: 'one',
             field: 'downloadable',
             type: 'file',
             width: '200px',
             align: 'center',
-            render: (value, data) => {
-                if (data?.vacation?.status?.downloadApplication)
+            render: (_, data) => {
+                if (data?.vacation?.status?.downloadApplication || data?.vacation?.status?.downloadOrder)
                     return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data.documentGuid, '0', 'Vacation')
-                            }}
-                        />
+                        <Flex d="column" jc="center">
+                            <div>
+                                {data?.vacation?.status?.downloadApplication && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="0"
+                                        service="Vacation"
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {data?.vacation?.status?.downloadOrder && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="1"
+                                        service="Vacation"
+                                    />
+                                )}
+                            </div>
+                        </Flex>
                     )
                 else return '-'
             },

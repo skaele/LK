@@ -2,8 +2,8 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@shared/ui/message'
 import React from 'react'
 import { ColumnProps } from '@ui/table/types'
-import { Button } from '@shared/ui/button'
-import downloadFile from '@pages/hr-applications/lib/get-file'
+import { PersonnelDownloadButton } from '@pages/hr-applications/ui/atoms/personnel-download-button'
+import Flex from '@shared/ui/flex'
 
 export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [
@@ -55,29 +55,35 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             },
         },
         {
-            title: 'Файл заявления',
+            title: 'Файлы',
             priority: 'one',
             field: 'downloadable',
             type: 'file',
             width: '200px',
             align: 'center',
             render: (_, data) => {
-                if (data?.downloadApplication)
+                if (data?.downloadApplication || data?.downloadOrder)
                     return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data?.documentGuid, '0', 'MedicalExamination')
-                            }}
-                        />
+                        <Flex d="column" jc="center">
+                            <div>
+                                {data?.downloadApplication && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="0"
+                                        service="MedicalExamination"
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {data?.downloadOrder && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="1"
+                                        service="MedicalExamination"
+                                    />
+                                )}
+                            </div>
+                        </Flex>
                     )
                 else return '-'
             },

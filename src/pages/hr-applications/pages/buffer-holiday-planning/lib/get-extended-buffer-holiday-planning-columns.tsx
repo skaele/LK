@@ -32,11 +32,11 @@ export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
             field: 'vacation',
             align: 'center',
             render: (_, data) => {
-                if (data?.isCarriedOver)
+                if (data?.vacation?.isCarriedOver)
                     return `Перенесен с ${localizeDate(
                         data?.carriedOver?.period?.startDate,
                         'numeric',
-                    )} - ${localizeDate(data?.carriedOver?.period?.endDate, 'numeric')}`
+                    )} - ${localizeDate(data?.vacation?.carriedOver?.period?.endDate, 'numeric')}`
                 else return '-'
             },
         },
@@ -49,7 +49,7 @@ export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
             width: '200px',
             align: 'center',
             render: (value, data) => {
-                if (data?.status?.downloadOrder)
+                if (data?.vacation?.status?.downloadOrder)
                     return (
                         <Button
                             text="Скачать файл"

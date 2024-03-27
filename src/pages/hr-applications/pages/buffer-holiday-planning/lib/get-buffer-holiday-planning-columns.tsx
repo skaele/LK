@@ -74,7 +74,7 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             width: '200px',
             align: 'center',
             render: (value, data) => {
-                if (data?.status?.downloadApplication)
+                if (data?.vacation?.status?.downloadApplication)
                     return (
                         <Button
                             text="Скачать файл"

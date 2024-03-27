@@ -1,5 +1,3 @@
-import downloadFile from '@pages/hr-applications/lib/get-file'
-import { Button } from '@shared/ui/button'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
@@ -54,33 +52,33 @@ export const getWorkTransferHistoryColumns = (): ColumnProps[] => {
             width: '250px',
             sort: true,
         },
-        {
-            title: 'Файл заявления',
-            priority: 'one',
-            field: 'downloadable',
-            type: 'file',
-            width: '200px',
-            align: 'center',
-            render: (value, data) => {
-                if (data?.documentStatus?.downloadApplication)
-                    return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data.documentGuid, '0')
-                            }}
-                        />
-                    )
-                else return '-'
-            },
-        },
+        // {
+        //     title: 'Файл заявления',
+        //     priority: 'one',
+        //     field: 'downloadable',
+        //     type: 'file',
+        //     width: '200px',
+        //     align: 'center',
+        //     render: (value, data) => {
+        //         if (data?.documentStatus?.downloadApplication)
+        //             return (
+        //                 <Button
+        //                     text="Скачать файл"
+        //                     background="rgb(60,210,136)"
+        //                     textColor="#fff"
+        //                     id="downloadButton"
+        //                     width={'150px'}
+        //                     align="center"
+        //                     minWidth={'150px'}
+        //                     height="30px"
+        //                     onClick={(e) => {
+        //                         e.stopPropagation()
+        //                         downloadFile(data.documentGuid, '0')
+        //                     }}
+        //                 />
+        //             )
+        //         else return '-'
+        //     },
+        // },
     ]
 }

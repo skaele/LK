@@ -41,7 +41,7 @@ export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => 
                             height="30px"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                downloadFile(data.documentGuid, '1')
+                                downloadFile(data.documentGuid, '1', 'MedicalExamination')
                             }}
                         />
                     )

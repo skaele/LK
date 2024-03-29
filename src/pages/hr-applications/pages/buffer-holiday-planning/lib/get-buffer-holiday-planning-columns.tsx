@@ -17,22 +17,21 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Статус',
-            field: 'vacation',
+            field: 'orderStatus',
             width: '150px',
             render: (value) => {
                 return (
                     <Message
                         type={
-                            value.status.orderStatus === 'Согласовано'
+                            value === 'Согласовано'
                                 ? 'success'
-                                : value.status.orderStatus === 'На регистрации'
+                                : value === 'На регистрации'
                                 ? 'info'
-                                : value.status.orderStatus === 'Не утвержден' ||
-                                  value.status.orderStatus === 'Не создано'
+                                : value === 'Не утвержден' || value === 'Не создано'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value.status.orderStatus || '-'}
+                        title={value || '-'}
                         align="center"
                         width="100%"
                         icon={null}
@@ -43,15 +42,15 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Должность',
-            field: 'jobTitle',
+            field: 'positionName',
             width: '250px',
             sort: true,
         },
         {
             title: 'Вид отпуска',
-            field: 'vacation',
-            render: (value) => {
-                return TypesOfVacation[value?.typeOfVacation as keyof typeof TypesOfVacation] || '-'
+            field: 'typeOfVacation',
+            render: (value: keyof typeof TypesOfVacation) => {
+                return TypesOfVacation[value] || '-'
             },
         },
         {
@@ -59,11 +58,8 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             field: 'vacation',
             align: 'center',
             width: '200px',
-            render: (value) => {
-                return `${localizeDate(value?.period?.startDate, 'numeric')} - ${localizeDate(
-                    value?.period?.endDate,
-                    'numeric',
-                )}`
+            render: (_, data) => {
+                return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
             },
         },
         {
@@ -74,11 +70,11 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             width: '200px',
             align: 'center',
             render: (_, data) => {
-                if (data?.vacation?.status?.downloadApplication || data?.vacation?.status?.downloadOrder)
+                if (data?.downloadApplication || data?.downloadOrder)
                     return (
                         <Flex d="column" jc="center">
                             <div>
-                                {data?.vacation?.status?.downloadApplication && (
+                                {data?.downloadApplication && (
                                     <PersonnelDownloadButton
                                         documentGuid={data.documentGuid}
                                         type="0"
@@ -87,7 +83,7 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                                 )}
                             </div>
                             <div>
-                                {data?.vacation?.status?.downloadOrder && (
+                                {data?.downloadOrder && (
                                     <PersonnelDownloadButton
                                         documentGuid={data.documentGuid}
                                         type="1"

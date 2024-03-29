@@ -50,11 +50,11 @@ const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlann
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
-const $bufferHolidayPlanning = createStore<BufferHoliday['employeeVacations'] | null>(null)
+const $bufferHolidayPlanning = createStore<BufferHoliday['personVacations'] | null>(null)
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
-    fn: ({ employeeVacations }) => employeeVacations,
+    fn: ({ personVacations }) => personVacations,
     target: $bufferHolidayPlanning,
 })
 
@@ -84,14 +84,14 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
-sample({
-    clock: sendBufferHolidayPlanningFx.doneData,
-    source: $bufferHolidayPlanning,
-    fn: (source, { employeeVacations }) => {
-        return [...source!, ...employeeVacations]
-    },
-    target: $bufferHolidayPlanning,
-})
+// sample({
+//     clock: sendBufferHolidayPlanningFx.doneData,
+//     source: $bufferHolidayPlanning,
+//     fn: (source, { personVacations }) => {
+//         return [...source!, ...personVacations]
+//     },
+//     target: $bufferHolidayPlanning,
+// })
 
 sample({
     clock: loadBufferHolidayPlanningFx.failData,

@@ -4,18 +4,12 @@ import { useHistory } from 'react-router'
 import { FiCalendar, FiInfo } from 'react-icons/fi'
 import { Button, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import { applicationsModel } from '@entities/applications'
 
 const HolidayPlanningBufferPage = () => {
-    const {
-        data: { dataWorkerApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
-
     const history = useHistory()
 
     return (
-        <Wrapper load={applicationsModel.effects.getWorkerPosts} error={error} data={dataWorkerApplication}>
+        <Wrapper load={() => {}} error={null} data={!null}>
             <PageBlock
                 topRightCornerElement={
                     <Button

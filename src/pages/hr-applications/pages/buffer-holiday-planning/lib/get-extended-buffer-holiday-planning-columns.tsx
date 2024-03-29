@@ -1,4 +1,3 @@
-import localizeDate from '@shared/lib/dates/localize-date'
 import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
 import { ColumnProps } from '@shared/ui/table/types'
 
@@ -7,34 +6,34 @@ export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
         ...getBufferHolidayPlanningColumns(),
         {
             title: 'Дней',
-            field: 'vacation',
+            field: 'totalDays',
             align: 'center',
-            render: (value) => value?.period?.totalDays,
+            render: (value) => value,
         },
         {
             title: 'Статус приказа',
-            field: 'vacation',
+            field: 'orderApprovalStatus',
             align: 'center',
-            render: (value) => value?.status?.orderApprovalStatus || '-',
+            render: (value) => value || '-',
         },
         {
             title: 'Статус заявления',
-            field: 'vacation',
+            field: 'applicationApporvalStatus',
             align: 'center',
-            render: (value) => value?.status?.applicationApporvalStatus || '-',
+            render: (value) => value || '-',
         },
-        {
-            title: 'Перенесен',
-            field: 'vacation',
-            align: 'center',
-            render: (_, data) => {
-                if (data?.vacation?.isCarriedOver)
-                    return `Перенесен с ${localizeDate(
-                        data?.carriedOver?.period?.startDate,
-                        'numeric',
-                    )} - ${localizeDate(data?.vacation?.carriedOver?.period?.endDate, 'numeric')}`
-                else return '-'
-            },
-        },
+        // {
+        //     title: 'Перенесен',
+        //     field: 'vacation',
+        //     align: 'center',
+        //     render: (_, data) => {
+        //         if (data?.vacation?.isCarriedOver)
+        //             return `Перенесен с ${localizeDate(
+        //                 data?.carriedOver?.period?.startDate,
+        //                 'numeric',
+        //             )} - ${localizeDate(data?.vacation?.carriedOver?.period?.endDate, 'numeric')}`
+        //         else return '-'
+        //     },
+        // },
     ]
 }

@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import Block from '@shared/ui/block'
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import Table from '@shared/ui/table'
-import { compareDesc } from 'date-fns'
 import Flex from '@shared/ui/flex'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 import { Link } from 'react-router-dom'
@@ -15,24 +14,24 @@ const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
     const load = () => bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
 
-    const jobVacations =
-        data &&
-        data
-            .map((job) => {
-                return [
-                    ...job.notTaken.map((vac) => ({
-                        ...vac,
-                        jobTitle: job.jobTitle,
-                        signedDate: vac.vacation.status.signedDate,
-                    })),
-                ]
-            })
-            .flat()
-            // .filter((item) => {
-            //     if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
-            //         return item.vacation.status.orderStatus
-            // })
-            .sort((a, b) => compareDesc(new Date(a.vacation.period.startDate), new Date(b.vacation.period.startDate)))
+    // const jobVacations =
+    //     data &&
+    //     data
+    //         .map((job) => {
+    //             return [
+    //                 ...job.notTaken.map((vac) => ({
+    //                     ...vac,
+    //                     jobTitle: job.jobTitle,
+    //                     signedDate: vac.vacation.status.signedDate,
+    //                 })),
+    //             ]
+    //         })
+    //         .flat()
+    //         // .filter((item) => {
+    //         //     if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
+    //         //         return item.vacation.status.orderStatus
+    //         // })
+    //         .sort((a, b) => compareDesc(new Date(a.vacation.period.startDate), new Date(b.vacation.period.startDate)))
 
     return (
         <Wrapper load={load} error={null} data={data}>
@@ -78,7 +77,7 @@ const Content = () => {
                         <Table
                             columns={getBufferHolidayPlanningColumns()}
                             columnsExtended={getExtendedBufferHolidayPlanningColumns()}
-                            data={jobVacations}
+                            data={data}
                             maxOnPage={10}
                         />
                     </Block>

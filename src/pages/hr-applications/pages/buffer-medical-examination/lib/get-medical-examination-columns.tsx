@@ -19,7 +19,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Статус',
             field: 'orderStatus',
-            width: '130px',
+            width: '150px',
             render: (value) => {
                 return (
                     <Message
@@ -36,7 +36,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                         align="center"
                         width="100%"
                         icon={null}
-                        maxWidth="130px"
+                        maxWidth="150px"
                     />
                 )
             },
@@ -44,7 +44,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         },
         {
             title: 'Должность',
-            field: 'jobTitle',
+            field: 'positionName',
             sort: true,
         },
         {

@@ -10,14 +10,16 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Дата',
             field: 'signedDate',
+            align: 'center',
             width: '120px',
             sort: true,
             type: 'date',
+            priority: 'two',
         },
         {
             title: 'Статус',
             field: 'orderStatus',
-            width: '150px',
+            width: '130px',
             render: (value) => {
                 return (
                     <Message
@@ -34,10 +36,11 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                         align="center"
                         width="100%"
                         icon={null}
-                        maxWidth="150px"
+                        maxWidth="130px"
                     />
                 )
             },
+            priority: 'one',
         },
         {
             title: 'Должность',
@@ -48,18 +51,19 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             title: 'Дни',
             field: 'medicalExamination',
             align: 'center',
-            width: '200px',
+            width: '130px',
             render: (_, data) => {
                 if (data?.startDate === data?.endDate) return localizeDate(data?.startDate, 'numeric')
                 return `${localizeDate(data?.startDate, 'numeric')}, ${localizeDate(data?.endDate, 'numeric')}`
             },
+            priority: 'four',
         },
         {
             title: 'Файлы',
-            priority: 'one',
+            priority: 'four',
             field: 'downloadable',
             type: 'file',
-            width: '200px',
+            width: '150px',
             align: 'center',
             render: (_, data) => {
                 if (data?.downloadApplication || data?.downloadOrder)

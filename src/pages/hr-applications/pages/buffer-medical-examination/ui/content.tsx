@@ -8,7 +8,6 @@ import { Button, Wrapper } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
 import { applicationsModel } from '@entities/applications'
-import { compareDesc } from 'date-fns'
 import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
@@ -22,16 +21,24 @@ const Content = () => {
     const jobExaminations =
         dataWorkerApplication &&
         data &&
-        data
-            .map((job) => {
-                const currentJob = dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
-                return [...job.notTaken.map((exam) => ({ ...exam, jobTitle: currentJob?.jobTitle }))]
-            })
-            .flat()
-            // .filter((exam) => {
-            //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
-            // })
-            .sort((a, b) => compareDesc(new Date(a.startDate), new Date(b.startDate)))
+        data.map((examination) => {
+            const currentJob = dataWorkerApplication.find((el) => el.jobGuid === examination.employeeGuid)
+            return {
+                employeeGuid: examination.employeeGuid,
+                jobTitle: currentJob?.jobTitle,
+                tutor: examination.tutor,
+                ...examination.medicalExamination,
+            }
+        })
+    // data.map((job) => {
+    //     const currentJob = dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
+    //     return [...job.notTaken.map((exam) => ({ ...exam, jobTitle: currentJob?.jobTitle }))]
+    // })
+    // .flat()
+    // .filter((exam) => {
+    //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
+    // })
+    // .sort((a, b) => compareDesc(new Date(a.startDate), new Date(b.startDate)))
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>

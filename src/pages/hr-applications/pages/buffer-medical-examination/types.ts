@@ -2,7 +2,14 @@ export interface BufferMedicalExamination {
     isError: false
     error: string
     age: number
-    employeeMedicalExaminations: BufferMedicalExaminationOrder[]
+    employeeMedicalExaminations: BufferMedicalExaminationOrder[] | null
+    personMedicalExaminations: PersonMedicalExaminations[]
+}
+
+export type PersonMedicalExaminations = {
+    employeeGuid: string
+    medicalExamination: BufferMedicalExaminationNotTaken
+    tutor: boolean
 }
 export interface BufferMedicalExaminationOrder {
     tutor: boolean

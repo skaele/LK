@@ -5,11 +5,11 @@ import { createEffect, createEvent, createStore, forward, sample } from 'effecto
 import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
-import { BufferMedicalExamination, BufferMedicalExaminationForm, BufferMedicalExaminationOrder } from '../types'
+import { BufferMedicalExamination, BufferMedicalExaminationForm, PersonMedicalExaminations } from '../types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 
 interface MedicalExaminationStore {
-    listMedicalExamination: BufferMedicalExaminationOrder[] | null
+    listMedicalExamination: PersonMedicalExaminations[] | null
     error: string | null
 }
 
@@ -21,11 +21,9 @@ const loadBufferMedicalExaminationFx = createEffect(async () => {
     )
     try {
         setAgeMed(response.data.age)
-        setIsTutor(
-            response.data.employeeMedicalExaminations.map(({ employeeGuid, tutor }) => ({ employeeGuid, tutor })),
-        )
+        setIsTutor(response.data.personMedicalExaminations.map(({ employeeGuid, tutor }) => ({ employeeGuid, tutor })))
 
-        return response.data.employeeMedicalExaminations
+        return response.data.personMedicalExaminations
     } catch (_) {
         throw new Error('Не удалось загрузить информацию. Попробуйте позже')
     }

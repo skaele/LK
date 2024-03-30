@@ -117,7 +117,7 @@ interface Props {
     onRemoveAll?: () => void
     padding?: string
     height?: string
-    setList: React.Dispatch<React.SetStateAction<FilterElementList>>
+    setList?: React.Dispatch<React.SetStateAction<FilterElementList>>
 }
 
 const AddedElementsList = ({ list, onAddElement, onRemoveAll, onRemoveOne, padding, height, setList }: Props) => {

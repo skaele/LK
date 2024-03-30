@@ -4,21 +4,32 @@ import { attach, createEffect, createEvent, createStore, sample } from 'effector
 import { getDefaultNewSettings } from '../lib/get-default-settings'
 import { SettingsOldType, UserSettings } from '../types'
 import { getSettingsKey } from '../lib/get-settings-key'
+import { ThemeVariant } from '@shared/constants'
+import { setServerSettings } from '@shared/api/settings'
+import { serverSettingsQuery } from './server-settings'
 
-const updateUserSetting = createEvent<RequireOnlyOne<UserSettings>>()
+const update = createEvent<RequireOnlyOne<UserSettings>>()
 
 const saveUsersSettingsLocalFx = createEffect(({ settings, userId }: { settings: UserSettings; userId: string }) => {
     localStorage.setItem(getSettingsKey(userId), JSON.stringify(settings))
 })
 
-const getLocalSettingsFx = attach({
-    source: $userStore,
-    effect: ({ currentUser }): UserSettings => {
-        const userId = currentUser?.guid
-        const newSettings = localStorage.getItem(BrowserStorageKey.Settings)
-        const defaultSettings = getDefaultNewSettings()
+const saveSettingsGlobalFx = createEffect((settings: UserSettings) => {
+    return setServerSettings(settings)
+})
 
-        // TODO: remove this
+const getSettingsFx = attach({
+    source: { userStore: $userStore, serverSettingsQueryData: serverSettingsQuery.$data },
+    effect: ({ userStore: { currentUser }, serverSettingsQueryData }): UserSettings => {
+        const userId = currentUser?.guid
+        const newSettings = localStorage.getItem(getSettingsKey(userId ?? ''))
+        const defaultSettings = getDefaultNewSettings(currentUser?.user_status === 'staff')
+
+        if (serverSettingsQueryData?.syncAcrossAllDevices) {
+            return serverSettingsQueryData
+        }
+
+        // migrating from old settings
         if (!newSettings) {
             const oldSettingsString = localStorage.getItem(BrowserStorageKey.OldSettings)
 
@@ -36,6 +47,7 @@ const getLocalSettingsFx = attach({
                 customizeMenu: value?.['settings-customize-menu'].property ?? defaultSettings.customizeMenu,
                 homePage: value?.['settings-home-page'].property ?? defaultSettings.homePage,
                 notifications: value?.['settings-notifications'].property ?? defaultSettings.notifications,
+                syncAcrossAllDevices: defaultSettings.syncAcrossAllDevices,
             } as UserSettings
         }
 
@@ -44,19 +56,57 @@ const getLocalSettingsFx = attach({
     },
 })
 
-const $userSettings = createStore<UserSettings | null>(null).on(getLocalSettingsFx.doneData, (_, settings) => settings)
+sample({
+    source: { userStore: $userStore, isServerSettingsLoaded: serverSettingsQuery.$finished },
+    filter: ({ userStore, isServerSettingsLoaded }) => Boolean(userStore.currentUser && isServerSettingsLoaded),
+    fn: ({ userStore }) => {
+        return userStore
+    },
+    target: getSettingsFx,
+})
+
+const $userSettings = createStore<UserSettings | null>(null).on(getSettingsFx.doneData, (_, settings) => settings)
+
+const $theme = $userSettings.map((settings) => {
+    return settings?.appearance.theme
+})
+
+const setThemeToDocument = createEffect((theme: ThemeVariant) => {
+    document.documentElement.setAttribute('data-theme', theme)
+})
+
+sample({ clock: $theme, filter: Boolean, target: setThemeToDocument })
 
 sample({
-    source: { settings: $userSettings, user: $userStore },
-    filter: ({ user, settings }) => Boolean(user) && Boolean(settings),
-    fn: ({ settings, user }) => {
+    source: { settings: $userSettings, userStore: $userStore },
+    filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings),
+    fn: ({ settings, userStore: user }) => {
         return { settings: settings!, userId: user!.currentUser?.guid ?? '' }
     },
     target: saveUsersSettingsLocalFx,
 })
 
 sample({
-    clock: updateUserSetting,
+    source: { settings: $userSettings, userStore: $userStore },
+    filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings?.syncAcrossAllDevices),
+    fn: ({ settings }) => {
+        return settings!
+    },
+    target: saveSettingsGlobalFx,
+})
+
+// sample({
+//     clock: turnOffServerSync,
+//     source: { settings: $userSettings, userStore: $userStore },
+//     filter: ({ userStore, settings }) => Boolean(userStore.currentUser && settings),
+//     fn: ({ settings }) => {
+//         return { ...settings!, syncAcrossAllDevices: false }
+//     },
+//     target: saveSettingsGlobalFx,
+// })
+
+sample({
+    clock: update,
     source: $userSettings,
     filter: Boolean,
     fn: (settings, newSettings) => {
@@ -65,10 +115,24 @@ sample({
     target: $userSettings,
 })
 
+// toggle sync across all devices
+sample({
+    clock: update,
+    source: $userSettings,
+    filter: (settings, newSettings) => {
+        return 'syncAcrossAllDevices' in newSettings && Boolean(settings)
+    },
+    fn: (settings, newSettings) => {
+        return { ...settings!, ...newSettings }
+    },
+    target: saveSettingsGlobalFx,
+})
+
 export const stores = {
     userSettings: $userSettings,
+    theme: $theme,
 }
 
 export const events = {
-    updateUserSetting,
+    update,
 }

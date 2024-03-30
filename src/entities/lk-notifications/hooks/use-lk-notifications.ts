@@ -3,10 +3,15 @@ import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import { useUnit } from 'effector-react'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { lkNotificationModel } from '..'
 import createNotification from '../lib/create-notification'
+import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
+import { NotificationsResponse } from '@shared/api/lk-notification-api'
+import calcNextSubjectTime from '@features/schedule/lib/calc-next-subject-time'
+import { scheduleModel } from '@entities/schedule'
 
+// todo: move logic to effector
 const useLkNotifications = () => {
     const {
         data: { user },
@@ -14,8 +19,12 @@ const useLkNotifications = () => {
 
     const { notifications, loading, loaded } = lkNotificationModel.selectors.useLkNotifications()
     const settings = useUnit(userSettingsModel.stores.userSettings)
+    const {
+        data: { schedule },
+    } = scheduleModel.selectors.useSchedule()
     const [preparedData] = useUnit([electronicInteractionModel.stores.$electronicInteractionStore])
-    const notificationSettings = useMemo(() => settings?.notifications, [])
+
+    const notificationSettings = settings?.notifications
 
     useEffect(() => {
         electronicInteractionModel.events.getElectronicInteraction()
@@ -33,22 +42,22 @@ const useLkNotifications = () => {
     useEffect(() => {
         if (!!user && !!notificationSettings) {
             if (notificationSettings.all !== false && !loaded && !loading) {
-                // const scheduleNotification: NotificationsResponse = [
-                //     { id: 'schedule', type: 'schedule', title: 'Скоро пара!', text: 'Осталось меньше 15 мин.' },
-                // ]
+                const scheduleNotification: NotificationsResponse = [
+                    { id: 'schedule', type: 'schedule', title: 'Скоро пара!', text: 'Осталось меньше 15 мин.' },
+                ]
 
-                // if (filterNotificationsViaSettings(notificationSettings, scheduleNotification).length) {
-                //     // if (calcNextSubjectTime(schedule?.today) <= 15) {
-                //     //     lkNotificationModel.events.add(
-                //     //         createNotification(
-                //     //             scheduleNotification[0].type,
-                //     //             scheduleNotification[0].id,
-                //     //             scheduleNotification[0].title,
-                //     //             scheduleNotification[0].text,
-                //     //         ),
-                //     //     )
-                //     // }
-                // }
+                if (filterNotificationsViaSettings(notificationSettings, scheduleNotification).length) {
+                    if (calcNextSubjectTime(schedule?.today) <= 15) {
+                        lkNotificationModel.events.add(
+                            createNotification(
+                                scheduleNotification[0].type,
+                                scheduleNotification[0].id,
+                                scheduleNotification[0].title,
+                                scheduleNotification[0].text,
+                            ),
+                        )
+                    }
+                }
 
                 lkNotificationModel.events.initialize({
                     settings: notificationSettings,

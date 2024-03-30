@@ -1,4 +1,4 @@
-import { ThemeVariant, REQUIRED_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
+import { ThemeVariant, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 import { UserSettings } from '../types'
 
 // const generateDefaultSettings = () => {
@@ -45,13 +45,16 @@ import { UserSettings } from '../types'
 // })
 
 // TODO: default settings for employees and students should be different
-export const getDefaultNewSettings = (): UserSettings => {
+export const getDefaultNewSettings = (isEmployee: boolean): UserSettings => {
+    // get default theme from user preferences
+    const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeVariant.Dark : ThemeVariant.Light
+
     return {
         appearance: {
-            theme: ThemeVariant.Dark,
+            theme,
         },
         customizeMenu: {
-            pages: REQUIRED_LEFTSIDE_BAR_CONFIG,
+            pages: isEmployee ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG,
         },
         homePage: {
             pages: ['settings', 'profile', 'chat', 'schedule', 'payments', 'project-activity', 'all-students'],
@@ -68,5 +71,6 @@ export const getDefaultNewSettings = (): UserSettings => {
             news: true,
             schedule: true,
         },
+        syncAcrossAllDevices: false,
     }
 }

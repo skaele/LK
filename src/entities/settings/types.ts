@@ -1,30 +1,9 @@
 import { ThemeVariant } from '@shared/constants'
 
-// TODO: split to separate types after approval
-export type UserSettings = {
-    appearance: {
-        theme: ThemeVariant
-    }
-    customizeMenu: {
-        // TODO: set type as keys of paths ids
-        pages: string[]
-    }
-    homePage: {
-        pages: string[]
-        hasSchedule: boolean
-        hasPayment: boolean
-        hasNews: boolean
-    }
-    notifications: {
-        all: boolean
-        messages: boolean
-        newVersion: boolean
-        schedule: boolean
-        news: boolean
-        applications: boolean
-        doclist: boolean
-    }
-}
+import * as z from 'zod'
+import { UserSettingsSchema } from './constants'
+
+export type UserSettings = z.infer<typeof UserSettingsSchema>
 
 export enum OldNameSettings {
     'settings-home-page' = 'settings-home-page',

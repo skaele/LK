@@ -1,6 +1,6 @@
 import { DEFAULT_API_LOAD_ERROR_MESSAGE } from '@shared/constants'
 import { createEffect, createEvent, createStore } from 'effector'
-import { useStore } from 'effector-react/compat'
+import { useStore } from 'effector-react'
 import { Args, EffectReturnType, TemplateStore, TemplateStoreOutput } from './types'
 
 const DEFAULT_STORE = {

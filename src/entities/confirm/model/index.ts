@@ -6,6 +6,7 @@ export interface Confirm {
     message?: string | null
     onConfirm: () => void
     onReject?: (params: any) => void
+    isSubmitSuccess?: boolean
 }
 
 const DEFAULT_STORE: Confirm = {
@@ -19,17 +20,18 @@ const useConfirm = () => {
     return useStore($confirm)
 }
 
-const evokeConfirm = createEvent<{ message: string; onConfirm: () => void; onReject?: (params: any) => void }>()
+const evokeConfirm = createEvent<Omit<Confirm, 'isOpen'>>()
 
 const closeConfirm = createEvent()
 const clearStore = createEvent()
 
 const $confirm = createStore<Confirm>(DEFAULT_STORE)
-    .on(evokeConfirm, (oldState, { message, onReject, onConfirm }) => ({
+    .on(evokeConfirm, (oldState, { message, onReject, onConfirm, isSubmitSuccess }) => ({
         isOpen: true,
         message,
         onConfirm,
         onReject,
+        isSubmitSuccess,
     }))
     .on(closeConfirm, (oldState) => ({
         ...oldState,

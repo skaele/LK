@@ -33,7 +33,7 @@ const ConfirmWrapper = styled.div<{ isOpen: boolean }>`
 `
 
 const ConfirmMessage = () => {
-    const { isOpen, message, onConfirm, onReject } = confirmModel.selectors.useConfirm()
+    const { isOpen, message, onConfirm, onReject, isSubmitSuccess } = confirmModel.selectors.useConfirm()
     const confirmRef = useRef<HTMLDivElement>(null)
 
     useOnClickOutside(confirmRef, () => confirmModel.events.closeConfirm())
@@ -65,17 +65,17 @@ const ConfirmMessage = () => {
                         text="Да"
                         onClick={handleConfirm}
                         width="90px"
-                        textColor={Colors.red.main}
+                        textColor={isSubmitSuccess ? Colors.green.main : Colors.red.main}
                         background="transparent"
-                        hoverBackground={Colors.red.transparent3}
+                        hoverBackground={isSubmitSuccess ? Colors.green.transparent3 : Colors.red.transparent3}
                     />
                     <Button
                         text="Нет"
                         onClick={onReject ?? handleReject}
                         width="90px"
-                        textColor={Colors.blue.main}
+                        textColor={isSubmitSuccess ? Colors.grey.light1 : Colors.blue.main}
                         background="transparent"
-                        hoverBackground={Colors.blue.transparent3}
+                        hoverBackground={isSubmitSuccess ? Colors.grey.transparent3 : Colors.blue.transparent3}
                     />
                 </List>
             </ConfirmWrapper>

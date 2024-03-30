@@ -1,7 +1,7 @@
 import { SelectPage } from '@features/select'
 import PagintaionList from '@shared/ui/pagination-list'
 import { Hint } from '@shared/ui/search'
-import { Store, Event } from 'effector'
+import { EventCallable, Store } from 'effector'
 import { useStore } from 'effector-react'
 import React from 'react'
 import User from 'widgets/user'
@@ -20,8 +20,8 @@ type Props<T extends TUser> = {
         $items: Store<T[] | null>
         $isPending: Store<boolean>
         $hasNext: Store<boolean>
-        next: Event<ServerListRequest<SelectPage | null>>
-        load: Event<ServerListRequest<SelectPage | null>>
+        next: EventCallable<ServerListRequest<SelectPage | null>>
+        load: EventCallable<ServerListRequest<SelectPage | null>>
     }
     noResultContent?: JSX.Element | null
     filter?: Hint | null

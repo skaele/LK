@@ -3,7 +3,7 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiUserCircle } from 'react-icons/bi'
+import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -11,6 +11,7 @@ import {
     AllPages,
     AllStudentsPage,
     AllTeachersPage,
+    AppearanceSettingsPage,
     CantAccessPage,
     DecreisDirectivesPage,
     ElectronicInteractionAgreementPage,
@@ -20,9 +21,13 @@ import {
     Home,
     InstructionsPage,
     LkNotificationsPage,
+    MainPageSettingsPage,
     MedicalCertificate,
     MemoFreshmenPage,
     MemoTeacherPage,
+    MenuSettingsPage,
+    NotificationsSettings,
+    PersonalSettingsPage,
     ProfilePage,
     ScheduleCurrent,
     // ChatPage,
@@ -30,13 +35,14 @@ import {
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
+    SettingsPage,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
-import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiXCircle } from 'react-icons/fi'
+import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
 import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 
@@ -71,7 +77,7 @@ export const TEMPLATE_SETTINGS_ROUTE = SETTINGS_ROUTE + '/:id'
 export const SETTINGS_APPEARANCE_ROUTE = SETTINGS_ROUTE + '/appearance'
 export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/personal'
 export const SETTINGS_SECURITY_ROUTE = SETTINGS_ROUTE + '/security'
-export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home-page'
+export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
 export const INSTRUCTIONS_ROUTE = '/instructions'
@@ -197,17 +203,6 @@ export const generalRoutes: IRoutes = {
         withoutBackButton: true,
         pageSize: 'big',
     },
-    // settings: {
-    //     id: 'settings',
-    //     title: 'Настройки',
-    //     icon: <FiSettings />,
-    //     path: SETTINGS_ROUTE,
-    //     Component: SettingsPage,
-    //     color: 'grey',
-    //     isTemplate: true,
-    //     show: true,
-    //     group: 'GENERAL',
-    // },
     doclist: {
         id: 'doclist',
         title: 'Ознакомление с документами',
@@ -241,6 +236,17 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         keywords: ['домой'],
         withoutHeader: true,
+    },
+    settings: {
+        id: 'settings',
+        title: 'Настройки',
+        icon: <FiSettings />,
+        path: SETTINGS_ROUTE,
+        Component: SettingsPage,
+        color: 'grey',
+        isTemplate: true,
+        show: true,
+        group: 'GENERAL',
     },
     profile: {
         id: 'profile',
@@ -478,58 +484,43 @@ export const generalHiddenRoutes: IRoutes = {
         show: false,
         group: 'OTHER',
     },
-    // 'settings-appearance': {
-    //     id: 'settings-appearance',
-    //     title: 'Настройки. Внешний вид',
-    //     icon: <BiPalette />,
-    //     path: SETTINGS_APPEARANCE_ROUTE,
-    //     Component: Appearance,
-    //     color: 'purple',
-    //     isTemplate: true,
-    //     show: true,
-    //     group: 'OTHER',
-    //     isSubPage: true,
-    //     subPageHeaderTitle: 'Внешний вид',
-    //     fallbackPrevPage: SETTINGS_ROUTE,
-
-    //     backButtonText: 'Настройки',
-    // },
-    // 'settings-personal': {
-    //     id: 'settings-personal',
-    //     title: 'Настройки. Аккаунт',
-    //     icon: <FiUser />,
-    //     path: SETTINGS_PERSONAl_ROUTE,
-    //     Component: Account,
-    //     color: 'pink',
-    //     isTemplate: true,
-    //     show: true,
-    //     group: 'OTHER',
-    //     isSubPage: true,
-    //     subPageHeaderTitle: 'Аккаунт',
-    //     fallbackPrevPage: SETTINGS_ROUTE,
-    //     backButtonText: 'Настройки',
-    // },
-    // 'settings-security': {
-    //     id: 'settings-security',
-    //     title: 'Настройки. Безопасность',
-    //     icon: <FiLock />,
-    //     path: SETTINGS_SECURITY_ROUTE,
-    //     Component: Security,
-    //     color: 'green',
-    //     isTemplate: true,
-    //     show: true,
-    //     group: 'OTHER',
-    //     isSubPage: true,
-    //     subPageHeaderTitle: 'Безопасность',
-    //     fallbackPrevPage: SETTINGS_ROUTE,
-    //     backButtonText: 'Настройки',
-    // },
+    // #region settings pages
+    'settings-appearance': {
+        id: 'settings-appearance',
+        title: 'Настройки. Внешний вид',
+        icon: <BiPalette />,
+        path: SETTINGS_APPEARANCE_ROUTE,
+        Component: AppearanceSettingsPage,
+        color: 'purple',
+        isTemplate: true,
+        show: true,
+        group: 'OTHER',
+        isSubPage: true,
+        subPageHeaderTitle: 'Внешний вид',
+        fallbackPrevPage: SETTINGS_ROUTE,
+        backButtonText: 'Настройки',
+    },
+    'settings-personal': {
+        id: 'settings-personal',
+        title: 'Настройки. Аккаунт',
+        icon: <FiUser />,
+        path: SETTINGS_PERSONAl_ROUTE,
+        Component: PersonalSettingsPage,
+        color: 'pink',
+        isTemplate: true,
+        show: true,
+        group: 'OTHER',
+        isSubPage: true,
+        subPageHeaderTitle: 'Аккаунт',
+        fallbackPrevPage: SETTINGS_ROUTE,
+        backButtonText: 'Настройки',
+    },
     'settings-home-page': {
         id: 'settings-home-page',
         title: 'Настройки. Главная',
         icon: <FiHome />,
         path: SETTINGS_HOME_PAGE_ROUTE,
-        Component: () => <></>,
+        Component: MainPageSettingsPage,
         color: 'blue',
         isTemplate: true,
         show: true,
@@ -545,7 +536,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Меню',
         icon: <FiMenu />,
         path: SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE,
-        Component: () => <></>,
+        Component: MenuSettingsPage,
         color: 'red',
         isTemplate: true,
         show: true,
@@ -560,7 +551,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Уведомления',
         icon: <FiBell />,
         path: SETTINGS_NOTIFICATIONS,
-        Component: () => <></>,
+        Component: NotificationsSettings,
         color: 'orange',
         isTemplate: true,
         show: true,
@@ -570,6 +561,8 @@ export const generalHiddenRoutes: IRoutes = {
 
         backButtonText: 'Настройки',
     },
+    // #endregion
+
     'useful-info-template': {
         id: `useful-info-template`,
         title: `Полезная информация`,

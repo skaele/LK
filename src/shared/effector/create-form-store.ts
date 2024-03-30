@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
-import { Effect, Event } from 'effector'
-import { useStore } from 'effector-react/compat'
+import { Effect, Event, EventCallable } from 'effector'
+import { useStore } from 'effector-react'
 import { createEffect, createEvent, createStore } from 'effector'
 
 export interface TemplateFormStore<DataType> {
@@ -19,7 +19,7 @@ export interface TemplateFormStoreOutput<DataType, PostDataType> {
         postFormFx: Effect<PostDataType, void, Error>
     }
     events: {
-        changeCompleted: Event<{
+        changeCompleted: EventCallable<{
             completed: boolean
         }>
         clearStore: Event<void>

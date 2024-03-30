@@ -1,5 +1,5 @@
 import { userSettingsModel } from '@entities/settings'
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, SIDEBAR_ITEMS_LIMIT_SIZE } from '@shared/constants'
+import { SIDEBAR_ITEMS_LIMIT_SIZE } from '@shared/constants'
 import { createEvent, sample } from 'effector'
 
 export const addPageToHome = createEvent<{ pageId: string }>()
@@ -8,7 +8,7 @@ export const deletePageFromHome = createEvent<{ pageId: string }>()
 sample({
     clock: addPageToHome,
     source: userSettingsModel.stores.userSettings,
-    filter: (settings, { pageId }) => Boolean(settings) && !REQUIRED_LEFTSIDE_BAR_CONFIG.includes(pageId),
+    filter: (settings) => Boolean(settings),
     fn: (settings, { pageId }) => {
         return {
             homePage: {
@@ -17,7 +17,7 @@ sample({
             },
         }
     },
-    target: userSettingsModel.events.updateUserSetting,
+    target: userSettingsModel.events.update,
 })
 
 sample({
@@ -32,7 +32,7 @@ sample({
             },
         }
     },
-    target: userSettingsModel.events.updateUserSetting,
+    target: userSettingsModel.events.update,
 })
 
 export const addPageToSidebar = createEvent<{ pageId: string }>()
@@ -41,32 +41,29 @@ export const deletePageFromSidebar = createEvent<{ pageId: string }>()
 sample({
     clock: addPageToSidebar,
     source: userSettingsModel.stores.userSettings,
-    filter: (settings, { pageId }) =>
-        Boolean(settings) &&
-        !REQUIRED_LEFTSIDE_BAR_CONFIG.includes(pageId) &&
-        settings!.customizeMenu.pages.length < SIDEBAR_ITEMS_LIMIT_SIZE,
+    filter: (settings) => Boolean(settings) && settings!.customizeMenu.pages.length < SIDEBAR_ITEMS_LIMIT_SIZE,
     fn: (settings, { pageId }) => {
         return {
-            homePage: {
+            customizeMenu: {
                 ...settings!.homePage,
-                pages: [...settings!.homePage.pages, pageId],
+                pages: [...settings!.customizeMenu.pages, pageId],
             },
         }
     },
-    target: userSettingsModel.events.updateUserSetting,
+    target: userSettingsModel.events.update,
 })
 
 sample({
     clock: deletePageFromSidebar,
     source: userSettingsModel.stores.userSettings,
-    filter: (settings, { pageId }) => Boolean(settings) && !REQUIRED_LEFTSIDE_BAR_CONFIG.includes(pageId),
+    filter: (settings) => Boolean(settings),
     fn: (settings, { pageId }) => {
         return {
-            homePage: {
+            customizeMenu: {
                 ...settings!.homePage,
-                pages: settings!.homePage.pages.filter((id) => id !== pageId),
+                pages: settings!.customizeMenu.pages.filter((id) => id !== pageId),
             },
         }
     },
-    target: userSettingsModel.events.updateUserSetting,
+    target: userSettingsModel.events.update,
 })

@@ -12,9 +12,9 @@ sample({
         return {
             appearance: {
                 ...settings!.appearance,
-                theme: isDark ? ThemeVariant.Light : ThemeVariant.Dark,
+                theme: !isDark ? ThemeVariant.Light : ThemeVariant.Dark,
             },
         }
     },
-    target: userSettingsModel.events.updateUserSetting,
+    target: userSettingsModel.events.update,
 })

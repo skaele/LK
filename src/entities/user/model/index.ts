@@ -6,7 +6,6 @@ import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
-import clearAllStores from '../lib/clear-all-stores'
 import { clearTokens } from '../lib/clear-tokens'
 
 interface UserStore {
@@ -18,7 +17,6 @@ interface UserStore {
 }
 
 //  In effector chat core-team describe something like this code (Perhaps a better solution can be found)
-// TODO: move localstorage keys to enum
 const tokenInStorage = localStorage.getItem(BrowserStorageKey.Token) ?? ''
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')
 
@@ -104,7 +102,7 @@ const logoutFx = createEffect(() => {
         sessionStorage.removeItem(BrowserStorageKey.JWTRefresh)
     }
 
-    clearAllStores()
+    // clearAllStores()
 })
 
 const changeSavePasswordFunc = (savePassword?: boolean) => {

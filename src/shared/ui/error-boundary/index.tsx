@@ -1,7 +1,8 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react'
 import { CodeError } from '../code-error'
 
-const chunkFailedMessage = /Loading chunk [\d]+ failed/
+const hmrErrorMessage = /Cannot access 'get' before initialization/
+const chunkFailedMessage = /Failed to fetch dynamically imported module/
 
 interface Props {
     children?: ReactNode
@@ -27,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
         // eslint-disable-next-line no-console
         console.error('Uncaught error:', error, errorInfo)
 
-        if (error?.message && chunkFailedMessage.test(error.message)) {
+        if (error?.message && (chunkFailedMessage.test(error.message) || hmrErrorMessage.test(error.message))) {
             window.location.reload()
         }
     }

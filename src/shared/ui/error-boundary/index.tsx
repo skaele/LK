@@ -14,6 +14,7 @@ interface State {
 }
 
 const MAX_RELOAD_COUNT = 2
+const RELOAD_COUNT = 'reloadCount'
 
 class ErrorBoundary extends Component<Props, State> {
     public state: State = {
@@ -36,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
             error?.message &&
             (chunkFailedMessage.test(error.message) || hmrErrorMessage.test(error.message))
         ) {
-            sessionStorage.setItem('reloadCount', `${reloadCount + 1}`)
+            sessionStorage.setItem(RELOAD_COUNT, `${reloadCount + 1}`)
             window.location.reload()
         }
     }
@@ -46,7 +47,7 @@ class ErrorBoundary extends Component<Props, State> {
             return <CodeError error={this.state.error!} />
         }
 
-        sessionStorage.setItem('reloadCount', '0')
+        sessionStorage.setItem(RELOAD_COUNT, '0')
         return this.props.children
     }
 }

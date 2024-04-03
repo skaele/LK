@@ -54,7 +54,18 @@ const DragAndDropArea = ({ files, maxFiles, setFiles, isActive, formats, maxFile
             onDrop={(e) => isActive && handleDrop(e)}
             topPadding={!!maxFiles}
         >
-            <input type="file" name="" id="" ref={fileInputRef} onChange={filesSelectedHandle} />
+            <input
+                type="file"
+                name=""
+                id=""
+                ref={fileInputRef}
+                // Чтобы можно было добавлять файлы с одним и тем же названием
+                onClick={(e) => {
+                    const element = e.target as HTMLInputElement
+                    element.value = ''
+                }}
+                onChange={filesSelectedHandle}
+            />
             <div className="message">
                 <FcFolder className="front-icon" />
                 <div className="icons-behind">

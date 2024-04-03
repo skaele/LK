@@ -8,6 +8,7 @@ import styled from 'styled-components'
 
 const LinkItemStyled = styled(Link)<{ color: string }>`
     width: 100%;
+    max-width: 93px;
     height: 100%;
     /* background: var(--block); */
     display: flex;

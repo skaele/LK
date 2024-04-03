@@ -13,6 +13,8 @@ interface State {
     error: Error | null
 }
 
+const MAX_RELOAD_COUNT = 2
+
 class ErrorBoundary extends Component<Props, State> {
     public state: State = {
         hasError: false,
@@ -28,7 +30,13 @@ class ErrorBoundary extends Component<Props, State> {
         // eslint-disable-next-line no-console
         console.error('Uncaught error:', error, errorInfo)
 
-        if (error?.message && (chunkFailedMessage.test(error.message) || hmrErrorMessage.test(error.message))) {
+        const reloadCount = Number(sessionStorage.getItem('reloadCount')) ?? 0
+        if (
+            reloadCount < MAX_RELOAD_COUNT &&
+            error?.message &&
+            (chunkFailedMessage.test(error.message) || hmrErrorMessage.test(error.message))
+        ) {
+            sessionStorage.setItem('reloadCount', `${reloadCount + 1}`)
             window.location.reload()
         }
     }
@@ -38,6 +46,7 @@ class ErrorBoundary extends Component<Props, State> {
             return <CodeError error={this.state.error!} />
         }
 
+        sessionStorage.setItem('reloadCount', '0')
         return this.props.children
     }
 }

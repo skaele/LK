@@ -7,12 +7,14 @@ import Block from '@shared/ui/block'
 import { Button, Wrapper } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
-import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
+import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
 
 const Content = () => {
     const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const jobs = useGetJobs()
 
     return (
         <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
@@ -45,8 +47,8 @@ const Content = () => {
                     height="fit-content"
                 >
                     <Table
-                        columns={getMedicalExaminationHistoryColumns()}
-                        columnsExtended={getExtendedMedicalExaminationHistoryColumns()}
+                        columns={getMedicalExaminationHistoryColumns(jobs)}
+                        columnsExtended={getExtendedMedicalExaminationHistoryColumns(jobs)}
                         data={data}
                         maxOnPage={10}
                     />

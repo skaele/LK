@@ -4,17 +4,13 @@ import axios from 'axios'
 
 const downloadFile = async (guid: string, type: string, service: 'Vacation' | 'MedicalExamination') => {
     try {
-        const url = `https://api.mospolytech.ru/serviceforfrontpersonnelorders/${service}.DownloadFile?DocumentGuid=${guid}&Type=${type}`
-
-        const headers = {
-            Authorization: `Bearer ${getJwtToken()}`,
-        }
-
         const response = await axios({
-            url: url,
+            url: `https://api.mospolytech.ru/serviceforfrontpersonnelorders/${service}.DownloadFile?DocumentGuid=${guid}&Type=${type}`,
             method: 'GET',
             responseType: 'blob',
-            headers: headers,
+            headers: {
+                Authorization: `Bearer ${getJwtToken()}`,
+            },
         })
         const downloadUrl = window.URL.createObjectURL(new Blob([response.data]))
         const link = document.createElement('a')

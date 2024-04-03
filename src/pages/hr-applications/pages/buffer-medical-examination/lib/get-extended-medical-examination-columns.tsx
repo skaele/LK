@@ -1,9 +1,10 @@
 import { ColumnProps } from '@ui/table/types'
 import { getMedicalExaminationHistoryColumns } from './get-medical-examination-columns'
+import { SelectPage } from '@features/select'
 
-export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => {
+export const getExtendedMedicalExaminationHistoryColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
-        ...getMedicalExaminationHistoryColumns(),
+        ...getMedicalExaminationHistoryColumns(jobs),
         {
             title: 'Статус приказа',
             field: 'orderApprovalStatus',

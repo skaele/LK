@@ -18,9 +18,8 @@ export const hrOrderConstants = {
     empty: 'Не создан',
 }
 export const hrOrderRegisterConstants = {
-    registered: 'Зарегистрирован',
     registering: 'На регистрации',
-    notRegistered: 'Не зарегистрирован',
+    notRegistered: 'Не утвержден',
 }
 
 export const NumberOfCopiesOptions = [

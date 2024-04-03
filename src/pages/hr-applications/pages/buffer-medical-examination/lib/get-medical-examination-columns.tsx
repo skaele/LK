@@ -4,8 +4,10 @@ import React from 'react'
 import { ColumnProps } from '@ui/table/types'
 import { PersonnelDownloadButton } from '@pages/hr-applications/ui/atoms/personnel-download-button'
 import Flex from '@shared/ui/flex'
+import { hrOrderRegisterConstants } from '@entities/applications/consts'
+import { SelectPage } from '@features/select'
 
-export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
+export const getMedicalExaminationHistoryColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
         {
             title: 'Дата',
@@ -20,7 +22,9 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             title: 'Статус',
             field: 'orderStatus',
             width: '150px',
-            sort: true,
+            catalogs: [
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
             render: (value) => {
                 return (
                     <Message
@@ -46,7 +50,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
         {
             title: 'Должность',
             field: 'positionName',
-            sort: true,
+            catalogs: jobs,
         },
         {
             title: 'Дни',

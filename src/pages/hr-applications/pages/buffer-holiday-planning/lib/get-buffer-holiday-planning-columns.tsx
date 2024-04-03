@@ -1,3 +1,5 @@
+import { hrOrderRegisterConstants } from '@entities/applications/consts'
+import { SelectPage } from '@features/select'
 import { PersonnelDownloadButton } from '@pages/hr-applications/ui/atoms/personnel-download-button'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { TypesOfVacation } from '@shared/models/types-of-vacation'
@@ -6,7 +8,7 @@ import { Message } from '@shared/ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 
-export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
+export const getBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
         {
             title: 'Дата',
@@ -17,7 +19,9 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Статус',
-            sort: true,
+            catalogs: [
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
             field: 'orderStatus',
             width: '150px',
             render: (value) => {
@@ -43,9 +47,9 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Должность',
+            catalogs: jobs,
             field: 'positionName',
             width: '250px',
-            sort: true,
         },
         {
             title: 'Вид отпуска',

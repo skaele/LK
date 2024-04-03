@@ -1,9 +1,10 @@
+import { SelectPage } from '@features/select'
 import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
 import { ColumnProps } from '@shared/ui/table/types'
 
-export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
+export const getExtendedBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
-        ...getBufferHolidayPlanningColumns(),
+        ...getBufferHolidayPlanningColumns(jobs),
         {
             title: 'Дней',
             field: 'totalDays',

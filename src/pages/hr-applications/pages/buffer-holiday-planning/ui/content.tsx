@@ -9,10 +9,12 @@ import Flex from '@shared/ui/flex'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
     const load = () => bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
+    const jobs = useGetJobs()
 
     // const jobVacations =
     //     data &&
@@ -75,8 +77,8 @@ const Content = () => {
                         height="fit-content"
                     >
                         <Table
-                            columns={getBufferHolidayPlanningColumns()}
-                            columnsExtended={getExtendedBufferHolidayPlanningColumns()}
+                            columns={getBufferHolidayPlanningColumns(jobs)}
+                            columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
                             data={data}
                             maxOnPage={10}
                         />

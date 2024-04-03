@@ -20,6 +20,7 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
             title: 'Статус',
             field: 'orderStatus',
             width: '150px',
+            sort: true,
             render: (value) => {
                 return (
                     <Message

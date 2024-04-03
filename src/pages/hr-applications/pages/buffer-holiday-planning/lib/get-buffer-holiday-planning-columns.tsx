@@ -17,6 +17,7 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
         },
         {
             title: 'Статус',
+            sort: true,
             field: 'orderStatus',
             width: '150px',
             render: (value) => {

@@ -10,7 +10,6 @@ import React, { useEffect, useState } from 'react'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
-import PageBlock from '@shared/ui/page-block'
 
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -21,7 +20,7 @@ const MedicalExamination = () => {
     const [jobTitle, setJobTitle] = useState<string | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
     const {
-        data: { dataUserApplication, dataWorkerApplication },
+        data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
     const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
@@ -29,7 +28,7 @@ const MedicalExamination = () => {
     const isDone = completed ?? false
 
     useEffect(() => {
-        if (!!dataUserApplication && !!dataWorkerApplication && !loading) {
+        if (!!dataUserApplication && !loading) {
             setForm(
                 getForm(
                     dataUserApplication,
@@ -54,32 +53,30 @@ const MedicalExamination = () => {
     }, [form])
 
     return (
-        <PageBlock>
-            <BaseApplicationWrapper isDone={isDone}>
-                {!!form && !!setForm && (
-                    <FormBlock>
-                        <InputArea
-                            {...form}
-                            collapsed={isDone}
-                            setData={setForm as any}
-                            specialFieldsNameConfig={specialFieldsName}
-                        />
-                        <SubmitButton
-                            text={'Отправить'}
-                            action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
-                            isLoading={loading}
-                            completed={completed}
-                            setCompleted={setCompleted}
-                            repeatable={false}
-                            buttonSuccessText="Отправлено"
-                            isDone={isDone}
-                            isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
-                            alerts={false}
-                        />
-                    </FormBlock>
-                )}
-            </BaseApplicationWrapper>
-        </PageBlock>
+        <BaseApplicationWrapper isDone={isDone}>
+            {!!form && !!setForm && (
+                <FormBlock>
+                    <InputArea
+                        {...form}
+                        collapsed={isDone}
+                        setData={setForm as any}
+                        specialFieldsNameConfig={specialFieldsName}
+                    />
+                    <SubmitButton
+                        text={'Отправить'}
+                        action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
+                        isLoading={loading}
+                        completed={completed}
+                        setCompleted={setCompleted}
+                        repeatable={false}
+                        buttonSuccessText="Отправлено"
+                        isDone={isDone}
+                        isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
+                        alerts={false}
+                    />
+                </FormBlock>
+            )}
+        </BaseApplicationWrapper>
     )
 }
 

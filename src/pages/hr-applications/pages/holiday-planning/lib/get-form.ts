@@ -1,5 +1,7 @@
 import { UserApplication } from '@api/model'
+import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { isProduction } from '@shared/constants'
 import { IInputArea } from '@ui/input-area/model'
 
@@ -44,8 +46,12 @@ const getForm = (
     holidayType: any,
     setHolidayType: React.Dispatch<React.SetStateAction<string | null>>,
     jobGuid: string | null,
+    jobTitle: string | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
-    const { surname, name, patronymic } = dataUserApplication
+    const { surname, name, patronymic, subdivisions } = dataUserApplication
+    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
     const holidayStartDate = !!startDate ? startDate : new Date().toISOString()
     const holidayEndDate = !!endDate ? endDate : null
     const collTypeData = !!collType ? collType : ''
@@ -60,6 +66,21 @@ const getForm = (
                 value: surname + ' ' + name + ' ' + patronymic,
                 fieldName: 'fio',
                 visible: true,
+            },
+            {
+                title: 'Подразделение/должность',
+                value: jobTitleData,
+                fieldName: 'guid_staff',
+                editable: true,
+                width: '100',
+                required: true,
+                type: 'select',
+                items: getFormattedSubDivisionsWithRate(subdivisions),
+                isSpecificSelect: true,
+                onChange: (value) => {
+                    setJobTitle(value)
+                    setJobGuid(value.id)
+                },
             },
             {
                 title: 'Вид отпуска',

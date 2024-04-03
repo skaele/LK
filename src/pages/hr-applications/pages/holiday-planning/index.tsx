@@ -10,14 +10,11 @@ import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'
 import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import PageBlock from '@shared/ui/page-block'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import { VacationList } from './vacation-list'
-import { getJob } from './lib/get-job'
 import { Calendars } from '@features/vacation-schedule/ui/templates/calendars'
 
 const HolidayPlanning = () => {
-    const [jobForm, setJobForm] = useState<IInputArea | null>(null)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
@@ -26,7 +23,7 @@ const HolidayPlanning = () => {
     const [collType, setCollType] = useState<string | null>(null)
     const [holidayType, setHolidayType] = useState<string | null>(null)
     const {
-        data: { dataUserApplication, dataWorkerApplication },
+        data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
     const { loading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
@@ -34,8 +31,7 @@ const HolidayPlanning = () => {
     const isDone = completed ?? false
 
     useEffect(() => {
-        if (!!dataUserApplication && !!dataWorkerApplication && !loading) {
-            setJobForm(getJob(dataUserApplication, jobTitle, setJobTitle, setJobGuid))
+        if (!!dataUserApplication && !loading) {
             setForm(
                 getForm(
                     dataUserApplication,
@@ -48,6 +44,9 @@ const HolidayPlanning = () => {
                     holidayType,
                     setHolidayType,
                     jobGuid,
+                    jobTitle,
+                    setJobTitle,
+                    setJobGuid,
                 ),
             )
         }
@@ -63,57 +62,47 @@ const HolidayPlanning = () => {
     const [included, setIncluded] = useState(false)
 
     return (
-        <PageBlock>
-            <BaseApplicationWrapper isDone={isDone} flexDirection="column">
-                {!!form && !!setForm && !!jobForm && !!setJobForm && (
-                    <FormBlock>
-                        <InputAreaWrapper openArea={openArea}>
-                            <AreaTitle
-                                title={'График отпусков'}
-                                included={included}
-                                optional={false}
-                                setOpenArea={setOpenArea}
-                                setIncluded={setIncluded}
-                                collapsed={false}
-                                openArea={openArea}
-                            />
-                            <div className="inputs">
-                                <Calendars />
-                                <Divider />
-                                <VacationList jobGuid={jobGuid} />
-                            </div>
-                        </InputAreaWrapper>
-                        <InputArea
-                            {...jobForm}
-                            collapsed={isDone}
-                            setData={setJobForm as any}
-                            specialFieldsNameConfig={specialFieldsName}
+        <BaseApplicationWrapper isDone={isDone}>
+            {!!form && !!setForm && (
+                <FormBlock>
+                    <InputAreaWrapper openArea={openArea}>
+                        <AreaTitle
+                            title={'График отпусков'}
+                            included={included}
+                            optional={false}
+                            setOpenArea={setOpenArea}
+                            setIncluded={setIncluded}
+                            collapsed={false}
+                            openArea={openArea}
                         />
-                        <InputArea
-                            {...form}
-                            collapsed={isDone}
-                            setData={setForm as any}
-                            specialFieldsNameConfig={specialFieldsName}
-                        />
+                        <div className="inputs">
+                            <Calendars />
+                            <Divider />
+                            <VacationList jobGuid={jobGuid} />
+                        </div>
+                    </InputAreaWrapper>
+                    <InputArea
+                        {...form}
+                        collapsed={isDone}
+                        setData={setForm as any}
+                        specialFieldsNameConfig={specialFieldsName}
+                    />
 
-                        <SubmitButton
-                            text={'Отправить'}
-                            action={() => sendHrFormHolidayPlanning('', [form], setCompleted)}
-                            isLoading={loading}
-                            completed={completed}
-                            setCompleted={setCompleted}
-                            repeatable={false}
-                            buttonSuccessText="Отправлено"
-                            isDone={isDone}
-                            isActive={
-                                checkFormFields(form, specialFieldsName) && (form.optionalCheckbox?.value ?? true)
-                            }
-                            alerts={false}
-                        />
-                    </FormBlock>
-                )}
-            </BaseApplicationWrapper>
-        </PageBlock>
+                    <SubmitButton
+                        text={'Отправить'}
+                        action={() => sendHrFormHolidayPlanning('', [form], setCompleted)}
+                        isLoading={loading}
+                        completed={completed}
+                        setCompleted={setCompleted}
+                        repeatable={false}
+                        buttonSuccessText="Отправлено"
+                        isDone={isDone}
+                        isActive={checkFormFields(form, specialFieldsName) && (form.optionalCheckbox?.value ?? true)}
+                        alerts={false}
+                    />
+                </FormBlock>
+            )}
+        </BaseApplicationWrapper>
     )
 }
 

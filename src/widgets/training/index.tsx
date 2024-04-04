@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import TrainingPic from '../../shared/images/training-picture.jpg'
 import { Buttons, Text, Title, TrainingLayout, TrainingWelcome, TrainingWelcomeText } from './ui/welcome-text'
 import { Button } from '@shared/ui/button'
 import { Colors } from '@shared/constants'
+import { useUnit } from 'effector-react'
+import { $trStore, setTrainingVisible } from '@pages/home/ui/bright-plate'
 
 export const Training = () => {
-    const [trainingVisible, setTrainingVisible] = useState(true)
+    const trainingVisible = useUnit($trStore)
 
     if (!trainingVisible) {
         return null
     }
 
     return (
-        <TrainingLayout onClick={() => setTrainingVisible(false)}>
-            <TrainingWelcome onClick={(e) => e.stopPropagation()}>
+        <TrainingLayout onMouseUp={() => setTrainingVisible(false)}>
+            <TrainingWelcome onMouseUp={(e) => e.stopPropagation()}>
                 <img height="440px" src={TrainingPic} />
                 <TrainingWelcomeText>
                     <Title>Привет!</Title>
@@ -44,7 +46,7 @@ export const Training = () => {
                             height="52px"
                             background={Colors.blue.light1}
                             hoverBackground="#6E7AE0"
-                            color="white"
+                            textColor="white"
                             onClick={() => setTrainingVisible(false)}
                         />
                     </Buttons>

@@ -1,6 +1,8 @@
 import { PEStudent } from '@entities/pe-student/types'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { ColumnProps } from '@shared/ui/table/types'
+import { NameRenderer } from './styled'
+import React from 'react'
 
 export const peStudentColumns: ColumnProps[] = [
     {
@@ -8,6 +10,9 @@ export const peStudentColumns: ColumnProps[] = [
         field: 'fullName',
         priority: 'one',
         showFull: true,
+        render: (_, value) => {
+            return <NameRenderer hasDebt={value.hasDebtFromPreviousSemester}>{value.fullName}</NameRenderer>
+        },
     },
     {
         title: 'Группа',
@@ -44,7 +49,7 @@ export const examPeStudentColumns: ColumnProps[] = [
         title: 'ФИО',
         field: 'name',
         render: (_, value) => {
-            return value.fullName
+            return <NameRenderer hasDebt={value.hasDebtFromPreviousSemester}>{value.fullName}</NameRenderer>
         },
         showFull: true,
         priority: 'one',

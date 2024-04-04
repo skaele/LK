@@ -15,6 +15,7 @@ import {
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
+    MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     USEFUL_INFO_ROUTE,
@@ -59,6 +60,8 @@ import {
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
+import { BsFileMedical } from 'react-icons/bs'
+import MedicalCertificate from '@pages/medical-certificate'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -120,6 +123,17 @@ export const privateRoutes: () => IRoutes = () => ({
         keywords: ['справки', 'справка', 'заявления', 'заявление'],
     },
     ...generalRoutes,
+
+    'medical-certificate': {
+        id: 'medical-certificate',
+        title: 'Предоставление медицинских справок',
+        icon: <BsFileMedical />,
+        path: MEDICAL_CERTIFICATE,
+        Component: MedicalCertificate,
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+    },
     payments: {
         id: 'payments',
         title: 'Договоры и оплаты',
@@ -397,14 +411,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение внутри общежития',
         icon: <BiIdCard />,
         path: RELOCATION_INSIDE_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение внутри общежития будет осуществляться с 01.10.2023"
-                  />
-              )
-            : RelocationInsideHostelPage,
+        Component: RelocationInsideHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -417,14 +424,15 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение в другое общежитие завершен 15.06.2023"
-                  />
-              )
-            : RelocationToAnotherHostelPage,
+        Component:
+            Date.now() > new Date('2024-07-01').getTime()
+                ? () => (
+                      <PageIsNotReady
+                          isRedirectButtonVisible={false}
+                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
+                      />
+                  )
+                : RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

@@ -1,4 +1,4 @@
-import { Payments } from '@api/model'
+import { Payments, PaymentsContract } from '@api/model'
 import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
 import { IColors, MEDIA_QUERIES } from '@shared/constants'
 import { paymentsModel } from '@entities/payments'
@@ -127,6 +127,16 @@ const TopMessage = ({
     )
 }
 
+const countPayment = (contracts: PaymentsContract[]) => {
+    if (contracts.some((contract) => Number(contract.balance_currdate) > 0)) {
+        return contracts.reduce(
+            (sum, contract) => (Number(contract.balance_currdate) > 0 ? Number(contract.balance_currdate) + sum : sum),
+            0,
+        )
+    }
+    return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
+}
+
 const PaymentsWidget = () => {
     const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
@@ -135,9 +145,8 @@ const PaymentsWidget = () => {
     if (!payments) return <SkeletonLoading />
 
     if (!!payments && !payments.dormitory.length && !payments.education.length) return null
-
-    const dormPayment = +payments?.dormitory[0]?.balance_currdate
-    const eduPayment = +payments?.education[0]?.balance_currdate
+    const dormPayment = countPayment(payments?.dormitory)
+    const eduPayment = countPayment(payments?.education)
 
     const hasToPay = dormPayment > 0 || eduPayment > 0
 

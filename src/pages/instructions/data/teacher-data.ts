@@ -7,6 +7,11 @@ const instructionsTeacherData: InstructionsType[] = [
         title: 'Инструкции',
         links: [
             {
+                link: OLD_LK_URL + '/storage/files/instruction_business_trip_docs.docx',
+                title: 'Инструкция для командируемых работников',
+                icon: '',
+            },
+            {
                 link: OLD_LK_URL + '/storage/files/Instruktsiya_po_podkljucheniju_k_VPN.pdf',
                 title: 'Как самостоятельно подключиться к VPN',
                 icon: 'https://icon-library.com/images/vpn-icon-png/vpn-icon-png-18.jpg',

@@ -1,3 +1,4 @@
+import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 
@@ -20,4 +21,8 @@ export const FiltersWrapper = styled(Flex)`
     @media (max-width: 768px) {
         flex-direction: column;
     }
+`
+
+export const NameRenderer = styled.span<{ hasDebt: boolean }>`
+    color: ${({ hasDebt }) => hasDebt && Colors.red.main};
 `

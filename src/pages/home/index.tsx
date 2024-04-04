@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import HomeTopPlate from './ui/home-top-plate'
 import { useUnit } from 'effector-react'
+import { BrightPlate } from './ui/bright-plate'
 import { userSettingsModel } from '@entities/settings'
 
 const HomePageStyled = styled.div`
@@ -65,6 +66,7 @@ const Home = () => {
             <HomePageStyled>
                 <GlobalAppSearch />
                 {Boolean(Object.keys(homeRoutes).length) && <Links links={homeRoutes} />}
+                <BrightPlate />
                 <CenterPage>
                     <Block
                         noAppearanceInMobile

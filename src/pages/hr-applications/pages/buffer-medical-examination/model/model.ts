@@ -39,7 +39,7 @@ const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalEx
         }
         if (!!files[0]) {
             for (let i = 0; i < files[0].length; i++) {
-                formData.set('files', files[0][i])
+                formData.append('files', files[0][i])
             }
         }
 

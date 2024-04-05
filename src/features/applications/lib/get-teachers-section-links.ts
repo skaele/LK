@@ -187,6 +187,7 @@ const getTeachersHRSectionLinks = () => {
         },
         {
             title: 'В разработке',
+            disabled: true,
             links: [
                 //{ link: HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
                 { link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },

@@ -164,14 +164,15 @@ const TeachersHrApplicationsPage = ({}: Props) => {
                     />
                     <LinksList>
                         {(foundSections ?? sections).map((section) => {
-                            return (
-                                <div className="link-list" key={section.title}>
-                                    {section.title && (
-                                        <Title size={4} align="left" bottomGap>
-                                            {section.title}
-                                        </Title>
-                                    )}
-                                    {!section.disabled && (
+                            if (!section.disabled)
+                                return (
+                                    <div className="link-list" key={section.title}>
+                                        {section.title && (
+                                            <Title size={4} align="left" bottomGap>
+                                                {section.title}
+                                            </Title>
+                                        )}
+
                                         <div className="links">
                                             {section.links.map((link) =>
                                                 link.isExternalLink ? (
@@ -190,9 +191,8 @@ const TeachersHrApplicationsPage = ({}: Props) => {
                                                 ),
                                             )}
                                         </div>
-                                    )}
-                                </div>
-                            )
+                                    </div>
+                                )
                         })}
                         {!foundSections?.length && !!search.length && (
                             <Error text={`По запросу ${search} ничего не найдено`} />

@@ -8,7 +8,21 @@ export interface BufferMedicalExamination {
 
 export type PersonMedicalExaminations = {
     employeeGuid: string
-    medicalExamination: BufferMedicalExaminationNotTaken
+    creationDate: string
+    signedDate: string
+    hasApplication: true
+    documentGuid: string
+    hasOrder: true
+    orderNumber: string
+    displayApplication: true
+    displayOrder: true
+    orderStatus: string
+    applicationApporvalStatus: string
+    orderApprovalStatus: string
+    downloadApplication: true
+    downloadOrder: true
+    startDate: string
+    endDate: string
     tutor: boolean
 }
 export interface BufferMedicalExaminationOrder {

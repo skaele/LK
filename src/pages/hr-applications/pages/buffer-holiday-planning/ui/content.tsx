@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { bufferHolidayPlanningModel } from '../model'
 import { Button } from '@shared/ui/atoms'
 import styled from 'styled-components'
@@ -11,6 +11,9 @@ import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
 import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
 import { HOLIDAY_PLANNING } from '@app/routes/teacher-routes'
+import { SliderPage } from 'widgets'
+import { differenceInDays } from 'date-fns'
+import { PersonVacation } from '@pages/hr-applications/types/hr-applications'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
@@ -21,6 +24,27 @@ const Content = () => {
             bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
         }
     }, [])
+
+    const [active, archive] = useMemo(() => {
+        const currentDate = new Date()
+        if (!data || data.length === 0) return [[], []]
+        const partitionedData: { active: PersonVacation[]; archive: PersonVacation[] } = data.reduce(
+            (acc: { active: PersonVacation[]; archive: PersonVacation[] }, item) => {
+                if (
+                    item.orderStatus === 'Не утвержден' ||
+                    differenceInDays(currentDate, new Date(item.signedDate)) < 8
+                ) {
+                    acc.active.push(item)
+                } else {
+                    acc.archive.push(item)
+                }
+                return acc
+            },
+            { active: [], archive: [] },
+        )
+
+        return [partitionedData.active, partitionedData.archive]
+    }, [data])
 
     return (
         <>
@@ -38,23 +62,54 @@ const Content = () => {
                     />
                 </Link>
             </Flex>
-            <Block
-                orientation={'vertical'}
-                alignItems={'flex-start'}
-                justifyContent={'flex-start'}
-                gap={'10px'}
-                width="100%"
-                maxWidth="100%"
-                height="fit-content"
-            >
-                <Table
-                    loading={getDataLoading || data === null}
-                    columns={getBufferHolidayPlanningColumns(jobs)}
-                    columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
-                    data={data}
-                    maxOnPage={10}
-                />
-            </Block>
+            <SliderPage
+                pages={[
+                    {
+                        title: 'Активные заявления',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getBufferHolidayPlanningColumns(jobs)}
+                                    columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
+                                    data={active}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                    {
+                        title: 'Архив',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getBufferHolidayPlanningColumns(jobs)}
+                                    columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
+                                    data={archive}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                ]}
+            />
         </>
     )
 }

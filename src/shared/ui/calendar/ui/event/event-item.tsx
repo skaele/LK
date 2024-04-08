@@ -22,6 +22,31 @@ import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle } from './styles'
 import { UIProps } from './types'
 
+const getEventType = (title: string) => {
+    const types = [
+        'Практика',
+        'Лаб. работа',
+        'Лекция',
+        'Зачет',
+        'Экзамен',
+        'Лекция эор',
+        'Лаб. работа эор',
+        'Практика эор',
+    ]
+    for (const type of types) {
+        if (title.includes(`(${type})`))
+            return {
+                name: title.split(`(${type})`)[0],
+                type,
+            }
+    }
+
+    return {
+        name: title,
+        type: '',
+    }
+}
+
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
 
 const EventItem = (props: Props) => {
@@ -63,8 +88,12 @@ const EventItem = (props: Props) => {
     const smallerThanUsual = duration < 90
     const top = getEventTopPosition(startTime, shift, scale)
     const normalizedTitle = getSubjectName(title)
+    const eventType = getEventType(normalizedTitle.name)
     const eventTitle = !extremeSmallSize
-        ? getShortString(normalizedTitle.name, shortInfo ? (hideSomeInfo ? 43 : 35) : nameInOneRow ? 300 : 64)
+        ? getShortString(
+              eventType.name,
+              shortInfo ? (hideSomeInfo ? 43 : 34 - eventType.type.length) : nameInOneRow ? 300 : 64,
+          )
         : title.split(' ').map((el) => el[0].toUpperCase())
     const groupsArray = groups?.split(',') ?? []
 
@@ -122,7 +151,7 @@ const EventItem = (props: Props) => {
                             </Flex>
                         )}
                         <EventTitle listView={listView} nameInOneRow={nameInOneRow} scale={scale} shortInfo={shortInfo}>
-                            {eventTitle}
+                            {eventType.type}: {eventTitle}
                         </EventTitle>
                     </Flex>
 

@@ -7,6 +7,7 @@ import React, { ForwardedRef, forwardRef, HTMLInputTypeAttribute } from 'react'
 import { FiAlertTriangle, FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+import { formatToPhone } from '../../lib/masks'
 import { Loading, Message } from '../atoms'
 import { Size } from '../types'
 import useInput from './hooks/use-input'
@@ -49,7 +50,7 @@ const InputWrapper = styled.div<{
         background: ${({ inputAppearance }) => (inputAppearance ? 'var(--theme-1)' : 'transparent')};
         width: 100%;
         padding: 10px;
-        font-weight: bold;
+        font-weight: 500;
         border-radius: 7px;
         padding-left: ${({ leftIcon, inputAppearance }) => (leftIcon ? '30px' : inputAppearance ? '10px' : '0')};
         padding-right: ${({ inputAppearance }) => (!inputAppearance ? '0' : '35px')};
@@ -166,7 +167,12 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         mask,
     )
 
-    const formattedValue = value && type === 'date' ? format(new Date(value), 'yyyy-MM-dd') : value ?? ''
+    const formattedValue =
+        value && type === 'date'
+            ? format(new Date(value), 'yyyy-MM-dd')
+            : type === 'tel'
+            ? formatToPhone(value)
+            : value ?? ''
 
     return (
         <InputWrapper
@@ -182,38 +188,40 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
                 {title}
             </Title>
             <Message type="alert" visible={!!alertMessage} icon={<FiAlertTriangle />} title={alertMessage ?? ''} />
-            {leftIcon && <span className="left-icon">{leftIcon}</span>}
-            <input
-                id={placeholder}
-                min={minValue}
-                max={maxValue}
-                maxLength={maxLength}
-                step={stepSize ?? undefined}
-                type={inputType}
-                placeholder={placeholder}
-                value={formattedValue}
-                autoComplete={autocomplete ? 'on' : 'off'}
-                onKeyDown={(e) => type === 'tel' && phoneMaskKeyDown(e)}
-                onChange={handleOnChange}
-                required={required}
-                readOnly={!isActive}
-                ref={ref}
-            />
-            {type !== 'password' ? (
-                !!value?.length &&
-                inputAppearance &&
-                (loading ? (
-                    <Loading />
-                ) : (
-                    !hideCross && <Button icon={<FiX />} onClick={() => setValue('')} tabIndex={-1} />
-                ))
-            ) : (
-                <Button
-                    icon={inputType === 'password' ? <FiEye /> : <FiEyeOff />}
-                    tabIndex={-1}
-                    onClick={buttonOnClick}
+            <div style={{ position: 'relative' }}>
+                {leftIcon && <span className="left-icon">{leftIcon}</span>}
+                <input
+                    id={placeholder}
+                    min={minValue}
+                    max={maxValue}
+                    maxLength={maxLength}
+                    step={stepSize ?? undefined}
+                    type={inputType}
+                    placeholder={placeholder}
+                    value={formattedValue}
+                    autoComplete={autocomplete ? 'on' : 'off'}
+                    onKeyDown={(e) => type === 'tel' && phoneMaskKeyDown(e)}
+                    onChange={handleOnChange}
+                    required={required}
+                    readOnly={!isActive}
+                    ref={ref}
                 />
-            )}
+                {type !== 'password' ? (
+                    !!value?.length &&
+                    inputAppearance &&
+                    (loading ? (
+                        <Loading />
+                    ) : (
+                        !hideCross && <Button icon={<FiX />} onClick={() => setValue('')} tabIndex={-1} />
+                    ))
+                ) : (
+                    <Button
+                        icon={inputType === 'password' ? <FiEye /> : <FiEyeOff />}
+                        tabIndex={-1}
+                        onClick={buttonOnClick}
+                    />
+                )}
+            </div>
         </InputWrapper>
     )
 })

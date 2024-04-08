@@ -95,8 +95,8 @@ export const MobileIcon = styled.div`
     }
 `
 
-export const EventsWrapper = styled(Flex)<{ noEvents: boolean; scale: number; timesLen: number }>`
-    height: auto;
+export const EventsWrapper = styled(Flex)<{ noEvents: boolean; scale: number; timesLen: number; $height: number }>`
+    height: ${({ $height }) => $height}px;
     z-index: 1;
     position: relative;
     margin-top: 10px;

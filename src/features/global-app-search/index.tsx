@@ -17,7 +17,7 @@ type SearchSize = 'icon' | 'small' | 'large'
 const GlobalAppSearchStyled = styled(BlockWrapper)<{ size: SearchSize }>`
     cursor: pointer;
     box-shadow: ${({ size }) => size === 'small' && 'var(--block-shadow-1)'};
-    border-radius: 17px;
+    border-radius: 12px;
 
     ${MEDIA_QUERIES.isTablet} {
         align-items: flex-start;

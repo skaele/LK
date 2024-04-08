@@ -69,8 +69,8 @@ const GlobalStyles = createGlobalStyle`
 		--very-mild-shadow: 0 0 32px rgb(0 0 0 / 8%);
 		--desktop-page-padding: 40px;
 		--mobile-page-padding: 5px;
-        --header-height: 55px;
-        --mobile-bottom-menu-height: 60px;
+		--header-height: 55px;
+		--mobile-bottom-menu-height: 75px;
 		--theme: #fff;
 		--block-content-shadow: 0 0 1px #3b3b3bab;
 	}

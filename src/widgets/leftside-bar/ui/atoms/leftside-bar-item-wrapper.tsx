@@ -79,7 +79,7 @@ const LeftsideBarItemWrapper = styled(Link).withConfig({
 
     ${MEDIA_QUERIES.isTablet} {
         margin: 0;
-        height: 100%;
+        height: 55px;
         font-weight: ${({ isCurrent }) => (isCurrent ? 800 : 600)};
 
         & > button {
@@ -97,6 +97,9 @@ const LeftsideBarItemWrapper = styled(Link).withConfig({
         svg {
             margin-right: 0px;
             transform: translateY(-5px);
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.6px;
         }
 
         &::before {
@@ -115,8 +118,9 @@ const LeftsideBarItemWrapper = styled(Link).withConfig({
             position: absolute;
             left: 50%;
             transform: translate(-50%);
-            bottom: 8px;
-            font-size: 0.65em;
+            top: 40px;
+            font-size: 0.68em;
+            font-weight: 500;
             width: 100%;
             text-align: center;
         }

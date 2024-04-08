@@ -8,8 +8,6 @@ import { useCalendarDay } from './hooks/use-calendar-day'
 import { DayCalendarWrapper, EventInfo, EventsCarousel } from './styles'
 import { DayCalendarProps } from './types'
 import { TimesEvents } from './ui/times-events'
-import { checkIfEventIsCurrent } from '../../ui/event/lib/check-if-event-is-current'
-import { isNextEvent } from '@features/schedule/lib/is-next-event'
 
 export const DayCalendar = (props: DayCalendarProps) => {
     const {
@@ -36,7 +34,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
                 showColumns={false}
                 events={events}
             />
-            <Flex h="100%" gap="18px">
+            <Flex h="calc(100% - 52px)" gap="18px" ai="flex-start">
                 <EventsCarousel onScroll={handleCarouselScroll} ref={carouselRef}>
                     {Object.keys(events ?? {}).map((day, i) => {
                         const dayEvents = events?.[day as keyof typeof events]
@@ -59,7 +57,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
                         <Error text="Ничего не выбрано" image={<FiInbox />} />
                     ) : (
                         <SubjectModal
-                            isNextEvent={isNextEvent(events?.saturday, chosenEvent, true)}
+                            isNextEvent={false}
                             timeInterval={timeInterval}
                             color={chosenEvent.color}
                             name={chosenEvent.title}
@@ -70,7 +68,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
                             teachers={chosenEvent.people}
                             dateInterval={chosenEvent.dateInterval}
                             rooms={chosenEvent.rooms ?? []}
-                            isCurrentEvent={checkIfEventIsCurrent(chosenEvent, true)}
+                            isCurrentEvent={false}
                         />
                     )}
                 </EventInfo>

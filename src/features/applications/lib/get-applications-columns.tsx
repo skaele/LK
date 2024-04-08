@@ -1,11 +1,11 @@
 import { ApplicationsConstants } from '@entities/applications/consts'
 import { LinkButton } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
 import { Tooltip } from '@shared/ui/tooltip'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
-import Flex from '@shared/ui/flex'
-import { FiDownload } from 'react-icons/fi'
+import { FiDownload, FiFile } from 'react-icons/fi'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -48,6 +48,23 @@ const getApplicationsColumns = (): ColumnProps[] => {
             width: '170px',
         },
         {
+            title: 'Предоставленные файлы',
+            field: 'files_input',
+            priority: 'five',
+            width: '150px',
+            render: (value: { url: string; name: string }[]) => {
+                return (
+                    <Flex gap="4px" $wrap>
+                        {value.map((val) => (
+                            <a key={val.url} href={val.url} target="_blank" rel="noreferrer">
+                                <Message width="fit-content" title={val.name} icon={<FiFile />} type="tip" />
+                            </a>
+                        ))}
+                    </Flex>
+                )
+            },
+        },
+        {
             title: 'Статус',
             field: 'status',
             priority: 'one',
@@ -73,9 +90,17 @@ const getApplicationsColumns = (): ColumnProps[] => {
             title: 'Структурное подразделение, адрес',
             priority: 'four',
             field: 'response_div',
-            showFull: false,
+            showFull: true,
         },
-        { title: 'Примечание', field: 'comment', priority: 'five', width: '150px' },
+        {
+            title: 'Примечание',
+            field: 'comment',
+            priority: 'five',
+            width: '150px',
+            render: (value) => (
+                <div dangerouslySetInnerHTML={{ __html: value ?? '-' }} style={{ lineHeight: '1.6rem' }} />
+            ),
+        },
         // {
         //     title: 'Файлы для скачивания',
         //     align: 'center',

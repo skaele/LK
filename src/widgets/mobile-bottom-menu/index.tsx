@@ -56,7 +56,7 @@ const MobileBottomMenu = () => {
 
     if (!allRoutes || !user || loading) {
         return (
-            <MobileBottomMenuWrapper direction="horizontal" horizontalAlign="evenly" verticalAlign="center">
+            <MobileBottomMenuWrapper direction="horizontal" horizontalAlign="evenly">
                 <LinkSkeleton />
                 <LinkSkeleton />
                 <LinkSkeleton />

@@ -59,7 +59,7 @@ const InputWrapper = styled.div<{
         height: 100%;
         width: 100%;
         padding: 10px;
-        font-weight: bold;
+        font-weight: 500;
         border-radius: 7px;
         padding-left: ${({ leftIcon, inputAppearance }) => (leftIcon ? '30px' : inputAppearance ? '10px' : '0')};
         padding-right: ${({ inputAppearance }) => (!inputAppearance ? '0' : '35px')};

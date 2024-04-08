@@ -5,6 +5,7 @@ import { Wrapper } from '../../ui/wrapper'
 
 export const DayCalendarWrapper = styled(Wrapper)`
     height: ${CALENDAR_HEIGHT_DESKTOP};
+    overflow: hidden;
 
     ${MEDIA_QUERIES.isTablet} {
         height: ${CALENDAR_HEIGHT_TABLET};

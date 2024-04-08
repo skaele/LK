@@ -40,9 +40,10 @@ const Events = ({
     const isTimelineVisible = currentDay !== undefined ? currentDay + 1 === weekDay : undefined
     const noEvents = !events || events?.length === 0
     const times = TIMES.slice(interval[0], interval[1] + 1)
+    const height = (times?.length ?? 0) * 60 * scale - 81
 
     return (
-        <EventsWrapper scale={scale} timesLen={times.length - 1} d="column" noEvents={noEvents}>
+        <EventsWrapper $height={height} scale={scale} timesLen={times.length - 1} d="column" noEvents={noEvents}>
             {isCurrent && (
                 <CurrentTimeLine
                     isVisible={isTimelineVisible}

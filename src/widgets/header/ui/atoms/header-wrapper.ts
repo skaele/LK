@@ -29,6 +29,7 @@ const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }
         padding: 0 15px;
         width: 100%;
         justify-content: flex-start;
+        background: ${({ headerVisible }) => (headerVisible ? 'var(--block)' : 'transparent')};
 
         & .back-button-wrapper button {
             transform: none;

@@ -14,6 +14,8 @@ import { projectActivitesModel } from '@entities/project-activites'
 import { scheduleModel } from '@entities/schedule'
 import { superiorRoomModel } from '@entities/superior-room'
 import { teacherDateVerificationModel } from '@entities/teacher-data-verification'
+import { bufferHolidayPlanningModel } from '@pages/hr-applications/pages/buffer-holiday-planning/model'
+import { bufferMedicalExaminationModel } from '@pages/hr-applications/pages/buffer-medical-examination/model'
 
 const stores = [
     acadPerformanceModel,
@@ -32,6 +34,8 @@ const stores = [
     contactInfoActualizationModel,
     alertModel,
     lkNotificationModel,
+    bufferHolidayPlanningModel,
+    bufferMedicalExaminationModel,
 ]
 
 const clearAllStores = () => {

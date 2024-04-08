@@ -104,6 +104,7 @@ const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_ST
         ...oldData,
         error: newData.message,
     }))
+    .on(clearStore, () => DEFAULT_STORE)
 
 export const effects = { loadBufferMedicalExaminationFx, sendBufferMedicalExaminationFx }
 

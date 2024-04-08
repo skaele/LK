@@ -1,26 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Flex from '@shared/ui/flex'
 import { bufferMedicalExaminationModel } from '../model'
-import { Loading } from '@shared/ui/loading'
 import Block from '@shared/ui/block'
-import { Button, Wrapper } from '@shared/ui/atoms'
+import { Button } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
 import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
 import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
+import { MEDICAL_EXAMINATION } from '@app/routes/teacher-routes'
 
 const Content = () => {
     const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const jobs = useGetJobs()
 
+    useEffect(() => {
+        if (data === null) {
+            bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx()
+        }
+    }, [])
+
     return (
-        <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
+        <>
             <Flex jc="space-between" m="10px 0">
                 <BlockHeader>История заявлений на диспансеризацию:</BlockHeader>
-                <Link to={`/hr-applications/medical-examination`}>
+                <Link to={MEDICAL_EXAMINATION}>
                     <Button
                         text="Диспансеризация"
                         background="var(--reallyBlue)"
@@ -32,29 +38,24 @@ const Content = () => {
                     />
                 </Link>
             </Flex>
-            {getDataLoading ? (
-                <Flex w="100%" jc="center" ai="center">
-                    <Loading />
-                </Flex>
-            ) : (
-                <Block
-                    orientation={'vertical'}
-                    alignItems={'flex-start'}
-                    justifyContent={'flex-start'}
-                    gap={'10px'}
-                    width="100%"
-                    maxWidth="100%"
-                    height="fit-content"
-                >
-                    <Table
-                        columns={getMedicalExaminationHistoryColumns(jobs)}
-                        columnsExtended={getExtendedMedicalExaminationHistoryColumns(jobs)}
-                        data={data}
-                        maxOnPage={10}
-                    />
-                </Block>
-            )}
-        </Wrapper>
+            <Block
+                orientation={'vertical'}
+                alignItems={'flex-start'}
+                justifyContent={'flex-start'}
+                gap={'10px'}
+                width="100%"
+                maxWidth="100%"
+                height="fit-content"
+            >
+                <Table
+                    loading={getDataLoading || data === null}
+                    columns={getMedicalExaminationHistoryColumns(jobs)}
+                    columnsExtended={getExtendedMedicalExaminationHistoryColumns(jobs)}
+                    data={data}
+                    maxOnPage={10}
+                />
+            </Block>
+        </>
     )
 }
 

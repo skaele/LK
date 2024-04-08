@@ -4,7 +4,6 @@ import { applicationsModel } from '@entities/applications'
 import { menuModel } from '@entities/menu'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { settingsModel } from '@entities/settings'
-import { loadDivisions } from '@pages/hr-applications/model/divisions'
 import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
@@ -34,7 +33,7 @@ const Router = () => {
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
                 // applicationsModel.effects.getWorkerPosts()
-                loadDivisions()
+                // loadDivisions()
             }
             peTeacherModel.events.load()
         }

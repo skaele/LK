@@ -6,6 +6,12 @@ export const getExtendedMedicalExaminationHistoryColumns = (jobs: SelectPage[]):
     return [
         ...getMedicalExaminationHistoryColumns(jobs),
         {
+            title: 'Статус',
+            field: 'orderStatus',
+            align: 'center',
+            render: (value) => value || '-',
+        },
+        {
             title: 'Статус приказа',
             field: 'orderApprovalStatus',
             align: 'center',

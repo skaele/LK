@@ -32,6 +32,7 @@ const Content = () => {
             (acc: { active: PersonVacation[]; archive: PersonVacation[] }, item) => {
                 if (
                     item.orderStatus === 'Не утвержден' ||
+                    item.orderStatus === 'На регистрации' ||
                     differenceInDays(currentDate, new Date(item.signedDate)) < 8
                 ) {
                     acc.active.push(item)

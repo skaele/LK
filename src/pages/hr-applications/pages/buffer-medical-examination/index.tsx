@@ -12,6 +12,10 @@ const MedicalExaminationBufferPage = () => {
                     В этом разделе можно посмотреть свои заявления на диспансеризацию и согласовать их. В архив
                     помещаются все выполненные заявления старше 7 дней.
                 </Message>
+                <Message type="alert" title="Внимание" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                    Ведутся работы со статусами заявлений. Статус &quot;На рассмотрении*&quot; может не отражать
+                    действительного состояния заявления
+                </Message>
                 <Content />
             </PageBlock>
         </Wrapper>

@@ -21,23 +21,24 @@ export const getMedicalExaminationHistoryColumns = (jobs: SelectPage[]): ColumnP
         {
             title: 'Статус',
             field: 'orderStatus',
-            width: '150px',
+            width: '175px',
             catalogs: [
                 ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
-            render: (value) => {
+            render: (value, data) => {
+                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении*'
                 return (
                     <Message
                         type={
-                            value === 'Согласовано'
+                            title === 'Согласовано'
                                 ? 'success'
-                                : value === 'На регистрации'
+                                : title === 'На регистрации'
                                 ? 'info'
-                                : value === 'Не утвержден' || value === 'Не создано'
+                                : title === 'Не утвержден' || title === 'Не создано' || title === 'На доработку'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value || '-'}
+                        title={title}
                         align="center"
                         width="100%"
                         icon={null}

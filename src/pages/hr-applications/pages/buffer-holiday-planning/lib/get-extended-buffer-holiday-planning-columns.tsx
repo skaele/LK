@@ -12,6 +12,12 @@ export const getExtendedBufferHolidayPlanningColumns = (jobs: SelectPage[]): Col
             render: (value) => value,
         },
         {
+            title: 'Статус',
+            field: 'orderStatus',
+            align: 'center',
+            render: (value) => value || '-',
+        },
+        {
             title: 'Статус приказа',
             field: 'orderApprovalStatus',
             align: 'center',

@@ -26,7 +26,17 @@ const FoundPages = ({ pages, showNotFound = true }: Props) => {
     return (
         <FoundPagesWrapper>
             {Object.values(pages).map((page) => {
-                return page?.show !== false && <LinkItem onClick={close} {...page} type="horizontal" key={page.id} />
+                return (
+                    page?.show !== false && (
+                        <LinkItem
+                            onClick={close}
+                            {...page}
+                            subtext={page.keywords?.map((word) => `#${word}`).join(' ')}
+                            type="horizontal"
+                            key={page.id}
+                        />
+                    )
+                )
             })}
         </FoundPagesWrapper>
     )

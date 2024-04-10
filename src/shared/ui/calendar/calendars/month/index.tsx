@@ -24,6 +24,9 @@ export const MonthCalendar = ({ events, startDate, endDate, onDayClick }: Props)
 
     const daysAmount = getDaysBetweenDates(localStartDate, localEndDate)
 
+    // eslint-disable-next-line no-console
+    console.log(localStartDate, localEndDate, lastCellsWeekEnd, getDaysBetweenDates(localEndDate, lastCellsWeekEnd))
+
     return (
         <MonthCalendarWrapper>
             <WeekDays showColumns={false} events={null} onDayClick={onDayClick} />
@@ -42,13 +45,13 @@ export const MonthCalendar = ({ events, startDate, endDate, onDayClick }: Props)
                     addOneOnWeekends={true}
                 />
                 <CalendarCells
-                    daysAmount={getDaysBetweenDates(localEndDate, lastCellsWeekEnd) - 1}
+                    daysAmount={getDaysBetweenDates(localEndDate, lastCellsWeekEnd)}
                     startDate={
                         new Date(localEndDate.getFullYear(), localEndDate.getMonth(), localEndDate.getDate() + 1)
                     }
                     events={events}
                     disabled
-                    addOneOnWeekends={false}
+                    addOneOnWeekends={true}
                 />
             </Cells>
         </MonthCalendarWrapper>

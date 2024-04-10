@@ -49,6 +49,8 @@ const CalendarCells = ({
                 .map((_, i) => {
                     // Скипаем воскресенье
                     if (i !== 0) {
+                        if (localStartDate.getDay() === 6 && i === daysAmount - 1) return null
+
                         if (localStartDate.getDay() === 6 && addOneOnWeekends) {
                             localStartDate.setDate(localStartDate.getDate() + 2)
                         } else {

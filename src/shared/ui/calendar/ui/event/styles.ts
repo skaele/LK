@@ -17,7 +17,6 @@ export const EventItemStyled = styled.div<StyledProps>`
     transform: translateX(${({ leftShift }) => `calc(${leftShift}% + ${1 * (leftShift / 100)}px)`});
     left: 2px;
     top: ${({ top }) => `${top}px`};
-    /* box-shadow: 0 0 1px ${({ color }) => color}; */
 
     a {
         color: ${({ textColor }) => textColor};

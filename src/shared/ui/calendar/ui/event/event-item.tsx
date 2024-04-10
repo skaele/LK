@@ -22,16 +22,18 @@ import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle } from './styles'
 import { UIProps } from './types'
 
+const EXAMS = ['Диф. зачет', 'КП', 'Экзамен', 'Зачет']
+
 const getEventType = (title: string) => {
     const types = [
         'Практика',
         'Лаб. работа',
         'Лекция',
-        'Зачет',
-        'Экзамен',
         'Лекция эор',
         'Лаб. работа эор',
         'Практика эор',
+        'Консультация',
+        ...EXAMS,
     ]
     for (const type of types) {
         if (title.includes(`(${type})`))
@@ -74,6 +76,8 @@ const EventItem = (props: Props) => {
     } = props
     const { theme } = useTheme()
     const { isMobile } = useCurrentDevice()
+    const normalizedTitle = getSubjectName(title)
+    const eventType = getEventType(normalizedTitle.name)
     const textColor = theme === 'light' ? color.dark3 : color.light3
     const background = theme === 'light' ? color.transparent1 : color.transparent3
     const handleClick = () => onClick(props)
@@ -87,12 +91,10 @@ const EventItem = (props: Props) => {
     })
     const smallerThanUsual = duration < 90
     const top = getEventTopPosition(startTime, shift, scale)
-    const normalizedTitle = getSubjectName(title)
-    const eventType = getEventType(normalizedTitle.name)
     const eventTitle = !extremeSmallSize
         ? getShortString(
               eventType.name,
-              shortInfo ? (hideSomeInfo ? 43 : 34 - eventType.type.length) : nameInOneRow ? 300 : 64,
+              shortInfo ? (hideSomeInfo ? 43 : 35 * (scale / 1.4) - eventType.type.length) : nameInOneRow ? 300 : 64,
           )
         : title.split(' ').map((el) => el[0].toUpperCase())
     const groupsArray = groups?.split(',') ?? []

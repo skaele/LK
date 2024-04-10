@@ -24,7 +24,7 @@ export const Cells = styled.div`
     border-bottom: 1px solid var(--theme-3);
     overflow-y: auto;
     scroll-snap-type: y mandatory;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 51px;
 
     ${MEDIA_QUERIES.isMiddleDesktop} {
         &::-webkit-scrollbar {
@@ -51,10 +51,10 @@ export const DayCell = styled.div<{ disabled: boolean }>`
     align-items: center;
     opacity: ${({ disabled }) => (disabled ? '0.4' : '1')};
     background: ${({ disabled }) => (disabled ? 'var(--theme-1t)' : 'transparent')};
-    scroll-snap-align: center;
+    scroll-snap-align: start;
 
     ${MEDIA_QUERIES.isMobile} {
-        padding: 12px;
+        padding: 12px 0;
         gap: 4px;
         height: calc((100vw / 6) - 5.5px);
         border-right: none;

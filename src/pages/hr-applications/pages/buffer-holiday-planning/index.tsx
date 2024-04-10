@@ -27,9 +27,9 @@ const HolidayPlanningBufferPage = () => {
                 }
             >
                 <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    Тут можно посмотреть свои заявления на отпуск и согласовать их.
+                    В этом разделе можно посмотреть статус заявлений на отпуск и подать новые. В архив помещаются все
+                    выполненные заявления старше 7 дней.
                 </Message>
-
                 <Content />
             </PageBlock>
         </Wrapper>

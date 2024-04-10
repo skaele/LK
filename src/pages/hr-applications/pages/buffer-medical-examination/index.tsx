@@ -9,9 +9,9 @@ const MedicalExaminationBufferPage = () => {
         <Wrapper load={() => {}} error={null} data={!null}>
             <PageBlock>
                 <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    Тут можно посмотреть свои заявления на диспансеризацию и согласовать их.
+                    В этом разделе можно посмотреть свои заявления на диспансеризацию и согласовать их. В архив
+                    помещаются все выполненные заявления старше 7 дней.
                 </Message>
-
                 <Content />
             </PageBlock>
         </Wrapper>

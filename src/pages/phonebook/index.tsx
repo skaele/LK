@@ -13,6 +13,7 @@ import { paginationList } from '@entities/all-teachers'
 import { Hint } from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
+import useResize from '@shared/lib/hooks/use-resize'
 
 const Phonebook = () => {
     const [subdivisionSearch, setSubdivisionSearch] = useState('')
@@ -32,12 +33,13 @@ const Phonebook = () => {
     }
 
     const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
-
+    const { width } = useResize()
+    width
     return (
         <Wrapper>
             <PageBlock>
                 <Flex d="column" gap="15px">
-                    <Grid columns="4fr 7fr" rows="1fr" columnGap="20px">
+                    <Grid columns={width <= 800 ? '1fr' : '4fr 7fr'} rows="1fr" columnGap="20px">
                         <SearchWithHints
                             width="100%"
                             value={subdivisionSearch}
@@ -46,12 +48,14 @@ const Phonebook = () => {
                             placeholder={'Структура'}
                             request={getDivisions}
                         />
-                        <GlobalSearch
-                            triggerSearchOn={[filter?.id ?? '']}
-                            placeholder={'Поиск'}
-                            searchApi={handleSearch}
-                            validationCheck
-                        />
+                        {width > 800 && (
+                            <GlobalSearch
+                                triggerSearchOn={[filter?.id ?? '']}
+                                placeholder={'Поиск'}
+                                searchApi={handleSearch}
+                                validationCheck
+                            />
+                        )}
                     </Grid>
                     <Loader
                         data={subdivisions}
@@ -60,9 +64,9 @@ const Phonebook = () => {
                             phonebookModel.events.getSubdivisions({})
                         }}
                     >
-                        <Grid columns="4fr 7fr" rows="1fr" columnGap="20px">
+                        <Grid columns={width <= 800 ? '1fr' : '4fr 7fr'} rows="1fr" columnGap="20px">
                             <Subdivisions />
-                            <Staff />
+                            {width > 800 && <Staff />}
                         </Grid>
                     </Loader>
                 </Flex>

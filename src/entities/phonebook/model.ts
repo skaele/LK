@@ -9,6 +9,7 @@ const setChosenSubdivision = createEvent<string>()
 const getSubdivisions = createEvent<ServerListRequest<SelectPage | null>>()
 const getSubdivisionsFx = createEffect(
     async (request: ServerListRequest<SelectPage | null>): Promise<ExpandableItemType> => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { search = '', page, limit, filter } = request
         // const { data } = await api.get(search, filter?.id.toString() ?? '', page, limit)
         const data: ExpandableItemType = {

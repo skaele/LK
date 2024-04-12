@@ -6,11 +6,13 @@ import React from 'react'
 import { Subdivision } from '@shared/api/model/phonebook'
 import { InfoItem } from './info-item'
 import { Content, Header } from './styled'
+import useResize from '@shared/lib/hooks/use-resize'
 
 export const SubdivisionModal = ({ subdivision }: { subdivision: Subdivision }) => {
     const main = getLettersColors(subdivision.title ?? '', 'main') ?? Colors.blue.main
+    const { width } = useResize()
     return (
-        <Flex w="600px" d="column">
+        <Flex w={width <= 800 ? '100%' : '600px'} d="column">
             <Header bgColor={main}>
                 <Title align="left" size={3}>
                     {subdivision.title}

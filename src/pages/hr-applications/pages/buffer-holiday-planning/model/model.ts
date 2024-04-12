@@ -6,6 +6,7 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { BufferHolidayPlanningForm } from '../types'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
+import axios from 'axios'
 
 const clearStore = createEvent()
 const loadBufferHolidayPlanning = createEvent()
@@ -39,12 +40,11 @@ const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlann
                 'Content-Type': 'multipart/form-data',
             },
         })
-
-        if (result.data.isError) {
-            throw new Error()
-        }
         return result.data
     } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data.error)
+        }
         throw new Error(error as string)
     }
 })
@@ -76,10 +76,13 @@ sample({
 
 sample({
     clock: sendBufferHolidayPlanningFx.failData,
-    fn: () => {
+    fn: (error) => {
+        const message = error.message || 'Не удалось отправить форму'
+
         return {
-            message: 'Не удалось отправить форму.',
+            message,
             type: 'failure' as MessageType,
+            time: 7000,
         }
     },
     target: popUpMessageModel.events.evokePopUpMessage,

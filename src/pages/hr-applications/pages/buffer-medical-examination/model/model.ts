@@ -1,5 +1,5 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi, isAxiosError } from '@shared/api/config'
+import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
@@ -7,6 +7,7 @@ import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
 import { BufferMedicalExamination, BufferMedicalExaminationForm, PersonMedicalExaminations } from '../types'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import axios from 'axios'
 
 interface MedicalExaminationStore {
     listMedicalExamination: PersonMedicalExaminations[] | null
@@ -49,12 +50,11 @@ const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalEx
             },
         })
 
-        if (result.data.isError) {
-            throw new Error()
-        }
-
         return result.data
     } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data.error)
+        }
         throw new Error(error as string)
     }
 })
@@ -84,23 +84,24 @@ sample({
 
 sample({
     clock: sendBufferMedicalExaminationFx.failData,
-    fn: () => ({
-        message: 'Не удалось отправить форму',
-        type: 'failure' as MessageType,
-    }),
+    fn: (error) => {
+        const message = error.message || 'Не удалось отправить форму'
+
+        return {
+            message,
+            type: 'failure' as MessageType,
+            time: 7000,
+        }
+    },
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 sample({
     clock: loadBufferMedicalExaminationFx.failData,
-    fn: (response) => {
-        const message = isAxiosError(response) ? (response.response?.data as any).error : 'Не удалось загрузить данные'
-
-        return {
-            message,
-            type: 'failure' as MessageType,
-        }
-    },
+    fn: () => ({
+        message: 'Не удалось загрузить данные',
+        type: 'failure' as MessageType,
+    }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 

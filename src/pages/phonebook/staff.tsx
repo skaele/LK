@@ -5,11 +5,31 @@ import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import { Loader } from '@shared/ui/atoms/loader'
 import { useModal } from 'widgets'
-import { SubdivisionModal } from './subdivision-modal'
-import { EmployeeModal } from './employee-modal'
+import { PhonebookModal } from './ui/phonebook-modal'
+import { Employee } from '@shared/api/model/phonebook'
 
 const head = 'Антонова Антонина Антоновна'
-
+const employee: Employee = {
+    fio: 'Антонова Антонина Антоновна',
+    jobs: [
+        {
+            post: 'Главный бухгалтер',
+            phone: '+7 800 300 40 50',
+            email: 'a.n.surname@mospolytech.ru',
+            address: 'г. Москва, ул. Ленина, д. 1',
+            cabinet: 'ПР 1101',
+            extPhone: '1004',
+        },
+        {
+            post: 'Главный бухгалтер2',
+            phone: '+7 800 300 40 50',
+            email: 'a.n.surname@mospolytech.ru',
+            address: 'г. Москва, ул. Ленина, д. 1',
+            cabinet: 'ПР 1101',
+            extPhone: '1004',
+        },
+    ],
+}
 export const Staff = () => {
     const { title, subdivision, error } = useUnit({
         title: phonebookModel.stores.$chosenSubdivision,
@@ -23,8 +43,8 @@ export const Staff = () => {
         phonebookModel.events.getSubdivisionData({ filter: { title: title || '', id: '' } })
     }, [title])
 
-    if (!title) return null
     const { open } = useModal()
+    if (!title) return null
 
     return (
         <Loader
@@ -39,8 +59,30 @@ export const Staff = () => {
                     <SubdivisionItem
                         title="Информация"
                         items={[title]}
+                        // head: string
+                        // phone?: string
+                        // extPhone?: string
+                        // email?: string
+                        // address?: string
+                        // cabinet?: string
+                        // staff: Employee[]
                         action={() => {
-                            open(<SubdivisionModal subdivision={subdivision} />)
+                            open(
+                                <PhonebookModal
+                                    title={subdivision.title}
+                                    info={[
+                                        {
+                                            attributes: [
+                                                { title: 'Руководитель', text: subdivision.head },
+                                                { title: 'Номер телефона', text: subdivision.phone },
+                                                { title: 'Электронная почта', text: subdivision.email },
+                                                { title: 'Адрес', text: subdivision.address },
+                                                { title: 'Кабинет', text: subdivision.cabinet },
+                                            ],
+                                        },
+                                    ]}
+                                />,
+                            )
                         }}
                     />
                 )}
@@ -49,7 +91,22 @@ export const Staff = () => {
                         title="Руководитель"
                         items={[subdivision?.head || '-']}
                         action={(fio) => {
-                            open(<EmployeeModal fio={fio} />)
+                            open(
+                                <PhonebookModal
+                                    title={fio}
+                                    info={employee.jobs.map((job) => ({
+                                        subtitle: job.post,
+                                        attributes: [
+                                            { title: 'Электронная почта', text: job.email },
+                                            { title: 'Номер телефона', text: job.phone },
+                                            { title: 'Добавочный номер', text: job.extPhone },
+                                            { title: 'Адрес', text: job.address },
+                                            { title: 'Кабинет', text: job.cabinet },
+                                        ],
+                                    }))}
+                                    isEmployee
+                                />,
+                            )
                         }}
                     />
                 )}
@@ -58,7 +115,22 @@ export const Staff = () => {
                         title="Сотрудники"
                         items={staff}
                         action={(fio) => {
-                            open(<EmployeeModal fio={fio} />)
+                            open(
+                                <PhonebookModal
+                                    title={fio}
+                                    info={employee.jobs.map((job) => ({
+                                        subtitle: job.post,
+                                        attributes: [
+                                            { title: 'Электронная почта', text: job.email },
+                                            { title: 'Номер телефона', text: job.phone },
+                                            { title: 'Добавочный номер', text: job.extPhone },
+                                            { title: 'Адрес', text: job.address },
+                                            { title: 'Кабинет', text: job.cabinet },
+                                        ],
+                                    }))}
+                                    isEmployee
+                                />,
+                            )
                         }}
                     />
                 )}

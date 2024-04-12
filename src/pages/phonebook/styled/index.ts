@@ -1,34 +1,51 @@
+import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
 
-export const Header = styled.div<{ bgColor: string; padingLeft?: string }>`
-    position: absolute;
+export const Header = styled.div<{ padingLeft?: string }>`
     display: flex;
-    align-items: flex-end;
-    top: 0;
-    left: 0;
-    height: 200px;
-    width: 100%;
-    background-color: ${({ bgColor }) => bgColor};
-    z-index: -1;
+    flex-direction: column-reverse;
     color: #fff;
-    padding: 20px 50px;
-    padding-left: ${({ padingLeft }) => padingLeft};
+    padding: 10px;
+    min-height: 120px;
+    padding-left: ${({ padingLeft }) => padingLeft || '30px'};
+
+    ${MEDIA_QUERIES.isNotMobile} {
+        width: 500px;
+    }
 `
 
-export const Avatar = styled.img`
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    border: 5px solid var(--block);
-    width: 150px;
-    height: 150px;
+export const Wrapper = styled.div`
+    width: 500px;
+    padding: 40px 35px 20px 35px;
 `
 
-export const Content = styled.div`
-    width: 100%;
+export const Content = styled.div<{ padingLeft?: string }>`
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 175px 55px 40px 55px;
+    min-width: 100%;
+    padding-bottom: 10px;
+    padding-left: ${({ padingLeft }) => padingLeft};
+`
+
+export const Subtitle = styled.h4`
+    opacity: 0.7;
+    font-weight: 400;
+    font-size: 1.17rem;
+    line-height: 28px;
+`
+
+export const Buttons = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+
+    a {
+        width: 100%;
+    }
+    button {
+        width: 100%;
+    }
 `

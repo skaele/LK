@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export const InfoItem = ({ title, children }: { title: string; children?: React.ReactElement | string | null }) => {
     if (!children) return null
     return (
-        <Flex d="column" ai="flex-start" jc="flex-start" gap="17px">
+        <Flex d="column" ai="flex-start" jc="flex-start" gap="10px">
             <Subtext fontSize="0.9rem">{title}</Subtext>
             <Content>{children}</Content>
         </Flex>

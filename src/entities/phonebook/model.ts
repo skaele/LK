@@ -34,14 +34,30 @@ const getSubdivisionDataFx = createEffect(
         const { search, page, limit, filter } = request
         const group = filter?.title === 'Все' ? '' : filter?.title ?? ''
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { data } = await teacherApi.get(search ?? '', group, page, limit)
         return {
             title: group,
             head: 'Антонова Антонина Антоновна',
-            staff: data.items,
             phone: '8 (812) 123-45-67',
             email: 'd.r.khusnulina@mospolytech.ru',
+            address: 'г. Москва, ул. Ленина, д. 1',
             cabinet: 'БС А-103',
+            staff: [
+                {
+                    fio: 'Иванов Иван Иванович',
+                    jobs: [
+                        {
+                            post: 'Проректор по цифровому развитию и делопроизводству',
+                            phone: '8 (812) 123-45-67',
+                            email: 'i.i.ivanov@mospolytech.ru',
+                            address: 'г. Москва, ул. Ленина, д. 1',
+                            cabinet: 'БС А-103',
+                            extPhone: '',
+                        },
+                    ],
+                },
+            ],
         }
     },
 )

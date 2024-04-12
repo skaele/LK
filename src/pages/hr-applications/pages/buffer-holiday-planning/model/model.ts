@@ -76,10 +76,10 @@ sample({
 
 sample({
     clock: sendBufferHolidayPlanningFx.failData,
-    fn: ({ message }) => {
+    fn: () => {
         return {
-            message,
-            type: 'hrFailure' as MessageType,
+            message: 'Не удалось отправить форму.',
+            type: 'failure' as MessageType,
         }
     },
     target: popUpMessageModel.events.evokePopUpMessage,

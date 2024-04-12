@@ -1,5 +1,5 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi } from '@shared/api/config'
+import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
@@ -85,9 +85,22 @@ sample({
 sample({
     clock: sendBufferMedicalExaminationFx.failData,
     fn: () => ({
-        message: 'Не удалось отправить форму.',
-        type: 'hrFailure' as MessageType,
+        message: 'Не удалось отправить форму',
+        type: 'failure' as MessageType,
     }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: loadBufferMedicalExaminationFx.failData,
+    fn: (response) => {
+        const message = isAxiosError(response) ? (response.response?.data as any).error : 'Не удалось загрузить данные'
+
+        return {
+            message,
+            type: 'failure' as MessageType,
+        }
+    },
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 

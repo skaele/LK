@@ -1,5 +1,7 @@
-import { IInputArea } from '@ui/input-area/model'
+import { IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { bufferHolidayPlanningModel } from '../pages/buffer-holiday-planning/model'
+import { createResultElementForm } from '@pages/applications/lib/global-app-send-form'
+import { IndexedProperties } from '@shared/models/indexed-properties'
 
 const sendHrFormHolidayPlanning = async (
     employeeId: string,
@@ -8,42 +10,25 @@ const sendHrFormHolidayPlanning = async (
 ) => {
     setCompleted(false)
     const form = inputAreas
-        .map((itemForm) => {
-            if (!Array.isArray(itemForm.data[0])) {
-                return itemForm.data.map((l) => {
-                    const obj = {}
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    if (!!l?.fieldName) obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : l.value.title
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
-                    if (l.type === 'multiselect') {
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        obj[l?.fieldName ?? ''] = JSON.stringify(l?.value.map((itemSelect) => itemSelect.title))
-                    }
-
-                    return obj
+        .map((listElementForm) => {
+            if (!Array.isArray(listElementForm.data[0])) {
+                return (listElementForm.data as IInputAreaData[]).map((elementForm) => {
+                    return createResultElementForm(elementForm)
                 })
             } else {
-                const r = itemForm.data.map((c) => {
-                    return Object.assign(
-                        {},
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        ...c?.map((r) => {
-                            const obj = {}
-                            if (!!r?.fieldName)
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                obj[r?.fieldName] = !!r?.value?.title ? r?.value?.title : r?.value
-                            return obj
-                        }),
-                    )
-                })
-                const obj = {} as any
+                const resultNestedElementForm = (listElementForm.data as IComplexInputAreaData).map(
+                    (nestedListElementForm) => {
+                        return Object.assign(
+                            {},
+                            ...nestedListElementForm?.map((elementForm) => {
+                                return createResultElementForm(elementForm)
+                            }),
+                        )
+                    },
+                )
+                const obj = {} as IndexedProperties
 
-                obj[employeeId] = JSON.stringify(r)
+                obj[employeeId] = JSON.stringify(resultNestedElementForm)
 
                 return obj
             }

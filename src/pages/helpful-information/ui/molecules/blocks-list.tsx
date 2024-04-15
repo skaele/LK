@@ -27,7 +27,8 @@ const BlocksList = ({ blocks, isStaff }: Props) => {
 
     return (
         <>
-            {blocks.map(({ title, links }, index) => {
+            {blocks.map(({ title, links, visible }, index) => {
+                if ((visible === 'staff' && !isStaff) || (visible === 'student' && isStaff)) return null
                 return (
                     <CustomBlock key={title + index}>
                         <Title size={4} align="left" bottomGap="16px">

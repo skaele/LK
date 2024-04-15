@@ -9,6 +9,7 @@ export type Link = {
 export type HelpfulPage = {
     title: string
     links: Link[]
+    visible?: Visibility
 }
 
 export type HelpfulPages = {

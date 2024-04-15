@@ -60,6 +60,22 @@ const pages: HelpfulPages = [
                 ],
             },
             {
+                title: 'Воинский учёт',
+                visible: 'student',
+                links: [
+                    {
+                        title: 'Военнообязанным и призывникам',
+                        visible: 'student',
+                        href: 'https://mospolytech.ru/obuchauschimsya/voennoobyazannym-i-prizyvnikam/',
+                    },
+                    {
+                        title: 'Единый пункт призыва',
+                        visible: 'student',
+                        href: 'https://www.mos.ru/city/projects/prizyv/',
+                    },
+                ],
+            },
+            {
                 title: 'Общежития',
                 links: [
                     {

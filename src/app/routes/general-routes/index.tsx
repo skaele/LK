@@ -3,16 +3,7 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import {
-    BiBookReader,
-    BiBrain,
-    BiGroup,
-    BiHeadphone,
-    BiMessageRounded,
-    BiNews,
-    BiPalette,
-    BiUserCircle,
-} from 'react-icons/bi'
+import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -77,7 +68,6 @@ export const TEMPLATE_CHAT_ROUTE = CHAT_ROUTE + '/:chatId'
 export const ELECTRONIC_INTERACTION_AGREEMENT_ROUTE = '/electronic-interaction-agreement'
 export const PAYMENTS_ROUTE = '/payments'
 export const SCHEDULE_ROUTE = '/schedule'
-export const SOFTSKILLS_ROUTE = '/softskills'
 
 export const ALL_STUDENTS_ROUTE = '/all-students'
 export const FILTERED_ALL_STUDENTS_ROUTE = '/all-students/:filter'
@@ -100,6 +90,7 @@ export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-m
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
+export const SOFTSKILLS_ROUTE = '/softskills'
 export const ALERTS_ROUTE = '/alerts'
 export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
 export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
@@ -325,26 +316,6 @@ export const generalRoutes: IRoutes = {
         show: true,
         group: 'LEARNING_ACTIVITIES',
         pageSize: 'large',
-    },
-    softskills: {
-        id: 'softskills',
-        title: 'Паспорт компетенций',
-        icon: <BiBrain />,
-        path: SOFTSKILLS_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace('https://softskills.rsv.ru/')
-            }, [])
-
-            return null
-        },
-        color: 'orange',
-        isTemplate: true,
-        show: true,
-        group: 'LEARNING_ACTIVITIES',
-        isExternalPage: true,
-        keywords: ['рсв', 'россия страна возможностей', 'софтскиллс', 'навыки'],
-        isNew: true,
     },
     'all-students': {
         id: 'all-students',

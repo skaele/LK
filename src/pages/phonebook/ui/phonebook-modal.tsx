@@ -1,7 +1,6 @@
 import Flex from '@shared/ui/flex'
 import React from 'react'
-import { Buttons, Content, Header, Subtitle, Wrapper } from '../styled'
-import { Title } from '@shared/ui/title'
+import { AvatarWrapper, Buttons, Content, Header, Subtitle, Wrapper } from '../styled'
 import { InfoItem } from '../info-item'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 import { Link } from 'react-router-dom'
@@ -12,6 +11,7 @@ import { Button } from '@shared/ui/button'
 import { useModal } from 'widgets'
 import List from '@shared/ui/list'
 import Avatar from '@features/home/ui/molecules/avatar'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 export const PhonebookModal = ({
     title,
@@ -25,10 +25,11 @@ export const PhonebookModal = ({
     isEmployee?: boolean
 }) => {
     const { close } = useModal()
+    const { isMobile } = useCurrentDevice()
 
     return (
         <Flex d="column">
-            <Header padingLeft={isEmployee ? '180px' : '10px'}>
+            <Header isEmployee={!!isEmployee}>
                 <UserHeaderBackground
                     fullName={title}
                     height="200px"
@@ -37,26 +38,24 @@ export const PhonebookModal = ({
                     baseScaleDelta={0.5}
                 />
                 {isEmployee && (
-                    <div style={{ position: 'absolute', top: '100px', left: '25px', zIndex: 50 }}>
+                    <AvatarWrapper>
                         <Avatar
                             avatarModal
                             border
                             name={title}
                             avatar={avatar}
-                            width="150px"
-                            height="150px"
+                            width={isMobile ? '110px' : '150px'}
+                            height={isMobile ? '110px' : '150px'}
                             marginRight="0"
                         />
-                    </div>
+                    </AvatarWrapper>
                 )}
-                <Title align="left" size={3}>
-                    {title}
-                </Title>
+                <b>{title}</b>
             </Header>
             <Wrapper>
                 <List minWidth="100%" direction="horizontal" showPages gap={20}>
                     {info.map(({ subtitle, attributes }) => (
-                        <Content key={subtitle || title} padingLeft={isEmployee ? '145px' : '0'}>
+                        <Content key={subtitle || title} isEmployee={!!isEmployee}>
                             {subtitle && <Subtitle>{subtitle}</Subtitle>}
                             {attributes.map(({ title, text }) => (
                                 <InfoItem key={title} title={title}>

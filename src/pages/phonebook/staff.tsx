@@ -69,7 +69,7 @@ export const Staff = () => {
                         action={() => {
                             open(
                                 <PhonebookModal
-                                    title={subdivision.title}
+                                    title={title}
                                     info={[
                                         {
                                             attributes: [

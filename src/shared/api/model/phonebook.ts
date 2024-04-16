@@ -1,7 +1,9 @@
 export type Employee = {
+    guid: string
     fio: string
     avatar?: string
     jobs: {
+        jobGuid: string
         post: string
         mainJob: boolean
         email: string
@@ -13,9 +15,10 @@ export type Employee = {
 }
 
 export type Subdivision = {
+    guid: string
     title: string
     staff: Employee[]
-    head: string
+    head: Employee
     phone: string
     email: string
     address: string

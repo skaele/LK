@@ -48,10 +48,8 @@ const LoadingBlock = styled.div<StyledProps>`
     }
 `
 
-const ContentBlock = styled.div<StyledProps>`
+const ContentBlock = styled.div`
     transition: 0.2s;
-    opacity: ${({ $loading }) => ($loading ? 0 : 1)};
-    visibility: ${({ $loading }) => ($loading ? 'hidden' : 'visible')};
     height: 100%;
 `
 
@@ -89,7 +87,7 @@ export const Loader = ({ children, load, loading, error, data, deps = [], couldB
                     </ReloadBlock>
                 )}
             </LoadingBlock>
-            <ContentBlock $loading={!!error || !data}> {children}</ContentBlock>
+            {!error && !!data && <ContentBlock>{children}</ContentBlock>}
         </WrapperBlock>
     )
 }

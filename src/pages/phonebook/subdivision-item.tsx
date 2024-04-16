@@ -1,3 +1,4 @@
+import { Employee, Subdivision } from '@shared/api/model/phonebook'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
@@ -9,15 +10,15 @@ export const SubdivisionItem = ({
     action,
 }: {
     title: string
-    items: string[]
-    action: (item: string) => void
+    action: (item: Employee | null) => void
+    items: Subdivision[] | Employee[]
 }) => {
     return (
         <Flex d="column" ai="flex-start" gap="7px">
             <Subtext>{title}</Subtext>
             {items.map((item) => (
-                <Button key={item} onClick={() => action(item)}>
-                    {item}
+                <Button key={item.guid} onClick={() => action('fio' in item ? item : null)}>
+                    {'fio' in item ? item.fio : item.title}
                 </Button>
             ))}
         </Flex>

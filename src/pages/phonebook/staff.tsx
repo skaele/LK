@@ -8,30 +8,6 @@ import { useModal } from 'widgets'
 import { PhonebookModal } from './ui/phonebook-modal'
 import { Employee } from '@shared/api/model/phonebook'
 
-const head = 'Антонова Антонина Антоновна'
-const employee: Employee = {
-    fio: 'Антонова Антонина Антоновна',
-    jobs: [
-        {
-            post: 'Главный бухгалтер',
-            mainJob: true,
-            phone: '+7 800 300 40 50',
-            mobilePhone: '+7 800 300 40 50',
-            email: 'a.n.surname@mospolytech.ru',
-            address: 'г. Москва, ул. Ленина, д. 1',
-            cabinet: 'ПР 1101',
-        },
-        {
-            post: 'Помощник главного бухгалтера',
-            mainJob: false,
-            phone: '+7 800 300 40 50',
-            mobilePhone: '+7 800 300 40 50',
-            email: 'a.n.surname@mospolytech.ru',
-            address: 'г. Москва, ул. Ленина, д. 1',
-            cabinet: 'ПР 1101',
-        },
-    ],
-}
 export const Staff = () => {
     const { title, subdivision, error } = useUnit({
         title: phonebookModel.stores.$chosenSubdivision,
@@ -42,40 +18,27 @@ export const Staff = () => {
     const staff = useMemo(() => items && items.staff.map((item) => item.fio), [items])
 
     useEffect(() => {
-        phonebookModel.events.getSubdivisionData({ filter: { title: title || '', id: '' } })
+        if (title) phonebookModel.events.getSubdivisionData({ filter: { title: title, id: '' } })
     }, [title])
 
     const { open } = useModal()
     if (!title) return null
 
     return (
-        <Loader
-            load={() => {
-                phonebookModel.events.getSubdivisionData({ search: title })
-            }}
-            data={subdivision}
-            error={error}
-        >
+        <Loader load={() => {}} data={subdivision} error={error}>
             <Flex d="column" ai="flex-start" jc="flex-start" gap="20px">
                 {subdivision && (
                     <SubdivisionItem
                         title="Информация"
-                        items={[title]}
-                        // head: string
-                        // phone?: string
-                        // extPhone?: string
-                        // email?: string
-                        // address?: string
-                        // cabinet?: string
-                        // staff: Employee[]
+                        items={[subdivision]}
                         action={() => {
                             open(
                                 <PhonebookModal
-                                    title={title}
+                                    title={subdivision.title}
                                     info={[
                                         {
                                             attributes: [
-                                                { title: 'Руководитель', text: subdivision.head },
+                                                { title: 'Руководитель', text: subdivision.head.fio },
                                                 { title: 'Номер телефона', text: subdivision.phone },
                                                 { title: 'Электронная почта', text: subdivision.email },
                                                 { title: 'Адрес', text: subdivision.address },
@@ -88,15 +51,15 @@ export const Staff = () => {
                         }}
                     />
                 )}
-                {head && (
+                {subdivision?.head && (
                     <SubdivisionItem
                         title="Руководитель"
-                        items={[subdivision?.head || '-']}
-                        action={(fio) => {
+                        items={[subdivision!.head]}
+                        action={(employee) => {
                             open(
                                 <PhonebookModal
-                                    title={fio}
-                                    info={employee.jobs.map((job) => ({
+                                    title={(employee as Employee).fio}
+                                    info={(employee as Employee).jobs.map((job) => ({
                                         subtitle: job.post,
                                         attributes: [
                                             {
@@ -119,12 +82,12 @@ export const Staff = () => {
                 {!!staff?.length && staff.length > 0 && (
                     <SubdivisionItem
                         title="Сотрудники"
-                        items={staff}
-                        action={(fio) => {
+                        items={items?.staff || []}
+                        action={(employee) => {
                             open(
                                 <PhonebookModal
-                                    title={fio}
-                                    info={employee.jobs.map((job) => ({
+                                    title={(employee as Employee).fio}
+                                    info={(employee as Employee).jobs.map((job) => ({
                                         subtitle: job.post,
                                         attributes: [
                                             {

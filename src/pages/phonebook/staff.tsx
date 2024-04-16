@@ -14,19 +14,21 @@ const employee: Employee = {
     jobs: [
         {
             post: 'Главный бухгалтер',
+            mainJob: true,
             phone: '+7 800 300 40 50',
+            mobilePhone: '+7 800 300 40 50',
             email: 'a.n.surname@mospolytech.ru',
             address: 'г. Москва, ул. Ленина, д. 1',
             cabinet: 'ПР 1101',
-            extPhone: '1004',
         },
         {
-            post: 'Главный бухгалтер2',
+            post: 'Помощник главного бухгалтера',
+            mainJob: false,
             phone: '+7 800 300 40 50',
+            mobilePhone: '+7 800 300 40 50',
             email: 'a.n.surname@mospolytech.ru',
             address: 'г. Москва, ул. Ленина, д. 1',
             cabinet: 'ПР 1101',
-            extPhone: '1004',
         },
     ],
 }
@@ -97,9 +99,13 @@ export const Staff = () => {
                                     info={employee.jobs.map((job) => ({
                                         subtitle: job.post,
                                         attributes: [
+                                            {
+                                                title: 'Тип работы',
+                                                text: job.mainJob ? 'Основное место работы' : 'По совместительству',
+                                            },
                                             { title: 'Электронная почта', text: job.email },
-                                            { title: 'Номер телефона', text: job.phone },
-                                            { title: 'Добавочный номер', text: job.extPhone },
+                                            { title: 'Служебный телефон (прямой/дополнительный)', text: job.phone },
+                                            { title: 'Служебный мобильный телефон', text: job.mobilePhone },
                                             { title: 'Адрес', text: job.address },
                                             { title: 'Кабинет', text: job.cabinet },
                                         ],
@@ -121,9 +127,13 @@ export const Staff = () => {
                                     info={employee.jobs.map((job) => ({
                                         subtitle: job.post,
                                         attributes: [
+                                            {
+                                                title: 'Тип работы',
+                                                text: job.mainJob ? 'Основное место работы' : 'По совместительству',
+                                            },
                                             { title: 'Электронная почта', text: job.email },
-                                            { title: 'Номер телефона', text: job.phone },
-                                            { title: 'Добавочный номер', text: job.extPhone },
+                                            { title: 'Служебный телефон (прямой/дополнительный)', text: job.phone },
+                                            { title: 'Служебный мобильный телефон', text: job.mobilePhone },
                                             { title: 'Адрес', text: job.address },
                                             { title: 'Кабинет', text: job.cabinet },
                                         ],

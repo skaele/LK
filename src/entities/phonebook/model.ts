@@ -49,11 +49,12 @@ const getSubdivisionDataFx = createEffect(
                     jobs: [
                         {
                             post: 'Проректор по цифровому развитию и делопроизводству',
+                            mainJob: true,
                             phone: '8 (812) 123-45-67',
+                            mobilePhone: '+7 800 300 40 50',
                             email: 'i.i.ivanov@mospolytech.ru',
                             address: 'г. Москва, ул. Ленина, д. 1',
                             cabinet: 'БС А-103',
-                            extPhone: '',
                         },
                     ],
                 },

@@ -3,9 +3,10 @@ export type Employee = {
     avatar?: string
     jobs: {
         post: string
+        mainJob: boolean
         email: string
         phone: string
-        extPhone: string
+        mobilePhone: string
         address: string
         cabinet: string
     }[]

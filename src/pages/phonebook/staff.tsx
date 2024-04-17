@@ -1,28 +1,20 @@
 import Flex from '@shared/ui/flex'
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 import { SubdivisionItem } from './subdivision-item'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import { Loader } from '@shared/ui/atoms/loader'
 import { useModal } from 'widgets'
 import { PhonebookModal } from './ui/phonebook-modal'
-import { Employee } from '@shared/api/model/phonebook'
 
 export const Staff = () => {
-    const { title, subdivision, error } = useUnit({
-        title: phonebookModel.stores.$chosenSubdivision,
-        subdivision: phonebookModel.stores.$subdivisionData,
+    const { subdivision, error } = useUnit({
+        subdivision: phonebookModel.stores.$chosenSubdivision,
         error: phonebookModel.stores.$error,
     })
-    const items = useUnit(phonebookModel.stores.$subdivisionData)
-    const staff = useMemo(() => items && items.staff.map((item) => item.fio), [items])
-
-    useEffect(() => {
-        if (title) phonebookModel.events.getSubdivisionData({ filter: { title: title, id: '' } })
-    }, [title])
 
     const { open } = useModal()
-    if (!title) return null
+    if (!subdivision) return null
 
     return (
         <Loader load={() => {}} data={subdivision} error={error}>
@@ -34,7 +26,7 @@ export const Staff = () => {
                         action={() => {
                             open(
                                 <PhonebookModal
-                                    title={subdivision.title}
+                                    title={subdivision.name}
                                     info={[
                                         {
                                             attributes: [
@@ -42,7 +34,7 @@ export const Staff = () => {
                                                 { title: 'Номер телефона', text: subdivision.phone },
                                                 { title: 'Электронная почта', text: subdivision.email },
                                                 { title: 'Адрес', text: subdivision.address },
-                                                { title: 'Кабинет', text: subdivision.cabinet },
+                                                { title: 'Кабинет', text: subdivision.room },
                                             ],
                                         },
                                     ]}
@@ -51,56 +43,83 @@ export const Staff = () => {
                         }}
                     />
                 )}
-                {subdivision?.head && (
+                {subdivision?.head?.fio && (
                     <SubdivisionItem
                         title="Руководитель"
-                        items={[subdivision!.head]}
+                        items={[subdivision.head]}
                         action={(employee) => {
+                            const phone =
+                                employee!.phone_direct && employee!.phone_inner
+                                    ? {
+                                          title: 'Служебный телефон (прямой/дополнительный)',
+                                          text: employee!.phone_direct + '/' + employee!.phone_inner,
+                                      }
+                                    : employee!.phone_direct
+                                    ? {
+                                          title: 'Служебный телефон (прямой)',
+                                          text: employee!.phone_direct,
+                                      }
+                                    : {
+                                          title: 'Служебный телефон (дополнительный)',
+                                          text: employee!.phone_inner,
+                                      }
                             open(
                                 <PhonebookModal
-                                    title={(employee as Employee).fio}
-                                    info={(employee as Employee).jobs.map((job) => ({
-                                        subtitle: job.post,
-                                        attributes: [
-                                            {
-                                                title: 'Тип работы',
-                                                text: job.mainJob ? 'Основное место работы' : 'По совместительству',
-                                            },
-                                            { title: 'Электронная почта', text: job.email },
-                                            { title: 'Служебный телефон (прямой/дополнительный)', text: job.phone },
-                                            { title: 'Служебный мобильный телефон', text: job.mobilePhone },
-                                            { title: 'Адрес', text: job.address },
-                                            { title: 'Кабинет', text: job.cabinet },
-                                        ],
-                                    }))}
+                                    title={employee!.fio}
+                                    info={[
+                                        {
+                                            subtitle: employee!.post,
+                                            attributes: [
+                                                // {
+                                                //     title: 'Тип работы',
+                                                //     text: job.mainJob ? 'Основное место работы' : 'По совместительству',
+                                                // },
+                                                { title: 'Электронная почта', text: employee!.email },
+                                                phone,
+                                                { title: 'Служебный мобильный телефон', text: employee!.phone_mobile },
+                                                { title: 'Адрес', text: employee!.address },
+                                                { title: 'Кабинет', text: employee!.room },
+                                            ],
+                                        },
+                                    ]}
                                     isEmployee
                                 />,
                             )
                         }}
                     />
                 )}
-                {!!staff?.length && staff.length > 0 && (
+                {subdivision.staff.length > 0 && (
                     <SubdivisionItem
                         title="Сотрудники"
-                        items={items?.staff || []}
+                        items={subdivision.staff}
                         action={(employee) => {
                             open(
                                 <PhonebookModal
-                                    title={(employee as Employee).fio}
-                                    info={(employee as Employee).jobs.map((job) => ({
-                                        subtitle: job.post,
-                                        attributes: [
-                                            {
-                                                title: 'Тип работы',
-                                                text: job.mainJob ? 'Основное место работы' : 'По совместительству',
-                                            },
-                                            { title: 'Электронная почта', text: job.email },
-                                            { title: 'Служебный телефон (прямой/дополнительный)', text: job.phone },
-                                            { title: 'Служебный мобильный телефон', text: job.mobilePhone },
-                                            { title: 'Адрес', text: job.address },
-                                            { title: 'Кабинет', text: job.cabinet },
-                                        ],
-                                    }))}
+                                    title={employee!.fio}
+                                    info={[
+                                        {
+                                            subtitle: employee!.post,
+                                            attributes: [
+                                                // {
+                                                //     title: 'Тип работы',
+                                                //     text: employee!.mainJob
+                                                //         ? 'Основное место работы'
+                                                //         : 'По совместительству',
+                                                // },
+                                                { title: 'Электронная почта', text: employee!.email },
+                                                {
+                                                    title: 'Служебный телефон (прямой/дополнительный)',
+                                                    text:
+                                                        employee!.phone_direct + employee!.phone_inner
+                                                            ? '/' + employee!.phone_inner
+                                                            : '',
+                                                },
+                                                { title: 'Служебный мобильный телефон', text: employee!.phone_mobile },
+                                                { title: 'Адрес', text: employee!.address },
+                                                { title: 'Кабинет', text: employee!.room },
+                                            ],
+                                        },
+                                    ]}
                                     isEmployee
                                 />,
                             )

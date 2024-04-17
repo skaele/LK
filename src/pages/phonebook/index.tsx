@@ -50,7 +50,7 @@ const Phonebook = () => {
                         />
                         {!isMobile && (
                             <GlobalSearch
-                                triggerSearchOn={[filter?.id ?? '']}
+                                triggerSearchOn={[]}
                                 placeholder={'Поиск'}
                                 searchApi={handleSearch}
                                 validationCheck
@@ -61,7 +61,7 @@ const Phonebook = () => {
                         data={subdivisions}
                         error={null}
                         load={() => {
-                            phonebookModel.events.getSubdivisions({})
+                            phonebookModel.events.getSubdivisions()
                         }}
                     >
                         <Grid columns={isMobile ? '1fr' : '4fr 7fr'} rows="1fr" columnGap="20px">

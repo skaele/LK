@@ -10,6 +10,7 @@ export * as applicationApi from './application-api'
 export * as hrApplicationApi from './hr-application-api'
 export * as adminLinksApi from './admin-links-api'
 export * as projectActivitesApi from './project-activites'
+export * as phonebookApi from './phonebook-api'
 export * as notificationApi from './notification-api' // что это?
 export * as docsApi from './docs-api'
 export * as teacherApi from './teacher-api'

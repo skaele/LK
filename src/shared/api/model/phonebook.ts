@@ -1,26 +1,23 @@
 export type Employee = {
-    guid: string
     fio: string
+    post: string
+    address: string
+    room: string
+    email: string
+    phone_mobile: string
+    phone_inner: string
+    phone_direct: string
     avatar?: string
-    jobs: {
-        jobGuid: string
-        post: string
-        mainJob: boolean
-        email: string
-        phone: string
-        mobilePhone: string
-        address: string
-        cabinet: string
-    }[]
 }
 
 export type Subdivision = {
-    guid: string
-    title: string
-    staff: Employee[]
-    head: Employee
+    name: string
+    bookname: string
+    room: string
     phone: string
     email: string
+    head: Employee
+    staff: Employee[]
     address: string
-    cabinet: string
+    subdivs: Subdivision[]
 }

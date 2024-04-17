@@ -1,4 +1,5 @@
 import { phonebookModel } from '@entities/phonebook'
+import { Subdivision } from '@shared/api/model/phonebook'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
@@ -6,28 +7,21 @@ import React, { useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
 
-export type ExpandableItemType = {
-    [title: string]: {
-        [сhildren: string]: ExpandableItemType
-    }
-}
-
-export const ExpandableItem = ({ item, layer }: { item: ExpandableItemType; layer: number }) => {
-    const title = Object.keys(item)[0]
-    const childrens = Object.keys(item[title])
+export const ExpandableItem = ({ item, layer }: { item: Subdivision; layer: number }) => {
+    const childrens = item.subdivs
     const [expanded, setExpanded] = useState(false)
     const chosen = useUnit(phonebookModel.stores.$chosenSubdivision)
     return (
         <Flex p={`0 0 0 ${(layer - 1) * 15}px`} d="column">
             <ButtonLayout
-                $chosen={chosen === title}
+                $chosen={chosen === item}
                 onClick={() => {
-                    setExpanded((prev) => (chosen !== title ? true : !prev))
-                    phonebookModel.events.setChosenSubdivision(title)
+                    setExpanded((prev) => (chosen && chosen.name !== item.name ? true : !prev))
+                    phonebookModel.events.setChosenSubdivision(item)
                 }}
             >
                 <Flex ai="center" jc="space-between" w="100%" gap="5px">
-                    {title}
+                    {item.name}
                     {childrens.length > 0 && (
                         <Button
                             icon={expanded ? <FiChevronDown size={20} /> : <FiChevronRight size={20} />}
@@ -43,9 +37,7 @@ export const ExpandableItem = ({ item, layer }: { item: ExpandableItemType; laye
                 </Flex>
             </ButtonLayout>
             {expanded &&
-                childrens.map((children) => (
-                    <ExpandableItem key={children} item={{ [children]: item[title][children] }} layer={layer + 1} />
-                ))}
+                childrens.map((children) => <ExpandableItem key={children.name} item={children} layer={layer + 1} />)}
         </Flex>
     )
 }

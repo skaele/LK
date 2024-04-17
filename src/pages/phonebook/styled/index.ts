@@ -10,7 +10,7 @@ export const Header = styled.div<{ isEmployee: boolean }>`
     padding-left: ${({ isEmployee }) => (isEmployee ? '125px' : '10px')};
 
     ${MEDIA_QUERIES.isNotMobile} {
-        width: 500px;
+        width: 550px;
         padding-left: ${({ isEmployee }) => (isEmployee ? '180px' : '10px')};
     }
 
@@ -21,7 +21,7 @@ export const Header = styled.div<{ isEmployee: boolean }>`
 `
 
 export const Wrapper = styled.div`
-    width: 500px;
+    width: 550px;
     padding-bottom: 20px;
     /* padding: 40px 35px 20px 35px; */
 

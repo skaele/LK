@@ -43,6 +43,11 @@ export const Content = styled.div<{ isEmployee: boolean }>`
     }
 `
 
+export const Title = styled.h3`
+    font-size: 1.17rem;
+    line-height: 28px;
+`
+
 export const Subtitle = styled.h4`
     opacity: 0.7;
     font-weight: 400;

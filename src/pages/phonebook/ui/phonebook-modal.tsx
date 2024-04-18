@@ -1,6 +1,6 @@
 import Flex from '@shared/ui/flex'
 import React from 'react'
-import { AvatarWrapper, Buttons, Content, Header, Subtitle, Wrapper } from '../styled'
+import { AvatarWrapper, Buttons, Content, Header, Subtitle, Title, Wrapper } from '../styled'
 import { InfoItem } from '../info-item'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 import { Link } from 'react-router-dom'
@@ -50,7 +50,7 @@ export const PhonebookModal = ({
                         />
                     </AvatarWrapper>
                 )}
-                <b>{title}</b>
+                <Title>{title}</Title>
             </Header>
             <Wrapper>
                 <List minWidth="100%" direction="horizontal" showPages gap={20}>

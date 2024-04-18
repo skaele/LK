@@ -1,19 +1,19 @@
 import React from 'react'
 import { ExpandableItem } from './expandable-item'
-import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import { Error } from '@shared/ui/error'
 import { Button } from '@shared/ui/button'
 import { AiOutlineReload } from 'react-icons/ai'
+import { ScrollWrapper } from './styled'
 
 export const Subdivisions = () => {
     const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
 
     if (!subdivisions) return null
     return (
-        <Flex d="column">
-            {subdivisions?.length ? (
+        <ScrollWrapper d="column">
+            {subdivisions?.map ? (
                 subdivisions.map((subdivision) => (
                     <ExpandableItem key={subdivision.name} item={subdivision} layer={1} />
                 ))
@@ -30,6 +30,6 @@ export const Subdivisions = () => {
                     }
                 </Error>
             )}
-        </Flex>
+        </ScrollWrapper>
     )
 }

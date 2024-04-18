@@ -1,4 +1,5 @@
 import { MEDIA_QUERIES } from '@shared/constants'
+import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 
 export const Header = styled.div<{ isEmployee: boolean }>`
@@ -79,5 +80,17 @@ export const AvatarWrapper = styled.div`
     ${MEDIA_QUERIES.isMobile} {
         top: 95px;
         left: 10px;
+    }
+`
+
+export const ScrollWrapper = styled(Flex)`
+    overflow-x: hidden;
+    padding-right: 10px;
+    ${MEDIA_QUERIES.isNotMobile} {
+        overflow-y: scroll;
+        height: calc(100vh - 240px);
+    }
+    ${MEDIA_QUERIES.isTablet} {
+        height: calc(100vh - 300px);
     }
 `

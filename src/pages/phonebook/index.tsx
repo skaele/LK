@@ -14,6 +14,21 @@ import { Hint } from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Subdivision } from '@shared/api/model/phonebook'
+
+const recursiveSubdivisionSearch = (subdivisions: Subdivision[], searchString: string): Subdivision | null => {
+    let respsonse = subdivisions.find((subdivision) => subdivision.name === searchString)
+
+    if (!respsonse) {
+        for (const subdivision of subdivisions) {
+            const res = recursiveSubdivisionSearch(subdivision.subdivs, searchString)
+            if (res) respsonse = res
+        }
+        return respsonse || null
+    }
+
+    return respsonse
+}
 
 const Phonebook = () => {
     const [subdivisionSearch, setSubdivisionSearch] = useState('')
@@ -22,6 +37,7 @@ const Phonebook = () => {
         value: subdivisionSearch,
         title: subdivisionSearch,
     })
+    const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
 
     const { load } = paginationList
     const handleSearch = async (value: string) => {
@@ -30,9 +46,10 @@ const Phonebook = () => {
 
     const onHintClick = (hint: Hint | undefined) => {
         setFilter(hint ?? null)
+        const searched = (subdivisions && recursiveSubdivisionSearch(subdivisions, hint?.value ?? '')) || null
+        phonebookModel.events.setChosenSubdivision(searched)
     }
 
-    const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
     const { isMobile } = useCurrentDevice()
 
     return (

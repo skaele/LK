@@ -2,7 +2,7 @@ import { phonebookApi } from '@shared/api'
 import { Subdivision } from '@shared/api/model/phonebook'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-const setChosenSubdivision = createEvent<Subdivision>()
+const setChosenSubdivision = createEvent<Subdivision | null>()
 
 const getSubdivisions = createEvent()
 const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {

@@ -59,26 +59,12 @@ export const changeEmail = async (newEmail: string) => {
     })
 }
 
-export const changePhone = async (newPhone: string) => {
+export const changePhone = async (fields: { [name: string]: string }) => {
     const formData = new FormData()
-
-    formData.set('phone', newPhone)
-    formData.set('token', getToken())
-
-    return $api.post(`?changePhone=1`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+    Object.entries(fields).forEach(([key, value]) => {
+        formData.set(key, value)
     })
-}
-
-export const changePhoneChecks = async (allow_mobphone_in: boolean, allow_mobphone_out: boolean) => {
-    const formData = new FormData()
-
-    formData.set('allow_mobphone_in', allow_mobphone_in.toString())
-    formData.set('allow_mobphone_out', allow_mobphone_out.toString())
     formData.set('token', getToken())
-
     return $api.post(`?changePhone=1`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',

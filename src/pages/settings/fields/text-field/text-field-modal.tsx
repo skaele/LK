@@ -1,3 +1,4 @@
+import { settingsModel } from '@entities/settings'
 import { NameSettings } from '@entities/settings/model'
 import { FieldProps } from '@pages/settings/model'
 import SettingsFields from '@pages/settings/settings-fields'
@@ -33,7 +34,8 @@ const rules: TRules = [
 ]
 
 const TextFieldModal = (props: FieldProps) => {
-    const { value, message, action, type, title, additionalActions, subfields } = props
+    const { value, message, action, type, title, additionalActions, subfields, subfieldsAction, id, settingsName } =
+        props
     const [inputValue, setInputValue] = useState<string>(value as string)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>('')
@@ -41,11 +43,23 @@ const TextFieldModal = (props: FieldProps) => {
     const { close } = useModal()
     const { isActive, validationError } = useFormValidation(rules, [inputValue, value as string, title])
 
+    const { settings } = settingsModel.selectors.useSettings()
     const handleSubmit = async () => {
         try {
             setLoading(true)
-            await action?.(inputValue)
-            additionalActions?.onSuccess?.(inputValue)
+            if (!!subfields && !!id && !!settingsName) {
+                const data: {
+                    [section: string]: string
+                } = {}
+                data[id] = inputValue
+                Object.keys(settings[settingsName].property).forEach(
+                    (key) => (data[key] = settings[settingsName].property[key] as string),
+                )
+                await subfieldsAction?.(data)
+            } else {
+                await action?.(inputValue)
+                additionalActions?.onSuccess?.(inputValue)
+            }
             setLoading(false)
             setCompleted(true)
         } catch (error) {
@@ -73,20 +87,9 @@ const TextFieldModal = (props: FieldProps) => {
                 {error}
             </Message>
             <Input value={inputValue} setValue={setInputValue} type={type} mask />
-            {title === 'Служебный мобильный телефон' && subfields && (
+            {subfields && (
                 <SettingsFields settingsName={NameSettings['settings-personal']} fields={subfields} asChild />
             )}
-            {/* <Checkbox
-                        text="Показывать мобильный телефон внутри Личного кабинета"
-                        checked={value as boolean}
-                        setChecked={(value) => handleChangeValue(value, indexI, indexJ)}
-                    />
-                    <Checkbox
-                        text="Показывать мобильный телефон на сайте"
-                        checked={value as boolean}
-                        setChecked={(value) => handleChangeValue(value, indexI, indexJ)}
-                    /> */}
-
             <Divider />
             <Buttons>
                 <Button text="Отменить" width="100%" onClick={close} />

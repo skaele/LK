@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { SwitchToggle } from '../molecules'
-import { TValueFieldType } from '@pages/settings/model'
 
 const ToggleItemBlock = styled.div<{ disabled?: boolean }>`
     padding: 0px 12px;
@@ -59,17 +58,11 @@ type Props = {
     action: (state: boolean) => void
     icon?: React.ReactNode
     disabled?: boolean
-    additionalActions?: {
-        onAdd?: (value?: TValueFieldType) => void
-        onRemoveOne?: (value?: TValueFieldType) => void
-        onSuccess?: (value?: TValueFieldType) => void
-    }
 }
 
-const ToggleItem = ({ title, state, action, icon, disabled, additionalActions }: Props) => {
+const ToggleItem = ({ title, state, action, icon, disabled }: Props) => {
     const handleToggle = () => {
         action(!state)
-        additionalActions?.onSuccess?.(!state)
     }
 
     return (

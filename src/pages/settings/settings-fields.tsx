@@ -50,7 +50,7 @@ const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {
 
         return (val: TValueFieldType | undefined) => {
             // eslint-disable-next-line no-console
-            console.log(val)
+            console.log(1, val)
 
             settingsModel.events.updateSetting({
                 nameSettings: settingsName,

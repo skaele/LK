@@ -7,7 +7,7 @@ import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
-import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
@@ -18,6 +18,7 @@ import {
     MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
+    SOFTSKILLS_ROUTE,
     USEFUL_INFO_ROUTE,
 } from './general-routes'
 import {
@@ -155,6 +156,26 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
         show: true,
+    },
+    softskills: {
+        id: 'softskills',
+        title: 'Паспорт компетенций',
+        icon: <BiBrain />,
+        path: SOFTSKILLS_ROUTE,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://softskills.rsv.ru/')
+            }, [])
+
+            return null
+        },
+        color: 'orange',
+        isTemplate: true,
+        show: true,
+        group: 'LEARNING_ACTIVITIES',
+        isExternalPage: true,
+        keywords: ['рсв', 'россия страна возможностей', 'софтскиллс', 'навыки'],
+        isNew: true,
     },
     'acad-performance': {
         id: 'acad-performance',

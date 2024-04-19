@@ -151,7 +151,7 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
                 value: data.show_tel_mob_staff_outer ?? true,
             },
             {
-                title: 'Служебный телефон (прямой/дополнительный)',
+                title: 'Служебный телефон (прямой/добавочный)',
                 type: 'tel',
                 value: data?.tel_staff,
                 fieldName: 'tel_staff',

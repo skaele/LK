@@ -37,7 +37,6 @@ type Props = {
 
 const Links = ({ links }: Props) => {
     const linksKeysArray = Object.keys(links)
-    const amount = linksKeysArray.length < 8 ? 8 : Object.keys(links).length
     const { allRoutes } = menuModel.selectors.useMenu()
 
     const [longestTitleLength, setLongestTitleLength] = useState(0)
@@ -49,12 +48,14 @@ const Links = ({ links }: Props) => {
         setLongestTitleLength(links[longestTitle].title.length)
     }, [linksKeysArray])
 
+    const linksAmount = Object.keys(links).length
+
     return (
         <LinksStyled componentHeight={longestTitleLength}>
             {linksKeysArray.map((key, index) => {
                 return (
                     <React.Fragment key={key}>
-                        <LinkItem item={links[key]} amount={amount} />
+                        <LinkItem amount={linksAmount} item={links[key]} />
                         {index !== linksKeysArray.length - 1 && (
                             <Divider direction="vertical" margin="10px 0" width="70%" />
                         )}
@@ -62,7 +63,7 @@ const Links = ({ links }: Props) => {
                 )
             })}
             <Divider direction="vertical" margin="10px 0" width="70%" />
-            <LinkItem item={allRoutes['all']} amount={amount} />
+            <LinkItem amount={linksAmount} item={allRoutes['all']} />
         </LinksStyled>
     )
 }

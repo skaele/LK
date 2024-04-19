@@ -29,6 +29,8 @@ const useSettings = () => {
     const { property: settingsProperty } = settings['settings-notifications']
     const { property: appearanceProperty } = settings['settings-appearance']
     const { widgetPayment, widgetSchedule, news } = settings['settings-home-page'].property
+    const isStudent = user?.user_status === 'stud'
+
     const requiredLeftsideBarItems =
         user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
     useEffect(() => {
@@ -37,7 +39,6 @@ const useSettings = () => {
                 scheduledLightTheme: appearanceProperty.scheduledLightTheme as boolean,
                 lightThemeRange: appearanceProperty.lightThemeRange as [string, string],
                 settings: settingsProperty as NotificationsSettingsType,
-                isStudent: user?.user_status === 'stud',
                 menu: {
                     value: leftsideBarRoutes,
                     additionalActions: {
@@ -55,16 +56,6 @@ const useSettings = () => {
                     },
                 },
                 theme: { value: theme === 'dark', action: (value) => switchTheme(value as boolean) },
-                phone: {
-                    value: user?.phone ?? '',
-                    description: user?.phone,
-                    action: (value) => changePhone((value ?? '') as string),
-                    additionalActions: {
-                        onSuccess: (value) => {
-                            userModel.events.update({ key: 'phone', value: value as string })
-                        },
-                    },
-                },
                 email: {
                     value: user?.email ?? '',
                     description: getValue(user?.email),
@@ -135,6 +126,23 @@ const useSettings = () => {
                             }),
                     },
                 },
+                phone: {
+                    value: user?.phone ?? '',
+                    description: user?.phone,
+                    action: (value) => changePhone((value ?? '') as string),
+                    additionalActions: {
+                        onSuccess: (value) => {
+                            userModel.events.update({ key: 'phone', value: value as string })
+                        },
+                    },
+                },
+                isStudent,
+                phoneStaff: isStudent
+                    ? undefined
+                    : {
+                          allow_mobphone_in: user?.allow_mobphone_in,
+                          allow_mobphone_out: user?.allow_mobphone_out,
+                      },
             }),
         })
     }, [

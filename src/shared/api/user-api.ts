@@ -72,6 +72,20 @@ export const changePhone = async (newPhone: string) => {
     })
 }
 
+export const changePhoneChecks = async (allow_mobphone_in: boolean, allow_mobphone_out: boolean) => {
+    const formData = new FormData()
+
+    formData.set('allow_mobphone_in', allow_mobphone_in.toString())
+    formData.set('allow_mobphone_out', allow_mobphone_out.toString())
+    formData.set('token', getToken())
+
+    return $api.post(`?changePhone=1`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+}
+
 export const refreshAccessToken = async (refreshToken: string) => {
     const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(
         'https://api.mospolytech.ru/frontendtokenservice/Token/Refresh',

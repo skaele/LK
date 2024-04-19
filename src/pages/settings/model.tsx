@@ -5,6 +5,7 @@ import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
 import { ContactDetails } from '@shared/api/model'
+import { changePhoneChecks } from '@shared/api/user-api'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
 import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
@@ -229,22 +230,7 @@ const getSettingsModel: TSettingsModel = ({
                                   type: 'toggle',
                                   value: phoneStaff.allow_mobphone_in,
                                   action: (value) =>
-                                      sendForm<ContactDetails>(
-                                          {
-                                              title: 'Актуализируйте контактные данные',
-                                              data: [
-                                                  {
-                                                      title: 'Показывать мобильный телефон внутри Личного кабинета',
-                                                      fieldName: 'show_tel_mob_staff_inner',
-                                                      type: 'checkbox',
-                                                      value: (value as boolean) ?? false,
-                                                  },
-                                              ],
-                                          },
-                                          contactDetailsModel.effects.postFormFx,
-                                          () => {},
-                                          contactDetailsModel.events.changeCompleted,
-                                      ),
+                                      changePhoneChecks(value as boolean, phoneStaff.allow_mobphone_out as boolean),
                                   additionalActions: {
                                       onSuccess: (value) => {
                                           userModel.events.update({
@@ -257,24 +243,8 @@ const getSettingsModel: TSettingsModel = ({
                               {
                                   title: 'Показывать мобильный телефон на сайте',
                                   type: 'toggle',
-                                  value: phoneStaff.allow_mobphone_out,
                                   action: (value) =>
-                                      sendForm<ContactDetails>(
-                                          {
-                                              title: 'Актуализируйте контактные данные',
-                                              data: [
-                                                  {
-                                                      title: 'Показывать мобильный телефон на сайте',
-                                                      fieldName: 'show_tel_mob_staff_outer',
-                                                      type: 'checkbox',
-                                                      value: (value as boolean) ?? false,
-                                                  },
-                                              ],
-                                          },
-                                          contactDetailsModel.effects.postFormFx,
-                                          () => {},
-                                          contactDetailsModel.events.changeCompleted,
-                                      ),
+                                      changePhoneChecks(phoneStaff.allow_mobphone_in as boolean, value as boolean),
                                   additionalActions: {
                                       onSuccess: (value) => {
                                           userModel.events.update({

@@ -3,7 +3,16 @@ import ToggleItem from '@shared/ui/toggle-item'
 import React, { useEffect, useState } from 'react'
 import { FieldProps } from '../../model'
 
-const ToggleField = ({ title, action, value, subfields, icon, settingsName, disabled }: FieldProps) => {
+const ToggleField = ({
+    title,
+    action,
+    value,
+    subfields,
+    icon,
+    settingsName,
+    disabled,
+    additionalActions,
+}: FieldProps) => {
     const [toggled, setToggled] = useState(value as boolean)
     const handleToggle = (state: boolean) => {
         action?.(state)
@@ -15,7 +24,14 @@ const ToggleField = ({ title, action, value, subfields, icon, settingsName, disa
 
     return (
         <>
-            <ToggleItem disabled={disabled} title={title} state={toggled} action={handleToggle} icon={icon} />
+            <ToggleItem
+                disabled={disabled}
+                title={title}
+                state={toggled}
+                action={handleToggle}
+                icon={icon}
+                additionalActions={additionalActions}
+            />
             {subfields && toggled && <SettingsFields settingsName={settingsName} fields={subfields} asChild />}
         </>
     )

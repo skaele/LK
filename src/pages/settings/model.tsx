@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { confirmModel } from '@entities/confirm'
+import { phonebookModel } from '@entities/phonebook'
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
+import { Phonebook } from '@shared/api/model'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
+import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
 import { MessageType } from '@shared/ui/types'
 import React from 'react'
@@ -50,15 +54,14 @@ type TSettingsSection = {
     fields: TSettingsFields[]
 }
 
-type Prop<T> = { value: T } & Pick<TSettingsFields, 'icon' | 'description' | 'action' | 'additionalActions'>
+export type Prop<T> = { value: T } & Pick<TSettingsFields, 'icon' | 'description' | 'action' | 'additionalActions'>
 
 type SettingsFullProps = {
-    isStudent?: boolean
+    isStudent: boolean
     theme: Prop<boolean>
     scheduledLightTheme: boolean
     lightThemeRange: [string, string]
     email: Prop<string>
-    phone: Prop<string>
     avatar: Prop<string | undefined>
     menu: Prop<FilterElementList>
     homepage: {
@@ -75,6 +78,11 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
+    phone: Prop<string>
+    phoneStaff?: {
+        allow_mobphone_in?: boolean
+        allow_mobphone_out?: boolean
+    }
 }
 
 export type TFullSettingsModel = {
@@ -87,7 +95,7 @@ export type TSettingsModel = (props: SettingsFullProps) => TFullSettingsModel
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSettingsModel: TSettingsModel = ({
-    // isStudent,
+    isStudent,
     theme,
     scheduledLightTheme,
     lightThemeRange,
@@ -95,6 +103,7 @@ const getSettingsModel: TSettingsModel = ({
     avatar,
     homepage,
     phone,
+    phoneStaff,
     menu,
     settings,
 }) => ({
@@ -197,7 +206,7 @@ const getSettingsModel: TSettingsModel = ({
                     action: () => null,
                 },
                 {
-                    title: 'Email',
+                    title: isStudent ? 'Email' : 'Почта для уведомлений',
                     type: 'text',
                     value: email.value,
                     icon: <FiMail />,
@@ -206,13 +215,77 @@ const getSettingsModel: TSettingsModel = ({
                     additionalActions: email.additionalActions,
                 },
                 {
-                    title: 'Телефон',
+                    title: isStudent ? 'Телефон' : 'Служебный мобильный телефон',
                     type: 'tel',
                     value: phone.value,
                     icon: <FiPhone />,
                     description: phone.description,
                     action: phone.action,
                     additionalActions: phone.additionalActions,
+                    subfields: phoneStaff
+                        ? [
+                              {
+                                  title: 'Показывать мобильный телефон внутри Личного кабинета',
+                                  type: 'toggle',
+                                  value: phoneStaff.allow_mobphone_in,
+                                  action: (value) =>
+                                      sendForm<Phonebook>(
+                                          {
+                                              title: 'Актуализируйте контактные данные',
+                                              data: [
+                                                  {
+                                                      title: 'Показывать мобильный телефон внутри Личного кабинета',
+                                                      fieldName: 'show_tel_mob_staff_inner',
+                                                      type: 'checkbox',
+                                                      value: (value as boolean) ?? false,
+                                                  },
+                                              ],
+                                          },
+                                          phonebookModel.effects.postFormFx,
+                                          () => {},
+                                          phonebookModel.events.changeCompleted,
+                                      ),
+                                  additionalActions: {
+                                      onSuccess: (value) => {
+                                          userModel.events.update({
+                                              key: 'allow_mobphone_in',
+                                              value: value as boolean,
+                                          })
+                                      },
+                                  },
+                              },
+                              {
+                                  title: 'Показывать мобильный телефон на сайте',
+                                  type: 'toggle',
+                                  value: phoneStaff.allow_mobphone_out,
+                                  action: (value) =>
+                                      sendForm<Phonebook>(
+                                          {
+                                              title: 'Актуализируйте контактные данные',
+                                              data: [
+                                                  {
+                                                      title: 'Показывать мобильный телефон на сайте',
+                                                      fieldName: 'show_tel_mob_staff_outer',
+                                                      type: 'checkbox',
+                                                      value: (value as boolean) ?? false,
+                                                  },
+                                              ],
+                                          },
+                                          phonebookModel.effects.postFormFx,
+                                          () => {},
+                                          phonebookModel.events.changeCompleted,
+                                      ),
+                                  additionalActions: {
+                                      onSuccess: (value) => {
+                                          userModel.events.update({
+                                              key: 'allow_mobphone_out',
+                                              value: value as boolean,
+                                          })
+                                      },
+                                  },
+                              },
+                          ]
+                        : undefined,
                 },
                 {
                     title: 'Пароль',

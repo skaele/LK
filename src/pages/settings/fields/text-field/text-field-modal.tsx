@@ -1,4 +1,6 @@
+import { NameSettings } from '@entities/settings/model'
 import { FieldProps } from '@pages/settings/model'
+import SettingsFields from '@pages/settings/settings-fields'
 import useFormValidation, { TRules } from '@shared/lib/hooks/use-form-validation'
 import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +12,7 @@ const TextFieldModalStyled = styled.div`
     flex-direction: column;
     gap: 8px;
     @media (min-width: 1001px) {
-        width: 350px;
+        min-width: 350px;
     }
 `
 
@@ -20,16 +22,24 @@ const Buttons = styled.div`
     gap: 8px;
 `
 
-const rules: TRules = [{ text: 'Необходимо изменить строку', test: (v1, v2) => v1 !== v2 }]
+const rules: TRules = [
+    {
+        text: 'Необходимо изменить строку',
+        test: (v1, v2, title) => {
+            if (title === 'Служебный мобильный телефон') return true
+            else return v1 !== v2
+        },
+    },
+]
 
 const TextFieldModal = (props: FieldProps) => {
-    const { value, message, action, type, title, additionalActions } = props
+    const { value, message, action, type, title, additionalActions, subfields } = props
     const [inputValue, setInputValue] = useState<string>(value as string)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>('')
     const [completed, setCompleted] = useState(false)
     const { close } = useModal()
-    const { isActive, validationError } = useFormValidation(rules, [inputValue, value as string])
+    const { isActive, validationError } = useFormValidation(rules, [inputValue, value as string, title])
 
     const handleSubmit = async () => {
         try {
@@ -63,6 +73,20 @@ const TextFieldModal = (props: FieldProps) => {
                 {error}
             </Message>
             <Input value={inputValue} setValue={setInputValue} type={type} mask />
+            {title === 'Служебный мобильный телефон' && subfields && (
+                <SettingsFields settingsName={NameSettings['settings-personal']} fields={subfields} asChild />
+            )}
+            {/* <Checkbox
+                        text="Показывать мобильный телефон внутри Личного кабинета"
+                        checked={value as boolean}
+                        setChecked={(value) => handleChangeValue(value, indexI, indexJ)}
+                    />
+                    <Checkbox
+                        text="Показывать мобильный телефон на сайте"
+                        checked={value as boolean}
+                        setChecked={(value) => handleChangeValue(value, indexI, indexJ)}
+                    /> */}
+
             <Divider />
             <Buttons>
                 <Button text="Отменить" width="100%" onClick={close} />

@@ -1,3 +1,4 @@
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { Sex } from '@utility-types/sex'
 
 export type UserStatus = 'stud' | 'staff'
@@ -27,6 +28,7 @@ export type StudentAccount = {
 
 export type StaffAccount = {
     work_place?: string
+    email_staff?: string
 }
 
 export type GeneralAccount = GeneralAccountFields & StudentAccount & StaffAccount & TechicalAccount
@@ -56,7 +58,7 @@ export type User = StudentAccount & {
     lastaccess: string
     accounts?: GeneralAccount[]
     authorIDs?: AuthorIDs
-}
+} & PhoneSettingsType
 
 interface Subdivision {
     categoty: string
@@ -65,6 +67,10 @@ interface Subdivision {
     subdivision?: string
     wage?: string
     post?: string
+    address?: string
+    room?: string
+    phone_inner?: string
+    phone_direct?: string
 }
 
 interface AuthorIDs {

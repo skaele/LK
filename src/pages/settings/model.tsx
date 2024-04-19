@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { confirmModel } from '@entities/confirm'
-import { phonebookModel } from '@entities/phonebook'
 import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
-import { Phonebook } from '@shared/api/model'
-import { changePhoneChecks } from '@shared/api/user-api'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
 import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
@@ -41,6 +38,7 @@ export type TSettingsFields = {
               onSuccess?: (value?: TValueFieldType) => void
           }
         | { [key: string]: (value?: TValueFieldType) => void }
+    subfieldsAction?: (values: { [section: string]: string }) => void
     description?: string
     message?: { title: string; type: MessageType; body?: string }
     icon?: React.ReactNode
@@ -55,7 +53,10 @@ type TSettingsSection = {
     fields: TSettingsFields[]
 }
 
-export type Prop<T> = { value: T } & Pick<TSettingsFields, 'icon' | 'description' | 'action' | 'additionalActions'>
+export type Prop<T> = { value: T } & Pick<
+    TSettingsFields,
+    'icon' | 'description' | 'action' | 'additionalActions' | 'subfieldsAction'
+>
 
 type SettingsFullProps = {
     isStudent: boolean
@@ -79,11 +80,7 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
-    phone: Prop<string>
-    phoneStaff?: {
-        allow_mobphone_in?: boolean
-        allow_mobphone_out?: boolean
-    }
+    phone: Prop<string> | Prop<PhoneSettingsType>
 }
 
 export type TFullSettingsModel = {
@@ -104,7 +101,6 @@ const getSettingsModel: TSettingsModel = ({
     avatar,
     homepage,
     phone,
-    phoneStaff,
     menu,
     settings,
 }) => ({
@@ -216,46 +212,33 @@ const getSettingsModel: TSettingsModel = ({
                     additionalActions: email.additionalActions,
                 },
                 {
+                    id: 'phone',
                     title: isStudent ? 'Телефон' : 'Служебный мобильный телефон',
                     type: 'tel',
-                    value: phone.value,
+                    settingsName: NameSettings['settings-personal'],
+                    value: typeof phone.value === 'string' ? phone.value : phone.value.phone,
                     icon: <FiPhone />,
                     description: phone.description,
                     action: phone.action,
                     additionalActions: phone.additionalActions,
-                    subfields: phoneStaff
-                        ? [
-                              {
-                                  title: 'Показывать мобильный телефон внутри Личного кабинета',
-                                  type: 'toggle',
-                                  value: phoneStaff.allow_mobphone_in,
-                                  action: (value) =>
-                                      changePhoneChecks(value as boolean, phoneStaff.allow_mobphone_out as boolean),
-                                  additionalActions: {
-                                      onSuccess: (value) => {
-                                          userModel.events.update({
-                                              key: 'allow_mobphone_in',
-                                              value: value as boolean,
-                                          })
-                                      },
+                    subfieldsAction: phone.subfieldsAction,
+                    subfields:
+                        typeof phone.value === 'string'
+                            ? undefined
+                            : [
+                                  {
+                                      id: 'allow_mobphone_in',
+                                      title: 'Показывать мобильный телефон внутри Личного кабинета',
+                                      type: 'toggle',
+                                      value: phone.value.allow_mobphone_in,
                                   },
-                              },
-                              {
-                                  title: 'Показывать мобильный телефон на сайте',
-                                  type: 'toggle',
-                                  action: (value) =>
-                                      changePhoneChecks(phoneStaff.allow_mobphone_in as boolean, value as boolean),
-                                  additionalActions: {
-                                      onSuccess: (value) => {
-                                          userModel.events.update({
-                                              key: 'allow_mobphone_out',
-                                              value: value as boolean,
-                                          })
-                                      },
+                                  {
+                                      id: 'allow_mobphone_out',
+                                      title: 'Показывать мобильный телефон на сайте',
+                                      type: 'toggle',
+                                      value: phone.value.allow_mobphone_out,
                                   },
-                              },
-                          ]
-                        : undefined,
+                              ],
                 },
                 {
                     title: 'Пароль',

@@ -21,6 +21,7 @@ const WrapperBlock = styled.div`
     position: relative;
     width: 100%;
     padding: 10px;
+    min-height: 100px;
     height: 100%;
 
     @media (max-width: 550px) {

@@ -64,8 +64,6 @@ const useInput = (
                 setDanger(result)
             }
         }
-
-        setValue(e.target.value)
     }
 
     const buttonOnClick = () => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))

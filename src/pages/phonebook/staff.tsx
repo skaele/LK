@@ -81,7 +81,14 @@ export const Staff = () => {
                     title="Руководитель"
                     items={[subdivision.head]}
                     action={(employee) => {
-                        open(<PhonebookModal title={employee!.fio} info={getEmployeeInfo(employee!)} isEmployee />)
+                        open(
+                            <PhonebookModal
+                                title={employee!.fio}
+                                info={getEmployeeInfo(employee!)}
+                                avatar={employee!.avatar}
+                                isEmployee
+                            />,
+                        )
                     }}
                 />
             )}
@@ -90,7 +97,14 @@ export const Staff = () => {
                     title="Сотрудники"
                     items={subdivision.staff}
                     action={(employee) => {
-                        open(<PhonebookModal title={employee!.fio} info={getEmployeeInfo(employee!)} isEmployee />)
+                        open(
+                            <PhonebookModal
+                                title={employee!.fio}
+                                info={getEmployeeInfo(employee!)}
+                                avatar={employee!.avatar}
+                                isEmployee
+                            />,
+                        )
                     }}
                 />
             )}

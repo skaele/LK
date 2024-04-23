@@ -6,9 +6,13 @@ import { Error } from '@shared/ui/error'
 import { Button } from '@shared/ui/button'
 import { AiOutlineReload } from 'react-icons/ai'
 import { ScrollWrapper } from './styled'
+import { Loading } from '@shared/ui/loading'
 
 export const Subdivisions = () => {
-    const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
+    const { subdivisions, loading } = useUnit({
+        subdivisions: phonebookModel.stores.subdivisions,
+        loading: phonebookModel.stores.pedningGetSubdividions,
+    })
 
     if (!subdivisions) return null
     return (
@@ -17,6 +21,8 @@ export const Subdivisions = () => {
                 subdivisions.map((subdivision) => (
                     <ExpandableItem key={subdivision.name} item={subdivision} parents={[]} />
                 ))
+            ) : loading ? (
+                <Loading />
             ) : (
                 <Error text={'Не удалось загрузить данные'}>
                     {

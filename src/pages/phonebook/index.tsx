@@ -45,7 +45,7 @@ const Phonebook = () => {
     //     value: subdivision,
     //     title: subdivision,
     // })
-    const subdivisions = useUnit(phonebookModel.stores.$subdivisions)
+    const subdivisions = useUnit(phonebookModel.stores.subdivisions)
 
     // const { load } = paginationList
     // const handleSearch = async (value: string) => {

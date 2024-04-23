@@ -29,8 +29,8 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
 
 export const Staff = () => {
     const { subdivisionPath } = useUnit({
-        subdivisionPath: phonebookModel.stores.$subdivisionPath,
-        error: phonebookModel.stores.$error,
+        subdivisionPath: phonebookModel.stores.subdivisionPath,
+        error: phonebookModel.stores.error,
     })
 
     const subdivision = subdivisionPath?.[0]

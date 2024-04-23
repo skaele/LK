@@ -11,6 +11,7 @@ const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
     return data
 })
 sample({ clock: getSubdivisions, target: getSubdivisionsFx })
+const $pedningGetSubdividions = getSubdivisionsFx.pending
 
 const clearSubdivisionData = createEvent()
 const $subdivisionPath = createStore<Subdivision[] | null>(null).on(
@@ -32,7 +33,8 @@ export const events = {
 }
 
 export const stores = {
-    $subdivisionPath,
-    $subdivisions,
-    $error,
+    subdivisionPath: $subdivisionPath,
+    subdivisions: $subdivisions,
+    error: $error,
+    pedningGetSubdividions: $pedningGetSubdividions,
 }

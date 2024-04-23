@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: Subdivision[] }) => {
     const childrens = item.subdivs
-    const chosenPath = useUnit(phonebookModel.stores.$subdivisionPath)
+    const chosenPath = useUnit(phonebookModel.stores.subdivisionPath)
     const [expanded, setExpanded] = useState<boolean>(false)
 
     useEffect(() => {

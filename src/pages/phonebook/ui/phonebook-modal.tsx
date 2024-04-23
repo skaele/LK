@@ -13,6 +13,8 @@ import List from '@shared/ui/list'
 import Avatar from '@features/home/ui/molecules/avatar'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
+export type PhonebookInfo = { subtitle?: string; attributes: { id?: 'email'; title: string; text: string }[] }
+
 export const PhonebookModal = ({
     title,
     info,
@@ -20,7 +22,7 @@ export const PhonebookModal = ({
     avatar,
 }: {
     title: string
-    info: { subtitle?: string; attributes: { title: string; text: string }[] }[]
+    info: PhonebookInfo[]
     avatar?: string
     isEmployee?: boolean
 }) => {
@@ -57,16 +59,12 @@ export const PhonebookModal = ({
                     {info.map(({ subtitle, attributes }) => (
                         <Content key={subtitle || title} isEmployee={!!isEmployee}>
                             {subtitle && <Subtitle>{subtitle}</Subtitle>}
-                            {attributes.map(({ title, text }) => (
+                            {attributes.map(({ title, text, id }) => (
                                 <InfoItem key={title} title={title}>
-                                    {/* {title === 'Номер телефона' ? (
-                                        <a href={`tel:${text}`}>{text}</a>
-                                    ) : title === 'Электронная почта' ? (
-                                        <a href={`mailto:${text}`}>{text}</a>
-                                    ) : (
-                                        text
-                                    )} */}
-                                    {text}
+                                    {/* title === 'Номер телефона' ? (
+                                            <a href={`tel:${text}`}>{text}</a>
+                                        ) */}
+                                    {id === 'email' ? <a href={`mailto:${text}`}>{text}</a> : <>{text}</>}
                                 </InfoItem>
                             ))}
                         </Content>

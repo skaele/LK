@@ -1,8 +1,10 @@
+import Avatar from '@features/home/ui/molecules/avatar'
 import { Employee, Subdivision } from '@shared/api/model/phonebook'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import styled from 'styled-components'
+import getImageSize from 'widgets/user/lib/get-image-size'
 
 export const SubdivisionItem = ({
     title,
@@ -21,6 +23,15 @@ export const SubdivisionItem = ({
                     key={'fio' in item ? item.fio + item.post : item.name}
                     onClick={() => action('fio' in item ? item : null)}
                 >
+                    {'fio' in item && (
+                        <Avatar
+                            name={item.fio}
+                            avatar={item.avatar}
+                            width={getImageSize('horizontal', 'middle')}
+                            height={getImageSize('horizontal', 'middle')}
+                            marginRight={'7px'}
+                        />
+                    )}
                     {'fio' in item ? item.fio : item.name}
                 </Button>
             ))}
@@ -29,6 +40,9 @@ export const SubdivisionItem = ({
 }
 
 const Button = styled.button`
+    display: flex;
+    align-items: center;
+    gap: 4px;
     background-color: transparent;
     text-align: left;
     width: 100%;

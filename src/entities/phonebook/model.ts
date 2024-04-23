@@ -2,7 +2,7 @@ import { phonebookApi } from '@shared/api'
 import { Subdivision } from '@shared/api/model/phonebook'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-const setChosenSubdivision = createEvent<Subdivision | null>()
+const setSubdivisionPath = createEvent<Subdivision[] | null>()
 
 const getSubdivisions = createEvent()
 const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
@@ -13,10 +13,9 @@ const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
 sample({ clock: getSubdivisions, target: getSubdivisionsFx })
 
 const clearSubdivisionData = createEvent()
-
-const $chosenSubdivision = createStore<Subdivision | null>(null).on(
-    setChosenSubdivision,
-    (_, subdivision) => subdivision,
+const $subdivisionPath = createStore<Subdivision[] | null>(null).on(
+    setSubdivisionPath,
+    (_, subdivisions) => subdivisions,
 )
 const $subdivisions = createStore<Subdivision[] | null>(null).on(
     getSubdivisionsFx.doneData,
@@ -27,13 +26,13 @@ const $error = createStore<string | null>(null)
     .on(getSubdivisionsFx, () => null)
 
 export const events = {
-    setChosenSubdivision,
+    setSubdivisionPath,
     getSubdivisions,
     clearSubdivisionData,
 }
 
 export const stores = {
-    $chosenSubdivision,
+    $subdivisionPath,
     $subdivisions,
     $error,
 }

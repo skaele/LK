@@ -18,18 +18,21 @@ import { Subdivision } from '@shared/api/model/phonebook'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useHistory } from 'react-router'
 
-const recursiveSubdivisionSearch = (subdivisions: Subdivision[], searchString: string): Subdivision | null => {
-    let respsonse = subdivisions.find((subdivision) => subdivision.name === searchString)
+const recursiveSubdivisionSearch = (subdivisions: Subdivision[], searchString: string): Subdivision[] | null => {
+    const result: Subdivision[] = []
+    const response = subdivisions.find((subdivision) => subdivision.name === searchString)
 
-    if (!respsonse) {
+    if (!response) {
         for (const subdivision of subdivisions) {
             const res = recursiveSubdivisionSearch(subdivision.subdivs, searchString)
-            if (res) respsonse = res
+            if (res && res.length > 0) result.push(...res, subdivision)
         }
-        return respsonse || null
+        return result
+    } else {
+        result.push(response)
     }
 
-    return respsonse
+    return result
 }
 
 const Phonebook = () => {
@@ -58,7 +61,7 @@ const Phonebook = () => {
     const onHintClick = (hint: Hint | undefined) => {
         // setFilter(hint ?? null)
         const searched = (subdivisions && recursiveSubdivisionSearch(subdivisions, hint?.value ?? '')) || null
-        phonebookModel.events.setChosenSubdivision(searched)
+        phonebookModel.events.setSubdivisionPath(searched)
     }
 
     const { isMobile } = useCurrentDevice()

@@ -7,10 +7,12 @@ import { PhonebookModal } from './ui/phonebook-modal'
 import { ScrollWrapper } from './styled'
 
 export const Staff = () => {
-    const { subdivision } = useUnit({
-        subdivision: phonebookModel.stores.$chosenSubdivision,
+    const { subdivisionPath } = useUnit({
+        subdivisionPath: phonebookModel.stores.$subdivisionPath,
         error: phonebookModel.stores.$error,
     })
+
+    const subdivision = subdivisionPath?.[0]
 
     const { open } = useModal()
     if (!subdivision) return null

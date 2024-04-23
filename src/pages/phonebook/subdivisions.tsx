@@ -15,7 +15,7 @@ export const Subdivisions = () => {
         <ScrollWrapper d="column">
             {subdivisions?.map ? (
                 subdivisions.map((subdivision) => (
-                    <ExpandableItem key={subdivision.name} item={subdivision} layer={1} />
+                    <ExpandableItem key={subdivision.name} item={subdivision} parents={[]} />
                 ))
             ) : (
                 <Error text={'Не удалось загрузить данные'}>

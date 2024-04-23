@@ -13,7 +13,10 @@ import List from '@shared/ui/list'
 import Avatar from '@features/home/ui/molecules/avatar'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
-export type PhonebookInfo = { subtitle?: string; attributes: { id?: 'email'; title: string; text: string }[] }
+export type PhonebookInfo = {
+    subtitle?: string
+    attributes: { id?: 'email' | 'innerPhone' | 'mobile'; title: string; text: string }[]
+}
 
 export const PhonebookModal = ({
     title,
@@ -61,10 +64,23 @@ export const PhonebookModal = ({
                             {subtitle && <Subtitle>{subtitle}</Subtitle>}
                             {attributes.map(({ title, text, id }) => (
                                 <InfoItem key={title} title={title}>
-                                    {/* title === 'Номер телефона' ? (
+                                    {text ? (
+                                        id === 'email' ? (
+                                            <a href={`mailto:${text}`}>{text}</a>
+                                        ) : id === 'innerPhone' ? (
+                                            text.split('; ').map((tel, i, arr) => (
+                                                <a key={tel} href={`tel:+7(495) 223-05-23,${tel}`}>
+                                                    {i === arr.length - 1 ? tel : `${tel}; `}
+                                                </a>
+                                            ))
+                                        ) : id === 'mobile' ? (
                                             <a href={`tel:${text}`}>{text}</a>
-                                        ) */}
-                                    {id === 'email' ? <a href={`mailto:${text}`}>{text}</a> : <>{text}</>}
+                                        ) : (
+                                            <>{text}</>
+                                        )
+                                    ) : (
+                                        '-'
+                                    )}
                                 </InfoItem>
                             ))}
                         </Content>

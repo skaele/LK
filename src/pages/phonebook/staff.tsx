@@ -20,8 +20,8 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
                 title: 'Корпоративная электронная почта',
                 text: employee.email,
             },
-            { title: 'Внутренний телефон', text: employee.phone_inner },
-            { title: 'Служебный мобильный телефон', text: employee.phone_direct },
+            { id: 'innerPhone', title: 'Внутренний телефон', text: employee.phone_inner },
+            { id: 'mobile', title: 'Служебный мобильный телефон', text: employee.phone_direct },
             { title: 'Адрес рабочего места', text: employee.address },
             { title: 'Номер кабинета', text: employee.room },
         ],
@@ -52,8 +52,20 @@ export const Staff = () => {
                                     {
                                         attributes: [
                                             { title: 'Руководитель', text: subdivision.head.fio },
-                                            { title: 'Внутренний телефон', text: subdivision.phone },
-                                            { title: 'Корпоративная электронная почта', text: subdivision.email },
+                                            {
+                                                title: 'Корпоративная электронная почта подразделения',
+                                                text: subdivision.email,
+                                            },
+                                            {
+                                                id: 'innerPhone',
+                                                title: 'Внутренний телефон',
+                                                text: subdivision.phone_inner,
+                                            },
+                                            {
+                                                id: 'mobile',
+                                                title: 'Прямой телефон',
+                                                text: subdivision.phone_direct,
+                                            },
                                             { title: 'Адрес рабочего места', text: subdivision.address },
                                             { title: 'Номер кабинета', text: subdivision.room },
                                         ],

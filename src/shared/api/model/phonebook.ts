@@ -20,7 +20,8 @@ export type Subdivision = {
     name: string
     bookname: string
     room: string
-    phone: string
+    phone_inner: string
+    phone_direct: string
     email: string
     head: Employee
     staff: Employee[]

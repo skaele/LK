@@ -14,7 +14,6 @@ import CustomizeMenu from '../../../features/customize-menu'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
-import { User } from '@shared/api/model'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -127,37 +126,18 @@ const useSettings = () => {
                             }),
                     },
                 },
-                phone: isStudent
-                    ? {
-                          value: user?.phone ?? '',
-                          description: user?.phone,
-                          action: (value) => {
-                              changePhone({ phone: (value ?? '') as string })
-                          },
-                          additionalActions: {
-                              onSuccess: (value) => {
-                                  userModel.events.update({ key: 'phone', value: value as string })
-                              },
-                          },
-                      }
-                    : {
-                          value: {
-                              phone: user?.phone ?? '',
-                              allow_mobphone_in: user?.allow_mobphone_in,
-                              allow_mobphone_out: user?.allow_mobphone_out,
-                          },
-
-                          description: user?.phone,
-                          subfieldsAction: (values) => {
-                              changePhone(values)
-                              Object.entries(values).forEach(([key, value]) => {
-                                  userModel.events.update({ key, value } as {
-                                      key: keyof User
-                                      value: User[keyof User]
-                                  })
-                              })
-                          },
-                      },
+                phone: {
+                    value: user?.phone ?? '',
+                    description: user?.phone,
+                    action: (value) => {
+                        changePhone({ phone: (value ?? '') as string })
+                    },
+                    additionalActions: {
+                        onSuccess: (value) => {
+                            userModel.events.update({ key: 'phone', value: value as string })
+                        },
+                    },
+                },
                 isStudent,
             }),
         })

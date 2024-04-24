@@ -42,6 +42,8 @@ const useInput = (
                 setValue(Masks.phoneMask(e))
             } else if (type === 'email') {
                 setValue(emailMask(e.target.value))
+            } else if (type === 'innerPhone') {
+                setValue(Masks.innerPhoneMask(e.target.value))
             } else setValue(e.target.value)
         } else setValue(e.target.value)
 

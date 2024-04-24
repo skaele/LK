@@ -156,7 +156,9 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
                 title: 'Внутренний телефон',
                 type: 'innerPhone',
                 value: data?.tel_staff,
+                mask: true,
                 fieldName: 'tel_staff',
+                minValueLength: 4,
             },
             {
                 title: 'Показывать служебный телефон внутри Личного кабинета',

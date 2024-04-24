@@ -61,6 +61,8 @@ export type User = StudentAccount & {
 } & PhoneSettingsType
 
 interface Subdivision {
+    guid_person: string
+    guid_staff: string
     categoty: string
     jobType?: string
     status?: string

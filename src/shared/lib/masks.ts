@@ -45,9 +45,12 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     return formattedPhone
 }
 
+const innerPhoneMask = (value: string) => value.replace(/\D/g, '').substring(0, 4)
+
 const Masks = {
     groupMask,
     phoneMask,
+    innerPhoneMask,
 }
 
 export default Masks

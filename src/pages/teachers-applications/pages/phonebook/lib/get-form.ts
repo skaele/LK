@@ -97,7 +97,7 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
             },
             {
                 fieldName: 'site',
-                title: 'Площадка',
+                title: 'Адрес рабочего места',
                 type: 'select',
                 value: findCurrentInSelect(sites, data.site as string),
                 items: sites,
@@ -107,14 +107,16 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
             },
             {
                 fieldName: 'aud_number',
-                title: 'Номер аудитории',
+                title: 'Номер кабинета',
+                type: 'building',
+                mask: true,
                 value: data.aud_number,
                 editable: true,
                 required: true,
             },
             {
                 fieldName: 'email_staff',
-                title: 'Рабочий email',
+                title: 'Корпоративная электронная почта',
                 type: 'email',
                 value: data.email_staff,
                 required: true,
@@ -151,8 +153,8 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
                 value: data.show_tel_mob_staff_outer ?? true,
             },
             {
-                title: 'Служебный телефон (прямой/добавочный)',
-                type: 'tel',
+                title: 'Внутренний телефон',
+                type: 'innerPhone',
                 value: data?.tel_staff,
                 fieldName: 'tel_staff',
             },

@@ -43,7 +43,7 @@ const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType
     tel: <TextField key={field.title} {...field} />,
     password: <PasswordField key={field.title} {...field} />,
     link: <LinkField key={field.title} {...field} />,
-    building: <TextField key={field.title} {...field} />,
+    // cabinet: <TextField key={field.title} {...field} />,
     select: <TextField key={field.title} {...field} />,
     complicated: <ComplicatedField key={field.title} {...field} />,
 })

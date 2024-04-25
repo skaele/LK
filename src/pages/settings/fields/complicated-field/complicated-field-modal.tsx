@@ -1,6 +1,8 @@
 import Select, { SelectPage } from '@features/select'
 import { FieldProps, LocationSettingsType } from '@pages/settings/model'
 import { sites } from '@pages/teachers-applications/pages/phonebook/lib/get-form'
+import { getCabinetMask } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
+import Masks from '@shared/lib/masks'
 import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
@@ -138,10 +140,16 @@ const Content = ({
     useEffect(() => {
         setInputValue({ guid_staff, post, room: value, address: select?.title ?? '' })
     }, [select, value])
+
     return (
         <>
             <Select width="100%" title="Адрес рабочего места" items={sites} setSelected={setSelect} selected={select} />
-            <Input title="Кабинет" value={value} setValue={setValue} mask />
+            <Input
+                title="Кабинет"
+                value={value}
+                setValue={(val) => setValue(Masks.cabinetMask(val, getCabinetMask(select?.title || '')))}
+                mask
+            />
         </>
     )
 }

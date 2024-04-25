@@ -45,14 +45,50 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     return formattedPhone
 }
 
-const buildingMask = (value: string, prevValue: string) => {
-    return value
-    console.log(value)
-    console.log(prevValue)
-    if (value.length > 9) return value.substring(0, 9)
-    if (value[3].match(/[А-Я]/)) return value
-    if (!value.startsWith('БС ')) {
-        return 'БС ' + value
+const cabinetMask = (value: string, type: 'BS' | 'other') => {
+    const room = value.replace(/\D/g, '')
+    const subroom = value.match(/(?<=\d)[а-яА-Я]/)
+
+    if (type === 'BS') {
+        if (!value) return ''
+        if (value === 'БС') return ''
+        let formattedValue = 'БС '
+        if (!value[3]?.toUpperCase()?.match(/[А-Я]/)) {
+            if (value.length === 1 && value[0]?.toUpperCase()?.match(/[А-Я]/)) {
+                formattedValue += value[0].toUpperCase()
+            } else return formattedValue
+        } else formattedValue += value[3].toUpperCase()
+        if (value[3] && !value[5] && value[4] === '-') return formattedValue + '-'
+        if (room.length > 0) formattedValue += '-'
+        formattedValue += room.substring(0, 3)
+        if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+        formattedValue += subroom[0].toLowerCase()
+        return formattedValue.substring(0, 9)
+    }
+    if (type === 'other') {
+        const lowercaseValue = value.toLowerCase()
+        if (!value) return ''
+        let address = ''
+        if (lowercaseValue.startsWith('пр') || lowercaseValue.startsWith('пк') || lowercaseValue.startsWith('ав'))
+            address = value.substring(0, 2).toUpperCase()
+        if (lowercaseValue.startsWith('мих')) address = value.substring(0, 3).toUpperCase()
+        if (!address) return value
+        let formattedValue = address
+        if (
+            (value.startsWith('ПР') || value.startsWith('ПК') || value.startsWith('АВ')) &&
+            !value[3] &&
+            value[2] === '-'
+        )
+            return formattedValue + '-'
+        if (value.startsWith('МИХ') && !value[4] && value[3] === '-') return formattedValue + '-'
+        if (room.length > 0) formattedValue += '-'
+        if (address === 'ПК') formattedValue += room.substring(0, 3)
+        else formattedValue += room.substring(0, 4)
+        if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+        formattedValue += subroom[0].toLowerCase()
+        if (address === 'МИХ') return formattedValue.substring(0, 9)
+        if (address === 'ПК') return formattedValue.substring(0, 7)
+        return formattedValue.substring(0, 8)
     }
     return value
     // if (value.length > 8) return value.substring(0, 8)
@@ -85,7 +121,7 @@ const innerPhoneMask = (value: string) => value.replace(/\D/g, '').substring(0, 
 const Masks = {
     groupMask,
     phoneMask,
-    buildingMask,
+    cabinetMask,
     innerPhoneMask,
 }
 

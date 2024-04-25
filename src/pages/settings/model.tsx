@@ -26,7 +26,6 @@ export type TSettingsFieldType =
     | 'password'
     | 'tel'
     | 'select'
-    | 'building'
     | 'complicated'
 
 export type TValueFieldType = FilterElementList | LocationSettingsType[] | string[] | number[] | string | boolean
@@ -152,15 +151,14 @@ const getPhonebookfields = (
             subfieldsAction: phonebookLocation.subfieldsAction,
             subfields: [
                 {
-                    id: 'site',
+                    id: 'address',
                     title: 'Адрес',
                     type: 'select',
-                    // action: (val) => userModel.events.update({ key: 'subdivisions' , value: }),
                 },
                 {
-                    id: 'aud_number',
+                    id: 'room',
                     title: 'Номер кабинета',
-                    type: 'building',
+                    type: 'text',
                 },
             ],
         },

@@ -44,6 +44,9 @@ export type User = StudentAccount & {
     patronymic: string
     email?: string
     phone?: string
+    phone_staff?: string
+    allow_mobphone_in?: boolean
+    allow_mobphone_out?: boolean
     orders: string[]
     hasAlerts: boolean
     sex: Sex

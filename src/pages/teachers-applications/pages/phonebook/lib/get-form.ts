@@ -108,7 +108,7 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
             {
                 fieldName: 'aud_number',
                 title: 'Номер кабинета',
-                type: 'building',
+                type: data.site === sites[0].title ? 'building-BS' : 'text',
                 mask: true,
                 value: data.aud_number,
                 editable: true,

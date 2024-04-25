@@ -4,7 +4,7 @@ import { userModel } from '@entities/user'
 import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
 import Avatar from '@features/home/ui/molecules/avatar'
-import { changeEmail, changePhone } from '@shared/api/user-api'
+import { changeEmail, changePhone, changeStaffPhone } from '@shared/api/user-api'
 import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React, { useEffect, useState } from 'react'
@@ -14,6 +14,7 @@ import CustomizeMenu from '../../../features/customize-menu'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
+import { User } from '@shared/api/model'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -136,6 +137,45 @@ const useSettings = () => {
                         onSuccess: (value) => {
                             userModel.events.update({ key: 'phone', value: value as string })
                         },
+                    },
+                },
+                phonebookPhone: {
+                    value: {
+                        phone_staff: user?.phone_staff,
+                        allow_mobphone_in: user?.allow_mobphone_in,
+                        allow_mobphone_out: user?.allow_mobphone_out,
+                    },
+
+                    description: user?.phone_staff,
+                    subfieldsAction: (values) => {
+                        changeStaffPhone(values)
+                        Object.entries(values).forEach(([key, value]) => {
+                            userModel.events.update({ key, value } as {
+                                key: keyof User
+                                value: User[keyof User]
+                            })
+                        })
+                    },
+                },
+                phonebookLocation: {
+                    value: {
+                        guid: (user?.subdivisions && user?.subdivisions[0].guid_staff) ?? '',
+                        site: '',
+                        aud_number: '',
+                    },
+
+                    description: '-',
+                    subfieldsAction: (values) => {
+                        // if (!phonebookData) return
+                        // const newValue: ContactDetails = { ...phonebookData, ...(values as unknown as ContactDetails) }
+                        // contactDetailsModel.effects.postFormFx(newValue)
+                        // changePhone(values)
+                        // Object.entries(values).forEach(([key, value]) => {
+                        //     userModel.events.update({ key, value } as {
+                        //         key: keyof User
+                        //         value: User[keyof User]
+                        //     })
+                        // })
                     },
                 },
                 isStudent,

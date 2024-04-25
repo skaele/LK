@@ -2,6 +2,7 @@ import { $api } from '@api/config'
 import getToken from '@shared/lib/token'
 import axios from 'axios'
 import { ADName, User, UserToken } from './model'
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 
 export type LoginData = { login: string; password: string }
 
@@ -66,6 +67,19 @@ export const changePhone = async (fields: { [name: string]: string }) => {
     })
     formData.set('token', getToken())
     return $api.post(`?changePhone=1`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+}
+
+export const changeStaffPhone = async (data: PhoneSettingsType) => {
+    const formData = new FormData()
+    formData.set('token', getToken())
+    formData.set('phone', data.phone_staff || '')
+    formData.set('allow_mobphone_in', data.allow_mobphone_in?.toString() ?? 'false')
+    formData.set('allow_mobphone_out', data.allow_mobphone_out?.toString() ?? 'false')
+    return $api.post(`?changeStaffPhone=1`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

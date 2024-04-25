@@ -42,6 +42,8 @@ const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType
     tel: <TextField key={field.title} {...field} />,
     password: <PasswordField key={field.title} {...field} />,
     link: <LinkField key={field.title} {...field} />,
+    building: <TextField key={field.title} {...field} />,
+    select: <TextField key={field.title} {...field} />,
 })
 
 const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {

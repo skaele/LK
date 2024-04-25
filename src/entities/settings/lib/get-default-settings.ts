@@ -13,7 +13,7 @@ const NOTIFICATIONS_DEFAULT_VALUE = {
 
 export type NotificationsSettingsType = typeof NOTIFICATIONS_DEFAULT_VALUE
 export type PhoneSettingsType = {
-    phone?: string
+    phone_staff?: string
     allow_mobphone_in?: boolean
     allow_mobphone_out?: boolean
 }

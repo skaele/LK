@@ -18,7 +18,7 @@ type IInputAreaTypes =
     | 'text'
     | 'tel'
     | 'email'
-    | 'building'
+    | 'building-BS'
     | 'innerPhone'
     | 'date'
     | 'checkbox'

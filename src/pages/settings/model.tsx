@@ -23,6 +23,8 @@ export type TSettingsFieldType =
     | 'interval'
     | 'password'
     | 'tel'
+    | 'select'
+    | 'building'
 export type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
 export type TSettingsFields = {
     id?: string
@@ -58,6 +60,12 @@ export type Prop<T> = { value: T } & Pick<
     'icon' | 'description' | 'action' | 'additionalActions' | 'subfieldsAction'
 >
 
+type LocationSettingsType = {
+    guid: string
+    site: string
+    aud_number: string
+}
+
 type SettingsFullProps = {
     isStudent: boolean
     theme: Prop<boolean>
@@ -80,7 +88,9 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
-    phone: Prop<string> | Prop<PhoneSettingsType>
+    phone: Prop<string>
+    phonebookPhone: Prop<PhoneSettingsType>
+    phonebookLocation: Prop<LocationSettingsType>
 }
 
 export type TFullSettingsModel = {
@@ -90,6 +100,67 @@ export type TFullSettingsModel = {
 export type FieldProps = TSettingsFields
 
 export type TSettingsModel = (props: SettingsFullProps) => TFullSettingsModel
+
+const getPhonebookfields = (
+    isStudent: boolean,
+    phonebookPhone: Prop<PhoneSettingsType>,
+    phonebookLocation: Prop<LocationSettingsType>,
+): TSettingsFields[] => {
+    if (isStudent) {
+        return []
+    }
+    return [
+        {
+            id: 'phone_staff',
+            title: 'Служебный мобильный телефон',
+            type: 'tel',
+            settingsName: NameSettings['settings-personal'],
+            value: phonebookPhone?.value.phone_staff,
+            icon: <FiPhone />,
+            description: phonebookPhone.description,
+            action: phonebookPhone.action,
+            subfieldsAction: phonebookPhone.subfieldsAction,
+            subfields: [
+                {
+                    id: 'allow_mobphone_in',
+                    title: 'Показывать мобильный телефон внутри Личного кабинета',
+                    type: 'toggle',
+                    value: phonebookPhone?.value.allow_mobphone_in,
+                },
+                {
+                    id: 'allow_mobphone_out',
+                    title: 'Показывать мобильный телефон на сайте',
+                    type: 'toggle',
+                    value: phonebookPhone?.value.allow_mobphone_out,
+                },
+            ],
+        },
+        {
+            id: 'guid_staff',
+            title: 'Адрес рабочего места',
+            type: 'tel',
+            settingsName: NameSettings['settings-personal'],
+            value: phonebookLocation?.value.guid,
+            icon: <FiPhone />,
+            description: phonebookLocation.description,
+            subfieldsAction: phonebookLocation.subfieldsAction,
+            subfields: [
+                {
+                    id: 'site',
+                    title: 'Номер кабинета',
+                    type: 'select',
+                    value: phonebookLocation?.value.site,
+                },
+                {
+                    id: 'aud_number',
+                    title: 'Номер кабинета',
+                    type: 'building',
+                    value: phonebookLocation?.value.aud_number,
+                },
+            ],
+        },
+    ]
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSettingsModel: TSettingsModel = ({
@@ -101,6 +172,8 @@ const getSettingsModel: TSettingsModel = ({
     avatar,
     homepage,
     phone,
+    phonebookPhone,
+    phonebookLocation,
     menu,
     settings,
 }) => ({
@@ -213,33 +286,17 @@ const getSettingsModel: TSettingsModel = ({
                 },
                 {
                     id: 'phone',
-                    title: isStudent ? 'Телефон' : 'Служебный мобильный телефон',
+                    title: 'Телефон',
                     type: 'tel',
                     settingsName: NameSettings['settings-personal'],
-                    value: typeof phone.value === 'string' ? phone.value : phone.value.phone,
+                    value: phone.value,
                     icon: <FiPhone />,
                     description: phone.description,
                     action: phone.action,
                     additionalActions: phone.additionalActions,
                     subfieldsAction: phone.subfieldsAction,
-                    subfields:
-                        typeof phone.value === 'string'
-                            ? undefined
-                            : [
-                                  {
-                                      id: 'allow_mobphone_in',
-                                      title: 'Показывать мобильный телефон внутри Личного кабинета',
-                                      type: 'toggle',
-                                      value: phone.value.allow_mobphone_in,
-                                  },
-                                  {
-                                      id: 'allow_mobphone_out',
-                                      title: 'Показывать мобильный телефон на сайте',
-                                      type: 'toggle',
-                                      value: phone.value.allow_mobphone_out,
-                                  },
-                              ],
                 },
+                ...getPhonebookfields(isStudent, phonebookPhone, phonebookLocation),
                 {
                     title: 'Пароль',
                     type: 'password',

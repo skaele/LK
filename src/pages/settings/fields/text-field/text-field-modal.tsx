@@ -52,9 +52,10 @@ const TextFieldModal = (props: FieldProps) => {
                     [section: string]: string
                 } = {}
                 data[id] = inputValue
-                Object.keys(settings[settingsName].property).forEach(
-                    (key) => (data[key] = settings[settingsName].property[key] as string),
-                )
+                Object.keys(settings[settingsName].property).forEach((key) => {
+                    if (subfields.some((field) => field.id === key))
+                        data[key] = settings[settingsName].property[key] as string
+                })
                 await subfieldsAction?.(data)
             } else {
                 await action?.(inputValue)
@@ -87,8 +88,8 @@ const TextFieldModal = (props: FieldProps) => {
                 {error}
             </Message>
             <Input value={inputValue} setValue={setInputValue} type={type} mask />
-            {subfields && (
-                <SettingsFields settingsName={NameSettings['settings-personal']} fields={subfields} asChild />
+            {subfields && settingsName && (
+                <SettingsFields settingsName={NameSettings[settingsName]} fields={subfields} asChild />
             )}
             <Divider />
             <Buttons>

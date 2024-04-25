@@ -49,7 +49,7 @@ const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: 
     }
 `
 
-interface Page {
+export interface Page {
     id?: string
     title: string
     condition?: boolean

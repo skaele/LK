@@ -2,7 +2,7 @@ import { ContactDetails, Subdivision } from '@api/model'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@ui/input-area/model'
 
-const sites = [
+export const sites = [
     {
         id: '0',
         title: 'ул. Большая Семёновская, 38',

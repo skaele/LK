@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PasswordField from './fields/password-field'
 import { settingsModel } from '@entities/settings'
 import { NameSettings } from '@entities/settings/model'
+import { ComplicatedField } from './fields/complicated-field'
 
 const SettingsFieldsList = styled.div<{ asChild: boolean }>`
     display: flex;
@@ -44,6 +45,7 @@ const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType
     link: <LinkField key={field.title} {...field} />,
     building: <TextField key={field.title} {...field} />,
     select: <TextField key={field.title} {...field} />,
+    complicated: <ComplicatedField key={field.title} {...field} />,
 })
 
 const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {

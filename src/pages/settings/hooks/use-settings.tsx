@@ -4,12 +4,12 @@ import { userModel } from '@entities/user'
 import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
 import Avatar from '@features/home/ui/molecules/avatar'
-import { changeEmail, changePhone, changeStaffPhone } from '@shared/api/user-api'
+import { changeEmail, changePhone, changeStaffAddress, changeStaffPhone } from '@shared/api/user-api'
 import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'widgets'
-import getSettingsModel, { TFullSettingsModel } from '../model'
+import getSettingsModel, { LocationSettingsType, TFullSettingsModel } from '../model'
 import CustomizeMenu from '../../../features/customize-menu'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
@@ -158,24 +158,23 @@ const useSettings = () => {
                     },
                 },
                 phonebookLocation: {
-                    value: {
-                        guid: (user?.subdivisions && user?.subdivisions[0].guid_staff) ?? '',
-                        site: '',
-                        aud_number: '',
-                    },
-
-                    description: '-',
+                    value:
+                        user?.subdivisions?.map((subdiv) => ({
+                            guid_staff: subdiv.guid_staff,
+                            post: subdiv.post || '',
+                            address: subdiv.address || '',
+                            room: subdiv.room || '',
+                        })) ?? [],
+                    description: user?.subdivisions?.map((subdiv) => subdiv.room).join(', ') || '-',
                     subfieldsAction: (values) => {
-                        // if (!phonebookData) return
-                        // const newValue: ContactDetails = { ...phonebookData, ...(values as unknown as ContactDetails) }
-                        // contactDetailsModel.effects.postFormFx(newValue)
-                        // changePhone(values)
-                        // Object.entries(values).forEach(([key, value]) => {
-                        //     userModel.events.update({ key, value } as {
-                        //         key: keyof User
-                        //         value: User[keyof User]
-                        //     })
-                        // })
+                        changeStaffAddress(values as LocationSettingsType)
+                        if (user?.subdivisions) {
+                            const subdivisions = user?.subdivisions?.map((subdivision) => {
+                                if (subdivision.guid_staff === values.guid_staff) return { ...subdivision, ...values }
+                                else return subdivision
+                            })
+                            userModel.events.update({ key: 'subdivisions', value: subdivisions })
+                        }
                     },
                 },
                 isStudent,

@@ -3,15 +3,17 @@ import { confirmModel } from '@entities/confirm'
 import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
+import { SelectPage } from '@features/select'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
 import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
 import { MessageType } from '@shared/ui/types'
 import React from 'react'
-import { BiNews } from 'react-icons/bi'
+import { BiBuilding, BiNews } from 'react-icons/bi'
 import { FiBell, FiClock, FiFilePlus, FiFileText, FiLogOut, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi'
 import { HiOutlineViewGridAdd } from 'react-icons/hi'
 import { MdOutlinePassword } from 'react-icons/md'
+import { Page } from 'widgets/slider-page'
 
 export type TSettingsFieldType =
     | 'link'
@@ -25,11 +27,14 @@ export type TSettingsFieldType =
     | 'tel'
     | 'select'
     | 'building'
-export type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
+    | 'complicated'
+
+export type TValueFieldType = FilterElementList | LocationSettingsType[] | string[] | number[] | string | boolean
 export type TSettingsFields = {
     id?: string
     title: string
     type: TSettingsFieldType
+    options?: SelectPage[]
     action?: (value?: TValueFieldType) => void
     disabled?: boolean
     value?: TValueFieldType
@@ -60,10 +65,11 @@ export type Prop<T> = { value: T } & Pick<
     'icon' | 'description' | 'action' | 'additionalActions' | 'subfieldsAction'
 >
 
-type LocationSettingsType = {
-    guid: string
-    site: string
-    aud_number: string
+export type LocationSettingsType = {
+    guid_staff: string
+    post: string
+    address: string
+    room: string
 }
 
 type SettingsFullProps = {
@@ -90,7 +96,7 @@ type SettingsFullProps = {
     }
     phone: Prop<string>
     phonebookPhone: Prop<PhoneSettingsType>
-    phonebookLocation: Prop<LocationSettingsType>
+    phonebookLocation: Prop<LocationSettingsType[]>
 }
 
 export type TFullSettingsModel = {
@@ -104,7 +110,7 @@ export type TSettingsModel = (props: SettingsFullProps) => TFullSettingsModel
 const getPhonebookfields = (
     isStudent: boolean,
     phonebookPhone: Prop<PhoneSettingsType>,
-    phonebookLocation: Prop<LocationSettingsType>,
+    phonebookLocation: Prop<LocationSettingsType[]>,
 ): TSettingsFields[] => {
     if (isStudent) {
         return []
@@ -138,24 +144,23 @@ const getPhonebookfields = (
         {
             id: 'guid_staff',
             title: 'Адрес рабочего места',
-            type: 'tel',
+            type: 'complicated',
             settingsName: NameSettings['settings-personal'],
-            value: phonebookLocation?.value.guid,
-            icon: <FiPhone />,
+            value: phonebookLocation?.value,
+            icon: <BiBuilding />,
             description: phonebookLocation.description,
             subfieldsAction: phonebookLocation.subfieldsAction,
             subfields: [
                 {
                     id: 'site',
-                    title: 'Номер кабинета',
+                    title: 'Адрес',
                     type: 'select',
-                    value: phonebookLocation?.value.site,
+                    // action: (val) => userModel.events.update({ key: 'subdivisions' , value: }),
                 },
                 {
                     id: 'aud_number',
                     title: 'Номер кабинета',
                     type: 'building',
-                    value: phonebookLocation?.value.aud_number,
                 },
             ],
         },

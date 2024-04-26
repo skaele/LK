@@ -1,7 +1,7 @@
 import Select, { SelectPage } from '@features/select'
 import { FieldProps, LocationSettingsType } from '@pages/settings/model'
 import { sites } from '@pages/teachers-applications/pages/phonebook/lib/get-form'
-import { getCabinetMask } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
+import { getCabinetInitialValue, getCabinetMask } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
 import Masks from '@shared/lib/masks'
 import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
@@ -144,7 +144,7 @@ const Content = ({
     }, [select, value])
 
     useEffect(() => {
-        if (address !== select?.title) setValue('')
+        if (select?.title && address !== select?.title) setValue(getCabinetInitialValue(select?.title))
         else setValue(room)
     }, [select])
 
@@ -154,6 +154,7 @@ const Content = ({
             <Input
                 title="Кабинет"
                 value={value}
+                type="cabinet"
                 setValue={(val) => setValue(Masks.cabinetMask(val, getCabinetMask(select?.title || '')))}
                 mask
             />

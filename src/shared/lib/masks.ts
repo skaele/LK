@@ -98,7 +98,7 @@ const cabinetMask = (value: string, type: Buildings) => {
             formattedValue += room.substring(0, 4)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 8)
+            return formattedValue.substring(0, 9)
         case 'СС':
             if (value === 'СС') return ''
             formattedValue = 'СС-'

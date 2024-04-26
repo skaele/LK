@@ -12,7 +12,12 @@ import { ApplicationTeachersFormCodes } from '@shared/models/application-form-co
 
 const EditPhonebookDataPage = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
+    const [subdivision, setSubdivision] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+    const [mobile, setMobile] = useState<string>('')
+    const [innerPhone, setInnerPhone] = useState<string>('')
     const [address, setAddress] = useState<string>('')
+    const [room, setRoom] = useState<string>('')
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
@@ -22,13 +27,25 @@ const EditPhonebookDataPage = () => {
 
     useEffect(() => {
         if (!!dataUserApplication) {
-            setForm(getForm(dataUserApplication, address, setAddress))
+            setForm(
+                getForm(
+                    dataUserApplication,
+                    subdivision,
+                    setSubdivision,
+                    email,
+                    setEmail,
+                    mobile,
+                    setMobile,
+                    innerPhone,
+                    setInnerPhone,
+                    address,
+                    setAddress,
+                    room,
+                    setRoom,
+                ),
+            )
         }
-    }, [dataUserApplication])
-
-    useEffect(() => {
-        if (form && dataUserApplication) setForm(getForm(dataUserApplication, address, setAddress))
-    }, [address])
+    }, [dataUserApplication, subdivision, email, mobile, innerPhone, address, room])
 
     return (
         <BaseApplicationWrapper isDone={isDone}>

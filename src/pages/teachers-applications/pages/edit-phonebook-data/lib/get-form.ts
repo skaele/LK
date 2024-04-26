@@ -2,8 +2,10 @@ import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import { sites } from '../../phonebook/lib/get-form'
 import { getSubDivisions } from '@features/applications/lib/get-subdivisions'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { getCabinetInitialValue } from '../../phonebook/lib/getCabinetMask'
 
-const getForm = (data: UserApplication): IInputArea => {
+const getForm = (data: UserApplication, address: string, setAddress: (address: string) => void): IInputArea => {
     return {
         title: 'Внесение изменений данных подразделения в телефонном справочнике',
         data: [
@@ -42,8 +44,9 @@ const getForm = (data: UserApplication): IInputArea => {
                 fieldName: 'address',
                 title: 'Адрес рабочего места',
                 type: 'select',
-                value: null,
+                value: findCurrentInSelect(sites, address),
                 items: sites,
+                onChange: (val) => setAddress(val.title),
                 width: '100',
                 editable: true,
                 required: true,
@@ -53,7 +56,7 @@ const getForm = (data: UserApplication): IInputArea => {
                 title: 'Номер кабинета',
                 type: 'cabinet',
                 mask: true,
-                value: '',
+                value: getCabinetInitialValue(address),
                 editable: true,
                 required: true,
             },

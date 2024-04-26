@@ -3,7 +3,7 @@ import { Application, UserApplication, WorkerApplication } from '@api/model'
 import { applicationsModel } from '@entities/hr-applications'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { MessageType } from '@shared/ui/types'
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
 import { combine, createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 
@@ -15,7 +15,7 @@ interface ApplicationsStore {
 }
 
 export interface ApplicationCreating {
-    formId: ApplicationFormCodes
+    formId: ApplicationFormCodes | ApplicationTeachersFormCodes
     args: { [key: string]: any }
 }
 

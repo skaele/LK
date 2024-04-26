@@ -1,3 +1,5 @@
+import { Buildings } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
+
 const groupMask = (value: string, prevValue?: string) => {
     if (value.length > 8) return value.substring(0, 8)
     if (value.length === 3 && prevValue?.length === 2) return value + '-'
@@ -45,75 +47,66 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     return formattedPhone
 }
 
-const cabinetMask = (value: string, type: 'BS' | 'other') => {
+const cabinetMask = (value: string, type: Buildings) => {
     const room = value.replace(/\D/g, '')
     const subroom = value.match(/(?<=\d)[а-яА-Я]/)
+    let formattedValue = ''
 
-    if (type === 'BS') {
-        if (!value) return ''
-        if (value === 'БС') return ''
-        let formattedValue = 'БС '
-        if (!value[3]?.toUpperCase()?.match(/[А-Я]/)) {
-            if (value.length === 1 && value[0]?.toUpperCase()?.match(/[А-Я]/)) {
-                formattedValue += value[0].toUpperCase()
-            } else return formattedValue
-        } else formattedValue += value[3].toUpperCase()
-        if (value[3] && !value[5] && value[4] === '-') return formattedValue + '-'
-        if (room.length > 0) formattedValue += '-'
-        formattedValue += room.substring(0, 3)
-        if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-        formattedValue += subroom[0].toLowerCase()
-        return formattedValue.substring(0, 9)
+    if (!value) return ''
+    switch (type) {
+        case 'БС':
+            if (value === 'БС') return ''
+            formattedValue = 'БС '
+            if (!value[3]?.toUpperCase()?.match(/[А-Я]/)) {
+                if (value.length === 1 && value[0]?.toUpperCase()?.match(/[А-Я]/)) {
+                    formattedValue += value[0].toUpperCase()
+                } else return formattedValue
+            } else formattedValue += value[3].toUpperCase()
+            if (value[3] && !value[5] && value[4] === '-') return formattedValue + '-'
+            if (room.length > 0) formattedValue += '-'
+            formattedValue += room.substring(0, 3)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 9)
+
+        case 'ПР':
+            if (value === 'ПР') return ''
+            formattedValue = 'ПР-'
+            formattedValue += room.substring(0, 4)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 8)
+        case 'АВ':
+            if (value === 'АВ') return ''
+            formattedValue = 'АВ-'
+            formattedValue += room.substring(0, 4)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 8)
+        case 'ПК':
+            if (value === 'ПК') return ''
+            formattedValue = 'ПК-'
+            formattedValue += room.substring(0, 3)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 7)
+        case 'МИХ':
+            if (value === 'МИХ') return ''
+            formattedValue = 'МИХ-'
+            formattedValue += room.substring(0, 4)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 8)
+        case 'СС':
+            if (value === 'СС') return ''
+            formattedValue = 'СС-'
+            formattedValue += room.substring(0, 4)
+            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+            formattedValue += subroom[0].toLowerCase()
+            return formattedValue.substring(0, 9)
+        default:
+            return value
     }
-    if (type === 'other') {
-        const lowercaseValue = value.toLowerCase()
-        if (!value) return ''
-        let address = ''
-        if (lowercaseValue.startsWith('пр') || lowercaseValue.startsWith('пк') || lowercaseValue.startsWith('ав'))
-            address = value.substring(0, 2).toUpperCase()
-        if (lowercaseValue.startsWith('мих')) address = value.substring(0, 3).toUpperCase()
-        if (!address) return value
-        let formattedValue = address
-        if (
-            (value.startsWith('ПР') || value.startsWith('ПК') || value.startsWith('АВ')) &&
-            !value[3] &&
-            value[2] === '-'
-        )
-            return formattedValue + '-'
-        if (value.startsWith('МИХ') && !value[4] && value[3] === '-') return formattedValue + '-'
-        if (room.length > 0) formattedValue += '-'
-        if (address === 'ПК') formattedValue += room.substring(0, 3)
-        else formattedValue += room.substring(0, 4)
-        if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-        formattedValue += subroom[0].toLowerCase()
-        if (address === 'МИХ') return formattedValue.substring(0, 9)
-        if (address === 'ПК') return formattedValue.substring(0, 7)
-        return formattedValue.substring(0, 8)
-    }
-    return value
-    // if (value.length > 8) return value.substring(0, 8)
-    // if (value.length === 3 && prevValue?.length === 2) return value + '-'
-    // if (value.length === 3 && prevValue?.length === 4) return value.substring(0, 2)
-    // return value
-
-    // if (value.startsWith('БС')) {
-    //     // Формат для корпуса БС: БС А-000б
-    //     const regex = /^БС ([А-Я])-?(\d*)/
-
-    //     // Ищем соответствие ввода регулярному выражению
-    //     const match = value.match(regex)
-    //     console.log(match)
-
-    //     if (match) {
-    //         const corpsLetter = match[1] // Заглавная русская буква для обозначения корпуса
-    //         const roomNumber = match[2] ? match[2] : '' // Номер кабинета, если он есть
-
-    //         // Возвращаем применённую маску
-    //         return `БС ${corpsLetter}-УУУ`.replace('УУУ', roomNumber)
-    //     }
-    // }
-
-    // return value
 }
 
 const innerPhoneMask = (value: string) => value.replace(/\D/g, '').substring(0, 4)

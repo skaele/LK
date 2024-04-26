@@ -14,6 +14,7 @@ const TextFieldModalStyled = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    overflow-y: hidden;
     @media (min-width: 1001px) {
         min-width: 500px;
     }
@@ -141,6 +142,11 @@ const Content = ({
     useEffect(() => {
         setInputValue({ guid_staff, post, room: value, address: select?.title ?? '' })
     }, [select, value])
+
+    useEffect(() => {
+        if (address !== select?.title) setValue('')
+        else setValue(room)
+    }, [select])
 
     return (
         <>

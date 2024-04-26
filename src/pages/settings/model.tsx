@@ -37,6 +37,7 @@ export type TSettingsFields = {
     action?: (value?: TValueFieldType) => void
     disabled?: boolean
     value?: TValueFieldType
+    editable?: boolean
     additionalActions?:
         | {
               onAdd?: (value?: TValueFieldType) => void

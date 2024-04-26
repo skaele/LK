@@ -52,6 +52,7 @@ import {
     PhonebookPage,
     ContactInfoActualizationTestPage,
     PhonebookForm,
+    EditPhonebookSubdivision,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -142,6 +143,7 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
 export const WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = APPLICATIONS_ROUTE + '/work-on-the-terms-of-external-concurrency'
@@ -875,6 +877,20 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         path: NUMBER_OF_UNUSED_VACATION_DAYS,
         Component: NumberOfUnusedVacationDaysPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'edit-phonebook-subdivision': {
+        id: 'edit-phonebook-subdivision',
+        title: 'Изменение данных подразделения в телефонном справочнике',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_SUBDIVISION,
+        Component: EditPhonebookSubdivision,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

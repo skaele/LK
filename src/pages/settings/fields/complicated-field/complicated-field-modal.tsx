@@ -100,7 +100,7 @@ export const ComplicatedModal = (props: FieldProps) => {
                             return { title: el.toString(), content: <></> }
                         })}
                         onChangePage={(id) => setPage(id || '')}
-                        appearance={true}
+                        appearance={false}
                     />
                 ) : (
                     typeof value[0] === 'object' && (
@@ -144,7 +144,7 @@ const Content = ({
 
     return (
         <>
-            <Select width="100%" title="Адрес рабочего места" items={sites} setSelected={setSelect} selected={select} />
+            <Select width="99%" title="Адрес рабочего места" items={sites} setSelected={setSelect} selected={select} />
             <Input
                 title="Кабинет"
                 value={value}

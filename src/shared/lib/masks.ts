@@ -57,18 +57,20 @@ const cabinetMask = (value: string, type: Buildings) => {
         case 'БС':
             if (value === 'БС') return ''
             formattedValue = 'БС '
-            if (!value[3]?.toUpperCase()?.match(/[А-Я]/)) {
-                if (value.length === 1 && value[0]?.toUpperCase()?.match(/[А-Я]/)) {
-                    formattedValue += value[0].toUpperCase()
-                } else return formattedValue
-            } else formattedValue += value[3].toUpperCase()
-            if (value[3] && !value[5] && value[4] === '-') return formattedValue + '-'
+            const building = value.substring(3).match(/^[а-яА-Я]{1,2}/)
+            if (!building || !building[0]?.toUpperCase()?.match(/^[А-Я]{1,2}$/)) return formattedValue
+            formattedValue += building[0].toUpperCase()
+            if (
+                building[0].length === 1
+                    ? value[3] && !value[5] && value[4] === '-'
+                    : value[4] && !value[6] && value[5] === '-'
+            )
+                return formattedValue + '-'
             if (room.length > 0) formattedValue += '-'
             formattedValue += room.substring(0, 3)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 9)
-
+            return formattedValue.substring(0, 10)
         case 'ПР':
             if (value === 'ПР') return ''
             formattedValue = 'ПР-'

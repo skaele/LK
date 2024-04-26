@@ -73,30 +73,28 @@ export const ComplicatedModal = (props: FieldProps) => {
                                     id: el.guid_staff,
                                     title: el.post,
                                     content: (
-                                        <>
-                                            <Flex gap="8px" d="column" h="fit-content">
-                                                <Content
-                                                    {...el}
-                                                    setInputValue={(val) => {
-                                                        const newValue = [...inputValue]
-                                                        newValue[i] = val
-                                                        setInputValue(newValue as LocationSettingsType[])
-                                                    }}
+                                        <Flex gap="8px" d="column">
+                                            <Content
+                                                {...el}
+                                                setInputValue={(val) => {
+                                                    const newValue = [...inputValue]
+                                                    newValue[i] = val
+                                                    setInputValue(newValue as LocationSettingsType[])
+                                                }}
+                                            />
+                                            <Divider />
+                                            <Buttons>
+                                                <Button text="Отменить" width="100%" onClick={close} />
+                                                <SubmitButton
+                                                    isLoading={loading}
+                                                    completed={completed}
+                                                    text={'Обновить'}
+                                                    action={handleSubmit}
+                                                    setCompleted={setCompleted}
+                                                    height="38px"
                                                 />
-                                                <Divider />
-                                                <Buttons>
-                                                    <Button text="Отменить" width="100%" onClick={close} />
-                                                    <SubmitButton
-                                                        isLoading={loading}
-                                                        completed={completed}
-                                                        text={'Обновить'}
-                                                        action={handleSubmit}
-                                                        setCompleted={setCompleted}
-                                                        height="38px"
-                                                    />
-                                                </Buttons>
-                                            </Flex>
-                                        </>
+                                            </Buttons>
+                                        </Flex>
                                     ),
                                 }
                             return { title: el.toString(), content: <></> }
@@ -106,7 +104,10 @@ export const ComplicatedModal = (props: FieldProps) => {
                     />
                 ) : (
                     typeof value[0] === 'object' && (
-                        <>
+                        <Flex gap="8px" d="column">
+                            <Title align="left" size={3}>
+                                {value[0].post}
+                            </Title>
                             <Content {...value[0]} setInputValue={(val) => setInputValue([val])} />
                             <Divider />
                             <Buttons>
@@ -120,7 +121,7 @@ export const ComplicatedModal = (props: FieldProps) => {
                                     height="38px"
                                 />
                             </Buttons>
-                        </>
+                        </Flex>
                     )
                 ))}
         </TextFieldModalStyled>

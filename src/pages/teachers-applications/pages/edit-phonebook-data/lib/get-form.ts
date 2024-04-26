@@ -29,6 +29,7 @@ const getForm = (data: UserApplication): IInputArea => {
                 type: 'tel',
                 value: '',
                 fieldName: 'phone_direct',
+                mask: true,
             },
             {
                 title: 'Общий внутренний телефон',

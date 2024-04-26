@@ -43,6 +43,7 @@ export type User = StudentAccount & {
     birthday: string
     patronymic: string
     email?: string
+    email_staff?: string
     phone?: string
     phone_staff?: string
     allow_mobphone_in?: boolean

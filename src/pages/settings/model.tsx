@@ -9,9 +9,9 @@ import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
 import { MessageType } from '@shared/ui/types'
 import React from 'react'
-import { BiBuilding, BiNews } from 'react-icons/bi'
+import { BiNews } from 'react-icons/bi'
 import { FiBell, FiClock, FiFilePlus, FiFileText, FiLogOut, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi'
-import { HiOutlineViewGridAdd } from 'react-icons/hi'
+import { HiOutlineOfficeBuilding, HiOutlineViewGridAdd } from 'react-icons/hi'
 import { MdOutlinePassword } from 'react-icons/md'
 import { Page } from 'widgets/slider-page'
 
@@ -27,6 +27,8 @@ export type TSettingsFieldType =
     | 'tel'
     | 'select'
     | 'complicated'
+    | 'cabinet'
+    | 'BS-cabinet'
 
 export type TValueFieldType = FilterElementList | LocationSettingsType[] | string[] | number[] | string | boolean
 export type TSettingsFields = {
@@ -147,7 +149,7 @@ const getPhonebookfields = (
             type: 'complicated',
             settingsName: NameSettings['settings-personal'],
             value: phonebookLocation?.value,
-            icon: <BiBuilding />,
+            icon: <HiOutlineOfficeBuilding />,
             description: phonebookLocation.description,
             subfieldsAction: phonebookLocation.subfieldsAction,
             subfields: [

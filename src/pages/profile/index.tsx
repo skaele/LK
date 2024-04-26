@@ -41,7 +41,7 @@ const ProfilePage = () => {
         { title: 'Учетная карточка', content: <AllInfo user={user} /> },
         {
             title: 'Контактные данные',
-            content: <PhonebookProfile />,
+            content: <PhonebookProfile user={user} />,
         },
         // {
         //     title: 'Сведения о вакцинации',

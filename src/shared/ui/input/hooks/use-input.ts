@@ -43,6 +43,8 @@ const useInput = (
             } else if (type === 'email') {
                 setValue(emailMask(e.target.value))
             } else if (type === 'BS-cabinet') {
+                setValue(Masks.cabinetMask(e.target.value, 'BS'))
+            } else if (type === 'cabinet') {
                 setValue(Masks.cabinetMask(e.target.value, 'other'))
             } else if (type === 'innerPhone') {
                 setValue(Masks.innerPhoneMask(e.target.value))

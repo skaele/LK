@@ -108,7 +108,7 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
             {
                 fieldName: 'aud_number',
                 title: 'Номер кабинета',
-                type: 'BS-cabinet',
+                type: 'cabinet',
                 mask: true,
                 value: data.aud_number,
                 editable: true,
@@ -141,13 +141,13 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
                 mask: true,
             },
             {
-                title: 'Показывать мобильный телефон внутри Личного кабинета',
+                title: 'Показывать служебный мобильный телефон внутри Личного кабинета',
                 fieldName: 'show_tel_mob_staff_inner',
                 type: 'checkbox',
                 value: data.show_tel_mob_staff_inner ?? true,
             },
             {
-                title: 'Показывать мобильный телефон на сайте',
+                title: 'Показывать служебный мобильный телефон на сайте',
                 fieldName: 'show_tel_mob_staff_outer',
                 type: 'checkbox',
                 value: data.show_tel_mob_staff_outer ?? true,
@@ -161,13 +161,13 @@ const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => 
                 minValueLength: 4,
             },
             {
-                title: 'Показывать служебный телефон внутри Личного кабинета',
+                title: 'Показывать внутренний телефон внутри Личного кабинета',
                 fieldName: 'show_tel_staff_inner',
                 type: 'checkbox',
                 value: data.show_tel_staff_inner ?? true,
             },
             {
-                title: 'Показывать служебный телефон на сайте',
+                title: 'Показывать внутренний телефон на сайте',
                 fieldName: 'show_tel_staff_outer',
                 type: 'checkbox',
                 value: data.show_tel_staff_outer ?? true,

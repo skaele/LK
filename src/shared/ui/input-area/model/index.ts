@@ -18,6 +18,7 @@ type IInputAreaTypes =
     | 'text'
     | 'tel'
     | 'email'
+    | 'cabinet'
     | 'BS-cabinet'
     | 'innerPhone'
     | 'date'

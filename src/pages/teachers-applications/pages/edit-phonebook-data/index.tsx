@@ -28,7 +28,7 @@ const EditPhonebookData = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
 
                     <SubmitButton

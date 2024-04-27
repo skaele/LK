@@ -891,6 +891,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     'edit-phonebook-subdivision': {
         id: 'edit-phonebook-subdivision',
         title: 'Внесение изменений данных подразделения в телефонном справочнике',
+        hiddenTitle: true,
         icon: <FiFileText />,
         color: 'blue',
         path: EDIT_PHONEBOOK_SUBDIVISION,
@@ -905,6 +906,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
     },
     'edit-phonebook-data': {
         id: 'edit-phonebook-data',
+        hiddenTitle: true,
         title: 'Внесение изменений в телефонный справочник',
         icon: <FiFileText />,
         color: 'blue',

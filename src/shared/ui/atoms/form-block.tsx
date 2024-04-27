@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const FormBlockWrapper = styled.div<{ maxWidth?: string }>`
+const FormBlockWrapper = styled.div<{ maxWidth?: string; noHeader?: boolean }>`
     width: 100%;
     height: fit-content;
     max-width: ${({ maxWidth }) => maxWidth ?? '700px'};
@@ -11,7 +11,10 @@ const FormBlockWrapper = styled.div<{ maxWidth?: string }>`
     display: flex;
     flex-direction: column;
     row-gap: 20px;
-    padding-top: 80px;
+
+    // Need to delete this line but all applications pages must be with 'hiddenTitle'
+    // attribute (or another hidden title solution)
+    padding-top: ${({ noHeader }) => (noHeader ? '20px' : '80px')};
 
     @media (max-width: 1000px) {
         box-shadow: none;

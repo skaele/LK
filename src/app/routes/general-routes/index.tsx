@@ -122,6 +122,7 @@ export enum Groups {
 export interface IRoute {
     id: string
     title: string
+    hiddenTitle?: boolean
     icon: ChildrenType
     menuPath?: string
     path: string

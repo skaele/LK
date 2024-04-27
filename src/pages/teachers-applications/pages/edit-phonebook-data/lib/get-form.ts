@@ -1,87 +1,51 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
-import { sites } from '../../phonebook/lib/get-form'
-import { getSubDivisions } from '@features/applications/lib/get-subdivisions'
-import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
-import { getCabinetInitialValue } from '../../phonebook/lib/getCabinetMask'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 
-const getForm = (
-    data: UserApplication,
-    subdivision: string,
-    setSubdivision: (subdivision: string) => void,
-    email: string,
-    setEmail: (email: string) => void,
-    mobile: string,
-    setMobile: (mobile: string) => void,
-    innerPhone: string,
-    setInnerPhone: (innerPhone: string) => void,
-    address: string,
-    setAddress: (address: string) => void,
-    room: string,
-    setRoom: (room: string) => void,
-): IInputArea => {
-    const subdivisions = getSubDivisions(data.subdivisions)
+const getForm = (data: UserApplication): IInputArea => {
+    const { surname, name, patronymic, subdivisions } = data
     return {
-        title: 'Внесение изменений данных подразделения в телефонном справочнике',
+        title: 'Внесение изменений в телефонный справочник',
         data: [
             {
-                title: 'Наименование подразделения',
-                value: findCurrentInSelect(subdivisions, subdivision) || getSubDivisions(data.subdivisions)[0],
-                onChange: (val) => setSubdivision(val.title),
+                title: 'ФИО',
+                fieldName: 'fio',
+                value: surname + ' ' + name + ' ' + patronymic,
+                editable: false,
+            },
+            {
+                title: 'Подразделение/должность',
+                value: getDefaultSubdivision(subdivisions),
                 fieldName: 'guid_staff',
-                editable: subdivisions.length > 1,
+                editable: true,
                 width: '100',
                 required: true,
                 type: 'select',
-                items: subdivisions,
+                items: getFormattedSubDivisions(subdivisions),
                 isSpecificSelect: true,
             },
             {
-                fieldName: 'email',
-                value: email,
-                onChange: setEmail,
-                title: 'Общая корпоративная почта подразделения',
-                type: 'email',
-            },
-            {
-                title: 'Общий прямой телефон',
-                type: 'tel',
-                value: mobile,
-                onChange: setMobile,
-                fieldName: 'phone_direct',
-                mask: true,
-            },
-            {
-                title: 'Общий внутренний телефон',
+                fieldName: 'phone_inner',
+                title: 'Внутренний телефон',
                 type: 'innerPhone',
-                value: innerPhone,
-                onChange: setInnerPhone,
+                value: '',
                 mask: true,
-                fieldName: 'phone_direct',
+                required: true,
             },
             {
-                fieldName: 'address',
-                title: 'Адрес рабочего места',
-                type: 'select',
-                value: findCurrentInSelect(sites, address),
-                items: sites,
-                onChange: (val) => {
-                    setAddress(val.title)
-                    setRoom(getCabinetInitialValue(val.title))
-                },
+                fieldName: 'show_inner_phone_inner',
+                title: 'Показывать внутренний телефон внутри Личного кабинета',
+                type: 'checkbox',
+                value: false,
                 width: '100',
-                editable: true,
-                required: true,
             },
             {
-                fieldName: 'room',
-                title: 'Номер кабинета',
-                type: 'cabinet',
+                fieldName: 'show_inner_phone_outer',
+                title: 'Показывать внутренний телефон на сайте',
+                type: 'checkbox',
                 mask: true,
-                value: room,
-                onChange: setRoom,
-                editable: true,
-                required: true,
+                value: false,
             },
         ],
     }

@@ -20,6 +20,7 @@ import {
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
     DEFERMENT_FROM_CONSCRIPTION,
+    EDIT_PHONEBOOK_DATA,
     EDIT_PHONEBOOK_SUBDIVISION,
     GETTING_COMPUTER_EQUIPMENT,
     GUESTS_ACCOMODATION_ON_CAMPUS,
@@ -52,9 +53,18 @@ const getTeachersSectionLinks = () => {
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
+            ],
+        },
+        {
+            title: 'Телефонный справочник',
+            links: [
                 {
                     link: EDIT_PHONEBOOK_SUBDIVISION,
                     title: 'Внесение изменений данных подразделения в телефонном справочнике',
+                },
+                {
+                    link: EDIT_PHONEBOOK_DATA,
+                    title: 'Внесение изменений в телефонный справочник',
                 },
             ],
         },

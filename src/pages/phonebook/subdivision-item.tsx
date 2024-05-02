@@ -1,8 +1,10 @@
 import Avatar from '@features/home/ui/molecules/avatar'
 import { Employee, Subdivision } from '@shared/api/model/phonebook'
+import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
+import { FiEyeOff } from 'react-icons/fi'
 import styled from 'styled-components'
 import getImageSize from 'widgets/user/lib/get-image-size'
 
@@ -18,23 +20,27 @@ export const SubdivisionItem = ({
     return (
         <Flex d="column" ai="flex-start" gap="7px">
             <Subtext>{title}</Subtext>
-            {items.map((item) => (
-                <Button
-                    key={'fio' in item ? item.fio + item.post : item.name}
-                    onClick={() => action('fio' in item ? item : null)}
-                >
-                    {'fio' in item && (
-                        <Avatar
-                            name={item.fio}
-                            avatar={item.avatar}
-                            width={getImageSize('horizontal', 'middle')}
-                            height={getImageSize('horizontal', 'middle')}
-                            marginRight={'7px'}
-                        />
-                    )}
-                    {'fio' in item ? item.fio : item.name}
-                </Button>
-            ))}
+            {items.length > 0 ? (
+                items.map((item) => (
+                    <Button
+                        key={'fio' in item ? item.fio + item.post : item.name}
+                        onClick={() => action('fio' in item ? item : null)}
+                    >
+                        {'fio' in item && (
+                            <Avatar
+                                name={item.fio}
+                                avatar={item.avatar}
+                                width={getImageSize('horizontal', 'middle')}
+                                height={getImageSize('horizontal', 'middle')}
+                                marginRight={'7px'}
+                            />
+                        )}
+                        {'fio' in item ? item.fio : item.name}
+                    </Button>
+                ))
+            ) : (
+                <Error size="60px" text="Ничего не было найдено" image={<FiEyeOff />} />
+            )}
         </Flex>
     )
 }

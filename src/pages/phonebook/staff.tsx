@@ -5,7 +5,26 @@ import { phonebookModel } from '@entities/phonebook'
 import { useModal } from 'widgets'
 import { PhonebookInfo, PhonebookModal } from './ui/phonebook-modal'
 import { ScrollWrapper } from './styled'
-import { Employee } from '@shared/api/model/phonebook'
+import { Employee, Subdivision } from '@shared/api/model/phonebook'
+import useQueryParams from '@shared/lib/hooks/use-query-params'
+
+function findEmployeeByFio(subdivisions: Subdivision[], fio: string) {
+    if (subdivisions.length === 0) return []
+    const result: Employee[] = []
+    subdivisions.forEach((subdiv) => {
+        if (subdiv.head?.fio?.toLowerCase().includes(fio)) {
+            result.push(subdiv.head)
+        }
+        subdiv.staff.forEach((employee) => {
+            if (employee.fio.toLowerCase().includes(fio)) {
+                result.push(employee)
+            }
+        })
+        const nestedResult = findEmployeeByFio(subdiv.subdivs, fio)
+        result.push(...nestedResult)
+    })
+    return result.filter((person, index, self) => index === self.findIndex((p) => p.fio === person.fio))
+}
 
 const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     employee.job.map((job) => ({
@@ -28,14 +47,37 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     }))
 
 export const Staff = () => {
-    const { subdivisionPath } = useUnit({
+    const query = useQueryParams()
+    const fio = query.get('fio') || ''
+    const { subdivisionPath, subdivisions } = useUnit({
         subdivisionPath: phonebookModel.stores.subdivisionPath,
-        error: phonebookModel.stores.error,
+        subdivisions: phonebookModel.stores.subdivisions,
     })
 
     const subdivision = subdivisionPath?.[0]
 
     const { open } = useModal()
+
+    if (fio && subdivisions)
+        return (
+            <ScrollWrapper d="column" ai="flex-start" jc="flex-start" gap="20px">
+                <SubdivisionItem
+                    title="Сотрудники"
+                    items={findEmployeeByFio(subdivisions, fio.toLowerCase())}
+                    action={(employee) => {
+                        open(
+                            <PhonebookModal
+                                title={employee!.fio}
+                                info={getEmployeeInfo(employee!)}
+                                avatar={employee!.avatar}
+                                isEmployee
+                            />,
+                        )
+                    }}
+                />
+            </ScrollWrapper>
+        )
+
     if (!subdivision) return null
 
     return (

@@ -92,7 +92,7 @@ export const Staff = () => {
                     }}
                 />
             )}
-            {subdivision.staff.length > 0 && (
+            {subdivision.staff.filter((person) => person.fio !== subdivision.head.fio).length > 0 && (
                 <SubdivisionItem
                     title="Сотрудники"
                     items={subdivision.staff}

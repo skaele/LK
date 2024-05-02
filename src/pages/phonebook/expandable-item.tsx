@@ -1,13 +1,18 @@
 import { phonebookModel } from '@entities/phonebook'
 import { Subdivision } from '@shared/api/model/phonebook'
+import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
+import { useHistory } from 'react-router'
 import styled from 'styled-components'
 
 export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: Subdivision[] }) => {
+    const history = useHistory()
+    const query = useQueryParams()
+    const fio = query.get('fio') || ''
     const childrens = item.subdivs
     const chosenPath = useUnit(phonebookModel.stores.subdivisionPath)
     const [expanded, setExpanded] = useState<boolean>(false)
@@ -22,6 +27,7 @@ export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: 
                 $chosen={!!(chosenPath && chosenPath[0]?.name === item.name)}
                 onClick={() => {
                     phonebookModel.events.setSubdivisionPath([item, ...parents])
+                    history.push({ search: new URLSearchParams({ subdivision: item.name, fio }).toString() })
                 }}
             >
                 <Flex ai="center" jc="space-between" w="100%" gap="5px">

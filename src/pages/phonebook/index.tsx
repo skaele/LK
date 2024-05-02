@@ -65,6 +65,7 @@ const Phonebook = () => {
                                 history.push({
                                     search: new URLSearchParams({ subdivision: value, fio }).toString(),
                                 })
+                                if (value === '' && subdivisions) setSubdivisionPath(subdivisions, value)
                             }}
                             onHintClick={onHintClick}
                             placeholder={'Структура'}

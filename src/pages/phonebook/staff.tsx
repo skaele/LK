@@ -51,9 +51,7 @@ export const Staff = () => {
             let subdivisionName = ''
             if (employees.length === 1) {
                 subdivisionName = getEmployeeDefaultSubdivision(employees[0])
-                console.log(11, subdivisionName)
             }
-            console.log(subdivisionName)
             history.push({
                 search: new URLSearchParams({
                     subdivision: subdivisionName,

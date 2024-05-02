@@ -36,19 +36,23 @@ export const Staff = () => {
     const history = useHistory()
     const query = useQueryParams()
     const fio = query.get('fio') || ''
+    const subdivision = query.get('subdivision') || ''
     const { subdivisionPath, subdivisions } = useUnit({
         subdivisionPath: phonebookModel.stores.subdivisionPath,
         subdivisions: phonebookModel.stores.subdivisions,
     })
 
-    const subdivision = subdivisionPath?.[0]
+    const chosenSubdivision = subdivisionPath?.[0]
 
     const { open } = useModal()
 
     const searchedEmployees = useMemo(() => {
         if (fio && subdivisions) {
-            const employees = findEmployeeByFio(subdivision ? [subdivision] : subdivisions, fio.toLowerCase())
-            let subdivisionName = ''
+            const employees = findEmployeeByFio(
+                chosenSubdivision ? [chosenSubdivision] : subdivisions,
+                fio.toLowerCase(),
+            )
+            let subdivisionName = subdivision
             if (employees.length === 1) {
                 subdivisionName = getEmployeeDefaultSubdivision(employees[0])
             }
@@ -85,50 +89,48 @@ export const Staff = () => {
         )
     }
 
-    if (!subdivision) return null
+    if (!chosenSubdivision) return null
 
     return (
         <ScrollWrapper d="column" ai="flex-start" jc="flex-start" gap="20px">
-            {subdivision && (
-                <SubdivisionItem
-                    title="Информация"
-                    items={[subdivision]}
-                    action={() => {
-                        open(
-                            <PhonebookModal
-                                title={subdivision.name}
-                                info={[
-                                    {
-                                        attributes: [
-                                            { title: 'Руководитель', text: subdivision.head.fio },
-                                            {
-                                                title: 'Корпоративная электронная почта подразделения',
-                                                text: subdivision.email,
-                                            },
-                                            {
-                                                id: 'innerPhone',
-                                                title: 'Внутренний телефон',
-                                                text: subdivision.phone_inner,
-                                            },
-                                            {
-                                                id: 'mobile',
-                                                title: 'Прямой телефон',
-                                                text: subdivision.phone_direct,
-                                            },
-                                            { title: 'Адрес рабочего места', text: subdivision.address },
-                                            { title: 'Номер кабинета', text: subdivision.room },
-                                        ],
-                                    },
-                                ]}
-                            />,
-                        )
-                    }}
-                />
-            )}
-            {subdivision?.head?.fio && (
+            <SubdivisionItem
+                title="Информация"
+                items={[chosenSubdivision]}
+                action={() => {
+                    open(
+                        <PhonebookModal
+                            title={chosenSubdivision.name}
+                            info={[
+                                {
+                                    attributes: [
+                                        { title: 'Руководитель', text: chosenSubdivision.head.fio },
+                                        {
+                                            title: 'Корпоративная электронная почта подразделения',
+                                            text: chosenSubdivision.email,
+                                        },
+                                        {
+                                            id: 'innerPhone',
+                                            title: 'Внутренний телефон',
+                                            text: chosenSubdivision.phone_inner,
+                                        },
+                                        {
+                                            id: 'mobile',
+                                            title: 'Прямой телефон',
+                                            text: chosenSubdivision.phone_direct,
+                                        },
+                                        { title: 'Адрес рабочего места', text: chosenSubdivision.address },
+                                        { title: 'Номер кабинета', text: chosenSubdivision.room },
+                                    ],
+                                },
+                            ]}
+                        />,
+                    )
+                }}
+            />
+            {chosenSubdivision?.head?.fio && (
                 <SubdivisionItem
                     title="Руководитель"
-                    items={[subdivision.head]}
+                    items={[chosenSubdivision.head]}
                     action={(employee) => {
                         open(
                             <PhonebookModal
@@ -141,10 +143,10 @@ export const Staff = () => {
                     }}
                 />
             )}
-            {subdivision.staff.filter((person) => person.fio !== subdivision.head.fio).length > 0 && (
+            {chosenSubdivision.staff.filter((person) => person.fio !== chosenSubdivision.head.fio).length > 0 && (
                 <SubdivisionItem
                     title="Сотрудники"
-                    items={subdivision.staff}
+                    items={chosenSubdivision.staff}
                     action={(employee) => {
                         open(
                             <PhonebookModal

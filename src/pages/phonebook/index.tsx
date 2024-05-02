@@ -32,7 +32,9 @@ const Phonebook = () => {
     }, [subdivisions])
 
     const onHintClick = (hint: Hint | undefined) => {
-        if (subdivisions) setSubdivisionPath(subdivisions, hint?.value ?? '')
+        if (subdivisions) {
+            setSubdivisionPath(subdivisions, hint?.value ?? '')
+        }
     }
 
     const { isMobile } = useCurrentDevice()
@@ -65,7 +67,9 @@ const Phonebook = () => {
                                 history.push({
                                     search: new URLSearchParams({ subdivision: value, fio }).toString(),
                                 })
-                                if (value === '' && subdivisions) setSubdivisionPath(subdivisions, value)
+                                if (value === '' && subdivisions) {
+                                    setSubdivisionPath(subdivisions, value)
+                                }
                             }}
                             onHintClick={onHintClick}
                             placeholder={'Структура'}

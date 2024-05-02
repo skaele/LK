@@ -7,6 +7,7 @@ const setSubdivisionPath = createEvent<Subdivision[] | null>()
 const getSubdivisions = createEvent()
 const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
     const { data } = await phonebookApi.get()
+    if (!data?.map) throw new Error('Не удалось загрузить подразделения')
 
     return data
 })

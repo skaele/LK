@@ -45,7 +45,7 @@ const Phonebook = () => {
     //     value: subdivision,
     //     title: subdivision,
     // })
-    const subdivisions = useUnit(phonebookModel.stores.subdivisions)
+    const [subdivisions, error] = useUnit([phonebookModel.stores.subdivisions, phonebookModel.stores.error])
 
     // const { load } = paginationList
     // const handleSearch = async (value: string) => {
@@ -95,10 +95,11 @@ const Phonebook = () => {
                     </Grid>
                     <Loader
                         data={subdivisions}
-                        error={null}
+                        error={error}
                         load={() => {
                             phonebookModel.events.getSubdivisions()
                         }}
+                        couldBeReloaded
                     >
                         <Grid columns={isMobile ? '1fr' : '4fr 7fr'} rows="1fr" columnGap="20px">
                             <Subdivisions />

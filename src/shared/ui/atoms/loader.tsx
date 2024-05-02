@@ -32,7 +32,6 @@ const WrapperBlock = styled.div`
 const LoadingBlock = styled.div<StyledProps>`
     width: 100%;
     height: 100%;
-    position: absolute;
     top: 0;
     left: 0;
     transition: 0.2s;
@@ -75,20 +74,23 @@ export const Loader = ({ children, load, loading, error, data, deps = [], couldB
 
     return (
         <WrapperBlock>
-            <LoadingBlock $loading={!!error || !data}>
-                {!error ? (
-                    <Loading />
-                ) : (
-                    <ReloadBlock>
-                        <Error text={error}>
-                            {couldBeReloaded && (
-                                <Button onClick={() => load()} text="Загрузить снова" icon={<AiOutlineReload />} />
-                            )}
-                        </Error>
-                    </ReloadBlock>
-                )}
-            </LoadingBlock>
-            {!error && !!data && <ContentBlock>{children}</ContentBlock>}
+            {!data ? (
+                <LoadingBlock $loading={!!error || !data}>
+                    {!error ? (
+                        <Loading />
+                    ) : (
+                        <ReloadBlock>
+                            <Error text={error}>
+                                {couldBeReloaded && (
+                                    <Button onClick={() => load()} text="Загрузить снова" icon={<AiOutlineReload />} />
+                                )}
+                            </Error>
+                        </ReloadBlock>
+                    )}
+                </LoadingBlock>
+            ) : (
+                !error && <ContentBlock>{children}</ContentBlock>
+            )}
         </WrapperBlock>
     )
 }

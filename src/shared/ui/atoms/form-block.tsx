@@ -12,7 +12,7 @@ const FormBlockWrapper = styled.div<{ maxWidth?: string; noHeader?: boolean }>`
     flex-direction: column;
     row-gap: 20px;
 
-    // Need to delete this line but all applications pages must be with 'hiddenTitle'
+    // TODO: delete this line but all applications pages must be with 'hiddenTitle'
     // attribute (or another hidden title solution)
     padding-top: ${({ noHeader }) => (noHeader ? '20px' : '80px')};
 

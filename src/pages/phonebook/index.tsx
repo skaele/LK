@@ -40,6 +40,7 @@ const Phonebook = () => {
     const subdivision = query.get('subdivision') || ''
     const fio = query.get('fio') || ''
     const history = useHistory()
+
     // const [filter, setFilter] = useState<Hint | null>({
     //     id: subdivision,
     //     value: subdivision,
@@ -67,20 +68,20 @@ const Phonebook = () => {
     const { isMobile } = useCurrentDevice()
 
     const [lastSearch, setLastSearch] = useState('')
+    const setFio = (value: string) => {
+        history.push({ search: new URLSearchParams({ subdivision, fio: value }).toString() })
+    }
     const [searchValue, setSearchValue, loading] = useDebounce({
-        onDebounce: (value: string) => {
-            history.push({
-                search: '?fio=' + value,
-            })
-        },
+        onDebounce: setFio,
         delay: 400,
         defaultValue: fio,
         deps: [fio],
         triggerDelay: 200,
         triggerOn: (val) => {
             setLastSearch(val)
-            return val.length > 0 && lastSearch !== val
+            return lastSearch !== val
         },
+        onClear: setFio,
     })
 
     return (
@@ -93,7 +94,7 @@ const Phonebook = () => {
                             value={subdivision}
                             setValue={(value) => {
                                 history.push({
-                                    search: '?subdivision=' + value,
+                                    search: new URLSearchParams({ subdivision: value, fio }).toString(),
                                 })
                             }}
                             onHintClick={onHintClick}

@@ -5,26 +5,9 @@ import { phonebookModel } from '@entities/phonebook'
 import { useModal } from 'widgets'
 import { PhonebookInfo, PhonebookModal } from './ui/phonebook-modal'
 import { ScrollWrapper } from './styled'
-import { Employee, Subdivision } from '@shared/api/model/phonebook'
+import { Employee } from '@shared/api/model/phonebook'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
-
-function findEmployeeByFio(subdivisions: Subdivision[], fio: string) {
-    if (subdivisions.length === 0) return []
-    const result: Employee[] = []
-    subdivisions.forEach((subdiv) => {
-        if (subdiv.head?.fio?.toLowerCase().includes(fio)) {
-            result.push(subdiv.head)
-        }
-        subdiv.staff.forEach((employee) => {
-            if (employee.fio.toLowerCase().includes(fio)) {
-                result.push(employee)
-            }
-        })
-        const nestedResult = findEmployeeByFio(subdiv.subdivs, fio)
-        result.push(...nestedResult)
-    })
-    return result.filter((person, index, self) => index === self.findIndex((p) => p.fio === person.fio))
-}
+import { findEmployeeByFio } from './lib/find-employee-by-fio'
 
 const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     employee.job.map((job) => ({
@@ -58,12 +41,12 @@ export const Staff = () => {
 
     const { open } = useModal()
 
-    if (fio && subdivisions)
+    if (fio && subdivisions) {
         return (
             <ScrollWrapper d="column" ai="flex-start" jc="flex-start" gap="20px">
                 <SubdivisionItem
                     title="Сотрудники"
-                    items={findEmployeeByFio(subdivisions, fio.toLowerCase())}
+                    items={findEmployeeByFio(subdivision ? [subdivision] : subdivisions, fio.toLowerCase())}
                     action={(employee) => {
                         open(
                             <PhonebookModal
@@ -77,6 +60,7 @@ export const Staff = () => {
                 />
             </ScrollWrapper>
         )
+    }
 
     if (!subdivision) return null
 

@@ -137,7 +137,7 @@ const countPayment = (contracts: PaymentsContract[]) => {
     return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
 }
 
-const PaymentsWidget = () => {
+const PaymentsWidget = ({ forwardedRef }: { forwardedRef?: React.RefObject<HTMLDivElement> }) => {
     const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
     if (error) return <ErrorMessage />
@@ -151,7 +151,7 @@ const PaymentsWidget = () => {
     const hasToPay = dormPayment > 0 || eduPayment > 0
 
     return (
-        <PaymentsWidgetWrapper background={hasToPay ? 'red' : 'green'}>
+        <PaymentsWidgetWrapper background={hasToPay ? 'red' : 'green'} ref={forwardedRef}>
             <TopMessage data={payments.dormitory} balance={dormPayment} section={'Общежитие'} />
             <TopMessage data={payments.education} balance={eduPayment} section={'Обучение'} />
         </PaymentsWidgetWrapper>

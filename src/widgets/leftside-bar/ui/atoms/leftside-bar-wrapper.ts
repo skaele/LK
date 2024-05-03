@@ -7,7 +7,6 @@ const LeftsideBarWrapper = styled.div<{ isOpen: boolean; height: number }>`
     box-shadow: var(--very-mild-shadow);
     border-radius: 0 var(--brSemi) var(--brSemi) 0;
     background: var(--block);
-    z-index: 4;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

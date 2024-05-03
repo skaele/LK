@@ -10,14 +10,8 @@ import { globalAppSendForm } from '@pages/applications/lib'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
 
-const EditPhonebookSubdivision = () => {
+const EditPhonebookInnerPhone = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const [subdivision, setSubdivision] = useState<string>('')
-    const [email, setEmail] = useState<string>('')
-    const [mobile, setMobile] = useState<string>('')
-    const [innerPhone, setInnerPhone] = useState<string>('')
-    const [address, setAddress] = useState<string>('')
-    const [room, setRoom] = useState<string>('')
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
@@ -27,25 +21,9 @@ const EditPhonebookSubdivision = () => {
 
     useEffect(() => {
         if (!!dataUserApplication) {
-            setForm(
-                getForm(
-                    dataUserApplication,
-                    subdivision,
-                    setSubdivision,
-                    email,
-                    setEmail,
-                    mobile,
-                    setMobile,
-                    innerPhone,
-                    setInnerPhone,
-                    address,
-                    setAddress,
-                    room,
-                    setRoom,
-                ),
-            )
+            setForm(getForm(dataUserApplication))
         }
-    }, [dataUserApplication, subdivision, email, mobile, innerPhone, address, room])
+    }, [dataUserApplication])
 
     return (
         <BaseApplicationWrapper isDone={isDone}>
@@ -57,7 +35,7 @@ const EditPhonebookSubdivision = () => {
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={() =>
                             globalAppSendForm(
-                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_SUBDIVISION,
+                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_DATA,
                                 [form],
                                 setLoading,
                                 setCompleted,
@@ -80,4 +58,4 @@ const EditPhonebookSubdivision = () => {
     )
 }
 
-export default EditPhonebookSubdivision
+export default EditPhonebookInnerPhone

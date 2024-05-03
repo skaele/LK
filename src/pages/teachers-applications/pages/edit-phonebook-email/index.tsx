@@ -10,7 +10,7 @@ import { globalAppSendForm } from '@pages/applications/lib'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
 
-const EditPhonebookData = () => {
+const EditPhonebookEmail = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -35,10 +35,11 @@ const EditPhonebookData = () => {
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={() =>
                             globalAppSendForm(
-                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_DATA,
+                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_EMAIL,
                                 [form],
                                 setLoading,
                                 setCompleted,
+                                true,
                             )
                         }
                         isLoading={loading}
@@ -57,4 +58,4 @@ const EditPhonebookData = () => {
     )
 }
 
-export default EditPhonebookData
+export default EditPhonebookEmail

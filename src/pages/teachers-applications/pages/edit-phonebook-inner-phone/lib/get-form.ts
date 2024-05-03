@@ -6,7 +6,7 @@ import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-defa
 const getForm = (data: UserApplication): IInputArea => {
     const { surname, name, patronymic, subdivisions } = data
     return {
-        title: 'Внесение изменений в телефонный справочник',
+        title: 'Запрос на изменение внутреннего телефона',
         data: [
             {
                 title: 'ФИО',
@@ -38,13 +38,11 @@ const getForm = (data: UserApplication): IInputArea => {
                 title: 'Показывать внутренний телефон внутри Личного кабинета',
                 type: 'checkbox',
                 value: false,
-                width: '100',
             },
             {
                 fieldName: 'show_inner_phone_outer',
                 title: 'Показывать внутренний телефон на сайте',
                 type: 'checkbox',
-                mask: true,
                 value: false,
             },
         ],

@@ -53,7 +53,8 @@ import {
     ContactInfoActualizationTestPage,
     PhonebookForm,
     EditPhonebookSubdivision,
-    EditPhonebookData,
+    EditPhonebookInnerPhone,
+    EditPhonebookEmail,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -146,7 +147,8 @@ export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
 
 export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
-export const EDIT_PHONEBOOK_DATA = APPLICATIONS_ROUTE + '/edit-phonebook-data'
+export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
+export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
 
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
@@ -904,14 +906,29 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         fallbackPrevPage: APPLICATIONS_ROUTE,
         keywords: ['изменение данных подразделения в телефонном справочнике'],
     },
-    'edit-phonebook-data': {
-        id: 'edit-phonebook-data',
+    'edit-phonebook-inner-phone': {
+        id: 'edit-phonebook-inner-phone',
         hiddenTitle: true,
-        title: 'Внесение изменений в телефонный справочник',
+        title: 'Запрос на изменение внутреннего телефона',
         icon: <FiFileText />,
         color: 'blue',
-        path: EDIT_PHONEBOOK_DATA,
-        Component: EditPhonebookData,
+        path: EDIT_PHONEBOOK_INNER_PHONE,
+        Component: EditPhonebookInnerPhone,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'edit-phonebook-email': {
+        id: 'edit-phonebook-email',
+        hiddenTitle: true,
+        title: 'Запрос на изменение корпоративной электронной почты',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_EMAIL,
+        Component: EditPhonebookEmail,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,

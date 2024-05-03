@@ -43,7 +43,10 @@ export const NumberOfUnusedVacationDaysPage = lazy(
 export const EditPhonebookSubdivision = lazy(
     () => import('@pages/teachers-applications/pages/edit-phonebook-subdivision'),
 )
-export const EditPhonebookData = lazy(() => import('@pages/teachers-applications/pages/edit-phonebook-data'))
+export const EditPhonebookInnerPhone = lazy(
+    () => import('@pages/teachers-applications/pages/edit-phonebook-inner-phone'),
+)
+export const EditPhonebookEmail = lazy(() => import('@pages/teachers-applications/pages/edit-phonebook-email'))
 
 export const OtherItServicesPage = lazy(() => import('@pages/teachers-applications/pages/other-it-services'))
 export const PaymentForChildCarePage = lazy(() => import('@pages/teachers-applications/pages/payment-for-child-care'))

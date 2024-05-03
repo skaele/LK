@@ -11,8 +11,13 @@ import { userModel } from '@entities/user'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { LocationSettingsType } from '@pages/settings/model'
 import { ComplicatedField } from '@pages/settings/fields/complicated-field'
+import TextFieldItem from '@pages/settings/fields/text-field/text-field-item'
+import { FaRegEdit } from 'react-icons/fa'
+import { useHistory } from 'react-router'
+import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
 
 export const PhonebookProfile = ({ user }: { user: User }) => {
+    const history = useHistory()
     return (
         <Flex d="column">
             {user.subdivisions?.map((subdiv, index) => (
@@ -23,21 +28,19 @@ export const PhonebookProfile = ({ user }: { user: User }) => {
                     <Title align="left" size={4}>
                         {subdiv.post}
                     </Title>
-                    <TextField
+                    <TextFieldItem
                         title="Корпоративная электронная почта"
-                        type="text"
                         icon={<FiMail />}
                         description={user?.email_staff}
-                        editable={false}
-                        disabled
+                        rightIcon={<FaRegEdit />}
+                        onClick={() => history.push(EDIT_PHONEBOOK_EMAIL)}
                     />
-                    <TextField
+                    <TextFieldItem
                         title="Внутренний телефон"
-                        type="tel"
                         icon={<FiPhone />}
                         description={subdiv.phone_inner}
-                        editable={false}
-                        disabled
+                        rightIcon={<FaRegEdit />}
+                        onClick={() => history.push(EDIT_PHONEBOOK_INNER_PHONE)}
                     />
                     <TextField
                         id="phone_staff"

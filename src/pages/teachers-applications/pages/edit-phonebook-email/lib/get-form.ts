@@ -27,7 +27,7 @@ const getForm = (data: UserApplication): IInputArea => {
             },
             {
                 fieldName: 'email',
-                title: 'Корпоративная электронная почта подразделения',
+                title: 'Корпоративная электронная почта',
                 type: 'email',
                 value: '',
                 required: true,

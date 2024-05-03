@@ -40,7 +40,7 @@ const getForm = (
                 fieldName: 'email',
                 value: email,
                 onChange: setEmail,
-                title: 'Общая корпоративная почта подразделения',
+                title: 'Общая корпоративная электронная почта',
                 type: 'email',
             },
             {

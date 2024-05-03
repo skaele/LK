@@ -8,9 +8,6 @@ import { ScrollWrapper } from './styled'
 import { Employee } from '@shared/api/model/phonebook'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
-import { useHistory } from 'react-router'
-import { getEmployeeDefaultSubdivision } from './lib/get-employee-default-subdivision'
-import { setSubdivisionPath } from './lib/set-subdivision-path'
 
 const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     employee.job.map((job) => ({
@@ -33,7 +30,6 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     }))
 
 export const Staff = () => {
-    const history = useHistory()
     const query = useQueryParams()
     const fio = query.get('fio') || ''
     const subdivision = query.get('subdivision') || ''
@@ -52,17 +48,6 @@ export const Staff = () => {
                 chosenSubdivision ? [chosenSubdivision] : subdivisions,
                 fio.toLowerCase(),
             )
-            let subdivisionName = subdivision
-            if (employees.length === 1) {
-                subdivisionName = getEmployeeDefaultSubdivision(employees[0])
-            }
-            history.push({
-                search: new URLSearchParams({
-                    subdivision: subdivisionName,
-                    fio,
-                }).toString(),
-            })
-            setSubdivisionPath(subdivisions, subdivisionName)
             return employees
         }
         return []

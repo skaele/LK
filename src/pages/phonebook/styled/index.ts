@@ -6,23 +6,21 @@ export const Header = styled.div<{ isEmployee: boolean }>`
     display: flex;
     flex-direction: column-reverse;
     color: #fff;
-    padding: 10px;
-    min-height: 120px;
-    padding-left: ${({ isEmployee }) => (isEmployee ? '125px' : '10px')};
+    min-height: 110px;
+    width: 100%;
+    padding-left: ${({ isEmployee }) => (isEmployee ? '125px' : '20px')};
 
     ${MEDIA_QUERIES.isNotMobile} {
-        width: 550px;
-        padding-left: ${({ isEmployee }) => (isEmployee ? '180px' : '10px')};
+        padding-left: ${({ isEmployee }) => (isEmployee ? '180px' : '0')};
     }
 
     @media (max-width: 800px) {
-        width: 100%;
         padding-bottom: 0;
     }
 `
 
 export const Wrapper = styled.div`
-    width: 550px;
+    width: 700px;
     padding-bottom: 20px;
     /* padding: 40px 35px 20px 35px; */
 

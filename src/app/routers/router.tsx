@@ -23,6 +23,7 @@ const Router = () => {
         }
     }, [window.location.href])
 
+    // TODO: sample with $userStore clock
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
@@ -34,19 +35,6 @@ const Router = () => {
             peTeacherModel.events.load()
         }
     }, [isAuthenticated, user])
-
-    // useEffect(() => {
-    //     if (user) {
-    //         if (!settings) settingsModel.effects.getLocalSettingsFx(user.id)
-    //         else {
-    //             menuModel.events.defineMenu({
-    //                 user,
-    //                 adminLinks: data,
-    //                 homeRoutes: settings['settings-home-page'].property['pages'] as string[],
-    //             })
-    //         }
-    //     }
-    // }, [user, data, settings])
 
     return isAuthenticated ? (
         <ContentLayout />

@@ -21,13 +21,13 @@ const CustomizeMenuStyled = styled.div`
 
 type Props = {
     enabledListStore: Store<IRoutes | null>
-    requiredList: string[]
+    requiredListStore: Store<string[]>
     remove: (id: string) => void
     add: (id: string) => void
 }
 
-const CustomizeMenu = ({ enabledListStore, add, remove }: Props) => {
-    const enabledList = useUnit(enabledListStore)
+const CustomizeMenu = ({ enabledListStore, add, remove, requiredListStore }: Props) => {
+    const [enabledList, requiredList] = useUnit([enabledListStore, requiredListStore])
     const { visibleRoutes } = menuModel.selectors.useMenu()
     const [searchResult, setSearchResult] = useState<IRoutes | null>(null)
 
@@ -49,16 +49,18 @@ const CustomizeMenu = ({ enabledListStore, add, remove }: Props) => {
                 searchEngine={search}
                 setResult={setSearchResult}
             />
-            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute, index) => {
-                return (
-                    <CustomizeLeftsideBarItem
-                        {...el}
-                        key={index}
-                        chosen={!!enabledList[el.id]}
-                        switchMenuItem={switchChosen}
-                    />
-                )
-            })}
+            {Object.values(searchResult ?? visibleRoutes)
+                .filter((route) => !requiredList.includes(route.id))
+                .map((el: IRoute, index) => {
+                    return (
+                        <CustomizeLeftsideBarItem
+                            {...el}
+                            key={index}
+                            chosen={!!enabledList[el.id]}
+                            switchMenuItem={switchChosen}
+                        />
+                    )
+                })}
         </CustomizeMenuStyled>
     )
 }

@@ -19,7 +19,7 @@ const PersonalSettings = () => {
     const {
         user: { currentUser },
         settings,
-    } = useUnit({ user: userModel.$userStore, settings: userSettingsModel.stores.userSettings })
+    } = useUnit({ user: userModel.stores.user, settings: userSettingsModel.stores.userSettings })
 
     if (!settings) {
         return null

@@ -4,6 +4,8 @@ export interface PEStudent {
     studentGuid: string
     fullName: string
     groupNumber: string
+    hasDebtFromPreviousSemester: boolean
+    archivedVisitValue: number
     visits: number
     additionalPoints: number
     pointsForStandards: number

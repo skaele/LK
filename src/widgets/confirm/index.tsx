@@ -73,9 +73,9 @@ const ConfirmMessage = () => {
                         text="Нет"
                         onClick={onReject ?? handleReject}
                         width="90px"
-                        textColor={isSubmitSuccess ? Colors.grey.light1 : Colors.blue.main}
+                        textColor={isSubmitSuccess ? Colors.blue.light1 : Colors.blue.main}
                         background="transparent"
-                        hoverBackground={isSubmitSuccess ? Colors.grey.transparent3 : Colors.blue.transparent3}
+                        hoverBackground={isSubmitSuccess ? Colors.blue.transparent3 : Colors.blue.transparent3}
                     />
                 </List>
             </ConfirmWrapper>

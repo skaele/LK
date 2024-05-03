@@ -1,7 +1,9 @@
+import { applicationsModel } from '@entities/applications'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { MessageType } from '@shared/ui/types'
 import { AxiosResponse } from 'axios'
-import { Effect, Event, EventCallable } from 'effector'
+import { Effect, EventCallable, createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
-import { createEffect, createEvent, createStore } from 'effector'
 
 export interface TemplateFormStore<DataType> {
     data: DataType | null
@@ -15,19 +17,19 @@ export interface TemplateFormStoreOutput<DataType, PostDataType> {
         useForm: () => TemplateFormStore<DataType>
     }
     effects: {
-        getFormFx: Effect<void, DataType | null, Error>
+        getFormFx: Effect<string | void, DataType | null, Error>
         postFormFx: Effect<PostDataType, void, Error>
     }
     events: {
         changeCompleted: EventCallable<{
             completed: boolean
         }>
-        clearStore: Event<void>
+        clearStore: EventCallable<void>
     }
 }
 
 interface APIType<DataType, PostDataType> {
-    get?: () => Promise<AxiosResponse<DataType>>
+    get?: (data?: string) => Promise<AxiosResponse<DataType>>
     post: (postData: PostDataType, formId?: string) => Promise<AxiosResponse<any, any>>
     put?: () => void
 }
@@ -55,19 +57,40 @@ export const createFormStore = <DataType, PostDataType>({
     const changeCompleted = createEvent<{ completed: boolean }>()
 
     const postFormFx = createEffect(async (postData: PostDataType): Promise<void> => {
-        try {
-            const response = await api.post(postData)
+        const response = await api.post(postData)
 
-            return response.data
-        } catch (error) {
-            throw new Error('Не удалось отправить данные. Проверьте интернет соединение и попробуйте снова')
-        }
+        if (response.data.result !== 'ok') throw new Error(response.data.error_text)
+
+        return response.data
     })
 
-    const getFormFx = createEffect(async (): Promise<DataType | null> => {
+    sample({
+        clock: postFormFx.doneData,
+        fn: () => ({
+            message: 'Данные формы успешно отправлены',
+            type: 'success' as MessageType,
+        }),
+        target: popUpMessageModel.events.evokePopUpMessage,
+    })
+
+    sample({
+        clock: postFormFx.failData,
+        fn: (error) => ({
+            message: `${error.message}`,
+            type: 'failure' as MessageType,
+        }),
+        target: popUpMessageModel.events.evokePopUpMessage,
+    })
+
+    sample({
+        clock: postFormFx.doneData,
+        target: applicationsModel.effects.getApplicationsFx,
+    })
+
+    const getFormFx = createEffect(async (data?: string): Promise<DataType | null> => {
         if (api.get) {
             try {
-                const response = await api.get()
+                const response = await api.get(data)
 
                 return { ...response.data }
             } catch (error) {

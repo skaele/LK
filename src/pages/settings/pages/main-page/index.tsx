@@ -11,6 +11,7 @@ import { useModal } from 'widgets'
 import { TITLE_CONFIG } from '../constants'
 import { setHomePageWidgetView } from './model'
 import { Wrapper } from '../styled'
+import { createStore } from 'effector'
 
 const MainPageSettings = () => {
     const [settings, menu] = useUnit([userSettingsModel.stores.userSettings, menuModel.stores.menu])
@@ -34,7 +35,7 @@ const MainPageSettings = () => {
                         open(
                             <CustomizeMenu
                                 enabledListStore={menuModel.stores.homeRoutes}
-                                requiredList={[]}
+                                requiredListStore={createStore([])}
                                 remove={(pageId) => deletePageFromHome({ pageId })}
                                 add={(pageId) => addPageToHome({ pageId })}
                             />,

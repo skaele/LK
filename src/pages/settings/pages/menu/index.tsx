@@ -3,7 +3,6 @@ import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import { addPageToSidebar, deletePageFromSidebar } from '@features/all-pages/model'
 import CustomizeMenu from '@features/customize-menu'
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 import AddedElementsList, { FilterElementList } from '@shared/ui/added-elements-list'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
@@ -12,18 +11,16 @@ import { useModal } from 'widgets'
 import { TITLE_CONFIG } from '../constants'
 
 const MenuSettings = () => {
-    const [settings, menu] = useUnit([userSettingsModel.stores.userSettings, menuModel.stores.menu])
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
-    const { open } = useModal()
-    const list = settings?.customizeMenu.pages.reduce(
-        (prev, curr) => ({ ...prev, [curr]: menu.allRoutes?.[curr] }),
-        {},
-    ) as FilterElementList
+    const [settings, menu, requiredList] = useUnit([
+        userSettingsModel.stores.userSettings,
+        menuModel.stores.menu,
+        userModel.stores.requiredSidebarItems,
+    ])
 
-    const requiredLeftsideBarItems =
-        user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
+    const { open } = useModal()
+    const list = settings?.customizeMenu.pages
+        .filter((route) => !requiredList.includes(route))
+        .reduce((prev, curr) => ({ ...prev, [curr]: menu.allRoutes?.[curr] }), {}) as FilterElementList
 
     return (
         <>
@@ -38,7 +35,7 @@ const MenuSettings = () => {
                     open(
                         <CustomizeMenu
                             enabledListStore={menuModel.stores.leftSidebar}
-                            requiredList={requiredLeftsideBarItems}
+                            requiredListStore={userModel.stores.requiredSidebarItems}
                             remove={(pageId) => deletePageFromSidebar({ pageId })}
                             add={(pageId) => addPageToSidebar({ pageId })}
                         />,

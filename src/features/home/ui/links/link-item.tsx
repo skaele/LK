@@ -1,31 +1,31 @@
 import { IRoute } from '@app/routes/general-routes'
 import { Icon } from '@features/all-pages'
 import { Colors, MEDIA_QUERIES } from '@shared/constants'
-import getShortStirng from '@shared/lib/get-short-string'
 import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const LinkItemStyled = styled(Link)<{ amount: number; color: string }>`
+const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
     width: 100%;
     height: 100%;
+    max-width: ${({ amount }) => amount > 6 && '93px'};
     /* background: var(--block); */
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     position: relative;
     gap: 10px;
 
     .subtext {
-        white-space: nowrap;
+        /* white-space: nowrap; */
         font-size: 0.72rem;
         transition: 0.2s;
         color: var(--text);
     }
 
     @media (min-width: 1001px) {
+        padding-top: 15px;
         &:hover {
             background-color: ${({ color }) => color};
         }
@@ -80,12 +80,12 @@ type Props = {
 const LinkItem = ({ item, amount }: Props) => {
     const { icon, color, path, title, notifications, menuPath } = item
     return (
-        <LinkItemStyled amount={amount} to={menuPath ?? path} color={Colors[color].transparent3}>
+        <LinkItemStyled to={menuPath ?? path} color={Colors[color].transparent3} amount={amount}>
             <Icon badge={notifications?.toString()} color={color} size={35}>
                 {icon}
             </Icon>
-            <Subtext className="subtext" align="center">
-                {getShortStirng(title, 10)}
+            <Subtext width="95px" maxWidth="95px" className="subtext" align="center">
+                {title}
             </Subtext>
         </LinkItemStyled>
     )

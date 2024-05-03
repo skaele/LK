@@ -18,6 +18,7 @@ export const SettingsList = () => {
                     key={name}
                     orientation="horizontal"
                     shadow={false}
+                    isActive
                 />
             ))}
         </Wrapper>

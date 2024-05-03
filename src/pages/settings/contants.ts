@@ -1,7 +1,7 @@
 export const SETTINGS_PAGES = [
-    'settings-home-page',
-    'settings-appearance',
-    'settings-customize-menu',
     'settings-personal',
+    'settings-customize-menu',
+    'settings-appearance',
+    'settings-home-page',
     'settings-notifications',
 ] as const

@@ -5,9 +5,9 @@ import { teachersHiddenRoutes, teachersPrivateRoutes } from '@app/routes/teacher
 import { adminLinksModel } from '@entities/admin-links'
 import { userSettingsModel } from '@entities/settings'
 import { UserSettings } from '@entities/settings/types'
-import { $userStore } from '@entities/user/model'
+import { userModel } from '@entities/user'
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { createEvent, createStore, sample } from 'effector'
+import { combine, createEvent, createStore, sample } from 'effector'
 import { useUnit } from 'effector-react'
 import findRoutesByConfig from '../lib/find-routes-by-config'
 
@@ -85,18 +85,13 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
     return Object.fromEntries(filteredRoutes)
 }
 
-const $leftSidebar = createStore<IRoutes | null>(null)
+const $leftSidebar = combine(
+    userModel.stores.user,
+    userSettingsModel.stores.userSettings,
+    adminLinksModel.store,
+    (user, settings, adminLinks) => {
+        if (!user || !settings) return null
 
-sample({
-    source: {
-        user: $userStore,
-        settings: userSettingsModel.stores.userSettings,
-        adminLinks: adminLinksModel.store,
-    },
-    filter: ({ user, settings }) => {
-        return Boolean(user) && Boolean(settings)
-    },
-    fn: ({ settings, user, adminLinks }) => {
         return findRoutesByConfig(
             getLeftsideBarConfig(user.currentUser, settings!),
             user.currentUser?.user_status === 'staff'
@@ -104,21 +99,15 @@ sample({
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
-    target: $leftSidebar,
-})
+)
 
-const $homeRoutes = createStore<IRoutes | null>(null)
+const $homeRoutes = combine(
+    userModel.stores.user,
+    userSettingsModel.stores.userSettings,
+    adminLinksModel.store,
+    (user, settings, adminLinks) => {
+        if (!user || !settings) return null
 
-sample({
-    source: {
-        user: $userStore,
-        settings: userSettingsModel.stores.userSettings,
-        adminLinks: adminLinksModel.store,
-    },
-    filter: ({ user, settings }) => {
-        return Boolean(user) && Boolean(settings)
-    },
-    fn: ({ settings, user, adminLinks }) => {
         return findRoutesByConfig(
             settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
             user.currentUser?.user_status === 'staff'
@@ -126,12 +115,11 @@ sample({
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
-    target: $homeRoutes,
-})
+)
 
 sample({
     source: {
-        userStore: $userStore,
+        userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
     },

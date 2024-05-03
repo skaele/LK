@@ -1,4 +1,4 @@
-import { IColors } from '@shared/constants'
+import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
@@ -11,7 +11,6 @@ import {
     AllPages,
     AllStudentsPage,
     AllTeachersPage,
-    AppearanceSettingsPage,
     CantAccessPage,
     DecreisDirectivesPage,
     ElectronicInteractionAgreementPage,
@@ -21,13 +20,8 @@ import {
     Home,
     InstructionsPage,
     LkNotificationsPage,
-    MainPageSettingsPage,
-    MedicalCertificate,
     MemoFreshmenPage,
     MemoTeacherPage,
-    MenuSettingsPage,
-    NotificationsSettings,
-    PersonalSettingsPage,
     ProfilePage,
     ScheduleCurrent,
     // ChatPage,
@@ -35,16 +29,21 @@ import {
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
-    SettingsPage,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
+import MainPageSettings from '@pages/settings/pages/main-page'
+import MenuSettings from '@pages/settings/pages/menu'
+import NotificationsSettings from '@pages/settings/pages/notifications'
+import PersonalSettings from '@pages/settings/pages/personal'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
 import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
 import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
+import AppearanceSettings from '@pages/settings/pages/appearance'
+import SettingsPage from '@pages/settings'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
@@ -72,16 +71,19 @@ export const CANT_ACCESS_ROUTE = '/cant-access'
 export const MEMO_FRESHMEN_ROUTE = '/memo-freshmen'
 export const GET_YOUR_LOGIN_ROUTE = '/get-your-login'
 export const MEMO_TEACHER_ROUTE = '/memo-teacher'
+
 export const SETTINGS_ROUTE = '/settings'
 export const TEMPLATE_SETTINGS_ROUTE = SETTINGS_ROUTE + '/:id'
 export const SETTINGS_APPEARANCE_ROUTE = SETTINGS_ROUTE + '/appearance'
 export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/personal'
 export const SETTINGS_SECURITY_ROUTE = SETTINGS_ROUTE + '/security'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home'
+
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
+export const SOFTSKILLS_ROUTE = '/softskills'
 export const ALERTS_ROUTE = '/alerts'
 export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
 export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
@@ -205,8 +207,7 @@ export const generalRoutes: IRoutes = {
     },
     doclist: {
         id: 'doclist',
-        title: 'Ознакомление с документами',
-        shortTitle: 'Ознакомление с док...',
+        title: 'Ознакомление с документами',
         icon: <FiFileText />,
         path: DOCLIST_ROUTE,
         Component: DecreisDirectivesPage,
@@ -272,7 +273,7 @@ export const generalRoutes: IRoutes = {
     },
     'electronic-interaction-agreement': {
         id: 'electronic-interaction-agreement',
-        title: 'Соглашение об электронном взаимодействии',
+        title: 'Соглашение об электронном взаимодействии',
         shortTitle: 'Соглашение об электр...',
         icon: <HiOutlineClipboardCheck />,
         path: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
@@ -352,16 +353,6 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         show: false,
     },
-    'medical-certificate': {
-        id: 'medical-certificate',
-        title: 'Предоставление медицинских справок',
-        icon: <BsFileMedical />,
-        path: MEDICAL_CERTIFICATE,
-        Component: MedicalCertificate,
-        color: 'blue',
-        isTemplate: false,
-        group: 'GENERAL',
-    },
     vaccination: {
         id: 'vaccination',
         title: 'Вакцинация',
@@ -379,6 +370,7 @@ export const generalRoutes: IRoutes = {
         group: 'GENERAL',
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
+        show: !isProduction,
     },
 }
 
@@ -490,7 +482,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Внешний вид',
         icon: <BiPalette />,
         path: SETTINGS_APPEARANCE_ROUTE,
-        Component: AppearanceSettingsPage,
+        Component: AppearanceSettings,
         color: 'purple',
         isTemplate: true,
         show: true,
@@ -505,7 +497,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Аккаунт',
         icon: <FiUser />,
         path: SETTINGS_PERSONAl_ROUTE,
-        Component: PersonalSettingsPage,
+        Component: PersonalSettings,
         color: 'pink',
         isTemplate: true,
         show: true,
@@ -517,16 +509,16 @@ export const generalHiddenRoutes: IRoutes = {
     },
     'settings-home-page': {
         id: 'settings-home-page',
-        title: 'Настройки. Главная',
+        title: 'Настройки. Главная страница',
         icon: <FiHome />,
         path: SETTINGS_HOME_PAGE_ROUTE,
-        Component: MainPageSettingsPage,
+        Component: MainPageSettings,
         color: 'blue',
         isTemplate: true,
         show: true,
         group: 'OTHER',
         isSubPage: true,
-        subPageHeaderTitle: 'Главная',
+        subPageHeaderTitle: 'Главная страница',
         fallbackPrevPage: SETTINGS_ROUTE,
 
         backButtonText: 'Настройки',
@@ -536,7 +528,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Меню',
         icon: <FiMenu />,
         path: SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE,
-        Component: MenuSettingsPage,
+        Component: MenuSettings,
         color: 'red',
         isTemplate: true,
         show: true,

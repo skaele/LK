@@ -6,10 +6,12 @@ import { HiOutlineLightBulb } from 'react-icons/hi'
 
 export type MenuType = string[]
 export type ShortCutLinksType = number[]
+
 export enum ThemeVariant {
     Dark = 'dark',
     Light = 'light',
 }
+
 export type GeneralType = {
     [key: string]: boolean
 }
@@ -402,7 +404,7 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction = !window.location.port || window.location.port === '80'
+export const isProduction = !window.location.port || window.location.port === '80' || window.location.port === '4001'
 
 // eslint-disable-next-line no-console
 console.log('Running on production', isProduction)

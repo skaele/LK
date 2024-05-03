@@ -2,14 +2,12 @@ import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
+import { NotificationsResponse } from '@shared/api/lk-notification-api'
 import { useUnit } from 'effector-react'
 import { useEffect } from 'react'
 import { lkNotificationModel } from '..'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
-import { NotificationsResponse } from '@shared/api/lk-notification-api'
-import calcNextSubjectTime from '@features/schedule/lib/calc-next-subject-time'
-import { scheduleModel } from '@entities/schedule'
 
 // todo: move logic to effector
 const useLkNotifications = () => {
@@ -19,9 +17,7 @@ const useLkNotifications = () => {
 
     const { notifications, loading, loaded } = lkNotificationModel.selectors.useLkNotifications()
     const settings = useUnit(userSettingsModel.stores.userSettings)
-    const {
-        data: { schedule },
-    } = scheduleModel.selectors.useSchedule()
+
     const [preparedData] = useUnit([electronicInteractionModel.stores.$electronicInteractionStore])
 
     const notificationSettings = settings?.notifications
@@ -47,16 +43,16 @@ const useLkNotifications = () => {
                 ]
 
                 if (filterNotificationsViaSettings(notificationSettings, scheduleNotification).length) {
-                    if (calcNextSubjectTime(schedule?.today) <= 15) {
-                        lkNotificationModel.events.add(
-                            createNotification(
-                                scheduleNotification[0].type,
-                                scheduleNotification[0].id,
-                                scheduleNotification[0].title,
-                                scheduleNotification[0].text,
-                            ),
-                        )
-                    }
+                    // if (calcNextSubjectTime(schedule?.today) <= 15) {
+                    //     lkNotificationModel.events.add(
+                    //         createNotification(
+                    //             scheduleNotification[0].type,
+                    //             scheduleNotification[0].id,
+                    //             scheduleNotification[0].title,
+                    //             scheduleNotification[0].text,
+                    //         ),
+                    //     )
+                    // }
                 }
 
                 lkNotificationModel.events.initialize({

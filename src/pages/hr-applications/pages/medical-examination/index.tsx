@@ -2,7 +2,6 @@ import { applicationsModel } from '@entities/applications'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import SendHrFormMedicalExamination from '@pages/hr-applications/lib/send-hr-form-medical-examination'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
@@ -23,7 +22,7 @@ const MedicalExamination = () => {
     const {
         data: { dataUserApplication, dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
-    const { loading: loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false
@@ -63,12 +62,9 @@ const MedicalExamination = () => {
                             setData={setForm as any}
                             specialFieldsNameConfig={specialFieldsName}
                         />
-
                         <SubmitButton
                             text={'Отправить'}
-                            action={() =>
-                                SendHrFormMedicalExamination(ApplicationFormCodes.HOLIDAY_WORK, [form], setCompleted)
-                            }
+                            action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
                             isLoading={loading}
                             completed={completed}
                             setCompleted={setCompleted}

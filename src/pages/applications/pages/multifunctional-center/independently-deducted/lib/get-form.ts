@@ -1,5 +1,6 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
+import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 
 const ReasonDeductionOptions = [
     { id: 0, title: 'по собственному желанию' },
@@ -45,6 +46,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 type: 'date',
                 fieldName: 'time-before',
                 value: '',
+                minValueInput: getDelayInDays(0),
                 editable: true,
                 required: true,
             },

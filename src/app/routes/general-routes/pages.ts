@@ -19,14 +19,6 @@ export const ScheduleSemestr = lazy(() => import('@pages/schedule/ui/semestr-sch
 export const ScheduleSession = lazy(() => import('@pages/schedule/ui/session-schedule'))
 export const ScheduleRetake = lazy(() => import('@pages/schedule/ui/retake-schedule'))
 
-export const SettingsPage = lazy(() => import('@pages/settings'))
-export const AppearanceSettingsPage = lazy(() => import('@pages/settings/pages/appearance'))
-export const MainPageSettingsPage = lazy(() => import('@pages/settings/pages/main-page'))
-export const MenuSettingsPage = lazy(() => import('@pages/settings/pages/menu'))
-export const PersonalSettingsPage = lazy(() => import('@pages/settings/pages/personal'))
-export const NotificationsSettings = lazy(() => import('@pages/settings/pages/notifications'))
-
-// export const Security = lazy(() => import('@pages/settings/pages/security'))
 export const DecreisDirectivesPage = lazy(() => import('@pages/decreis-directives'))
 export const GetYourLoginPage = lazy(() => import('@pages/get-your-login'))
 export const MemoFreshmenPage = lazy(() => import('@pages/memo-freshmen'))

@@ -10,6 +10,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AvailableAccounts } from 'widgets'
 import Top from './ui/top'
+import { PhonebookProfile } from '@pages/teachers-applications/pages/phonebook/phonebook-profile'
 
 const ContentList = styled.div`
     display: flex;
@@ -38,9 +39,13 @@ const ProfilePage = () => {
 
     const teacherPages = [
         { title: 'Учетная карточка', content: <AllInfo user={user} /> },
+        {
+            title: 'Контактные данные',
+            content: <PhonebookProfile />,
+        },
         // {
         //     title: 'Сведения о вакцинации',
-        //     content:  (
+        //     content: (
         //         <div style={{ justifyContent: 'start' }}>
         //             <PageIsNotReady oldVersionUrl={VAX_ROUTE} />
         //         </div>

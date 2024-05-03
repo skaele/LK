@@ -1,4 +1,4 @@
-import { $userStore } from '@entities/user/model'
+import { userModel } from '@entities/user'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 import { getDefaultNewSettings } from '../lib/get-default-settings'
@@ -19,7 +19,7 @@ const saveSettingsGlobalFx = createEffect((settings: UserSettings) => {
 })
 
 const getSettingsFx = attach({
-    source: { userStore: $userStore, serverSettingsQueryData: serverSettingsQuery.$data },
+    source: { userStore: userModel.stores.user, serverSettingsQueryData: serverSettingsQuery.$data },
     effect: ({ userStore: { currentUser }, serverSettingsQueryData }): UserSettings => {
         const userId = currentUser?.guid
         const newSettings = localStorage.getItem(getSettingsKey(userId ?? ''))
@@ -52,12 +52,13 @@ const getSettingsFx = attach({
         }
 
         const localSettings = JSON.parse(newSettings) as UserSettings
-        return localSettings
+        // if load from local storage - syncAcrossAllDevices is false
+        return { ...localSettings, syncAcrossAllDevices: false }
     },
 })
 
 sample({
-    source: { userStore: $userStore, isServerSettingsLoaded: serverSettingsQuery.$finished },
+    source: { userStore: userModel.stores.user, isServerSettingsLoaded: serverSettingsQuery.$finished },
     filter: ({ userStore, isServerSettingsLoaded }) => Boolean(userStore.currentUser && isServerSettingsLoaded),
     fn: ({ userStore }) => {
         return userStore
@@ -78,7 +79,7 @@ const setThemeToDocument = createEffect((theme: ThemeVariant) => {
 sample({ clock: $theme, filter: Boolean, target: setThemeToDocument })
 
 sample({
-    source: { settings: $userSettings, userStore: $userStore },
+    source: { settings: $userSettings, userStore: userModel.stores.user },
     filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings),
     fn: ({ settings, userStore: user }) => {
         return { settings: settings!, userId: user!.currentUser?.guid ?? '' }
@@ -87,23 +88,13 @@ sample({
 })
 
 sample({
-    source: { settings: $userSettings, userStore: $userStore },
+    source: { settings: $userSettings, userStore: userModel.stores.user },
     filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings?.syncAcrossAllDevices),
     fn: ({ settings }) => {
         return settings!
     },
     target: saveSettingsGlobalFx,
 })
-
-// sample({
-//     clock: turnOffServerSync,
-//     source: { settings: $userSettings, userStore: $userStore },
-//     filter: ({ userStore, settings }) => Boolean(userStore.currentUser && settings),
-//     fn: ({ settings }) => {
-//         return { ...settings!, syncAcrossAllDevices: false }
-//     },
-//     target: saveSettingsGlobalFx,
-// })
 
 sample({
     clock: update,

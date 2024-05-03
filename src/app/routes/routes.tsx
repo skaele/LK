@@ -7,7 +7,7 @@ import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
-import { BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
@@ -15,8 +15,10 @@ import {
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
+    MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
+    SOFTSKILLS_ROUTE,
     USEFUL_INFO_ROUTE,
 } from './general-routes'
 import {
@@ -59,6 +61,8 @@ import {
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
+import { BsFileMedical } from 'react-icons/bs'
+import MedicalCertificate from '@pages/medical-certificate'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -120,9 +124,20 @@ export const privateRoutes: () => IRoutes = () => ({
         keywords: ['справки', 'справка', 'заявления', 'заявление'],
     },
     ...generalRoutes,
+
+    'medical-certificate': {
+        id: 'medical-certificate',
+        title: 'Предоставление медицинских справок',
+        icon: <BsFileMedical />,
+        path: MEDICAL_CERTIFICATE,
+        Component: MedicalCertificate,
+        color: 'blue',
+        isTemplate: false,
+        group: 'GENERAL',
+    },
     payments: {
         id: 'payments',
-        title: 'Договоры и оплаты',
+        title: 'Договоры и оплаты',
         icon: <BiRuble />,
         path: PAYMENTS_ROUTE,
         Component: PaymentsPage,
@@ -133,7 +148,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     dormitory: {
         id: 'dormitory',
-        title: 'Список ожидания на заселение в общежитие',
+        title: 'Список ожидания на заселение в общежитие',
         icon: <MdOutlineBedroomChild />,
         path: DORMITORY,
         Component: DormitoryPage,
@@ -141,6 +156,26 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
         show: true,
+    },
+    softskills: {
+        id: 'softskills',
+        title: 'Паспорт компетенций',
+        icon: <BiBrain />,
+        path: SOFTSKILLS_ROUTE,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://softskills.rsv.ru/')
+            }, [])
+
+            return null
+        },
+        color: 'orange',
+        isTemplate: true,
+        show: true,
+        group: 'LEARNING_ACTIVITIES',
+        isExternalPage: true,
+        keywords: ['рсв', 'россия страна возможностей', 'софтскиллс', 'навыки'],
+        isNew: true,
     },
     'acad-performance': {
         id: 'acad-performance',
@@ -190,7 +225,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     'application-for-superior-room': {
         id: 'application-for-superior-room',
-        title: 'Заявка на комнату повышенной комфортности',
+        title: 'Заявка на комнату повышенной комфортности',
         icon: <MdOutlineBedroomChild />,
         path: APPLICATION_FOR_SUPERIOR_ROOM_ROUTE,
         Component: ApplicationForSuperiorRoom,
@@ -397,14 +432,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение внутри общежития',
         icon: <BiIdCard />,
         path: RELOCATION_INSIDE_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение внутри общежития будет осуществляться с 01.10.2023"
-                  />
-              )
-            : RelocationInsideHostelPage,
+        Component: RelocationInsideHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -417,14 +445,15 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component: isProduction
-            ? () => (
-                  <PageIsNotReady
-                      isRedirectButtonVisible={false}
-                      errorText="Прием заявок на переселение в другое общежитие завершен 15.06.2023"
-                  />
-              )
-            : RelocationToAnotherHostelPage,
+        Component:
+            Date.now() > new Date('2024-07-01').getTime()
+                ? () => (
+                      <PageIsNotReady
+                          isRedirectButtonVisible={false}
+                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
+                      />
+                  )
+                : RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

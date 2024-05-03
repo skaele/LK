@@ -9,6 +9,11 @@ export const CopiesOfDocumentsFromPersonalFilePage = lazy(
 export const ContactInfoActualizationPage = lazy(
     () => import('@pages/teachers-applications/pages/contact-info-actualization'),
 )
+export const ContactInfoActualizationTestPage = lazy(
+    () => import('@pages/teachers-applications/pages/contact-info-actualization-test'),
+)
+export const PhonebookPage = lazy(() => import('@pages/teachers-applications/pages/phonebook'))
+export const PhonebookForm = lazy(() => import('@pages/teachers-applications/pages/phonebook/form'))
 export const DataVerificationPage = lazy(() => import('@pages/teachers-applications/pages/data-verification'))
 export const DownloadAdminFilesPage = lazy(() => import('@pages/download-admin-files'))
 export const PersonalNotificationsPage = lazy(() => import('@pages/personal-notifications'))

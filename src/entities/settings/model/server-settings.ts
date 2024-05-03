@@ -1,4 +1,4 @@
-import { $userStore } from '@entities/user/model'
+import { userModel } from '@entities/user'
 import { createQuery } from '@farfetched/core'
 import { getServerSettings } from '@shared/api/settings'
 import { sample } from 'effector'
@@ -8,7 +8,7 @@ export const serverSettingsQuery = createQuery({
 })
 
 sample({
-    clock: $userStore,
+    clock: userModel.stores.user,
     filter: ({ currentUser }) => Boolean(currentUser),
     target: serverSettingsQuery.start,
 })

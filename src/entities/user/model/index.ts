@@ -7,6 +7,7 @@ import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
+import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null
@@ -137,7 +138,8 @@ const DEFAULT_STORE: UserStore = {
 
 changeSavePasswordFunc()
 
-export const $userStore = createStore(DEFAULT_STORE)
+// TODO: separate store
+const $userStore = createStore(DEFAULT_STORE)
     .on(getUserFx, (oldData) => ({
         ...oldData,
         error: null,
@@ -186,6 +188,10 @@ export const $userStore = createStore(DEFAULT_STORE)
         currentUser: null,
     }))
 
+const $requiredSidebarItems = $userStore.map(({ currentUser }) =>
+    currentUser?.status === 'stuff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG,
+)
+
 export const selectors = {
     useUser: () => {
         const { currentUser: user, error, isAuthenticated, savePassword, loginEuz } = useStore($userStore)
@@ -208,4 +214,9 @@ export const events = {
 export const effects = {
     getUserFx,
     getLoginEuzFx,
+}
+
+export const stores = {
+    requiredSidebarItems: $requiredSidebarItems,
+    user: $userStore,
 }

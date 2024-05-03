@@ -1,4 +1,5 @@
 import { userSettingsModel } from '@entities/settings'
+import { userModel } from '@entities/user'
 import { SIDEBAR_ITEMS_LIMIT_SIZE } from '@shared/constants'
 import { createEvent, sample } from 'effector'
 
@@ -55,9 +56,13 @@ sample({
 
 sample({
     clock: deletePageFromSidebar,
-    source: userSettingsModel.stores.userSettings,
-    filter: (settings) => Boolean(settings),
-    fn: (settings, { pageId }) => {
+    source: {
+        settings: userSettingsModel.stores.userSettings,
+        requiredSidebarItems: userModel.stores.requiredSidebarItems,
+    },
+    filter: ({ settings, requiredSidebarItems }, { pageId }) =>
+        Boolean(settings) && !requiredSidebarItems.includes(pageId),
+    fn: ({ settings }, { pageId }) => {
         return {
             customizeMenu: {
                 ...settings!.homePage,

@@ -1,11 +1,15 @@
 import { jsonStringifyGraphql } from '@shared/lib/json-stringify-graphql'
 import { STUDENT_PAGE_SIZE } from '../constants'
 
-export const getPEStudentsQuery = (page: number, filters: Record<string, unknown> | null = null) => {
+export const getPEStudentsQuery = (
+    page: number,
+    filters: Record<string, unknown> | null = null,
+    pageSize = STUDENT_PAGE_SIZE,
+) => {
     const stringifyFilters = jsonStringifyGraphql(filters, ['course'])
     return `query {
       students (take:${STUDENT_PAGE_SIZE}, skip: ${
-        STUDENT_PAGE_SIZE * page
+        pageSize * page
     }, where: ${stringifyFilters}, order: [{fullName:ASC}]){
         items {
             fullName
@@ -17,6 +21,8 @@ export const getPEStudentsQuery = (page: number, filters: Record<string, unknown
             group {
                 visitValue
             }
+            hasDebtFromPreviousSemester
+            archivedVisitValue
             course
             department
             pointsHistory(where: {workType: {eq: ONLINE_WORK}}) {
@@ -33,6 +39,8 @@ export const getPEStudentQuery = (studentId: string) => `{
         fullName
         groupNumber
         studentGuid
+        hasDebtFromPreviousSemester
+        archivedVisitValue
         visits
         additionalPoints
         pointsForStandards

@@ -35,7 +35,7 @@ const EditPhonebookInnerPhone = () => {
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={() =>
                             globalAppSendForm(
-                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_DATA,
+                                ApplicationTeachersFormCodes.EDIT_PHONEBOOK_INNER_PHONE,
                                 [form],
                                 setLoading,
                                 setCompleted,

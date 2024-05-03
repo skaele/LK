@@ -46,7 +46,7 @@ export enum ApplicationFormCodes {
 
 export enum ApplicationTeachersFormCodes {
     EDIT_PHONEBOOK_SUBDIVISION = 'edit-phonebook-subdivision',
-    EDIT_PHONEBOOK_DATA = 'edit-phonebook-data',
+    EDIT_PHONEBOOK_INNER_PHONE = 'edit-phonebook-inner-phone',
     EDIT_PHONEBOOK_EMAIL = 'edit-phonebook-email',
     CONTACT_INFO_ACTUALIZATION = 'contact-info-actualization',
     DATA_VERIFICATION_ROUTE = 'data-verification',

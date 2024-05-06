@@ -14,6 +14,7 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
         subtitle: job.subdivision + ' • ' + job.post,
         attributes: [
             {
+                id: 'jobType',
                 title: 'Тип работы',
                 text: job.jobType,
             },

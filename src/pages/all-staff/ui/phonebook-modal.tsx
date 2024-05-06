@@ -15,7 +15,7 @@ import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 export type PhonebookInfo = {
     subtitle?: string
-    attributes: { id?: 'email' | 'innerPhone' | 'mobile'; title: string; text: string }[]
+    attributes: { id?: 'email' | 'innerPhone' | 'mobile' | 'jobType'; title: string; text: string }[]
 }
 
 export const PhonebookModal = ({
@@ -58,33 +58,39 @@ export const PhonebookModal = ({
                 <Title>{title}</Title>
             </Header>
             <Wrapper>
-                <List minWidth="100%" direction="horizontal" showPages gap={20}>
-                    {info.map(({ subtitle, attributes }) => (
-                        <Content key={subtitle || title} isEmployee={!!isEmployee}>
-                            {subtitle && <Subtitle>{subtitle}</Subtitle>}
-                            {attributes.map(({ title, text, id }) => (
-                                <InfoItem key={title} title={title}>
-                                    {text ? (
-                                        id === 'email' ? (
-                                            <a href={`mailto:${text}`}>{text}</a>
-                                        ) : id === 'innerPhone' ? (
-                                            text.split('; ').map((tel, i, arr) => (
-                                                <a key={tel} href={`tel:+7(495) 223-05-23,${tel}`}>
-                                                    {i === arr.length - 1 ? tel : `${tel}; `}
-                                                </a>
-                                            ))
-                                        ) : id === 'mobile' ? (
-                                            <a href={`tel:${text}`}>{text}</a>
+                <List key={title} minWidth="100%" direction="horizontal" showPages gap={20}>
+                    {info.map(({ subtitle, attributes }) => {
+                        const jobType = attributes.find((attribute) => attribute.id === 'jobType')
+                        return (
+                            <Content
+                                key={subtitle ? title + subtitle + jobType?.text : title}
+                                isEmployee={!!isEmployee}
+                            >
+                                {subtitle && <Subtitle>{subtitle}</Subtitle>}
+                                {attributes.map(({ title, text, id }) => (
+                                    <InfoItem key={title} title={title}>
+                                        {text ? (
+                                            id === 'email' ? (
+                                                <a href={`mailto:${text}`}>{text}</a>
+                                            ) : id === 'innerPhone' ? (
+                                                text.split('; ').map((tel, i, arr) => (
+                                                    <a key={tel} href={`tel:+7(495) 223-05-23,${tel}`}>
+                                                        {i === arr.length - 1 ? tel : `${tel}; `}
+                                                    </a>
+                                                ))
+                                            ) : id === 'mobile' ? (
+                                                <a href={`tel:${text}`}>{text}</a>
+                                            ) : (
+                                                <>{text}</>
+                                            )
                                         ) : (
-                                            <>{text}</>
-                                        )
-                                    ) : (
-                                        '-'
-                                    )}
-                                </InfoItem>
-                            ))}
-                        </Content>
-                    ))}
+                                            '-'
+                                        )}
+                                    </InfoItem>
+                                ))}
+                            </Content>
+                        )
+                    })}
                 </List>
             </Wrapper>
             {isEmployee && (

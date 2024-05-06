@@ -62,7 +62,13 @@ export type User = StudentAccount & {
     lastaccess: string
     accounts?: GeneralAccount[]
     authorIDs?: AuthorIDs
+    head_div?: Division[]
 } & PhoneSettingsType
+
+export interface Division {
+    guid: string
+    name: string
+}
 
 interface Subdivision {
     guid_person: string

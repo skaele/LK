@@ -1,12 +1,12 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication } from '@api/model'
+import { User } from '@api/model'
 import { sites } from '../../contact-details/lib/get-form'
-import { getSubDivisions } from '@features/applications/lib/get-subdivisions'
+import { getSubivisions } from '@features/applications/lib/get-subdivisions'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { getCabinetInitialValue } from '../../contact-details/lib/getCabinetMask'
 
 const getForm = (
-    data: UserApplication,
+    data: User,
     subdivision: string,
     setSubdivision: (subdivision: string) => void,
     email: string,
@@ -20,20 +20,20 @@ const getForm = (
     room: string,
     setRoom: (room: string) => void,
 ): IInputArea => {
-    const subdivisions = getSubDivisions(data.subdivisions)
+    const headDivisions = getSubivisions(data.head_div)
     return {
         title: 'Внесение изменений данных подразделения в телефонном справочнике',
         data: [
             {
-                fieldName: 'guid_staff',
+                fieldName: 'guid',
                 title: 'Наименование подразделения',
-                value: findCurrentInSelect(subdivisions, subdivision) || getSubDivisions(data.subdivisions)[0],
+                value: findCurrentInSelect(headDivisions, subdivision) || getSubivisions(data.head_div)[0],
                 onChange: (val) => setSubdivision(val.title),
-                editable: subdivisions.length > 1,
+                editable: headDivisions.length > 1,
                 width: '100',
                 required: true,
                 type: 'select',
-                items: subdivisions,
+                items: headDivisions,
                 isSpecificSelect: true,
             },
             {

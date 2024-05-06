@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
 import { IInputArea } from '@shared/ui/input-area/model'
-import { applicationsModel } from '@entities/applications'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
@@ -9,6 +8,7 @@ import { LoadedState } from 'widgets/template-form'
 import { globalAppSendForm } from '@pages/applications/lib'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
+import { userModel } from '@entities/user'
 
 const EditPhonebookSubdivision = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -22,16 +22,16 @@ const EditPhonebookSubdivision = () => {
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
     const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+        data: { user },
+    } = userModel.selectors.useUser()
 
     useEffect(() => {
-        if (!!dataUserApplication) {
+        if (!!user) {
             setForm(
                 // Bad practice. Explicit form dependencies.
                 // room state must be masked depending on address state
                 getForm(
-                    dataUserApplication,
+                    user,
                     subdivision,
                     setSubdivision,
                     email,
@@ -47,7 +47,7 @@ const EditPhonebookSubdivision = () => {
                 ),
             )
         }
-    }, [dataUserApplication, subdivision, email, mobile, innerPhone, address, room])
+    }, [user?.guid, subdivision, email, mobile, innerPhone, address, room])
 
     return (
         <BaseApplicationWrapper isDone={isDone}>

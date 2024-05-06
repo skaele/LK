@@ -44,9 +44,11 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
+import { User } from '@shared/api/model'
 import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
+import { Section } from 'widgets/template-hr-applications'
 
-const getTeachersSectionLinks = () => {
+const getTeachersSectionLinks = (user: User): Section[] => {
     return [
         {
             title: 'Цифровые сервисы',
@@ -59,6 +61,7 @@ const getTeachersSectionLinks = () => {
         {
             title: 'Телефонный справочник',
             links: [
+                ...getDivisionHeadLinks(user),
                 {
                     link: EDIT_PHONEBOOK_INNER_PHONE,
                     title: 'Запрос на изменение внутреннего телефона',
@@ -74,16 +77,6 @@ const getTeachersSectionLinks = () => {
 }
 
 const getInDevelopmentStaffLinks = () => [
-    {
-        disabled: isProduction,
-        title: 'Телефонный справочник (в разработке)',
-        links: [
-            {
-                link: EDIT_PHONEBOOK_SUBDIVISION,
-                title: 'Внесение изменений данных подразделения в телефонном справочнике',
-            },
-        ],
-    },
     {
         title: 'Цифровые сервисы (в разработке)',
         disabled: isProduction,
@@ -233,4 +226,15 @@ const getTeachersHRSectionLinks = () => {
         },
     ]
 }
+
+const getDivisionHeadLinks = (user: User) =>
+    user.head_div && user.head_div.length > 0
+        ? [
+              {
+                  link: EDIT_PHONEBOOK_SUBDIVISION,
+                  title: 'Внесение изменений данных подразделения в телефонном справочнике',
+              },
+          ]
+        : []
+
 export { getTeachersSectionLinks, getTeachersHRSectionLinks }

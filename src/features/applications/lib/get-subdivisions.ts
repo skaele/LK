@@ -1,10 +1,7 @@
-import { Subdivision } from '@api/model'
+import { Division } from '@api/model'
 
-export const getSubDivisions = (subdivisions: Subdivision[] = []) => {
-    return subdivisions.map((subdivision) => {
-        return {
-            id: subdivision.guid_staff,
-            title: subdivision.subdivision,
-        }
-    })
-}
+export const getSubivisions = (subdivisions: Division[] = []) =>
+    subdivisions.map((subdivision) => ({
+        id: subdivision.guid,
+        title: subdivision.name,
+    }))

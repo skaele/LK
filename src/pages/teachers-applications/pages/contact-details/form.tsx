@@ -16,7 +16,6 @@ const ContactDetailsForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [initLoading, setInitLoading] = useState(true)
     const { guid } = useParams<{ guid: string }>()
     const isDone = completed ?? false
     const [guidStaff, setGuidStaff] = useState(guid)
@@ -42,17 +41,20 @@ const ContactDetailsForm = () => {
         }
     }, [guidStaff, data])
 
+    useEffect(() => {
+        return () => {
+            contactDetailsModel.events.clearStore()
+        }
+    }, [])
+
     if (!guidStaff) return null
 
     return (
         <Wrapper
             load={() => {
-                // Чтобы каждый раз страница загружалась заново
-                contactDetailsModel.events.clearStore()
                 contactDetailsModel.effects.getFormFx(guidStaff)
-                setInitLoading(false)
             }}
-            data={dataUserApplication && data && !initLoading}
+            data={dataUserApplication && data}
             error={error}
         >
             <BaseApplicationWrapper isDone={isDone}>

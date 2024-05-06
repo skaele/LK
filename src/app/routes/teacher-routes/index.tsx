@@ -225,7 +225,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
                   PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
             : ContactDetails,
         isTemplate: false,
-        isNew: true,
         group: 'GENERAL',
         show: !isProduction,
     },

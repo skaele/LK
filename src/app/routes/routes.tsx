@@ -7,11 +7,12 @@ import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 import React from 'react'
-import { BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
 import {
+    ALL_TEACHERS_ROUTE,
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
@@ -63,6 +64,7 @@ import {
 import { HelpfulInformation } from './teacher-routes/pages'
 import { BsFileMedical } from 'react-icons/bs'
 import MedicalCertificate from '@pages/medical-certificate'
+import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -233,6 +235,17 @@ export const privateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'GENERAL',
         show: new Date() > new Date(EndDateSuperiorRoom) ? false : true,
+    },
+    'all-teachers': {
+        id: 'all-teachers',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_TEACHERS_ROUTE,
+        Component: AllTeachersPage,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
     },
 })
 

@@ -1,4 +1,4 @@
-import { ALL_STAFF_ROUTE } from '@app/routes/general-routes'
+import { ALL_STAFF_ROUTE } from '@app/routes/teacher-routes'
 import { paginationList } from '@entities/all-teachers'
 import { userModel } from '@entities/user'
 import { SelectPage } from '@features/select'
@@ -44,7 +44,9 @@ const AllTeachersPage = () => {
     // TODO: remove after all-staff mobile version is ready
     // #ASM
     const { isMobile } = useCurrentDevice()
-    if (!isMobile) history.push(`${ALL_STAFF_ROUTE}?subdivision=${filter}`)
+    const isStaff = user?.user_status === 'staff'
+
+    if (!isMobile && isStaff) history.push(`${ALL_STAFF_ROUTE}?subdivision=${filter}`)
 
     return (
         <Wrapper load={function () {}} loading={isPending} error={null} data={items}>

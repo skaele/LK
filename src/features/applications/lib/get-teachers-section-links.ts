@@ -60,10 +60,6 @@ const getTeachersSectionLinks = () => {
             title: 'Телефонный справочник',
             links: [
                 {
-                    link: EDIT_PHONEBOOK_SUBDIVISION,
-                    title: 'Внесение изменений данных подразделения в телефонном справочнике',
-                },
-                {
                     link: EDIT_PHONEBOOK_INNER_PHONE,
                     title: 'Запрос на изменение внутреннего телефона',
                 },
@@ -78,6 +74,16 @@ const getTeachersSectionLinks = () => {
 }
 
 const getInDevelopmentStaffLinks = () => [
+    {
+        disabled: isProduction,
+        title: 'Телефонный справочник (в разработке)',
+        links: [
+            {
+                link: EDIT_PHONEBOOK_SUBDIVISION,
+                title: 'Внесение изменений данных подразделения в телефонном справочнике',
+            },
+        ],
+    },
     {
         title: 'Цифровые сервисы (в разработке)',
         disabled: isProduction,

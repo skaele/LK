@@ -898,7 +898,10 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: EDIT_PHONEBOOK_SUBDIVISION,
-        Component: EditPhonebookSubdivision,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : EditPhonebookSubdivision,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -906,7 +909,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
         keywords: ['изменение данных подразделения в телефонном справочнике'],
-        show: !isProduction,
+        show: isProduction,
     },
     'edit-phonebook-inner-phone': {
         id: 'edit-phonebook-inner-phone',

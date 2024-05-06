@@ -212,17 +212,42 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
     },
     ...generalRoutes,
+
+    // свою основную задачу форма выполнила, а дальше ее скрываем. на случай, если надо будет проводить очередную сверку
     'contact-details': {
         id: 'contact-details',
         title: 'Контактные данные',
         icon: <FiFileText />,
         color: 'blue',
         path: CONTACT_DETAILS,
-        Component: ContactDetails,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetails,
         isTemplate: false,
         isNew: true,
         group: 'GENERAL',
+        show: !isProduction,
     },
+    'contact-details-form': {
+        id: 'contact-details-form',
+        title: 'Контактные данные',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_DETAILS_FORM,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetailsForm,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        show: false,
+        backButtonText: 'Назад',
+        fallbackPrevPage: CONTACT_DETAILS,
+    },
+
     'download-agreements': {
         id: 'download-agreements',
         title: 'Админ панель',
@@ -909,7 +934,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
         keywords: ['изменение данных подразделения в телефонном справочнике'],
-        show: isProduction,
+        show: !isProduction,
     },
     'edit-phonebook-inner-phone': {
         id: 'edit-phonebook-inner-phone',
@@ -1082,21 +1107,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'contact-details-form': {
-        id: 'contact-details-form',
-        title: 'Контактные данные',
-        hiddenTitle: true,
-        icon: <FiFileText />,
-        color: 'blue',
-        path: CONTACT_DETAILS_FORM,
-        Component: ContactDetailsForm,
-        isTemplate: false,
-        group: 'GENERAL',
-        isSubPage: true,
-        show: false,
-        backButtonText: 'Назад',
-        fallbackPrevPage: CONTACT_DETAILS,
     },
     'data-actualization': {
         id: 'data-actualization',

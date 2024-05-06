@@ -1,13 +1,30 @@
-export interface Phonebook {
-    site: string
-    aud_number: string
-    email_staff: string
-    show_email_inner: boolean
-    show_email_outer: boolean
-    tel_mob_staff: string
-    show_tel_mob_staff_inner: boolean
-    show_tel_mob_staff_outer: boolean
-    tel_staff: string
-    show_tel_staff_inner: boolean
-    show_tel_staff_outer: boolean
+export type Employee = {
+    fio: string
+    job: Job[]
+    avatar: string
+} & Omit<Job, 'subdivision'>
+
+type Job = {
+    address: string
+    email: string
+    jobType: string
+    phone_direct: string
+    phone_inner: string
+    phone_mobile: string
+    post: string
+    room: string
+    subdivision: string
+}
+
+export type Subdivision = {
+    name: string
+    bookname: string
+    room: string
+    phone_inner: string
+    phone_direct: string
+    email: string
+    head: Employee
+    staff: Employee[]
+    address: string
+    subdivs: Subdivision[]
 }

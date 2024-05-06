@@ -20,7 +20,7 @@ type Props = {
     pages: { title: string }[]
     user: User
     currentPage: number
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    setCurrentPage: (page: number) => void
 }
 
 const Top = ({ pages, user, currentPage, setCurrentPage }: Props) => {

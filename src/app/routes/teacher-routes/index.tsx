@@ -49,9 +49,12 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
-    PhonebookPage,
     ContactInfoActualizationTestPage,
-    PhonebookForm,
+    EditPhonebookSubdivision,
+    EditPhonebookInnerPhone,
+    EditPhonebookEmail,
+    ContactDetails,
+    ContactDetailsForm,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -128,8 +131,6 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
 export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
-export const PHONEBOOK = '/phonebook'
-export const PHONEBOOK_FORM = '/phonebook/:guid'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -142,6 +143,14 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+
+export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
+export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
+
+export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
+export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
+export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
+
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
 export const WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = APPLICATIONS_ROUTE + '/work-on-the-terms-of-external-concurrency'
@@ -203,17 +212,41 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
     },
     ...generalRoutes,
-    phonebook: {
-        id: 'phonebook',
+
+    // свою основную задачу форма выполнила, а дальше ее скрываем. на случай, если надо будет проводить очередную сверку
+    'contact-details': {
+        id: 'contact-details',
         title: 'Контактные данные',
         icon: <FiFileText />,
         color: 'blue',
-        path: PHONEBOOK,
-        Component: PhonebookPage,
+        path: CONTACT_DETAILS,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetails,
         isTemplate: false,
-        isNew: true,
         group: 'GENERAL',
+        show: !isProduction,
     },
+    'contact-details-form': {
+        id: 'contact-details-form',
+        title: 'Контактные данные',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_DETAILS_FORM,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetailsForm,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        show: false,
+        backButtonText: 'Назад',
+        fallbackPrevPage: CONTACT_DETAILS,
+    },
+
     'download-agreements': {
         id: 'download-agreements',
         title: 'Админ панель',
@@ -882,6 +915,52 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
+    'edit-phonebook-subdivision': {
+        id: 'edit-phonebook-subdivision',
+        title: 'Внесение изменений данных подразделения в телефонном справочнике',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_SUBDIVISION,
+        Component: EditPhonebookSubdivision,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        keywords: ['изменение данных подразделения в телефонном справочнике'],
+    },
+    'edit-phonebook-inner-phone': {
+        id: 'edit-phonebook-inner-phone',
+        hiddenTitle: true,
+        title: 'Запрос на изменение внутреннего телефона',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_INNER_PHONE,
+        Component: EditPhonebookInnerPhone,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'edit-phonebook-email': {
+        id: 'edit-phonebook-email',
+        hiddenTitle: true,
+        title: 'Запрос на изменение корпоративной электронной почты',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_EMAIL,
+        Component: EditPhonebookEmail,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
     'copy-of-employment-record': {
         id: 'copy-of-employment-record',
         title: 'Копия трудовой книжки',
@@ -1023,20 +1102,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'phonebook-form': {
-        id: 'phonebook-form',
-        title: 'Контактные данные',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: PHONEBOOK_FORM,
-        Component: PhonebookForm,
-        isTemplate: false,
-        group: 'GENERAL',
-        isSubPage: true,
-        show: false,
-        backButtonText: 'Назад',
-        fallbackPrevPage: PHONEBOOK,
     },
     'data-actualization': {
         id: 'data-actualization',

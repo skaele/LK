@@ -1,4 +1,4 @@
-import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
+import { ALL_STAFF_ROUTE } from '@app/routes/general-routes'
 import { Icon } from '@features/all-pages'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
@@ -42,7 +42,7 @@ const DivisionModal = ({ division }: Props) => {
                     {division}
                 </Subtext>
             </Flex>
-            <LinkStyled to={`${ALL_TEACHERS_ROUTE}/${division}`} onClick={close}>
+            <LinkStyled to={`${ALL_STAFF_ROUTE}?subdivision=${division}`} onClick={close}>
                 <Button icon={<FiList />} width="100%" text="Список" />
             </LinkStyled>
         </DivisionModalStyled>

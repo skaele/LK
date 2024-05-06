@@ -5,7 +5,7 @@ import { Effect, Event } from 'effector'
 
 const sendForm = async <T>(
     form: IInputArea,
-    post: Effect<T, void, Error>,
+    post: Effect<T, void, Error> | Effect<T, string, Error>,
     setLoading: (loading: boolean) => void,
     setCompleted: Event<{
         completed: boolean

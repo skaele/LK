@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import PasswordField from './fields/password-field'
 import { settingsModel } from '@entities/settings'
 import { NameSettings } from '@entities/settings/model'
+import { AddressField } from './fields/address-field'
 
 const SettingsFieldsList = styled.div<{ asChild: boolean }>`
     display: flex;
@@ -42,6 +43,10 @@ const Fields = (field: TSettingsFields): Record<TSettingsFieldType, ChildrenType
     tel: <TextField key={field.title} {...field} />,
     password: <PasswordField key={field.title} {...field} />,
     link: <LinkField key={field.title} {...field} />,
+    cabinet: <TextField key={field.title} {...field} />,
+    'BS-cabinet': <TextField key={field.title} {...field} />,
+    select: <TextField key={field.title} {...field} />,
+    address: <AddressField key={field.title} {...field} />,
 })
 
 const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {
@@ -49,9 +54,6 @@ const SettingsFields = ({ fields, settingsName, asChild = false }: Props) => {
         if (!id || !settingsName) return () => null
 
         return (val: TValueFieldType | undefined) => {
-            // eslint-disable-next-line no-console
-            console.log(val)
-
             settingsModel.events.updateSetting({
                 nameSettings: settingsName,
                 nameParam: id,

@@ -75,6 +75,7 @@ import { FaRegLightbulb } from 'react-icons/fa'
 import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
 import { RiNotificationBadgeLine } from 'react-icons/ri'
 import {
+    ALL_TEACHERS_ROUTE,
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
@@ -93,6 +94,8 @@ import { Onboarding } from '../general-routes/pages'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import PaymentsPage from '@pages/payments'
 import { BsPeople } from 'react-icons/bs'
+import AllStaff from '@pages/all-staff'
+import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -126,6 +129,7 @@ export const HELP_SERVICE_ROUTE = '/help_service'
 export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
+export const ALL_STAFF_ROUTE = '/all-staff'
 
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
@@ -537,6 +541,32 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
         backButtonText: 'Назад к цифровым сервисам',
+    },
+    // remove after mobile version is ready
+    // #ASM
+    'all-teachers': {
+        id: 'all-teachers',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_TEACHERS_ROUTE,
+        Component: AllTeachersPage,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'all-staff': {
+        id: 'all-staff',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_STAFF_ROUTE,
+        Component: AllStaff,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        pageSize: 'big',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

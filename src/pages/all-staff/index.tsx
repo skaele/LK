@@ -57,7 +57,7 @@ const AllStaff = () => {
 
     // TODO: remove after all-staff mobile version is ready
     // #ASM
-    if (isMobile) history.push(ALL_TEACHERS_ROUTE)
+    if (isMobile) history.push(`${ALL_TEACHERS_ROUTE}/${subdivision}`)
 
     return (
         <Wrapper>

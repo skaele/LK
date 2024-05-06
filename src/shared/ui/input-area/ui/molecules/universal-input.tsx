@@ -51,6 +51,7 @@ const UniversalInput = (props: Props) => {
         specialFieldsNameConfig,
         minValueInput,
         maxValueInput,
+        minValueLength,
         maxValueLength,
         diff,
         visible = true,
@@ -206,6 +207,7 @@ const UniversalInput = (props: Props) => {
                 title={title}
                 minValue={minValueInput}
                 maxValue={maxValueInput}
+                minLength={minValueLength}
                 maxLength={maxValueLength}
                 setValue={(value) => handleChangeValue(value, indexI, indexJ)}
                 type={type}

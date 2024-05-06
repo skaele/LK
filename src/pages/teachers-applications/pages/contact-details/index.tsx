@@ -8,7 +8,7 @@ import { PHONEBOOK } from '@app/routes/teacher-routes'
 import PhonebookForm from './form'
 import { LinkField } from '@pages/settings/ui'
 
-const PhonebookPage = () => {
+const ContactDetails = () => {
     const [hasPartTime, setHasPartTime] = useState(false)
     const history = useHistory()
 
@@ -40,14 +40,14 @@ const PhonebookPage = () => {
                             key={subdivision.guid_staff}
                             title={subdivision.subdivision + ' (' + subdivision.post + ')'}
                             type="link"
-                            action={() => history.push(PHONEBOOK + '/' + subdivision.guid_staff)}
+                            action={() => history.push(CONTACT_DETAILS + '/' + subdivision.guid_staff)}
                         />
                     ))}
                 </PageBlock>
             </Wrapper>
         )
 
-    return <PhonebookForm />
+    return <ContactDetailsForm />
 }
 
-export default PhonebookPage
+export default ContactDetails

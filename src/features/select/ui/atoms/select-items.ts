@@ -32,6 +32,7 @@ const SelectItems = styled.ul<{ isOpen: boolean; itemsAmount: number; width?: st
     &.close {
         opacity: 0;
         visibility: hidden;
+        display: none;
         top: 36px;
     }
 `

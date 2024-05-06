@@ -49,7 +49,7 @@ const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: 
     }
 `
 
-interface Page {
+export interface Page {
     id?: string
     title: string
     condition?: boolean
@@ -85,7 +85,7 @@ const SliderPage = ({
 
     const handleScroll = () => {
         if (sliderContentRef?.current) {
-            setPage(Math.round(sliderContentRef.current?.scrollLeft / screenWidth))
+            setPage(Math.round(sliderContentRef.current?.scrollLeft / sliderContentRef.current?.clientWidth))
         }
     }
 

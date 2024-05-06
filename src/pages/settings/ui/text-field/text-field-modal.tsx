@@ -10,7 +10,7 @@ const TextFieldModalStyled = styled.div`
     flex-direction: column;
     gap: 8px;
     @media (min-width: 1001px) {
-        width: 350px;
+        min-width: 350px;
     }
 `
 
@@ -20,22 +20,43 @@ const Buttons = styled.div`
     gap: 8px;
 `
 
-const rules: TRules = [{ text: 'Необходимо изменить строку', test: (v1, v2) => v1 !== v2 }]
+const rules: TRules = [
+    {
+        text: 'Необходимо изменить строку',
+        test: (v1, v2, title) => {
+            if (title === 'Служебный мобильный телефон') return true
+            else return v1 !== v2
+        },
+    },
+]
 
 const TextFieldModal = (props: FieldProps) => {
-    const { value, message, action, type, title, additionalActions } = props
+    const { value, message, action, type, title, additionalActions, subfields, objectAction, id, settingsName } = props
     const [inputValue, setInputValue] = useState<string>(value as string)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>('')
     const [completed, setCompleted] = useState(false)
     const { close } = useModal()
-    const { isActive, validationError } = useFormValidation(rules, [inputValue, value as string])
+    const { isActive, validationError } = useFormValidation(rules, [inputValue, value as string, title])
 
+    const { settings } = settingsModel.selectors.useSettings()
     const handleSubmit = async () => {
         try {
             setLoading(true)
-            await action?.(inputValue)
-            additionalActions?.onSuccess?.(inputValue)
+            if (!!subfields && !!id && !!settingsName) {
+                const data: {
+                    [section: string]: string
+                } = {}
+                data[id] = inputValue
+                Object.keys(settings[settingsName].property).forEach((key) => {
+                    if (subfields.some((field) => field.id === key))
+                        data[key] = settings[settingsName].property[key] as string
+                })
+                await objectAction?.(data)
+            } else {
+                await action?.(inputValue)
+                additionalActions?.onSuccess?.(inputValue)
+            }
             setLoading(false)
             setCompleted(true)
         } catch (error) {
@@ -63,6 +84,9 @@ const TextFieldModal = (props: FieldProps) => {
                 {error}
             </Message>
             <Input value={inputValue} setValue={setInputValue} type={type} mask />
+            {subfields && settingsName && (
+                <SettingsFields settingsName={NameSettings[settingsName]} fields={subfields} asChild />
+            )}
             <Divider />
             <Buttons>
                 <Button text="Отменить" width="100%" onClick={close} />

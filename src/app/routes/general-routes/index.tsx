@@ -3,7 +3,7 @@ import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
 import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiBookReader, BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -62,8 +62,8 @@ export const SCHEDULE_ROUTE = '/schedule'
 
 export const ALL_STUDENTS_ROUTE = '/all-students'
 export const FILTERED_ALL_STUDENTS_ROUTE = '/all-students/:filter'
-export const FILTERED_ALL_TEACHERS_ROUTE = '/all-teachers/:filter'
 export const ALL_TEACHERS_ROUTE = '/all-teachers'
+export const FILTERED_ALL_TEACHERS_ROUTE = '/all-teachers/:filter'
 export const PORTFOLIO_ROUTE = '/portfolio'
 export const DECREIS_DIRECTIVES = '/decreis-directives'
 export const FEEDBACK_ROUTE = '/feedback'
@@ -113,6 +113,7 @@ export enum Groups {
 export interface IRoute {
     id: string
     title: string
+    hiddenTitle?: boolean
     icon: ChildrenType
     menuPath?: string
     path: string
@@ -321,17 +322,6 @@ export const generalRoutes: IRoutes = {
         group: 'COMMUNICATION',
         keywords: ['одногруппники', 'ученики'],
     },
-    'all-teachers': {
-        id: 'all-teachers',
-        title: 'Сотрудники',
-        icon: <BiBookReader />,
-        path: ALL_TEACHERS_ROUTE,
-        Component: AllTeachersPage,
-        color: 'orange',
-        isTemplate: false,
-        group: 'COMMUNICATION',
-        keywords: ['преподаватели', 'преподы'],
-    },
     feedback: {
         id: 'feedback',
         title: 'Обратная связь',
@@ -465,6 +455,7 @@ export const generalHiddenRoutes: IRoutes = {
         show: false,
         group: 'OTHER',
     },
+    // move to student's after #ASM
     'filtered-all-teachers': {
         id: 'filtered-all-teachers',
         title: 'Все сотрудники',

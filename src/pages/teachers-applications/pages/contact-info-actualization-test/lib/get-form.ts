@@ -1,5 +1,5 @@
 import { ContactInfoActualization, UserApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { IInputArea } from '@ui/input-area/model'
 const sites = [

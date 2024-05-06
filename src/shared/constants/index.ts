@@ -408,7 +408,11 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction = !window.location.port || window.location.port === '80' || window.location.port === '4001'
+export const isProduction =
+    !window.location.port ||
+    window.location.port === '80' ||
+    window.location.port === '4001' ||
+    window.location.port === '4002'
 
 // eslint-disable-next-line no-console
 console.log('Running on production', isProduction)

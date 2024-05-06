@@ -20,6 +20,9 @@ const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFiel
                 }
             }
 
+            const inputLength = el.value?.toString()?.length
+            if (el.minValueLength && inputLength && inputLength < el.minValueLength) return true
+
             if (
                 !!specialFieldsNameConfig &&
                 !!el.specialType &&

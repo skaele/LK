@@ -10,6 +10,7 @@ import {
     Account,
     AlertsPage,
     AllPages,
+    AllStaff,
     AllStudentsPage,
     AllTeachersPage,
     Appearance,
@@ -73,6 +74,7 @@ export const ALL_STUDENTS_ROUTE = '/all-students'
 export const FILTERED_ALL_STUDENTS_ROUTE = '/all-students/:filter'
 export const FILTERED_ALL_TEACHERS_ROUTE = '/all-teachers/:filter'
 export const ALL_TEACHERS_ROUTE = '/all-teachers'
+export const ALL_STAFF_ROUTE = '/all-staff'
 export const PORTFOLIO_ROUTE = '/portfolio'
 export const DECREIS_DIRECTIVES = '/decreis-directives'
 export const FEEDBACK_ROUTE = '/feedback'
@@ -120,6 +122,7 @@ export enum Groups {
 export interface IRoute {
     id: string
     title: string
+    hiddenTitle?: boolean
     icon: ChildrenType
     menuPath?: string
     path: string
@@ -328,6 +331,8 @@ export const generalRoutes: IRoutes = {
         group: 'COMMUNICATION',
         keywords: ['одногруппники', 'ученики'],
     },
+    // TODO: remove after all-staff mobile version will be completed
+    // #ASM
     'all-teachers': {
         id: 'all-teachers',
         title: 'Сотрудники',
@@ -338,6 +343,19 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'all-staff': {
+        id: 'all-staff',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_STAFF_ROUTE,
+        Component: AllStaff,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        pageSize: 'big',
     },
     feedback: {
         id: 'feedback',

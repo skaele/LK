@@ -26,7 +26,7 @@ export type TSettingsFieldType =
     | 'password'
     | 'tel'
     | 'select'
-    | 'complicated'
+    | 'address'
     | 'cabinet'
     | 'BS-cabinet'
 
@@ -47,7 +47,7 @@ export type TSettingsFields = {
               onSuccess?: (value?: TValueFieldType) => void
           }
         | { [key: string]: (value?: TValueFieldType) => void }
-    subfieldsAction?: (values: { [section: string]: string }) => void
+    objectAction?: (values: { [section: string]: string }) => void
     description?: string
     message?: { title: string; type: MessageType; body?: string }
     icon?: React.ReactNode
@@ -64,7 +64,7 @@ type TSettingsSection = {
 
 export type Prop<T> = { value: T } & Pick<
     TSettingsFields,
-    'icon' | 'description' | 'action' | 'additionalActions' | 'subfieldsAction'
+    'icon' | 'description' | 'action' | 'additionalActions' | 'objectAction'
 >
 
 export type LocationSettingsType = {
@@ -127,7 +127,7 @@ const getPhonebookfields = (
             icon: <FiPhone />,
             description: phonebookPhone.description,
             action: phonebookPhone.action,
-            subfieldsAction: phonebookPhone.subfieldsAction,
+            objectAction: phonebookPhone.objectAction,
             subfields: [
                 {
                     id: 'allow_mobphone_in',
@@ -146,12 +146,12 @@ const getPhonebookfields = (
         {
             id: 'guid_staff',
             title: 'Адрес рабочего места',
-            type: 'complicated',
+            type: 'address',
             settingsName: NameSettings['settings-personal'],
             value: phonebookLocation?.value,
             icon: <HiOutlineOfficeBuilding />,
             description: phonebookLocation.description,
-            subfieldsAction: phonebookLocation.subfieldsAction,
+            objectAction: phonebookLocation.objectAction,
             subfields: [
                 {
                     id: 'address',
@@ -300,7 +300,7 @@ const getSettingsModel: TSettingsModel = ({
                     description: phone.description,
                     action: phone.action,
                     additionalActions: phone.additionalActions,
-                    subfieldsAction: phone.subfieldsAction,
+                    objectAction: phone.objectAction,
                 },
                 ...getPhonebookfields(isStudent, phonebookPhone, phonebookLocation),
                 {

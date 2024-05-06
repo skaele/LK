@@ -1,4 +1,4 @@
-import { Buildings } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
+import { Buildings } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
 import Masks from '@shared/lib/masks'
 import React, { useCallback, useEffect, useState } from 'react'
 

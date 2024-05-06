@@ -28,6 +28,8 @@ const EditPhonebookSubdivision = () => {
     useEffect(() => {
         if (!!dataUserApplication) {
             setForm(
+                // Bad practice. Explicit form dependencies.
+                // room state must be masked depending on address state
                 getForm(
                     dataUserApplication,
                     subdivision,

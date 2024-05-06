@@ -12,7 +12,7 @@ import { applicationsModel } from '@entities/applications'
 import { contactDetailsModel } from '@entities/contact-details'
 import { ContactDetails } from '@shared/api/model'
 
-const PhonebookForm = () => {
+const ContactDetailsForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -57,7 +57,7 @@ const PhonebookForm = () => {
         >
             <BaseApplicationWrapper isDone={isDone}>
                 {!!form && (
-                    <FormBlock>
+                    <FormBlock noHeader>
                         <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                         <SubmitButton
                             text={!isDone ? 'Отправить' : 'Отправлено'}
@@ -86,4 +86,4 @@ const PhonebookForm = () => {
     )
 }
 
-export default PhonebookForm
+export default ContactDetailsForm

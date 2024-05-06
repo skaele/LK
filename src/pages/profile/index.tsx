@@ -10,7 +10,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { AvailableAccounts } from 'widgets'
 import Top from './ui/top'
-import { PhonebookProfile } from '@pages/teachers-applications/pages/phonebook/phonebook-profile'
+import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useHistory } from 'react-router'
 
@@ -31,7 +31,6 @@ const ProfilePage = () => {
     const query = useQueryParams()
     const page = query.get('page')
     const { allRoutes } = menuModel.selectors.useMenu()
-    // const [currentPage, setCurrentPage] = useState(0)
 
     if (!user || !allRoutes) return null
 
@@ -46,7 +45,7 @@ const ProfilePage = () => {
         { title: 'Учетная карточка', content: <AllInfo user={user} />, id: 'userCard' },
         {
             title: 'Контактные данные',
-            content: <PhonebookProfile user={user} />,
+            content: <ContactDetailsProfile user={user} />,
             id: 'contactDetails',
         },
         // {

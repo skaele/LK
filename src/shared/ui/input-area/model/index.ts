@@ -80,8 +80,8 @@ export interface IInputAreaData {
     specialType?: SpecialFieldsName
     minValueInput?: number | string
     maxValueInput?: number | string
-    minValueLength?: number | undefined
-    maxValueLength?: number | undefined
+    minValueLength?: number
+    maxValueLength?: number
     diff?: number
     isSpecificSelect?: boolean
     visible?: boolean

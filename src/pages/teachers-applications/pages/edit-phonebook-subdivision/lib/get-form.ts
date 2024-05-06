@@ -1,9 +1,9 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
-import { sites } from '../../phonebook/lib/get-form'
+import { sites } from '../../contact-details/lib/get-form'
 import { getSubDivisions } from '@features/applications/lib/get-subdivisions'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
-import { getCabinetInitialValue } from '../../phonebook/lib/getCabinetMask'
+import { getCabinetInitialValue } from '../../contact-details/lib/getCabinetMask'
 
 const getForm = (
     data: UserApplication,

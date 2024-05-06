@@ -10,13 +10,13 @@ import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { LocationSettingsType } from '@pages/settings/model'
-import { ComplicatedField } from '@pages/settings/fields/complicated-field'
 import TextFieldItem from '@pages/settings/fields/text-field/text-field-item'
 import { FaRegEdit } from 'react-icons/fa'
 import { useHistory } from 'react-router'
 import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
+import { AddressField } from '@pages/settings/fields/address-field'
 
-export const PhonebookProfile = ({ user }: { user: User }) => {
+export const ContactDetailsProfile = ({ user }: { user: User }) => {
     const history = useHistory()
     return (
         <Flex d="column">
@@ -49,7 +49,7 @@ export const PhonebookProfile = ({ user }: { user: User }) => {
                         value={user?.phone_staff}
                         icon={<FiPhone />}
                         description={user?.phone_staff}
-                        subfieldsAction={(values) => {
+                        objectAction={(values) => {
                             changeStaffPhone(values)
                             Object.entries(values).forEach(([key, value]) => {
                                 userModel.events.update({ key, value } as {
@@ -74,11 +74,11 @@ export const PhonebookProfile = ({ user }: { user: User }) => {
                             },
                         ]}
                     />
-                    <ComplicatedField
+                    <AddressField
                         id={'guid_staff'}
                         settingsName={NameSettings['settings-personal']}
                         title="Адрес места работы"
-                        type="complicated"
+                        type="address"
                         value={
                             user?.subdivisions?.map((subdiv) => ({
                                 guid_staff: subdiv.guid_staff,
@@ -89,7 +89,7 @@ export const PhonebookProfile = ({ user }: { user: User }) => {
                         }
                         icon={<HiOutlineOfficeBuilding />}
                         description={subdiv.address + ', ' + subdiv.room}
-                        subfieldsAction={(values) => {
+                        objectAction={(values) => {
                             changeStaffAddress(values as LocationSettingsType)
                             if (user?.subdivisions) {
                                 const subdivisions = user?.subdivisions?.map((subdivision) => {

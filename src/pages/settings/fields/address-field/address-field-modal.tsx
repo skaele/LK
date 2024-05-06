@@ -1,7 +1,10 @@
 import Select, { SelectPage } from '@features/select'
 import { FieldProps, LocationSettingsType } from '@pages/settings/model'
-import { sites } from '@pages/teachers-applications/pages/phonebook/lib/get-form'
-import { getCabinetInitialValue, getCabinetMask } from '@pages/teachers-applications/pages/phonebook/lib/getCabinetMask'
+import { sites } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
+import {
+    getCabinetInitialValue,
+    getCabinetMask,
+} from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
 import Masks from '@shared/lib/masks'
 import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
@@ -26,8 +29,8 @@ const Buttons = styled.div`
     gap: 8px;
 `
 
-export const ComplicatedModal = (props: FieldProps) => {
-    const { value, message, title, subfieldsAction } = props
+export const AddressModal = (props: FieldProps) => {
+    const { value, message, title, objectAction } = props
     const [inputValue, setInputValue] = useState<LocationSettingsType[]>(value as LocationSettingsType[])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>('')
@@ -38,7 +41,7 @@ export const ComplicatedModal = (props: FieldProps) => {
         try {
             setLoading(true)
             const data = inputValue.find((el) => el.guid_staff === page)
-            if (data) await subfieldsAction?.(data)
+            if (data) await objectAction?.(data)
             setLoading(false)
             setCompleted(true)
         } catch (error) {

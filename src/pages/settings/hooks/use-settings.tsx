@@ -147,7 +147,7 @@ const useSettings = () => {
                     },
 
                     description: user?.phone_staff,
-                    subfieldsAction: (values) => {
+                    objectAction: (values) => {
                         changeStaffPhone(values)
                         Object.entries(values).forEach(([key, value]) => {
                             userModel.events.update({ key, value } as {
@@ -166,7 +166,7 @@ const useSettings = () => {
                             room: subdiv.room || '',
                         })) ?? [],
                     description: user?.subdivisions?.map((subdiv) => subdiv.room).join(', ') || '-',
-                    subfieldsAction: (values) => {
+                    objectAction: (values) => {
                         changeStaffAddress(values as LocationSettingsType)
                         if (user?.subdivisions) {
                             const subdivisions = user?.subdivisions?.map((subdivision) => {

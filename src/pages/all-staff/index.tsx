@@ -8,7 +8,6 @@ import { Staff } from './staff'
 import { Grid } from './styled/grid'
 import SearchWithHints from '@features/search-with-hints'
 import Flex from '@shared/ui/flex'
-// import { paginationList } from '@entities/all-teachers'
 import Search, { Hint } from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
@@ -17,8 +16,9 @@ import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useHistory } from 'react-router'
 import useDebounce from '@shared/lib/hooks/use-debounce'
 import { setSubdivisionPath } from './lib/set-subdivision-path'
+import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
 
-const Phonebook = () => {
+const AllStaff = () => {
     const query = useQueryParams()
     const subdivision = query.get('subdivision') || ''
     const fio = query.get('fio') || ''
@@ -54,6 +54,10 @@ const Phonebook = () => {
         },
         onClear: setFio,
     })
+
+    // TODO: remove after all-staff mobile version is ready
+    // #ASM
+    if (isMobile) history.push(ALL_TEACHERS_ROUTE)
 
     return (
         <Wrapper>
@@ -103,4 +107,4 @@ const Phonebook = () => {
     )
 }
 
-export default Phonebook
+export default AllStaff

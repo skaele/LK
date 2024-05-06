@@ -49,12 +49,12 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
-    PhonebookPage,
     ContactInfoActualizationTestPage,
-    PhonebookForm,
     EditPhonebookSubdivision,
     EditPhonebookInnerPhone,
     EditPhonebookEmail,
+    ContactDetails,
+    ContactDetailsForm,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -131,8 +131,6 @@ export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
 export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
-export const PHONEBOOK_BUFFER = APPLICATIONS_ROUTE + '/phonebook-form'
-export const PHONEBOOK_FORM = APPLICATIONS_ROUTE + '/phonebook-form/:guid'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -145,6 +143,9 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+
+export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
+export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
 
 export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
 export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
@@ -211,13 +212,13 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
     },
     ...generalRoutes,
-    'phonebook-buffer': {
-        id: 'phonebook-buffer',
+    'contact-details': {
+        id: 'contact-details',
         title: 'Контактные данные',
         icon: <FiFileText />,
         color: 'blue',
-        path: PHONEBOOK_BUFFER,
-        Component: PhonebookPage,
+        path: CONTACT_DETAILS,
+        Component: ContactDetails,
         isTemplate: false,
         isNew: true,
         group: 'GENERAL',
@@ -905,6 +906,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
         keywords: ['изменение данных подразделения в телефонном справочнике'],
+        show: !isProduction,
     },
     'edit-phonebook-inner-phone': {
         id: 'edit-phonebook-inner-phone',
@@ -1078,19 +1080,20 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'phonebook-form': {
-        id: 'phonebook-form',
+    'contact-details-form': {
+        id: 'contact-details-form',
         title: 'Контактные данные',
+        hiddenTitle: true,
         icon: <FiFileText />,
         color: 'blue',
-        path: PHONEBOOK_FORM,
-        Component: PhonebookForm,
+        path: CONTACT_DETAILS_FORM,
+        Component: ContactDetailsForm,
         isTemplate: false,
         group: 'GENERAL',
         isSubPage: true,
         show: false,
         backButtonText: 'Назад',
-        fallbackPrevPage: PHONEBOOK_BUFFER,
+        fallbackPrevPage: CONTACT_DETAILS,
     },
     'data-actualization': {
         id: 'data-actualization',

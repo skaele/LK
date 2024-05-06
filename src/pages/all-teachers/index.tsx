@@ -1,12 +1,14 @@
+import { ALL_STAFF_ROUTE } from '@app/routes/general-routes'
 import { paginationList } from '@entities/all-teachers'
 import { userModel } from '@entities/user'
 import { SelectPage } from '@features/select'
 import { getDivisions } from '@shared/api/teacher-api'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
 import { useStore } from 'effector-react'
 import React from 'react'
-import { useRouteMatch } from 'react-router'
+import { useHistory, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import ListOfPeople from 'widgets/list-of-people'
 
@@ -27,6 +29,7 @@ const AllTeachersPage = () => {
     } = userModel.selectors.useUser()
     const { $isPending, $items } = paginationList
     const route: { params: { filter?: string } } = useRouteMatch()
+    const history = useHistory()
 
     const isPending = useStore($isPending)
     const items = useStore($items)
@@ -37,6 +40,11 @@ const AllTeachersPage = () => {
 
         return `Кафедра: ${filter?.title} • Всего: ${items?.length ?? 0}`
     }
+
+    // TODO: remove after all-staff mobile version is ready
+    // #ASM
+    const { isMobile } = useCurrentDevice()
+    if (!isMobile) history.push(`${ALL_STAFF_ROUTE}?subdivision=${filter}`)
 
     return (
         <Wrapper load={function () {}} loading={isPending} error={null} data={items}>

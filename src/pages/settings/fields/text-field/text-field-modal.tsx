@@ -34,8 +34,7 @@ const rules: TRules = [
 ]
 
 const TextFieldModal = (props: FieldProps) => {
-    const { value, message, action, type, title, additionalActions, subfields, subfieldsAction, id, settingsName } =
-        props
+    const { value, message, action, type, title, additionalActions, subfields, objectAction, id, settingsName } = props
     const [inputValue, setInputValue] = useState<string>(value as string)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>('')
@@ -56,7 +55,7 @@ const TextFieldModal = (props: FieldProps) => {
                     if (subfields.some((field) => field.id === key))
                         data[key] = settings[settingsName].property[key] as string
                 })
-                await subfieldsAction?.(data)
+                await objectAction?.(data)
             } else {
                 await action?.(inputValue)
                 additionalActions?.onSuccess?.(inputValue)

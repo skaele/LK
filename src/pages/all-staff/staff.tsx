@@ -20,12 +20,12 @@ const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
             {
                 id: 'email',
                 title: 'Корпоративная электронная почта',
-                text: employee.email,
+                text: job.email,
             },
-            { id: 'innerPhone', title: 'Внутренний телефон', text: employee.phone_inner },
-            { id: 'mobile', title: 'Служебный мобильный телефон', text: employee.phone_direct },
-            { title: 'Адрес рабочего места', text: employee.address },
-            { title: 'Номер кабинета', text: employee.room },
+            { id: 'innerPhone', title: 'Внутренний телефон', text: job.phone_inner },
+            { id: 'mobile', title: 'Служебный мобильный телефон', text: job.phone_direct },
+            { title: 'Адрес рабочего места', text: job.address },
+            { title: 'Номер кабинета', text: job.room },
         ],
     }))
 

@@ -7,7 +7,8 @@ import { PhonebookModal } from './ui/phonebook-modal'
 import { ScrollWrapper } from './styled'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
-import { getEmployeeInfo } from './lib/ge-employee-info'
+import { getEmployeeInfo } from './lib/get-employee-info'
+import { getSubdivisionInfo } from './lib/get-subdivision-info'
 
 export const Staff = () => {
     const query = useQueryParams()
@@ -59,34 +60,7 @@ export const Staff = () => {
                 title="Информация"
                 items={[chosenSubdivision]}
                 action={() => {
-                    open(
-                        <PhonebookModal
-                            title={chosenSubdivision.name}
-                            info={[
-                                {
-                                    attributes: [
-                                        { title: 'Руководитель', text: chosenSubdivision.head.fio },
-                                        {
-                                            title: 'Корпоративная электронная почта подразделения',
-                                            text: chosenSubdivision.email,
-                                        },
-                                        {
-                                            id: 'innerPhone',
-                                            title: 'Внутренний телефон',
-                                            text: chosenSubdivision.phone_inner,
-                                        },
-                                        {
-                                            id: 'mobile',
-                                            title: 'Прямой телефон',
-                                            text: chosenSubdivision.phone_direct,
-                                        },
-                                        { title: 'Адрес рабочего места', text: chosenSubdivision.address },
-                                        { title: 'Номер кабинета', text: chosenSubdivision.room },
-                                    ],
-                                },
-                            ]}
-                        />,
-                    )
+                    open(<PhonebookModal title={chosenSubdivision.name} info={getSubdivisionInfo(chosenSubdivision)} />)
                 }}
             />
             {chosenSubdivision?.head?.fio && (

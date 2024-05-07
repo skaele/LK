@@ -5,7 +5,7 @@ import { userModel } from '@entities/user'
 import { findEmployeeByFio } from '../lib/find-employee-by-fio'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
-import { getEmployeeInfo } from '../lib/ge-employee-info'
+import { getEmployeeInfo } from '../lib/get-employee-info'
 import { UserProps } from 'widgets/user/types'
 
 type Props = Pick<UserProps, 'name' | 'division' | 'avatar'>
@@ -19,8 +19,7 @@ export const StaffModal = ({ name, ...props }: Props) => {
         subdivisions: phonebookModel.stores.subdivisions,
     })
 
-    if (!isStaff) return <TeacherModal name={name} {...props} />
-    if (!subdivisions) return null
+    if (!isStaff || !subdivisions) return <TeacherModal name={name} {...props} />
     const employee = findEmployeeByFio(subdivisions, name)[0]
     return <PhonebookModal title={employee.fio} info={getEmployeeInfo(employee)} avatar={employee.avatar} isEmployee />
 }

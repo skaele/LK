@@ -1,7 +1,7 @@
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 import React from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
-import { TeacherModal } from 'widgets/user/ui'
 
 const TeacherWithModalWrapper = styled.strong`
     &:hover {
@@ -17,11 +17,7 @@ interface Props {
 const TeacherWithModal = ({ fio }: Props) => {
     const { open } = useModal()
 
-    return (
-        <TeacherWithModalWrapper onClick={() => open(<TeacherModal name={fio} isMe={false} />)}>
-            {fio}
-        </TeacherWithModalWrapper>
-    )
+    return <TeacherWithModalWrapper onClick={() => open(<StaffModal name={fio} />)}>{fio}</TeacherWithModalWrapper>
 }
 
 export default TeacherWithModal

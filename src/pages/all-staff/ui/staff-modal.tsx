@@ -19,7 +19,7 @@ export const StaffModal = ({ name, avatar, ...props }: Props) => {
         subdivisions: phonebookModel.stores.subdivisions,
     })
 
-    if (!isStaff) return <TeacherModal name={name} {...props} />
+    if (!isStaff) return <TeacherModal name={name} avatar={avatar} {...props} />
     if (!subdivisions) return null
     const employee = findEmployeeByFio(subdivisions, name)[0]
     return <PhonebookModal title={employee.fio} info={getEmployeeInfo(employee)} avatar={avatar} isEmployee />

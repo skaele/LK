@@ -3,7 +3,6 @@ import { paginationList } from '@entities/all-teachers'
 import { userModel } from '@entities/user'
 import { SelectPage } from '@features/select'
 import { getDivisions } from '@shared/api/teacher-api'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
 import { useStore } from 'effector-react'
@@ -41,12 +40,9 @@ const AllTeachersPage = () => {
         return `Кафедра: ${filter?.title} • Всего: ${items?.length ?? 0}`
     }
 
-    // TODO: remove after all-staff mobile version is ready
-    // #ASM
-    const { isMobile } = useCurrentDevice()
     const isStaff = user?.user_status === 'staff'
 
-    if (!isMobile && isStaff) history.push(`${ALL_STAFF_ROUTE}?subdivision=${filter}`)
+    if (isStaff) history.push(`${ALL_STAFF_ROUTE}?subdivision=${filter}`)
 
     return (
         <Wrapper load={function () {}} loading={isPending} error={null} data={items}>

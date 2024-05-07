@@ -14,7 +14,7 @@ export const SubdivisionItem = ({
     action,
 }: {
     title: string
-    action: (item: Employee | null) => void
+    action: (item: Employee | Subdivision) => void
     items: Subdivision[] | Employee[]
 }) => {
     return (
@@ -22,10 +22,7 @@ export const SubdivisionItem = ({
             <Subtext>{title}</Subtext>
             {items.length > 0 ? (
                 items.map((item) => (
-                    <Button
-                        key={'fio' in item ? item.fio + item.post : item.name}
-                        onClick={() => action('fio' in item ? item : null)}
-                    >
+                    <Button key={'fio' in item ? item.fio + item.post : item.name} onClick={() => action(item)}>
                         {'fio' in item && (
                             <Avatar
                                 name={item.fio}

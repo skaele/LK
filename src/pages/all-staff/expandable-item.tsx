@@ -12,7 +12,8 @@ import styled from 'styled-components'
 export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: Subdivision[] }) => {
     const history = useHistory()
     const query = useQueryParams()
-    const fio = query.get('fio') || ''
+    const search = query.get('search') || '/'
+    const fio = search.split('/')[1]
     const childrens = item.subdivs
     const chosenPath = useUnit(phonebookModel.stores.subdivisionPath)
     const [expanded, setExpanded] = useState<boolean>(false)
@@ -27,7 +28,7 @@ export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: 
                 $chosen={!!(chosenPath && chosenPath[0]?.name === item.name)}
                 onClick={() => {
                     phonebookModel.events.setSubdivisionPath([item, ...parents])
-                    history.push({ search: new URLSearchParams({ subdivision: item.name, fio }).toString() })
+                    history.push({ search: new URLSearchParams({ search: item.name + '/' + fio }).toString() })
                 }}
             >
                 <Flex ai="center" jc="space-between" w="100%" gap="5px">

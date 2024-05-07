@@ -79,14 +79,14 @@ export const ContactDetailsProfile = ({ user }: { user: User }) => {
                         settingsName={NameSettings['settings-personal']}
                         title="Адрес места работы"
                         type="address"
-                        value={
-                            user?.subdivisions?.map((subdiv) => ({
+                        value={[
+                            {
                                 guid_staff: subdiv.guid_staff,
                                 post: subdiv.post || '',
                                 address: subdiv.address || '',
                                 room: subdiv.room || '',
-                            })) ?? []
-                        }
+                            },
+                        ]}
                         icon={<HiOutlineOfficeBuilding />}
                         description={subdiv.address + ', ' + subdiv.room}
                         objectAction={(values) => {

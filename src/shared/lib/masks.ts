@@ -52,16 +52,27 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
     return formattedPhone
 }
 
+const applyGeneralCabinetMask = (
+    value: string,
+    formattedValue: string,
+    room: string,
+    subroom: RegExpMatchArray | null,
+    type: Buildings,
+    maxRoomLength = 4,
+) => {
+    formattedValue += room.substring(0, maxRoomLength)
+    if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
+    formattedValue += subroom[0].toLowerCase()
+    return formattedValue.substring(0, type.length + maxRoomLength + 2)
+}
+
 const cabinetMask = (value: string, type: Buildings) => {
     const room = value.replace(/\D/g, '')
     const subroom = value.match(/(?<=\d)[а-яА-Я]/)
-    let formattedValue = ''
+    let formattedValue = type + ' '
 
-    if (!value) return ''
     switch (type) {
         case 'БС':
-            if (value === 'БС') return ''
-            formattedValue = 'БС '
             const building = value.substring(3).match(/^[а-яА-Я]{1,2}/)
             if (!building || !building[0]?.toUpperCase()?.match(/^[А-Я]{1,2}$/)) return formattedValue
             formattedValue += building[0].toUpperCase()
@@ -76,43 +87,17 @@ const cabinetMask = (value: string, type: Buildings) => {
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 10)
-        case 'ПР':
-            if (value === 'ПР') return ''
-            formattedValue = 'ПР '
-            formattedValue += room.substring(0, 4)
-            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-            formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 8)
-        case 'АВ':
-            if (value === 'АВ') return ''
-            formattedValue = 'АВ '
-            formattedValue += room.substring(0, 4)
-            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-            formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 8)
         case 'ПК':
-            if (value === 'ПК') return ''
-            formattedValue = 'ПК '
-            formattedValue += room.substring(0, 3)
-            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-            formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 7)
-        case 'МИХ':
-            if (value === 'МИХ') return ''
-            formattedValue = 'МИХ '
-            formattedValue += room.substring(0, 4)
-            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-            formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 9)
+            return applyGeneralCabinetMask(value, formattedValue, room, subroom, type, 3)
+        case 'АВ':
+        case 'ПР':
         case 'СС':
-            if (value === 'СС') return ''
-            formattedValue = 'СС '
-            formattedValue += room.substring(0, 4)
-            if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
-            formattedValue += subroom[0].toLowerCase()
-            return formattedValue.substring(0, 9)
-        default:
+        case 'МИХ':
+            return applyGeneralCabinetMask(value, formattedValue, room, subroom, type)
+        case '':
             return value
+        default:
+            return formattedValue + value.substring(type.length + 1)
     }
 }
 

@@ -6,10 +6,17 @@ const setSubdivisionPath = createEvent<Subdivision[] | null>()
 
 const getSubdivisions = createEvent()
 const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
-    const { data } = await phonebookApi.get()
-    if (!data?.map) throw new Error('Не удалось загрузить подразделения')
+    let attempts = 0
 
-    return data
+    // По этому эндпоинту часто срабатывавает Anti-DDoS защита, API отадает ответ, но обрезает его
+    while (attempts < 3) {
+        const { data } = await phonebookApi.get()
+        const isDataCorrupted = !data?.map
+        if (data && !isDataCorrupted) return data
+
+        attempts++
+    }
+    throw new Error('Не удалось загрузить подразделения')
 })
 sample({ clock: getSubdivisions, target: getSubdivisionsFx })
 const $pedningGetSubdividions = getSubdivisionsFx.pending

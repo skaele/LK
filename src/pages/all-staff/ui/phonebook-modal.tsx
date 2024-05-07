@@ -1,12 +1,12 @@
 import Flex from '@shared/ui/flex'
 import React from 'react'
-import { AvatarWrapper, Buttons, Content, Header, Subtitle, Title, Wrapper } from '../styled'
+import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
 import { InfoItem } from '../info-item'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 import { Link } from 'react-router-dom'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
-import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-import { FiClock, FiMessageCircle } from 'react-icons/fi'
+import { ALL_TEACHERS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
+import { FiClock, FiList, FiMessageCircle } from 'react-icons/fi'
 import { Button } from '@shared/ui/button'
 import { useModal } from 'widgets'
 import List from '@shared/ui/list'
@@ -93,7 +93,7 @@ export const PhonebookModal = ({
                     })}
                 </List>
             </Wrapper>
-            {isEmployee && (
+            {isEmployee ? (
                 <Buttons>
                     <Link
                         to={getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
@@ -120,7 +120,11 @@ export const PhonebookModal = ({
                         isActive={false}
                     />
                 </Buttons>
-            )}
+            ) : isMobile ? (
+                <LinkStyled to={`${ALL_TEACHERS_ROUTE}/${title}`} onClick={close}>
+                    <Button icon={<FiList />} width="100%" text="Список" />
+                </LinkStyled>
+            ) : null}
         </Flex>
     )
 }

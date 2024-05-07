@@ -1,5 +1,6 @@
 import { MEDIA_QUERIES } from '@shared/constants'
 import Flex from '@shared/ui/flex'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Header = styled.div<{ isEmployee: boolean }>`
@@ -91,4 +92,8 @@ export const ScrollWrapper = styled(Flex)`
     ${MEDIA_QUERIES.isTablet} {
         height: calc(100vh - 300px);
     }
+`
+
+export const LinkStyled = styled(Link)`
+    width: 100%;
 `

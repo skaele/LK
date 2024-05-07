@@ -74,7 +74,7 @@ const cabinetMask = (value: string, type: Buildings) => {
     switch (type) {
         case 'БС':
             const building = value.substring(3).match(/^[а-яА-Я]{1,2}/)
-            if (!building || !building[0]?.toUpperCase()?.match(/^[А-Я]{1,2}$/)) return formattedValue
+            if (!building || !building[0]?.toUpperCase()?.match(/^(А|Б|В|НД?D?)$/)) return formattedValue
             formattedValue += building[0].toUpperCase()
             if (
                 building[0].length === 1

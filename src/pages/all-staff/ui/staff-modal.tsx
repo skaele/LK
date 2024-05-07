@@ -9,7 +9,7 @@ import { getEmployeeInfo } from '../lib/ge-employee-info'
 import { UserProps } from 'widgets/user/types'
 
 type Props = Pick<UserProps, 'name' | 'division' | 'avatar'>
-export const StaffModal = ({ name, avatar, ...props }: Props) => {
+export const StaffModal = ({ name, ...props }: Props) => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
@@ -19,8 +19,8 @@ export const StaffModal = ({ name, avatar, ...props }: Props) => {
         subdivisions: phonebookModel.stores.subdivisions,
     })
 
-    if (!isStaff) return <TeacherModal name={name} avatar={avatar} {...props} />
+    if (!isStaff) return <TeacherModal name={name} {...props} />
     if (!subdivisions) return null
     const employee = findEmployeeByFio(subdivisions, name)[0]
-    return <PhonebookModal title={employee.fio} info={getEmployeeInfo(employee)} avatar={avatar} isEmployee />
+    return <PhonebookModal title={employee.fio} info={getEmployeeInfo(employee)} avatar={employee.avatar} isEmployee />
 }

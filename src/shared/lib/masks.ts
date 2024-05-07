@@ -8,7 +8,7 @@ const groupMask = (value: string, prevValue?: string) => {
 }
 
 const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const russianNumberBeginnings = ['7', '8', '9']
+    // const russianNumberBeginnings = ['7', '8', '9']
     const selectionStart = e.target.selectionStart
     let phoneInput = e.target.value.replace(/\D/g, '')
     let formattedPhone = ''
@@ -22,27 +22,32 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
         return e.target.value
     }
 
-    if (russianNumberBeginnings.indexOf(phoneInput[0]) > -1) {
-        // russian number
-        if (phoneInput[0] === '9') phoneInput = '7' + phoneInput
-        const firstSymbols = phoneInput[0] === '8' ? '8' : '+7'
-        formattedPhone = firstSymbols + ' '
-        if (!!phoneInput.length) {
-            formattedPhone += '(' + phoneInput.substring(1, 4)
-        }
-        if (phoneInput.length >= 5) {
-            formattedPhone += ') ' + phoneInput.substring(4, 7)
-        }
-        if (phoneInput.length >= 8) {
-            formattedPhone += '-' + phoneInput.substring(7, 9)
-        }
-        if (phoneInput.length >= 10) {
-            formattedPhone += '-' + phoneInput.substring(9, 11)
-        }
-    } else {
-        // not russian number
-        formattedPhone = `+${phoneInput.substring(0, 16)}`
+    // В маске телефона вводить только с +7
+    // 1С дурит, если номер с 8ки
+    // На иностранные пофиг                 (С) Хуснулина ДР
+
+    // if (russianNumberBeginnings.indexOf(phoneInput[0]) > -1) {
+    // russian number
+    if (phoneInput[0] === '9') phoneInput = '7' + phoneInput
+    // const firstSymbols = phoneInput[0] === '8' ? '8' : '+7'
+    const firstSymbols = '+7'
+    formattedPhone = firstSymbols + ' '
+    if (!!phoneInput.length) {
+        formattedPhone += '(' + phoneInput.substring(1, 4)
     }
+    if (phoneInput.length >= 5) {
+        formattedPhone += ') ' + phoneInput.substring(4, 7)
+    }
+    if (phoneInput.length >= 8) {
+        formattedPhone += '-' + phoneInput.substring(7, 9)
+    }
+    if (phoneInput.length >= 10) {
+        formattedPhone += '-' + phoneInput.substring(9, 11)
+    }
+    // } else {
+    //     // not russian number
+    //     formattedPhone = `+${phoneInput.substring(0, 16)}`
+    // }
 
     return formattedPhone
 }
@@ -62,46 +67,46 @@ const cabinetMask = (value: string, type: Buildings) => {
             formattedValue += building[0].toUpperCase()
             if (
                 building[0].length === 1
-                    ? value[3] && !value[5] && value[4] === '-'
-                    : value[4] && !value[6] && value[5] === '-'
+                    ? value[3] && !value[5] && value[4] === ' '
+                    : value[4] && !value[6] && value[5] === ' '
             )
-                return formattedValue + '-'
-            if (room.length > 0) formattedValue += '-'
+                return formattedValue + ' '
+            if (room.length > 0) formattedValue += ' '
             formattedValue += room.substring(0, 3)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 10)
         case 'ПР':
             if (value === 'ПР') return ''
-            formattedValue = 'ПР-'
+            formattedValue = 'ПР '
             formattedValue += room.substring(0, 4)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 8)
         case 'АВ':
             if (value === 'АВ') return ''
-            formattedValue = 'АВ-'
+            formattedValue = 'АВ '
             formattedValue += room.substring(0, 4)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 8)
         case 'ПК':
             if (value === 'ПК') return ''
-            formattedValue = 'ПК-'
+            formattedValue = 'ПК '
             formattedValue += room.substring(0, 3)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 7)
         case 'МИХ':
             if (value === 'МИХ') return ''
-            formattedValue = 'МИХ-'
+            formattedValue = 'МИХ '
             formattedValue += room.substring(0, 4)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()
             return formattedValue.substring(0, 9)
         case 'СС':
             if (value === 'СС') return ''
-            formattedValue = 'СС-'
+            formattedValue = 'СС '
             formattedValue += room.substring(0, 4)
             if (!subroom || !subroom[0]?.toLowerCase()?.match(/[а-я]/)) return formattedValue
             formattedValue += subroom[0].toLowerCase()

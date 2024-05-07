@@ -1,0 +1,1 @@
+import{s as i}from"./get-form-30ba56ae.js";const r=t=>t===i[0].title?"БС":t===i[1].title?"ПР":t===i[2].title?"АВ":t===i[3].title?"ПК":t===i[4].title?"МИХ":t===i[5].title?"СС":"other",n=t=>t===i[0].title?"БС ":t===i[1].title?"ПР ":t===i[2].title?"АВ ":t===i[3].title?"ПК ":t===i[4].title?"МИХ ":t===i[5].title?"СС ":"";export{r as a,n as g};

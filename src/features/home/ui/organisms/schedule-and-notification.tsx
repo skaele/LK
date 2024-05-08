@@ -2,7 +2,6 @@ import List from '@ui/list'
 import React from 'react'
 import PaymentsWidget from '../molecules/payments-widget'
 import { ScheduleWidget } from '../schedule-widget'
-import { TutorialWrapper } from 'widgets/tutorial/ui/wrapper'
 import { useUnit } from 'effector-react'
 import { userSettingsModel } from '@entities/settings'
 
@@ -14,11 +13,7 @@ const ScheduleAndNotification = () => {
     return (
         <List direction="horizontal" title="Виджеты" showPages gap={10} visible={!!widgetSchedule || !!widgetPayment}>
             {widgetSchedule && <ScheduleWidget />}
-            {widgetPayment && (
-                <TutorialWrapper desiredId="intro" desiredStep={9}>
-                    <PaymentsWidget />
-                </TutorialWrapper>
-            )}
+            {widgetPayment && <PaymentsWidget desiredId="intro" desiredStep={9} />}
         </List>
     )
 }

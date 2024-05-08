@@ -1,0 +1,1 @@
+import{r as s,j as c}from"./vendor-f4aa581a.js";import{cu as i,cL as m}from"./index-01363656.js";const n=()=>{const{theme:t,switchTheme:o}=i(),[a,e]=s.useState([]);return s.useEffect(()=>{e([{title:"Темная тема",state:t!=="light",action:r=>o(r)}])},[t]),c.jsx(m,{title:"Тема",toggles:a,setToggles:e})};export{n as default};

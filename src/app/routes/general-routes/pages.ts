@@ -3,6 +3,7 @@ import { lazy } from 'react'
 export const AllPages = lazy(() => import('@pages/all-pages'))
 export const AllStudentsPage = lazy(() => import('@pages/all-students'))
 export const AllTeachersPage = lazy(() => import('@pages/all-teachers'))
+export const AllStaff = lazy(() => import('@pages/all-staff'))
 export const CantAccessPage = lazy(() => import('@pages/cant-access'))
 export const ChatPage = lazy(() => import('@pages/chat'))
 export const ElectronicInteractionAgreementPage = lazy(() => import('@pages/electronic-interaction-agreement'))

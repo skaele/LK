@@ -4,18 +4,19 @@ import { userModel } from '@entities/user'
 import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import deletePageFromSidebar from '@features/all-pages/lib/delete-page-from-sidebar'
 import Avatar from '@features/home/ui/molecules/avatar'
-import { changeEmail, changePhone } from '@shared/api/user-api'
+import { changeEmail, changePhone, changeStaffAddress, changeStaffPhone } from '@shared/api/user-api'
 import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 import useTheme from '@shared/lib/hooks/use-theme'
 import React, { useEffect, useState } from 'react'
 import { useModal } from 'widgets'
-import getSettingsModel, { TFullSettingsModel } from '../model'
+import getSettingsModel, { LocationSettingsType, TFullSettingsModel } from '../model'
 import CustomizeMenu from '../../../features/customize-menu'
 import addPageToSidebar from '@features/all-pages/lib/add-page-to-sidebar'
 import addPageToHome from '@features/all-pages/lib/add-page-to-home'
 import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
 import { useHistory } from 'react-router'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
+import { User } from '@shared/api/model'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -33,6 +34,8 @@ const useSettings = () => {
     const { property: appearanceProperty } = settings['settings-appearance']
     const { widgetPayment, widgetSchedule, news } = settings['settings-home-page'].property
     const { tutorial } = settings['settings-tutorial'].property
+    const isStudent = user?.user_status === 'stud'
+
     const requiredLeftsideBarItems =
         user?.user_status === 'staff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG
     useEffect(() => {
@@ -41,7 +44,6 @@ const useSettings = () => {
                 scheduledLightTheme: appearanceProperty.scheduledLightTheme as boolean,
                 lightThemeRange: appearanceProperty.lightThemeRange as [string, string],
                 settings: settingsProperty as NotificationsSettingsType,
-                isStudent: user?.user_status === 'stud',
                 menu: {
                     value: leftsideBarRoutes,
                     additionalActions: {
@@ -59,16 +61,6 @@ const useSettings = () => {
                     },
                 },
                 theme: { value: theme === 'dark', action: (value) => switchTheme(value as boolean) },
-                phone: {
-                    value: user?.phone ?? '',
-                    description: user?.phone,
-                    action: (value) => changePhone((value ?? '') as string),
-                    additionalActions: {
-                        onSuccess: (value) => {
-                            userModel.events.update({ key: 'phone', value: value as string })
-                        },
-                    },
-                },
                 email: {
                     value: user?.email ?? '',
                     description: getValue(user?.email),
@@ -139,6 +131,57 @@ const useSettings = () => {
                             }),
                     },
                 },
+                phone: {
+                    value: user?.phone ?? '',
+                    description: user?.phone,
+                    action: (value) => {
+                        changePhone({ phone: (value ?? '') as string })
+                    },
+                    additionalActions: {
+                        onSuccess: (value) => {
+                            userModel.events.update({ key: 'phone', value: value as string })
+                        },
+                    },
+                },
+                phonebookPhone: {
+                    value: {
+                        phone_staff: user?.phone_staff,
+                        allow_mobphone_in: user?.allow_mobphone_in,
+                        allow_mobphone_out: user?.allow_mobphone_out,
+                    },
+
+                    description: user?.phone_staff,
+                    objectAction: (values) => {
+                        changeStaffPhone(values)
+                        Object.entries(values).forEach(([key, value]) => {
+                            userModel.events.update({ key, value } as {
+                                key: keyof User
+                                value: User[keyof User]
+                            })
+                        })
+                    },
+                },
+                phonebookLocation: {
+                    value:
+                        user?.subdivisions?.map((subdiv) => ({
+                            guid_staff: subdiv.guid_staff,
+                            post: subdiv.post || '',
+                            address: subdiv.address || '',
+                            room: subdiv.room || '',
+                        })) ?? [],
+                    description: user?.subdivisions?.map((subdiv) => subdiv.room).join(', ') || '-',
+                    objectAction: (values) => {
+                        changeStaffAddress(values as LocationSettingsType)
+                        if (user?.subdivisions) {
+                            const subdivisions = user?.subdivisions?.map((subdivision) => {
+                                if (subdivision.guid_staff === values.guid_staff) return { ...subdivision, ...values }
+                                else return subdivision
+                            })
+                            userModel.events.update({ key: 'subdivisions', value: subdivisions })
+                        }
+                    },
+                },
+                isStudent,
                 tutorial: {
                     state: {
                         value: tutorial as boolean,

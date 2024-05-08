@@ -4,7 +4,7 @@ import React from 'react'
 import { FiBriefcase, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
-import DivisionModal from './division-modal'
+import { GlobalDivisionModal } from './global-division-modal'
 
 const DivisionItemStyled = styled.div`
     width: 100%;
@@ -31,7 +31,7 @@ const DivisionItem = ({ division }: Props) => {
     const { open } = useModal()
 
     const handleOpenModal = () => {
-        open(<DivisionModal division={division} />, `Подразделение`)
+        open(<GlobalDivisionModal division={division} />, `Подразделение`)
     }
     return (
         <DivisionItemStyled onClick={handleOpenModal}>

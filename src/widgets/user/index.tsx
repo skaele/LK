@@ -10,8 +10,9 @@ import getImageSize from './lib/get-image-size'
 import getStatus from './lib/get-status'
 import getWidth from './lib/get-width'
 import { UserProps } from './types'
-import { SkeletonLoading, StudentModal, TeacherModal } from './ui'
+import { SkeletonLoading, StudentModal } from './ui'
 import { contextMenuModel } from '@entities/context-menu'
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 
 const UserWrapper = styled.div<{ orientation: Direction; size: Size }>`
     display: flex;
@@ -90,7 +91,7 @@ const User = (props: UserProps) => {
         } else {
             if (!isMe) {
                 contextMenuModel.events.close()
-                open(type === 'staff' ? <TeacherModal {...props} /> : <StudentModal {...props} />)
+                open(type === 'staff' ? <StaffModal {...props} /> : <StudentModal {...props} />)
             }
         }
     }

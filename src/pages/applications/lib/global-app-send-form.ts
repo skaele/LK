@@ -2,11 +2,11 @@ import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from 
 import prepareFormData from '@utils/prepare-form-data'
 import { IndexedProperties } from '@utility-types/indexed-properties'
 import { applicationsModel } from '@entities/applications'
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
 import { SelectPage } from '@features/select'
 
 const globalAppSendForm = async (
-    formId: ApplicationFormCodes,
+    formId: ApplicationFormCodes | ApplicationTeachersFormCodes,
     inputAreas: IInputArea[],
     setLoading: (loading: boolean) => void,
     setCompleted: (loading: boolean) => void,

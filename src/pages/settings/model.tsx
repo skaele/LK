@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { confirmModel } from '@entities/confirm'
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { NameSettings } from '@entities/settings/model'
 import { userModel } from '@entities/user'
+import { SelectPage } from '@features/select'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
+import sendForm from '@shared/lib/send-form'
 import { FilterElementList } from '@shared/ui/added-elements-list'
 import { MessageType } from '@shared/ui/types'
 import React from 'react'
 import { BiNews } from 'react-icons/bi'
 import { FiBell, FiClock, FiFilePlus, FiFileText, FiLogOut, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi'
-import { HiOutlineViewGridAdd } from 'react-icons/hi'
+import { HiOutlineOfficeBuilding, HiOutlineViewGridAdd } from 'react-icons/hi'
 import { MdOutlinePassword } from 'react-icons/md'
+import { Page } from 'widgets/slider-page'
 
 export type TSettingsFieldType =
     | 'link'
@@ -22,15 +26,22 @@ export type TSettingsFieldType =
     | 'password'
     | 'tel'
     | 'button'
-export type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
+    | 'select'
+    | 'address'
+    | 'cabinet'
+    | 'BS-cabinet'
+
+export type TValueFieldType = FilterElementList | LocationSettingsType[] | string[] | number[] | string | boolean
 export type TSettingsFields = {
     id?: string
     title: string
     type: TSettingsFieldType
+    options?: SelectPage[]
     action?: (value?: TValueFieldType) => void
     disabled?: boolean
     value?: TValueFieldType
     color?: string
+    editable?: boolean
     additionalActions?:
         | {
               onAdd?: (value?: TValueFieldType) => void
@@ -38,6 +49,7 @@ export type TSettingsFields = {
               onSuccess?: (value?: TValueFieldType) => void
           }
         | { [key: string]: (value?: TValueFieldType) => void }
+    objectAction?: (values: { [section: string]: string }) => void
     description?: string
     message?: { title: string; type: MessageType; body?: string }
     icon?: React.ReactNode
@@ -52,15 +64,24 @@ type TSettingsSection = {
     fields: TSettingsFields[]
 }
 
-type Prop<T> = { value: T } & Pick<TSettingsFields, 'icon' | 'description' | 'action' | 'additionalActions'>
+export type Prop<T> = { value: T } & Pick<
+    TSettingsFields,
+    'icon' | 'description' | 'action' | 'additionalActions' | 'objectAction'
+>
+
+export type LocationSettingsType = {
+    guid_staff: string
+    post: string
+    address: string
+    room: string
+}
 
 type SettingsFullProps = {
-    isStudent?: boolean
+    isStudent: boolean
     theme: Prop<boolean>
     scheduledLightTheme: boolean
     lightThemeRange: [string, string]
     email: Prop<string>
-    phone: Prop<string>
     avatar: Prop<string | undefined>
     menu: Prop<FilterElementList>
     homepage: {
@@ -81,6 +102,9 @@ type SettingsFullProps = {
         state: Prop<boolean>
         applications: Prop<boolean>
     }
+    phone: Prop<string>
+    phonebookPhone: Prop<PhoneSettingsType>
+    phonebookLocation: Prop<LocationSettingsType[]>
 }
 
 export type TFullSettingsModel = {
@@ -91,9 +115,68 @@ export type FieldProps = TSettingsFields
 
 export type TSettingsModel = (props: SettingsFullProps) => TFullSettingsModel
 
+const getPhonebookfields = (
+    isStudent: boolean,
+    phonebookPhone: Prop<PhoneSettingsType>,
+    phonebookLocation: Prop<LocationSettingsType[]>,
+): TSettingsFields[] => {
+    if (isStudent) {
+        return []
+    }
+    return [
+        {
+            id: 'phone_staff',
+            title: 'Служебный мобильный телефон',
+            type: 'tel',
+            settingsName: NameSettings['settings-personal'],
+            value: phonebookPhone?.value.phone_staff,
+            icon: <FiPhone />,
+            description: phonebookPhone.description,
+            action: phonebookPhone.action,
+            objectAction: phonebookPhone.objectAction,
+            subfields: [
+                {
+                    id: 'allow_mobphone_in',
+                    title: 'Показывать мобильный телефон внутри Личного кабинета',
+                    type: 'toggle',
+                    value: phonebookPhone?.value.allow_mobphone_in,
+                },
+                {
+                    id: 'allow_mobphone_out',
+                    title: 'Показывать мобильный телефон на сайте',
+                    type: 'toggle',
+                    value: phonebookPhone?.value.allow_mobphone_out,
+                },
+            ],
+        },
+        {
+            id: 'guid_staff',
+            title: 'Адрес рабочего места',
+            type: 'address',
+            settingsName: NameSettings['settings-personal'],
+            value: phonebookLocation?.value,
+            icon: <HiOutlineOfficeBuilding />,
+            description: phonebookLocation.description,
+            objectAction: phonebookLocation.objectAction,
+            subfields: [
+                {
+                    id: 'address',
+                    title: 'Адрес',
+                    type: 'select',
+                },
+                {
+                    id: 'room',
+                    title: 'Номер кабинета',
+                    type: 'text',
+                },
+            ],
+        },
+    ]
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSettingsModel: TSettingsModel = ({
-    // isStudent,
+    isStudent,
     theme,
     scheduledLightTheme,
     lightThemeRange,
@@ -101,6 +184,8 @@ const getSettingsModel: TSettingsModel = ({
     avatar,
     homepage,
     phone,
+    phonebookPhone,
+    phonebookLocation,
     menu,
     settings,
     tutorial,
@@ -204,7 +289,7 @@ const getSettingsModel: TSettingsModel = ({
                     action: () => null,
                 },
                 {
-                    title: 'Email',
+                    title: isStudent ? 'Email' : 'Почта для уведомлений',
                     type: 'text',
                     value: email.value,
                     icon: <FiMail />,
@@ -213,14 +298,18 @@ const getSettingsModel: TSettingsModel = ({
                     additionalActions: email.additionalActions,
                 },
                 {
+                    id: 'phone',
                     title: 'Телефон',
                     type: 'tel',
+                    settingsName: NameSettings['settings-personal'],
                     value: phone.value,
                     icon: <FiPhone />,
                     description: phone.description,
                     action: phone.action,
                     additionalActions: phone.additionalActions,
+                    objectAction: phone.objectAction,
                 },
+                ...getPhonebookfields(isStudent, phonebookPhone, phonebookLocation),
                 {
                     title: 'Пароль',
                     type: 'password',

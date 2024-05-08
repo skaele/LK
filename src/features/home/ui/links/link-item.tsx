@@ -6,10 +6,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const LinkItemStyled = styled(Link)<{ color: string }>`
+const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
     width: 100%;
-    max-width: 93px;
     height: 100%;
+    max-width: ${({ amount }) => amount > 6 && '93.25px'};
     /* background: var(--block); */
     display: flex;
     align-items: center;
@@ -78,12 +78,13 @@ const LinkItemStyled = styled(Link)<{ color: string }>`
 
 type Props = {
     item: IRoute
+    amount: number
 }
 
-const LinkItem = ({ item }: Props) => {
+const LinkItem = ({ item, amount }: Props) => {
     const { icon, color, path, title, notifications, menuPath } = item
     return (
-        <LinkItemStyled to={menuPath ?? path} color={Colors[color].transparent3}>
+        <LinkItemStyled to={menuPath ?? path} color={Colors[color].transparent3} amount={amount}>
             <Icon badge={notifications?.toString()} color={color} size={35}>
                 {icon}
             </Icon>

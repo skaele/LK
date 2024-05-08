@@ -1,3 +1,4 @@
+import { BUILDINGS, Buildings } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
 import Masks from '@shared/lib/masks'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -42,6 +43,12 @@ const useInput = (
                 setValue(Masks.phoneMask(e))
             } else if (type === 'email') {
                 setValue(emailMask(e.target.value))
+            } else if (type === 'cabinet') {
+                const buildingsKeysArray = Object.keys(BUILDINGS) as Buildings[]
+                const type = buildingsKeysArray.find((key) => e.target.value.startsWith(key))
+                setValue(Masks.cabinetMask(e.target.value, type || ''))
+            } else if (type === 'innerPhone') {
+                setValue(Masks.innerPhoneMask(e.target.value))
             } else setValue(e.target.value)
         } else setValue(e.target.value)
 
@@ -64,8 +71,6 @@ const useInput = (
                 setDanger(result)
             }
         }
-
-        setValue(e.target.value)
     }
 
     const buttonOnClick = () => setInputType((prev) => (prev === 'password' ? 'text' : 'password'))

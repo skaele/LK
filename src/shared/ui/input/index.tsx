@@ -119,6 +119,7 @@ interface Props {
     autocomplete?: boolean
     danger?: boolean
     alertMessage?: string
+    minLength?: number
     maxLength?: number
     minValue?: number | string
     maxValue?: number | string
@@ -149,6 +150,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         autocomplete = false,
         minValue = undefined,
         maxValue = undefined,
+        minLength = undefined,
         maxLength = undefined,
         hideCross = false,
         stepSize = 0.1,
@@ -187,6 +189,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
                 id={placeholder}
                 min={minValue}
                 max={maxValue}
+                minLength={minLength}
                 maxLength={maxLength}
                 step={stepSize ?? undefined}
                 type={inputType}

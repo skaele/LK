@@ -1,21 +1,8 @@
-import { createEvent, createStore } from 'effector'
 import React from 'react'
-import { BsArrowUpRightCircleFill } from 'react-icons/bs'
 import styled from 'styled-components'
 
-export const setTrainingVisible = createEvent<boolean>()
-export const $trStore = createStore(false).on(setTrainingVisible, (_, payload) => payload)
-
-export const BrightPlate = () => {
-    return (
-        <Layout
-            onClick={() => {
-                setTrainingVisible(true)
-            }}
-        >
-            Начать обучение <BsArrowUpRightCircleFill size={25} />
-        </Layout>
-    )
+export const BrightPlate = ({ onClick, children }: { children: React.ReactNode; onClick: () => void }) => {
+    return <Layout onClick={onClick}>{children}</Layout>
 }
 
 const Layout = styled.button`
@@ -43,10 +30,10 @@ const Layout = styled.button`
             #19e0b0 66%,
             #1bef89 100%
         ),
-        linear-gradient(90deg, #34aaff 0%, #19e0b0 53%, #1bef89 100%),
-        /* linear-gradient(90deg, #ce42ff 0%, #ff6176 53.5%, #ffa41d 100%), */
-            linear-gradient(90deg, #b0aeff 0%, #e987d2 50%, #f58290 100%),
-        linear-gradient(270deg, #243766, #4657b9, #46a4b9, #5d46b9), linear-gradient(270deg, #246655, #46b99b, #46a4b9);
+        linear-gradient(90deg, #34aaff 0%, #19e0b0 53%, #1bef89 100%);
+    /* linear-gradient(90deg, #ce42ff 0%, #ff6176 53.5%, #ffa41d 100%), */
+    /* linear-gradient(90deg, #b0aeff 0%, #e987d2 50%, #f58290 100%),
+        linear-gradient(270deg, #243766, #4657b9, #46a4b9, #5d46b9), linear-gradient(270deg, #246655, #46b99b, #46a4b9); */
 
     font-family: 'Montserrat';
     font-style: normal;

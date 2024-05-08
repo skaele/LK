@@ -13,7 +13,8 @@ import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent, Wrapper } from './styled'
-import { Training } from 'widgets/tutorial'
+import { TutorialHero } from 'widgets/tutorial'
+import { useSetTutorial } from 'widgets/tutorial/lib/useSetTutorial'
 
 const ContentLayout = () => {
     const {
@@ -29,6 +30,7 @@ const ContentLayout = () => {
     }
 
     useScrollToTop(pageContentRef.current!)
+    useSetTutorial()
 
     return (
         <Wrapper>
@@ -55,7 +57,7 @@ const ContentLayout = () => {
             <Confirm />
             <ContextMenu />
             <HintModal />
-            <Training />
+            <TutorialHero />
             <PopUpNotifications />
         </Wrapper>
     )

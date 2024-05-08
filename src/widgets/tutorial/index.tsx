@@ -1,24 +1,26 @@
 import React from 'react'
 
 import TrainingPic from '../../shared/images/tutorial-picture.jpg'
-import { Buttons, Text, Title, TrainingLayout, TrainingWelcome, TrainingWelcomeText } from './ui/welcome-text'
 import { Button } from '@shared/ui/button'
 import { Colors } from '@shared/constants'
 import { useUnit } from 'effector-react'
-import { $trStore, setTrainingVisible } from '@pages/home/ui/bright-plate'
+import { tutorialModel } from '@entities/tutorial'
+import { Buttons, Text, Title, Hero, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'
 
-export const Training = () => {
-    const trainingVisible = useUnit($trStore)
+export const TutorialHero = () => {
+    const [heroVisited, setTutorialState, setHeroVisited] = useUnit([
+        tutorialModel.stores.heroVisited,
+        tutorialModel.events.setTutorialState,
+        tutorialModel.events.setHeroVisited,
+    ])
 
-    if (!trainingVisible) {
-        return null
-    }
+    if (heroVisited) return null
 
     return (
-        <TrainingLayout onMouseUp={() => setTrainingVisible(false)}>
-            <TrainingWelcome onMouseUp={(e) => e.stopPropagation()}>
+        <TutorialHeroLayout onMouseUp={() => setHeroVisited(true)}>
+            <Hero onMouseUp={(e) => e.stopPropagation()}>
                 <img height="440px" src={TrainingPic} />
-                <TrainingWelcomeText>
+                <TutorialHeroText>
                     <Title>Привет!</Title>
                     <Text>
                         В Личном кабинете появилось обучение. Пройдя его, ты познакомишься с основными моментами и
@@ -37,7 +39,10 @@ export const Training = () => {
                             textColor="#B5BDFF"
                             hoverTextColor="#9EA8F8"
                             text="Отказаться"
-                            onClick={() => setTrainingVisible(false)}
+                            onClick={() => {
+                                setTutorialState(false)
+                                setHeroVisited(true)
+                            }}
                         />
                         <Button
                             padding="16px 36px"
@@ -47,11 +52,14 @@ export const Training = () => {
                             background={Colors.blue.light1}
                             hoverBackground="#6E7AE0"
                             textColor="white"
-                            onClick={() => setTrainingVisible(false)}
+                            onClick={() => {
+                                setTutorialState(true)
+                                setHeroVisited(true)
+                            }}
                         />
                     </Buttons>
-                </TrainingWelcomeText>
-            </TrainingWelcome>
-        </TrainingLayout>
+                </TutorialHeroText>
+            </Hero>
+        </TutorialHeroLayout>
     )
 }

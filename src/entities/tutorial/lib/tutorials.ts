@@ -1,6 +1,10 @@
-export type Tutorial = {
+import { HOME_ROUTE } from '@app/routes/general-routes'
+
+export type Module = {
     id: TutorialId
+    completed: boolean
     steps: TutorialStep[]
+    path: string
 }
 
 export type TutorialStep = {
@@ -9,10 +13,12 @@ export type TutorialStep = {
 }
 
 export type TutorialId = 'intro'
+export type ModuleData = Pick<Module, 'id' | 'steps' | 'path'>
 
-export const tutorials: Tutorial[] = [
+export const commonTutorials: ModuleData[] = [
     {
         id: 'intro',
+        path: HOME_ROUTE,
         steps: [
             {
                 title: 'Боковая панель',
@@ -59,3 +65,6 @@ export const tutorials: Tutorial[] = [
         ],
     },
 ]
+
+export const staffTutorials: ModuleData[] = []
+export const studTutorials: ModuleData[] = []

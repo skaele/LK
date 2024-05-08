@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TrainingLayout = styled.div`
+export const TutorialHeroLayout = styled.div`
     position: fixed;
     width: 100%;
     height: 100%;
@@ -11,7 +11,7 @@ export const TrainingLayout = styled.div`
     align-items: center;
 `
 
-export const TrainingWelcomeText = styled.div`
+export const TutorialHeroText = styled.div`
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -19,7 +19,7 @@ export const TrainingWelcomeText = styled.div`
     padding: 30px 40px 30px 60px;
 `
 
-export const TrainingWelcome = styled.div`
+export const Hero = styled.div`
     position: relative;
     display: flex;
     border-radius: 15px;

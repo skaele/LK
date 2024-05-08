@@ -18,38 +18,42 @@ export type TutorialComponent = {
 export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const Wrapper: React.FC<P & WrapperProps> = (props) => {
         const portal = document.getElementById('portal')
+        const root = document.getElementById('root')
 
         const { desiredId, desiredStep } = props
         const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 })
         const [position, setPosition] = useState<{ top: number; left: number } | null>(null)
 
         const handleRef = useCallback((node: HTMLDivElement | null) => {
-            if (!node) return
+            if (!node || !root) return
             const measureDOMNode = () => {
                 const rect = node.getBoundingClientRect()
                 setDimensions({ width: rect.width, height: rect.height })
                 setPosition({ top: rect.top, left: rect.left })
             }
             measureDOMNode()
+
+            const mutationObserver = new MutationObserver(measureDOMNode)
+            mutationObserver.observe(root, { childList: true, subtree: true })
             window.addEventListener('resize', measureDOMNode)
             window.addEventListener('scroll', measureDOMNode, true)
         }, [])
-        // const [visible, setVisible] = useState(true)
-        const [tutorialState, [currentTutorial, currentStep]] = useUnit([
+        const [tutorialState, currentModule, currentStep] = useUnit([
             tutorialModel.stores.tutorialState,
-            tutorialModel.stores.currentTutorial,
+            tutorialModel.stores.currentModule,
+            tutorialModel.stores.currentStep,
         ])
 
-        const { title, description } = currentTutorial.steps[currentStep]
+        if (!portal || !position || !tutorialState || !currentModule)
+            return <WrappedComponent forwardedRef={handleRef} {...props} />
+
+        const { title, description } = currentModule.steps[currentStep]
 
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
-                {portal &&
-                    tutorialState &&
-                    position &&
-                    desiredStep === currentStep &&
-                    desiredId === currentTutorial.id &&
+                {desiredStep === currentStep &&
+                    desiredId === currentModule.id &&
                     ReactDOM.createPortal(
                         <Layout
                             $width={dimensions.width}
@@ -68,7 +72,6 @@ export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComp
                                 </Title>
                                 <Description>{description}</Description>
                             </Hint>
-                            {/* {visible && <Dark onClick={() => setVisible(false)} />} */}
                         </Layout>,
                         portal,
                     )}
@@ -89,16 +92,6 @@ const Layout = styled.div<{ $width: number; $height: number; $top: number; $left
     z-index: 5000;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 10000px;
-`
-
-export const Dark = styled.div`
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 1000;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
 `
 
 const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import TrainingPic from '../../shared/images/training-picture.jpg'
+import TrainingPic from '../../shared/images/tutorial-picture.jpg'
 import { Buttons, Text, Title, TrainingLayout, TrainingWelcome, TrainingWelcomeText } from './ui/welcome-text'
 import { Button } from '@shared/ui/button'
 import { Colors } from '@shared/constants'

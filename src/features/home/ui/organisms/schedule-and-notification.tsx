@@ -2,7 +2,7 @@ import List from '@ui/list'
 import React from 'react'
 import PaymentsWidget from '../molecules/payments-widget'
 import { ScheduleWidget } from '../schedule-widget'
-import { TutorialWrapper } from 'widgets/training/ui/wrapper'
+import { TutorialWrapper } from 'widgets/tutorial/ui/wrapper'
 import { useUnit } from 'effector-react'
 import { userSettingsModel } from '@entities/settings'
 

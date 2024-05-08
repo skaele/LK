@@ -17,6 +17,8 @@ import { NotificationsSettingsType } from '@entities/settings/lib/get-default-se
 import { useHistory } from 'react-router'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 import { User } from '@shared/api/model'
+import { tutorialModel } from '@entities/tutorial'
+import { useUnit } from 'effector-react'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -33,7 +35,7 @@ const useSettings = () => {
     const { property: settingsProperty } = settings['settings-notifications']
     const { property: appearanceProperty } = settings['settings-appearance']
     const { widgetPayment, widgetSchedule, news } = settings['settings-home-page'].property
-    const { tutorial } = settings['settings-tutorial'].property
+    const tutorialState = useUnit(tutorialModel.stores.tutorialState)
     const isStudent = user?.user_status === 'stud'
 
     const requiredLeftsideBarItems =
@@ -184,13 +186,8 @@ const useSettings = () => {
                 isStudent,
                 tutorial: {
                     state: {
-                        value: tutorial as boolean,
-                        action: (state) =>
-                            settingsModel.events.updateSetting({
-                                nameSettings: 'settings-tutorial',
-                                nameParam: 'tutorial',
-                                value: !!state,
-                            }),
+                        value: !!tutorialState,
+                        action: (state) => tutorialModel.events.setTutorialState(state as boolean),
                     },
                     applications: {
                         value: false,

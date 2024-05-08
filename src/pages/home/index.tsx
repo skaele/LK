@@ -15,7 +15,7 @@ import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import HomeTopPlate from './ui/home-top-plate'
 import { useUnit } from 'effector-react'
-import { BrightPlate } from './ui/bright-plate'
+import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -66,7 +66,7 @@ const Home = () => {
             <HomePageStyled>
                 <GlobalAppSearch />
                 <Links links={homeRoutes} />
-                <BrightPlate />
+                <TutorialActionPlate />
                 <CenterPage>
                     <Block
                         noAppearanceInMobile

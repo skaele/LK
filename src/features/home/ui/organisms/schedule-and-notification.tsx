@@ -13,7 +13,7 @@ const ScheduleAndNotification = () => {
     return (
         <List direction="horizontal" title="Виджеты" showPages gap={10} visible={!!widgetSchedule || !!widgetPayment}>
             {widgetSchedule && <ScheduleWidget />}
-            {widgetPayment && <PaymentsWidget desiredId="intro" desiredStep={9} />}
+            {widgetPayment && <PaymentsWidget desiredId="intro" desiredStep={0} />}
         </List>
     )
 }

@@ -11,7 +11,7 @@ export enum NameSettings {
     'settings-appearance' = 'settings-appearance',
     'settings-customize-menu' = 'settings-customize-menu',
     'settings-notifications' = 'settings-notifications',
-    'settings-training' = 'settings-training',
+    'settings-tutorial' = 'settings-tutorial',
 }
 
 export type Param = {

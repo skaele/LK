@@ -96,7 +96,7 @@ export const SETTINGS_SECURITY_ROUTE = SETTINGS_ROUTE + '/security'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home-page'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
-export const SETTINGS_TRAINING = SETTINGS_ROUTE + '/training'
+export const SETTINGS_TRAINING = SETTINGS_ROUTE + '/tutorial'
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
 export const ALERTS_ROUTE = '/alerts'
@@ -596,8 +596,8 @@ export const generalHiddenRoutes: IRoutes = {
 
         backButtonText: 'Настройки',
     },
-    'settings-training': {
-        id: 'settings-training',
+    'settings-tutorial': {
+        id: 'settings-tutorial',
         title: 'Настройки. Обучение',
         icon: <HiOutlineAcademicCap />,
         path: SETTINGS_TRAINING,

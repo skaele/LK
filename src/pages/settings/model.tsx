@@ -77,7 +77,7 @@ type SettingsFullProps = {
         applications: boolean
         doclist: boolean
     }
-    training: {
+    tutorial: {
         state: Prop<boolean>
         applications: Prop<boolean>
     }
@@ -103,7 +103,7 @@ const getSettingsModel: TSettingsModel = ({
     phone,
     menu,
     settings,
-    training,
+    tutorial,
 }) => ({
     'settings-appearance': [
         {
@@ -305,15 +305,15 @@ const getSettingsModel: TSettingsModel = ({
             ],
         },
     ],
-    'settings-training': [
+    'settings-tutorial': [
         {
             title: 'Общее',
             fields: [
                 {
                     title: 'Процесс обучения',
                     type: 'toggle',
-                    value: training.state.value,
-                    action: training.state.action,
+                    value: tutorial.state.value,
+                    action: tutorial.state.action,
                 },
                 {
                     title: 'Сбросить обучение',
@@ -332,7 +332,7 @@ const getSettingsModel: TSettingsModel = ({
                 {
                     title: 'Цифровые сервисы',
                     type: 'link',
-                    action: training.applications.action,
+                    action: tutorial.applications.action,
                 },
                 {
                     title: 'Оплата общежития',

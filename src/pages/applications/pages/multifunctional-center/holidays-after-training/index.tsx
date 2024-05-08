@@ -9,6 +9,7 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { applicationsModel } from '@entities/applications'
+import { userModel } from '@entities/user'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -21,9 +22,13 @@ const ApplicationHolidaysAfterTraining = () => {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
 
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
+
     useEffect(() => {
-        if (!!dataUserApplication) {
-            setForm(getForm(dataUserApplication))
+        if (!!dataUserApplication && !!user) {
+            setForm(getForm(dataUserApplication, user))
         }
     }, [dataUserApplication])
 

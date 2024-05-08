@@ -1,13 +1,3 @@
-// First tut: 2 parts
-// 1. Sidebar: profile, search, quick menu and logo
-// 2. Main Page: search, quick menu (different from sidebar), notifications, widgets
-
-// I need to find elements I want to highlight
-// I need to write tutorial texts
-// I need to implement stepper
-
-// How do I store elements??
-
 export type Tutorial = {
     id: TutorialId
     steps: TutorialStep[]

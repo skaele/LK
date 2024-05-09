@@ -14,7 +14,7 @@ import { FiCheck, FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useUnit } from 'effector-react'
-import { withWrapper } from 'widgets/tutorial/lib/withWrapper'
+import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
 
 const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
     max-width: 400px;
@@ -138,7 +138,7 @@ const countPayment = (contracts: PaymentsContract[]) => {
     return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
 }
 
-const PaymentsWidget = withWrapper(({ forwardedRef }) => {
+const PaymentsWidget = withTutorial(({ forwardedRef }) => {
     const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
     if (error) return <ErrorMessage />

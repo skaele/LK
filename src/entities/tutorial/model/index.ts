@@ -1,42 +1,88 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Module, TutorialId, commonTutorials } from '../lib/tutorials'
 
-const modulesResponse: Pick<Module, 'id' | 'completed'>[] = [
-    {
-        id: 'intro',
+type Modules = { [id in TutorialId]: Module }
+const modulesResponse: { [id in TutorialId]: Pick<Module, 'completed'> } = {
+    intro: {
         completed: false,
     },
-]
-
-const modules: Module[] = modulesResponse
-    .map((module) => {
-        const tutorial = commonTutorials.find((tutorial) => tutorial.id === module.id)
-        if (!tutorial) return false
-
-        return {
-            ...tutorial,
-            ...module,
-        }
-    })
-    .filter(Boolean) as Module[] // почему он такой тупой??
+}
+const modules: Modules = Object.entries(commonTutorials).reduce((acc, [id, common]) => {
+    acc[id as TutorialId] = {
+        id: id as TutorialId,
+        completed: modulesResponse[id as TutorialId].completed,
+        steps: common.steps,
+        path: common.path,
+    }
+    return acc
+}, {} as Modules)
 
 const setTutorialState = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
 const setTutorialDelay = createEvent<{ till: Date; name: TutorialId }>()
 const completeModule = createEvent<TutorialId>()
+const setCurrentTutorial = createEvent<TutorialId>()
+const nextStep = createEvent()
+const prevStep = createEvent()
 
 const $tutorialState = createStore<boolean | null>(null).on(setTutorialState, (_, value) => value)
 const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => value)
 const $currentModule = createStore<Module | null>(null)
 const $currentStep = createStore<number>(0)
-const $tutorials = createStore<Module[]>(modules).on(completeModule, (state, id) => state.filter((t) => t.id !== id))
+const $tutorials = createStore<Modules>(modules).on(completeModule, (state, id) => ({
+    ...state,
+    [id]: {
+        ...state[id],
+        completed: true,
+    },
+}))
 
-const setCurrentTutorial = createEvent<TutorialId>()
+sample({
+    clock: nextStep,
+    source: {
+        currentStep: $currentStep,
+        currentModule: $currentModule,
+    },
+    fn: ({ currentStep, currentModule }) => {
+        if (!currentModule) return 0
+        const nextStep = currentStep + 1
+        if (currentModule?.steps.length <= nextStep) return 0
+        return nextStep
+    },
+    target: $currentStep,
+})
+// sample({
+//     clock: nextStep,
+//     source: {
+//         currentStep: $currentStep,
+//         currentModule: $currentModule,
+//     },
+//     fn: ({ currentStep, currentModule }) => {
+//         if (!currentModule) return
+//         const nextStep = currentStep + 1
+//         if (currentModule?.steps.length <= nextStep) return currentModule.id
+//     },
+//     target: completeModule,
+// })
+sample({
+    clock: prevStep,
+    source: {
+        currentStep: $currentStep,
+        currentModule: $currentModule,
+    },
+    fn: ({ currentStep, currentModule }) => {
+        if (!currentModule) return 0
+        const prevStep = currentStep - 1
+        if (prevStep < 0) return currentStep
+        return prevStep
+    },
+    target: $currentStep,
+})
 sample({
     clock: setCurrentTutorial,
     source: $tutorials,
     fn: (tutorials, id) => {
-        const tutorial = tutorials.find((t) => t.id === id)
+        const tutorial = tutorials[id]
         if (!tutorial) return null
         return tutorial
     },
@@ -56,4 +102,6 @@ export const events = {
     setHeroVisited,
     completeModule,
     setCurrentTutorial,
+    nextStep,
+    prevStep,
 }

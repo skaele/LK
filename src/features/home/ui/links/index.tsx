@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import LinkItem from './link-item'
 import { Divider } from '@shared/ui/divider'
 import { menuModel } from '@entities/menu'
+import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
 
 const LinksStyled = styled.div<{ componentHeight?: number }>`
     width: 100%;
@@ -33,9 +34,9 @@ const LinksStyled = styled.div<{ componentHeight?: number }>`
 
 type Props = {
     links: IRoutes
-}
+} & TutorialComponent
 
-const Links = ({ links }: Props) => {
+const Links = withTutorial(({ links, forwardedRef }: Props) => {
     const linksKeysArray = Object.keys(links)
     const { allRoutes } = menuModel.selectors.useMenu()
 
@@ -51,7 +52,7 @@ const Links = ({ links }: Props) => {
     const linksAmount = Object.keys(links).length
 
     return (
-        <LinksStyled componentHeight={longestTitleLength}>
+        <LinksStyled ref={forwardedRef} componentHeight={longestTitleLength}>
             {linksKeysArray.map((key, index) => {
                 return (
                     <React.Fragment key={key}>
@@ -66,6 +67,6 @@ const Links = ({ links }: Props) => {
             <LinkItem amount={linksAmount} item={allRoutes['all']} />
         </LinksStyled>
     )
-}
+})
 
 export default Links

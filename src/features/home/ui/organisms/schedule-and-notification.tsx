@@ -8,12 +8,10 @@ const ScheduleAndNotification = () => {
     const { widgetSchedule, widgetPayment } =
         settingsModel.selectors.useSettings().settings['settings-home-page'].property
 
-    // const lessons = schedule?.today
-
     return (
         <List direction="horizontal" title="Виджеты" showPages gap={10} visible={!!widgetSchedule || !!widgetPayment}>
             {widgetSchedule && <ScheduleWidget />}
-            {widgetPayment && <PaymentsWidget desiredId="intro" desiredStep={0} />}
+            {widgetPayment && <PaymentsWidget tutorialModule={{ id: 'intro', step: 9 }} />}
         </List>
     )
 }

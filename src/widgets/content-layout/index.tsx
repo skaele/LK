@@ -14,7 +14,7 @@ import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent, Wrapper } from './styled'
 import { TutorialHero } from 'widgets/tutorial'
-import { useSetTutorial } from 'widgets/tutorial/lib/useSetTutorial'
+import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
 
 const ContentLayout = () => {
     const {
@@ -36,7 +36,7 @@ const ContentLayout = () => {
         <Wrapper>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
-            <LeftsideBar />
+            <LeftsideBar tutorialModule={{ id: 'intro', step: 0 }} />
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent

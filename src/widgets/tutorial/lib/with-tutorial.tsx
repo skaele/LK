@@ -5,26 +5,30 @@ import { tutorialModel } from '@entities/tutorial'
 import { TutorialId } from '@entities/tutorial/lib/tutorials'
 import styled from 'styled-components'
 import { Title } from '@shared/ui/title'
+import { Button } from '@shared/ui/button'
+import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
+import Flex from '@shared/ui/flex'
 
-interface WrapperProps {
-    desiredId: TutorialId
-    desiredStep: number
+export interface TutorialWrapperProps {
+    tutorialModule?: {
+        id: TutorialId
+        step: number
+    }
 }
 
 export type TutorialComponent = {
-    forwardedRef?: (node: HTMLDivElement | null) => void
+    forwardedRef?: (node: HTMLElement | null) => void
 }
 
-export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
-    const Wrapper: React.FC<P & WrapperProps> = (props) => {
+export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
+    const Wrapper: React.FC<P & TutorialWrapperProps> = (props) => {
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
 
-        const { desiredId, desiredStep } = props
         const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 })
         const [position, setPosition] = useState<{ top: number; left: number } | null>(null)
 
-        const handleRef = useCallback((node: HTMLDivElement | null) => {
+        const handleRef = useCallback((node: HTMLElement | null) => {
             if (!node || !root) return
             const measureDOMNode = () => {
                 const rect = node.getBoundingClientRect()
@@ -44,16 +48,17 @@ export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComp
             tutorialModel.stores.currentStep,
         ])
 
-        if (!portal || !position || !tutorialState || !currentModule)
+        if (!portal || !position || !tutorialState || !currentModule || !props.tutorialModule)
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         const { title, description } = currentModule.steps[currentStep]
+        const { id, step } = props.tutorialModule
 
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
-                {desiredStep === currentStep &&
-                    desiredId === currentModule.id &&
+                {step === currentStep &&
+                    id === currentModule.id &&
                     ReactDOM.createPortal(
                         <Layout
                             $width={dimensions.width}
@@ -71,6 +76,19 @@ export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComp
                                     {title}
                                 </Title>
                                 <Description>{description}</Description>
+                                <Buttons jc="flex-end" gap="20px">
+                                    <Button
+                                        background="transparent"
+                                        icon={<FaArrowLeftLong />}
+                                        onClick={() => tutorialModel.events.prevStep()}
+                                    />
+                                    {currentStep + 1} / {currentModule.steps.length}
+                                    <Button
+                                        background="transparent"
+                                        icon={<FaArrowRightLong />}
+                                        onClick={() => tutorialModel.events.nextStep()}
+                                    />
+                                </Buttons>
                             </Hint>
                         </Layout>,
                         portal,
@@ -84,29 +102,37 @@ export const withWrapper = <P,>(WrappedComponent: ComponentType<P & TutorialComp
 
 const Layout = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`
     position: fixed;
-    width: ${({ $width }) => $width + 20}px;
-    height: ${({ $height }) => $height + 20}px;
     top: ${({ $top }) => $top - 10}px;
     left: ${({ $left }) => $left - 10}px;
+    z-index: 6;
+
+    width: ${({ $width }) => $width + 20}px;
+    height: ${({ $height }) => $height + 20}px;
+
     padding: 10px;
-    z-index: 5000;
+
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 10000px;
 `
 
 const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`
-    background: linear-gradient(0deg, rgba(95, 109, 236, 0.6), rgba(95, 109, 236, 0.6)), rgba(35, 35, 36, 0.7);
-    backdrop-filter: blur(6.5px);
-    border-radius: 15px;
-    z-index: 5001;
     position: fixed;
-    padding: 20px 30px;
     top: ${({ $top }) => $top - 10}px;
     left: ${({ $left, $width }) => $left + $width + 20}px;
+    z-index: 6;
+
+    border-radius: 15px;
+
+    margin: 20px 10px 10px 20px;
+    padding: 20px 30px;
+
+    color: #f4f4f4;
+    background: linear-gradient(0deg, rgba(95, 109, 236, 0.6), rgba(95, 109, 236, 0.6)), rgba(35, 35, 36, 0.7);
+    backdrop-filter: blur(6.5px);
+
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
-    color: #f4f4f4;
     font-size: 16px;
     line-height: 20px;
 `
@@ -114,4 +140,8 @@ const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: 
 const Description = styled.div`
     font-size: 12px;
     line-height: 140%;
+`
+
+const Buttons = styled(Flex)`
+    left: 0;
 `

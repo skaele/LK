@@ -39,6 +39,7 @@ export type TSettingsFields = {
     visible?: boolean
     subfields?: TSettingsFields[]
     searchable?: boolean
+    disabled?: boolean
 }
 
 type TSettingsSection = {

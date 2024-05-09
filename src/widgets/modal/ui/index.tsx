@@ -7,6 +7,7 @@ import useCoreModal from '../lib/hooks/use-core-modal'
 import ModalContent from './atoms/modal-content'
 import ModalWrapper from './atoms/modal-wrapper'
 import useShortCutKeys from '@shared/lib/hooks/use-short-cut-keys'
+import { createPortal } from 'react-dom'
 
 const Content = styled.div`
     padding-top: 30px;
@@ -23,7 +24,7 @@ const Modal = () => {
         close()
     })
 
-    return (
+    return createPortal(
         <ModalWrapper isOpen={isValid}>
             <ModalContent isOpen={isValid} ref={ref} hasBack={canBack} hasTitle={!!title}>
                 {canBack && (
@@ -57,7 +58,8 @@ const Modal = () => {
 
                 <Content>{Component}</Content>
             </ModalContent>
-        </ModalWrapper>
+        </ModalWrapper>,
+        document.getElementById('root')!,
     )
 }
 

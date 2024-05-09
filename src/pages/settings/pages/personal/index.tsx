@@ -14,6 +14,9 @@ import { Wrapper } from '../styled'
 import ToggleItem from '@shared/ui/toggle-item'
 import { userSettingsModel } from '@entities/settings'
 import { confirmModel } from '@entities/confirm'
+import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
+import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
+import { isProduction } from '@shared/constants'
 
 const PersonalSettings = () => {
     const {
@@ -71,6 +74,8 @@ const PersonalSettings = () => {
                         },
                     }}
                 />
+                <BusinessMobilePhone />
+                <WorkPlaceAddress />
                 <PasswordField
                     icon={<MdOutlinePassword />}
                     type="password"
@@ -78,29 +83,31 @@ const PersonalSettings = () => {
                     description={'Смена пароля'}
                 />
             </div>
-            <div>
-                <Title {...TITLE_CONFIG}>Синхронизация</Title>
-                <ToggleItem
-                    title={'Сохранить настройки на всех устройствах'}
-                    state={isGlobalSyncEnabled}
-                    action={(isEnabled) => {
-                        const message = isEnabled
-                            ? 'Вы точно хотите синхронизировать настройки? Текущие настройки будут использоваться на всех устройствах.'
-                            : 'Вы точно хотите отключить синхронизацию настроек на всех устройствах?'
+            {!isProduction && (
+                <div>
+                    <Title {...TITLE_CONFIG}>Синхронизация</Title>
+                    <ToggleItem
+                        title={'Сохранить для всех устройств'}
+                        state={isGlobalSyncEnabled}
+                        action={(isEnabled) => {
+                            const message = isEnabled
+                                ? 'Вы точно хотите синхронизировать настройки? Текущие настройки будут использоваться на всех устройствах.'
+                                : 'Вы точно хотите отключить синхронизацию настроек на всех устройствах? Настройки на текущем устройстве не изменятся.'
 
-                        confirmModel.events.evokeConfirm({
-                            message,
-                            isSubmitSuccess: isEnabled,
-                            onConfirm: () => {
-                                userSettingsModel.events.update({
-                                    syncAcrossAllDevices: isEnabled,
-                                })
-                                confirmModel.events.closeConfirm()
-                            },
-                        })
-                    }}
-                />
-            </div>
+                            confirmModel.events.evokeConfirm({
+                                message,
+                                isSubmitSuccess: isEnabled,
+                                onConfirm: () => {
+                                    userSettingsModel.events.update({
+                                        syncAcrossAllDevices: isEnabled,
+                                    })
+                                    confirmModel.events.closeConfirm()
+                                },
+                            })
+                        }}
+                    />
+                </div>
+            )}
         </Wrapper>
     )
 }

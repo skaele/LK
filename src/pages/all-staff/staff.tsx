@@ -3,32 +3,12 @@ import { SubdivisionItem } from './subdivision-item'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
 import { useModal } from 'widgets'
-import { PhonebookInfo, PhonebookModal } from './ui/phonebook-modal'
+import { PhonebookModal } from './ui/phonebook-modal'
 import { ScrollWrapper } from './styled'
-import { Employee } from '@shared/api/model/phonebook'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
-
-const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
-    employee.job.map((job) => ({
-        subtitle: job.subdivision + ' • ' + job.post,
-        attributes: [
-            {
-                id: 'jobType',
-                title: 'Тип работы',
-                text: job.jobType,
-            },
-            {
-                id: 'email',
-                title: 'Корпоративная электронная почта',
-                text: job.email,
-            },
-            { id: 'innerPhone', title: 'Внутренний телефон', text: job.phone_inner },
-            { id: 'mobile', title: 'Служебный мобильный телефон', text: job.phone_direct },
-            { title: 'Адрес рабочего места', text: job.address },
-            { title: 'Номер кабинета', text: job.room },
-        ],
-    }))
+import { getEmployeeInfo } from './lib/get-employee-info'
+import { getSubdivisionInfo } from './lib/get-subdivision-info'
 
 export const Staff = () => {
     const query = useQueryParams()
@@ -45,10 +25,7 @@ export const Staff = () => {
 
     const searchedEmployees = useMemo(() => {
         if (fio && subdivisions) {
-            const employees = findEmployeeByFio(
-                chosenSubdivision ? [chosenSubdivision] : subdivisions,
-                fio.toLowerCase(),
-            )
+            const employees = findEmployeeByFio(chosenSubdivision ? [chosenSubdivision] : subdivisions, fio)
             return employees
         }
         return []
@@ -83,34 +60,7 @@ export const Staff = () => {
                 title="Информация"
                 items={[chosenSubdivision]}
                 action={() => {
-                    open(
-                        <PhonebookModal
-                            title={chosenSubdivision.name}
-                            info={[
-                                {
-                                    attributes: [
-                                        { title: 'Руководитель', text: chosenSubdivision.head.fio },
-                                        {
-                                            title: 'Корпоративная электронная почта подразделения',
-                                            text: chosenSubdivision.email,
-                                        },
-                                        {
-                                            id: 'innerPhone',
-                                            title: 'Внутренний телефон',
-                                            text: chosenSubdivision.phone_inner,
-                                        },
-                                        {
-                                            id: 'mobile',
-                                            title: 'Прямой телефон',
-                                            text: chosenSubdivision.phone_direct,
-                                        },
-                                        { title: 'Адрес рабочего места', text: chosenSubdivision.address },
-                                        { title: 'Номер кабинета', text: chosenSubdivision.room },
-                                    ],
-                                },
-                            ]}
-                        />,
-                    )
+                    open(<PhonebookModal title={chosenSubdivision.name} info={getSubdivisionInfo(chosenSubdivision)} />)
                 }}
             />
             {chosenSubdivision?.head?.fio && (

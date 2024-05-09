@@ -118,6 +118,7 @@ const login = createEvent<LoginData>()
 const logout = createEvent()
 const clear = createEvent()
 const update = createEvent<{ key: keyof User; value: User[keyof User] }>()
+const updateBulk = createEvent<Partial<User>>()
 const changeSavePassword = createEvent<{ savePassword: boolean }>()
 
 forward({ from: login, to: getUserTokenFx })
@@ -183,6 +184,10 @@ const $userStore = createStore(DEFAULT_STORE)
         ...oldData,
         currentUser: oldData.currentUser ? { ...oldData.currentUser, [key]: value } : null,
     }))
+    .on(updateBulk, (oldData, newData) => ({
+        ...oldData,
+        currentUser: oldData.currentUser ? { ...oldData.currentUser, ...newData } : null,
+    }))
     .on(clear, (oldData) => ({
         ...oldData,
         currentUser: null,
@@ -209,6 +214,7 @@ export const events = {
     changeSavePassword,
     clear,
     update,
+    updateBulk,
 }
 
 export const effects = {

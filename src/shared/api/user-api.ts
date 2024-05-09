@@ -61,12 +61,12 @@ export const changeEmail = async (newEmail: string) => {
     })
 }
 
-export const changePhone = async (fields: { [name: string]: string }) => {
+export const changePhone = async (newPhone: string) => {
     const formData = new FormData()
-    Object.entries(fields).forEach(([key, value]) => {
-        formData.set(key, value)
-    })
+
+    formData.set('phone', newPhone)
     formData.set('token', getToken())
+
     return $api.post(`?changePhone=1`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
@@ -74,7 +74,7 @@ export const changePhone = async (fields: { [name: string]: string }) => {
     })
 }
 
-export const changeStaffPhone = async (data: PhoneSettingsType) => {
+export const changeStaffPhoneApi = async (data: PhoneSettingsType) => {
     const formData = new FormData()
     formData.set('token', getToken())
     formData.set('phone', data.phone_staff || '')
@@ -87,7 +87,7 @@ export const changeStaffPhone = async (data: PhoneSettingsType) => {
     })
 }
 
-export const changeStaffAddress = async (data: LocationSettingsType) => {
+export const changeStaffAddressApi = async (data: LocationSettingsType) => {
     const formData = new FormData()
     formData.set('token', getToken())
     formData.set('guid', data.guid_staff)

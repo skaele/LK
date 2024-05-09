@@ -1,7 +1,7 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication } from '@api/model'
+import { User, UserApplication } from '@api/model'
 
-const getForm = (dataUserApplication: UserApplication): IInputArea => {
+const getForm = (dataUserApplication: UserApplication, user: User): IInputArea => {
     return {
         title: 'Предоставление каникул в связи с окончанием университета',
         data: [
@@ -27,16 +27,16 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 title: 'Срок предоставления каникул c',
                 type: 'date',
                 fieldName: 'time-before',
-                value: '',
-                editable: true,
+                value: user.vacation_start || '',
+                editable: user.vacation_start ? false : true,
                 required: true,
             },
             {
                 title: 'по',
                 type: 'date',
                 fieldName: 'time-to',
-                value: '',
-                editable: true,
+                value: user.vacation_end || '',
+                editable: user.vacation_end ? false : true,
                 required: true,
             },
             {
@@ -47,7 +47,11 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 editable: true,
             },
         ],
-        hint: 'Точные сроки предоставления каникул уточняйте в своем отделении Центра по работе со студентами',
+        ...(user.vacation_end && user.vacation_start
+            ? {}
+            : {
+                  hint: 'Точные сроки предоставления каникул уточняйте в своем отделении Центра по работе со студентами',
+              }),
         documents: { files: [], fieldName: 'docs', maxFiles: 6, required: false },
     }
 }

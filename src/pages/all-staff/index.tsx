@@ -23,7 +23,11 @@ const AllStaff = () => {
     const subdivision = query.get('subdivision') || ''
     const fio = query.get('fio') || ''
     const history = useHistory()
-    const [subdivisions, error] = useUnit([phonebookModel.stores.subdivisions, phonebookModel.stores.error])
+    const [subdivisions, error, subdivisionsLoading] = useUnit([
+        phonebookModel.stores.subdivisions,
+        phonebookModel.stores.error,
+        phonebookModel.stores.pedningGetSubdividions,
+    ])
 
     useEffect(() => {
         if (subdivision && subdivisions?.find) {
@@ -94,6 +98,7 @@ const AllStaff = () => {
                         load={() => {
                             phonebookModel.events.getSubdivisions()
                         }}
+                        loading={subdivisionsLoading}
                         couldBeReloaded
                     >
                         <Grid columns={isMobile ? '1fr' : '4fr 7fr'} rows="1fr" columnGap="20px">

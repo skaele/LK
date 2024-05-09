@@ -23,6 +23,8 @@ export type StudentAccount = {
     course?: string
     educationForm?: EducationFormT
     finance?: string
+    vacation_start?: string
+    vacation_end?: string
     degreeLevel?: string
 }
 

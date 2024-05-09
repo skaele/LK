@@ -17,7 +17,6 @@ export const PageLinkWrapper = styled(BlockWrapper)<{
     color: string
     isVertical: boolean
     hasNotifications: boolean
-    isActive?: boolean
 }>`
     position: relative;
     cursor: pointer;
@@ -38,6 +37,34 @@ export const PageLinkWrapper = styled(BlockWrapper)<{
         font-weight: bold;
         color: #fff;
         padding: 5px 10px;
+    }
+
+    &[data-selected='true'] {
+        .outside {
+            .more-button {
+                opacity: 1;
+                visibility: visible;
+            }
+            .notification-circle {
+                opacity: 0;
+            }
+
+            .icon {
+                box-shadow: 0 20px 210px 60px ${({ color }) => Colors[color as keyof IColors].main};
+                transform: ${({ isVertical }) => isVertical && 'scale(1.1) translateY(20px)'};
+            }
+
+            b {
+                opacity: ${({ hasNotifications, isVertical }) => isVertical && hasNotifications && 0};
+                transform: ${({ isVertical }) => isVertical && 'scale(0.95) translateY(40%)'};
+                color: ${({ isVertical }) => (isVertical ? '#fff' : 'var(--text)')};
+            }
+
+            .notifications-title {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
     }
 
     .more-button {
@@ -157,7 +184,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             shadow={shadow}
             color={color.length ? color : 'blue'}
             hasNotifications={!!notifications}
-            isActive={props.isActive}
+            data-selected={props.isActive}
         >
             {(isOldLkPage || isExternalPage) && isVertical && (
                 <LinkIcon>

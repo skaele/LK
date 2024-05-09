@@ -2,7 +2,7 @@ import ChangePassword from '@features/change-password'
 import { FieldProps } from '../../types'
 import React from 'react'
 import { useModal } from 'widgets'
-import TextFieldItem from '../text-field/text-field-item'
+import TextFieldItem from '../../../../shared/ui/text-field/text-field-item'
 
 const PasswordField = (props: FieldProps) => {
     const { open } = useModal()

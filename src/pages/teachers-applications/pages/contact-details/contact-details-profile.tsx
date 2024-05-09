@@ -1,5 +1,5 @@
 import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
-import TextFieldItem from '@pages/settings/ui/text-field/text-field-item'
+import TextFieldItem from '@shared/ui/text-field/text-field-item'
 import { User } from '@shared/api/model'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
@@ -8,6 +8,8 @@ import React from 'react'
 import { FaRegEdit } from 'react-icons/fa'
 import { FiMail, FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
+import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
+import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
 
 export const ContactDetailsProfile = ({ user }: { user: User }) => {
     const history = useHistory()
@@ -35,6 +37,8 @@ export const ContactDetailsProfile = ({ user }: { user: User }) => {
                         rightIcon={<FaRegEdit />}
                         onClick={() => history.push(EDIT_PHONEBOOK_INNER_PHONE)}
                     />
+                    <BusinessMobilePhone />
+                    <WorkPlaceAddress subDivisionGuidStaff={subdiv.guid_staff} />
                     {/* <TextField
                         id="phone_staff"
                         title="Служебный мобильный телефон"
@@ -72,14 +76,14 @@ export const ContactDetailsProfile = ({ user }: { user: User }) => {
                         settingsName={NameSettings['settings-personal']}
                         title="Адрес места работы"
                         type="address"
-                        value={
-                            user?.subdivisions?.map((subdiv) => ({
+                        value={[
+                            {
                                 guid_staff: subdiv.guid_staff,
                                 post: subdiv.post || '',
                                 address: subdiv.address || '',
                                 room: subdiv.room || '',
-                            })) ?? []
-                        }
+                            },
+                        ]}
                         icon={<HiOutlineOfficeBuilding />}
                         description={subdiv.address + ', ' + subdiv.room}
                         objectAction={(values) => {

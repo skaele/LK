@@ -72,15 +72,14 @@ export const MEMO_FRESHMEN_ROUTE = '/memo-freshmen'
 export const GET_YOUR_LOGIN_ROUTE = '/get-your-login'
 export const MEMO_TEACHER_ROUTE = '/memo-teacher'
 
-export const SETTINGS_ROUTE = '/settings'
+export const SETTINGS_ROUTE = '/configurations'
 export const TEMPLATE_SETTINGS_ROUTE = SETTINGS_ROUTE + '/:id'
-export const SETTINGS_APPEARANCE_ROUTE = SETTINGS_ROUTE + '/appearance'
-export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/personal'
-export const SETTINGS_SECURITY_ROUTE = SETTINGS_ROUTE + '/security'
-export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/home'
+export const SETTINGS_APPEARANCE_ROUTE = SETTINGS_ROUTE + '/settings-appearance'
+export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/settings-personal'
+export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-home-page'
+export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-customize-menu'
+export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/settings-notifications'
 
-export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/customize-menu'
-export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/notifications'
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
 export const SOFTSKILLS_ROUTE = '/softskills'
@@ -245,7 +244,7 @@ export const generalRoutes: IRoutes = {
         icon: <FiSettings />,
         path: SETTINGS_ROUTE,
         Component: SettingsPage,
-        color: 'grey',
+        color: 'lightGreen',
         isTemplate: true,
         show: true,
         group: 'GENERAL',

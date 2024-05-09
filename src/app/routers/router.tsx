@@ -8,6 +8,7 @@ import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
+import { phonebookModel } from '@entities/phonebook'
 
 const Router = () => {
     const {
@@ -30,6 +31,7 @@ const Router = () => {
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()
+                phonebookModel.events.getSubdivisions()
                 loadDivisions()
             }
             peTeacherModel.events.load()

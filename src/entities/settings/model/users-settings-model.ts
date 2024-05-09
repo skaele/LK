@@ -88,8 +88,13 @@ sample({
 })
 
 sample({
-    source: { settings: $userSettings, userStore: userModel.stores.user },
-    filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings?.syncAcrossAllDevices),
+    source: {
+        settings: $userSettings,
+        userStore: userModel.stores.user,
+        isSettingsLoadedFromServer: serverSettingsQuery.$succeeded,
+    },
+    filter: ({ userStore, settings, isSettingsLoadedFromServer }) =>
+        Boolean(userStore.currentUser && settings?.syncAcrossAllDevices && isSettingsLoadedFromServer),
     fn: ({ settings }) => {
         return settings!
     },

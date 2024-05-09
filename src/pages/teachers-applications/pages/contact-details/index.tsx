@@ -4,8 +4,8 @@ import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
 import { applicationsModel } from '@entities/applications'
 import { useHistory } from 'react-router'
-import { PHONEBOOK } from '@app/routes/teacher-routes'
-import PhonebookForm from './form'
+import { CONTACT_DETAILS } from '@app/routes/teacher-routes'
+import ContactDetailsForm from './form'
 import { LinkField } from '@pages/settings/ui'
 
 const ContactDetails = () => {

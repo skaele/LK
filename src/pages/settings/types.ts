@@ -13,6 +13,14 @@ export type TSettingsFieldType =
     | 'password'
     | 'tel'
 type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
+
+export type LocationSettingsType = {
+    guid_staff: string
+    post: string
+    address: string
+    room: string
+}
+
 export type TSettingsFields = {
     title: string
     type: TSettingsFieldType

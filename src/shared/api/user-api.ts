@@ -3,7 +3,7 @@ import getToken from '@shared/lib/token'
 import axios from 'axios'
 import { ADName, User, UserToken } from './model'
 import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
-import { LocationSettingsType } from '@pages/settings/model'
+import { LocationSettingsType } from '@pages/settings/types'
 
 export type LoginData = { login: string; password: string }
 

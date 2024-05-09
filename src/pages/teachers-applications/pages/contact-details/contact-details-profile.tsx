@@ -1,20 +1,13 @@
-import { TextField } from '@pages/settings/fields'
+import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
+import TextFieldItem from '@pages/settings/ui/text-field/text-field-item'
 import { User } from '@shared/api/model'
-import { changeStaffAddress, changeStaffPhone } from '@shared/api/user-api'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
 import React from 'react'
-import { FiMail, FiPhone } from 'react-icons/fi'
-import { NameSettings } from '@entities/settings/model'
-import { userModel } from '@entities/user'
-import { HiOutlineOfficeBuilding } from 'react-icons/hi'
-import { LocationSettingsType } from '@pages/settings/model'
-import TextFieldItem from '@pages/settings/fields/text-field/text-field-item'
 import { FaRegEdit } from 'react-icons/fa'
+import { FiMail, FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
-import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
-import { AddressField } from '@pages/settings/fields/address-field'
 
 export const ContactDetailsProfile = ({ user }: { user: User }) => {
     const history = useHistory()
@@ -42,7 +35,7 @@ export const ContactDetailsProfile = ({ user }: { user: User }) => {
                         rightIcon={<FaRegEdit />}
                         onClick={() => history.push(EDIT_PHONEBOOK_INNER_PHONE)}
                     />
-                    <TextField
+                    {/* <TextField
                         id="phone_staff"
                         title="Служебный мобильный телефон"
                         type="tel"
@@ -112,7 +105,7 @@ export const ContactDetailsProfile = ({ user }: { user: User }) => {
                                 type: 'text',
                             },
                         ]}
-                    />
+                    /> */}
                     {index < user.subdivisions!.length - 1 && <Divider margin="16px 0" width="100%" />}
                 </Flex>
             ))}

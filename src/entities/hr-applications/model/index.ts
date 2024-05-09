@@ -26,6 +26,7 @@ const useApplications = () => {
         error: error,
     }
 }
+
 const getApplicationsFx = createEffect(async (): Promise<HrApplication[]> => {
     const response = await hrApplicationApi.get()
     try {

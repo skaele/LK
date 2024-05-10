@@ -22,26 +22,8 @@ const ThemeToggle = ({ type, onClick }: Props) => {
     const themeWord = isLight ? 'Светлая' : 'Темная'
     const text = `Тема: ${themeWord}`
 
-    // const [toggles, setToggles] = useState<ToggleItem[]>([
-    //     {
-    //         title: '',
-    //         state: !isLight,
-    //         action: (isDark: boolean) => switchTheme({ isDark }),
-    //     },
-    // ])
-
-    // useEffect(() => {
-    //     setToggles([
-    //         {
-    //             title: 'Темная тема',
-    //             state: !isLight,
-    //             action: (isDark: boolean) => switchTheme({ isDark }),
-    //         },
-    //     ])
-    // }, [theme])
-
     const changeTheme = () => {
-        switchTheme({ isDark: !isLight })
+        switchTheme({ isDark: isLight })
         onClick?.()
     }
 

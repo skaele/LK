@@ -24,7 +24,7 @@ export const DEFAULT_STUDENT_MOBILE_CONFIG = ['home', 'schedule', 'acad-performa
 export const DEFAULT_PPS_MOBILE_CONFIG = ['home', 'schedule', 'alerts', 'all', 'profile']
 export const DEFAULT_STAFF_MOBILE_CONFIG = ['home', 'doclist', 'alerts', 'all', 'profile']
 
-const getLeftsideBarConfig = (user: User | null, settings: UserSettings): MenuType => {
+const getLeftsideBarConfig = (user: User | null, settings: UserSettings, adminLinks: AdminLinks | null): MenuType => {
     if (!user) return []
 
     const settingsMenuData = settings.customizeMenu.pages ?? REQUIRED_LEFTSIDE_BAR_CONFIG
@@ -35,7 +35,11 @@ const getLeftsideBarConfig = (user: User | null, settings: UserSettings): MenuTy
 
     const settingsDataToBeSet =
         user?.user_status === 'staff' && settingsMenuData.some((item) => !uniqueRequiredTeacherMenuItems.includes(item))
-            ? [...settingsMenuData, ...uniqueRequiredTeacherMenuItems]
+            ? [
+                  ...uniqueRequiredTeacherMenuItems,
+                  ...(Object.keys(adminLinks ?? {}).length ? ['download-agreements'] : []),
+                  ...settingsMenuData,
+              ]
             : settingsMenuData
 
     return settingsDataToBeSet
@@ -93,7 +97,7 @@ const $leftSidebar = combine(
         if (!user || !settings) return null
 
         return findRoutesByConfig(
-            getLeftsideBarConfig(user.currentUser, settings!),
+            getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
             user.currentUser?.user_status === 'staff'
                 ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },

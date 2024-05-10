@@ -1,5 +1,6 @@
 import { superiorRoomApi } from '@api'
 import { SuperiorRoom } from '@api/model'
+import { userModel } from '@entities/user'
 import { createEffect, createStore, createEvent } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { forward } from 'effector/effector.mjs'
@@ -45,8 +46,6 @@ const getSuperiorRoomFx = createEffect(async (): Promise<SuperiorRoom> => {
     }
 })
 
-const clearStore = createEvent()
-
 const $superiorRoomStore = createStore<SuperiorRoomStore>(DEFAULT_STORE)
     .on(getSuperiorRoomFx, (oldData) => ({
         ...oldData,
@@ -60,7 +59,7 @@ const $superiorRoomStore = createStore<SuperiorRoomStore>(DEFAULT_STORE)
         ...oldData,
         error: newData.message,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -73,5 +72,4 @@ export const effects = {
 }
 export const events = {
     postSuperiorRoom,
-    clearStore,
 }

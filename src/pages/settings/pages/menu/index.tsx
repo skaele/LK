@@ -1,7 +1,6 @@
 import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
-import { addPageToSidebar, deletePageFromSidebar } from '@features/all-pages/model'
+import { $requiredSidebarItems, addPageToSidebar, deletePageFromSidebar } from '@features/all-pages/model'
 import CustomizeMenu from '@features/customize-menu'
 import AddedElementsList, { FilterElementList } from '@shared/ui/added-elements-list'
 import { Title } from '@shared/ui/title'
@@ -14,7 +13,7 @@ const MenuSettings = () => {
     const [settings, menu, requiredList] = useUnit([
         userSettingsModel.stores.userSettings,
         menuModel.stores.menu,
-        userModel.stores.requiredSidebarItems,
+        $requiredSidebarItems,
     ])
 
     const { open } = useModal()
@@ -35,7 +34,7 @@ const MenuSettings = () => {
                     open(
                         <CustomizeMenu
                             enabledListStore={menuModel.stores.leftSidebar}
-                            requiredListStore={userModel.stores.requiredSidebarItems}
+                            requiredListStore={$requiredSidebarItems}
                             remove={(pageId) => deletePageFromSidebar({ pageId })}
                             add={(pageId) => addPageToSidebar({ pageId })}
                         />,

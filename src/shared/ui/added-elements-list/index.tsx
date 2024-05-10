@@ -118,13 +118,23 @@ interface Props {
     padding?: string
     height?: string
     setList?: React.Dispatch<React.SetStateAction<FilterElementList>>
+    hideWithEmpty?: boolean
 }
 
-const AddedElementsList = ({ list, onAddElement, onRemoveAll, onRemoveOne, padding, height, setList }: Props) => {
+const AddedElementsList = ({
+    list,
+    onAddElement,
+    onRemoveAll,
+    onRemoveOne,
+    padding,
+    height,
+    setList,
+    hideWithEmpty,
+}: Props) => {
     const listKeys = Object.keys(list ?? {})
     const { removeAll, removeOne, setRemoveAll, setRemoveOne } = useFilterList(listKeys, setList)
 
-    if (!listKeys.length) return null
+    if (!listKeys.length && hideWithEmpty) return null
 
     return (
         <AddedElementsListWrapper removeAll={removeAll || closed} padding={padding} height={height}>
@@ -147,9 +157,8 @@ const AddedElementsList = ({ list, onAddElement, onRemoveAll, onRemoveOne, paddi
                                         onRemoveAll?.()
                                     } else {
                                         setRemoveOne(el.id)
-
-                                        onRemoveOne(el.id)
                                     }
+                                    onRemoveOne(el.id)
                                 }}
                             >
                                 <FiX />
@@ -157,7 +166,7 @@ const AddedElementsList = ({ list, onAddElement, onRemoveAll, onRemoveOne, paddi
                         </Element>
                     )
             })}
-            {listKeys.length && !!onRemoveAll && (
+            {Boolean(listKeys.length) && !!onRemoveAll && (
                 <Element
                     background={'var(--reallyBlue)'}
                     color="#fff"

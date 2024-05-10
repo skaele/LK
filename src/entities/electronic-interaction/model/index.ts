@@ -3,6 +3,7 @@ import { ElectronicInteraction } from '@api/model'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { MessageType } from '@shared/ui/types'
+import { userModel } from '@entities/user'
 
 const getElectronicInteraction = createEvent()
 const postElectronicInteraction = createEvent()
@@ -53,8 +54,6 @@ const getElectronicInteractionFx = createEffect(async (): Promise<ElectronicInte
 sample({ clock: postElectronicInteraction, target: postElectronicInteractionFx })
 sample({ clock: getElectronicInteraction, target: getElectronicInteractionFx })
 
-const clearStore = createEvent()
-
 const $loading = getElectronicInteractionFx.pending
 const $workerLoading = postElectronicInteractionFx.pending
 const $completed = createStore<boolean>(false).on(changeCompleted, (_, completed) => completed)
@@ -64,7 +63,7 @@ const $error = createStore<string | null>(null)
     .on(getElectronicInteractionFx.failData, (_, newData) => newData.message)
 const $electronicInteractionStore = createStore<ElectronicInteraction | null>(null)
     .on(getElectronicInteractionFx.doneData, (_, newData) => newData)
-    .on(clearStore, () => null)
+    .on(userModel.stores.userGuid, () => null)
 
 export const stores = {
     $error,
@@ -79,5 +78,4 @@ export const events = {
     getElectronicInteraction,
     postElectronicInteraction,
     changeCompleted,
-    clearStore,
 }

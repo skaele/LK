@@ -4,6 +4,7 @@ import { useStore } from 'effector-react/compat'
 import { EMPTY_WEEK, View } from '../consts'
 import { getGroupSchedule } from '../lib/get-group-schedule'
 import { getTeacherSchedule } from '../lib/get-teacher-schedule'
+import { userModel } from '@entities/user'
 
 const DEFAULT_STORE: ISchedule = {
     data: {
@@ -59,7 +60,6 @@ const getTeacherScheduleFx = createEffect(async ({ fullName }: { fullName: strin
 const changeCurrentModule = createEvent<{ currentModule: keyof IFullSchedule }>()
 const changeView = createEvent<View>()
 const changeCurrentChosenDay = createEvent<{ day: number }>()
-const clearStore = createEvent()
 const setFilter = createEvent<string>()
 const setSearchValue = createEvent<string>()
 const resetExternalSchedule = createEvent()
@@ -82,7 +82,7 @@ const $schedule = createStore(DEFAULT_STORE)
         ...oldState,
         currentChosenDay: newState.day,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -190,7 +190,6 @@ export const events = {
     changeCurrentModule,
     changeView,
     changeCurrentChosenDay,
-    clearStore,
     resetExternalSchedule,
     setSearchValue,
     setFilter,

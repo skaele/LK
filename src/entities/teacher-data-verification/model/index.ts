@@ -1,5 +1,6 @@
 import { teacherDataVerificationApi } from '@api'
 import { TeacherDataVerification } from '@api/model'
+import { userModel } from '@entities/user'
 import { createEffect, createStore, createEvent } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { forward } from 'effector/effector.mjs'
@@ -50,8 +51,6 @@ const getTeacherDataVerificationFx = createEffect(async (): Promise<TeacherDataV
     }
 })
 
-const clearStore = createEvent()
-
 const $teacherDataVerificationStore = createStore<TeacherDataVerificationStore>(DEFAULT_STORE)
     .on(getTeacherDataVerificationFx, (oldData) => ({
         ...oldData,
@@ -69,7 +68,7 @@ const $teacherDataVerificationStore = createStore<TeacherDataVerificationStore>(
         ...oldData,
         completed: newData.completed,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -84,5 +83,4 @@ export const effects = {
 export const events = {
     postTeacherDataVerification,
     changeCompleted,
-    clearStore,
 }

@@ -1,3 +1,4 @@
+import { userModel } from '@entities/user'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
@@ -23,7 +24,6 @@ const useConfirm = () => {
 const evokeConfirm = createEvent<Omit<Confirm, 'isOpen'>>()
 
 const closeConfirm = createEvent()
-const clearStore = createEvent()
 
 const $confirm = createStore<Confirm>(DEFAULT_STORE)
     .on(evokeConfirm, (oldState, { message, onReject, onConfirm, isSubmitSuccess }) => ({
@@ -37,7 +37,7 @@ const $confirm = createStore<Confirm>(DEFAULT_STORE)
         ...oldState,
         isOpen: false,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -48,5 +48,4 @@ export const selectors = {
 export const events = {
     evokeConfirm,
     closeConfirm,
-    clearStore,
 }

@@ -1,10 +1,20 @@
+import { adminLinksModel } from '@entities/admin-links'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
-import { SIDEBAR_ITEMS_LIMIT_SIZE } from '@shared/constants'
-import { createEvent, sample } from 'effector'
+import {
+    REQUIRED_HOME_PAGES_CONFIG,
+    REQUIRED_LEFTSIDE_BAR_CONFIG,
+    REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG,
+    SIDEBAR_ITEMS_LIMIT_SIZE,
+} from '@shared/constants'
+import { combine, createEvent, sample } from 'effector'
 
 export const addPageToHome = createEvent<{ pageId: string }>()
 export const deletePageFromHome = createEvent<{ pageId: string }>()
+export const $homePages = combine(userSettingsModel.stores.userSettings, (settings) => [
+    ...REQUIRED_HOME_PAGES_CONFIG,
+    ...(settings?.homePage.pages ?? []),
+])
 
 sample({
     clock: addPageToHome,
@@ -38,6 +48,26 @@ sample({
 
 export const addPageToSidebar = createEvent<{ pageId: string }>()
 export const deletePageFromSidebar = createEvent<{ pageId: string }>()
+export const $requiredSidebarItems = combine(
+    userModel.stores.user,
+    adminLinksModel.store,
+    ({ currentUser }, { data }) => {
+        if (currentUser?.status === '') {
+            return REQUIRED_LEFTSIDE_BAR_CONFIG
+        }
+
+        const config = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG
+
+        return Object.keys(data ?? {}).length ? [...config, 'download-agreements'] : config
+    },
+)
+export const $sidebarItems = combine(
+    $requiredSidebarItems,
+    userSettingsModel.stores.userSettings,
+    (required, settings) => {
+        return [...required, ...(settings?.customizeMenu.pages || [])]
+    },
+)
 
 sample({
     clock: addPageToSidebar,
@@ -58,7 +88,7 @@ sample({
     clock: deletePageFromSidebar,
     source: {
         settings: userSettingsModel.stores.userSettings,
-        requiredSidebarItems: userModel.stores.requiredSidebarItems,
+        requiredSidebarItems: $requiredSidebarItems,
     },
     filter: ({ settings, requiredSidebarItems }, { pageId }) =>
         Boolean(settings) && !requiredSidebarItems.includes(pageId),

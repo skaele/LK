@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { SETTINGS_PAGES } from '../contants'
 import { useRouteMatch } from 'react-router'
 import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
+import { MEDIA_QUERIES } from '@shared/constants'
 
 export const SettingsList = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
@@ -13,7 +14,7 @@ export const SettingsList = () => {
     if (!allRoutes) return null
 
     return (
-        <Wrapper>
+        <Wrapper data-is-base-settings-page={!pathParams?.id}>
             {SETTINGS_PAGES.map((id) => (
                 <PageLink
                     {...allRoutes[id]}
@@ -33,4 +34,14 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        &[data-is-base-settings-page='false'] {
+            display: none;
+        }
+
+        &[data-is-base-settings-page='true'] {
+            flex: 1;
+        }
+    }
 `

@@ -1,7 +1,15 @@
 import { IRoute } from '@app/routes/general-routes'
 import { contextMenuModel } from '@entities/context-menu'
-import { userSettingsModel } from '@entities/settings'
-import { addPageToHome, addPageToSidebar, deletePageFromHome, deletePageFromSidebar } from '@features/all-pages/model'
+import {
+    $homePages,
+    $requiredSidebarItems,
+    $sidebarItems,
+    addPageToHome,
+    addPageToSidebar,
+    deletePageFromHome,
+    deletePageFromSidebar,
+} from '@features/all-pages/model'
+import { REQUIRED_HOME_PAGES_CONFIG } from '@shared/constants'
 import { Button } from '@ui/button'
 import { Divider } from '@ui/divider'
 import { useUnit } from 'effector-react'
@@ -12,9 +20,13 @@ import Icon from '../all-pages/ui/atoms/icon'
 
 const ContextContent = (props: IRoute) => {
     const { id, icon, title, color } = props
-    const settings = useUnit(userSettingsModel.stores.userSettings)
-    const isAddedToHome = settings?.homePage.pages.includes(id)
-    const isAddedToMenu = settings?.customizeMenu.pages.includes(id)
+    const [home, sidebar, requiredSidebar] = useUnit([$homePages, $sidebarItems, $requiredSidebarItems])
+
+    const isAddedToHome = home.includes(id)
+    const isAddedToMenu = sidebar.includes(id)
+
+    const isRequiredSidebar = requiredSidebar.includes(id)
+    const isRequiredHome = REQUIRED_HOME_PAGES_CONFIG.includes(id)
 
     const handleAddToHome = () => {
         addPageToHome({ pageId: id })
@@ -35,47 +47,49 @@ const ContextContent = (props: IRoute) => {
                 <PageName>{title}</PageName>
             </div>
             <Divider />
-            {isAddedToHome ? (
-                <Button
-                    text="Убрать с главной"
-                    icon={<FiXCircle />}
-                    width="100%"
-                    align="left"
-                    background="var(--block)"
-                    onClick={() => {
-                        deletePageFromHome({ pageId: id })
-                        contextMenuModel.events.close()
-                    }}
-                />
-            ) : (
-                <Button
-                    text="Добавить на главную"
-                    icon={<FiPlus />}
-                    width="100%"
-                    align="left"
-                    background="var(--block)"
-                    onClick={handleAddToHome}
-                />
-            )}
-            {!isAddedToMenu ? (
-                <Button
-                    text="Добавить в меню"
-                    icon={<FiPlus />}
-                    width="100%"
-                    align="left"
-                    background="var(--block)"
-                    onClick={handleAddToMenu}
-                />
-            ) : (
-                <Button
-                    text="Убрать из меню"
-                    icon={<FiXCircle />}
-                    width="100%"
-                    align="left"
-                    background="var(--block)"
-                    onClick={() => deletePageFromSidebar({ pageId: id })}
-                />
-            )}
+            {!isRequiredHome &&
+                (isAddedToHome ? (
+                    <Button
+                        text="Убрать с главной"
+                        icon={<FiXCircle />}
+                        width="100%"
+                        align="left"
+                        background="var(--block)"
+                        onClick={() => {
+                            deletePageFromHome({ pageId: id })
+                            contextMenuModel.events.close()
+                        }}
+                    />
+                ) : (
+                    <Button
+                        text="Добавить на главную"
+                        icon={<FiPlus />}
+                        width="100%"
+                        align="left"
+                        background="var(--block)"
+                        onClick={handleAddToHome}
+                    />
+                ))}
+            {!isRequiredSidebar &&
+                (!isAddedToMenu ? (
+                    <Button
+                        text="Добавить в меню"
+                        icon={<FiPlus />}
+                        width="100%"
+                        align="left"
+                        background="var(--block)"
+                        onClick={handleAddToMenu}
+                    />
+                ) : (
+                    <Button
+                        text="Убрать из меню"
+                        icon={<FiXCircle />}
+                        width="100%"
+                        align="left"
+                        background="var(--block)"
+                        onClick={() => deletePageFromSidebar({ pageId: id })}
+                    />
+                ))}
         </ContextContentWrapper>
     )
 }

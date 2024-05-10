@@ -7,7 +7,6 @@ import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null
@@ -193,9 +192,7 @@ const $userStore = createStore(DEFAULT_STORE)
         currentUser: null,
     }))
 
-const $requiredSidebarItems = $userStore.map(({ currentUser }) =>
-    currentUser?.status === 'stuff' ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG,
-)
+const $userGuid = $userStore.map(({ currentUser }) => currentUser?.guid)
 
 export const selectors = {
     useUser: () => {
@@ -223,6 +220,6 @@ export const effects = {
 }
 
 export const stores = {
-    requiredSidebarItems: $requiredSidebarItems,
     user: $userStore,
+    userGuid: $userGuid,
 }

@@ -32,6 +32,7 @@ const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, 
     return (
         <TableWrapper>
             <AddedElementsList
+                hideWithEmpty
                 setList={setFilterList}
                 padding="0 10px"
                 list={filterList}

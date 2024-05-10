@@ -33,7 +33,7 @@ type WorkPlaceAddressModalProps = {
 }
 
 export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddressModalProps) => {
-    const { close } = useModal()
+    const { close, isOpen } = useModal()
     const {
         loading,
         user: { currentUser },
@@ -71,12 +71,28 @@ export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddress
         setRoom(selectedSubdivision?.room)
     }, [selectedSubdivision])
 
+    useEffect(() => {
+        if (address?.title !== selectedSubdivision?.address) {
+            setRoom(Masks.cabinetMask('', getCabinetMask(address?.title || '')))
+            return
+        }
+
+        setRoom(selectedSubdivision?.room)
+    }, [address])
+
     const pages =
         currentUser?.subdivisions?.map((subdivision) => ({
             id: subdivision.guid_staff,
             title: subdivision.post ?? '',
             content: <></>,
         })) ?? []
+
+    useEffect(() => {
+        if (isOpen) {
+            setAddress(findCurrentInSelect(sites, selectedSubdivision?.address ?? ''))
+            setRoom(selectedSubdivision?.room)
+        }
+    }, [isOpen])
 
     return (
         <TextFieldModalStyled>

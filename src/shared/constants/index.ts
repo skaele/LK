@@ -29,7 +29,8 @@ export const ADDITIONAL_MENU_ITEMS_LIMIT_SIZE = 3
 export const SIDEBAR_ITEMS_LIMIT_SIZE = 7
 
 export const REQUIRED_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
-export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'download-agreements', 'all']
+export const REQUIRED_HOME_PAGES_CONFIG = ['all']
+export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
 
 export const UNION_ORGANIZATION = 'https://lk.eseur.ru/signup'
 export const RECEPTION_COMMISSION =

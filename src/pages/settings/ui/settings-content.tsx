@@ -7,19 +7,16 @@ import { FiSettings } from 'react-icons/fi'
 import { Route, Switch, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import { SETTINGS_PAGES } from '../contants'
+import { MEDIA_QUERIES } from '@shared/constants'
 
 export const SettingsContent = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
-    const params = useRouteMatch(TEMPLATE_SETTINGS_ROUTE)?.params as { id: string | undefined }
+    const pathParams = useRouteMatch<{ id?: string }>(TEMPLATE_SETTINGS_ROUTE)?.params
 
     if (!allRoutes) return null
 
-    // if (settingsConfig === undefined) {
-    //     return null
-    // }
-
     return (
-        <SettingsContentWrapper open={!!params?.id}>
+        <SettingsContentWrapper data-is-base-settings-page={!pathParams?.id}>
             <SettingsContentStyled>
                 <Switch>
                     {SETTINGS_PAGES.map((name) => (
@@ -44,15 +41,21 @@ export const SettingsContent = () => {
     )
 }
 
-const SettingsContentWrapper = styled.div<{ open: boolean }>`
+const SettingsContentWrapper = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
     flex-direction: column;
     display: flex;
 
-    @media (max-width: 768px) {
-        display: ${({ open }) => (open ? 'flex' : 'none')};
+    ${MEDIA_QUERIES.isMobile} {
+        &[data-is-base-settings-page='false'] {
+            flex: 1;
+        }
+
+        &[data-is-base-settings-page='true'] {
+            display: none;
+        }
     }
 `
 
@@ -60,5 +63,10 @@ const SettingsContentStyled = styled.div`
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    overflow: hidden;
     padding: 0 32px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        padding: 0;
+    }
 `

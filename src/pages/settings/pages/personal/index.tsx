@@ -74,8 +74,12 @@ const PersonalSettings = () => {
                         },
                     }}
                 />
-                <BusinessMobilePhone />
-                <WorkPlaceAddress />
+                {currentUser?.user_status === 'staff' && (
+                    <>
+                        <BusinessMobilePhone />
+                        <WorkPlaceAddress />
+                    </>
+                )}
                 <PasswordField
                     icon={<MdOutlinePassword />}
                     type="password"

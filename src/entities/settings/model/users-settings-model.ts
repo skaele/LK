@@ -21,8 +21,8 @@ const saveSettingsGlobalFx = createEffect((settings: UserSettings) => {
 const getSettingsFx = attach({
     source: { userStore: userModel.stores.user, serverSettingsQueryData: serverSettingsQuery.$data },
     effect: ({ userStore: { currentUser }, serverSettingsQueryData }): UserSettings => {
-        const userId = currentUser?.guid
-        const newSettings = localStorage.getItem(getSettingsKey(userId ?? ''))
+        const userGuid = currentUser?.guid
+        const newSettings = localStorage.getItem(getSettingsKey(userGuid ?? ''))
         const defaultSettings = getDefaultNewSettings(currentUser?.user_status === 'staff')
 
         if (serverSettingsQueryData?.syncAcrossAllDevices) {
@@ -36,22 +36,33 @@ const getSettingsFx = attach({
             if (!oldSettingsString) return defaultSettings
 
             const oldSettings = JSON.parse(oldSettingsString) as SettingsOldType
-            const value = oldSettings[userId ?? '']
+            // old settings uses php user id, new using guid
+            const value = oldSettings[currentUser?.id ?? '']
 
             if (!value) {
                 return defaultSettings
             }
 
+            const homePage = {
+                pages: value?.['settings-home-page'].property.pages ?? defaultSettings.homePage.pages,
+                hasNews: value?.['settings-home-page'].property.news ?? defaultSettings.homePage.hasNews,
+                hasSchedule:
+                    value?.['settings-home-page'].property.widgetSchedule ?? defaultSettings.homePage.hasPayment,
+
+                hasPayment: value?.['settings-home-page'].property.widgetPayment ?? defaultSettings.homePage.hasPayment,
+            } as UserSettings['homePage']
+
             return {
+                homePage,
                 appearance: value?.['settings-appearance']?.property ?? defaultSettings.appearance,
                 customizeMenu: value?.['settings-customize-menu'].property ?? defaultSettings.customizeMenu,
-                homePage: value?.['settings-home-page'].property ?? defaultSettings.homePage,
                 notifications: value?.['settings-notifications'].property ?? defaultSettings.notifications,
                 syncAcrossAllDevices: defaultSettings.syncAcrossAllDevices,
             } as UserSettings
         }
 
         const localSettings = JSON.parse(newSettings) as UserSettings
+
         // if load from local storage - syncAcrossAllDevices is false
         return { ...localSettings, syncAcrossAllDevices: false }
     },

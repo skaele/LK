@@ -1,6 +1,7 @@
 import { createStore, createEvent } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { MessageType } from '@ui/types'
+import { userModel } from '@entities/user'
 
 interface IPopUpMessage {
     message: ChildrenType
@@ -29,7 +30,6 @@ const evokePopUpMessage = createEvent<{
 }>()
 
 const openPopUpMessage = createEvent<{ isOpen: boolean }>()
-const clearStore = createEvent()
 
 const $popUpstore = createStore<IPopUpMessage>(DEFAULT_STORE)
     .on(evokePopUpMessage, (_, { message, type, time = 2000, onClick }) => ({
@@ -43,7 +43,7 @@ const $popUpstore = createStore<IPopUpMessage>(DEFAULT_STORE)
         ...oldState,
         isOpen: isOpen,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -54,5 +54,4 @@ export const selectors = {
 export const events = {
     evokePopUpMessage,
     openPopUpMessage,
-    clearStore,
 }

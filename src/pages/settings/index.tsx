@@ -1,19 +1,21 @@
+import { confirmModel } from '@entities/confirm'
+import { userModel } from '@entities/user'
 import { Button, CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import React from 'react'
+import { FiLogOut } from 'react-icons/fi'
 import { SettingsContent } from './ui/settings-content'
 import { SettingsList } from './ui/settings-list'
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
-import { FiLogOut } from 'react-icons/fi'
+import styled from 'styled-components'
+import { MEDIA_QUERIES } from '@shared/constants'
 
 const SettingsPage = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock
                 topRightCornerElement={
-                    <Button
+                    <LogoutButton
                         icon={<FiLogOut />}
                         text={'Выйти из аккаунта'}
                         onClick={() => {
@@ -37,3 +39,14 @@ const SettingsPage = () => {
 }
 
 export default SettingsPage
+
+const LogoutButton = styled(Button)`
+    ${MEDIA_QUERIES.isMobile} {
+        .text {
+            display: none;
+        }
+        .icon {
+            margin-right: 0;
+        }
+    }
+`

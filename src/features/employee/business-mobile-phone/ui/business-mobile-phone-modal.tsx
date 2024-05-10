@@ -3,7 +3,7 @@ import { Colors } from '@shared/constants'
 import { Button, Divider, Input, Loading } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import { changeStaffPhone, changeStaffPhoneParamsMutation } from '../model'
@@ -25,7 +25,7 @@ const Buttons = styled.div`
 `
 
 export const BusinessMobilePhoneModal = () => {
-    const { close } = useModal()
+    const { close, isOpen } = useModal()
 
     const {
         loading,
@@ -43,9 +43,17 @@ export const BusinessMobilePhoneModal = () => {
         changeStaffPhone({ phone_staff: phone, allow_mobphone_in: showLK, allow_mobphone_out: showSite })
     }
 
+    useEffect(() => {
+        if (isOpen) {
+            setPhone(currentUser?.phone_staff ?? '')
+            setShowLK(currentUser?.allow_mobphone_in ?? false)
+            setShowSite(currentUser?.allow_mobphone_out ?? false)
+        }
+    }, [isOpen])
+
     return (
         <TextFieldModalStyled>
-            <Input value={currentUser?.phone_staff ?? ''} setValue={setPhone} type={'tel'} mask />
+            <Input value={phone} setValue={setPhone} type={'tel'} mask />
 
             <ToggleItem
                 title={'Показывать мобильный телефон внутри Личного кабинета'}

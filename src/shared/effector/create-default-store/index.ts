@@ -2,6 +2,7 @@ import { DEFAULT_API_LOAD_ERROR_MESSAGE } from '@shared/constants'
 import { createEffect, createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import { Args, EffectReturnType, TemplateStore, TemplateStoreOutput } from './types'
+import { userModel } from '@entities/user'
 
 const DEFAULT_STORE = {
     data: null,
@@ -81,6 +82,9 @@ export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArg
             error: newData.message,
         }))
         .on(clearStore, () => ({
+            ...DEFAULT_STORE,
+        }))
+        .on(userModel.stores.userGuid, () => ({
             ...DEFAULT_STORE,
         }))
 

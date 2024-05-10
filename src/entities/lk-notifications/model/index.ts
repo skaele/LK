@@ -6,6 +6,7 @@ import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { TNotification } from '../types'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
+import { userModel } from '@entities/user'
 
 type TStore = {
     notifications: TNotification[]
@@ -81,9 +82,8 @@ const clearVisibleById = createEvent<string>()
 const clearById = createEvent<{ id: string; pageId?: string }>()
 const clearAll = createEvent()
 const clearAllVisible = createEvent()
-const clearStore = createEvent()
 
-const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(clearStore)
+const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
 
 forward({
     from: initialize,
@@ -209,5 +209,5 @@ const useLkNotifications = () => {
     return useStore($lkNotificationsStore)
 }
 
-export const events = { initialize, add, clearById, clearVisibleById, clearAll, clearAllVisible, clearStore }
+export const events = { initialize, add, clearById, clearVisibleById, clearAll, clearAllVisible }
 export const selectors = { useLkNotifications }

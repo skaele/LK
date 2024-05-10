@@ -64,7 +64,7 @@ const Home = () => {
             <HomeTopPlate />
             <HomePageStyled>
                 <GlobalAppSearch />
-                <Links links={homeRoutes} />
+                {Boolean(Object.keys(homeRoutes).length) && <Links links={homeRoutes} />}
                 <CenterPage>
                     <Block
                         noAppearanceInMobile

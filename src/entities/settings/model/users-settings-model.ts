@@ -77,7 +77,9 @@ sample({
     target: getSettingsFx,
 })
 
-const $userSettings = createStore<UserSettings | null>(null).on(getSettingsFx.doneData, (_, settings) => settings)
+const $userSettings = createStore<UserSettings | null>(null)
+    .on(getSettingsFx.doneData, (_, settings) => settings)
+    .reset(userModel.stores.userGuid)
 
 const $theme = $userSettings.map((settings) => {
     return settings?.appearance.theme

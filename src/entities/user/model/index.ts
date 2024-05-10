@@ -192,7 +192,7 @@ const $userStore = createStore(DEFAULT_STORE)
         currentUser: null,
     }))
 
-const $userGuid = $userStore.map(({ currentUser }) => currentUser?.guid)
+const $userGuid = $userStore.map(({ currentUser }) => currentUser?.guid ?? null)
 
 export const selectors = {
     useUser: () => {

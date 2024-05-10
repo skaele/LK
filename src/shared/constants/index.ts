@@ -26,7 +26,7 @@ export const DEFAULT_API_LOAD_ERROR_MESSAGE =
 export const SHORT_CUT_LINKS_LIMIT_SIZE = 4
 
 export const ADDITIONAL_MENU_ITEMS_LIMIT_SIZE = 3
-export const SIDEBAR_ITEMS_LIMIT_SIZE = 7
+export const SIDEBAR_ITEMS_LIMIT_SIZE = 8
 
 export const REQUIRED_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
 export const REQUIRED_HOME_PAGES_CONFIG = ['all']

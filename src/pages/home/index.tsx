@@ -43,8 +43,6 @@ const Home = () => {
 
     const { homeRoutes } = menuModel.selectors.useMenu()
 
-    if (!user || !homeRoutes) return null
-
     useEffect(() => {
         if (!payments) {
             paymentsModel.events.getPayments()
@@ -58,6 +56,8 @@ const Home = () => {
     }, [schedule])
 
     const settings = useUnit(userSettingsModel.stores.userSettings)
+
+    if (!user || !homeRoutes) return null
 
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>

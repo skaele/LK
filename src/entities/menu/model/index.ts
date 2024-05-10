@@ -37,7 +37,7 @@ const getLeftsideBarConfig = (user: User | null, settings: UserSettings, adminLi
         user?.user_status === 'staff' && settingsMenuData.some((item) => !uniqueRequiredTeacherMenuItems.includes(item))
             ? [
                   ...uniqueRequiredTeacherMenuItems,
-                  ...(Object.keys(adminLinks ?? {}).length ? ['download-agreements'] : []),
+                  ...(Object.values(adminLinks ?? {}).some((l) => l.length) ? ['download-agreements'] : []),
                   ...settingsMenuData,
               ]
             : settingsMenuData

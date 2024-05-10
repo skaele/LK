@@ -34,12 +34,14 @@ const getLeftsideBarConfig = (user: User | null, settings: UserSettings, adminLi
     )
 
     const settingsDataToBeSet =
-        user?.user_status === 'staff' && settingsMenuData.some((item) => !uniqueRequiredTeacherMenuItems.includes(item))
-            ? [
-                  ...uniqueRequiredTeacherMenuItems,
-                  ...(Object.keys(adminLinks ?? {}).length ? ['download-agreements'] : []),
-                  ...settingsMenuData,
-              ]
+        user?.user_status === 'staff'
+            ? Array.from(
+                  new Set([
+                      ...uniqueRequiredTeacherMenuItems,
+                      ...(Object.values(adminLinks ?? {}).some((l) => l.length) ? ['download-agreements'] : []),
+                      ...settingsMenuData,
+                  ]),
+              )
             : settingsMenuData
 
     return settingsDataToBeSet

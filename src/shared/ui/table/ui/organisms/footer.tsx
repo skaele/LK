@@ -58,6 +58,7 @@ const aggregateColumns = (data: Nullable<IndexedProperties[]>, columns: ColumnPr
 function prepareAggregateData(data: IndexedProperties): ColumnProps[] {
     return Object.keys(data).map((key) => ({ title: '', field: key }))
 }
+
 const Footer = ({ footer, columns, data }: Props) => {
     if (!footer) return null
 

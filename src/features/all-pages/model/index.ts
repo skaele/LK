@@ -1,4 +1,5 @@
 import { adminLinksModel } from '@entities/admin-links'
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import {
@@ -11,10 +12,9 @@ import { combine, createEvent, sample } from 'effector'
 
 export const addPageToHome = createEvent<{ pageId: string }>()
 export const deletePageFromHome = createEvent<{ pageId: string }>()
-export const $homePages = combine(userSettingsModel.stores.userSettings, (settings) => [
-    ...REQUIRED_HOME_PAGES_CONFIG,
-    ...(settings?.homePage.pages ?? []),
-])
+export const $homePages = combine(userSettingsModel.stores.userSettings, (settings) =>
+    Array.from(new Set([...REQUIRED_HOME_PAGES_CONFIG, ...(settings?.homePage.pages ?? [])])),
+)
 
 sample({
     clock: addPageToHome,
@@ -58,25 +58,48 @@ export const $requiredSidebarItems = combine(
 
         const config = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG
 
-        return Object.keys(data ?? {}).length ? [...config, 'download-agreements'] : config
+        return Object.values(data ?? {}).some((l) => l.length) ? [...config, 'download-agreements'] : config
     },
 )
+
 export const $sidebarItems = combine(
     $requiredSidebarItems,
     userSettingsModel.stores.userSettings,
     (required, settings) => {
-        return [...required, ...(settings?.customizeMenu.pages || [])]
+        return Array.from(new Set([...required, ...(settings?.customizeMenu.pages || [])]))
     },
 )
 
 sample({
     clock: addPageToSidebar,
-    source: userSettingsModel.stores.userSettings,
-    filter: (settings) => Boolean(settings) && settings!.customizeMenu.pages.length < SIDEBAR_ITEMS_LIMIT_SIZE,
-    fn: (settings, { pageId }) => {
+    source: $sidebarItems,
+    filter: (sidebarItems) => sidebarItems.length >= SIDEBAR_ITEMS_LIMIT_SIZE,
+    fn: () => ({
+        message: 'Вы достигли максимального количества страниц в боковом меню',
+        type: 'failure' as const,
+        time: 3000,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: addPageToSidebar,
+    source: {
+        settings: userSettingsModel.stores.userSettings,
+        sidebarItems: $sidebarItems,
+        requiredSidebarItems: $requiredSidebarItems,
+    },
+    filter: ({ settings, sidebarItems, requiredSidebarItems }, { pageId }) => {
+        return (
+            Boolean(settings) &&
+            sidebarItems.length < SIDEBAR_ITEMS_LIMIT_SIZE &&
+            !requiredSidebarItems.includes(pageId)
+        )
+    },
+    fn: ({ settings }, { pageId }) => {
         return {
             customizeMenu: {
-                ...settings!.homePage,
+                ...settings!.customizeMenu,
                 pages: [...settings!.customizeMenu.pages, pageId],
             },
         }
@@ -95,7 +118,7 @@ sample({
     fn: ({ settings }, { pageId }) => {
         return {
             customizeMenu: {
-                ...settings!.homePage,
+                ...settings!.customizeMenu,
                 pages: settings!.customizeMenu.pages.filter((id) => id !== pageId),
             },
         }

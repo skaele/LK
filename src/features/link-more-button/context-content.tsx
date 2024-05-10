@@ -87,7 +87,10 @@ const ContextContent = (props: IRoute) => {
                         width="100%"
                         align="left"
                         background="var(--block)"
-                        onClick={() => deletePageFromSidebar({ pageId: id })}
+                        onClick={() => {
+                            deletePageFromSidebar({ pageId: id })
+                            contextMenuModel.events.close()
+                        }}
                     />
                 ))}
         </ContextContentWrapper>

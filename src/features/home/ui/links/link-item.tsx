@@ -72,10 +72,6 @@ const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
     }
 `
 
-// const HiddenTitle = styled.span`
-
-// `
-
 type Props = {
     item: IRoute
     amount: number

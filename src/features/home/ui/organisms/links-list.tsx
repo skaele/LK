@@ -11,11 +11,10 @@ type Props = Pick<PageLinkProps, 'orientation' | 'shadow' | 'mode' | 'background
     title?: string
     align?: Align
     doNotShow?: string
-    restricted?: boolean
     wrapOnMobile?: boolean
 }
 
-const LinksList = ({ title, links, doNotShow, restricted, orientation, background, shadow = true, mode }: Props) => {
+const LinksList = ({ title, links, doNotShow, orientation, background, shadow = true, mode }: Props) => {
     return (
         <Flex d="column">
             <Title size={4} align="left" bottomGap>
@@ -28,7 +27,6 @@ const LinksList = ({ title, links, doNotShow, restricted, orientation, backgroun
                             <PageLink
                                 background={background}
                                 orientation={orientation}
-                                restricted={restricted}
                                 key={el.id}
                                 mode={mode}
                                 shadow={shadow}

@@ -1,10 +1,37 @@
+import { userSettingsModel } from '@entities/settings'
 import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
 import { Icon } from '@features/all-pages'
-import { IColorPalette } from '@shared/constants'
-import useTheme from '@shared/lib/hooks/use-theme'
+import { IColorPalette, ThemeVariant } from '@shared/constants'
 import EventBackground from '@shared/ui/calendar/calendars/day/ui/event-background'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
+
+type Props = {
+    subjectName: string
+    color: IColorPalette
+    noPadding: boolean
+}
+
+export const SubjectIconAndBackground = ({ subjectName, color, noPadding }: Props) => {
+    const icon = getSubjectIcon(subjectName)
+
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const theme = settings?.appearance.theme
+
+    const textColor = theme === ThemeVariant.Light ? color.dark3 : color.light3
+    const background = theme === ThemeVariant.Light ? color.light3 : color.dark3
+    const iconBackground = theme === ThemeVariant.Light ? color.light3 : color.dark3
+
+    return (
+        <BackgroundWrapper noPadding={noPadding} textColor={textColor} iconBackground={iconBackground}>
+            <EventBackground noPadding={noPadding} icon={icon} background={background} />
+            <Icon color={color.main} size={70} borderRadius="19px">
+                {icon}
+            </Icon>
+        </BackgroundWrapper>
+    )
+}
 
 const BackgroundWrapper = styled.div<{
     textColor: string
@@ -30,27 +57,3 @@ const BackgroundWrapper = styled.div<{
         border: 5px solid var(--block-content);
     }
 `
-
-type Props = {
-    subjectName: string
-    color: IColorPalette
-    noPadding: boolean
-}
-
-export const SubjectIconAndBackground = ({ subjectName, color, noPadding }: Props) => {
-    const icon = getSubjectIcon(subjectName)
-
-    const { theme } = useTheme()
-    const textColor = theme === 'light' ? color.dark3 : color.light3
-    const background = theme === 'light' ? color.light3 : color.dark3
-    const iconBackground = theme === 'light' ? color.light3 : color.dark3
-
-    return (
-        <BackgroundWrapper noPadding={noPadding} textColor={textColor} iconBackground={iconBackground}>
-            <EventBackground noPadding={noPadding} icon={icon} background={background} />
-            <Icon color={color.main} size={70} borderRadius="19px">
-                {icon}
-            </Icon>
-        </BackgroundWrapper>
-    )
-}

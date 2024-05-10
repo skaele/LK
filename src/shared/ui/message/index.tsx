@@ -1,5 +1,4 @@
-import { messageType } from '@shared/constants'
-import useTheme from '@shared/lib/hooks/use-theme'
+import { ThemeVariant, messageType } from '@shared/constants'
 import { Button } from '@ui/button'
 import SkeletonList from '@ui/skeleton-list'
 import { Align, MessageType } from '@ui/types'
@@ -7,6 +6,8 @@ import React from 'react'
 import { FiX } from 'react-icons/fi'
 import { Title } from '../title'
 import { MessageWrapper } from './styles'
+import { userSettingsModel } from '@entities/settings'
+import { useUnit } from 'effector-react'
 
 export type MessageProps = {
     type: MessageType
@@ -70,11 +71,11 @@ export function Message({
     loading = false,
 }: MessageProps) {
     if (!visible) return null
-    const { theme } = useTheme()
+    const settings = useUnit(userSettingsModel.stores.userSettings)
 
     return (
         <MessageWrapper
-            isLightTheme={theme === 'light'}
+            isLightTheme={settings?.appearance.theme === ThemeVariant.Light}
             className="message"
             closable={!!onClose}
             type={type}

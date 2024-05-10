@@ -1,10 +1,9 @@
-import { AxiosResponse } from 'axios'
-import { Effect, Event, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
-import { createEffect, createEvent, createStore } from 'effector'
-import { MessageType } from '@shared/ui/types'
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { applicationsModel } from '@entities/applications'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { MessageType } from '@shared/ui/types'
+import { AxiosResponse } from 'axios'
+import { Effect, EventCallable, createEffect, createEvent, createStore, sample } from 'effector'
+import { useStore } from 'effector-react'
 
 export interface TemplateFormStore<DataType> {
     data: DataType | null
@@ -22,10 +21,10 @@ export interface TemplateFormStoreOutput<DataType, PostDataType> {
         postFormFx: Effect<PostDataType, void, Error>
     }
     events: {
-        changeCompleted: Event<{
+        changeCompleted: EventCallable<{
             completed: boolean
         }>
-        clearStore: Event<void>
+        clearStore: EventCallable<void>
     }
 }
 

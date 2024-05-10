@@ -1,31 +1,37 @@
-import { CenterPage } from '@shared/ui/atoms'
+import { confirmModel } from '@entities/confirm'
+import { userModel } from '@entities/user'
+import { Button, CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import React, { useState } from 'react'
-import useSettings from './hooks/use-settings'
-import SettingsContent from './settings-content'
-import ListOfSettings from './ui/list-of-settings'
+import React from 'react'
+import { FiLogOut } from 'react-icons/fi'
+import { SettingsContent } from './ui/settings-content'
+import { SettingsList } from './ui/settings-list'
+import styled from 'styled-components'
+import { MEDIA_QUERIES } from '@shared/constants'
 
 const SettingsPage = () => {
-    const [searchValue, setSearchValue] = useState('')
-    const [searchResult, setSearchResult] = useState<string[][] | null>(null)
-    const fullSettings = useSettings()
-    if (fullSettings === null) return null
-
     return (
         <CenterPage padding="10px">
-            <PageBlock>
+            <PageBlock
+                topRightCornerElement={
+                    <LogoutButton
+                        icon={<FiLogOut />}
+                        text={'Выйти из аккаунта'}
+                        onClick={() => {
+                            confirmModel.events.evokeConfirm({
+                                message: 'Вы точно хотите выйти из аккаунта?',
+                                onConfirm: userModel.events.logout,
+                            })
+                        }}
+                        textColor="var(--red)"
+                        background="var(--block)"
+                    />
+                }
+            >
                 <Flex ai="flex-start">
-                    <ListOfSettings
-                        settingsConfig={fullSettings}
-                        setSearchResult={setSearchResult}
-                        setSearchValue={setSearchValue}
-                    />
-                    <SettingsContent
-                        searchValue={searchValue}
-                        searchResult={searchResult}
-                        settingsConfig={fullSettings}
-                    />
+                    <SettingsList />
+                    <SettingsContent />
                 </Flex>
             </PageBlock>
         </CenterPage>
@@ -33,3 +39,14 @@ const SettingsPage = () => {
 }
 
 export default SettingsPage
+
+const LogoutButton = styled(Button)`
+    ${MEDIA_QUERIES.isMobile} {
+        .text {
+            display: none;
+        }
+        .icon {
+            margin-right: 0;
+        }
+    }
+`

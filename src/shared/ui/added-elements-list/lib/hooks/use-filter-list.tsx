@@ -1,7 +1,7 @@
 import { FilterElementList } from '@ui/added-elements-list'
 import { useEffect, useState } from 'react'
 
-const useFilterList = (listKeys: string[], setList: React.Dispatch<React.SetStateAction<FilterElementList>>) => {
+const useFilterList = (listKeys: string[], setList?: React.Dispatch<React.SetStateAction<FilterElementList>>) => {
     const [removeAll, setRemoveAll] = useState(false)
     const [removeOne, setRemoveOne] = useState<string | null>(null)
     // const [closed, setClosed] = useState(true)
@@ -10,7 +10,7 @@ const useFilterList = (listKeys: string[], setList: React.Dispatch<React.SetStat
         if (removeAll) {
             setTimeout(() => {
                 setRemoveAll(false)
-                setList(null)
+                setList?.(null)
             }, 200)
         }
     }, [removeAll])
@@ -25,7 +25,7 @@ const useFilterList = (listKeys: string[], setList: React.Dispatch<React.SetStat
         setTimeout(() => {
             if (removeOne !== null) {
                 setRemoveOne(null)
-                setList((prev) => {
+                setList?.((prev) => {
                     if (prev) delete prev[removeOne]
 
                     return { ...prev }

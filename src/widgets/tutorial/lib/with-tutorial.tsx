@@ -82,7 +82,9 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                         icon={<FaArrowLeftLong />}
                                         onClick={() => tutorialModel.events.prevStep()}
                                     />
-                                    {currentStep + 1} / {currentModule.steps.length}
+                                    <div style={{ minWidth: '5ch', textAlign: 'end' }}>
+                                        {currentStep + 1} / {currentModule.steps.length}
+                                    </div>
                                     <Button
                                         background="transparent"
                                         icon={<FaArrowRightLong />}
@@ -112,19 +114,19 @@ const Layout = styled.div<{ $width: number; $height: number; $top: number; $left
     padding: 10px;
 
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 10000px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 10000px;
 `
 
 const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`
     position: fixed;
-    top: ${({ $top }) => $top - 10}px;
-    left: ${({ $left, $width }) => $left + $width + 20}px;
     z-index: 6;
 
-    border-radius: 15px;
+    bottom: 0;
+    left: 0;
 
-    margin: 20px 10px 10px 20px;
     padding: 20px 30px;
+    width: 100%;
+    border-radius: 15px 15px 0 0;
 
     color: #f4f4f4;
     background: linear-gradient(0deg, rgba(95, 109, 236, 0.6), rgba(95, 109, 236, 0.6)), rgba(35, 35, 36, 0.7);
@@ -135,13 +137,26 @@ const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: 
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
+
+    @media (min-width: 1000px) {
+        top: ${({ $top }) => $top - 10}px;
+        left: ${({ $left, $width }) => $left + $width + 20}px;
+        bottom: auto;
+        min-width: 250px;
+        width: 20%;
+        max-width: 600px;
+        border-radius: 15px;
+        margin: 20px 40px 10px 20px;
+    }
 `
 
 const Description = styled.div`
+    margin-top: 20px;
     font-size: 12px;
     line-height: 140%;
 `
 
 const Buttons = styled(Flex)`
+    margin-top: 30px;
     left: 0;
 `

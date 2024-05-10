@@ -9,10 +9,16 @@ import { Button } from '@shared/ui/button'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import Flex from '@shared/ui/flex'
 
+type HintPosition = 'right' | 'bottom' | 'top'
+type Dimensions = { width: number; height: number }
+type Position = { top: number; left: number; right: number; bottom?: number }
 export interface TutorialWrapperProps {
     tutorialModule?: {
         id: TutorialId
         step: number
+        params?: {
+            position?: HintPosition
+        }
     }
 }
 
@@ -25,15 +31,15 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
 
-        const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 })
-        const [position, setPosition] = useState<{ top: number; left: number } | null>(null)
+        const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
+        const [position, setPosition] = useState<Position | null>(null)
 
         const handleRef = useCallback((node: HTMLElement | null) => {
             if (!node || !root) return
             const measureDOMNode = () => {
                 const rect = node.getBoundingClientRect()
                 setDimensions({ width: rect.width, height: rect.height })
-                setPosition({ top: rect.top, left: rect.left })
+                setPosition({ top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom })
             }
             measureDOMNode()
 
@@ -60,17 +66,11 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                 {step === currentStep &&
                     id === currentModule.id &&
                     ReactDOM.createPortal(
-                        <Layout
-                            $width={dimensions.width}
-                            $height={dimensions.height}
-                            $top={position.top}
-                            $left={position.left}
-                        >
+                        <Layout dimensions={dimensions} position={position}>
                             <Hint
-                                $width={dimensions.width}
-                                $height={dimensions.height}
-                                $top={position.top}
-                                $left={position.left}
+                                dimensions={dimensions}
+                                childPosition={position}
+                                relativePosition={props.tutorialModule.params?.position}
                             >
                                 <Title size={4} align="left">
                                     {title}
@@ -102,14 +102,14 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
     return Wrapper
 }
 
-const Layout = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`
+const Layout = styled.div<{ dimensions: Dimensions; position: Position }>`
     position: fixed;
-    top: ${({ $top }) => $top - 10}px;
-    left: ${({ $left }) => $left - 10}px;
+    top: ${({ position: { top } }) => top - 10}px;
+    left: ${({ position: { left } }) => left - 10}px;
     z-index: 6;
 
-    width: ${({ $width }) => $width + 20}px;
-    height: ${({ $height }) => $height + 20}px;
+    width: ${({ dimensions: { width } }) => width + 20}px;
+    height: ${({ dimensions: { height } }) => height + 20}px;
 
     padding: 10px;
 
@@ -117,19 +117,20 @@ const Layout = styled.div<{ $width: number; $height: number; $top: number; $left
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 10000px;
 `
 
-const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: number }>`
+const Hint = styled.div<{ dimensions: Dimensions; childPosition: Position; relativePosition?: HintPosition }>`
     position: fixed;
     z-index: 6;
-
     bottom: 0;
     left: 0;
 
+    width: calc(100% - 16px);
+    margin: 8px;
     padding: 20px 30px;
-    width: 100%;
-    border-radius: 15px 15px 0 0;
+
+    border-radius: 15px;
 
     color: #f4f4f4;
-    background: linear-gradient(0deg, rgba(95, 109, 236, 0.6), rgba(95, 109, 236, 0.6)), rgba(35, 35, 36, 0.7);
+    background: rgba(95, 109, 236, 0.6);
     backdrop-filter: blur(6.5px);
 
     font-family: 'Montserrat';
@@ -139,14 +140,18 @@ const Hint = styled.div<{ $width: number; $height: number; $top: number; $left: 
     line-height: 20px;
 
     @media (min-width: 1000px) {
-        top: ${({ $top }) => $top - 10}px;
-        left: ${({ $left, $width }) => $left + $width + 20}px;
+        top: ${({ dimensions: { height }, childPosition: { top }, relativePosition }) =>
+            relativePosition === 'bottom' ? top + height + 10 : relativePosition === 'top' ? top - 30 : top}px;
+        left: ${({ dimensions: { width }, childPosition: { left }, relativePosition }) =>
+            relativePosition === 'bottom' || relativePosition === 'top' ? left - 20 : left + width + 10}px;
+        transform: ${({ relativePosition }) => (relativePosition === 'top' ? 'translateY(-100%)' : 'translateY(0)')};
         bottom: auto;
+
         min-width: 250px;
         width: 20%;
         max-width: 600px;
-        border-radius: 15px;
-        margin: 20px 40px 10px 20px;
+
+        margin: 10px;
     }
 `
 

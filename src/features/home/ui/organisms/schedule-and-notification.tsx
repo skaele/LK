@@ -13,7 +13,9 @@ const ScheduleAndNotification = () => {
     return (
         <List direction="horizontal" title="Виджеты" showPages gap={10} visible={!!widgetSchedule || !!widgetPayment}>
             {widgetSchedule && <ScheduleWidget />}
-            {widgetPayment && <PaymentsWidget tutorialModule={{ id: 'intro', step: 9 }} />}
+            {widgetPayment && (
+                <PaymentsWidget tutorialModule={{ id: 'intro', step: 9, params: { position: 'bottom' } }} />
+            )}
         </List>
     )
 }

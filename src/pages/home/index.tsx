@@ -37,7 +37,7 @@ const Home = () => {
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>
             <HomeTopPlate />
-            <HomePage tutorialModule={{ id: 'intro', step: 5 }} />
+            <HomePage tutorialModule={{ id: 'intro', step: 5, params: { position: 'top' } }} />
         </Wrapper>
     )
 }

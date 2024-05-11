@@ -13,6 +13,7 @@ type Props<T extends { last_update?: string }> = TemplateFormProps<T> & {
     goBack?: string
     formId?: string
     isSpecialField?: boolean
+    title?: string
 }
 
 const TemplateFormPage = <T extends { last_update?: string }>({
@@ -25,6 +26,7 @@ const TemplateFormPage = <T extends { last_update?: string }>({
     repeatable = true,
     formId,
     isSpecialField = false,
+    title,
 }: Props<T>) => {
     const { data, error } = model.selectors.useForm()
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -45,6 +47,7 @@ const TemplateFormPage = <T extends { last_update?: string }>({
                 {!!form && !!setForm && (
                     <FormBlock>
                         <GoBackButton text={goBack} visible={!!goBack} />
+                        {title && <h2>{title}</h2>}
                         <TemplateForm
                             model={model}
                             successMessage={successMessage}

@@ -6,13 +6,18 @@ import { HiOutlineLightBulb } from 'react-icons/hi'
 
 export type MenuType = string[]
 export type ShortCutLinksType = number[]
-export type ThemeType = 'dark' | 'light'
+
+export enum ThemeVariant {
+    Dark = 'dark',
+    Light = 'light',
+}
+
 export type GeneralType = {
     [key: string]: boolean
 }
 
 export interface IDefaultSettings {
-    [key: string]: MenuType | ThemeType | GeneralType | ShortCutLinksType
+    [key: string]: MenuType | ThemeVariant | GeneralType | ShortCutLinksType
 }
 
 export const DEFAULT_API_LOAD_ERROR_MESSAGE =
@@ -21,18 +26,11 @@ export const DEFAULT_API_LOAD_ERROR_MESSAGE =
 export const SHORT_CUT_LINKS_LIMIT_SIZE = 4
 
 export const ADDITIONAL_MENU_ITEMS_LIMIT_SIZE = 3
+export const SIDEBAR_ITEMS_LIMIT_SIZE = 8
 
 export const REQUIRED_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
-export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'download-agreements', 'all']
-
-export const DEFAULT_SETTINGS: IDefaultSettings = {
-    menu: REQUIRED_LEFTSIDE_BAR_CONFIG,
-    theme: 'light',
-    general: {
-        notifications: false,
-    },
-    shortCutLinks: [0, 1, 2, 3],
-}
+export const REQUIRED_HOME_PAGES_CONFIG = ['all']
+export const REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG = ['home', 'settings', 'all']
 
 export const UNION_ORGANIZATION = 'https://lk.eseur.ru/signup'
 export const RECEPTION_COMMISSION =
@@ -101,7 +99,6 @@ export const Colors: IColors = {
         light2: '#99a3ff',
         light3: '#bac0ff',
         transparent1: '#bac0ffa3',
-        // aaaaaaaaaaaaaaaaaaaaaaaaaa i love maria))))for real what competetive adv
         transparent2: '#bac0ff42',
         transparent3: '#bac0ff17',
     },
@@ -408,7 +405,11 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction = !window.location.port || window.location.port === '80'
+export const isProduction =
+    !window.location.port ||
+    window.location.port === '80' ||
+    window.location.port === '4001' ||
+    window.location.port === '4002'
 
 // eslint-disable-next-line no-console
 console.log('Running on production', isProduction)

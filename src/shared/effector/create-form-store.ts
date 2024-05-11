@@ -1,10 +1,9 @@
-import { AxiosResponse } from 'axios'
-import { Effect, Event, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
-import { createEffect, createEvent, createStore } from 'effector'
-import { MessageType } from '@shared/ui/types'
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { applicationsModel } from '@entities/applications'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { MessageType } from '@shared/ui/types'
+import { AxiosResponse } from 'axios'
+import { Effect, EventCallable, createEffect, createEvent, createStore, sample } from 'effector'
+import { useStore } from 'effector-react'
 
 export interface TemplateFormStore<DataType> {
     data: DataType | null
@@ -18,19 +17,19 @@ export interface TemplateFormStoreOutput<DataType, PostDataType> {
         useForm: () => TemplateFormStore<DataType>
     }
     effects: {
-        getFormFx: Effect<void, DataType | null, Error>
+        getFormFx: Effect<string | void, DataType | null, Error>
         postFormFx: Effect<PostDataType, void, Error>
     }
     events: {
-        changeCompleted: Event<{
+        changeCompleted: EventCallable<{
             completed: boolean
         }>
-        clearStore: Event<void>
+        clearStore: EventCallable<void>
     }
 }
 
 interface APIType<DataType, PostDataType> {
-    get?: () => Promise<AxiosResponse<DataType>>
+    get?: (data?: string) => Promise<AxiosResponse<DataType>>
     post: (postData: PostDataType, formId?: string) => Promise<AxiosResponse<any, any>>
     put?: () => void
 }
@@ -88,10 +87,10 @@ export const createFormStore = <DataType, PostDataType>({
         target: applicationsModel.effects.getApplicationsFx,
     })
 
-    const getFormFx = createEffect(async (): Promise<DataType | null> => {
+    const getFormFx = createEffect(async (data?: string): Promise<DataType | null> => {
         if (api.get) {
             try {
-                const response = await api.get()
+                const response = await api.get(data)
 
                 return { ...response.data }
             } catch (error) {

@@ -13,6 +13,7 @@ export type TitleProps = {
     iconColor?: string
     required?: boolean
     visible?: boolean
+    style?: React.CSSProperties
 }
 
 export function Title(props: TitleProps) {
@@ -23,6 +24,7 @@ export function Title(props: TitleProps) {
         size = 1,
         required,
         width,
+        style,
         align = 'center',
         bottomGap = false,
         visible = true,
@@ -31,7 +33,14 @@ export function Title(props: TitleProps) {
     if (!visible) return null
 
     return (
-        <TitleWrapper size={size} className="title-wrapper" align={align} bottomGap={bottomGap} iconColor={iconColor}>
+        <TitleWrapper
+            style={style}
+            size={size}
+            className="title-wrapper"
+            align={align}
+            bottomGap={bottomGap}
+            iconColor={iconColor}
+        >
             {icon}
             <CreateHeader size={size} width={width}>
                 {required && <RedStar>*</RedStar>}

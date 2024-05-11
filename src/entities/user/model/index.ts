@@ -5,8 +5,7 @@ import createFullName from '@features/home/lib/create-full-name'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
-import clearAllStores from '../lib/clear-all-stores'
+import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
 
 interface UserStore {
@@ -18,7 +17,6 @@ interface UserStore {
 }
 
 //  In effector chat core-team describe something like this code (Perhaps a better solution can be found)
-// TODO: move localstorage keys to enum
 const tokenInStorage = localStorage.getItem(BrowserStorageKey.Token) ?? ''
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')
 
@@ -103,8 +101,6 @@ const logoutFx = createEffect(() => {
         sessionStorage.removeItem(BrowserStorageKey.JWT)
         sessionStorage.removeItem(BrowserStorageKey.JWTRefresh)
     }
-
-    clearAllStores()
 })
 
 const changeSavePasswordFunc = (savePassword?: boolean) => {
@@ -119,6 +115,7 @@ const login = createEvent<LoginData>()
 const logout = createEvent()
 const clear = createEvent()
 const update = createEvent<{ key: keyof User; value: User[keyof User] }>()
+const updateBulk = createEvent<Partial<User>>()
 const changeSavePassword = createEvent<{ savePassword: boolean }>()
 
 forward({ from: login, to: getUserTokenFx })
@@ -139,7 +136,8 @@ const DEFAULT_STORE: UserStore = {
 
 changeSavePasswordFunc()
 
-export const $userStore = createStore(DEFAULT_STORE)
+// TODO: separate store
+const $userStore = createStore(DEFAULT_STORE)
     .on(getUserFx, (oldData) => ({
         ...oldData,
         error: null,
@@ -183,10 +181,16 @@ export const $userStore = createStore(DEFAULT_STORE)
         ...oldData,
         currentUser: oldData.currentUser ? { ...oldData.currentUser, [key]: value } : null,
     }))
+    .on(updateBulk, (oldData, newData) => ({
+        ...oldData,
+        currentUser: oldData.currentUser ? { ...oldData.currentUser, ...newData } : null,
+    }))
     .on(clear, (oldData) => ({
         ...oldData,
         currentUser: null,
     }))
+
+const $userGuid = $userStore.map(({ currentUser }) => currentUser?.guid ?? null)
 
 export const selectors = {
     useUser: () => {
@@ -205,9 +209,15 @@ export const events = {
     changeSavePassword,
     clear,
     update,
+    updateBulk,
 }
 
 export const effects = {
     getUserFx,
     getLoginEuzFx,
+}
+
+export const stores = {
+    user: $userStore,
+    userGuid: $userGuid,
 }

@@ -29,7 +29,8 @@ const InputArea = ({
     collapsed,
     links,
     specialFieldsNameConfig,
-}: IInputArea & { setData: SetData; divider?: boolean }) => {
+    defaultOpenArea = true,
+}: IInputArea & { setData: SetData; divider?: boolean; defaultOpenArea?: boolean }) => {
     //TODO: rewrite, this hook binds the inputs and their wrapper too much, so I can't quickly rewrite
     const {
         openArea,
@@ -51,6 +52,7 @@ const InputArea = ({
         optional,
         collapsed,
         confirmed,
+        defaultOpenArea,
     })
     return (
         <>

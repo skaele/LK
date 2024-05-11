@@ -43,7 +43,7 @@ const ToggleItemBlock = styled.div<{ disabled?: boolean }>`
             opacity: 0.7;
             font-weight: 500;
             font-size: 0.85rem;
-            white-space: nowrap;
+            /* white-space: nowrap; */
         }
     }
 

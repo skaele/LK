@@ -10,6 +10,7 @@ import { useModal } from 'widgets'
 import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers-section-links'
 import { User } from '@api/model'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
+import { userModel } from '@entities/user'
 
 const CreateApplicationListWrapper = styled.div`
     @media (min-width: 1001px) {
@@ -95,7 +96,10 @@ interface Props {
 
 const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Props) => {
     const { close } = useModal()
-    const sections: Section[] = isTeachers ? getTeachersSectionLinks() : getSectionLinks()
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
+    const sections: Section[] = isTeachers && user ? getTeachersSectionLinks(user) : getSectionLinks()
     const [search, setSearch] = useState<string>('')
 
     const [foundSections, setFoundSections] = useState<Section[] | null>(sections)

@@ -5,6 +5,7 @@ import changeCanSign from '../lib/change-can-sign'
 import { agreementSubmit } from '@shared/api/payment-api'
 import { MessageType } from '@shared/ui/types'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { userModel } from '@entities/user'
 
 const signAgreement = createEvent<string>()
 const changeDone = createEvent<boolean>()
@@ -56,7 +57,6 @@ sample({
 
 sample({ clock: signAgreement, target: signAgreementFx })
 
-const clearStore = createEvent()
 const getPayments = createEvent()
 
 const $loading = combine(signAgreementFx.pending, getPaymentsFx.pending, Boolean)
@@ -69,7 +69,7 @@ const $error = createStore<string | null>(null)
 const $paymentsStore = createStore<Payments | null>(null)
     .on(getPaymentsFx.doneData, (_, newData) => newData)
     .on(signContractFx.doneData, (oldData, contractId) => changeCanSign(oldData, contractId, false))
-    .on(clearStore, () => null)
+    .on(userModel.stores.userGuid, () => null)
 
 export const stores = {
     $loading,
@@ -92,6 +92,5 @@ export const effects = {
 export const events = {
     signAgreement,
     setCompleted,
-    clearStore,
     getPayments,
 }

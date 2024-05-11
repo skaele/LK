@@ -18,6 +18,9 @@ type IInputAreaTypes =
     | 'text'
     | 'tel'
     | 'email'
+    | 'cabinet'
+    | 'BS-cabinet'
+    | 'innerPhone'
     | 'date'
     | 'checkbox'
     | 'radio'
@@ -77,7 +80,8 @@ export interface IInputAreaData {
     specialType?: SpecialFieldsName
     minValueInput?: number | string
     maxValueInput?: number | string
-    maxValueLength?: number | undefined
+    minValueLength?: number
+    maxValueLength?: number
     diff?: number
     isSpecificSelect?: boolean
     visible?: boolean

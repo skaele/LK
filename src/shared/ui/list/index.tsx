@@ -53,7 +53,7 @@ const List = (props: Props) => {
     if (!visible) return null
 
     const { listRef, leftArrow, rightArrow, handleScroll, setScrollLeft, pageOffset, amountOfPages, currentPage } =
-        useList(gap)
+        useList(gap, children)
 
     return (
         <Wrapper padding={padding} position={position} width={width} minWidth={minWidth} height={height}>

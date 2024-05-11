@@ -5,6 +5,7 @@ export interface PEStudent {
     fullName: string
     groupNumber: string
     hasDebtFromPreviousSemester: boolean
+    archivedVisitValue: number
     visits: number
     additionalPoints: number
     pointsForStandards: number

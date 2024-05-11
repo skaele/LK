@@ -2,6 +2,7 @@ import { notificationApi, docsApi } from '@api'
 import { useStore } from 'effector-react/compat'
 import { createEffect, createEvent, createStore } from 'effector'
 import { Notifications } from '@api/model/notification'
+import { userModel } from '@entities/user'
 
 interface PersonalNotificationsStore {
     type: 'notifications' | 'docs' | null
@@ -70,8 +71,6 @@ const viewPersonalNotificationsFx = createEffect(async (notificationId: string):
     }
 })
 
-const clearStore = createEvent()
-
 const $personalNotificationsStore = createStore<PersonalNotificationsStore>(DEFAULT_STORE)
     .on(setNotificationsType, (oldData, newData) => ({
         ...oldData,
@@ -98,7 +97,7 @@ const $personalNotificationsStore = createStore<PersonalNotificationsStore>(DEFA
         ...oldData,
         completed: newData.completed,
     }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -116,5 +115,4 @@ export const effects = {
 }
 export const events = {
     changeCompleted,
-    clearStore,
 }

@@ -9,6 +9,11 @@ export const CopiesOfDocumentsFromPersonalFilePage = lazy(
 export const ContactInfoActualizationPage = lazy(
     () => import('@pages/teachers-applications/pages/contact-info-actualization'),
 )
+export const ContactInfoActualizationTestPage = lazy(
+    () => import('@pages/teachers-applications/pages/contact-info-actualization-test'),
+)
+export const ContactDetails = lazy(() => import('@pages/teachers-applications/pages/contact-details'))
+export const ContactDetailsForm = lazy(() => import('@pages/teachers-applications/pages/contact-details/form'))
 export const DataVerificationPage = lazy(() => import('@pages/teachers-applications/pages/data-verification'))
 export const DownloadAdminFilesPage = lazy(() => import('@pages/download-admin-files'))
 export const PersonalNotificationsPage = lazy(() => import('@pages/personal-notifications'))
@@ -34,6 +39,15 @@ export const IssuanceOfLicensesPage = lazy(() => import('@pages/teachers-applica
 export const NumberOfUnusedVacationDaysPage = lazy(
     () => import('@pages/teachers-applications/pages/number-of-unused-vacation-days'),
 )
+
+export const EditPhonebookSubdivision = lazy(
+    () => import('@pages/teachers-applications/pages/edit-phonebook-subdivision'),
+)
+export const EditPhonebookInnerPhone = lazy(
+    () => import('@pages/teachers-applications/pages/edit-phonebook-inner-phone'),
+)
+export const EditPhonebookEmail = lazy(() => import('@pages/teachers-applications/pages/edit-phonebook-email'))
+
 export const OtherItServicesPage = lazy(() => import('@pages/teachers-applications/pages/other-it-services'))
 export const PaymentForChildCarePage = lazy(() => import('@pages/teachers-applications/pages/payment-for-child-care'))
 export const PaymentOfChildBirthAllowancePage = lazy(

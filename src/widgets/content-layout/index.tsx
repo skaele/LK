@@ -35,7 +35,7 @@ const ContentLayout = () => {
             <Story />
             <LeftsideBar />
             <ContentWrapper>
-                <Header headerVisible={headerVisible} currentPage={currentPage} />
+                <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent
                     ref={pageContentRef}
                     onScroll={handleContentScroll}

@@ -49,6 +49,12 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
+    ContactInfoActualizationTestPage,
+    EditPhonebookSubdivision,
+    EditPhonebookInnerPhone,
+    EditPhonebookEmail,
+    ContactDetails,
+    ContactDetailsForm,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -69,6 +75,7 @@ import { FaRegLightbulb } from 'react-icons/fa'
 import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
 import { RiNotificationBadgeLine } from 'react-icons/ri'
 import {
+    ALL_TEACHERS_ROUTE,
     generalHiddenRoutes,
     generalRoutes,
     IRoutes,
@@ -87,6 +94,8 @@ import { Onboarding } from '../general-routes/pages'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import PaymentsPage from '@pages/payments'
 import { BsPeople } from 'react-icons/bs'
+import AllStaff from '@pages/all-staff'
+import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -120,10 +129,12 @@ export const HELP_SERVICE_ROUTE = '/help_service'
 export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
+export const ALL_STAFF_ROUTE = '/all-staff'
 
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
+export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -136,6 +147,14 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+
+export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
+export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
+
+export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
+export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
+export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
+
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
 export const WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = APPLICATIONS_ROUTE + '/work-on-the-terms-of-external-concurrency'
@@ -197,6 +216,41 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
     },
     ...generalRoutes,
+
+    // свою основную задачу форма выполнила, а дальше ее скрываем. на случай, если надо будет проводить очередную сверку
+    'contact-details': {
+        id: 'contact-details',
+        title: 'Контактные данные',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_DETAILS,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetails,
+        isTemplate: false,
+        group: 'GENERAL',
+        show: !isProduction,
+    },
+    'contact-details-form': {
+        id: 'contact-details-form',
+        title: 'Контактные данные',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_DETAILS_FORM,
+        Component: isProduction
+            ? () =>
+                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
+            : ContactDetailsForm,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        show: false,
+        backButtonText: 'Назад',
+        fallbackPrevPage: CONTACT_DETAILS,
+    },
+
     'download-agreements': {
         id: 'download-agreements',
         title: 'Админ панель',
@@ -227,6 +281,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
         isOldLkPage: true,
         keywords: ['Ltnb b dyerb'],
+        show: !isProduction,
     },
     'electronic-statements': {
         id: 'electronic-statements',
@@ -451,16 +506,15 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'OTHER',
         show: false,
     },
-    // Move when ready
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
         icon: <FiFileText />,
         path: APPLICATIONS_ROUTE,
-        Component: isProduction ? ApplicationRedirect : TeachersApplicationsPage,
+        Component: TeachersApplicationsPage,
         color: 'red',
         isTemplate: false,
-        pageSize: 'large',
+        pageSize: 'big',
         group: 'FINANCES_DOCS',
         keywords: ['заявления', 'справки', 'заявление', 'справка'],
     },
@@ -476,6 +530,43 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+    },
+    'data-verification': {
+        id: 'data-verification',
+        title: 'Анкета для сверки данных',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: DATA_VERIFICATION_ROUTE,
+        Component: DataVerificationPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        backButtonText: 'Назад к цифровым сервисам',
+    },
+    // remove after mobile version is ready
+    // #ASM
+    'all-teachers': {
+        id: 'all-teachers',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_TEACHERS_ROUTE,
+        Component: AllTeachersPage,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'all-staff': {
+        id: 'all-staff',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_STAFF_ROUTE,
+        Component: AllStaff,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        pageSize: 'big',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',
@@ -720,7 +811,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: GETTING_COMPUTER_EQUIPMENT,
-        Component: isProduction ? ApplicationRedirect : GettingComputerEquipmentPage,
+        Component: GettingComputerEquipmentPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -734,7 +825,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: CONNECTING_COMPUTER,
-        Component: isProduction ? ApplicationRedirect : ConnectingComputerPage,
+        Component: ConnectingComputerPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -748,7 +839,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: PRINTER_MAINTENANCE,
-        Component: isProduction ? ApplicationRedirect : PrinterMaintenancePage,
+        Component: PrinterMaintenancePage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -762,7 +853,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: QUESTION_SED,
-        Component: isProduction ? ApplicationRedirect : QuestionSedPage,
+        Component: QuestionSedPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -776,7 +867,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: QUESTION_PERSONAL_ACCOUNT,
-        Component: isProduction ? ApplicationRedirect : QuestionPersonalAccountPage,
+        Component: QuestionPersonalAccountPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -790,7 +881,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: OTHER_IT_SERVICES,
-        Component: isProduction ? ApplicationRedirect : OtherItServicesPage,
+        Component: OtherItServicesPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -804,7 +895,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: CERTIFICATE_FROM_PLACE_OF_WORK,
-        Component: isProduction ? ApplicationRedirect : CertificateFromPlaceOfWorkPage,
+        Component: CertificateFromPlaceOfWorkPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -818,7 +909,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: VISA_CERTIFICATE,
-        Component: isProduction ? ApplicationRedirect : VisaCertificatePage,
+        Component: VisaCertificatePage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -846,7 +937,53 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: NUMBER_OF_UNUSED_VACATION_DAYS,
-        Component: isProduction ? ApplicationRedirect : NumberOfUnusedVacationDaysPage,
+        Component: NumberOfUnusedVacationDaysPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'edit-phonebook-subdivision': {
+        id: 'edit-phonebook-subdivision',
+        title: 'Внесение изменений данных подразделения в телефонном справочнике',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_SUBDIVISION,
+        Component: EditPhonebookSubdivision,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        keywords: ['изменение данных подразделения в телефонном справочнике'],
+    },
+    'edit-phonebook-inner-phone': {
+        id: 'edit-phonebook-inner-phone',
+        hiddenTitle: true,
+        title: 'Запрос на изменение внутреннего телефона',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_INNER_PHONE,
+        Component: EditPhonebookInnerPhone,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'edit-phonebook-email': {
+        id: 'edit-phonebook-email',
+        hiddenTitle: true,
+        title: 'Запрос на изменение корпоративной электронной почты',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: EDIT_PHONEBOOK_EMAIL,
+        Component: EditPhonebookEmail,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -991,9 +1128,25 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
+        show: false,
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'data-actualization': {
+        id: 'data-actualization',
+        title: 'Актуализация контактных данных (тест)',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: CONTACT_INFO_ACTUALIZATION_TEST,
+        Component: isProduction ? ContactInfoActualizationPage : ContactInfoActualizationTestPage,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: false,
     },
     'data-verification': {
         id: 'data-verification',

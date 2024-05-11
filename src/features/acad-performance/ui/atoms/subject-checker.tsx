@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 interface Props {
     grade: keyof IGrade | undefined
+    superWide?: boolean
 }
 
 const Container = styled.div<Props>`
@@ -15,7 +16,7 @@ const Container = styled.div<Props>`
     justify-content: center;
     color: ${({ grade }) => findProgressBarColor(grade) as string};
 
-    width: 22px;
+    width: ${({ superWide }) => (superWide ? '105px' : '22px')};
     height: 22px;
 
     min-width: 22px;
@@ -30,7 +31,9 @@ const Container = styled.div<Props>`
 
 const SubjectChecker = ({ grade }: Props) => {
     return (
-        <Container grade={grade}>{grade && (GradeByScore[grade] > 2 ? <HiOutlineCheck /> : <HiOutlineX />)}</Container>
+        <Container grade={grade} superWide={grade === 'Не явился'}>
+            {grade === 'Не явился' ? grade : grade && (GradeByScore[grade] > 2 ? <HiOutlineCheck /> : <HiOutlineX />)}
+        </Container>
     )
 }
 

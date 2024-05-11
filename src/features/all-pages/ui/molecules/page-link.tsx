@@ -27,9 +27,9 @@ export type PageLinkMode = 'use' | 'add'
 export type PageLinkProps = IRoute & {
     orientation?: Direction
     shadow?: boolean
-    restricted?: boolean
     mode?: PageLinkMode
     background?: string
+    isActive?: boolean
 }
 
 const PageLink = (props: PageLinkProps) => {

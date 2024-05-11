@@ -64,7 +64,6 @@ sample({
     fn: () => ({
         message: `Форма отправлена успешно`,
         type: 'success' as MessageType,
-        time: 0,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })
@@ -74,7 +73,6 @@ sample({
     fn: () => ({
         message: 'Не удалось отправить форму.',
         type: 'hrFailure' as MessageType,
-        time: 3000,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })

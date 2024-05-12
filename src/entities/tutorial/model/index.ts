@@ -3,7 +3,10 @@ import { Module, TutorialId, commonTutorials } from '../lib/tutorials'
 
 type Modules = { [id in TutorialId]: Module }
 const modulesResponse: { [id in TutorialId]: Pick<Module, 'completed'> } = {
-    intro: {
+    sidebar: {
+        completed: false,
+    },
+    home: {
         completed: false,
     },
 }

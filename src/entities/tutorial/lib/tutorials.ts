@@ -12,15 +12,15 @@ export type TutorialStep = {
     description: string
 }
 
-export const commonTutorialIds = ['intro'] as const
+export const commonTutorialIds = ['home', 'sidebar'] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
     [id in TutorialId]: Pick<Module, 'steps' | 'path'>
 }
 
 export const commonTutorials: ModuleData = {
-    intro: {
-        path: HOME_ROUTE,
+    sidebar: {
+        path: '',
         steps: [
             {
                 title: 'Боковая панель',
@@ -43,6 +43,11 @@ export const commonTutorials: ModuleData = {
                 title: 'Переход на главную',
                 description: 'Нажмите на логотп, чтобы мгновенно перейти на главную страницу',
             },
+        ],
+    },
+    home: {
+        path: HOME_ROUTE,
+        steps: [
             {
                 title: 'Главная',
                 description: 'На главной странице собрана основная информация приложения',

@@ -32,8 +32,8 @@ export const HomePage = withTutorial(({ forwardedRef }) => {
     if (!homeRoutes) return null
     return (
         <HomePageStyled>
-            <GlobalAppSearch tutorialModule={{ id: 'intro', step: 6, params: { position: 'bottom' } }} />
-            <Links tutorialModule={{ id: 'intro', step: 7, params: { position: 'bottom' } }} links={homeRoutes} />
+            <GlobalAppSearch tutorialModule={{ id: 'home', step: 1, params: { position: 'bottom' } }} />
+            <Links tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }} links={homeRoutes} />
             <TutorialActionPlate />
             <CenterPage>
                 <Block

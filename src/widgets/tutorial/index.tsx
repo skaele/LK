@@ -49,6 +49,10 @@ export const TutorialHero = () => {
                                 setTutorialState(false)
                                 setHeroVisited(true)
                                 setIsDeleted(true)
+
+                                setTimeout(() => {
+                                    setIsDeleted(false)
+                                }, 150)
                             }}
                         />
                         <Button

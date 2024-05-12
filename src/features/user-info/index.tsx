@@ -1,6 +1,6 @@
 import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
-import GlobalAppSearch from '@features/global-app-search'
+import { GlobalAppSearch } from '@features/global-app-search'
 import Avatar from '@features/home/ui/molecules/avatar'
 import UserContextMenu from '@features/user-context-menu'
 import React from 'react'

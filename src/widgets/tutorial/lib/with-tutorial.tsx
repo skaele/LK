@@ -15,7 +15,7 @@ type Position = { top: number; left: number; right: number; bottom?: number }
 export interface TutorialWrapperProps {
     tutorialModule?: {
         id: TutorialId
-        step: number
+        step: number | number[]
         params?: {
             noPadding?: boolean
             position?: HintPosition
@@ -63,12 +63,16 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
         const completed = tutorials[id].completed
-        const lastStep = step === commonTutorials[id].steps.length - 1
+        const module = commonTutorials[id]
+        const lastStep = module ? currentStep === module.steps.length - 1 : 0
 
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
-                {(animation === 'out' || (step === currentStep && id === currentModule.id && !completed)) &&
+                {(animation === 'out' ||
+                    ((typeof step === 'number' ? step === currentStep : step.some((step) => step === currentStep)) &&
+                        id === currentModule.id &&
+                        !completed)) &&
                     ReactDOM.createPortal(
                         <>
                             {(animation !== 'out' || (lastStep && animation === 'out')) && (

@@ -2,6 +2,7 @@ import { Align, Direction } from '@ui/types'
 import React, { HtmlHTMLAttributes } from 'react'
 import { ButtonWrapper } from './styles'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 import { ButtonLoading } from '../loading/button-loading'
 
 type BaseProps = HtmlHTMLAttributes<HTMLButtonElement>
@@ -30,7 +31,7 @@ export type ButtonProps = BaseProps & {
     fontSize?: string
 }
 
-export function Button(props: ButtonProps) {
+export function Button(props: ButtonProps & TutorialComponent) {
     const {
         icon,
         text,
@@ -50,6 +51,7 @@ export function Button(props: ButtonProps) {
         height,
         notActiveClickMessage,
         flipped,
+        forwardedRef,
         loading,
         ...restProps
     } = props
@@ -78,6 +80,7 @@ export function Button(props: ButtonProps) {
             fixedInMobile={fixedInMobile}
             height={height}
             flipped={flipped}
+            ref={forwardedRef}
             {...restProps}
         >
             {loading ? (

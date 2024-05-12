@@ -83,7 +83,7 @@ type Props = {
     size?: SearchSize
 } & TutorialComponent
 
-const GlobalAppSearch = withTutorial(({ size = 'large', forwardedRef }: Props) => {
+export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
     const shortCut = getShortCut()
     const { open } = useModal()
     const padding = size === 'large' ? '16px' : '8px'
@@ -135,6 +135,6 @@ const GlobalAppSearch = withTutorial(({ size = 'large', forwardedRef }: Props) =
             </Shortcuts>
         </GlobalAppSearchStyled>
     )
-})
+}
 
-export default memo(GlobalAppSearch)
+export const GlobalAppSearchTutorial = withTutorial(memo(GlobalAppSearch))

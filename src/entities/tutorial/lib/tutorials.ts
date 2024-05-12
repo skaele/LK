@@ -12,10 +12,10 @@ export type TutorialStep = {
     description: string
 }
 
-export const commonTutorialIds = ['home', 'sidebar'] as const
+export const commonTutorialIds = ['home', 'sidebar', 'stud_applications'] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
-    [id in TutorialId]: Pick<Module, 'steps' | 'path'>
+    [id in TutorialId]?: Pick<Module, 'steps' | 'path'>
 }
 
 export const commonTutorials: ModuleData = {
@@ -68,6 +68,29 @@ export const commonTutorials: ModuleData = {
                 title: 'Виджеты',
                 description:
                     'Используйте виджеты для быстрого доступа к информации или функциям, размещенным на главной странице',
+            },
+        ],
+    },
+    stud_applications: {
+        path: '/applications',
+        steps: [
+            {
+                title: 'Цифровые сервисы',
+                description: 'В этом разделе можно заказать необходимую справку, подать заявление или запрос',
+            },
+            {
+                title: 'Цифровые сервисы',
+                description:
+                    'В таблице можно посмотреть статус заявления и скачать файлы документов. Доступны поиск и фильтрация по запросам',
+            },
+            {
+                title: 'Цифровые сервисы',
+                description:
+                    'В колонке «Структурное подразделение, адрес» указывается название подразделения и адрес, куда необходимо приехать за готовым документом',
+            },
+            {
+                title: 'Подать заявление',
+                description: 'Чтобы подать заявление, нажмите на кнопку',
             },
         ],
     },

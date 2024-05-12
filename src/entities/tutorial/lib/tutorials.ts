@@ -1,4 +1,4 @@
-import { HOME_ROUTE } from '@app/routes/general-routes'
+import { HOME_ROUTE, PAYMENTS_ROUTE } from '@app/routes/general-routes'
 
 export type Module = {
     id: TutorialId
@@ -12,7 +12,7 @@ export type TutorialStep = {
     description: string
 }
 
-export const commonTutorialIds = ['home', 'sidebar', 'stud_applications'] as const
+export const commonTutorialIds = ['home', 'sidebar', 'stud_applications', 'payments'] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
     [id in TutorialId]?: Pick<Module, 'steps' | 'path'>
@@ -87,6 +87,28 @@ export const commonTutorials: ModuleData = {
                 title: 'Цифровые сервисы',
                 description:
                     'В колонке «Структурное подразделение, адрес» указывается название подразделения и адрес, куда необходимо приехать за готовым документом',
+            },
+            {
+                title: 'Подать заявление',
+                description: 'Чтобы подать заявление, нажмите на кнопку',
+            },
+        ],
+    },
+    payments: {
+        path: PAYMENTS_ROUTE,
+        steps: [
+            {
+                title: 'Договоры и оплаты',
+                description:
+                    'В этом разделе можно посмотреть задолженность и другую информацию по договору. У тебя есть договор на общежитие и на обучение. Их можно переключать в этом меню',
+            },
+            {
+                title: 'Задолженность',
+                description: 'Тут отображается задолженность или переплата',
+            },
+            {
+                title: 'Оплата',
+                description: 'Чтобы оплатить договор, нажмите на эту кнопку и отсканируйте QR-код',
             },
             {
                 title: 'Подать заявление',

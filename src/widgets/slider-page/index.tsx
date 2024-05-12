@@ -113,6 +113,7 @@ const SliderPage = ({
                 setCurrentPage={handleChangePage}
                 sliderWidth={sliderWidth}
                 appearance={appearance}
+                tutorialModule={{ id: 'payments', step: 0, params: { position: 'bottom' } }}
             />
             <div className={className ?? 'slider-content'} ref={sliderContentRef} onScroll={handleScroll}>
                 {pages.map((page) =>

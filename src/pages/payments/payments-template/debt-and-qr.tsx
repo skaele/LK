@@ -1,12 +1,9 @@
-import PaymentButton from '@features/payment-button'
 import { Contract } from '@features/payments'
 import Debt from '@features/payments/debt'
 import { PaymentsContract } from '@shared/api/model'
 import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import localizeDate from '@shared/lib/dates/localize-date'
-import { AnimatedCheck } from '@shared/ui/animated-check'
-import { Button, LinkButton } from '@shared/ui/atoms'
+import { AnimatedCheck, Button, LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
@@ -16,6 +13,8 @@ import { BiWallet } from 'react-icons/bi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import Slider from 'widgets/slider'
+import PaymentButton from '@features/payment-button'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 const DebtAndQrWrapper = styled.div`
     width: 100%;
@@ -105,7 +104,10 @@ const DebtAndQr = (props: Props) => {
                 />
                 <DebtAndQrContentStyled>
                     <Flex d="column" gap="12px" ai="flex-start">
-                        <Debt debt={chosenDebt} />
+                        <Debt
+                            debt={chosenDebt}
+                            // tutorialModule={{ id: 'payments', step: 1 }}
+                        />
 
                         <Flex d="column" gap="4px" ai="flex-start">
                             <Title size={3} align="left">

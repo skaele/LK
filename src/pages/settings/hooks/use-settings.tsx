@@ -19,6 +19,7 @@ import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 import { User } from '@shared/api/model'
 import { tutorialModel } from '@entities/tutorial'
 import { useUnit } from 'effector-react'
+import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
 
 const getValue = (value: string | undefined) => (!value || value.length === 0 ? 'Не указан' : value)
 
@@ -192,6 +193,10 @@ const useSettings = () => {
                     applications: {
                         value: false,
                         action: () => history.push(APPLICATIONS_ROUTE),
+                    },
+                    payments: {
+                        value: false,
+                        action: () => history.push(PAYMENTS_ROUTE),
                     },
                 },
             }),

@@ -101,6 +101,7 @@ type SettingsFullProps = {
     tutorial: {
         state: Prop<boolean>
         applications: Prop<boolean>
+        payments: Prop<boolean>
     }
     phone: Prop<string>
     phonebookPhone: Prop<PhoneSettingsType>
@@ -424,8 +425,9 @@ const getSettingsModel: TSettingsModel = ({
                     action: tutorial.applications.action,
                 },
                 {
-                    title: 'Оплата общежития',
+                    title: 'Договоры и оплаты',
                     type: 'link',
+                    action: tutorial.payments.action,
                 },
             ],
         },

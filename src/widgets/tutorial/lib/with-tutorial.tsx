@@ -8,6 +8,7 @@ import { Title } from '@shared/ui/title'
 import { Button } from '@shared/ui/button'
 import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import Flex from '@shared/ui/flex'
+import { SkipButton } from '../ui/skip-button'
 
 type HintPosition = 'right' | 'bottom' | 'top'
 type Dimensions = { width: number; height: number }
@@ -123,6 +124,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                     />
                                 </Buttons>
                             </Hint>
+                            <SkipButton />
                         </>,
                         portal,
                     )}

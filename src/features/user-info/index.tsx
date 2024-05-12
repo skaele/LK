@@ -42,7 +42,7 @@ const UserInfo = ({ showSearch = false }: Props) => {
     return (
         <UserInfoStyled>
             {showSearch && <GlobalAppSearch size="icon" />}
-            <NotificationBell tutorialModule={{ id: 'intro', step: 8, params: { position: 'bottom' } }} />
+            <NotificationBell tutorialModule={{ id: 'home', step: 3, params: { position: 'bottom' } }} />
             <Avatar
                 onClick={handleUserClick}
                 width="30px"

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import useFilter from './lib/hooks/use-filter'
 import { TableProps } from './types'
 import { Body, Header, Search, Footer } from './ui'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const TableWrapper = styled.div`
     width: 100%;
@@ -14,7 +15,16 @@ const TableWrapper = styled.div`
     overflow: hidden;
 `
 
-const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, loading = false }: TableProps) => {
+const Table = ({
+    columns,
+    columnsExtended,
+    data,
+    maxOnPage,
+    onRowClick,
+    footer,
+    loading = false,
+    forwardedRef,
+}: TableProps & TutorialComponent) => {
     const {
         sort,
         setSort,
@@ -30,7 +40,7 @@ const Table = ({ columns, columnsExtended, data, maxOnPage, onRowClick, footer, 
     } = useFilter(data)
 
     return (
-        <TableWrapper>
+        <TableWrapper ref={forwardedRef}>
             <AddedElementsList
                 setList={setFilterList}
                 padding="0 10px"

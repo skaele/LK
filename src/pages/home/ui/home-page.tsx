@@ -1,7 +1,7 @@
 import React from 'react'
 import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
 import { menuModel } from '@entities/menu'
-import GlobalAppSearch from '@features/global-app-search'
+import { GlobalAppSearchTutorial } from '@features/global-app-search'
 import Links from '@features/home/ui/links'
 import ScheduleAndNotification from '@features/home/ui/organisms/schedule-and-notification'
 import UserInfo from '@features/user-info'
@@ -32,7 +32,7 @@ export const HomePage = withTutorial(({ forwardedRef }) => {
     if (!homeRoutes) return null
     return (
         <HomePageStyled>
-            <GlobalAppSearch tutorialModule={{ id: 'home', step: 1, params: { position: 'bottom' } }} />
+            <GlobalAppSearchTutorial tutorialModule={{ id: 'home', step: 1, params: { position: 'bottom' } }} />
             <Links tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }} links={homeRoutes} />
             <TutorialActionPlate />
             <CenterPage>

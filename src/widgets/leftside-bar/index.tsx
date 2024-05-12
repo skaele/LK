@@ -1,7 +1,7 @@
 import { HOME_ROUTE } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
-import GlobalAppSearch from '@features/global-app-search'
+import { GlobalAppSearchTutorial } from '@features/global-app-search'
 import ThemeToggle from '@features/theme-toggle'
 import { Logo } from '@ui/logo'
 import useResize from '@utils/hooks/use-resize'
@@ -36,7 +36,7 @@ const LeftsideBar = withTutorial(({ forwardedRef }) => {
                     selected={location.pathname === '/profile'}
                     tutorialModule={{ id: 'sidebar', step: 1 }}
                 />
-                <GlobalAppSearch size="small" tutorialModule={{ id: 'sidebar', step: 2 }} />
+                <GlobalAppSearchTutorial size="small" tutorialModule={{ id: 'sidebar', step: 2 }} />
                 <LeftsideBarList tutorialModule={{ id: 'sidebar', step: 3 }} />
             </div>
             <ThemeToggle type="toggle" />

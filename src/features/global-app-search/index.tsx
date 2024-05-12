@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import getUsersOS from '@shared/lib/get-users-os'
 import useShortCutKeys from '@shared/lib/hooks/use-short-cut-keys'
 import BlockWrapper from '@shared/ui/block/styles'
@@ -84,7 +83,7 @@ type Props = {
     size?: SearchSize
 } & TutorialComponent
 
-const GlobalAppSearch = withTutorial(({ size = 'large', forwardedRef }: Props) => {
+export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
     const shortCut = getShortCut()
     const { open } = useModal()
     const padding = size === 'large' ? '16px' : '8px'
@@ -136,6 +135,6 @@ const GlobalAppSearch = withTutorial(({ size = 'large', forwardedRef }: Props) =
             </Shortcuts>
         </GlobalAppSearchStyled>
     )
-})
+}
 
-export default GlobalAppSearch
+export const GlobalAppSearchTutorial = withTutorial(GlobalAppSearch)

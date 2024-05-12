@@ -9,6 +9,9 @@ const modulesResponse: { [id in TutorialId]: Pick<Module, 'completed'> } = {
     home: {
         completed: false,
     },
+    stud_applications: {
+        completed: false,
+    },
 }
 const modules: Modules = Object.entries(commonTutorials).reduce((acc, [id, common]) => {
     acc[id as TutorialId] = {

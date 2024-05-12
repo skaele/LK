@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import TrainingPic from '../../shared/images/tutorial-picture.jpg'
 import { Button } from '@shared/ui/button'
@@ -10,6 +10,7 @@ import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import styled from 'styled-components'
 
 export const TutorialHero = () => {
+    const [isDeleted, setIsDeleted] = useState(false)
     const [heroVisited, setTutorialState, setHeroVisited] = useUnit([
         tutorialModel.stores.heroVisited,
         tutorialModel.events.setTutorialState,
@@ -17,22 +18,22 @@ export const TutorialHero = () => {
     ])
 
     const { isMobile, isTablet } = useCurrentDevice()
-    if (heroVisited) return null
+    if (heroVisited && !isDeleted) return null
 
     return (
         <TutorialHeroLayout onMouseUp={() => setHeroVisited(true)}>
-            <Hero onMouseUp={(e) => e.stopPropagation()}>
+            <Hero onMouseUp={(e) => e.stopPropagation()} deleted={isDeleted}>
                 <Img src={TrainingPic} />
                 <TutorialHeroText>
                     <Title>Привет!</Title>
                     <Text>
-                        В Личном кабинете появилось обучение. Пройдя его, ты познакомишься с основными моментами и
-                        возможностями, которые сделают твое обучение более удобным.
+                        В Личном кабинете появилось обучение. Пройдя его, ты познакомишься с основными моментами
+                        и возможностями, которые сделают твое обучение более удобным.
                     </Text>
                     {!isMobile && !isTablet && (
                         <Text>
-                            Отслеживай расписание, заказывай справки, проводи оплаты, общайся с сотрудниками,
-                            преподавателями и студентами - все в одном месте.
+                            Отслеживай расписание, заказывай справки, проводи оплаты, общайся с сотрудниками,
+                            преподавателями и студентами - все в одном месте.
                         </Text>
                     )}
                     <Buttons>
@@ -47,6 +48,7 @@ export const TutorialHero = () => {
                             onClick={() => {
                                 setTutorialState(false)
                                 setHeroVisited(true)
+                                setIsDeleted(true)
                             }}
                         />
                         <Button
@@ -60,6 +62,11 @@ export const TutorialHero = () => {
                             onClick={() => {
                                 setTutorialState(true)
                                 setHeroVisited(true)
+                                setIsDeleted(true)
+
+                                setTimeout(() => {
+                                    setIsDeleted(false)
+                                }, 150)
                             }}
                         />
                     </Buttons>

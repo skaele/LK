@@ -24,11 +24,12 @@ const completeModule = createEvent<TutorialId>()
 const setCurrentTutorial = createEvent<TutorialId>()
 const nextStep = createEvent()
 const prevStep = createEvent()
+const resetStep = createEvent()
 
 const $tutorialState = createStore<boolean | null>(null).on(setTutorialState, (_, value) => value)
 const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => value)
 const $currentModule = createStore<Module | null>(null)
-const $currentStep = createStore<number>(0)
+const $currentStep = createStore<number>(0).reset(resetStep)
 const $tutorials = createStore<Modules>(modules).on(completeModule, (state, id) => ({
     ...state,
     [id]: {
@@ -88,6 +89,12 @@ sample({
     },
     target: $currentModule,
 })
+
+sample({
+    clock: completeModule,
+    target: resetStep,
+})
+
 export const stores = {
     tutorialState: $tutorialState,
     currentModule: $currentModule,

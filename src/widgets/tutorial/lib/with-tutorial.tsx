@@ -2,11 +2,11 @@ import React, { ComponentType, useCallback, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useUnit } from 'effector-react'
 import { tutorialModel } from '@entities/tutorial'
-import { TutorialId } from '@entities/tutorial/lib/tutorials'
-import styled from 'styled-components'
+import { TutorialId, commonTutorials } from '@entities/tutorial/lib/tutorials'
+import styled, { keyframes } from 'styled-components'
 import { Title } from '@shared/ui/title'
 import { Button } from '@shared/ui/button'
-import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
+import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import Flex from '@shared/ui/flex'
 
 type HintPosition = 'right' | 'bottom' | 'top'
@@ -17,6 +17,7 @@ export interface TutorialWrapperProps {
         id: TutorialId
         step: number
         params?: {
+            noPadding?: boolean
             position?: HintPosition
         }
     }
@@ -28,6 +29,7 @@ export type TutorialComponent = {
 
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const Wrapper: React.FC<P & TutorialWrapperProps> = (props) => {
+        const [animation, setAnimation] = useState<'in' | 'out'>('in')
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
 
@@ -48,10 +50,11 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             window.addEventListener('resize', measureDOMNode)
             window.addEventListener('scroll', measureDOMNode, true)
         }, [])
-        const [tutorialState, currentModule, currentStep] = useUnit([
+        const [tutorialState, currentModule, currentStep, tutorials] = useUnit([
             tutorialModel.stores.tutorialState,
             tutorialModel.stores.currentModule,
             tutorialModel.stores.currentStep,
+            tutorialModel.stores.tutorials,
         ])
 
         if (!portal || !position || !tutorialState || !currentModule || !props.tutorialModule)
@@ -59,18 +62,28 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
+        const completed = tutorials[id].completed
+        const lastStep = step === commonTutorials[id].steps.length - 1
 
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
-                {step === currentStep &&
-                    id === currentModule.id &&
+                {(animation === 'out' || (step === currentStep && id === currentModule.id && !completed)) &&
                     ReactDOM.createPortal(
-                        <Layout dimensions={dimensions} position={position}>
+                        <>
+                            {(animation !== 'out' || (lastStep && animation === 'out')) && (
+                                <Layout
+                                    dimensions={dimensions}
+                                    position={position}
+                                    lastStep={animation === 'out' && lastStep ? true : false}
+                                    noPadding={props.tutorialModule.params?.noPadding}
+                                ></Layout>
+                            )}
                             <Hint
                                 dimensions={dimensions}
                                 childPosition={position}
                                 relativePosition={props.tutorialModule.params?.position}
+                                lastStep={animation === 'out' && lastStep ? true : false}
                             >
                                 <Title size={4} align="left">
                                     {title}
@@ -78,21 +91,35 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 <Description>{description}</Description>
                                 <Buttons jc="flex-end" gap="20px">
                                     <Button
+                                        hoverTextColor="#cccccc"
+                                        isActive={step !== 0}
                                         background="transparent"
                                         icon={<FaArrowLeftLong />}
-                                        onClick={() => tutorialModel.events.prevStep()}
+                                        onClick={() => {
+                                            tutorialModel.events.prevStep()
+                                        }}
                                     />
                                     <div style={{ minWidth: '5ch', textAlign: 'end' }}>
                                         {currentStep + 1} / {currentModule.steps.length}
                                     </div>
                                     <Button
                                         background="transparent"
-                                        icon={<FaArrowRightLong />}
-                                        onClick={() => tutorialModel.events.nextStep()}
+                                        hoverTextColor="#cccccc"
+                                        icon={lastStep ? <FaCheck /> : <FaArrowRightLong />}
+                                        onClick={() => {
+                                            if (lastStep) {
+                                                setAnimation('out')
+
+                                                setTimeout(() => {
+                                                    tutorialModel.events.completeModule(id)
+                                                    setAnimation('in')
+                                                }, 200)
+                                            } else tutorialModel.events.nextStep()
+                                        }}
                                     />
                                 </Buttons>
                             </Hint>
-                        </Layout>,
+                        </>,
                         portal,
                     )}
             </>
@@ -102,22 +129,61 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
     return Wrapper
 }
 
-const Layout = styled.div<{ dimensions: Dimensions; position: Position }>`
-    position: fixed;
-    top: ${({ position: { top } }) => top - 10}px;
-    left: ${({ position: { left } }) => left - 10}px;
-    z-index: 6;
-
-    width: ${({ dimensions: { width } }) => width + 20}px;
-    height: ${({ dimensions: { height } }) => height + 20}px;
-
-    padding: 10px;
-
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 10000px;
+const FadeIn = keyframes`
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
 `
 
-const Hint = styled.div<{ dimensions: Dimensions; childPosition: Position; relativePosition?: HintPosition }>`
+export const FadeOut = keyframes`
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }`
+
+const BGFadeIn = keyframes`
+        0% {
+            background-color: rgba(0, 0, 0, 0.66);
+        }
+        100% {
+            background-color: rgba(0, 0, 0, 0);
+        }
+        `
+
+const Layout = styled.div<{
+    dimensions: Dimensions
+    position: Position
+    lastStep?: boolean
+    noPadding?: boolean
+}>`
+    pointer-events: none;
+    position: fixed;
+    top: ${({ position: { top }, noPadding }) => (noPadding ? top : top - 10)}px;
+    left: ${({ position: { left }, noPadding }) => (noPadding ? left : left - 10)}px;
+    z-index: 6;
+
+    width: ${({ dimensions: { width }, noPadding }) => (noPadding ? width : width + 20)}px;
+    height: ${({ dimensions: { height }, noPadding }) => (noPadding ? height : height + 20)}px;
+
+    padding: ${({ noPadding }) => (noPadding ? '0' : '10px')};
+
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.66) 0px 0px 0px 10000px;
+
+    animation: ${({ lastStep }) => (lastStep ? FadeOut : BGFadeIn)} 0.2s ease-in forwards;
+`
+
+const Hint = styled.div<{
+    dimensions: Dimensions
+    childPosition: Position
+    relativePosition?: HintPosition
+    lastStep?: boolean
+}>`
     position: fixed;
     z-index: 6;
     bottom: 0;
@@ -144,7 +210,7 @@ const Hint = styled.div<{ dimensions: Dimensions; childPosition: Position; relat
             relativePosition === 'bottom' ? top + height + 10 : relativePosition === 'top' ? top - 30 : top}px;
         left: ${({ dimensions: { width }, childPosition: { left }, relativePosition }) =>
             relativePosition === 'bottom' || relativePosition === 'top' ? left - 20 : left + width + 10}px;
-        transform: ${({ relativePosition }) => (relativePosition === 'top' ? 'translateY(-100%)' : 'translateY(0)')};
+        transform: translateY(${({ relativePosition }) => (relativePosition === 'top' ? '-100%' : '0')});
         bottom: auto;
 
         min-width: 250px;
@@ -152,6 +218,7 @@ const Hint = styled.div<{ dimensions: Dimensions; childPosition: Position; relat
         max-width: 600px;
 
         margin: 10px;
+        animation: ${({ lastStep }) => (lastStep ? FadeOut : FadeIn)} 200ms ease-in forwards;
     }
 `
 

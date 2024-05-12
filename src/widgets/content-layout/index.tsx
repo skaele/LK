@@ -36,7 +36,7 @@ const ContentLayout = () => {
         <Wrapper>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
-            <LeftsideBar tutorialModule={{ id: 'intro', step: 0 }} />
+            <LeftsideBar tutorialModule={{ id: 'intro', step: 0, params: { noPadding: true } }} />
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { FadeOut } from '../lib/with-tutorial'
 
 export const TutorialHeroLayout = styled.div`
     position: fixed;
@@ -29,7 +30,7 @@ export const TutorialHeroText = styled.div`
     }
 `
 
-export const Hero = styled.div`
+export const Hero = styled.div<{ deleted?: boolean }>`
     min-width: 100%;
     position: relative;
     display: flex;
@@ -47,6 +48,8 @@ export const Hero = styled.div`
         max-width: 90%;
         flex-direction: row;
     }
+
+    animation: ${({ deleted }) => (deleted ? FadeOut : '')} 150ms ease-in forwards;
 `
 
 export const Title = styled.h2`

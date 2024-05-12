@@ -1,64 +1,57 @@
 import { messageApi } from '@api'
-import { Messages } from '@api/model'
-import { createEffect, createStore } from 'effector'
-import { useStore } from 'effector-react/compat'
-import { createEvent } from 'effector'
+import { createMutation, createQuery, update } from '@farfetched/core'
+import { attach, createEvent, createStore, sample } from 'effector'
+import { useUnit } from 'effector-react'
 
-interface MessagesStore {
-    messages: Messages | null
-    error: string | null
-}
+const setChatId = createEvent<string>()
+const addMessage = createEvent<{ message: string }>()
 
-const DEFAULT_STORE: MessagesStore = {
-    messages: null,
-    error: null,
-}
+const $selectedChatId = createStore<string | null>(null).on(setChatId, (_, chatId) => chatId)
 
-const useMessages = () => {
-    return {
-        data: useStore($messagesStore).messages,
-        loading: useStore(getMessagesFx.pending),
-        error: useStore($messagesStore).error,
-    }
-}
-
-const getMessagesFx = createEffect(async (): Promise<Messages> => {
-    try {
-        const response = await messageApi.get('1')
-
-        return response.data
-    } catch (error) {
-        throw new Error(error as string)
-    }
+const getMessagesFx = attach({
+    source: $selectedChatId,
+    effect: (chatId) => messageApi.get(chatId ?? ''),
 })
 
-const clearStore = createEvent()
+const addMessageFx = attach({
+    source: $selectedChatId,
+    effect: (chatId, { message }: { message: string }) => messageApi.add({ message, chatId: chatId ?? '' }),
+})
 
-const $messagesStore = createStore<MessagesStore>(DEFAULT_STORE)
-    .on(getMessagesFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
-    .on(getMessagesFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        messages: newData,
-    }))
-    .on(getMessagesFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(clearStore, () => ({
-        ...DEFAULT_STORE,
-    }))
+const messagesQuery = createQuery({
+    handler: getMessagesFx,
+})
 
-export const selectors = {
-    useMessages,
-}
+sample({
+    clock: setChatId,
+    filter: Boolean,
+    target: messagesQuery.start,
+})
 
-export const effects = {
-    getMessagesFx,
-}
+const addMassageMutation = createMutation({
+    handler: addMessageFx,
+})
+
+sample({
+    clock: addMessage,
+    target: addMassageMutation.start,
+})
+
+update(messagesQuery, {
+    on: addMassageMutation,
+    by: {
+        success: ({ mutation, query }) => ({
+            result: [...query.data, mutation.result],
+        }),
+    },
+})
 
 export const events = {
-    clearStore,
+    addMessage,
+    setChatId,
+}
+
+export const stores = {
+    selectedChatId: $selectedChatId,
+    messages: messagesQuery.$data,
 }

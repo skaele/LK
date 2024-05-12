@@ -67,7 +67,7 @@ interface Props {
 const MessageItem = ({ name, message, isLast }: Props) => {
     return (
         <MessageItemWrapper
-            isYourMessage={name === 'Kostya Doloz'}
+            isYourMessage={name === 'Никита Карпенко'}
             isLast={isLast}
             onContextMenu={(e) => {
                 contextMenuModel.events.open({ e, content: <MessageContextMenu message={message} />, height: 70 })

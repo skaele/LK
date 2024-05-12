@@ -4,7 +4,7 @@ import localizeDate from '@shared/lib/dates/localize-date'
 const avatars = {
     'Peter Parker':
         'https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Andrew_Garfield_Spider-Man.jpg/220px-Andrew_Garfield_Spider-Man.jpg',
-    'Kostya Doloz':
+    'Никита Карпенко':
         'https://img.freepik.com/free-photo/waist-up-portrait-of-handsome-serious-unshaven-male-keeps-hands-together-dressed-in-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg?size=626&ext=jpg',
 } as { [key: string]: string }
 

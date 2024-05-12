@@ -16,7 +16,7 @@ const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
     height: 100%;
     background: var(--block);
     color: var(--text);
-    box-shadow: 1px 0 5px #00000036;
+    border-radius: 20px;
 
     .chat-list-top-section {
         display: flex;
@@ -58,7 +58,7 @@ const ListOfChats = () => {
     const chats: any[] = [
         {
             avatar: undefined,
-            name: 'Стелла',
+            name: 'Аверин Антон',
             lastMessage: {
                 message: 'Привет. Как дела?',
                 sentTime: '12:23',
@@ -67,8 +67,8 @@ const ListOfChats = () => {
             amountOfUnreadMessages: 10,
         },
         {
-            avatar: 'https://upload.wikimedia.org/wikipedia/ru/thumb/d/df/Andrew_Garfield_as_Spider-Man.jpg/280px-Andrew_Garfield_as_Spider-Man.jpg',
-            name: 'Питер Паркер',
+            // avatar: 'https://upload.wikimedia.org/wikipedia/ru/thumb/d/df/Andrew_Garfield_as_Spider-Man.jpg/280px-Andrew_Garfield_as_Spider-Man.jpg',
+            name: 'Хуснулина Дарья',
             lastMessage: {
                 message: 'Привет. Как дела?',
                 sentTime: '12:23',
@@ -76,36 +76,36 @@ const ListOfChats = () => {
             chatId: '2',
             amountOfUnreadMessages: 0,
         },
-        {
-            avatar: undefined,
-            name: 'Рафаэль',
-            lastMessage: {
-                message: 'Привет. Как дела?',
-                sentTime: '12:23',
-            },
-            chatId: '3',
-            amountOfUnreadMessages: 0,
-        },
-        {
-            avatar: undefined,
-            name: 'Леонардо',
-            lastMessage: {
-                message: 'Привет. Как дела?',
-                sentTime: '12:23',
-            },
-            chatId: '4',
-            amountOfUnreadMessages: 0,
-        },
-        {
-            avatar: undefined,
-            name: 'Бред Питт',
-            lastMessage: {
-                message: 'Привет. Как дела?',
-                sentTime: '12:23',
-            },
-            chatId: '5',
-            amountOfUnreadMessages: 0,
-        },
+        // {
+        //     avatar: undefined,
+        //     name: 'Рафаэль',
+        //     lastMessage: {
+        //         message: 'Привет. Как дела?',
+        //         sentTime: '12:23',
+        //     },
+        //     chatId: '3',
+        //     amountOfUnreadMessages: 0,
+        // },
+        // {
+        //     avatar: undefined,
+        //     name: 'Леонардо',
+        //     lastMessage: {
+        //         message: 'Привет. Как дела?',
+        //         sentTime: '12:23',
+        //     },
+        //     chatId: '4',
+        //     amountOfUnreadMessages: 0,
+        // },
+        // {
+        //     avatar: undefined,
+        //     name: 'Бред Питт',
+        //     lastMessage: {
+        //         message: 'Привет. Как дела?',
+        //         sentTime: '12:23',
+        //     },
+        //     chatId: '5',
+        //     amountOfUnreadMessages: 0,
+        // },
     ]
 
     return (

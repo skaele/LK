@@ -20,7 +20,6 @@ const ChatHeaderWrapper = styled.div`
     justify-content: space-between;
     padding: 0 10px;
     background: var(--block);
-    box-shadow: 5px 0 5px #00000036;
     position: relative;
 `
 

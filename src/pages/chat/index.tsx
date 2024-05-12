@@ -7,8 +7,13 @@ import styled from 'styled-components'
 
 const ChatPageWrapper = styled.div`
     display: flex;
-    width: 100%;
-    height: 100%;
+    height: 90%;
+    max-width: 963px;
+    margin: 40px auto;
+    background: var(--block);
+
+    box-shadow: var(--very-mild-shadow);
+    border-radius: 10px;
 `
 
 const ChatPage = () => {

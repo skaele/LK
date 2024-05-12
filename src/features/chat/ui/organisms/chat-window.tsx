@@ -11,6 +11,7 @@ const ChatWindowWrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
+    border-radius: 20px;
 
     & > img {
         position: absolute;
@@ -35,7 +36,7 @@ const ChatWindow = () => {
 
     return (
         <ChatWindowWrapper>
-            <ChatHeader name={'Леонаро ДиК априо'} loading={loading} />
+            <ChatHeader name={'Хуснулина Дарья'} loading={loading} />
             <Messages loading={loading} />
             <ChatInput />
         </ChatWindowWrapper>

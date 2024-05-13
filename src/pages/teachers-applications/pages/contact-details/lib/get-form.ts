@@ -2,7 +2,7 @@ import { ContactDetails, Subdivision } from '@api/model'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@ui/input-area/model'
 
-export const sites = [
+export const POLYTECH_SITES = [
     {
         id: '0',
         title: 'ул. Большая Семёновская, 38',
@@ -71,7 +71,9 @@ export const sites = [
         id: '16',
         title: '1-й Балтийский переулок, 6/21, корп. 3',
     },
-]
+] as const
+export type SiteName = (typeof POLYTECH_SITES)[number]['title']
+export const sites = [...POLYTECH_SITES]
 
 const getForm = (data: ContactDetails, subdivision: Subdivision): IInputArea => {
     return {

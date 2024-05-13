@@ -1,6 +1,6 @@
 import { userModel } from '@entities/user'
 import { Colors } from '@shared/constants'
-import { Button, Divider, Input, Loading } from '@shared/ui/atoms'
+import { Button, Divider, Input } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
@@ -70,9 +70,9 @@ export const BusinessMobilePhoneModal = () => {
                     height="38px"
                     text={!loading ? 'Обновить' : undefined}
                     onClick={handleSubmit}
-                    isActive={!loading}
-                    icon={loading ? <Loading /> : undefined}
+                    loading={loading}
                     background={Colors.blue.main}
+                    minWidth="10ch"
                     textColor={Colors.white.main}
                 />
             </Buttons>

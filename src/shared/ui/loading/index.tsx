@@ -9,7 +9,7 @@ type LoadingProps = BaseProps & {
     height?: string
 }
 
-const LoadingStyled = styled.img`
+const LoadingStyled = styled.img<{ isInButton?: boolean }>`
     width: 40px;
 `
 

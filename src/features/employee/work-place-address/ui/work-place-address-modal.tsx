@@ -4,7 +4,7 @@ import { sites } from '@pages/teachers-applications/pages/contact-details/lib/ge
 import { getCabinetMask } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
 import { Colors } from '@shared/constants'
 import Masks from '@shared/lib/masks'
-import { Button, Divider, Input, Loading, Title } from '@shared/ui/atoms'
+import { Button, Divider, Input, Title } from '@shared/ui/atoms'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
@@ -134,9 +134,9 @@ export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddress
                     height="38px"
                     text={!loading ? 'Обновить' : undefined}
                     onClick={handleSubmit}
-                    isActive={!loading}
-                    icon={loading ? <Loading /> : undefined}
+                    loading={loading}
                     background={Colors.blue.main}
+                    minWidth="10ch"
                     textColor={Colors.white.main}
                 />
             </Buttons>

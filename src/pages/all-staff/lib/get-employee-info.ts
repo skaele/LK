@@ -3,7 +3,8 @@ import { PhonebookInfo } from '../ui/phonebook-modal'
 
 export const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>
     employee.job.map((job) => ({
-        subtitle: job.subdivision + ' • ' + job.post,
+        subdivision: job.subdivision,
+        post: job.post,
         attributes: [
             {
                 id: 'jobType',

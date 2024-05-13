@@ -12,9 +12,14 @@ import { useModal } from 'widgets'
 import List from '@shared/ui/list'
 import Avatar from '@features/home/ui/molecules/avatar'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { getSubdivisionInfo } from '../lib/get-subdivision-info'
+import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
+import { useUnit } from 'effector-react'
+import { phonebookModel } from '@entities/phonebook'
 
 export type PhonebookInfo = {
-    subtitle?: string
+    subdivision?: string
+    post?: string
     attributes: { id?: 'email' | 'innerPhone' | 'mobile' | 'jobType'; title: string; text: string }[]
 }
 
@@ -29,8 +34,9 @@ export const PhonebookModal = ({
     avatar?: string
     isEmployee?: boolean
 }) => {
-    const { close } = useModal()
+    const { open, close } = useModal()
     const { isMobile } = useCurrentDevice()
+    const subdivisions = useUnit(phonebookModel.stores.subdivisions)
 
     return (
         <Flex d="column">
@@ -59,14 +65,33 @@ export const PhonebookModal = ({
             </Header>
             <Wrapper>
                 <List key={title} minWidth="100%" direction="horizontal" showPages gap={20}>
-                    {info.map(({ subtitle, attributes }) => {
+                    {info.map(({ subdivision, post, attributes }) => {
+                        const subtitle = subdivision && post
                         const jobType = attributes.find((attribute) => attribute.id === 'jobType')
                         return (
                             <Content
                                 key={subtitle ? title + subtitle + jobType?.text : title}
                                 isEmployee={!!isEmployee}
                             >
-                                {subtitle && <Subtitle>{subtitle}</Subtitle>}
+                                {subtitle && (
+                                    <Subtitle
+                                        onClick={() => {
+                                            close()
+
+                                            if (!subdivisions) return
+                                            const subdiv = findSubdivisionByName(subdivisions, subdivision)
+                                            if (!subdiv) return
+                                            open(
+                                                <PhonebookModal
+                                                    title={subdivision}
+                                                    info={getSubdivisionInfo(subdiv)}
+                                                />,
+                                            )
+                                        }}
+                                    >
+                                        {subdivision + ' • ' + post}
+                                    </Subtitle>
+                                )}
                                 {attributes.map(({ title, text, id }) => (
                                     <InfoItem key={title} title={title}>
                                         {text ? (

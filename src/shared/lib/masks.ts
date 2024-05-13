@@ -28,7 +28,7 @@ const phoneMask = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     // if (russianNumberBeginnings.indexOf(phoneInput[0]) > -1) {
     // russian number
-    if (phoneInput[0] === '9') phoneInput = '7' + phoneInput
+    if (phoneInput[0] !== '7') phoneInput = '7' + phoneInput
     // const firstSymbols = phoneInput[0] === '8' ? '8' : '+7'
     const firstSymbols = '+7'
     formattedPhone = firstSymbols + ' '

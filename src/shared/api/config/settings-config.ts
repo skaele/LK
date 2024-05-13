@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
-export const PE_URL = 'http://docker.mospolytech.ru:3992/api/config'
+export const PE_URL = 'http://apilin.mospolytech.ru:3992/api/config'
 
 export const $settingsApi = axios.create({ baseURL: PE_URL })
 

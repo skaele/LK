@@ -1,7 +1,6 @@
 import { messageApi } from '@api'
-import { createMutation, createQuery, update } from '@farfetched/core'
+import { createMutation, createQuery } from '@farfetched/core'
 import { attach, createEvent, createStore, sample } from 'effector'
-import { useUnit } from 'effector-react'
 
 const setChatId = createEvent<string>()
 const addMessage = createEvent<{ message: string }>()
@@ -37,14 +36,14 @@ sample({
     target: addMassageMutation.start,
 })
 
-update(messagesQuery, {
-    on: addMassageMutation,
-    by: {
-        success: ({ mutation, query }) => ({
-            result: [...query.data, mutation.result],
-        }),
-    },
-})
+// update(messagesQuery, {
+//     on: addMassageMutation,
+//     by: {
+//         success: ({ mutation, query }) => ({
+//             result: [...query.data, mutation.result],
+//         }),
+//     },
+// })
 
 export const events = {
     addMessage,

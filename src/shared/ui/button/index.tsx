@@ -2,6 +2,7 @@ import { Align, Direction } from '@ui/types'
 import React, { HtmlHTMLAttributes } from 'react'
 import { ButtonWrapper } from './styles'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { ButtonLoading } from '../loading/button-loading'
 
 type BaseProps = HtmlHTMLAttributes<HTMLButtonElement>
 
@@ -24,6 +25,7 @@ export type ButtonProps = BaseProps & {
     height?: string
     notActiveClickMessage?: string
     flipped?: boolean
+    loading?: boolean
 }
 
 export function Button(props: ButtonProps) {
@@ -46,6 +48,7 @@ export function Button(props: ButtonProps) {
         height,
         notActiveClickMessage,
         flipped,
+        loading,
         ...restProps
     } = props
 
@@ -69,14 +72,20 @@ export function Button(props: ButtonProps) {
             hoverBackground={hoverBackground}
             align={align}
             direction={direction}
-            isActive={isActive}
+            isActive={loading ? false : isActive}
             fixedInMobile={fixedInMobile}
             height={height}
             flipped={flipped}
             {...restProps}
         >
-            {!!icon && <div className="icon">{icon}</div>}
-            <span className="text">{text}</span>
+            {loading ? (
+                <ButtonLoading />
+            ) : (
+                <>
+                    {!!icon && <div className="icon">{icon}</div>}
+                    <span className="text">{text}</span>
+                </>
+            )}
         </ButtonWrapper>
     )
 }

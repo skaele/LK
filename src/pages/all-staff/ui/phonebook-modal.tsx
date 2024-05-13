@@ -16,11 +16,14 @@ import { getSubdivisionInfo } from '../lib/get-subdivision-info'
 import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
 import { useUnit } from 'effector-react'
 import { phonebookModel } from '@entities/phonebook'
+import { findEmployeeByFio } from '../lib/find-employee-by-fio'
+import { getEmployeeInfo } from '../lib/get-employee-info'
+import styled from 'styled-components'
 
 export type PhonebookInfo = {
     subdivision?: string
     post?: string
-    attributes: { id?: 'email' | 'innerPhone' | 'mobile' | 'jobType'; title: string; text: string }[]
+    attributes: { id?: 'email' | 'innerPhone' | 'mobile' | 'jobType' | 'head'; title: string; text: string }[]
 }
 
 export const PhonebookModal = ({
@@ -74,7 +77,7 @@ export const PhonebookModal = ({
                                 isEmployee={!!isEmployee}
                             >
                                 {subtitle && (
-                                    <Subtitle
+                                    <SubtitleStyled
                                         onClick={() => {
                                             close()
 
@@ -90,13 +93,33 @@ export const PhonebookModal = ({
                                         }}
                                     >
                                         {subdivision + ' • ' + post}
-                                    </Subtitle>
+                                    </SubtitleStyled>
                                 )}
                                 {attributes.map(({ title, text, id }) => (
                                     <InfoItem key={title} title={title}>
                                         {text ? (
                                             id === 'email' ? (
                                                 <a href={`mailto:${text}`}>{text}</a>
+                                            ) : id === 'head' ? (
+                                                <DivStyled
+                                                    onClick={() => {
+                                                        close()
+
+                                                        if (!subdivisions) return
+                                                        const employee = findEmployeeByFio(subdivisions, text)[0]
+                                                        if (!employee) return
+                                                        open(
+                                                            <PhonebookModal
+                                                                title={employee.fio}
+                                                                info={getEmployeeInfo(employee)}
+                                                                avatar={employee.avatar}
+                                                                isEmployee
+                                                            />,
+                                                        )
+                                                    }}
+                                                >
+                                                    {text}
+                                                </DivStyled>
                                             ) : id === 'innerPhone' ? (
                                                 text.split('; ').map((tel, i, arr) => (
                                                     <a key={tel} href={`tel:+7(495) 223-05-23,${tel}`}>
@@ -153,3 +176,11 @@ export const PhonebookModal = ({
         </Flex>
     )
 }
+
+const SubtitleStyled = styled(Subtitle)`
+    cursor: pointer;
+`
+
+const DivStyled = styled.div`
+    cursor: pointer;
+`

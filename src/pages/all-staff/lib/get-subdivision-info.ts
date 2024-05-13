@@ -5,7 +5,7 @@ export const getSubdivisionInfo = (subdivision: Subdivision): PhonebookInfo[] =>
     return [
         {
             attributes: [
-                { title: 'Руководитель', text: subdivision.head.fio },
+                { id: 'head', title: 'Руководитель', text: subdivision.head.fio },
                 {
                     title: 'Корпоративная электронная почта подразделения',
                     text: subdivision.email,

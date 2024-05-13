@@ -51,6 +51,7 @@ export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddress
     const selectedSubdivision = currentUser?.subdivisions?.find(
         (subdivision) => subdivision.guid_staff === selectedGuidStaff,
     )
+    const subdivisionsLength = currentUser?.subdivisions?.length || 0
 
     const [address, setAddress] = useState<SelectPage | null>(() =>
         findCurrentInSelect(sites, selectedSubdivision?.address ?? ''),
@@ -96,13 +97,12 @@ export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddress
 
     return (
         <TextFieldModalStyled>
-            {subDivisionGuidStaff && (
+            {(subDivisionGuidStaff || subdivisionsLength === 1) && (
                 <Title size={4} align="left">
                     {selectedSubdivision?.post}
                 </Title>
             )}
-
-            {!subDivisionGuidStaff && (
+            {!subDivisionGuidStaff && subdivisionsLength > 1 && (
                 <SliderPage
                     pages={pages}
                     onChangePage={(id) => setSelectedGuidStaff(id || '')}

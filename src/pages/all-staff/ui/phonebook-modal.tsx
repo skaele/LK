@@ -19,11 +19,17 @@ import { phonebookModel } from '@entities/phonebook'
 import { findEmployeeByFio } from '../lib/find-employee-by-fio'
 import { getEmployeeInfo } from '../lib/get-employee-info'
 import styled from 'styled-components'
+import { PlaceModal } from './place-modal'
+import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
 
 export type PhonebookInfo = {
     subdivision?: string
     post?: string
-    attributes: { id?: 'email' | 'innerPhone' | 'mobile' | 'jobType' | 'head'; title: string; text: string }[]
+    attributes: {
+        id?: 'email' | 'innerPhone' | 'mobile' | 'jobType' | 'head' | 'address'
+        title: string
+        text: string
+    }[]
 }
 
 export const PhonebookModal = ({
@@ -128,6 +134,16 @@ export const PhonebookModal = ({
                                                 ))
                                             ) : id === 'mobile' ? (
                                                 <a href={`tel:${text}`}>{text}</a>
+                                            ) : id === 'address' ? (
+                                                <DivStyled
+                                                    onClick={() => {
+                                                        close()
+
+                                                        open(<PlaceModal place={text as SiteName} />, text)
+                                                    }}
+                                                >
+                                                    {text}
+                                                </DivStyled>
                                             ) : (
                                                 <>{text}</>
                                             )

@@ -1,5 +1,6 @@
 export const ApplicationsConstants = {
     ready: 'Готово',
+    completed: 'Выполнена',
     issued: 'Выдано',
     recieved: 'Получено',
     inProgress: 'В работе',

@@ -62,7 +62,7 @@ export const getCommonApplicationsColumns = (): ColumnProps[] => [
             return (
                 <Message
                     type={
-                        value === 'Готово' || value === 'Выдано' || value === 'Получено'
+                        value === 'Готово' || value === 'Выдано' || value === 'Получено' || value === 'Выполнена'
                             ? 'success'
                             : value === 'Отклонено'
                             ? 'failure'

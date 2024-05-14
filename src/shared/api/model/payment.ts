@@ -43,6 +43,11 @@ export interface PaymentsContract {
     student: string
     sum: string
     type: string
+    sides: string
+    user_fio: string
+    user_email: string
+    client_fio: string
+    client_email: string
 }
 
 export interface Agreement {

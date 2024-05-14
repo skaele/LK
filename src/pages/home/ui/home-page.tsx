@@ -10,8 +10,9 @@ import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import { CenterPage, Title } from '@ui/atoms'
-import { settingsModel } from '@entities/settings'
 import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { useUnit } from 'effector-react'
+import { userSettingsModel } from '@entities/settings'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -28,12 +29,14 @@ const HomePageStyled = styled.div`
 `
 export const HomePage = withTutorial(({ forwardedRef }) => {
     const { homeRoutes } = menuModel.selectors.useMenu()
-    const { news } = settingsModel.selectors.useSettings().settings['settings-home-page'].property
+    const settings = useUnit(userSettingsModel.stores.userSettings)
     if (!homeRoutes) return null
     return (
         <HomePageStyled>
             <GlobalAppSearchTutorial tutorialModule={{ id: 'home', step: 1, params: { position: 'bottom' } }} />
-            <Links tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }} links={homeRoutes} />
+            {Boolean(Object.keys(homeRoutes).length) && (
+                <Links tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }} links={homeRoutes} />
+            )}
             <TutorialActionPlate />
             <CenterPage>
                 <Block
@@ -52,7 +55,7 @@ export const HomePage = withTutorial(({ forwardedRef }) => {
                         <UserInfo />
                     </Flex>
                     <ScheduleAndNotification />
-                    {!!news && <AlertsWidget />}
+                    {!!settings?.homePage.hasNews && <AlertsWidget />}
                 </Block>
             </CenterPage>
         </HomePageStyled>

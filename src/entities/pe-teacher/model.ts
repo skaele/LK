@@ -1,4 +1,4 @@
-import { $userStore } from '@entities/user/model'
+import { userModel } from '@entities/user'
 import { pERequest } from '@shared/api/config/pe-config'
 import { attach, createEvent, restore, sample } from 'effector'
 import { loadPeUserPermissions } from './lib'
@@ -12,7 +12,7 @@ const loadFx = attach({
 
         return { ...res.teacher, id: currentUser?.guid ?? '' }
     },
-    source: $userStore,
+    source: userModel.stores.user,
 })
 
 const $peTeacher = restore(loadFx, null)

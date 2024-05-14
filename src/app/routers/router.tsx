@@ -1,9 +1,7 @@
 import { LOGIN_ROUTE, publicRoutes } from '@app/routes/general-routes'
 import { adminLinksModel } from '@entities/admin-links'
 import { applicationsModel } from '@entities/applications'
-import { menuModel } from '@entities/menu'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { settingsModel } from '@entities/settings'
 import { loadDivisions } from '@pages/hr-applications/model/divisions'
 import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import React, { Suspense, useEffect } from 'react'
@@ -17,9 +15,6 @@ const Router = () => {
         data: { isAuthenticated, user },
     } = userModel.selectors.useUser()
 
-    const { data } = adminLinksModel.selectors.useData()
-    const { settings } = settingsModel.selectors.useSettings()
-
     // scroll window to top when change route
     useScrollToTop(window)
 
@@ -29,6 +24,7 @@ const Router = () => {
         }
     }, [window.location.href])
 
+    // TODO: sample with $userStore clock
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
@@ -41,19 +37,6 @@ const Router = () => {
             peTeacherModel.events.load()
         }
     }, [isAuthenticated, user])
-
-    useEffect(() => {
-        if (user) {
-            if (!settings) settingsModel.effects.getLocalSettingsFx(user.id)
-            else {
-                menuModel.events.defineMenu({
-                    user,
-                    adminLinks: data,
-                    homeRoutes: settings['settings-home-page'].property['pages'] as string[],
-                })
-            }
-        }
-    }, [user, data, settings])
 
     return isAuthenticated ? (
         <ContentLayout />

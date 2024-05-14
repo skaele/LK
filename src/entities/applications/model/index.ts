@@ -2,9 +2,10 @@ import { applicationApi } from '@api'
 import { Application, UserApplication, WorkerApplication } from '@api/model'
 import { applicationsModel } from '@entities/hr-applications'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { userModel } from '@entities/user'
 import { MessageType } from '@shared/ui/types'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
-import { combine, createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { combine, createEffect, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 
 interface ApplicationsStore {
@@ -74,8 +75,6 @@ const useApplications = () => {
     }
 }
 
-const clearStore = createEvent()
-
 forward({ from: postApplicationFx.doneData, to: getApplicationsFx })
 
 sample({
@@ -132,7 +131,7 @@ const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
     //     ...oldData,
     //     error: newData.message,
     // }))
-    .on(clearStore, () => ({
+    .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
 
@@ -145,8 +144,4 @@ export const effects = {
     getUserDataApplicationsFx,
     postApplicationFx,
     getWorkerPosts: getWorkerPostsFx,
-}
-
-export const events = {
-    clearStore,
 }

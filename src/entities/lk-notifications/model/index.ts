@@ -1,11 +1,12 @@
 import { menuModel } from '@entities/menu'
-import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
+import { UserSettings } from '@entities/settings/types'
 import { lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { TNotification } from '../types'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
+import { userModel } from '@entities/user'
 
 type TStore = {
     notifications: TNotification[]
@@ -31,7 +32,7 @@ const DEFAULT_STORE: TStore = {
     loaded: false,
 }
 
-const fetchNotifications = createEffect(async ({ settings }: { settings: NotificationsSettingsType }) => {
+const fetchNotifications = createEffect(async ({ settings }: { settings: UserSettings['notifications'] }) => {
     try {
         const { data } = await lkNotificationApi.get()
 
@@ -76,14 +77,13 @@ const removeNotificationFromPageFx = (pageId?: string) => {
 }
 
 const add = createEvent<TNotification>()
-const initialize = createEvent<{ settings: NotificationsSettingsType }>()
+const initialize = createEvent<{ settings: UserSettings['notifications'] }>()
 const clearVisibleById = createEvent<string>()
 const clearById = createEvent<{ id: string; pageId?: string }>()
 const clearAll = createEvent()
 const clearAllVisible = createEvent()
-const clearStore = createEvent()
 
-const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(clearStore)
+const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
 
 forward({
     from: initialize,
@@ -209,5 +209,5 @@ const useLkNotifications = () => {
     return useStore($lkNotificationsStore)
 }
 
-export const events = { initialize, add, clearById, clearVisibleById, clearAll, clearAllVisible, clearStore }
+export const events = { initialize, add, clearById, clearVisibleById, clearAll, clearAllVisible }
 export const selectors = { useLkNotifications }

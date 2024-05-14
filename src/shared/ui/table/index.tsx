@@ -42,6 +42,7 @@ const Table = ({
     return (
         <TableWrapper ref={forwardedRef}>
             <AddedElementsList
+                hideWithEmpty
                 setList={setFilterList}
                 padding="0 10px"
                 list={filterList}

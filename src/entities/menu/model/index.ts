@@ -2,18 +2,18 @@ import { AdminLinks, User } from '@api/model'
 import { IRoute, IRoutes } from '@app/routes/general-routes'
 import { hiddenRoutes, privateRoutes } from '@app/routes/routes'
 import { teachersHiddenRoutes, teachersPrivateRoutes } from '@app/routes/teacher-routes'
+import { adminLinksModel } from '@entities/admin-links'
+import { userSettingsModel } from '@entities/settings'
+import { UserSettings } from '@entities/settings/types'
+import { userModel } from '@entities/user'
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { SettingsType } from '@entities/settings/model'
-import { useStore } from 'effector-react/compat'
-import { createEvent, createStore } from 'effector'
+import { combine, createEvent, createStore, sample } from 'effector'
+import { useUnit } from 'effector-react'
 import findRoutesByConfig from '../lib/find-routes-by-config'
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 
 export interface Menu {
     allRoutes: IRoutes | null
     visibleRoutes: IRoutes | null
-    leftsideBarRoutes: IRoutes | null
-    homeRoutes: IRoutes | null
     currentPage: IRoute | null
     isOpen: boolean
 }
@@ -24,21 +24,24 @@ export const DEFAULT_STUDENT_MOBILE_CONFIG = ['home', 'schedule', 'acad-performa
 export const DEFAULT_PPS_MOBILE_CONFIG = ['home', 'schedule', 'alerts', 'all', 'profile']
 export const DEFAULT_STAFF_MOBILE_CONFIG = ['home', 'doclist', 'alerts', 'all', 'profile']
 
-const getLeftsideBarConfig = (user: User | null): MenuType => {
+const getLeftsideBarConfig = (user: User | null, settings: UserSettings, adminLinks: AdminLinks | null): MenuType => {
     if (!user) return []
 
-    const localSettings = JSON.parse(localStorage.getItem(BrowserStorageKey.NewSettings) || '{}') as SettingsType
-    const settingsMenuData =
-        (localSettings[user.id]?.['settings-customize-menu']?.property.pages as unknown as string[]) ??
-        REQUIRED_LEFTSIDE_BAR_CONFIG
+    const settingsMenuData = settings.customizeMenu.pages ?? REQUIRED_LEFTSIDE_BAR_CONFIG
 
     const uniqueRequiredTeacherMenuItems = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG.filter(
         (item) => !settingsMenuData.includes(item),
     )
 
     const settingsDataToBeSet =
-        user?.user_status === 'staff' && settingsMenuData.some((item) => !uniqueRequiredTeacherMenuItems.includes(item))
-            ? [...settingsMenuData, ...uniqueRequiredTeacherMenuItems]
+        user?.user_status === 'staff'
+            ? Array.from(
+                  new Set([
+                      ...uniqueRequiredTeacherMenuItems,
+                      ...(Object.values(adminLinks ?? {}).some((l) => l.length) ? ['download-agreements'] : []),
+                      ...settingsMenuData,
+                  ]),
+              )
             : settingsMenuData
 
     return settingsDataToBeSet
@@ -47,14 +50,14 @@ const getLeftsideBarConfig = (user: User | null): MenuType => {
 const DEFAULT_STORE: Menu = {
     allRoutes: null,
     visibleRoutes: null,
-    leftsideBarRoutes: null,
-    homeRoutes: null,
     currentPage: null,
     isOpen: false,
 }
 
 const useMenu = () => {
-    return useStore($menu)
+    const menu = useUnit($menu)
+    const homeRoutes = useUnit($homeRoutes)
+    return { ...menu, homeRoutes }
 }
 
 const changeOpen = createEvent<{ isOpen: boolean; currentPage?: string }>()
@@ -88,6 +91,56 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
     return Object.fromEntries(filteredRoutes)
 }
 
+const $leftSidebar = combine(
+    userModel.stores.user,
+    userSettingsModel.stores.userSettings,
+    adminLinksModel.store,
+    (user, settings, adminLinks) => {
+        if (!user || !settings) return null
+
+        return findRoutesByConfig(
+            getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
+            user.currentUser?.user_status === 'staff'
+                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
+        )
+    },
+)
+
+const $homeRoutes = combine(
+    userModel.stores.user,
+    userSettingsModel.stores.userSettings,
+    adminLinksModel.store,
+    (user, settings, adminLinks) => {
+        if (!user || !settings) return null
+
+        return findRoutesByConfig(
+            settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
+            user.currentUser?.user_status === 'staff'
+                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
+        )
+    },
+)
+
+sample({
+    source: {
+        userStore: userModel.stores.user,
+        settings: userSettingsModel.stores.userSettings,
+        adminLinks: adminLinksModel.store,
+    },
+    filter: ({ settings, userStore }) => {
+        return Boolean(settings) && Boolean(userStore.currentUser)
+    },
+    fn: ({ settings, adminLinks, userStore }) => ({
+        homeRoutes: settings!.homePage.pages,
+        user: userStore.currentUser!,
+        adminLinks: adminLinks.data!,
+    }),
+    target: defineMenu,
+})
+
+// todo: split to stores
 const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(changeOpen, (oldState, { isOpen, currentPage }) => ({
         ...oldState,
@@ -97,7 +150,7 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))
-    .on(defineMenu, (oldData, { user, adminLinks, homeRoutes }) => ({
+    .on(defineMenu, (oldData, { user, adminLinks }) => ({
         ...oldData,
         currentPage:
             user?.user_status === 'staff'
@@ -108,19 +161,6 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
                 ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user) },
         visibleRoutes: user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
-        leftsideBarRoutes: findRoutesByConfig(
-            getLeftsideBarConfig(user),
-            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
-        ),
-        homeRoutes: findRoutesByConfig(
-            homeRoutes ??
-                (JSON.parse(
-                    localStorage.getItem(BrowserStorageKey.HomeRoutes) ?? JSON.stringify(DEFAULT_HOME_CONFIG),
-                ) as string[]),
-            user?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
-                : { ...privateRoutes(), ...hiddenRoutes(user) },
-        ),
     }))
     .on(changeNotifications, (oldData, { page, notifications }) => ({
         ...oldData,
@@ -142,4 +182,10 @@ export const events = {
     clearStore,
     defineMenu,
     changeNotifications,
+}
+
+export const stores = {
+    leftSidebar: $leftSidebar,
+    menu: $menu,
+    homeRoutes: $homeRoutes,
 }

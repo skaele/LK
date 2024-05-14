@@ -6,7 +6,7 @@ import { ButtonTutorial } from '@shared/ui/button/button-tutorial'
 import PageBlock from '@shared/ui/page-block'
 import { TableTutorial } from '@shared/ui/table/table-tutorial'
 import { Message, Wrapper } from '@ui/atoms'
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 import { useModal } from 'widgets'
 
@@ -20,12 +20,12 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
     } = applicationsModel.selectors.useApplications()
     const { open } = useModal()
 
-    const handleOpenModal = () => {
+    const handleOpenModal = useCallback(() => {
         open(
             <CreateApplicationList isTeachers={isTeachers} currentFormEducation={dataUserApplication?.educationForm} />,
             'Создать заявку',
         )
-    }
+    }, [])
 
     return (
         <Wrapper
@@ -44,7 +44,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                         background="var(--reallyBlue)"
                         textColor="#fff"
                         icon={<FiPlus />}
-                        minWidth={'35px'}
+                        minWidth="35px"
                         height="36px"
                         shrinkTextInMobile
                         tutorialModule={{ id: 'stud_applications', step: 3, params: { position: 'bottom' } }}
@@ -87,4 +87,4 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
     )
 }
 
-export default TeachersHrApplicationsPage
+export default memo(TeachersHrApplicationsPage)

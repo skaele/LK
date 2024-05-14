@@ -1,12 +1,12 @@
 import { IRoute, IRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
-import { Menu } from '@entities/menu/model'
-import { settingsModel } from '@entities/settings'
 import search from '@features/all-pages/lib/search'
+import { CustomizeLeftsideBarItem } from '@features/customize-menu/ui/customize-leftside-bar-item'
 import { LocalSearch } from '@shared/ui/molecules'
+import { Store } from 'effector'
+import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CustomizeLeftsideBarItem } from '../../pages/settings/pages/customize-menu/ui/molecules'
 
 const CustomizeMenuStyled = styled.div`
     display: flex;
@@ -20,27 +20,24 @@ const CustomizeMenuStyled = styled.div`
 `
 
 type Props = {
-    enabledList: keyof Omit<Menu, 'isOpen' | 'currentPage'>
-    requiredList: string[]
-    remove: (id: string, settings: settingsModel.Param, requiredList: string[]) => void
-    add: (id: string, settings: settingsModel.Param, maxLength: number, requiredList: string[]) => void
+    enabledListStore: Store<IRoutes | null>
+    requiredListStore: Store<string[]>
+    remove: (id: string) => void
+    add: (id: string) => void
 }
 
-const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
-    const { settings } = settingsModel.selectors.useSettings()
-    const menu = menuModel.selectors.useMenu()
+const CustomizeMenu = ({ enabledListStore, add, remove, requiredListStore }: Props) => {
+    const [enabledList, requiredList] = useUnit([enabledListStore, requiredListStore])
     const { visibleRoutes } = menuModel.selectors.useMenu()
     const [searchResult, setSearchResult] = useState<IRoutes | null>(null)
 
-    const enabled = menu[enabledList]
-
-    if (!enabled || !visibleRoutes) return null
+    if (!enabledList || !visibleRoutes) return null
 
     const switchChosen = (id: string) => {
-        if (enabled[id]) {
-            remove(id, settings, requiredList)
+        if (enabledList[id]) {
+            remove(id)
         } else {
-            add(id, settings, Object.keys(enabled).length, requiredList)
+            add(id)
         }
     }
 
@@ -52,16 +49,18 @@ const CustomizeMenu = ({ enabledList, requiredList, add, remove }: Props) => {
                 searchEngine={search}
                 setResult={setSearchResult}
             />
-            {Object.values(searchResult ?? visibleRoutes).map((el: IRoute, index) => {
-                return (
-                    <CustomizeLeftsideBarItem
-                        {...el}
-                        key={index}
-                        chosen={!!enabled[el.id]}
-                        switchMenuItem={switchChosen}
-                    />
-                )
-            })}
+            {Object.values(searchResult ?? visibleRoutes)
+                .filter((route) => !requiredList.includes(route.id))
+                .map((el: IRoute, index) => {
+                    return (
+                        <CustomizeLeftsideBarItem
+                            {...el}
+                            key={index}
+                            chosen={!!enabledList[el.id]}
+                            switchMenuItem={switchChosen}
+                        />
+                    )
+                })}
         </CustomizeMenuStyled>
     )
 }

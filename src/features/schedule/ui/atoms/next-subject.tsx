@@ -1,5 +1,6 @@
-import { IColorPalette } from '@shared/constants'
-import useTheme from '@shared/lib/hooks/use-theme'
+import { userSettingsModel } from '@entities/settings'
+import { IColorPalette, ThemeVariant } from '@shared/constants'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -22,9 +23,10 @@ interface Props {
 
 const NextSubject = ({ timeLeft, isNext, color, isCurrentEvent }: Props) => {
     const hours = Math.floor(timeLeft / 60)
-    const { theme } = useTheme()
-    const textColor = theme === 'light' ? color.dark3 : color.light3
-    const background = theme === 'light' ? color.transparent1 : color.transparent3
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const theme = settings?.appearance.theme
+    const textColor = theme === ThemeVariant.Light ? color.dark3 : color.light3
+    const background = theme === ThemeVariant.Light ? color.transparent1 : color.transparent3
 
     if (!isNext && !isCurrentEvent) return null
 

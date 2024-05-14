@@ -2,7 +2,6 @@ import { userModel } from '@entities/user'
 import { CenterPage, Input, Message, SubmitButton, Title } from '@ui/atoms'
 import Block from '@ui/block'
 import GoBackButton from '@ui/go-back-button'
-import useTheme from '@utils/hooks/use-theme'
 import { useStore } from 'effector-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -18,7 +17,6 @@ const ADNameElement = styled.span`
 const GetYourLoginPage = () => {
     const [fio, setFio] = useState('')
     const [passportNumber, setPassportNumber] = useState('')
-    useTheme()
     const loading = useStore(userModel.effects.getLoginEuzFx.pending)
     const [completed, setCompleted] = useState(false)
     const {

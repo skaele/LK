@@ -5,7 +5,7 @@ import { Hint } from '@shared/ui/search'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { AxiosResponse } from 'axios'
-import { Event, Store } from 'effector'
+import { EventCallable, Store } from 'effector'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import PeoplePaginationList from './people-pagination-list'
@@ -39,8 +39,8 @@ type Props<T extends TUser> = {
         $items: Store<T[] | null>
         $isPending: Store<boolean>
         $hasNext: Store<boolean>
-        next: Event<ServerListRequest<SelectPage | null>>
-        load: Event<ServerListRequest<SelectPage | null>>
+        next: EventCallable<ServerListRequest<SelectPage | null>>
+        load: EventCallable<ServerListRequest<SelectPage | null>>
     }
     filter?: string
     underSearchText?: (filter: SelectPage | null) => string | null

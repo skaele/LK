@@ -1,70 +1,38 @@
-import { ThemeType, REQUIRED_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { NameSettings, Param, SettingsType } from '../model'
+import { ThemeVariant, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
+import { UserSettings } from '../types'
 
-const NOTIFICATIONS_DEFAULT_VALUE = {
-    all: true,
-    messages: true,
-    newVersion: true,
-    schedule: true,
-    news: true,
-    applications: true,
-    doclist: true,
+export const getDefaultNewSettings = (isEmployee: boolean): UserSettings => {
+    // get default theme from user preferences
+    const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeVariant.Dark : ThemeVariant.Light
+
+    return {
+        appearance: {
+            theme,
+        },
+        customizeMenu: {
+            pages: isEmployee ? REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG : REQUIRED_LEFTSIDE_BAR_CONFIG,
+        },
+        homePage: {
+            pages: ['settings', 'profile', 'chat', 'schedule', 'payments', 'project-activity', 'all-students'],
+            hasSchedule: true,
+            hasPayment: true,
+            hasNews: true,
+        },
+        notifications: {
+            all: true,
+            messages: true,
+            applications: true,
+            doclist: true,
+            newVersion: true,
+            news: true,
+            schedule: true,
+        },
+        syncAcrossAllDevices: false,
+    }
 }
 
-export type NotificationsSettingsType = typeof NOTIFICATIONS_DEFAULT_VALUE
 export type PhoneSettingsType = {
     phone_staff?: string
     allow_mobphone_in?: boolean
     allow_mobphone_out?: boolean
 }
-
-const generateDefaultSettings = () => {
-    return (Object.keys(NameSettings) as (keyof typeof NameSettings)[]).reduce((acc, el) => {
-        acc[el] = {
-            id: el,
-            property: {},
-        }
-        return acc
-    }, {} as Param)
-}
-
-const getDefaultSettings = (userId = ''): SettingsType => ({
-    [userId]: {
-        ...generateDefaultSettings(),
-        [NameSettings['settings-appearance']]: {
-            id: NameSettings['settings-appearance'],
-            property: {
-                theme: 'dark' as ThemeType,
-                scheduledLightTheme: false,
-                lightThemeRange: ['300', '1140'],
-            },
-        },
-        [NameSettings['settings-home-page']]: {
-            id: NameSettings['settings-home-page'],
-            property: {
-                pages: ['settings', 'profile', 'chat', 'schedule', 'payments', 'project-activity', 'all-students'],
-                widgetSchedule: true,
-                widgetPayment: true,
-                news: true,
-            },
-        },
-        [NameSettings['settings-customize-menu']]: {
-            id: NameSettings['settings-customize-menu'],
-            property: {
-                pages: REQUIRED_LEFTSIDE_BAR_CONFIG,
-            },
-        },
-        [NameSettings['settings-notifications']]: {
-            id: NameSettings['settings-notifications'],
-            property: NOTIFICATIONS_DEFAULT_VALUE,
-        },
-        [NameSettings['settings-tutorial']]: {
-            id: NameSettings['settings-tutorial'],
-            property: {
-                tutorial: true,
-            },
-        },
-    },
-})
-
-export default getDefaultSettings

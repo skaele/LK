@@ -7,9 +7,10 @@ import { useLocation } from 'react-router'
 import LeftsideBarListWrapper from '../atoms/leftside-bar-list-wrapper'
 import LeftsideBarItem from '../molecules/leftside-bar-item'
 import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { useUnit } from 'effector-react'
 
 const LeftsideBarList = withTutorial(({ forwardedRef }) => {
-    const { leftsideBarRoutes } = menuModel.selectors.useMenu()
+    const leftsideBarRoutes = useUnit(menuModel.stores.leftSidebar)
 
     const location = useLocation()
 
@@ -86,7 +87,7 @@ const LeftsideBarList = withTutorial(({ forwardedRef }) => {
     return (
         <LeftsideBarListWrapper ref={forwardedRef}>
             {Object.values(leftsideBarRoutes)
-                .filter((el) => el !== undefined)
+                .filter(Boolean)
                 .map((props: IRoute) => {
                     return (
                         <LeftsideBarItem

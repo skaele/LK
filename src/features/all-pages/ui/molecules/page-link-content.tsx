@@ -1,6 +1,3 @@
-import { settingsModel } from '@entities/settings'
-import addPageToHome from '@features/all-pages/lib/add-page-to-home'
-import deletePageFromHome from '@features/all-pages/lib/delete-page-from-home'
 import LinkMoreButton from '@features/link-more-button'
 import { Colors, IColors } from '@shared/constants'
 import BlockWrapper from '@ui/block/styles'
@@ -12,8 +9,15 @@ import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 import styled from 'styled-components'
 import Icon from '../atoms/icon'
 import { PageLinkProps } from './page-link'
+import { userSettingsModel } from '@entities/settings'
+import { useUnit } from 'effector-react'
+import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
 
-export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical: boolean; hasNotifications: boolean }>`
+export const PageLinkWrapper = styled(BlockWrapper)<{
+    color: string
+    isVertical: boolean
+    hasNotifications: boolean
+}>`
     position: relative;
     cursor: pointer;
     text-decoration: none;
@@ -33,6 +37,34 @@ export const PageLinkWrapper = styled(BlockWrapper)<{ color: string; isVertical:
         font-weight: bold;
         color: #fff;
         padding: 5px 10px;
+    }
+
+    &[data-selected='true'] {
+        .outside {
+            .more-button {
+                opacity: 1;
+                visibility: visible;
+            }
+            .notification-circle {
+                opacity: 0;
+            }
+
+            .icon {
+                box-shadow: 0 20px 210px 60px ${({ color }) => Colors[color as keyof IColors].main};
+                transform: ${({ isVertical }) => isVertical && 'scale(1.1) translateY(20px)'};
+            }
+
+            b {
+                opacity: ${({ hasNotifications, isVertical }) => isVertical && hasNotifications && 0};
+                transform: ${({ isVertical }) => isVertical && 'scale(0.95) translateY(40%)'};
+                color: ${({ isVertical }) => (isVertical ? '#fff' : 'var(--text)')};
+            }
+
+            .notifications-title {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
     }
 
     .more-button {
@@ -131,13 +163,15 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
         isOldLkPage,
         mode,
         id,
-        background,
         orientation = 'vertical',
     } = props
 
     const isVertical = orientation === 'vertical'
-    const { settings } = settingsModel.selectors.useSettings()
-    const isAdded = !!(settings['settings-home-page'].property.pages as string[])?.find((el) => el === id)
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+
+    if (!settings) return null
+
+    const isAdded = settings.homePage.pages.find((el) => el === id)
 
     return (
         <PageLinkWrapper
@@ -150,7 +184,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             shadow={shadow}
             color={color.length ? color : 'blue'}
             hasNotifications={!!notifications}
-            background={background}
+            data-selected={props.isActive}
         >
             {(isOldLkPage || isExternalPage) && isVertical && (
                 <LinkIcon>
@@ -184,7 +218,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                         align="center"
                         textColor="var(--red)"
                         background="var(--block)"
-                        onClick={() => deletePageFromHome(id, settings)}
+                        onClick={() => deletePageFromHome({ pageId: id })}
                     />
                 ) : (
                     <Button
@@ -194,7 +228,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                         textColor="var(--green)"
                         align="center"
                         background="var(--block)"
-                        onClick={() => addPageToHome(id, settings)}
+                        onClick={() => addPageToHome({ pageId: id })}
                     />
                 )
             ) : null}

@@ -9,9 +9,6 @@ export const CopiesOfDocumentsFromPersonalFilePage = lazy(
 export const ContactInfoActualizationPage = lazy(
     () => import('@pages/teachers-applications/pages/contact-info-actualization'),
 )
-export const ContactInfoActualizationTestPage = lazy(
-    () => import('@pages/teachers-applications/pages/contact-info-actualization-test'),
-)
 export const ContactDetails = lazy(() => import('@pages/teachers-applications/pages/contact-details'))
 export const ContactDetailsForm = lazy(() => import('@pages/teachers-applications/pages/contact-details/form'))
 export const DataVerificationPage = lazy(() => import('@pages/teachers-applications/pages/data-verification'))

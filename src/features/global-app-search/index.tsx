@@ -4,7 +4,7 @@ import BlockWrapper from '@shared/ui/block/styles'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
+import React, { memo } from 'react'
 import { FiCommand, FiSearch } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
@@ -83,7 +83,7 @@ type Props = {
     size?: SearchSize
 } & TutorialComponent
 
-export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
+export const GlobalAppSearch = memo(function GlobalAppSearch({ size = 'large', forwardedRef }: Props) {
     const shortCut = getShortCut()
     const { open } = useModal()
     const padding = size === 'large' ? '16px' : '8px'
@@ -135,6 +135,6 @@ export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
             </Shortcuts>
         </GlobalAppSearchStyled>
     )
-}
+})
 
-export const GlobalAppSearchTutorial = withTutorial(GlobalAppSearch)
+export const GlobalAppSearchTutorial = withTutorial(memo(GlobalAppSearch))

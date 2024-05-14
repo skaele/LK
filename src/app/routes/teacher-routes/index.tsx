@@ -49,7 +49,6 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
-    ContactInfoActualizationTestPage,
     EditPhonebookSubdivision,
     EditPhonebookInnerPhone,
     EditPhonebookEmail,
@@ -494,18 +493,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'GENERAL',
     },
-    'pps-vote': {
-        id: 'pps-vote',
-        title: 'Опрос для проверки уровня цифровой грамотности',
-        icon: <BiBookReader />,
-        path: PPS_VOTE_ROUTE,
-        isOldLkPage: true,
-        Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
-        color: 'blue',
-        isTemplate: false,
-        group: 'OTHER',
-        show: false,
-    },
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
@@ -542,20 +529,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         backButtonText: 'Назад к цифровым сервисам',
     },
-    // remove after mobile version is ready
-    // #ASM
-    'all-teachers': {
-        id: 'all-teachers',
-        title: 'Сотрудники',
-        icon: <BiBookReader />,
-        path: ALL_TEACHERS_ROUTE,
-        Component: AllTeachersPage,
-        color: 'orange',
-        isTemplate: false,
-        group: 'COMMUNICATION',
-        keywords: ['преподаватели', 'преподы'],
-        show: false,
-    },
     'all-staff': {
         id: 'all-staff',
         title: 'Сотрудники',
@@ -583,6 +556,32 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
 export const teachersHiddenRoutes: () => IRoutes = () => ({
     ...generalHiddenRoutes,
+    // remove after mobile version is ready
+    // #ASM
+    'all-teachers': {
+        id: 'all-teachers',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_TEACHERS_ROUTE,
+        Component: AllTeachersPage,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'pps-vote': {
+        id: 'pps-vote',
+        title: 'Опрос для проверки уровня цифровой грамотности',
+        icon: <BiBookReader />,
+        path: PPS_VOTE_ROUTE,
+        isOldLkPage: true,
+        Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
+        color: 'blue',
+        isTemplate: false,
+        group: 'OTHER',
+        show: false,
+    },
     'issuance-of-licenses-page': {
         id: 'issuance-of-licenses-page',
         title: 'Выдача лицензий',
@@ -1132,21 +1131,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'data-actualization': {
-        id: 'data-actualization',
-        title: 'Актуализация контактных данных (тест)',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: CONTACT_INFO_ACTUALIZATION_TEST,
-        Component: isProduction ? ContactInfoActualizationPage : ContactInfoActualizationTestPage,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-        show: false,
     },
     'data-verification': {
         id: 'data-verification',

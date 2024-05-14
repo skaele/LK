@@ -1,12 +1,13 @@
 import { paymentsModel } from '@entities/payments'
 import { scheduleModel } from '@entities/schedule'
-import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
 import { Wrapper } from '@ui/atoms'
 import React, { useEffect } from 'react'
 import HomeTopPlate from './ui/home-top-plate'
 import { useUnit } from 'effector-react'
+
 import { HomePage } from './ui/home-page'
+import { menuModel } from '@entities/menu'
 
 const Home = () => {
     const {
@@ -34,6 +35,7 @@ const Home = () => {
     }, [schedule])
 
     if (!user || !homeRoutes) return null
+
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>
             <HomeTopPlate />

@@ -12,6 +12,7 @@ const Flex = styled.div<{
     gap?: string
     d?: Direction
     mw?: string
+    mh?: string
     $wrap?: boolean
     p?: string
     m?: string
@@ -19,6 +20,7 @@ const Flex = styled.div<{
     width: ${({ w }) => w ?? '100%'};
     max-width: ${({ mw }) => mw};
     height: ${({ h }) => h ?? 'fit-content'};
+    max-height: ${({ mh }) => mh};
     gap: ${({ gap }) => gap ?? '0'};
     display: flex;
     align-items: ${({ ai }) => ai ?? 'center'};

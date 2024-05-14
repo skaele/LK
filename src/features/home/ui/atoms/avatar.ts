@@ -1,4 +1,24 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+const containerAspectRatioFallback = css`
+    @supports not (aspect-ratio: 1/1) {
+        height: 0;
+        padding-top: 100%;
+
+        position: relative;
+        overflow: hidden;
+    }
+`
+const imageAspectRatioFallback = css`
+    @supports not (aspect-ratio: 1/1) {
+        max-width: 100%;
+
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+    }
+`
 
 export const Container = styled.div<{
     selected?: boolean
@@ -9,6 +29,8 @@ export const Container = styled.div<{
     boxShadow?: string
     border?: boolean
     borderRadius?: number
+    adaptive?: boolean
+    centerHorizontally?: boolean
 }>`
     border-radius: ${({ borderRadius }) => (borderRadius ? `${borderRadius}px` : '50%')};
     display: flex;
@@ -62,6 +84,8 @@ export const Container = styled.div<{
         align-items: center;
         justify-content: center;
         font-weight: bold;
+
+        ${imageAspectRatioFallback}
     }
 
     @media (max-width: 1000px) {
@@ -74,13 +98,42 @@ export const Container = styled.div<{
             font-size: ${({ width }) => (width ? parseInt(width) / 50 + 'em' : '1.5em')};
         }
     }
+
+    ${({ centerHorizontally }) =>
+        centerHorizontally &&
+        css`
+            position: relative;
+            left: 50%;
+            transform: translate3d(-50%, 0, 0);
+        `}
+
+    ${({ adaptive }) =>
+        adaptive &&
+        css`
+            @media (max-width: 450px) {
+                width: 100%;
+                height: 100%;
+                min-width: 75px;
+                aspect-ratio: 1/1;
+
+                ${containerAspectRatioFallback}
+            }
+        `}
 `
 
-export const Img = styled.img<{ round?: boolean }>`
+export const Img = styled.img<{ round?: boolean; adaptive?: boolean }>`
     width: 100%;
     height: 100%;
     border-radius: ${({ round }) => round && '100%'};
 
     object-fit: cover;
     object-position: center;
+
+    ${({ adaptive }) =>
+        adaptive &&
+        css`
+            @media (max-width: 450px) {
+                ${imageAspectRatioFallback}
+            }
+        `}
 `

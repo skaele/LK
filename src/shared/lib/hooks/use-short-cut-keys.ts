@@ -5,6 +5,10 @@ const keys_pressed = new Set()
 const useShortCutKeys = (keys: number[], onPressed: () => void) => {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            if (!keys.length) {
+                return
+            }
+
             keys_pressed.add(event.which)
             const sliced = keys.slice(0, keys.length - 1)
 

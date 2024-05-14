@@ -1,4 +1,4 @@
-import { ApplicationsConstants } from '@entities/applications/consts'
+import { ApplicationStatusType, ApplicationsConstants } from '@entities/applications/consts'
 import { LinkButton } from '@shared/ui/atoms'
 import { Tooltip } from '@shared/ui/tooltip'
 import { Message } from '@ui/message'
@@ -6,7 +6,6 @@ import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
-import transformStatusApplication from './transform-status-application'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -57,18 +56,21 @@ export const getCommonApplicationsColumns = (): ColumnProps[] => [
         title: 'Статус',
         field: 'status',
         priority: 'one',
-        width: '130px',
+        width: '165px',
         catalogs: [...(Object.values(ApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
-        render: (value) => {
-            const newValue = transformStatusApplication(value)
+        render: (value: ApplicationStatusType) => {
             return (
                 <Message
-                    type={newValue === 'Готово' ? 'success' : newValue === 'Отклонено' ? 'failure' : 'alert'}
-                    title={newValue || '—'}
+                    type={
+                        value === 'Готово' || value === 'Выдано' || value === 'Получено'
+                            ? 'success'
+                            : value === 'Отклонено'
+                            ? 'failure'
+                            : 'alert'
+                    }
+                    title={value || '—'}
                     align="center"
-                    width="100%"
                     icon={null}
-                    maxWidth="150px"
                 />
             )
         },

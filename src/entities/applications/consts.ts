@@ -1,6 +1,10 @@
 export const ApplicationsConstants = {
     ready: 'Готово',
-    pending: 'В работе',
+    issued: 'Выдано',
+    recieved: 'Получено',
+    inProgress: 'В работе',
+    pending: 'На рассмотрении',
+    accepted: 'Принято в работу',
     rejected: 'Отклонено',
 } as const
 
@@ -83,6 +87,4 @@ export type SpecialFieldsName =
 
 export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }
 
-// Категории для фильтрации по статусу готовности:
-// 'Готово' | 'В работе' | 'Отклонено'
-export type FilterStatusType = (typeof ApplicationsConstants)[keyof typeof ApplicationsConstants]
+export type ApplicationStatusType = (typeof ApplicationsConstants)[keyof typeof ApplicationsConstants]

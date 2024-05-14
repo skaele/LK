@@ -1,6 +1,5 @@
 import { applicationsModel } from '@entities/applications'
 import getApplicationsColumns from '@features/applications/lib/get-applications-columns'
-import { getNormalizedApplications } from '@features/applications/lib/get-normalized-applications'
 import { getExtendedApplicationsColumns } from '@features/applications/lib/get-extended-application-columns'
 import CreateApplicationList from '@features/applications/ui/molecules/create-application-list'
 import PageBlock from '@shared/ui/page-block'
@@ -77,7 +76,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                     loading={!listApplication}
                     columns={getApplicationsColumns()}
                     columnsExtended={getExtendedApplicationsColumns()}
-                    data={getNormalizedApplications(listApplication)}
+                    data={listApplication}
                     maxOnPage={7}
                 />
             </PageBlock>

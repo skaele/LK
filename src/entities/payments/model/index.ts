@@ -1,15 +1,19 @@
 import { paymentApi } from '@api'
 import { Payments } from '@api/model'
-import { createEffect, createStore, combine, createEvent, forward, sample } from 'effector'
+import { createEffect, createStore, combine, createEvent, sample } from 'effector'
 import changeCanSign from '../lib/change-can-sign'
-import { agreementSubmit } from '@shared/api/payment-api'
+import { agreementSubmit, sendAgreementCodesApi, signThirdPartyAgreementApi } from '@shared/api/payment-api'
 import { MessageType } from '@shared/ui/types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
+import { createMutation } from '@farfetched/core'
+import axios from 'axios'
 
 const signAgreement = createEvent<string>()
 const changeDone = createEvent<boolean>()
 const setCompleted = createEvent<boolean>()
+const signThirdPartyAgreement = createEvent<Parameters<typeof signThirdPartyAgreementApi>[0]>()
+const sendAgreementCodes = createEvent<Parameters<typeof sendAgreementCodesApi>[0]>()
 
 const getPaymentsFx = createEffect(async (): Promise<Payments> => {
     const response = await paymentApi.get()
@@ -29,6 +33,72 @@ const signContractFx = createEffect(async (contractId: string) => {
     } catch (error) {
         throw new Error('Не удалось подписать конкракт. Причина: ' + error)
     }
+})
+
+export const signThirdPartyAgreementMutation = createMutation({
+    handler: signThirdPartyAgreementApi,
+})
+
+sample({
+    clock: signThirdPartyAgreement,
+    target: signThirdPartyAgreementMutation.start,
+})
+
+// sample({
+//     clock: signThirdPartyAgreementMutation.$succeeded,
+//     source: changeStaffPhoneParamsMutation.__.$latestParams,
+//     filter: Boolean,
+//     target: userModel.events.updateBulk,
+// })
+
+sample({
+    clock: signThirdPartyAgreementMutation.$succeeded,
+    fn: () => ({ message: 'Успешно подписано', type: 'success' as const }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: signThirdPartyAgreementMutation.finished.failure,
+    fn: ({ error }) => ({
+        message: axios.isAxiosError(error)
+            ? 'Не удалось подписать соглашение.'
+            : 'Не удалось подписать соглашение. Причина: ' + error,
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+export const sendAgreementCodesMutation = createMutation({
+    handler: sendAgreementCodesApi,
+})
+
+sample({
+    clock: sendAgreementCodes,
+    target: sendAgreementCodesMutation.start,
+})
+
+// sample({
+//     clock: sendAgreementCodesQuery.$succeeded,
+//     source: changeStaffPhoneParamsMutation.__.$latestParams,
+//     filter: Boolean,
+//     target: userModel.events.updateBulk,
+// })
+
+sample({
+    clock: sendAgreementCodesMutation.$succeeded,
+    fn: () => ({ message: 'Успешно подписано', type: 'success' as const }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: sendAgreementCodesMutation.finished.failure,
+    fn: ({ error }) => ({
+        message: axios.isAxiosError(error)
+            ? 'Не удалось отправить коды для подписания соглашения.'
+            : 'Не удалось подписать коды для подписания соглашения. ' + error,
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 const signAgreementFx = createEffect(async (id: string) => {
@@ -79,8 +149,8 @@ export const stores = {
     $paymentsStore,
 }
 
-forward({
-    from: getPayments,
+sample({
+    clock: getPayments,
     to: getPaymentsFx,
 })
 

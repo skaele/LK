@@ -20,8 +20,8 @@ const getForm = (
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const firstDayOff = !!startDate ? new Date(startDate) : new Date()
-    const jobGuidData = !!jobGuid ? jobGuid : ''
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const secondDayOff = new Date(firstDayOff.getTime() + 24 * 60 * 60 * 1000)
     const isTutor = getIsTutor(jobGuidData) === 'true' ? true : false
 

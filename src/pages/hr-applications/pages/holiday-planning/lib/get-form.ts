@@ -51,11 +51,11 @@ const getForm = (
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
-    const holidayStartDate = !!startDate ? startDate : new Date().toISOString()
-    const holidayEndDate = !!endDate ? endDate : null
-    const collTypeData = !!collType ? collType : ''
-    const jobGuidData = !!jobGuid ? jobGuid : ''
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
+    const holidayStartDate = startDate ?? new Date().toISOString()
+    const holidayEndDate = endDate ?? null
+    const collTypeData = collType ?? ''
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
 
     return {
         title: 'Заявление о предоставлении отпуска',

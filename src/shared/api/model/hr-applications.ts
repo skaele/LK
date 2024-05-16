@@ -1,12 +1,13 @@
 import { User } from '@api/model/user'
 import { divisionT } from '@features/applications/lib/get-divisions'
+import { Subdivision } from './applications'
 
 export interface HrApplication {
     regDate: string
     regNumber: string
     requestTitle: string
     requestBody: string
-    status: 'Готово' | 'Принято в работу' | 'Отклонено' | 'Получено'
+    status: 'Готово' | 'На рассмотрении' | 'Принято в работу' | 'Отклонено' | 'Получено' | 'Выдано'
     statusDate: string
     structuralSubdivision: string
     notes: string
@@ -58,7 +59,7 @@ export interface HrUserApplication extends User {
     has_hostel: boolean
     hostel_num: string
     hostel_room: string
-    subdivisions?: HrSubdivision[]
+    subdivisions?: Subdivision[]
     passSer: string
     passNum: string
     passDiv: string

@@ -8,6 +8,7 @@ import { setIsTutor } from '../../medical-examination/lib/is-tutor'
 import { BufferMedicalExamination, BufferMedicalExaminationForm, PersonMedicalExaminations } from '../types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import axios from 'axios'
+import { userModel } from '@entities/user'
 
 interface MedicalExaminationStore {
     listMedicalExamination: PersonMedicalExaminations[] | null
@@ -69,8 +70,6 @@ const useBufferMedicalExamination = () => {
     }
 }
 
-const clearStore = createEvent()
-
 forward({ from: sendBufferMedicalExaminationFx.doneData, to: loadBufferMedicalExaminationFx })
 
 sample({
@@ -118,12 +117,8 @@ const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_ST
         ...oldData,
         error: newData.message,
     }))
-    .on(clearStore, () => DEFAULT_STORE)
+    .on(userModel.stores.userGuid, () => DEFAULT_STORE)
 
 export const effects = { loadBufferMedicalExaminationFx, sendBufferMedicalExaminationFx }
 
 export const selectors = { useBufferMedicalExamination }
-
-export const events = {
-    clearStore,
-}

@@ -3,8 +3,10 @@ import { DayCalendarEvent } from '../../types'
 import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
 import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
-import useTheme from '@shared/lib/hooks/use-theme'
 import Subtext from '@shared/ui/subtext'
+import { useUnit } from 'effector-react'
+import { userSettingsModel } from '@entities/settings'
+import { ThemeVariant } from '@shared/constants'
 
 const MonthEventItemStyled = styled(Flex)<{ textColor: string; background: string }>`
     padding: 4px;
@@ -35,9 +37,9 @@ type Props = DayCalendarEvent & {
 
 export const MonthEventItem = (props: Props) => {
     const { title, color, onClick, startTime } = props
-    const { theme } = useTheme()
-    const textColor = theme === 'light' ? color.dark3 : color.light3
-    const background = theme === 'light' ? color.transparent3 : color.transparent2
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const textColor = settings?.appearance.theme === ThemeVariant.Light ? color.dark3 : color.light3
+    const background = settings?.appearance.theme === ThemeVariant.Light ? color.transparent3 : color.transparent2
 
     const handleClick = () => onClick?.(props)
 

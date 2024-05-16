@@ -2,7 +2,7 @@ import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-subdivisions'
+import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 
 const getForm = (

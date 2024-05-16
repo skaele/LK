@@ -52,10 +52,10 @@ const Name = styled.div`
 //     }
 // `
 
-const Grade = styled.strong<{ color: string }>`
+const Grade = styled.strong<{ color: string; superWide?: boolean }>`
     color: ${({ color }) => color};
     font-weight: 600;
-    width: 30px;
+    width: ${({ superWide }) => (superWide ? '105px' : '30px')};
     display: flex;
     justify-content: flex-end;
 `
@@ -81,8 +81,14 @@ const SubjectItem = ({ item, type }: Props) => {
                     </Subtext>
                 </Flex>
             </Flex>
-            <Grade color={color}>
-                {type === 'Зачет' ? <SubjectCheker grade={grade} /> : grade && GradeByScore[grade]}
+            <Grade color={color} superWide={grade === 'Не явился'}>
+                {type === 'Зачет' ? (
+                    <SubjectCheker grade={grade} />
+                ) : grade === 'Не явился' ? (
+                    'Не явился'
+                ) : (
+                    grade && GradeByScore[grade]
+                )}
             </Grade>
         </Wrap>
     )

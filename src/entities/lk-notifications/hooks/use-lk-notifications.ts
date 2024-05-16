@@ -1,29 +1,26 @@
+import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { menuModel } from '@entities/menu'
-import { settingsModel } from '@entities/settings'
-import { NotificationsSettingsType } from '@entities/settings/lib/get-default-settings'
+import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import { NotificationsResponse } from '@shared/api/lk-notification-api'
-import { useEffect, useMemo } from 'react'
-import { lkNotificationModel } from '..'
-import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
-import { electronicInteractionModel } from '@entities/electronic-interaction'
-import createNotification from '../lib/create-notification'
 import { useUnit } from 'effector-react'
+import { useEffect } from 'react'
+import { lkNotificationModel } from '..'
+import createNotification from '../lib/create-notification'
+import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 
+// todo: move logic to effector
 const useLkNotifications = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
-    // const {
-    //     data: { schedule },
-    // } = scheduleModel.selectors.useSchedule()
+
     const { notifications, loading, loaded } = lkNotificationModel.selectors.useLkNotifications()
-    const { settings } = settingsModel.selectors.useSettings()
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+
     const [preparedData] = useUnit([electronicInteractionModel.stores.$electronicInteractionStore])
-    const notificationSettings = useMemo(
-        () => settings?.['settings-notifications'].property as NotificationsSettingsType,
-        [settings?.['settings-notifications']],
-    )
+
+    const notificationSettings = settings?.notifications
 
     useEffect(() => {
         electronicInteractionModel.events.getElectronicInteraction()

@@ -1,8 +1,13 @@
 export const ApplicationsConstants = {
     ready: 'Готово',
-    pending: 'В работе',
+    completed: 'Выполнена',
+    issued: 'Выдано',
+    recieved: 'Получено',
+    inProgress: 'В работе',
+    pending: 'На рассмотрении',
+    accepted: 'Принято в работу',
     rejected: 'Отклонено',
-}
+} as const
 
 export const hrApplicationsConstants = {
     agreeding: 'На согласовании',
@@ -81,3 +86,5 @@ export type SpecialFieldsName =
     | null
 
 export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }
+
+export type ApplicationStatusType = (typeof ApplicationsConstants)[keyof typeof ApplicationsConstants]

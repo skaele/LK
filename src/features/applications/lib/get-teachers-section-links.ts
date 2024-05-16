@@ -20,6 +20,9 @@ import {
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
     DEFERMENT_FROM_CONSCRIPTION,
+    EDIT_PHONEBOOK_EMAIL,
+    EDIT_PHONEBOOK_INNER_PHONE,
+    EDIT_PHONEBOOK_SUBDIVISION,
     GETTING_COMPUTER_EQUIPMENT,
     GUESTS_ACCOMODATION_ON_CAMPUS,
     GUESTS_PASSAGE_TO_CAMPUS,
@@ -41,9 +44,11 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
+import { User } from '@shared/api/model'
 import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
+import { Section } from 'widgets/template-hr-applications'
 
-const getTeachersSectionLinks = () => {
+const getTeachersSectionLinks = (user: User): Section[] => {
     return [
         {
             title: 'Цифровые сервисы',
@@ -51,6 +56,20 @@ const getTeachersSectionLinks = () => {
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
+            ],
+        },
+        {
+            title: 'Телефонный справочник',
+            links: [
+                ...getDivisionHeadLinks(user),
+                {
+                    link: EDIT_PHONEBOOK_INNER_PHONE,
+                    title: 'Запрос на изменение внутреннего телефона',
+                },
+                {
+                    link: EDIT_PHONEBOOK_EMAIL,
+                    title: 'Запрос на изменение корпоративной электронной почты',
+                },
             ],
         },
         ...getInDevelopmentStaffLinks(),
@@ -212,4 +231,15 @@ const getTeachersHRSectionLinks = () => {
         },
     ]
 }
+
+const getDivisionHeadLinks = (user: User) =>
+    user.head_div && user.head_div.length > 0
+        ? [
+              {
+                  link: EDIT_PHONEBOOK_SUBDIVISION,
+                  title: 'Внесение изменений данных подразделения в телефонном справочнике',
+              },
+          ]
+        : []
+
 export { getTeachersSectionLinks, getTeachersHRSectionLinks }

@@ -7,8 +7,8 @@ import { useStore } from 'effector-react'
 import { BufferHolidayPlanningForm } from '../types'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import axios from 'axios'
+import { userModel } from '@entities/user'
 
-const clearStore = createEvent()
 const loadBufferHolidayPlanning = createEvent()
 const sendBufferHolidayPlanning = createEvent<BufferHolidayPlanningForm>()
 
@@ -51,7 +51,10 @@ const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlann
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
-const $bufferHolidayPlanning = createStore<BufferHoliday['personVacations'] | null>(null).on(clearStore, () => null)
+const $bufferHolidayPlanning = createStore<BufferHoliday['personVacations'] | null>(null).on(
+    userModel.stores.userGuid,
+    () => null,
+)
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
@@ -118,7 +121,6 @@ sample({
 export const events = {
     loadBufferHolidayPlanning,
     sendBufferHolidayPlanning,
-    clearStore,
 }
 
 export const effects = {

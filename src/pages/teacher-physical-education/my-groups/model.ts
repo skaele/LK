@@ -1,7 +1,7 @@
-import { $userStore } from '@entities/user/model'
 import { pERequest } from '@shared/api/config/pe-config'
 import { attach, createEvent, createStore, sample } from 'effector'
 import { loadGroup } from './lib'
+import { userModel } from '@entities/user'
 
 export type Group = {
     groupName: string
@@ -17,11 +17,11 @@ const loadFx = attach({
 
         return res.groups.items
     },
-    source: $userStore,
+    source: userModel.stores.user,
 })
 
 sample({ clock: load, target: loadFx })
 
 const $myGroups = createStore<Group[]>([]).on(loadFx.doneData, (_, data) => data)
 
-export { load, $myGroups }
+export { $myGroups, load }

@@ -1,7 +1,7 @@
 import useResize from '@shared/lib/hooks/use-resize'
 import { useEffect, useRef, useState } from 'react'
 
-const useList = (gap?: number) => {
+const useList = (gap?: number, children?: ChildrenType) => {
     const { width } = useResize()
     const listRef = useRef<HTMLDivElement | null>(null)
     const [leftArrow, setLeftArrow] = useState<boolean>(false)
@@ -23,7 +23,7 @@ const useList = (gap?: number) => {
                 setLeftArrow(false)
             }
         }
-    }, [scrollLeft, listRef.current?.clientWidth, width])
+    }, [scrollLeft, listRef.current?.clientWidth, width, children])
 
     const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
         setCurrentPage(Math.ceil(e.currentTarget.scrollLeft / (pageOffset + (gap ?? 0))))

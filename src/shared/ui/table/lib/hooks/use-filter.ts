@@ -5,6 +5,22 @@ import normalizeString from '@utils/normalize-string'
 import { useCallback, useEffect, useState } from 'react'
 import displayWithType from '../display-with-type'
 
+type FilterDataType = Nullable<IndexedProperties[]>
+
+const SORT_COLUMN_TITLE = 'Сортировка'
+
+const filterData = (data: FilterDataType, filter: TableCatalogType): FilterDataType => {
+    if (!filter) {
+        return data
+    }
+
+    return data?.filter((el) => {
+        return !Object.values(filter).find((col) => {
+            return el[col.column?.field ?? ''] !== col.value.title
+        })
+    })
+}
+
 const findWhatToDelete = (filterList: FilterElementList, matchStr: string) => {
     if (!filterList) return null
 
@@ -13,7 +29,7 @@ const findWhatToDelete = (filterList: FilterElementList, matchStr: string) => {
     })
 }
 
-const useFilter = (data: Nullable<IndexedProperties[]>) => {
+const useFilter = (data: FilterDataType) => {
     const [search, setSearch] = useState<TableSearchType>(null)
     const [filter, setFilter] = useState<TableCatalogType>(null)
     const [sort, setSort] = useState<TableSortType>(null)
@@ -42,14 +58,14 @@ const useFilter = (data: Nullable<IndexedProperties[]>) => {
 
     useEffect(() => {
         if (!!filter) {
-            if (!filterList)
+            if (!filterList) {
                 setFilterList((prev) => {
                     const el = Object.values(filter)[0].column
                     prev = { [el?.field ?? '']: { id: el?.field ?? '', title: 'Фильтр: ' + el?.title ?? '' } }
 
                     return { ...prev }
                 })
-            else {
+            } else {
                 const newEl = Object.values(filter).find((el) => !filterList[el.column?.field ?? ''])
                 if (newEl) {
                     setFilterList((prev) => {
@@ -76,9 +92,11 @@ const useFilter = (data: Nullable<IndexedProperties[]>) => {
         if (!!sort) {
             setFilterList((prev) => {
                 const id = sort.column?.field ?? ''
-                const title = 'Сортировка'
+                const title = SORT_COLUMN_TITLE
+
                 if (prev) prev[id] = { id, title }
                 else prev = { [id]: { id, title } }
+
                 return { ...prev }
             })
         }
@@ -101,12 +119,7 @@ const useFilter = (data: Nullable<IndexedProperties[]>) => {
 
     useEffect(() => {
         if (filter) {
-            const found = data?.filter((el) => {
-                return !Object.values(filter).find((col) => {
-                    return el[col.column?.field ?? ''] !== col.value.title
-                })
-            })
-            setResultData(found)
+            setResultData(filterData(data, filter))
         } else {
             setFilterList((prev) => {
                 // if (prev) delete prev[filter]
@@ -118,6 +131,7 @@ const useFilter = (data: Nullable<IndexedProperties[]>) => {
 
     useEffect(() => {
         const col = sort?.column?.field ?? ''
+
         if (!!sort) {
             setResultData((prev) => {
                 const newArr = [...(prev ?? [])]
@@ -134,11 +148,13 @@ const useFilter = (data: Nullable<IndexedProperties[]>) => {
             })
         } else {
             setFilterList((prev) => {
-                const deletedId = findWhatToDelete(prev, 'Сортировка')
+                const deletedId = findWhatToDelete(prev, SORT_COLUMN_TITLE)
                 if (prev && deletedId) delete prev[deletedId]
+
                 return { ...prev }
             })
-            setResultData(data)
+
+            setResultData(filterData(data, filter))
         }
     }, [sort?.value])
 

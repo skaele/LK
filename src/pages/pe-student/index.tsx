@@ -2,7 +2,6 @@ import { WorkType } from '@entities/pe-student-additional-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { $userStore } from '@entities/user/model'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
 import { CenterPage, Error } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
@@ -13,12 +12,13 @@ import { useParams } from 'react-router'
 import Slider from 'widgets/slider'
 import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
+import { userModel } from '@entities/user'
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
     const [student, { currentUser }, isTeacherLoading, isStudentLoading] = useUnit([
         selectedPEStudentModel.stores.$selectedStudent,
-        $userStore,
+        userModel.stores.user,
         peTeacherModel.stores.isLoading,
         selectedPEStudentModel.stores.$loading,
     ])

@@ -5,7 +5,7 @@ import CreateApplicationList from '@features/applications/ui/molecules/create-ap
 import PageBlock from '@shared/ui/page-block'
 import { Button, Message, Wrapper } from '@ui/atoms'
 import Table from '@ui/table'
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 import { useModal } from 'widgets'
 
@@ -20,12 +20,12 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
     } = applicationsModel.selectors.useApplications()
     const { open } = useModal()
 
-    const handleOpenModal = () => {
+    const handleOpenModal = useCallback(() => {
         open(
             <CreateApplicationList isTeachers={isTeachers} currentFormEducation={dataUserApplication?.educationForm} />,
             'Создать заявку',
         )
-    }
+    }, [])
 
     return (
         <Wrapper
@@ -42,7 +42,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                         background="var(--reallyBlue)"
                         textColor="#fff"
                         icon={<FiPlus />}
-                        minWidth={'35px'}
+                        minWidth="35px"
                         height="36px"
                         shrinkTextInMobile
                     />
@@ -83,4 +83,4 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
     )
 }
 
-export default TeachersHrApplicationsPage
+export default memo(TeachersHrApplicationsPage)

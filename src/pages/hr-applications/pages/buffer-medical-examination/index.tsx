@@ -1,34 +1,21 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
 import { Message, Wrapper } from '@ui/atoms'
 import Content from './ui/content'
 import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
 
 const MedicalExaminationBufferPage = () => {
-    const {
-        data: { dataWorkerApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
-
     return (
-        // <Wrapper
-        //     load={() => {
-        //         applicationsModel.effects.getApplicationsFx()
-        //         bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx()
-        //     }}
-        //     loading={loading || medicalLoading}
-        //     error={error || medicalError}
-        //     data={listApplication && medicalData}
-        // >
-        // </Wrapper>
-
-        <Wrapper load={applicationsModel.effects.getWorkerPosts} error={error} data={dataWorkerApplication}>
+        <Wrapper load={() => {}} error={null} data={!null}>
             <PageBlock>
                 <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    Тут можно посмотреть свои заявления на диспансеризацию и согласовать их.
+                    В этом разделе можно посмотреть свои заявления на диспансеризацию и согласовать их. В архив
+                    помещаются все выполненные заявления старше 7 дней.
                 </Message>
-
+                <Message type="alert" title="Внимание" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                    Ведутся работы со статусами заявлений. Статус &quot;На рассмотрении*&quot; может не отражать
+                    действительного состояния заявления
+                </Message>
                 <Content />
             </PageBlock>
         </Wrapper>

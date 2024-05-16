@@ -1,12 +1,42 @@
-import { UserApplication, WorkerApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+import { UserApplication } from '@api/model'
+import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { isProduction } from '@shared/constants'
 import { IInputArea } from '@ui/input-area/model'
+
+const holidayTypes = isProduction
+    ? [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+      ]
+    : [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 1,
+              title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+          {
+              id: 3,
+              title: 'Отпуск по коллективному договору',
+          },
+      ]
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
     endDate: string | null,
@@ -15,17 +45,17 @@ const getForm = (
     setCollType: React.Dispatch<React.SetStateAction<string | null>>,
     holidayType: any,
     setHolidayType: React.Dispatch<React.SetStateAction<string | null>>,
+    jobGuid: string | null,
     jobTitle: string | null,
     setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
-    jobGuid: string | null,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
-    const holidayStartDate = !!startDate ? startDate : new Date().toISOString()
-    const holidayEndDate = !!endDate ? endDate : new Date().toISOString()
-    const collTypeData = !!collType ? collType : ''
-    const jobGuidData = !!jobGuid ? jobGuid : ''
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
+    const holidayStartDate = startDate ?? new Date().toISOString()
+    const holidayEndDate = endDate ?? null
+    const collTypeData = collType ?? ''
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
 
     return {
         title: 'Заявление о предоставлении отпуска',
@@ -45,7 +75,7 @@ const getForm = (
                 width: '100',
                 required: true,
                 type: 'select',
-                items: getFormattedSubDivisions(subdivisions),
+                items: getFormattedSubDivisionsWithRate(subdivisions),
                 isSpecificSelect: true,
                 onChange: (value) => {
                     setJobTitle(value)
@@ -63,24 +93,7 @@ const getForm = (
                     setHolidayType(value)
                 },
                 width: '100%',
-                items: [
-                    {
-                        id: 0,
-                        title: 'Ежегодный (основной) оплачиваемый отпуск',
-                    },
-                    {
-                        id: 1,
-                        title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
-                    },
-                    {
-                        id: 2,
-                        title: 'Отпуск без сохранения заработной платы',
-                    },
-                    {
-                        id: 3,
-                        title: 'Отпуск по коллективному договору',
-                    },
-                ],
+                items: holidayTypes,
             },
             {
                 title: 'Категория для предоставления отпуска',
@@ -154,10 +167,10 @@ const getForm = (
                 mask: true,
                 onChange: (value) => {
                     setStartDate(value)
-                    setEndDate(value)
                 },
                 required: true,
                 minValueInput: getDelayInDays(5),
+                maxValueInput: '9999-12-31',
             },
             {
                 title: '',
@@ -177,10 +190,16 @@ const getForm = (
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: !!endDate ? endDate : getDelayInDays(0),
+                minValueInput: !!endDate ? endDate : getDelayInDays(0, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],
+        documents: {
+            files: [],
+            fieldName: 'files',
+            required: false,
+            allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
+        },
     }
 }
 

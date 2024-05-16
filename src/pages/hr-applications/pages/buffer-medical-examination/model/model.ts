@@ -1,15 +1,17 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { createEffect, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
-import { BufferMedicalExamination, BufferMedicalExaminationForm, BufferMedicalExaminationOrder } from '../types'
+import { BufferMedicalExamination, BufferMedicalExaminationForm, PersonMedicalExaminations } from '../types'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import axios from 'axios'
+import { userModel } from '@entities/user'
 
 interface MedicalExaminationStore {
-    listMedicalExamination: BufferMedicalExaminationOrder[] | null
+    listMedicalExamination: PersonMedicalExaminations[] | null
     error: string | null
 }
 
@@ -21,11 +23,9 @@ const loadBufferMedicalExaminationFx = createEffect(async () => {
     )
     try {
         setAgeMed(response.data.age)
-        setIsTutor(
-            response.data.employeeMedicalExaminations.map(({ employeeGuid, tutor }) => ({ employeeGuid, tutor })),
-        )
+        setIsTutor(response.data.personMedicalExaminations.map(({ employeeGuid, tutor }) => ({ employeeGuid, tutor })))
 
-        return response.data.employeeMedicalExaminations
+        return response.data.personMedicalExaminations
     } catch (_) {
         throw new Error('Не удалось загрузить информацию. Попробуйте позже')
     }
@@ -33,14 +33,29 @@ const loadBufferMedicalExaminationFx = createEffect(async () => {
 
 const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalExaminationForm) => {
     try {
-        const result = await $hrApi.post<BufferMedicalExamination>('MedicalExamination.AddMedicalExamination', data)
+        const { files } = data
+        const formData = new FormData()
 
-        if (result.data.isError) {
-            throw new Error()
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== 'files') formData.set(key, value)
         }
+        if (!!files[0]) {
+            for (let i = 0; i < files[0].length; i++) {
+                formData.append('files', files[0][i])
+            }
+        }
+
+        const result = await $hrApi.post(`MedicalExamination.AddMedicalExamination`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
 
         return result.data
     } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data.error)
+        }
         throw new Error(error as string)
     }
 })
@@ -55,8 +70,6 @@ const useBufferMedicalExamination = () => {
     }
 }
 
-const clearStore = createEvent()
-
 forward({ from: sendBufferMedicalExaminationFx.doneData, to: loadBufferMedicalExaminationFx })
 
 sample({
@@ -70,9 +83,23 @@ sample({
 
 sample({
     clock: sendBufferMedicalExaminationFx.failData,
+    fn: (error) => {
+        const message = error.message || 'Не удалось отправить форму'
+
+        return {
+            message,
+            type: 'failure' as MessageType,
+            time: 7000,
+        }
+    },
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: loadBufferMedicalExaminationFx.failData,
     fn: () => ({
-        message: 'Не удалось отправить форму.',
-        type: 'hrFailure' as MessageType,
+        message: 'Не удалось загрузить данные',
+        type: 'failure' as MessageType,
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })
@@ -90,11 +117,8 @@ const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_ST
         ...oldData,
         error: newData.message,
     }))
+    .on(userModel.stores.userGuid, () => DEFAULT_STORE)
 
 export const effects = { loadBufferMedicalExaminationFx, sendBufferMedicalExaminationFx }
 
 export const selectors = { useBufferMedicalExamination }
-
-export const events = {
-    clearStore,
-}

@@ -76,6 +76,7 @@ interface Props {
     align?: 'left' | 'center' | 'right'
     isActive?: boolean
     href: string
+    target?: '_blank' | '_self' | '_parent' | '_top'
     height?: string
     minHeight?: string
     padding?: string
@@ -95,6 +96,7 @@ const LinkButton = ({
     padding,
     isActive = true,
     isChosen = false,
+    target,
 }: Props) => {
     return (
         <LinkButtonWrapper
@@ -110,6 +112,7 @@ const LinkButton = ({
             height={height}
             padding={padding}
             minHeight={minHeight}
+            target={target}
         >
             {!!icon && icon}
             {text && <span>{text}</span>}

@@ -1,5 +1,5 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication, WorkerApplication } from '@api/model'
+import { UserApplication } from '@api/model'
 import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
@@ -7,9 +7,10 @@ import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-defa
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
+    endDate: string | null,
+    setEndDate: React.Dispatch<React.SetStateAction<string | null>>,
     isRetirement: string | null,
     setIsRetirement: React.Dispatch<React.SetStateAction<string | null>>,
     jobTitle: string | null,
@@ -19,8 +20,8 @@ const getForm = (
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const firstDayOff = !!startDate ? new Date(startDate) : new Date()
-    const jobGuidData = !!jobGuid ? jobGuid : ''
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const secondDayOff = new Date(firstDayOff.getTime() + 24 * 60 * 60 * 1000)
     const isTutor = getIsTutor(jobGuidData) === 'true' ? true : false
 
@@ -63,10 +64,14 @@ const getForm = (
                 editable: true,
                 onChange: (value) => {
                     setStartDate(value)
+                    const date = new Date(Date.parse(value))
+                    date.setDate(date.getDate() + 1)
+                    setEndDate(date.toISOString().split('T')[0])
                 },
                 mask: true,
                 required: true,
                 maxValueLength: 1,
+                maxValueInput: '9999-12-31',
                 minValueInput: getDelayInDays(0),
             },
             {
@@ -84,13 +89,18 @@ const getForm = (
             {
                 title: 'Второй день отдыха',
                 type: 'date',
-                value: secondDayOff.toISOString().substr(0, 10),
+                value: endDate,
+                onChange: (value) => {
+                    setEndDate(value)
+                },
+                editable: true,
                 fieldName: 'extra_examination_date_2',
-                editable: false,
                 mask: true,
                 required: false,
                 specialType: 'Compensation2',
                 maxValueLength: 1,
+                maxValueInput: '9999-12-31',
+                minValueInput: getDelayInDays(0),
             },
             {
                 title: '',
@@ -100,6 +110,12 @@ const getForm = (
                 visible: false,
             },
         ],
+        documents: {
+            files: [],
+            fieldName: 'files',
+            required: false,
+            allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
+        },
     }
 }
 

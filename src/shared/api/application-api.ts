@@ -29,7 +29,7 @@ export const postWorkerStatuses = (): Promise<AxiosResponse> => {
 }
 
 export const getDivisions = async () => {
-    const { data } = await $hrApi.get(`/AnotherPlaceWork.GetDivisions`)
+    const { data } = await $hrApi.get(`/AnotherWorkPosition.GetDivisions`)
 
     return data.divisions
 }

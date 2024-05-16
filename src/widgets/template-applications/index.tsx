@@ -16,6 +16,7 @@ interface Props {
 const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
     const {
         data: { listApplication, dataUserApplication },
+        error,
     } = applicationsModel.selectors.useApplications()
     const { open } = useModal()
 
@@ -30,9 +31,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
         <Wrapper
             load={() => applicationsModel.effects.getApplicationsFx()}
             loading={!listApplication}
-            // Метод getWorkerData работает нестабильно. Для этого раздела он не нужен, но ошибку ставит именно в этот стор.
-            // Таким образом все запросы отрабатывают корректно, но все равно отображается ошибка.
-            error={null}
+            error={error}
             data={listApplication}
         >
             <PageBlock

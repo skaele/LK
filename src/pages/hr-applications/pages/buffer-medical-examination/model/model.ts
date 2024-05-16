@@ -1,7 +1,7 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { createEffect, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'

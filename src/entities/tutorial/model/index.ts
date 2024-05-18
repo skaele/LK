@@ -34,6 +34,7 @@ const setCurrentTutorial = createEvent<TutorialId>()
 const nextStep = createEvent()
 const prevStep = createEvent()
 const resetStep = createEvent()
+const getTutorialData = createEvent()
 
 const $tutorialState = createStore<boolean | null>(null).on(setTutorialState, (_, value) => value)
 const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => value)
@@ -120,4 +121,5 @@ export const events = {
     setCurrentTutorial,
     nextStep,
     prevStep,
+    getTutorialData,
 }

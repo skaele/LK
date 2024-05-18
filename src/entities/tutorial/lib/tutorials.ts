@@ -1,5 +1,3 @@
-import { HOME_ROUTE, PAYMENTS_ROUTE } from '@app/routes/general-routes'
-
 export type Module = {
     id: TutorialId
     completed: boolean
@@ -46,7 +44,7 @@ export const commonTutorials: ModuleData = {
         ],
     },
     home: {
-        path: HOME_ROUTE,
+        path: '/home',
         steps: [
             {
                 title: 'Главная',
@@ -95,7 +93,7 @@ export const commonTutorials: ModuleData = {
         ],
     },
     payments: {
-        path: PAYMENTS_ROUTE,
+        path: '/payments',
         steps: [
             {
                 title: 'Договоры и оплаты',

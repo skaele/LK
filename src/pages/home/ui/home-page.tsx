@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
 import { menuModel } from '@entities/menu'
 import { GlobalAppSearchTutorial } from '@features/global-app-search'
@@ -10,8 +10,12 @@ import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import { CenterPage, Title } from '@ui/atoms'
-import { settingsModel } from '@entities/settings'
 import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { useUnit } from 'effector-react'
+import { userSettingsModel } from '@entities/settings'
+import { paymentsModel } from '@entities/payments'
+import { scheduleModel } from '@entities/schedule'
+import { userModel } from '@entities/user'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -27,8 +31,31 @@ const HomePageStyled = styled.div`
     }
 `
 export const HomePage = withTutorial(({ forwardedRef }) => {
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
+
     const { homeRoutes } = menuModel.selectors.useMenu()
-    const { news } = settingsModel.selectors.useSettings().settings['settings-home-page'].property
+    const settings = useUnit(userSettingsModel.stores.userSettings)
+    const news = settings?.homePage.hasNews
+
+    const payments = useUnit(paymentsModel.stores.$paymentsStore)
+    const {
+        data: { schedule },
+    } = scheduleModel.selectors.useSchedule()
+
+    useEffect(() => {
+        if (!payments) {
+            paymentsModel.events.getPayments()
+        }
+    }, [payments])
+
+    useEffect(() => {
+        if (!schedule) {
+            scheduleModel.effects.getScheduleFx(user)
+        }
+    }, [schedule])
+
     if (!homeRoutes) return null
     return (
         <HomePageStyled>

@@ -39,18 +39,7 @@ import PersonalSettings from '@pages/settings/pages/personal'
 import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
-import {
-    FiBell,
-    FiClipboard,
-    FiClock,
-    FiFileText,
-    FiHome,
-    FiLock,
-    FiMenu,
-    FiSettings,
-    FiUser,
-    FiXCircle,
-} from 'react-icons/fi'
+import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
 import {
     HiOutlineAcademicCap,
     HiOutlineCalendar,

@@ -1,4 +1,3 @@
-import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
 import { Wrapper } from '@ui/atoms'
 import React from 'react'
@@ -11,9 +10,7 @@ const Home = () => {
         error,
     } = userModel.selectors.useUser()
 
-    const { homeRoutes } = menuModel.selectors.useMenu()
-
-    if (!user || !homeRoutes) return null
+    if (!user) return null
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>
             <HomeTopPlate />

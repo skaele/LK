@@ -1,52 +1,102 @@
 import { createEvent, createStore, sample } from 'effector'
-import { Module, TutorialId, commonTutorials } from '../lib/tutorials'
+import { Module, TutorialId } from '../lib/tutorials'
+import { createQuery } from '@farfetched/core'
+import { createDefaultTutorials } from '../lib/create-default-tutorials'
 
-type Modules = { [id in TutorialId]: Module }
-const modulesResponse: { [id in TutorialId]: Pick<Module, 'completed'> } = {
-    sidebar: {
-        completed: false,
-    },
-    home: {
-        completed: false,
-    },
-    stud_applications: {
-        completed: false,
-    },
-    payments: {
-        completed: false,
-    },
-}
-const modules: Modules = Object.entries(commonTutorials).reduce((acc, [id, common]) => {
-    acc[id as TutorialId] = {
-        id: id as TutorialId,
-        completed: modulesResponse[id as TutorialId].completed,
-        steps: common.steps,
-        path: common.path,
-    }
-    return acc
-}, {} as Modules)
+export type Modules = { [id in TutorialId]: Module }
 
-const setTutorialState = createEvent<boolean>()
+const tutorialEnabled = createEvent<boolean | null>()
 const setHeroVisited = createEvent<boolean>()
-const setTutorialDelay = createEvent<{ till: Date; name: TutorialId }>()
-const completeModule = createEvent<TutorialId>()
+const setInteractions = createEvent<number>()
+const increasedInteractions = createEvent()
+const moduleCompleted = createEvent<TutorialId>()
 const setCurrentTutorial = createEvent<TutorialId>()
 const nextStep = createEvent()
 const prevStep = createEvent()
 const resetStep = createEvent()
 const getTutorialData = createEvent()
+const setTutorials = createEvent<Modules>()
+const clearProgress = createEvent()
 
-const $tutorialState = createStore<boolean | null>(null).on(setTutorialState, (_, value) => value)
-const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => value)
+export const getTutorialDataQuery = createQuery({
+    handler: async () => {
+        const tutorialState = localStorage.getItem('tutorialEnabled')
+        const heroVisited = localStorage.getItem('heroVisited')
+        const interactions = Number(localStorage.getItem('interactions'))
+        const tutorialsStringified = localStorage.getItem('tutorials')
+        const tutorials: Modules = tutorialsStringified ? JSON.parse(tutorialsStringified) : createDefaultTutorials()
+        return {
+            tutorialState,
+            heroVisited,
+            interactions,
+            tutorials,
+        }
+    },
+})
+sample({
+    clock: getTutorialData,
+    target: getTutorialDataQuery.start,
+})
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    target: increasedInteractions,
+})
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { tutorialState } }) => (tutorialState === 'true' ? true : tutorialState === 'false' ? false : null),
+    target: tutorialEnabled,
+})
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { heroVisited } }) => heroVisited === 'true',
+    target: setHeroVisited,
+})
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { interactions } }) => interactions,
+    target: setInteractions,
+})
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { tutorials } }) => tutorials,
+    target: setTutorials,
+})
+sample({
+    clock: clearProgress,
+    fn: () => createDefaultTutorials(),
+    target: setTutorials,
+})
+
+const $tutorialState = createStore<boolean | null>(null).on(tutorialEnabled, (_, value) => {
+    localStorage.setItem('tutorialEnabled', String(value))
+    return value
+})
+const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => {
+    localStorage.setItem('heroVisited', String(value))
+    return value
+})
 const $currentModule = createStore<Module | null>(null)
 const $currentStep = createStore<number>(0).reset(resetStep)
-const $tutorials = createStore<Modules>(modules).on(completeModule, (state, id) => ({
-    ...state,
-    [id]: {
-        ...state[id],
-        completed: true,
-    },
-}))
+const $tutorials = createStore<Modules | null>(null)
+    .on(setTutorials, (_, value) => value)
+    .on(moduleCompleted, (state, id) => {
+        if (!state) return null
+        const tutorials = {
+            ...state,
+            [id]: {
+                ...state[id],
+                completed: true,
+            },
+        }
+        localStorage.setItem('tutorials', JSON.stringify(tutorials))
+        return tutorials
+    })
+const $interactions = createStore<number>(0)
+    .on(setInteractions, (_, value) => value)
+    .on(increasedInteractions, (state) => {
+        localStorage.setItem('interactions', String(state + 1))
+        return state + 1
+    })
 
 sample({
     clock: nextStep,
@@ -62,19 +112,6 @@ sample({
     },
     target: $currentStep,
 })
-// sample({
-//     clock: nextStep,
-//     source: {
-//         currentStep: $currentStep,
-//         currentModule: $currentModule,
-//     },
-//     fn: ({ currentStep, currentModule }) => {
-//         if (!currentModule) return
-//         const nextStep = currentStep + 1
-//         if (currentModule?.steps.length <= nextStep) return currentModule.id
-//     },
-//     target: completeModule,
-// })
 sample({
     clock: prevStep,
     source: {
@@ -93,15 +130,15 @@ sample({
     clock: setCurrentTutorial,
     source: $tutorials,
     fn: (tutorials, id) => {
+        if (!tutorials) return null
         const tutorial = tutorials[id]
-        if (!tutorial) return null
         return tutorial
     },
     target: $currentModule,
 })
 
 sample({
-    clock: completeModule,
+    clock: moduleCompleted,
     target: resetStep,
 })
 
@@ -111,15 +148,16 @@ export const stores = {
     currentStep: $currentStep,
     tutorials: $tutorials,
     heroVisited: $heroVisited,
+    interactions: $interactions,
 }
 
 export const events = {
-    setTutorialState,
-    setTutorialDelay,
+    tutorialEnabled,
     setHeroVisited,
-    completeModule,
+    moduleCompleted,
     setCurrentTutorial,
+    getTutorialData,
     nextStep,
     prevStep,
-    getTutorialData,
+    clearProgress,
 }

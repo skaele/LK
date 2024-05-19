@@ -50,6 +50,7 @@ import {
 import { DOCLIST_ROUTE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
+import { TutorialSettings } from '@pages/settings/pages/tutorial'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
@@ -555,7 +556,7 @@ export const generalHiddenRoutes: IRoutes = {
         title: 'Настройки. Обучение',
         icon: <HiOutlineAcademicCap />,
         path: SETTINGS_TUTORIAL,
-        Component: () => <></>,
+        Component: TutorialSettings,
         color: 'green',
         isTemplate: true,
         show: true,

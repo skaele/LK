@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export const SkipButton = () => {
     const module = useUnit(tutorialModel.stores.currentModule)
     if (!module) return null
-    return <Button onClick={() => tutorialModel.events.completeModule(module.id)}>Пропустить {'>'}</Button>
+    return <Button onClick={() => tutorialModel.events.moduleCompleted(module.id)}>Пропустить {'>'}</Button>
 }
 
 const Button = styled.button`

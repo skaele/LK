@@ -11,11 +11,11 @@ export const useSetTutorial = () => {
         tutorialModel.stores.tutorials,
         tutorialModel.events.setCurrentTutorial,
     ])
-
-    Object.keys(tutorials).forEach((key) => {
-        const tutorial = tutorials[key as TutorialId]
-        if (tutorial.path === path) {
-            setCurrentTutorial(tutorial.id)
-        }
-    })
+    if (tutorials)
+        Object.keys(tutorials).forEach((key) => {
+            const tutorial = tutorials[key as TutorialId]
+            if (tutorial.path === path) {
+                setCurrentTutorial(tutorial.id)
+            }
+        })
 }

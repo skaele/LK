@@ -11,9 +11,9 @@ import styled from 'styled-components'
 
 export const TutorialHero = () => {
     const [isDeleted, setIsDeleted] = useState(false)
-    const [heroVisited, setTutorialState, setHeroVisited] = useUnit([
+    const [heroVisited, tutorialEnabled, setHeroVisited] = useUnit([
         tutorialModel.stores.heroVisited,
-        tutorialModel.events.setTutorialState,
+        tutorialModel.events.tutorialEnabled,
         tutorialModel.events.setHeroVisited,
     ])
 
@@ -46,7 +46,7 @@ export const TutorialHero = () => {
                             hoverTextColor="#9EA8F8"
                             text="Отказаться"
                             onClick={() => {
-                                setTutorialState(false)
+                                tutorialEnabled(false)
                                 setHeroVisited(true)
                                 setIsDeleted(true)
 
@@ -64,7 +64,7 @@ export const TutorialHero = () => {
                             hoverBackground="#6E7AE0"
                             textColor="white"
                             onClick={() => {
-                                setTutorialState(true)
+                                tutorialEnabled(true)
                                 setHeroVisited(true)
                                 setIsDeleted(true)
 

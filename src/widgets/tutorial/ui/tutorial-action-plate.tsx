@@ -5,12 +5,13 @@ import React from 'react'
 import { BsArrowUpRightCircleFill } from 'react-icons/bs'
 
 export const TutorialActionPlate = () => {
-    const [tutorialState, setHeroVisited] = useUnit([
+    const [tutorialState, setHeroVisited, interactions] = useUnit([
         tutorialModel.stores.tutorialState,
         tutorialModel.events.setHeroVisited,
+        tutorialModel.stores.interactions,
     ])
 
-    if (tutorialState !== null) return null
+    if (tutorialState !== null || interactions > 5) return null
 
     return (
         <BrightPlate

@@ -2,6 +2,7 @@ import { createEvent, createStore, sample } from 'effector'
 import { Module, TutorialId } from '../lib/tutorials'
 import { createQuery } from '@farfetched/core'
 import { createDefaultTutorials } from '../lib/create-default-tutorials'
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 export type Modules = { [id in TutorialId]: Module }
 
@@ -65,6 +66,14 @@ sample({
     clock: clearProgress,
     fn: () => createDefaultTutorials(),
     target: setTutorials,
+})
+sample({
+    clock: clearProgress,
+    fn: () => ({
+        message: 'Прогресс успешно сброшен',
+        type: 'success' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 const $tutorialState = createStore<boolean | null>(null).on(tutorialEnabled, (_, value) => {

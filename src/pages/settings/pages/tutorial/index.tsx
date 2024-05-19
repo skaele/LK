@@ -65,5 +65,5 @@ export const TutorialSettings = () => {
 }
 
 const ButtonStyled = styled(Button)`
-    margin-left: 8px;
+    margin: 8px;
 `

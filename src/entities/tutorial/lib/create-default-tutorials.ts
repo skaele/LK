@@ -6,6 +6,7 @@ export const createDefaultTutorials = () =>
         acc[id as TutorialId] = {
             id: id as TutorialId,
             completed: false,
+            name: common.name,
             steps: common.steps,
             path: common.path,
         }

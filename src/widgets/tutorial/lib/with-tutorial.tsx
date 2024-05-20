@@ -70,7 +70,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
-        const completed = tutorials[id].completed
+        const completed = tutorials[id]?.completed
         const module = commonTutorials[id]
         const lastStep = module ? currentStep === module.steps.length - 1 : 0
 

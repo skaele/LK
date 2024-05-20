@@ -6,6 +6,7 @@ import React from 'react'
 export const TutorialProgressBar = () => {
     const tutorials = useUnit(tutorialModel.stores.tutorials)
     if (!tutorials) return null
+
     const length = Object.keys(tutorials).length
     const completed = Object.entries(tutorials).reduce((acc, [, module]) => {
         if (module.completed) {

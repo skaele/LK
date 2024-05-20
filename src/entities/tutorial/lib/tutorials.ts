@@ -1,5 +1,6 @@
 export type Module = {
     id: TutorialId
+    name: string
     completed: boolean
     steps: TutorialStep[]
     path: string
@@ -13,38 +14,40 @@ export type TutorialStep = {
 export const commonTutorialIds = ['home', 'sidebar', 'stud_applications', 'payments'] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
-    [id in TutorialId]?: Pick<Module, 'steps' | 'path'>
+    [id in TutorialId]?: Pick<Module, 'steps' | 'path' | 'name'>
 }
 
 export const commonTutorials: ModuleData = {
-    sidebar: {
-        path: '',
-        steps: [
-            {
-                title: 'Боковая панель',
-                description: 'Боковая панель всегда находится в поле зрения и содержит основную навигацию в приложении',
-            },
-            {
-                title: 'Профиль',
-                description: 'Для доступа к профилю пользователя, кликните на иконку профиля в правом верхнем углу',
-            },
-            {
-                title: 'Поиск',
-                description:
-                    'Используйте поле поиска в верхней части страницы для быстрого поиска информации или контента',
-            },
-            {
-                title: 'Меню быстрого доступа',
-                description: 'В этом меню вы можете получить быстрый доступ к часто используемым функциям',
-            },
-            {
-                title: 'Переход на главную',
-                description: 'Нажмите на логотп, чтобы мгновенно перейти на главную страницу',
-            },
-        ],
-    },
+    // sidebar: {
+    //     path: '',
+    //     name: 'Боковая панель',
+    //     steps: [
+    //         {
+    //             title: 'Боковая панель',
+    //             description: 'Боковая панель всегда находится в поле зрения и содержит основную навигацию в приложении',
+    //         },
+    //         {
+    //             title: 'Профиль',
+    //             description: 'Для доступа к профилю пользователя, кликните на иконку профиля в правом верхнем углу',
+    //         },
+    //         {
+    //             title: 'Поиск',
+    //             description:
+    //                 'Используйте поле поиска в верхней части страницы для быстрого поиска информации или контента',
+    //         },
+    //         {
+    //             title: 'Меню быстрого доступа',
+    //             description: 'В этом меню вы можете получить быстрый доступ к часто используемым функциям',
+    //         },
+    //         {
+    //             title: 'Переход на главную',
+    //             description: 'Нажмите на логотп, чтобы мгновенно перейти на главную страницу',
+    //         },
+    //     ],
+    // },
     home: {
         path: '/home',
+        name: 'Главная',
         steps: [
             {
                 title: 'Главная',
@@ -71,6 +74,7 @@ export const commonTutorials: ModuleData = {
     },
     stud_applications: {
         path: '/applications',
+        name: 'Цифровые сервисы',
         steps: [
             {
                 title: 'Цифровые сервисы',
@@ -94,6 +98,7 @@ export const commonTutorials: ModuleData = {
     },
     payments: {
         path: '/payments',
+        name: 'Договоры и оплаты',
         steps: [
             {
                 title: 'Договоры и оплаты',

@@ -87,7 +87,10 @@ const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) =
 const $currentModule = createStore<Module | null>(null)
 const $currentStep = createStore<number>(0).reset(resetStep)
 const $tutorials = createStore<Modules | null>(null)
-    .on(setTutorials, (_, value) => value)
+    .on(setTutorials, (_, tutorials) => {
+        localStorage.setItem('tutorials', JSON.stringify(tutorials))
+        return tutorials
+    })
     .on(moduleCompleted, (state, id) => {
         if (!state) return null
         const tutorials = {

@@ -3,7 +3,7 @@ import useResize from '@utils/hooks/use-resize'
 import React, { memo, useEffect, useRef, useState } from 'react'
 import { SliderWrapper } from './styles'
 import { CurrentPage, SliderItem } from './ui'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 interface ISlider {
     pages: { title: string; condition?: boolean }[]
@@ -75,4 +75,4 @@ const Slider = ({
     )
 }
 
-export default memo(withTutorial(Slider))
+export default memo(Slider)

@@ -6,10 +6,10 @@ import React from 'react'
 import { useLocation } from 'react-router'
 import LeftsideBarListWrapper from '../atoms/leftside-bar-list-wrapper'
 import LeftsideBarItem from '../molecules/leftside-bar-item'
-import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 import { useUnit } from 'effector-react'
 
-const LeftsideBarList = withTutorial(({ forwardedRef }) => {
+const LeftsideBarList = ({ forwardedRef }: TutorialComponent) => {
     const leftsideBarRoutes = useUnit(menuModel.stores.leftSidebar)
 
     const location = useLocation()
@@ -99,6 +99,6 @@ const LeftsideBarList = withTutorial(({ forwardedRef }) => {
                 })}
         </LeftsideBarListWrapper>
     )
-})
+}
 
 export default React.memo(LeftsideBarList)

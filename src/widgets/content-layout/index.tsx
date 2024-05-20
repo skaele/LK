@@ -4,7 +4,7 @@ import { userModel } from '@entities/user'
 import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import ErrorBoundary from '@shared/ui/error-boundary'
 import React, { Suspense, useRef, useState } from 'react'
-import { Confirm, HintModal, LeftsideBar, MobileBottomMenu, PopUpMessage } from 'widgets'
+import { Confirm, HintModal, MobileBottomMenu, PopUpMessage } from 'widgets'
 import ContextMenu from 'widgets/context-menu'
 import Header from 'widgets/header'
 import { Modal } from 'widgets/modal'
@@ -15,6 +15,7 @@ import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent, Wrapper } from './styled'
 import { TutorialHero } from 'widgets/tutorial'
 import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
+import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
 
 const ContentLayout = () => {
     const {
@@ -36,7 +37,7 @@ const ContentLayout = () => {
         <Wrapper>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
-            <LeftsideBar tutorialModule={{ id: 'sidebar', step: 0, params: { noPadding: true } }} />
+            <LeftSideBarTutorial tutorialModule={{ id: 'sidebar', step: 0, params: { noPadding: true } }} />
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent

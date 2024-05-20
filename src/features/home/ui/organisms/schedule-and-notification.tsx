@@ -1,9 +1,9 @@
 import List from '@ui/list'
 import React from 'react'
-import PaymentsWidget from '../molecules/payments-widget'
 import { ScheduleWidget } from '../schedule-widget'
 import { useUnit } from 'effector-react'
 import { userSettingsModel } from '@entities/settings'
+import { PaymentsWidgetTutorial } from 'widgets/tutorial/tutorials/payments-tutorial'
 
 const ScheduleAndNotification = () => {
     const settings = useUnit(userSettingsModel.stores.userSettings)
@@ -14,7 +14,7 @@ const ScheduleAndNotification = () => {
         <List direction="horizontal" title="Виджеты" showPages gap={10} visible={!!widgetSchedule || !!widgetPayment}>
             {widgetSchedule && <ScheduleWidget />}
             {widgetPayment && (
-                <PaymentsWidget tutorialModule={{ id: 'home', step: 4, params: { position: 'bottom' } }} />
+                <PaymentsWidgetTutorial tutorialModule={{ id: 'home', step: 4, params: { position: 'bottom' } }} />
             )}
         </List>
     )

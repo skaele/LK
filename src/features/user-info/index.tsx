@@ -1,11 +1,11 @@
 import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
-import { GlobalAppSearch } from '@features/global-app-search'
 import Avatar from '@features/home/ui/molecules/avatar'
 import UserContextMenu from '@features/user-context-menu'
 import React from 'react'
 import styled from 'styled-components'
-import NotificationBell from './notification-bell'
+import GlobalAppSearch from '@features/global-app-search'
+import { NotificationBellTutorial } from 'widgets/tutorial/tutorials/notification-bell-tutorial'
 
 const UserInfoStyled = styled.div`
     padding: 4px;
@@ -42,7 +42,7 @@ const UserInfo = ({ showSearch = false }: Props) => {
     return (
         <UserInfoStyled>
             {showSearch && <GlobalAppSearch size="icon" />}
-            <NotificationBell tutorialModule={{ id: 'home', step: 3, params: { position: 'bottom' } }} />
+            <NotificationBellTutorial tutorialModule={{ id: 'home', step: 3, params: { position: 'bottom' } }} />
             <Avatar
                 onClick={handleUserClick}
                 width="30px"

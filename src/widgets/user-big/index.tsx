@@ -9,7 +9,7 @@ import React from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const UserBigWrapper = styled(Link)`
     display: flex;
@@ -43,7 +43,7 @@ interface Props extends TutorialComponent {
     selected?: boolean
 }
 
-const UserBig = withTutorial(({ name, avatar, loading, size, notifications, selected, forwardedRef }: Props) => {
+const UserBig = ({ name, avatar, loading, size, notifications, selected, forwardedRef }: Props) => {
     if (loading)
         return (
             <SkeletonShape
@@ -85,6 +85,6 @@ const UserBig = withTutorial(({ name, avatar, loading, size, notifications, sele
             <Title size={5}>{name}</Title>
         </UserBigWrapper>
     )
-})
+}
 
 export default React.memo(UserBig)

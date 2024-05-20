@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
 import { menuModel } from '@entities/menu'
-import { GlobalAppSearchTutorial } from '@features/global-app-search'
-import Links from '@features/home/ui/links'
 import ScheduleAndNotification from '@features/home/ui/organisms/schedule-and-notification'
 import UserInfo from '@features/user-info'
 import Block from '@shared/ui/block'
@@ -10,12 +8,14 @@ import Flex from '@shared/ui/flex'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
 import { CenterPage, Title } from '@ui/atoms'
-import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 import { useUnit } from 'effector-react'
 import { userSettingsModel } from '@entities/settings'
 import { paymentsModel } from '@entities/payments'
 import { scheduleModel } from '@entities/schedule'
 import { userModel } from '@entities/user'
+import { GlobalAppSearchTutorial } from 'widgets/tutorial/tutorials/global-app-search-tutorial'
+import { LinksTutorial } from 'widgets/tutorial/tutorials/links-tutorial'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -30,7 +30,7 @@ const HomePageStyled = styled.div`
         padding-top: 153px;
     }
 `
-export const HomePage = withTutorial(({ forwardedRef }) => {
+export const HomePage = ({ forwardedRef }: TutorialComponent) => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
@@ -60,7 +60,10 @@ export const HomePage = withTutorial(({ forwardedRef }) => {
     return (
         <HomePageStyled>
             <GlobalAppSearchTutorial tutorialModule={{ id: 'home', step: 1, params: { position: 'bottom' } }} />
-            <Links tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }} links={homeRoutes} />
+            <LinksTutorial
+                tutorialModule={{ id: 'home', step: 2, params: { position: 'bottom' } }}
+                links={homeRoutes}
+            />
             <TutorialActionPlate />
             <CenterPage>
                 <Block
@@ -84,4 +87,4 @@ export const HomePage = withTutorial(({ forwardedRef }) => {
             </CenterPage>
         </HomePageStyled>
     )
-})
+}

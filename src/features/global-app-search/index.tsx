@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import { useModal } from 'widgets'
 import GlobalAppSearchModal from './global-app-search-modal'
 import { MEDIA_QUERIES } from '@shared/constants'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 type SearchSize = 'icon' | 'small' | 'large'
 
@@ -83,7 +83,7 @@ type Props = {
     size?: SearchSize
 } & TutorialComponent
 
-export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
+const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
     const shortCut = getShortCut()
     const { open } = useModal()
     const padding = size === 'large' ? '16px' : '8px'
@@ -137,4 +137,4 @@ export const GlobalAppSearch = ({ size = 'large', forwardedRef }: Props) => {
     )
 }
 
-export const GlobalAppSearchTutorial = withTutorial(memo(GlobalAppSearch))
+export default memo(GlobalAppSearch)

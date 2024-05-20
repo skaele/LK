@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import LkNotificationList from 'widgets/lk-notification-list'
-import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const NotificationBellStyled = styled.div`
     position: relative;
@@ -62,7 +62,7 @@ export const NotificationsModal = () => {
     )
 }
 
-const NotificationBellSection = withTutorial(({ forwardedRef }) => {
+const NotificationBellSection = ({ forwardedRef }: TutorialComponent) => {
     const { notifications } = lkNotificationModel.selectors.useLkNotifications()
     const { open } = useModal()
 
@@ -88,6 +88,6 @@ const NotificationBellSection = withTutorial(({ forwardedRef }) => {
             <FiBell />
         </NotificationBellStyled>
     )
-})
+}
 
 export default NotificationBellSection

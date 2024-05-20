@@ -2,7 +2,7 @@ import { userModel } from '@entities/user'
 import { Wrapper } from '@ui/atoms'
 import React from 'react'
 import HomeTopPlate from './ui/home-top-plate'
-import { HomePage } from './ui/home-page'
+import { HomePageTutorial } from 'widgets/tutorial/tutorials/home-page-tutorial'
 
 const Home = () => {
     const {
@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <Wrapper loading={!user} load={() => null} error={error} data={user}>
             <HomeTopPlate />
-            <HomePage tutorialModule={{ id: 'home', step: 0, params: { position: 'top' } }} />
+            <HomePageTutorial tutorialModule={{ id: 'home', step: 0, params: { position: 'top' } }} />
         </Wrapper>
     )
 }

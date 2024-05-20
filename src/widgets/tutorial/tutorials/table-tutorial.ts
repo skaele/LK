@@ -1,4 +1,4 @@
 import { withTutorial } from 'widgets/tutorial/lib/with-tutorial'
-import Table from './index'
+import Table from '../../../shared/ui/table/index'
 
 export const TableTutorial = withTutorial(Table)

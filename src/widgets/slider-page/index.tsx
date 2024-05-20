@@ -4,7 +4,7 @@ import { Align } from '@ui/types'
 import useResize from '@utils/hooks/use-resize'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Slider } from 'widgets'
+import { SliderTutorial } from 'widgets/tutorial/tutorials/slider-tutorial'
 
 const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: string }>`
     display: flex;
@@ -104,7 +104,7 @@ const SliderPage = ({
 
     return (
         <SliderPageWrapper width={width} align={align} maxWidth={maxWidth}>
-            <Slider
+            <SliderTutorial
                 pages={pages.map(({ title, condition }) => ({
                     title,
                     condition,

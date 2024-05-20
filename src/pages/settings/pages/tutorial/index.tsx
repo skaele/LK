@@ -12,6 +12,7 @@ import { useHistory } from 'react-router'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 import { HOME_ROUTE, PAYMENTS_ROUTE } from '@app/routes/general-routes'
 import { confirmModel } from '@entities/confirm'
+import { TutorialProgressBar } from './tutorial-progress-bar'
 
 export const TutorialSettings = () => {
     const history = useHistory()
@@ -32,6 +33,7 @@ export const TutorialSettings = () => {
                     state={Boolean(tutorialEnabled)}
                     action={(newValue) => setTutorialState(newValue)}
                 />
+                <TutorialProgressBar />
             </div>
             <div>
                 <Title {...TITLE_CONFIG} bottomGap={'4px'}>

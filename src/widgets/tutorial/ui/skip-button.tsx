@@ -1,11 +1,13 @@
 import { tutorialModel } from '@entities/tutorial'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
 export const SkipButton = () => {
     const module = useUnit(tutorialModel.stores.currentModule)
-    if (!module) return null
+    const { isMobile, isTablet } = useCurrentDevice()
+    if (!module || isMobile || isTablet) return null
     return <Button onClick={() => tutorialModel.events.moduleCompleted(module.id)}>Пропустить {'>'}</Button>
 }
 

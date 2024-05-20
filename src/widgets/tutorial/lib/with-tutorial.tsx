@@ -5,7 +5,6 @@ import { tutorialModel } from '@entities/tutorial'
 import { TutorialId, commonTutorials } from '@entities/tutorial/lib/tutorials'
 import styled, { keyframes } from 'styled-components'
 import { Title } from '@shared/ui/title'
-import { Button } from '@shared/ui/button'
 import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import Flex from '@shared/ui/flex'
 import { SkipButton } from '../ui/skip-button'
@@ -96,21 +95,17 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 <Description>{description}</Description>
                                 <Buttons jc="flex-end" gap="20px">
                                     <Button
-                                        hoverTextColor="#cccccc"
-                                        isActive={step !== 0}
-                                        background="transparent"
-                                        icon={<FaArrowLeftLong />}
+                                        disabled={step == 0}
                                         onClick={() => {
                                             tutorialModel.events.prevStep()
                                         }}
-                                    />
-                                    <div style={{ minWidth: '5ch', textAlign: 'end' }}>
+                                    >
+                                        <FaArrowLeftLong />
+                                    </Button>
+                                    <div>
                                         {currentStep + 1} / {currentModule.steps.length}
                                     </div>
                                     <Button
-                                        background="transparent"
-                                        hoverTextColor="#cccccc"
-                                        icon={lastStep ? <FaCheck /> : <FaArrowRightLong />}
                                         onClick={() => {
                                             if (lastStep) {
                                                 setAnimation('out')
@@ -121,7 +116,9 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                                 }, 200)
                                             } else tutorialModel.events.nextStep()
                                         }}
-                                    />
+                                    >
+                                        {lastStep ? <FaCheck /> : <FaArrowRightLong />}
+                                    </Button>
                                 </Buttons>
                             </Hint>
                             <SkipButton />
@@ -237,4 +234,21 @@ const Description = styled.div`
 const Buttons = styled(Flex)`
     margin-top: 30px;
     left: 0;
+`
+
+const Button = styled.button`
+    max-width: 26px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #f4f4f4;
+
+    &:hover {
+        opacity: 0.7;
+    }
+    &:focus {
+        outline: none;
+    }
 `

@@ -1,9 +1,8 @@
 import { Contract } from '@features/payments'
-import Debt from '@features/payments/debt'
 import { PaymentsContract } from '@shared/api/model'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
-import { AnimatedCheck, Button, LinkButton } from '@shared/ui/atoms'
+import { Button, LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
@@ -13,8 +12,8 @@ import { BiWallet } from 'react-icons/bi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import Slider from 'widgets/slider'
-import PaymentButton from '@features/payment-button'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { DebtTutorial } from 'widgets/tutorial/tutorials/debt-tutorial'
+import { PaymentButtonTutorial } from 'widgets/tutorial/tutorials/payment-button'
 
 const DebtAndQrWrapper = styled.div`
     width: 100%;
@@ -68,7 +67,6 @@ type Props = {
 const DebtAndQr = (props: Props) => {
     const { data } = props
     const { balance_currdate, balance, endDatePlan, can_sign, bill, qr_current, qr_total } = data
-    const { isMobile } = useCurrentDevice()
     const { open } = useModal()
     const [currentPage, setCurrentPage] = useState(0)
     const chosenDebt = currentPage === 0 ? +balance_currdate : +balance
@@ -104,10 +102,7 @@ const DebtAndQr = (props: Props) => {
                 />
                 <DebtAndQrContentStyled>
                     <Flex d="column" gap="12px" ai="flex-start">
-                        <Debt
-                            debt={chosenDebt}
-                            // tutorialModule={{ id: 'payments', step: 1 }}
-                        />
+                        <DebtTutorial debt={chosenDebt} tutorialModule={{ id: 'payments', step: 1 }} />
 
                         <Flex d="column" gap="4px" ai="flex-start">
                             <Title size={3} align="left">
@@ -116,16 +111,13 @@ const DebtAndQr = (props: Props) => {
                             <Subtext>{dateText}</Subtext>
                         </Flex>
                     </Flex>
-                    {hasDebt ? (
-                        <PaymentButton
-                            currentPage={currentPage}
-                            type={isMobile ? 'horizontal' : 'vertical'}
-                            qr_current={qr_current}
-                            qr_total={qr_total}
-                        />
-                    ) : (
-                        <AnimatedCheck color="green" size="40px" />
-                    )}
+                    <PaymentButtonTutorial
+                        currentPage={currentPage}
+                        hasDebt={hasDebt}
+                        qr_current={qr_current}
+                        qr_total={qr_total}
+                        tutorialModule={{ id: 'payments', step: 2 }}
+                    />
                 </DebtAndQrContentStyled>
                 <ButtonsList>
                     {bill && (

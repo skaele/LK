@@ -32,6 +32,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const [animation, setAnimation] = useState<'in' | 'out'>('in')
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
+        const [visible, setVisible] = useState(false)
 
         const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
         const [position, setPosition] = useState<Position | null>(null)
@@ -45,8 +46,15 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             }
             measureDOMNode()
 
+            const intersectionObserver = new IntersectionObserver(([entry]) => {
+                setVisible(entry.isIntersecting)
+                if (entry.isIntersecting) {
+                    intersectionObserver.unobserve(node)
+                }
+            })
             const mutationObserver = new MutationObserver(measureDOMNode)
             mutationObserver.observe(root, { childList: true, subtree: true })
+            intersectionObserver.observe(node)
             window.addEventListener('resize', measureDOMNode)
             window.addEventListener('scroll', measureDOMNode, true)
         }, [])
@@ -57,7 +65,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.tutorials,
         ])
 
-        if (!portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
+        if (!visible || !portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         const { title, description } = currentModule.steps[currentStep]

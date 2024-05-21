@@ -9,7 +9,7 @@ import { tutorialModel } from '@entities/tutorial'
 import { TutorialId, commonTutorials } from '@entities/tutorial/lib/tutorials'
 import { SkipButton } from '../ui/skip-button'
 
-type HintPosition = 'right' | 'bottom' | 'top'
+type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 type Dimensions = { width: number; height: number }
 type Position = { top: number; left: number; right: number; bottom?: number }
 export interface TutorialWrapperProps {
@@ -19,6 +19,11 @@ export interface TutorialWrapperProps {
         params?: {
             noPadding?: boolean
             position?: HintPosition
+
+            // TODO: implement
+            inside?: boolean
+            widthMatchParent?: boolean
+            heighyMatchParent?: boolean
         }
     }
 }

@@ -11,6 +11,7 @@ const setHeroVisited = createEvent<boolean>()
 const setInteractions = createEvent<number>()
 const increasedInteractions = createEvent()
 const moduleCompleted = createEvent<TutorialId>()
+const moduleRestarted = createEvent<TutorialId>()
 const setCurrentTutorial = createEvent<TutorialId>()
 const nextStep = createEvent()
 const prevStep = createEvent()
@@ -103,6 +104,18 @@ const $tutorials = createStore<Modules | null>(null)
         localStorage.setItem('tutorials', JSON.stringify(tutorials))
         return tutorials
     })
+    .on(moduleRestarted, (state, id) => {
+        if (!state) return null
+        const tutorials = {
+            ...state,
+            [id]: {
+                ...state[id],
+                completed: false,
+            },
+        }
+        localStorage.setItem('tutorials', JSON.stringify(tutorials))
+        return tutorials
+    })
 const $interactions = createStore<number>(0)
     .on(setInteractions, (_, value) => value)
     .on(increasedInteractions, (state) => {
@@ -167,6 +180,7 @@ export const events = {
     tutorialEnabled,
     setHeroVisited,
     moduleCompleted,
+    moduleRestarted,
     setCurrentTutorial,
     getTutorialData,
     nextStep,

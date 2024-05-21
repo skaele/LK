@@ -6,10 +6,11 @@ import { tutorialModel } from '@entities/tutorial'
 import { useHistory } from 'react-router'
 import { CompletableLinkField } from './ui/completable-link-field'
 import styled from 'styled-components'
+import { TutorialId } from '@entities/tutorial/lib/tutorials'
 
 export const StartTutorialLinks = () => {
     const history = useHistory()
-    const tutorials = useUnit(tutorialModel.stores.tutorials)
+    const [tutorials, moduleRestarted] = useUnit([tutorialModel.stores.tutorials, tutorialModel.events.moduleRestarted])
     if (!tutorials) return null
 
     return (
@@ -22,7 +23,10 @@ export const StartTutorialLinks = () => {
                     <CompletableLinkField
                         completed={value.completed}
                         key={key}
-                        action={() => history.push(value.path)}
+                        action={() => {
+                            moduleRestarted(key as TutorialId)
+                            history.push(value.path)
+                        }}
                         title={value.name}
                         type="link"
                     />

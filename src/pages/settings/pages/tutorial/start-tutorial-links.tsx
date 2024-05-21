@@ -6,25 +6,24 @@ import { tutorialModel } from '@entities/tutorial'
 import { useHistory } from 'react-router'
 import { CompletableLinkField } from './ui/completable-link-field'
 import styled from 'styled-components'
-import { TutorialId } from '@entities/tutorial/lib/tutorials'
+import { getEntries } from '@shared/lib/typescript/getEntries'
 
 export const StartTutorialLinks = () => {
     const history = useHistory()
     const [tutorials, moduleRestarted] = useUnit([tutorialModel.stores.tutorials, tutorialModel.events.moduleRestarted])
     if (!tutorials) return null
-
     return (
         <div>
             <Title {...TITLE_CONFIG} bottomGap={'8px'}>
                 Запустить программу обучения
             </Title>
             <Container>
-                {Object.entries(tutorials).map(([key, value]) => (
+                {getEntries(tutorials).map(([key, value]) => (
                     <CompletableLinkField
                         completed={value.completed}
                         key={key}
                         action={() => {
-                            moduleRestarted(key as TutorialId)
+                            moduleRestarted(key)
                             history.push(value.path)
                         }}
                         title={value.name}

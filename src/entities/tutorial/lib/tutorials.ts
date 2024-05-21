@@ -11,10 +11,10 @@ export type TutorialStep = {
     description: string
 }
 
-export const commonTutorialIds = ['home', 'sidebar', 'stud_applications', 'payments'] as const
+export const commonTutorialIds = ['home', 'stud_applications', 'payments'] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
-    [id in TutorialId]?: Pick<Module, 'steps' | 'path' | 'name'>
+    [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name'>
 }
 
 export const commonTutorials: ModuleData = {

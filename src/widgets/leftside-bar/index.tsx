@@ -26,7 +26,10 @@ const LeftsideBar = ({ forwardedRef }: TutorialComponent) => {
     return (
         <LeftsideBarWrapper ref={forwardedRef} isOpen={isOpen} height={height}>
             <div className="top-wrapper">
-                <LinkTutoiral tutorialModule={{ id: 'sidebar', step: 4 }} to={HOME_ROUTE}>
+                <LinkTutoiral
+                    // tutorialModule={{ id: 'sidebar', step: 4 }}
+                    to={HOME_ROUTE}
+                >
                     <Logo width="165px" />
                 </LinkTutoiral>
                 <UserBigTutorial
@@ -35,10 +38,15 @@ const LeftsideBar = ({ forwardedRef }: TutorialComponent) => {
                     name={user?.fullName ?? ''}
                     loading={!user}
                     selected={location.pathname === '/profile'}
-                    tutorialModule={{ id: 'sidebar', step: 1 }}
+                    // tutorialModule={{ id: 'sidebar', step: 1 }}
                 />
-                <GlobalAppSearchTutorial size="small" tutorialModule={{ id: 'sidebar', step: 2 }} />
-                <LeftSideBarListTutorial tutorialModule={{ id: 'sidebar', step: 3 }} />
+                <GlobalAppSearchTutorial
+                    size="small"
+                    // tutorialModule={{ id: 'sidebar', step: 2 }}
+                />
+                <LeftSideBarListTutorial
+                // tutorialModule={{ id: 'sidebar', step: 3 }}
+                />
             </div>
             <ThemeToggle type="toggle" />
             {width < 1000 && <CloseMenuButton />}

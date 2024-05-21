@@ -8,7 +8,7 @@ export const TutorialProgressBar = () => {
     if (!tutorials) return null
 
     const length = Object.keys(tutorials).length
-    const completed = Object.entries(tutorials).reduce((acc, [, module]) => {
+    const completed = Object.values(tutorials).reduce((acc, module) => {
         if (module.completed) {
             return acc + 1
         }

@@ -104,18 +104,6 @@ const $tutorials = createStore<Modules | null>(null)
         localStorage.setItem('tutorials', JSON.stringify(tutorials))
         return tutorials
     })
-    .on(moduleRestarted, (state, id) => {
-        if (!state) return null
-        const tutorials = {
-            ...state,
-            [id]: {
-                ...state[id],
-                completed: false,
-            },
-        }
-        localStorage.setItem('tutorials', JSON.stringify(tutorials))
-        return tutorials
-    })
 const $interactions = createStore<number>(0)
     .on(setInteractions, (_, value) => value)
     .on(increasedInteractions, (state) => {
@@ -165,6 +153,27 @@ sample({
 sample({
     clock: moduleCompleted,
     target: resetStep,
+})
+sample({
+    clock: moduleRestarted,
+    source: {
+        tutorials: $tutorials,
+        tutorialState: $tutorialState,
+    },
+    fn: ({ tutorials, tutorialState }, id) => {
+        if (!tutorials) return tutorials
+        if (!tutorialState) return tutorials
+        const newTutorials = {
+            ...tutorials,
+            [id]: {
+                ...tutorials[id],
+                completed: false,
+            },
+        }
+        localStorage.setItem('tutorials', JSON.stringify(newTutorials))
+        return newTutorials
+    },
+    target: $tutorials,
 })
 
 export const stores = {

@@ -11,13 +11,12 @@ export const TutorialActionPlate = () => {
         tutorialModel.stores.interactions,
     ])
 
-    if (tutorialState !== null || interactions > 5) return null
-
     return (
         <BrightPlate
             onClick={() => {
                 setHeroVisited(false)
             }}
+            show={tutorialState === null && interactions < 5}
         >
             Начать обучение <BsArrowUpRightCircleFill size={25} />
         </BrightPlate>

@@ -1,11 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const BrightPlate = ({ onClick, children }: { children: React.ReactNode; onClick: () => void }) => {
-    return <Layout onClick={onClick}>{children}</Layout>
+interface Props {
+    onClick: () => void
+    children: React.ReactNode
+    show: boolean
+    hasBorder?: boolean
+    borderPadding?: string
 }
 
-const Layout = styled.button`
+export const BrightPlate = ({ onClick, children, show, hasBorder, borderPadding }: Props) => {
+    if (!show) return null
+    return (
+        <Layout onClick={onClick} hasBorder={hasBorder} borderPadding={borderPadding}>
+            {children}
+        </Layout>
+    )
+}
+
+const Layout = styled.button<Pick<Props, 'hasBorder' | 'borderPadding'>>`
     border: none;
     display: flex;
     cursor: pointer;

@@ -29,31 +29,42 @@ const TextFieldItem = ({
                 <b>{title}</b>
                 <span>{description}</span>
             </TextFieldStyledInfo>
-            {rightIcon ?? (!editable ? null : <FiEdit2 />)}
-            {fancyBG && <CompletedBackground completed={completed} />}
+            <RightIconContainer completed={completed}>
+                {rightIcon ?? (!editable ? null : <FiEdit2 />)}
+            </RightIconContainer>
         </TextFieldStyled>
     )
 }
 
 export default TextFieldItem
 
-const CompletedBackground = styled.div<{
-    completed?: boolean
-}>`
-    position: absolute;
-    top: 0;
-    left: 0;
+const RightIconContainer = styled.div<{ completed?: boolean }>`
+    color: ${({ completed }) => (completed ? Colors.green.main : '')};
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s transform;
+`
+
+const TextFieldStyledInfo = styled.div<{ completed?: boolean }>`
+    z-index: 2;
     width: 100%;
-    height: 100%;
-    border-radius: var(--brLight);
-    overflow: hidden;
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        box-shadow: 40px 20px 100px 50px ${({ completed }) => (completed ? Colors.green.main : 'var(--theme-4)')};
-        transition: 0.2s all;
+    display: flex;
+    flex-direction: column;
+    color: ${({ completed }) => (completed ? Colors.green.main : '')};
+
+    b {
+        opacity: ${({ completed }) => (completed ? 1 : 0.8)};
+        font-weight: 500;
+        font-size: 0.85rem;
+    }
+
+    span {
+        opacity: 0.6;
+        font-size: 0.8rem;
+        margin-top: 2px;
     }
 `
 
@@ -68,20 +79,30 @@ const TextFieldStyled = styled.div<{ completed?: boolean; fancyBG?: boolean }>`
     min-height: 45px;
     border-radius: var(--brLight);
 
-    background-color: ${({ completed }) => (completed ? Colors.green.transparent3 : '')};
+    background: ${({ fancyBG }) => {
+        if (!fancyBG) return ''
+        return 'linear-gradient(90deg, #383838 0%, #2e2e2e 50%)'
+    }};
 
     &:hover {
         background: ${({ completed, fancyBG }) => {
-            if (fancyBG) return ''
-            return completed ? Colors.green.main : 'var(--theme-4)'
+            if (!fancyBG) return 'var(--theme-4)'
+            return completed
+                ? 'linear-gradient(270deg, rgba(60, 210, 136, 0) 0%, rgba(60, 210, 136, 0.4) 100%)'
+                : 'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)'
         }};
 
-        ${CompletedBackground}::after {
-            box-shadow: 0 20px 110px 100px ${({ completed }) => (completed ? Colors.green.main : 'var(--theme-4)')};
+        ${RightIconContainer}, ${TextFieldStyledInfo}, .icon > svg {
+            color: white;
+        }
+
+        ${RightIconContainer} {
+            ${({ fancyBG }) => fancyBG && 'transform: translateX(-10px);'}
         }
     }
 
     .icon {
+        z-index: 2;
         width: 22px;
         height: 22px;
         margin-right: 10px;
@@ -93,29 +114,11 @@ const TextFieldStyled = styled.div<{ completed?: boolean; fancyBG?: boolean }>`
             width: 22px;
             height: 22px;
             opacity: 0.4;
+            color: ${({ completed }) => (completed ? Colors.green.main : '')};
         }
     }
 
     span {
         opacity: 0.8;
-    }
-`
-
-const TextFieldStyledInfo = styled.div<{ completed?: boolean }>`
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    b {
-        opacity: ${({ completed }) => (completed ? 1 : 0.8)};
-        font-weight: 500;
-        font-size: 0.85rem;
-    }
-
-    span {
-        opacity: 0.6;
-        font-size: 0.8rem;
-        margin-top: 2px;
     }
 `

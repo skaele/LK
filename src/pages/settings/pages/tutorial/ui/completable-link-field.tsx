@@ -3,7 +3,7 @@ import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import TextFieldItem from '@shared/ui/text-field/text-field-item'
 import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
-import { IoIosCheckmarkCircleOutline } from 'react-icons/io'
+import { IoIosCheckmarkCircleOutline, IoIosRadioButtonOff } from 'react-icons/io'
 
 interface LocalProps {
     completed: boolean
@@ -15,7 +15,7 @@ export const CompletableLinkField = ({ action, ...props }: FieldProps & LocalPro
         <TextFieldItem
             {...props}
             onClick={action}
-            icon={<IoIosCheckmarkCircleOutline />}
+            icon={props.completed ? <IoIosCheckmarkCircleOutline /> : <IoIosRadioButtonOff />}
             rightIcon={<FiChevronRight />}
             fancyBG={!isMobile && !isTablet}
         />

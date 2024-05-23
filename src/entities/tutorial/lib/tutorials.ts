@@ -11,7 +11,14 @@ export type TutorialStep = {
     description: string
 }
 
-export const commonTutorialIds = ['home', 'stud_applications', 'payments'] as const
+export const commonTutorialIds = [
+    'home',
+    'stud_applications',
+    'payments',
+    'profile',
+    'medical-certificate',
+    'schedule',
+] as const
 export type TutorialId = (typeof commonTutorialIds)[number]
 export type ModuleData = {
     [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name'>
@@ -112,6 +119,36 @@ export const commonTutorials: ModuleData = {
             {
                 title: 'Оплата',
                 description: 'Чтобы оплатить договор, нажмите на эту кнопку и отсканируйте QR-код',
+            },
+        ],
+    },
+    profile: {
+        path: '/profile',
+        name: 'Профиль',
+        steps: [
+            {
+                title: 'Профиль',
+                description: 'В этом разделе можно изменить пароль и имя',
+            },
+        ],
+    },
+    'medical-certificate': {
+        path: '/medical-certificate',
+        name: 'Предоставление медицинских справок',
+        steps: [
+            {
+                title: 'Мед. свидетельство',
+                description: 'В этом разделе можно получить мед. свидетельство',
+            },
+        ],
+    },
+    schedule: {
+        path: '/schedule',
+        name: 'Расписание',
+        steps: [
+            {
+                title: 'Расписание',
+                description: 'В этом разделе можно посмотреть расписание',
             },
         ],
     },

@@ -3,6 +3,7 @@ import { Module, TutorialId } from '../lib/tutorials'
 import { createQuery } from '@farfetched/core'
 import { createDefaultTutorials } from '../lib/create-default-tutorials'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { countTutorials } from '../lib/countTutorials'
 
 export type Modules = { [id in TutorialId]: Module }
 
@@ -25,8 +26,7 @@ export const getTutorialDataQuery = createQuery({
         const tutorialState = localStorage.getItem('tutorialEnabled')
         const heroVisited = localStorage.getItem('heroVisited')
         const interactions = Number(localStorage.getItem('interactions'))
-        const tutorialsStringified = localStorage.getItem('tutorials')
-        const tutorials: Modules = tutorialsStringified ? JSON.parse(tutorialsStringified) : createDefaultTutorials()
+        const tutorials = countTutorials()
         return {
             tutorialState,
             heroVisited,
@@ -161,7 +161,7 @@ sample({
         tutorialState: $tutorialState,
     },
     fn: ({ tutorials, tutorialState }, id) => {
-        if (!tutorials) return tutorials
+        if (!tutorials) return null
         if (!tutorialState) return tutorials
         const newTutorials = {
             ...tutorials,

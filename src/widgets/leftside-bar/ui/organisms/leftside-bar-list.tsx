@@ -92,7 +92,9 @@ const LeftsideBarList = () => {
                         <LeftsideBarItem
                             {...props}
                             key={props?.id}
-                            isCurrent={location.pathname.includes(props.path)}
+                            isCurrent={
+                                location.pathname === props.path || location.pathname.startsWith(`${props.path}/`)
+                            }
                         />
                     )
                 })}

@@ -27,6 +27,7 @@ import {
     GUESTS_ACCOMODATION_ON_CAMPUS,
     GUESTS_PASSAGE_TO_CAMPUS,
     GUEST_PASS,
+    INCREASE_ANTIPLAGIAT_LIMITS,
     ISSUANCE_OF_LICENSES,
     ISSUANCE_OF_PASS,
     LIVING_IN_RESIDENTIAL_PREMISES,
@@ -56,6 +57,10 @@ const getTeachersSectionLinks = (user: User): Section[] => {
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
+                {
+                    link: INCREASE_ANTIPLAGIAT_LIMITS,
+                    title: 'Запрос на увеличение лимита проверок в системе «Антиплагиат»',
+                },
             ],
         },
         {

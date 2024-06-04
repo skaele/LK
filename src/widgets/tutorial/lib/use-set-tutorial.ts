@@ -7,15 +7,18 @@ export const useSetTutorial = () => {
     const location = useLocation()
     const path = location.pathname
 
-    const [tutorials, setCurrentTutorial] = useUnit([
+    const [tutorials, currentModule, setCurrentTutorial, resetStep] = useUnit([
         tutorialModel.stores.tutorials,
+        tutorialModel.stores.currentModule,
         tutorialModel.events.setCurrentTutorial,
+        tutorialModel.events.resetStep,
     ])
     if (tutorials)
         Object.keys(tutorials).forEach((key) => {
             const tutorial = tutorials[key as TutorialId]
             if (tutorial.path === path) {
                 setCurrentTutorial(tutorial.id)
+                if (currentModule?.id !== tutorial.id) resetStep()
             }
         })
 }

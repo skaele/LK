@@ -195,4 +195,5 @@ export const events = {
     nextStep,
     prevStep,
     clearProgress,
+    resetStep,
 }

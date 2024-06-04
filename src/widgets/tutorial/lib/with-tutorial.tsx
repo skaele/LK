@@ -8,10 +8,11 @@ import Flex from '@shared/ui/flex'
 import { tutorialModel } from '@entities/tutorial'
 import { TutorialId, commonTutorials } from '@entities/tutorial/lib/tutorials'
 import { SkipButton } from '../ui/skip-button'
+import useResize from '@shared/lib/hooks/use-resize'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 type Dimensions = { width: number; height: number }
-type Position = { top: number; left: number; right: number; bottom?: number }
+type Position = { top: number; left: number; right: number; bottom: number }
 export interface TutorialWrapperProps {
     tutorialModule?: {
         id: TutorialId
@@ -34,6 +35,7 @@ export type TutorialComponent = {
 
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const Wrapper: React.FC<P & TutorialWrapperProps> = (props) => {
+        const { width } = useResize()
         const [animation, setAnimation] = useState<'in' | 'out'>('in')
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
@@ -97,9 +99,10 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 ></Layout>
                             )}
                             <Hint
+                                pageWidth={width}
                                 dimensions={dimensions}
                                 childPosition={position}
-                                relativePosition={props.tutorialModule.params?.position}
+                                relativePosition={props.tutorialModule.params?.position || 'right'}
                                 lastStep={animation === 'out' && lastStep ? true : false}
                             >
                                 <Title size={4} align="left">
@@ -195,9 +198,10 @@ const Layout = styled.div<{
 `
 
 const Hint = styled.div<{
+    pageWidth: number
     dimensions: Dimensions
     childPosition: Position
-    relativePosition?: HintPosition
+    relativePosition: HintPosition
     lastStep?: boolean
 }>`
     position: fixed;
@@ -222,16 +226,42 @@ const Hint = styled.div<{
     line-height: 20px;
 
     @media (min-width: 1000px) {
-        top: ${({ dimensions: { height }, childPosition: { top }, relativePosition }) =>
-            relativePosition === 'bottom' ? top + height + 10 : relativePosition === 'top' ? top - 30 : top}px;
-        left: ${({ dimensions: { width }, childPosition: { left }, relativePosition }) =>
-            relativePosition === 'bottom' || relativePosition === 'top' ? left - 20 : left + width + 10}px;
-        transform: translateY(${({ relativePosition }) => (relativePosition === 'top' ? '-100%' : '0')});
-        bottom: auto;
-
         min-width: 250px;
         width: 20%;
         max-width: 600px;
+
+        top: ${({ dimensions: { height }, childPosition: { top }, relativePosition }) => {
+            switch (relativePosition) {
+                case 'bottom':
+                case 'right':
+                case 'left':
+                    return top + height + 10
+                case 'top':
+                    return top - 30
+            }
+        }}px;
+        left: ${({ pageWidth, dimensions: { width }, childPosition: { left }, relativePosition }) => {
+            switch (relativePosition) {
+                case 'right':
+                case 'bottom':
+                case 'top':
+                    return pageWidth - left > 250 ? left - 20 + 'px' : 'auto'
+                case 'left':
+                    return left + width + 10 + 'px'
+            }
+        }};
+        right: ${({ pageWidth, childPosition: { left }, relativePosition }) => {
+            switch (relativePosition) {
+                case 'right':
+                case 'bottom':
+                case 'top':
+                    return pageWidth - left > 250 ? 'auto' : '10px'
+                case 'left':
+                    return 'auto'
+            }
+        }};
+        transform: translateY(${({ relativePosition }) => (relativePosition === 'top' ? '-100%' : '0')});
+        bottom: auto;
 
         margin: 10px;
         animation: ${({ lastStep }) => (lastStep ? FadeOut : FadeIn)} 200ms ease-in forwards;

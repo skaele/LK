@@ -233,8 +233,6 @@ const Hint = styled.div<{
         top: ${({ dimensions: { height }, childPosition: { top }, relativePosition }) => {
             switch (relativePosition) {
                 case 'bottom':
-                case 'right':
-                case 'left':
                     return top + height + 10
                 case 'top':
                     return top - 30

@@ -1,0 +1,4 @@
+// .babelrc
+{
+    "plugins": ["effector/babel-plugin"]
+}

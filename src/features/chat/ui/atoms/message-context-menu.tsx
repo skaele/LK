@@ -1,4 +1,4 @@
-import { Message } from '@api/model'
+import { ChatMessage } from '@entities/chat-messages/type'
 import { contextMenuModel } from '@entities/context-menu'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { Button } from '@ui/button'
@@ -6,7 +6,7 @@ import React from 'react'
 import { FiCopy } from 'react-icons/fi'
 
 interface Props {
-    message: Message
+    message: ChatMessage
 }
 
 const MessageContextMenu = ({ message }: Props) => {
@@ -19,7 +19,7 @@ const MessageContextMenu = ({ message }: Props) => {
                 align="left"
                 background="transparent"
                 onClick={() => {
-                    navigator.clipboard.writeText(message.message ?? '')
+                    navigator.clipboard.writeText(message.html ?? '')
                     contextMenuModel.events.close()
                     popUpMessageModel.events.evokePopUpMessage({ message: 'Сообщение скопировано', type: 'info' })
                 }}

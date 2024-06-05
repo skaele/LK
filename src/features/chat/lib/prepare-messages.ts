@@ -1,22 +1,24 @@
-import { Message, Messages } from '@api/model'
+import { ChatMessage } from '@entities/chat-messages/type'
+import { Chat } from '@entities/chats'
+import { User } from '@shared/api/model'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { RawChatMessage } from '../type'
 
-const avatars = {
-    'Peter Parker':
-        'https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Andrew_Garfield_Spider-Man.jpg/220px-Andrew_Garfield_Spider-Man.jpg',
-    'Никита Карпенко':
-        'https://img.freepik.com/free-photo/waist-up-portrait-of-handsome-serious-unshaven-male-keeps-hands-together-dressed-in-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg?size=626&ext=jpg',
-} as { [key: string]: string }
+type PrepareMessagesParams = {
+    messages: RawChatMessage[]
+    chat: Chat
+    currentUser: User
+}
 
-const prepareMessages = (messages: Messages) => {
-    const result = {} as { [key: number]: { avatar?: string; messages: Message[]; date: string | null } }
+export const prepareMessages = ({ chat, currentUser, messages }: PrepareMessagesParams) => {
+    const result = {} as { [key: number]: { avatar?: string; messages: RawChatMessage[]; date: string | null } }
     let index = 0
     let lastDate = ''
 
     messages.forEach((message, i, arr) => {
         if (
-            arr[i - 1]?.sender !== message.sender ||
-            localizeDate(arr[i - 1].sentTime) !== localizeDate(message.sentTime) ||
+            arr[i - 1]?.author_name !== message.author_name ||
+            localizeDate(arr[i - 1].datetime) !== localizeDate(message.datetime) ||
             !arr[i - 1]
         ) {
             index++
@@ -26,15 +28,13 @@ const prepareMessages = (messages: Messages) => {
         else {
             result[index] = {
                 messages: [message],
-                avatar: avatars[message.sender as keyof { [key: string]: string }],
-                date: localizeDate(message.sentTime) !== lastDate ? localizeDate(message.sentTime) : null,
+                avatar: chat.opponent.id === message.author_id ? chat.opponent.avatar : currentUser.avatar,
+                date: localizeDate(message.datetime) !== lastDate ? localizeDate(message.datetime) : null,
             }
 
-            lastDate = localizeDate(message.sentTime)
+            lastDate = localizeDate(message.datetime)
         }
     })
 
     return result
 }
-
-export default prepareMessages

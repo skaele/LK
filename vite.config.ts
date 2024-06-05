@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import checker from 'vite-plugin-checker'
+import babel from 'vite-plugin-babel';
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -19,6 +20,7 @@ export default defineConfig((conf) => {
             react(),
             tsconfigPaths(),
             svgr(),
+            babel(),
             splitVendorChunkPlugin(),
             checker({ typescript: true, eslint: { lintCommand: 'eslint "./src/**/*.{ts,tsx}"' } }),
         ],

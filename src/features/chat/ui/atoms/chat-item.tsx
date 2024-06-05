@@ -1,63 +1,44 @@
-import React from 'react'
 import { CHAT_ROUTE, TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
+import { chatSidebarModel } from '@features/chat/model'
 import Avatar from '@features/home/ui/molecules/avatar'
+import { useUnit } from 'effector-react'
+import React from 'react'
 import { useRouteMatch } from 'react-router'
-import { SkeletonLoading } from '.'
 import ChatItemWrapper from './chat-item-wrapper'
+import { Chat } from '@entities/chats'
+import localizeDate from '@shared/lib/dates/localize-date'
 
-interface LastMessage {
-    message: string | null
-    sentTime: string | null
-}
-
-interface Props {
-    avatar?: string
-    name: string
-    lastMessage: LastMessage
-    chatId: string
-    amountOfUnreadMessages: number
-    loading: boolean
-    isOpen: boolean
-}
-
-const ChatItem = ({ avatar, name, lastMessage, chatId, loading, amountOfUnreadMessages, isOpen }: Props) => {
+const ChatItem = (chat: Chat) => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
 
-    return !loading ? (
-        <ChatItemWrapper to={CHAT_ROUTE + `/${chatId}`} isChosen={params?.chatId === chatId} isOpen={isOpen}>
+    const [isOpen] = useUnit([chatSidebarModel.stores.isOpen])
+
+    console.log(chat.opponent.avatar)
+
+    const avatarProps = {
+        name: chat.opponent.name,
+        avatar: chat.opponent.avatar,
+        width: isOpen ? '40px' : '45px',
+        height: isOpen ? '40px' : '45px',
+        marginRight: !isOpen ? '0' : '7px',
+        // notifications: chat.lastmessage.readed ? 1 : 0,
+    }
+
+    return (
+        <ChatItemWrapper to={CHAT_ROUTE + `/${chat.id}`} isChosen={params?.chatId === chat.id} isOpen={isOpen}>
             <div className="chat-item-content">
-                {isOpen ? (
-                    <Avatar
-                        name={name}
-                        avatar={avatar}
-                        width="40px"
-                        height="40px"
-                        marginRight="7px"
-                        notifications={amountOfUnreadMessages}
-                    />
-                ) : (
-                    <Avatar
-                        name={name}
-                        avatar={avatar}
-                        width="45px"
-                        height="45px"
-                        marginRight="0"
-                        notifications={amountOfUnreadMessages}
-                    />
-                )}
+                <Avatar {...avatarProps} />
                 {isOpen && (
                     <>
                         <div className="name-and-message">
-                            <b>{name}</b>
-                            <div className="last-message">{lastMessage.message}</div>
+                            <b>{chat.opponent.name}</b>
+                            <div className="last-message">{chat.lastmessage.text}</div>
                         </div>
-                        <div className="sent-time">{lastMessage.sentTime}</div>
+                        <div className="sent-time">{localizeDate(chat.lastmessage.dateTime, 'long')}</div>
                     </>
                 )}
             </div>
         </ChatItemWrapper>
-    ) : (
-        <SkeletonLoading />
     )
 }
 

@@ -1,30 +1,41 @@
+import { chatsModel } from '@entities/chats'
+import { chatSidebarModel } from '@features/chat/model'
 import { Title } from '@ui/atoms'
 import useResize from '@utils/hooks/use-resize'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
-import { ChatItem } from '../atoms'
+import { ChatItem, SkeletonLoading } from '../atoms'
 
-const ChatItemsWrapper = styled.div<{ height: number }>`
-    overflow-y: auto;
-    max-height: ${({ height }) => height - 170 + 'px'};
-`
-
-interface Props {
-    chats: any[]
-    isOpen: boolean
-}
-
-const ChatItems = ({ chats, isOpen }: Props) => {
+export const ChatItems = () => {
     const { height } = useResize()
+
+    const [loading, chats] = useUnit([chatsModel.queries.chat.$pending, chatSidebarModel.stores.foundChats])
+
+    if (loading)
+        return (
+            <ChatItemsWrapper height={height}>
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+            </ChatItemsWrapper>
+        )
+
+    if (!chats) return null
 
     return (
         <ChatItemsWrapper height={height}>
             {!chats.length && <Title size={3}>Нет чатов</Title>}
             {chats.map((chat) => (
-                <ChatItem {...chat} key={chat.name} loading={false} isOpen={isOpen} />
+                <ChatItem {...chat} key={chat.id} />
             ))}
         </ChatItemsWrapper>
     )
 }
 
-export default ChatItems
+const ChatItemsWrapper = styled.div<{ height: number }>`
+    overflow-y: auto;
+    max-height: ${({ height }) => height - 170 + 'px'};
+`

@@ -1,12 +1,42 @@
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-import searchChats from '@features/chat/lib/search-chats'
+import { chatSidebarModel } from '@features/chat/model'
+import Search from '@shared/ui/search'
 import { Button, Divider, Title } from '@ui/atoms'
-import { LocalSearch } from '@ui/molecules'
-import React, { useState } from 'react'
+import { useUnit } from 'effector-react'
+import React from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import { ChatItems } from '../molecules'
+import { AddNewChat } from '../molecules/add-new-chat'
+
+export const ListOfChats = () => {
+    const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
+
+    const { isOpen, search } = useUnit(chatSidebarModel.stores)
+
+    return (
+        <ListOfChatsWrapper isOpen={isOpen} chatId={params?.chatId}>
+            <ChatListTopSection>
+                <Title size={3} align="left">
+                    Чаты
+                </Title>
+                <>
+                    <AddNewChat />
+                    <Button
+                        className="collapse-button"
+                        onClick={() => chatSidebarModel.events.toggle()}
+                        icon={isOpen ? <FiChevronLeft /> : <FiChevronRight />}
+                    />
+                </>
+            </ChatListTopSection>
+
+            <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
+            <Divider margin="10px auto" />
+            <ChatItems />
+        </ListOfChatsWrapper>
+    )
+}
 
 const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
     padding: 14px;
@@ -17,118 +47,37 @@ const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
     background: var(--block);
     color: var(--text);
     border-radius: 20px;
-
-    .chat-list-top-section {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
-        button {
-            min-width: 30px;
-            height: 30px;
-            padding: 2px;
-            background: transparent;
-
-            svg {
-                width: 17px;
-                height: 17px;
-            }
-        }
-    }
+    overflow: hidden;
 
     @media (max-width: 1000px) {
         width: ${({ chatId }) => (chatId ? '0' : '100%')};
         min-width: ${({ chatId }) => (chatId ? '0' : '100%')};
         padding: ${({ chatId }) => (chatId ? '0' : '14px')};
         opacity: ${({ chatId }) => (chatId ? '0' : '1')};
-
-        .chat-list-top-section {
-            button {
-                display: none;
-            }
-        }
     }
 `
 
-const ListOfChats = () => {
-    const [foundChats, setFoundChats] = useState<any[] | null>(null)
-    const [isOpen, setIsOpen] = useState(true)
-    const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
+const ChatListTopSection = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
 
-    const chats: any[] = [
-        {
-            avatar: undefined,
-            name: 'Аверин Антон',
-            lastMessage: {
-                message: 'Привет. Как дела?',
-                sentTime: '12:23',
-            },
-            chatId: '1',
-            amountOfUnreadMessages: 10,
-        },
-        {
-            // avatar: 'https://upload.wikimedia.org/wikipedia/ru/thumb/d/df/Andrew_Garfield_as_Spider-Man.jpg/280px-Andrew_Garfield_as_Spider-Man.jpg',
-            name: 'Хуснулина Дарья',
-            lastMessage: {
-                message: 'Привет. Как дела?',
-                sentTime: '12:23',
-            },
-            chatId: '2',
-            amountOfUnreadMessages: 0,
-        },
-        // {
-        //     avatar: undefined,
-        //     name: 'Рафаэль',
-        //     lastMessage: {
-        //         message: 'Привет. Как дела?',
-        //         sentTime: '12:23',
-        //     },
-        //     chatId: '3',
-        //     amountOfUnreadMessages: 0,
-        // },
-        // {
-        //     avatar: undefined,
-        //     name: 'Леонардо',
-        //     lastMessage: {
-        //         message: 'Привет. Как дела?',
-        //         sentTime: '12:23',
-        //     },
-        //     chatId: '4',
-        //     amountOfUnreadMessages: 0,
-        // },
-        // {
-        //     avatar: undefined,
-        //     name: 'Бред Питт',
-        //     lastMessage: {
-        //         message: 'Привет. Как дела?',
-        //         sentTime: '12:23',
-        //     },
-        //     chatId: '5',
-        //     amountOfUnreadMessages: 0,
-        // },
-    ]
+    .collapse-button {
+        min-width: 30px;
+        height: 30px;
+        padding: 2px;
+        background: transparent;
 
-    return (
-        <ListOfChatsWrapper isOpen={isOpen} chatId={params?.chatId}>
-            <div className="chat-list-top-section">
-                <Title size={3} align="left">
-                    Чаты
-                </Title>
-                <Button
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    icon={isOpen ? <FiChevronLeft /> : <FiChevronRight />}
-                />
-            </div>
-            <LocalSearch
-                whereToSearch={chats}
-                searchEngine={searchChats}
-                setResult={setFoundChats}
-                placeholder="Поиск чатов"
-            />
-            <Divider margin="10px auto" />
-            <ChatItems chats={foundChats ?? chats} isOpen={isOpen} />
-        </ListOfChatsWrapper>
-    )
-}
+        svg {
+            width: 17px;
+            height: 17px;
+        }
+    }
 
-export default ListOfChats
+    @media (max-width: 1000px) {
+        .collapse-button {
+            display: none;
+        }
+    }
+`

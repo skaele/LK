@@ -1,10 +1,41 @@
-import { Message } from '@api/model'
 import scrollToBottom from '@features/chat/lib/scroll-to-bottom'
 import { Button, Wrapper } from '@ui/atoms'
 import React, { useEffect, useRef, useState } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 import styled from 'styled-components'
 import { MessageList } from '.'
+import { useUnit } from 'effector-react'
+import { chatModel } from '@entities/chats'
+import { chatMessagesModel } from '@entities/chat-messages'
+
+export const Messages = () => {
+    const listRef = useRef<HTMLDivElement>(null)
+
+    const [buttonVisible, setButtonVisible] = useState(false)
+
+    const [chat, loading] = useUnit([chatModel.stores.selectedChat, chatMessagesModel.queries.chatMessages.$pending])
+
+    useEffect(() => {
+        scrollToBottom(listRef)
+    }, [chat?.id, loading])
+
+    const handleScroll = () => {
+        if (!!listRef.current) {
+            const isScrolledEnough =
+                listRef.current.scrollHeight - listRef.current.offsetHeight - listRef.current?.scrollTop > 350
+            setButtonVisible(isScrolledEnough)
+        }
+    }
+
+    return (
+        <MessagesWrapper ref={listRef} buttonVisible={buttonVisible} onScroll={handleScroll}>
+            <Wrapper loading={loading} load={() => null} error={null} data={!loading}>
+                <MessageList />
+            </Wrapper>
+            <Button icon={<FiChevronDown />} onClick={() => scrollToBottom(listRef)} />
+        </MessagesWrapper>
+    )
+}
 
 const MessagesWrapper = styled.div<{ buttonVisible: boolean }>`
     width: 100%;
@@ -41,108 +72,3 @@ const MessagesWrapper = styled.div<{ buttonVisible: boolean }>`
         }
     }
 `
-
-interface Props {
-    loading: boolean
-}
-
-const Messages = ({ loading }: Props) => {
-    const messages: Message[] = [
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        {
-            message: 'TestTestTestTestTestTest',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 7, 2022 21:12' },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 7, 2022 21:12' },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Никита Карпенко',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 9, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 9, 2022 21:12' },
-        { message: 'Test', sender: 'Никита Карпенко', sentTime: 'January 10, 2022 21:12' },
-    ]
-
-    const listRef = useRef<HTMLDivElement>(null)
-
-    const [buttonVisible, setButtonVisible] = useState(false)
-
-    useEffect(() => {
-        scrollToBottom(listRef)
-    }, [messages.length])
-
-    const handleScroll = () => {
-        if (!!listRef.current) {
-            const isScrolledEnough =
-                listRef.current.scrollHeight - listRef.current.offsetHeight - listRef.current?.scrollTop > 350
-            setButtonVisible(isScrolledEnough)
-        }
-    }
-
-    return (
-        <MessagesWrapper ref={listRef} buttonVisible={buttonVisible} onScroll={handleScroll}>
-            <Wrapper loading={loading} load={() => null} error={null} data={!loading}>
-                <MessageList messages={messages} />
-            </Wrapper>
-            <Button icon={<FiChevronDown />} onClick={() => scrollToBottom(listRef)} />
-        </MessagesWrapper>
-    )
-}
-
-export default Messages

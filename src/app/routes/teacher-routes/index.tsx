@@ -953,13 +953,17 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         icon: <FiFileText />,
         color: 'blue',
         path: INCREASE_ANTIPLAGIAT_LIMITS,
-        Component: IncreaseAntiplagiatLimits,
+
+        Component: isProduction
+            ? () => <PageIsNotReady isRedirectButtonVisible={false} errorText={'Сервис находится в разработке'} />
+            : IncreaseAntiplagiatLimits,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'edit-phonebook-subdivision': {
         id: 'edit-phonebook-subdivision',

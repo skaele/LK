@@ -1,10 +1,14 @@
 export type Employee = {
     fio: string
     job: Job[]
+    guid_person: string
+    guid_staff: string
     avatar: string
 } & Omit<Job, 'subdivision'>
 
 type Job = {
+    guid_person: string
+    guid_staff: string
     address: string
     email: string
     jobType: string

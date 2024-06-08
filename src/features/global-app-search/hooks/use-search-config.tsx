@@ -46,7 +46,19 @@ const FoundPeople = ({
     return (
         <Flex d="column">
             {people.map((s) => (
-                <User name={s.fio} type={type} {...s} key={'id' in s ? s.id : s.fio} />
+                <User
+                    name={s.fio}
+                    type={type}
+                    {...s}
+                    key={'id' in s ? s.id : s.guid_person}
+                    division={
+                        'division' in s
+                            ? s.division
+                            : 'job' in s
+                            ? s.job.find((j) => j.post === s.post)?.subdivision
+                            : ''
+                    }
+                />
             ))}
         </Flex>
     )

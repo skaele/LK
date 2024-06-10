@@ -88,12 +88,10 @@ const LeftsideBarList = () => {
             {Object.values(leftsideBarRoutes)
                 .filter(Boolean)
                 .map((props: IRoute) => {
+                    const escapedRoute = props.path.replace(/[^\w]/g, '\\$&')
+                    const routePattern = new RegExp(`^${escapedRoute}([\\/\\?#].*)?$`)
                     return (
-                        <LeftsideBarItem
-                            {...props}
-                            key={props?.id}
-                            isCurrent={location.pathname.includes(props.path)}
-                        />
+                        <LeftsideBarItem {...props} key={props?.id} isCurrent={routePattern.test(location.pathname)} />
                     )
                 })}
         </LeftsideBarListWrapper>

@@ -1,15 +1,4 @@
-export type Module = {
-    id: TutorialId
-    name: string
-    completed: boolean
-    steps: TutorialStep[]
-    path: string
-}
-
-export type TutorialStep = {
-    title: string
-    description: string
-}
+import { Module, TutorialId } from '../types'
 
 export const commonTutorialIds = [
     'home',
@@ -19,7 +8,7 @@ export const commonTutorialIds = [
     'medical-certificate',
     'schedule',
 ] as const
-export type TutorialId = (typeof commonTutorialIds)[number]
+
 export type ModuleData = {
     [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name'>
 }

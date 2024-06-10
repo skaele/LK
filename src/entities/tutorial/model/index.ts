@@ -1,11 +1,9 @@
 import { createEvent, createStore, sample } from 'effector'
-import { Module, TutorialId } from '../lib/tutorials'
 import { createQuery } from '@farfetched/core'
 import { createDefaultTutorials } from '../lib/create-default-tutorials'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { countTutorials } from '../lib/countTutorials'
-
-export type Modules = { [id in TutorialId]: Module }
+import { getTutorialDataRequest } from '@shared/api/tutorail-api'
+import { Module, Modules, TutorialId } from '../types'
 
 const tutorialEnabled = createEvent<boolean | null>()
 const setHeroVisited = createEvent<boolean>()
@@ -22,18 +20,7 @@ const setTutorials = createEvent<Modules>()
 const clearProgress = createEvent()
 
 export const getTutorialDataQuery = createQuery({
-    handler: async () => {
-        const tutorialState = localStorage.getItem('tutorialEnabled')
-        const heroVisited = localStorage.getItem('heroVisited')
-        const interactions = Number(localStorage.getItem('interactions'))
-        const tutorials = countTutorials()
-        return {
-            tutorialState,
-            heroVisited,
-            interactions,
-            tutorials,
-        }
-    },
+    handler: getTutorialDataRequest,
 })
 sample({
     clock: getTutorialData,
@@ -45,12 +32,12 @@ sample({
 })
 sample({
     clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorialState } }) => (tutorialState === 'true' ? true : tutorialState === 'false' ? false : null),
+    fn: ({ result: { tutorialState } }) => (tutorialState ? Boolean(tutorialState) : null),
     target: tutorialEnabled,
 })
 sample({
     clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { heroVisited } }) => heroVisited === 'true',
+    fn: ({ result: { heroVisited } }) => Boolean(heroVisited) === true,
     target: setHeroVisited,
 })
 sample({
@@ -145,7 +132,7 @@ sample({
     fn: (tutorials, id) => {
         if (!tutorials) return null
         const tutorial = tutorials[id]
-        return tutorial
+        return tutorial ?? null
     },
     target: $currentModule,
 })

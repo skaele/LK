@@ -1,5 +1,5 @@
 import { tutorialModel } from '@entities/tutorial'
-import { TutorialId } from '@entities/tutorial/lib/tutorials'
+import { getKeys } from '@shared/lib/typescript/getKeys'
 import { useUnit } from 'effector-react'
 import { useLocation } from 'react-router'
 
@@ -14,8 +14,8 @@ export const useSetTutorial = () => {
         tutorialModel.events.resetStep,
     ])
     if (tutorials)
-        Object.keys(tutorials).forEach((key) => {
-            const tutorial = tutorials[key as TutorialId]
+        getKeys(tutorials).forEach((key) => {
+            const tutorial = tutorials[key]
             if (tutorial.path === path) {
                 setCurrentTutorial(tutorial.id)
                 if (currentModule?.id !== tutorial.id) resetStep()

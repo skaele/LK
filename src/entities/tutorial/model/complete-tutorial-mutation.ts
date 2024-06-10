@@ -1,28 +1,29 @@
 import { createMutation } from '@farfetched/core'
-import { TutorialId } from '../lib/tutorials'
 import { tutorialModel } from '..'
 import { sample } from 'effector'
-import { getKeys } from '@shared/lib/typescript/getKeys'
+import { completeModule } from '@shared/api/tutorail-api'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { getTutorialDataQuery } from './get-tutorial-data-query'
 
-type ModuleStatuses = { [key in TutorialId]: boolean }
-
-export const completeTutorialMutation = createMutation({
-    handler: async (data: ModuleStatuses | null) => {
-        if (!data) return null
-        localStorage.setItem('tutorials', JSON.stringify(data))
-    },
+export const completeModuleMutation = createMutation({
+    handler: completeModule,
 })
 
 sample({
     clock: tutorialModel.events.moduleCompleted,
-    source: tutorialModel.stores.tutorials,
-    fn: (tutorials, tutorialId): ModuleStatuses | null => {
-        if (!tutorials) return null
-        return getKeys(tutorials).reduce((acc, id) => {
-            acc[id] = tutorials[id].completed
-            if (id === tutorialId) acc[id] = true
-            return acc
-        }, {} as ModuleStatuses)
-    },
-    target: completeTutorialMutation.start,
+    target: completeModuleMutation.start,
+})
+
+sample({
+    clock: completeModuleMutation.$succeeded,
+    target: getTutorialDataQuery.start,
+})
+
+sample({
+    clock: completeModuleMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось сохранить данные о прохождении',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })

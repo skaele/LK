@@ -1,16 +1,13 @@
-import { TutorialsSchema } from '@entities/tutorial/constants'
 import { $tutorialApi } from './config/tutorial-config'
 import { TutorialId, Tutorials } from '@entities/tutorial/types'
 
 export const getUserTutorials = async () => {
     const { data } = await $tutorialApi.get<Tutorials>('/tutorials', { signal: AbortSignal.timeout(1000) })
 
-    const parsed = TutorialsSchema.parse(data)
-
-    return parsed
+    return data
 }
 
-export const completeUserTutorial = async (tutorialId: TutorialId) => {
+export const completeModule = async (tutorialId: TutorialId) => {
     const { data } = await $tutorialApi.post<Tutorials>('/complete', {
         data: {
             tutorialId,
@@ -20,7 +17,7 @@ export const completeUserTutorial = async (tutorialId: TutorialId) => {
     return data
 }
 
-export const enableTutorial = async (value: boolean) => {
+export const changeTutorialState = async (value: boolean) => {
     const { data } = await $tutorialApi.post<boolean>('/enableTutorial', {
         data: {
             tutorialState: value,

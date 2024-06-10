@@ -6,9 +6,10 @@ import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import { Title } from '@shared/ui/title'
 import Flex from '@shared/ui/flex'
 import { tutorialModel } from '@entities/tutorial'
-import { TutorialId, commonTutorials } from '@entities/tutorial/lib/tutorials'
+import { commonTutorials } from '@entities/tutorial/lib/tutorials'
 import { SkipButton } from '../ui/skip-button'
 import useResize from '@shared/lib/hooks/use-resize'
+import { TutorialId } from '@entities/tutorial/types'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 type Dimensions = { width: number; height: number }

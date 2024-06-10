@@ -1,13 +1,8 @@
 import { createEvent, createStore, sample } from 'effector'
-import { createQuery } from '@farfetched/core'
-import { createDefaultTutorials } from '../lib/create-default-tutorials'
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { Module, Modules, TutorialId } from '../types'
-import { getUserTutorials } from '@shared/api/tutorail-api'
 
-const tutorialEnabled = createEvent<boolean | null>()
+const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
-const setInteractions = createEvent<number>()
 const increasedInteractions = createEvent()
 const moduleCompleted = createEvent<TutorialId>()
 const moduleRestarted = createEvent<TutorialId>()
@@ -16,87 +11,28 @@ const nextStep = createEvent()
 const prevStep = createEvent()
 const resetStep = createEvent()
 const getTutorialData = createEvent()
-const setTutorials = createEvent<Modules>()
 const clearProgress = createEvent()
 
-export const getTutorialDataQuery = createQuery({
-    handler: getUserTutorials,
-})
-sample({
-    clock: getTutorialData,
-    target: getTutorialDataQuery.start,
-})
-sample({
-    clock: getTutorialDataQuery.finished.success,
-    target: increasedInteractions,
-})
-sample({
-    clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorialState } }) => (tutorialState ? Boolean(tutorialState) : null),
-    target: tutorialEnabled,
-})
-sample({
-    clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { heroVisited } }) => Boolean(heroVisited) === true,
-    target: setHeroVisited,
-})
-sample({
-    clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { interactions } }) => interactions,
-    target: setInteractions,
-})
-sample({
-    clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorials } }) => tutorials,
-    target: setTutorials,
-})
-sample({
-    clock: clearProgress,
-    fn: () => createDefaultTutorials(),
-    target: setTutorials,
-})
-sample({
-    clock: clearProgress,
-    fn: () => ({
-        message: 'Прогресс успешно сброшен',
-        type: 'success' as const,
-    }),
-    target: popUpMessageModel.events.evokePopUpMessage,
-})
-
-const $tutorialState = createStore<boolean | null>(null).on(tutorialEnabled, (_, value) => {
-    localStorage.setItem('tutorialEnabled', String(value))
-    return value
-})
+const $tutorialState = createStore<boolean | null>(null)
 const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => {
     localStorage.setItem('heroVisited', String(value))
     return value
 })
 const $currentModule = createStore<Module | null>(null)
 const $currentStep = createStore<number>(0).reset(resetStep)
-const $tutorials = createStore<Modules | null>(null)
-    .on(setTutorials, (_, tutorials) => {
-        localStorage.setItem('tutorials', JSON.stringify(tutorials))
-        return tutorials
-    })
-    .on(moduleCompleted, (state, id) => {
-        if (!state) return null
-        const tutorials = {
-            ...state,
-            [id]: {
-                ...state[id],
-                completed: true,
-            },
-        }
-        localStorage.setItem('tutorials', JSON.stringify(tutorials))
-        return tutorials
-    })
+const $tutorials = createStore<Modules | null>(null).on(moduleCompleted, (state, id) => {
+    if (!state) return null
+    const tutorials = {
+        ...state,
+        [id]: {
+            ...state[id],
+            completed: true,
+        },
+    }
+    localStorage.setItem('tutorials', JSON.stringify(tutorials))
+    return tutorials
+})
 const $interactions = createStore<number>(0)
-    .on(setInteractions, (_, value) => value)
-    .on(increasedInteractions, (state) => {
-        localStorage.setItem('interactions', String(state + 1))
-        return state + 1
-    })
 
 sample({
     clock: nextStep,
@@ -183,4 +119,5 @@ export const events = {
     prevStep,
     clearProgress,
     resetStep,
+    increasedInteractions,
 }

@@ -16,11 +16,8 @@ export const ModuleSchema = z.object({
     path: z.string(),
 })
 
-export const ModulesSchema = z.record(TutorialIdSchema, ModuleSchema)
-
-export const TutorialsSchema = z.object({
-    tutorialState: z.boolean(),
-    heroVisited: z.boolean(),
-    interactions: z.number(),
-    tutorials: z.record(TutorialIdSchema, ModuleSchema),
-})
+// export const TutorialsSchema = z.object({
+//     tutorialState: z.boolean(),
+//     interactions: z.number(),
+//     tutorials: z.record(TutorialIdSchema, ModuleSchema),
+// })

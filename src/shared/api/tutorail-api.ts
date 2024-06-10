@@ -1,24 +1,41 @@
 import { TutorialsSchema } from '@entities/tutorial/constants'
 import { $tutorialApi } from './config/tutorial-config'
-import { Tutorials } from '@entities/tutorial/types'
+import { TutorialId, Tutorials } from '@entities/tutorial/types'
 
-export const getTutorialDataRequest = async () => {
-    const { data } = await $tutorialApi.get<Tutorials>('', { signal: AbortSignal.timeout(1000) })
+export const getUserTutorials = async () => {
+    const { data } = await $tutorialApi.get<Tutorials>('/tutorials', { signal: AbortSignal.timeout(1000) })
 
     const parsed = TutorialsSchema.parse(data)
 
     return parsed
 }
 
-// async () => {
-//   const tutorialState = localStorage.getItem('tutorialEnabled')
-//   const heroVisited = localStorage.getItem('heroVisited')
-//   const interactions = Number(localStorage.getItem('interactions'))
-//   const tutorials = countTutorials()
-//   return {
-//       tutorialState,
-//       heroVisited,
-//       interactions,
-//       tutorials,
-//   }
-// }
+export const completeUserTutorial = async (tutorialId: TutorialId) => {
+    const { data } = await $tutorialApi.post<Tutorials>('/complete', {
+        data: {
+            tutorialId,
+        },
+    })
+
+    return data
+}
+
+export const enableTutorial = async (value: boolean) => {
+    const { data } = await $tutorialApi.post<boolean>('/enableTutorial', {
+        data: {
+            tutorialState: value,
+        },
+    })
+
+    return data
+}
+
+export const resetTutorial = async () => {
+    const { data } = await $tutorialApi.post<boolean>('/reset')
+    return data
+}
+
+export const callUserInteraction = async () => {
+    const { data } = await $tutorialApi.post<boolean>('/call')
+    return data
+}

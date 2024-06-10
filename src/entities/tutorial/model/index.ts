@@ -2,8 +2,8 @@ import { createEvent, createStore, sample } from 'effector'
 import { createQuery } from '@farfetched/core'
 import { createDefaultTutorials } from '../lib/create-default-tutorials'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { getTutorialDataRequest } from '@shared/api/tutorail-api'
 import { Module, Modules, TutorialId } from '../types'
+import { getUserTutorials } from '@shared/api/tutorail-api'
 
 const tutorialEnabled = createEvent<boolean | null>()
 const setHeroVisited = createEvent<boolean>()
@@ -20,7 +20,7 @@ const setTutorials = createEvent<Modules>()
 const clearProgress = createEvent()
 
 export const getTutorialDataQuery = createQuery({
-    handler: getTutorialDataRequest,
+    handler: getUserTutorials,
 })
 sample({
     clock: getTutorialData,

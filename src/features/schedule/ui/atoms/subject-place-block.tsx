@@ -21,7 +21,7 @@ const SubjectPlaceBlockWrapper = styled.div`
 
 interface Props {
     place: string
-    link: string | null | undefined
+    link?: string | null
     name: string
 }
 

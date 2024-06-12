@@ -9,9 +9,6 @@ export const CopiesOfDocumentsFromPersonalFilePage = lazy(
 export const ContactInfoActualizationPage = lazy(
     () => import('@pages/teachers-applications/pages/contact-info-actualization'),
 )
-export const ContactInfoActualizationTestPage = lazy(
-    () => import('@pages/teachers-applications/pages/contact-info-actualization-test'),
-)
 export const ContactDetails = lazy(() => import('@pages/teachers-applications/pages/contact-details'))
 export const ContactDetailsForm = lazy(() => import('@pages/teachers-applications/pages/contact-details/form'))
 export const DataVerificationPage = lazy(() => import('@pages/teachers-applications/pages/data-verification'))
@@ -38,6 +35,9 @@ export const GettingComputerEquipmentPage = lazy(
 export const IssuanceOfLicensesPage = lazy(() => import('@pages/teachers-applications/pages/issuance-of-licenses'))
 export const NumberOfUnusedVacationDaysPage = lazy(
     () => import('@pages/teachers-applications/pages/number-of-unused-vacation-days'),
+)
+export const IncreaseAntiplagiatLimits = lazy(
+    () => import('@pages/teachers-applications/pages/increase-antiplagiat-limits'),
 )
 
 export const EditPhonebookSubdivision = lazy(

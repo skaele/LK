@@ -5,7 +5,7 @@ export const getSubdivisionInfo = (subdivision: Subdivision): PhonebookInfo[] =>
     return [
         {
             attributes: [
-                { title: 'Руководитель', text: subdivision.head.fio },
+                { id: 'head', title: 'Руководитель', text: subdivision.head.fio },
                 {
                     title: 'Корпоративная электронная почта подразделения',
                     text: subdivision.email,
@@ -20,7 +20,7 @@ export const getSubdivisionInfo = (subdivision: Subdivision): PhonebookInfo[] =>
                     title: 'Прямой телефон',
                     text: subdivision.phone_direct,
                 },
-                { title: 'Адрес рабочего места', text: subdivision.address },
+                { id: 'address', title: 'Адрес рабочего места', text: subdivision.address },
                 { title: 'Номер кабинета', text: subdivision.room },
             ],
         },

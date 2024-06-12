@@ -121,7 +121,7 @@ const ChangePassword = () => {
                     <Input
                         type="password"
                         title="Придумайте пароль"
-                        placeholder="Введите пароль"
+                        placeholder="Введите новый пароль"
                         value={first}
                         setValue={setFirst}
                         required

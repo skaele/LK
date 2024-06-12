@@ -49,12 +49,12 @@ import {
     CertificationAndIssuanceOfDocs,
     CertifiedCopiesOfMilitaryDocs,
     DefermentFromConscription,
-    ContactInfoActualizationTestPage,
     EditPhonebookSubdivision,
     EditPhonebookInnerPhone,
     EditPhonebookEmail,
     ContactDetails,
     ContactDetailsForm,
+    IncreaseAntiplagiatLimits,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -147,6 +147,7 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+export const INCREASE_ANTIPLAGIAT_LIMITS = APPLICATIONS_ROUTE + '/increase-antiplagiat-limits'
 
 export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
 export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
@@ -494,18 +495,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'GENERAL',
     },
-    'pps-vote': {
-        id: 'pps-vote',
-        title: 'Опрос для проверки уровня цифровой грамотности',
-        icon: <BiBookReader />,
-        path: PPS_VOTE_ROUTE,
-        isOldLkPage: true,
-        Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
-        color: 'blue',
-        isTemplate: false,
-        group: 'OTHER',
-        show: false,
-    },
     applications: {
         id: 'applications',
         title: 'Цифровые сервисы',
@@ -542,20 +531,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         backButtonText: 'Назад к цифровым сервисам',
     },
-    // remove after mobile version is ready
-    // #ASM
-    'all-teachers': {
-        id: 'all-teachers',
-        title: 'Сотрудники',
-        icon: <BiBookReader />,
-        path: ALL_TEACHERS_ROUTE,
-        Component: AllTeachersPage,
-        color: 'orange',
-        isTemplate: false,
-        group: 'COMMUNICATION',
-        keywords: ['преподаватели', 'преподы'],
-        show: false,
-    },
     'all-staff': {
         id: 'all-staff',
         title: 'Сотрудники',
@@ -583,6 +558,32 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
 
 export const teachersHiddenRoutes: () => IRoutes = () => ({
     ...generalHiddenRoutes,
+    // remove after mobile version is ready
+    // #ASM
+    'all-teachers': {
+        id: 'all-teachers',
+        title: 'Сотрудники',
+        icon: <BiBookReader />,
+        path: ALL_TEACHERS_ROUTE,
+        Component: AllTeachersPage,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMMUNICATION',
+        keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'pps-vote': {
+        id: 'pps-vote',
+        title: 'Опрос для проверки уровня цифровой грамотности',
+        icon: <BiBookReader />,
+        path: PPS_VOTE_ROUTE,
+        isOldLkPage: true,
+        Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
+        color: 'blue',
+        isTemplate: false,
+        group: 'OTHER',
+        show: false,
+    },
     'issuance-of-licenses-page': {
         id: 'issuance-of-licenses-page',
         title: 'Выдача лицензий',
@@ -945,6 +946,25 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
+    'increase-antiplagiat-limits': {
+        id: 'increase-antiplagiat-limits',
+        title: 'Запрос на увеличение лимита проверок в системе «Антиплагиат»',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: INCREASE_ANTIPLAGIAT_LIMITS,
+
+        Component: isProduction
+            ? () => <PageIsNotReady isRedirectButtonVisible={false} errorText={'Сервис находится в разработке'} />
+            : IncreaseAntiplagiatLimits,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
+    },
     'edit-phonebook-subdivision': {
         id: 'edit-phonebook-subdivision',
         title: 'Внесение изменений данных подразделения в телефонном справочнике',
@@ -1132,21 +1152,6 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'data-actualization': {
-        id: 'data-actualization',
-        title: 'Актуализация контактных данных (тест)',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: CONTACT_INFO_ACTUALIZATION_TEST,
-        Component: isProduction ? ContactInfoActualizationPage : ContactInfoActualizationTestPage,
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-        show: false,
     },
     'data-verification': {
         id: 'data-verification',

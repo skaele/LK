@@ -19,7 +19,19 @@ export default defineConfig((conf) => {
         preview: { port: 3000 },
         plugins: [
             babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled' }),
-            react(),
+            react({
+                babel: {
+                    plugins: [
+                        [
+                            'babel-plugin-styled-components',
+                            {
+                                displayName: process.env.NODE_ENV === 'development',
+                                fileName: false,
+                            },
+                        ],
+                    ],
+                },
+            }),
             tsconfigPaths(),
             svgr(),
             splitVendorChunkPlugin(),

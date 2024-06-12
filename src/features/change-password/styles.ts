@@ -13,7 +13,9 @@ export const ChangePasswordStyled = styled.div`
     }
 `
 
-export const FormStyled = styled.div`
+export const FormStyled = styled.form.attrs({
+    autocomplete: false,
+})`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

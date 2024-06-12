@@ -23,6 +23,8 @@ interface Props {
     icon?: ChildrenType
     background?: string
     borderRadius?: number
+    adaptive?: boolean
+    centerHorizontally?: boolean
     onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
@@ -42,6 +44,8 @@ function Avatar({
     onClick,
     borderRadius,
     background,
+    adaptive,
+    centerHorizontally,
 }: Props) {
     const [isLoaded, setIsLoaded] = useState<boolean>(true)
     const shortName = getNameFirstLetters(name)[0] + (getNameFirstLetters(name)[1] ?? '')
@@ -49,7 +53,17 @@ function Avatar({
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (avatarModal) {
-            open(<Avatar name={name} width="400px" height="400px" marginRight="0" avatar={avatar} />)
+            open(
+                <Avatar
+                    name={name}
+                    width="400px"
+                    height="400px"
+                    marginRight="0"
+                    avatar={avatar}
+                    adaptive
+                    centerHorizontally
+                />,
+            )
         } else {
             onClick?.(e)
         }
@@ -66,6 +80,8 @@ function Avatar({
             border={border}
             onClick={handleClick}
             borderRadius={borderRadius}
+            adaptive={adaptive}
+            centerHorizontally={centerHorizontally}
         >
             {avatar && isLoaded ? (
                 <Img
@@ -74,6 +90,7 @@ function Avatar({
                     onLoadedData={() => setIsLoaded(true)}
                     onError={() => setIsLoaded(false)}
                     src={avatar}
+                    adaptive={adaptive}
                 />
             ) : (
                 <div className="name">{shortName}</div>

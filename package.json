@@ -12,6 +12,7 @@
         "build-test": "vite build --mode development",
         "preview": "vite preview",
         "reinstall": "rm -rf node_modules && rm -rf package-lock.json && npm cache clean -f && npm i",
+        "reinstall-win": "npm rm -rf node_modules && npm rm -rf package-lock.json && npm cache clean -f && npm i",
         "knip": "knip"
     },
     "dependencies": {
@@ -42,6 +43,7 @@
     "devDependencies": {
         "@babel/preset-react": "^7.24.7",
         "@babel/preset-typescript": "^7.24.7",
+        "@types/node": "^20.11.17",
         "@types/react": "^17.0.71",
         "@types/react-dom": "^17.0.11",
         "@types/react-router": "^5.1.17",

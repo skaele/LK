@@ -1,4 +1,4 @@
-import { ApplicationsConstants } from '@entities/applications/consts'
+import { ApplicationStatusType, ApplicationsConstants } from '@entities/applications/consts'
 import { LinkButton } from '@shared/ui/atoms'
 import { Tooltip } from '@shared/ui/tooltip'
 import { Message } from '@ui/message'
@@ -56,18 +56,21 @@ export const getCommonApplicationsColumns = (): ColumnProps[] => [
         title: 'Статус',
         field: 'status',
         priority: 'one',
-        width: '130px',
+        width: '165px',
         catalogs: [...(Object.values(ApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
-        render: (value) => {
-            const newValue = transformStatusApplication(value)
+        render: (value: ApplicationStatusType) => {
             return (
                 <Message
-                    type={newValue === 'Готово' ? 'success' : newValue === 'Отклонено' ? 'failure' : 'alert'}
-                    title={newValue || '—'}
+                    type={
+                        value === 'Готово' || value === 'Выдано' || value === 'Получено' || value === 'Выполнена'
+                            ? 'success'
+                            : value === 'Отклонено'
+                            ? 'failure'
+                            : 'alert'
+                    }
+                    title={value || '—'}
                     align="center"
-                    width="100%"
                     icon={null}
-                    maxWidth="150px"
                 />
             )
         },
@@ -80,18 +83,5 @@ export const getCommonApplicationsColumns = (): ColumnProps[] => [
     },
     { title: 'Примечание', field: 'comment', priority: 'five', width: '150px' },
 ]
-
-const transformStatusApplication = (status: string): string => {
-    switch (status) {
-        case 'На рассмотрении':
-            return ApplicationsConstants.pending
-        case 'Принято в работу':
-            return ApplicationsConstants.pending
-        case 'Получено':
-            return ApplicationsConstants.ready
-        default:
-            return status
-    }
-}
 
 export default getApplicationsColumns

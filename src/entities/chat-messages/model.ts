@@ -25,7 +25,6 @@ const addChatMessageFx = attach({
         if (!chatId) throw new Error('Чат не выбран')
 
         const currentUser = user.currentUser
-
         const data = await addMessage({ ...body, chatId })
 
         return { ...data, currentUser }

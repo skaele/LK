@@ -1,8 +1,9 @@
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
 import { AddNewChat } from '@features/add-new-chat'
 import { chatSidebarModel } from '@features/chat/model'
+import { Colors, OLD_LK_URL } from '@shared/constants'
 import Search from '@shared/ui/search'
-import { Divider, Title } from '@ui/atoms'
+import { Button, Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
@@ -20,7 +21,16 @@ export const ListOfChats = () => {
                 <Title size={3} align="left">
                     Чаты
                 </Title>
-                <AddNewChat />
+                <Buttons>
+                    <a href={`${OLD_LK_URL}/?p=messages`}>
+                        <GoToOldVersion
+                            text="старый дизайн"
+                            background={Colors.blue.main}
+                            textColor={Colors.white.main}
+                        />
+                    </a>
+                    <AddNewChat />
+                </Buttons>
             </ChatListTopSection>
 
             <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
@@ -73,3 +83,11 @@ const ChatListTopSection = styled.div`
         }
     }
 `
+
+export const Buttons = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+`
+
+const GoToOldVersion = styled(Button)``

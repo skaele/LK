@@ -53,5 +53,6 @@ const ChatPageWrapper = styled.div`
     @media (max-width: 1000px) {
         margin: 0;
         height: 100%;
+        border-radius: 0;
     }
 `

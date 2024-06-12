@@ -284,7 +284,6 @@ export const generalRoutes: IRoutes = {
         pageSize: 'small',
     },
     chat: {
-        //ChatPage
         id: 'chat',
         title: 'Сообщения',
         icon: <BiMessageRounded />,
@@ -297,11 +296,8 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         planeHeader: false,
         hiddenTitle: true,
-
-        // withoutHeader: true,
     },
     'specific-chat': {
-        //ChatPage
         id: 'specific-chat',
         title: 'Сообщения',
         icon: <BiMessageRounded />,
@@ -312,8 +308,6 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         planeHeader: false,
         hiddenTitle: true,
-        // withoutHeader: true,
-
         group: 'OTHER',
         isSubPage: true,
         show: false,

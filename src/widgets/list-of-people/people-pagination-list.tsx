@@ -58,6 +58,7 @@ const PeoplePaginationList = <T extends TUser>({ filter, paginationList, noResul
 function renderItem<T extends TUser>(item: T, isMe: boolean, index?: number) {
     return (
         <User
+            id={item.id}
             name={item.fio}
             type={item.division ? 'staff' : 'stud'}
             key={index}

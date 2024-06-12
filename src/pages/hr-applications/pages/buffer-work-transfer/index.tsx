@@ -50,7 +50,6 @@ const ApplicationPageWrapper = styled.div`
 `
 
 const HrHeader = styled.div`
-    // block
     border-radius: var(--brSemi);
     background: var(--block);
     box-shadow: var(--block-shadow);

@@ -1,16 +1,16 @@
-import { chatModel } from '@entities/chats'
 import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
+import { RawChatMessage } from '@features/chat/type'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { useUnit } from 'effector-react'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
+import { MdOutlineAvTimer, MdOutlineWarningAmber } from 'react-icons/md'
+import styled from 'styled-components'
 import { MessageContextMenu } from '.'
-import { ChatMessage } from '@entities/chat-messages/type'
-import { MdErrorOutline, MdOutlineAvTimer, MdOutlineWarningAmber } from 'react-icons/md'
-import { RawChatMessage } from '@features/chat/type'
-import { IoCheckmarkSharp, IoCheckmarkDoneSharp, IoCheckmarkOutline, IoCheckmarkDoneOutline } from 'react-icons/io5'
+import Flex from '@shared/ui/flex'
+import { FileView } from './file-view'
 
 interface Props {
     name: string
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const MessageItem = ({ name, message, isLast }: Props) => {
-    const [chat, user] = useUnit([chatModel.stores.selectedChat, userModel.stores.user])
+    const [user] = useUnit([userModel.stores.user])
 
     return (
         <MessageItemWrapper
@@ -36,6 +36,12 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
                 </div>
                 <span className="message" dangerouslySetInnerHTML={{ __html: message.html }} />
 
+                <Flex d="column" gap="4px">
+                    {message.files.map((file) => {
+                        return <FileView file={file} key={file.name} />
+                    })}
+                </Flex>
+
                 <Icon message={message} />
             </div>
         </MessageItemWrapper>
@@ -43,6 +49,8 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
 }
 
 const Icon = ({ message }: { message: RawChatMessage }) => {
+    const [user] = useUnit([userModel.stores.user])
+
     if (message.status === 'inProgress') {
         return <MdOutlineAvTimer className="icon" />
     }
@@ -51,7 +59,10 @@ const Icon = ({ message }: { message: RawChatMessage }) => {
         return <MdOutlineWarningAmber className="icon red" />
     }
 
-    if (message.readed) {
+    if (
+        (message.author_id === user?.currentUser?.id.toString() && message.readed_opponent) ||
+        message.author_id !== user?.currentUser?.id.toString()
+    ) {
         return <IoCheckmarkDoneOutline className="icon" />
     }
 
@@ -79,6 +90,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
         background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : Colors.blue.transparent3)};
         color: ${({ isYourMessage }) => (isYourMessage ? '#fff' : 'var(--text)')};
         padding: 8px;
+        padding-bottom: 16px;
         border-radius: ${({ isLast }) => (!isLast ? '10px' : '10px 10px 10px 0')};
         box-shadow: var(--block-shadow);
         margin-left: 10px;

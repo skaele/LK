@@ -27,7 +27,13 @@ const ChatItemWrapper = styled(Link)<{ isChosen: boolean; isOpen: boolean }>`
             flex-direction: column;
             justify-content: center;
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;
+
+            .subject {
+                font-size: 0.9em;
+                opacity: 0.85;
+                font-weight: 500;
+            }
 
             & > b {
                 overflow: hidden;

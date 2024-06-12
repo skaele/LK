@@ -10,7 +10,7 @@ import { ChatItem, SkeletonLoading } from '../atoms'
 export const ChatItems = () => {
     const { height } = useResize()
 
-    const [loading, chats] = useUnit([chatsModel.queries.chat.$pending, chatSidebarModel.stores.foundChats])
+    const [loading, chats] = useUnit([chatsModel.queries.chats.$pending, chatSidebarModel.stores.foundChats])
 
     if (loading)
         return (
@@ -20,15 +20,18 @@ export const ChatItems = () => {
                 <SkeletonLoading />
                 <SkeletonLoading />
                 <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
             </ChatItemsWrapper>
         )
 
-    if (!chats) return null
-
     return (
         <ChatItemsWrapper height={height}>
-            {!chats.length && <Title size={3}>Нет чатов</Title>}
-            {chats.map((chat) => (
+            {!chats?.length && <Title size={3}>Нет чатов</Title>}
+            {chats?.map((chat) => (
                 <ChatItem {...chat} key={chat.id} />
             ))}
         </ChatItemsWrapper>
@@ -38,4 +41,6 @@ export const ChatItems = () => {
 const ChatItemsWrapper = styled.div<{ height: number }>`
     overflow-y: auto;
     max-height: ${({ height }) => height - 170 + 'px'};
+
+    padding-bottom: 50px;
 `

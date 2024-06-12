@@ -38,6 +38,16 @@ sample({
     target: chatMessagesModel.mutations.addMessage.start,
 })
 
+sample({
+    clock: chatMessagesModel.mutations.addMessage.started,
+    source: { selectedChatId: chatModel.stores.selectedChatId, chatsMessage: $chatsMessage },
+    filter: ({ selectedChatId }) => Boolean(selectedChatId),
+    fn: ({ chatsMessage, selectedChatId }) => {
+        return { ...chatsMessage, [selectedChatId!]: { text: '', files: [] } }
+    },
+    target: $chatsMessage,
+})
+
 export const stores = {
     currentMessage: $currentMessage,
 }

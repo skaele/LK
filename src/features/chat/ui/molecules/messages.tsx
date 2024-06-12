@@ -1,23 +1,26 @@
+import { chatMessagesModel } from '@entities/chat-messages'
+import { chatModel } from '@entities/chats'
 import scrollToBottom from '@features/chat/lib/scroll-to-bottom'
-import { Button, Wrapper } from '@ui/atoms'
+import { Wrapper } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useRef, useState } from 'react'
-import { FiChevronDown } from 'react-icons/fi'
 import styled from 'styled-components'
 import { MessageList } from '.'
-import { useUnit } from 'effector-react'
-import { chatModel } from '@entities/chats'
-import { chatMessagesModel } from '@entities/chat-messages'
 
 export const Messages = () => {
     const listRef = useRef<HTMLDivElement>(null)
 
     const [buttonVisible, setButtonVisible] = useState(false)
 
-    const [chat, loading] = useUnit([chatModel.stores.selectedChat, chatMessagesModel.queries.chatMessages.$pending])
+    const [chat, loading, inProgress] = useUnit([
+        chatModel.stores.selectedChat,
+        chatMessagesModel.queries.chatMessages.$pending,
+        chatMessagesModel.stores.inProgressChatMessages,
+    ])
 
     useEffect(() => {
         scrollToBottom(listRef)
-    }, [chat?.id, loading])
+    }, [chat?.id, loading, inProgress])
 
     const handleScroll = () => {
         if (!!listRef.current) {
@@ -32,7 +35,7 @@ export const Messages = () => {
             <Wrapper loading={loading} load={() => null} error={null} data={!loading}>
                 <MessageList />
             </Wrapper>
-            <Button icon={<FiChevronDown />} onClick={() => scrollToBottom(listRef)} />
+            {/* <Button icon={<FiChevronDown />} onClick={() => scrollToBottom(listRef)} /> */}
         </MessagesWrapper>
     )
 }
@@ -45,8 +48,8 @@ const MessagesWrapper = styled.div<{ buttonVisible: boolean }>`
 
     button {
         position: fixed;
-        right: 40px;
-        bottom: 70px;
+        right: 0px;
+        bottom: 0px;
         min-width: 35px;
         height: 35px;
         border-radius: 100%;

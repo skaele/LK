@@ -295,7 +295,10 @@ export const generalRoutes: IRoutes = {
         keywords: ['чат', 'сообщения', 'написать'],
         pageSize: 'big',
         isTemplate: false,
-        withoutHeader: true,
+        planeHeader: false,
+        hiddenTitle: true,
+
+        // withoutHeader: true,
     },
     'specific-chat': {
         //ChatPage
@@ -307,7 +310,9 @@ export const generalRoutes: IRoutes = {
         color: 'red',
         pageSize: 'big',
         isTemplate: false,
-        withoutHeader: true,
+        planeHeader: false,
+        hiddenTitle: true,
+        // withoutHeader: true,
 
         group: 'OTHER',
         isSubPage: true,

@@ -1,4 +1,10 @@
-// .babelrc
 {
-    "plugins": ["effector/babel-plugin"]
-}
+    "presets": [
+      "@babel/typescript",
+      "@babel/react",
+      "patronum/babel-preset"
+    ],
+    "plugins": [
+      ["effector/babel-plugin", {"factories": []}]
+    ]
+  }

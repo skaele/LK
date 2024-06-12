@@ -1,4 +1,3 @@
-import { ChatMessage } from '@entities/chat-messages/type'
 import { Chat } from '@entities/chats'
 import { User } from '@shared/api/model'
 import localizeDate from '@shared/lib/dates/localize-date'
@@ -28,7 +27,7 @@ export const prepareMessages = ({ chat, currentUser, messages }: PrepareMessages
         else {
             result[index] = {
                 messages: [message],
-                avatar: chat.opponent.id === message.author_id ? chat.opponent.avatar : currentUser.avatar,
+                avatar: chat.opponent?.id !== message.author_id.toString() ? currentUser.avatar : chat.opponent.avatar,
                 date: localizeDate(message.datetime) !== lastDate ? localizeDate(message.datetime) : null,
             }
 

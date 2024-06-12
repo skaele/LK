@@ -1,6 +1,7 @@
 import { ALL_STUDENTS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { Icon } from '@features/all-pages'
+import { SendMessage } from '@features/send-first-message'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
@@ -40,18 +41,25 @@ const GroupModal = ({ group }: Props) => {
                 </Icon>
                 <Subtext fontSize="1.2rem">{group}</Subtext>
             </Flex>
-            <Flex gap="8px" onClick={close}>
+            <Flex gap="8px">
                 <LinkStyled
                     to={getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
                         page: 'current',
                         filter: group,
                     })}
                 >
-                    <Button icon={<FiClock />} width="100%" text="Расписание" background="var(--theme-4)" />
+                    <Button
+                        icon={<FiClock />}
+                        width="100%"
+                        text="Расписание"
+                        background="var(--theme-4)"
+                        onClick={close}
+                    />
                 </LinkStyled>
                 <LinkStyled to={`${ALL_STUDENTS_ROUTE}/${group}`}>
-                    <Button icon={<FiList />} width="100%" text="Список" background="var(--theme-4)" />
+                    <Button icon={<FiList />} width="100%" text="Список" background="var(--theme-4)" onClick={close} />
                 </LinkStyled>
+                <SendMessage group={group} />
             </Flex>
         </GroupModalStyled>
     )

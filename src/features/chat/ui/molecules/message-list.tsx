@@ -1,15 +1,14 @@
-import { chatMessagesModel } from '@entities/chat-messages'
+import { chatModel } from '@entities/chats'
+import { userModel } from '@entities/user'
+import { prepareMessages } from '@features/chat/lib/prepare-messages'
+import { allChatMessagesModel } from '@features/chat/model'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 import { MessageItem } from '../atoms'
 import EmptyHere from '../atoms/empty-here'
-import { prepareMessages } from '@features/chat/lib/prepare-messages'
-import { chatModel } from '@entities/chats'
-import { userModel } from '@entities/user'
 import TopDate from '../atoms/top-date'
-import { allChatMessagesModel } from '@features/chat/model'
 
 export const MessageList = () => {
     const [allMessages, chat, user] = useUnit([

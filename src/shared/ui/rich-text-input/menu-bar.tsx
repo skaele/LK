@@ -7,12 +7,15 @@ import { Colors } from '@shared/constants'
 
 type MenuBarProps = {
     editor: Editor
+    disabled?: boolean
 }
 
-export const MenuBar = ({ editor }: MenuBarProps) => {
+// TODO: use one button
+export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
     return (
         <Wrapper>
             <MenuBarButton
+                isActive={!disabled}
                 background={editor.isActive('bold') ? Colors.blue.main : undefined}
                 textColor={editor.isActive('bold') ? Colors.white.main : undefined}
                 height="26px"
@@ -22,6 +25,7 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
             />
 
             <MenuBarButton
+                isActive={!disabled}
                 background={editor.isActive('italic') ? Colors.blue.main : undefined}
                 textColor={editor.isActive('italic') ? Colors.white.main : undefined}
                 height="24px"
@@ -30,6 +34,7 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
                 icon={<FaItalic />}
             />
             <MenuBarButton
+                isActive={!disabled}
                 background={editor.isActive('strike') ? Colors.blue.main : undefined}
                 textColor={editor.isActive('strike') ? Colors.white.main : undefined}
                 height="24px"
@@ -40,6 +45,7 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
 
             <MenuBarButton
                 background={editor.isActive('orderedList') ? Colors.blue.main : undefined}
+                isActive={!disabled}
                 textColor={editor.isActive('orderedList') ? Colors.white.main : undefined}
                 height="24px"
                 width="24px"
@@ -49,6 +55,7 @@ export const MenuBar = ({ editor }: MenuBarProps) => {
 
             <MenuBarButton
                 background={editor.isActive('bulletList') ? Colors.blue.main : undefined}
+                isActive={!disabled}
                 textColor={editor.isActive('bulletList') ? Colors.white.main : undefined}
                 height="24px"
                 width="24px"

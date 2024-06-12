@@ -1,12 +1,13 @@
 import React, { ChangeEventHandler, useRef } from 'react'
 import { Button } from '../atoms'
 import { GrAttachment } from 'react-icons/gr'
+import { ButtonProps } from '../button'
 
 type UploadFileButtonProps = {
     setFiles(files: File[] | null): void
     // files: File[] | null
     className?: string
-}
+} & Pick<ButtonProps, 'isActive'>
 
 export const UploadFileButton = ({ setFiles, className }: UploadFileButtonProps) => {
     const inputFileRef = useRef<HTMLInputElement | null>(null)
@@ -28,7 +29,7 @@ export const UploadFileButton = ({ setFiles, className }: UploadFileButtonProps)
                 style={{ display: 'none' }}
                 onChange={handleChange}
             />
-            <Button icon={<GrAttachment />} className={className} onClick={handleClick} />
+            <Button icon={<GrAttachment />} isActive className={className} onClick={handleClick} />
         </>
     )
 }

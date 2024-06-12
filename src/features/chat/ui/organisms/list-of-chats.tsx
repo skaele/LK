@@ -1,34 +1,26 @@
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
+import { AddNewChat } from '@features/add-new-chat'
 import { chatSidebarModel } from '@features/chat/model'
 import Search from '@shared/ui/search'
-import { Button, Divider, Title } from '@ui/atoms'
+import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import React from 'react'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import { ChatItems } from '../molecules'
-import { AddNewChat } from '../molecules/add-new-chat'
 
 export const ListOfChats = () => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
 
-    const { isOpen, search } = useUnit(chatSidebarModel.stores)
+    const { search } = useUnit(chatSidebarModel.stores)
 
     return (
-        <ListOfChatsWrapper isOpen={isOpen} chatId={params?.chatId}>
+        <ListOfChatsWrapper isOpen chatId={params?.chatId}>
             <ChatListTopSection>
                 <Title size={3} align="left">
                     Чаты
                 </Title>
-                <>
-                    <AddNewChat />
-                    <Button
-                        className="collapse-button"
-                        onClick={() => chatSidebarModel.events.toggle()}
-                        icon={isOpen ? <FiChevronLeft /> : <FiChevronRight />}
-                    />
-                </>
+                <AddNewChat />
             </ChatListTopSection>
 
             <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />

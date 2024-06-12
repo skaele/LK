@@ -1,3 +1,3 @@
-import { ChatMessage } from '@entities/chat-messages/type'
+import { ChatMessage, LocalChatMessage } from '@entities/chat-messages/type'
 
-export type RawChatMessage = ChatMessage & { status: 'error' | 'inProgress' }
+export type RawChatMessage = (ChatMessage | LocalChatMessage) & { status: 'error' | 'inProgress' }

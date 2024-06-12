@@ -37,6 +37,7 @@ const UserList = () => {
     const renderItem = (item: UserType, isMe: boolean, index?: number) => {
         return (
             <User
+                id={item.id}
                 checked={!!chosenUsers.find((el) => el.toString() === item.id.toString())}
                 name={item.fullName}
                 avatar={item?.avatar}

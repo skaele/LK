@@ -1,12 +1,12 @@
 import { chatModel } from '@entities/chats'
 import { userModel } from '@entities/user'
+import { getFullUserName } from '@entities/user/lib/get-full-user-name'
 import { createMutation, createQuery, update } from '@farfetched/core'
 import { User } from '@shared/api/model'
 import { formatISO } from 'date-fns'
 import { attach, combine, createStore, sample } from 'effector'
-import { addChatMessage, getChatMessages } from './api'
-import { AddChatMessage, ChatMessage } from './type'
-import { getFullUserName } from '@entities/user/lib/get-full-user-name'
+import { addMessage, getChatMessages } from './api'
+import { AddChatMessage, ChatMessage, LocalChatMessage } from './type'
 
 const getChatMessagesFx = attach({
     source: chatModel.stores.selectedChatId,
@@ -26,7 +26,7 @@ const addChatMessageFx = attach({
 
         const currentUser = user.currentUser
 
-        const { data } = await addChatMessage({ ...body, chatId })
+        const data = await addMessage({ ...body, chatId })
 
         return { ...data, currentUser }
     },
@@ -40,8 +40,8 @@ const chatMessagesQuery = createQuery({
     handler: getChatMessagesFx,
 })
 
-const $inProgressChatsMessages = createStore<Record<string, ChatMessage[]>>({})
-const $errorChatsMessages = createStore<Record<string, ChatMessage[]>>({})
+const $inProgressChatsMessages = createStore<Record<string, LocalChatMessage[]>>({})
+const $errorChatsMessages = createStore<Record<string, LocalChatMessage[]>>({})
 
 const $inProgressChatMessages = combine(
     $inProgressChatsMessages,
@@ -71,6 +71,7 @@ sample({
                     datetime: formatISO(Date.now()),
                     html: params.text,
                     readed: false,
+                    readed_opponent: false,
                     files: params.files ?? [],
                     author_id: user.currentUser?.id.toString() ?? '',
                     author_name: getFullUserName(user.currentUser),
@@ -102,7 +103,8 @@ sample({
                 {
                     datetime: formatISO(Date.now()),
                     html: params.text,
-                    readed: false,
+                    readed_opponent: false,
+                    readed: true,
                     files: params.files ?? [],
                     author_id: user.currentUser?.id.toString() ?? '',
                     author_name: getFullUserName(user.currentUser),
@@ -124,8 +126,9 @@ update(chatMessagesQuery, {
                 const newMessage: ChatMessage = {
                     datetime: formatISO(Date.now()),
                     html: mutation.params.text,
-                    readed: false,
-                    files: mutation.params.files ?? [],
+                    readed: true,
+                    readed_opponent: true,
+                    files: mutation.params.files?.map((file) => ({ name: file.name, url: '' })) ?? [],
                     author_id: currentUser?.id.toString() ?? '',
                     author_name: getFullUserName(currentUser),
                     msg_id: mutation.params.localId,

@@ -8,7 +8,7 @@ const $selectedChatId = createStore<string | null>(null)
     .on(set, (_, chatId) => chatId)
     .reset(reset)
 
-const $selectedChat = combine($selectedChatId, chatsModel.queries.chat.$data).map(
+const $selectedChat = combine($selectedChatId, chatsModel.queries.chats.$data).map(
     ([selectedChatId, chats]) => chats?.find((chat) => chat.id === selectedChatId) ?? null,
 )
 

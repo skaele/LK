@@ -1,44 +1,48 @@
 import { CHAT_ROUTE } from '@app/routes/general-routes'
 import { chatModel, chatsModel } from '@entities/chats'
-import { contextMenuModel } from '@entities/context-menu'
 import { Button } from '@ui/atoms'
-import { LocalSearch } from '@ui/molecules'
 import { useUnit } from 'effector-react'
-import React, { useRef, useState } from 'react'
-import { FiMoreVertical, FiSearch, FiX } from 'react-icons/fi'
-import { ImAttachment } from 'react-icons/im'
+import React, { useRef } from 'react'
+import { FiX } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
-import { User, useModal } from 'widgets'
-import { Attachments } from '.'
+import { User } from 'widgets'
+import { GroupIcon } from '../atoms/group-icon'
 
 export const ChatHeader = () => {
-    const [chat, loading] = useUnit([chatModel.stores.selectedChat, chatsModel.queries.chat.$pending])
+    const [chat, loading] = useUnit([chatModel.stores.selectedChat, chatsModel.queries.chats.$pending])
 
     const menuRef = useRef<HTMLDivElement>(null)
-    const [searchMode, setSearchMode] = useState(false)
-    const { open } = useModal()
     const history = useHistory()
 
     const handleClick = () => {
-        if (searchMode) setSearchMode((prev) => !prev)
-        else history.push(CHAT_ROUTE)
+        history.push(CHAT_ROUTE)
     }
+
+    const isEmployee = chat?.opponent?.status === 'сотрудник'
 
     return (
         <ChatHeaderWrapper ref={menuRef}>
             <Button icon={<FiX />} onClick={handleClick} background="var(--block)" />
-            {!searchMode ? (
-                <User type="staff" avatar={chat?.opponent.avatar} name={chat?.opponent.name ?? ''} loading={loading} />
-            ) : (
-                <LocalSearch
-                    whereToSearch={[]}
-                    searchEngine={() => []}
-                    setResult={() => null}
-                    placeholder="Поиск сообщений"
+            {(chat?.opponent?.id || loading) && (
+                <User
+                    id={chat?.opponent?.id}
+                    type={isEmployee ? 'staff' : 'stud'}
+                    avatar={chat?.opponent?.avatar}
+                    name={chat?.opponent?.name ?? ''}
+                    loading={loading}
+                    group={!isEmployee ? chat?.opponent?.data : undefined}
                 />
             )}
-            <Button
+
+            {!chat?.opponent?.id && !loading && (
+                <GroupWrapper>
+                    <GroupIcon />
+                    {chat?.subject}
+                </GroupWrapper>
+            )}
+
+            {/* <Button
                 icon={<FiMoreVertical />}
                 onClick={(e) =>
                     contextMenuModel.events.open({
@@ -73,7 +77,7 @@ export const ChatHeader = () => {
                     })
                 }
                 background="var(--block)"
-            />
+            /> */}
         </ChatHeaderWrapper>
     )
 }
@@ -83,8 +87,13 @@ const ChatHeaderWrapper = styled.div`
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0 10px;
-    background: var(--block);
+    padding-top: 15px;
     position: relative;
+`
+
+const GroupWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `

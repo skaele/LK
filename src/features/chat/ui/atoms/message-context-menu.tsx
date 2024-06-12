@@ -1,12 +1,12 @@
-import { ChatMessage } from '@entities/chat-messages/type'
 import { contextMenuModel } from '@entities/context-menu'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { RawChatMessage } from '@features/chat/type'
 import { Button } from '@ui/button'
 import React from 'react'
 import { FiCopy } from 'react-icons/fi'
 
 interface Props {
-    message: ChatMessage
+    message: RawChatMessage
 }
 
 const MessageContextMenu = ({ message }: Props) => {

@@ -9,6 +9,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
+import { chatsModel } from '@entities/chats'
 
 const Router = () => {
     const {
@@ -28,6 +29,7 @@ const Router = () => {
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
+            chatsModel.events.load()
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()

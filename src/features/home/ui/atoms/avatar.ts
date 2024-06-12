@@ -74,6 +74,11 @@ export const Container = styled.div<{
             font-size: ${({ width }) => (width ? parseInt(width) / 50 + 'em' : '1.5em')};
         }
     }
+
+    .notification {
+        min-width: 30%;
+        height: 30%;
+    }
 `
 
 export const Img = styled.img<{ round?: boolean }>`

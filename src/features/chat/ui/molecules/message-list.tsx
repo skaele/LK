@@ -35,7 +35,7 @@ export const MessageList = () => {
                         <div className="messages-section" key={i}>
                             <div className={'message-avatar'}>
                                 <Avatar
-                                    name={messageGroup.messages[0].author_name}
+                                    name={messageGroup.messages[0].author_name.split(' ').reverse().join(' ')}
                                     avatar={messageGroup.avatar}
                                     width="32px"
                                     height="32px"

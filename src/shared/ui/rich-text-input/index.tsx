@@ -80,7 +80,7 @@ const StyledEditorContent = styled(EditorContent)`
 
         max-height: 300px;
         overflow-y: scroll;
-
+        font-size: 0.85rem;
         border-radius: 7px;
 
         &:focus-visible {

@@ -29,7 +29,14 @@ export const UploadFileButton = ({ setFiles, className }: UploadFileButtonProps)
                 style={{ display: 'none' }}
                 onChange={handleChange}
             />
-            <Button icon={<GrAttachment />} isActive className={className} onClick={handleClick} />
+            <Button
+                icon={<GrAttachment />}
+                width="37px"
+                height="37px"
+                isActive
+                className={className}
+                onClick={handleClick}
+            />
         </>
     )
 }

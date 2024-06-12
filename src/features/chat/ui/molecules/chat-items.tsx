@@ -1,20 +1,17 @@
 import { chatsModel } from '@entities/chats'
 import { chatSidebarModel } from '@features/chat/model'
 import { Title } from '@ui/atoms'
-import useResize from '@utils/hooks/use-resize'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 import { ChatItem, SkeletonLoading } from '../atoms'
 
 export const ChatItems = () => {
-    const { height } = useResize()
-
     const [loading, chats] = useUnit([chatsModel.queries.chats.$pending, chatSidebarModel.stores.foundChats])
 
     if (loading)
         return (
-            <ChatItemsWrapper height={height}>
+            <ChatItemsWrapper>
                 <SkeletonLoading />
                 <SkeletonLoading />
                 <SkeletonLoading />
@@ -29,7 +26,7 @@ export const ChatItems = () => {
         )
 
     return (
-        <ChatItemsWrapper height={height}>
+        <ChatItemsWrapper>
             {!chats?.length && <Title size={3}>Нет чатов</Title>}
             {chats?.map((chat) => (
                 <ChatItem {...chat} key={chat.id} />
@@ -38,9 +35,8 @@ export const ChatItems = () => {
     )
 }
 
-const ChatItemsWrapper = styled.div<{ height: number }>`
+const ChatItemsWrapper = styled.div`
     overflow-y: auto;
-    max-height: ${({ height }) => height - 170 + 'px'};
-
-    padding-bottom: 50px;
+    height: 100%;
+    padding-bottom: 50%;
 `

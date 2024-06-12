@@ -14,7 +14,7 @@ const ChatItem = (chat: Chat) => {
         avatar: chat.opponent?.avatar ?? '',
         width: '40px',
         height: '40px',
-        marginRight: '7px',
+        marginRight: '12px',
         notifications: !chat.lastmessage.readed ? 1 : undefined,
     }
 

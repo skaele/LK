@@ -9,7 +9,7 @@ type GroupIconProps = {
 
 export function GroupIcon({ size, marginRight }: GroupIconProps) {
     return (
-        <Icon marginRight={marginRight} borderRadius="100%" size={size ?? 30} color="lightBlue">
+        <Icon marginRight={marginRight} borderRadius="100%" size={size ?? 25} color="lightBlue">
             <FiUsers />
         </Icon>
     )

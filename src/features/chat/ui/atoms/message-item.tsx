@@ -2,14 +2,15 @@ import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
 import { RawChatMessage } from '@features/chat/type'
 import { Colors } from '@shared/constants'
-import localizeDate from '@shared/lib/dates/localize-date'
+import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
 import { MdOutlineAvTimer, MdOutlineWarningAmber } from 'react-icons/md'
 import styled from 'styled-components'
 import { MessageContextMenu } from '.'
-import Flex from '@shared/ui/flex'
+import Subtext from '../../../../shared/ui/subtext'
+import { getTimeFromDate } from '../../lib/get-time-from-date'
 import { FileView } from './file-view'
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
 
 export const MessageItem = ({ name, message, isLast }: Props) => {
     const [user] = useUnit([userModel.stores.user])
+    const time = getTimeFromDate(message.datetime)
 
     return (
         <MessageItemWrapper
@@ -32,7 +34,6 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
             <div className="name-and-message">
                 <div className="name-and-time">
                     <b>{name}</b>
-                    <span>{localizeDate(message.datetime)}</span>
                 </div>
                 <span className="message" dangerouslySetInnerHTML={{ __html: message.html }} />
 
@@ -41,8 +42,10 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
                         return <FileView file={file} key={file.name} />
                     })}
                 </Flex>
-
-                <Icon message={message} />
+                <Flex jc="flex-end" gap="4px">
+                    <Subtext fontSize="0.7rem">{time}</Subtext>
+                    <Icon message={message} />
+                </Flex>
             </div>
         </MessageItemWrapper>
     )
@@ -72,7 +75,7 @@ const Icon = ({ message }: { message: RawChatMessage }) => {
 const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean }>`
     display: flex;
     align-items: flex-end;
-    padding: ${({ isLast }) => (!isLast ? '2px 0' : '2px 0 10px 0')};
+    padding: ${({ isLast }) => (!isLast ? '4px 0' : '4px 0 4px 0')};
     position: static;
 
     .message-avatar {
@@ -87,14 +90,14 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
     .name-and-message {
         display: flex;
         flex-direction: column;
-        background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : Colors.blue.transparent3)};
+        gap: 8px;
+        background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : 'var(--message-item)')};
         color: ${({ isYourMessage }) => (isYourMessage ? '#fff' : 'var(--text)')};
-        padding: 8px;
-        padding-bottom: 16px;
+        padding: 12px;
         border-radius: ${({ isLast }) => (!isLast ? '10px' : '10px 10px 10px 0')};
-        box-shadow: var(--block-shadow);
         margin-left: 10px;
-        max-width: 70%;
+        max-width: 430px;
+        width: 100%;
         position: relative;
 
         .name-and-time {
@@ -103,6 +106,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
                 font-size: 0.8em;
                 margin-bottom: 5px;
                 margin-right: 10px;
+                font-weight: 600;
             }
 
             span {
@@ -112,14 +116,13 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
         }
 
         .message {
-            font-size: 0.8em;
+            font-size: 0.85em;
             word-break: break-word;
-        }
+            line-height: 1.4rem;
 
-        .icon {
-            position: absolute;
-            right: 4px;
-            bottom: 4px;
+            & p {
+                line-height: 1.4rem;
+            }
         }
 
         .red {

@@ -2,31 +2,40 @@ import { ChatFile } from '@entities/chat-messages/type'
 import { Colors } from '@shared/constants'
 import { downloadFile } from '@shared/lib/download-file'
 import React from 'react'
-import { FcFile } from 'react-icons/fc'
+import { FaFilePdf } from 'react-icons/fa'
+import { FcFile, FcImageFile } from 'react-icons/fc'
 import styled from 'styled-components'
 
 type FileProps = {
     file: ChatFile | File
 }
 
-export const FileView = ({ file }: FileProps) => {
-    return (
-        <FileWrapper>
-            <div
-                className="file-body"
-                onClick={() => {
-                    if ('url' in file && file.url) {
-                        window.open(file.url, '_blank')
-                    }
+const ICONS = {
+    pdf: <FaFilePdf color="#c54646" />,
+    docx: <FcFile />,
+    doc: <FcFile />,
+    jpeg: <FcImageFile />,
+    jpg: <FcImageFile />,
+    png: <FcImageFile />,
+}
 
-                    if (file instanceof File) {
-                        downloadFile(file)
-                    }
-                }}
-            >
-                <div className="image-container">
-                    <FcFile />
-                </div>
+export const FileView = ({ file }: FileProps) => {
+    const format = file.name.split('.').pop() ?? 'doc'
+
+    const handleClick = () => {
+        if ('url' in file && file.url) {
+            window.open(file.url, '_blank')
+        }
+
+        if (file instanceof File) {
+            downloadFile(file)
+        }
+    }
+
+    return (
+        <FileWrapper onClick={handleClick}>
+            <div className="file-body">
+                <div className="image-container">{ICONS[format as keyof typeof ICONS]}</div>
                 <div className="name-and-size">
                     <b className="file-name">{file.name}</b>
                 </div>
@@ -41,9 +50,14 @@ const FileWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: ${Colors.grey.transparent3};
+    background: ${Colors.grey.transparent2};
     border-radius: var(--brLight);
     overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(0.95);
+    }
 
     .file-body {
         display: flex;
@@ -58,6 +72,8 @@ const FileWrapper = styled.div`
             .file-name {
                 font-size: 0.8em;
                 word-break: break-all;
+                font-weight: 500;
+                color: var(--blue);
             }
         }
 

@@ -7,6 +7,8 @@ import { FiX } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import { User } from 'widgets'
+import Flex from '../../../../shared/ui/flex'
+import Subtext from '../../../../shared/ui/subtext'
 import { GroupIcon } from '../atoms/group-icon'
 
 export const ChatHeader = () => {
@@ -35,11 +37,11 @@ export const ChatHeader = () => {
                 />
             )}
 
-            {!chat?.opponent?.id && !loading && (
-                <GroupWrapper>
+            {!loading && !!chat?.subject.length && (
+                <Flex gap="8px" w="240px">
                     <GroupIcon />
-                    {chat?.subject}
-                </GroupWrapper>
+                    <Subtext>{chat?.subject}</Subtext>
+                </Flex>
             )}
 
             {/* <Button
@@ -87,13 +89,8 @@ const ChatHeaderWrapper = styled.div`
     height: 50px;
     display: flex;
     align-items: center;
-    padding: 0 10px;
-    padding-top: 15px;
+    padding: 8px 10px;
     position: relative;
-`
-
-const GroupWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    border-bottom: 1px solid #00000024;
+    background: var(--block-content);
 `

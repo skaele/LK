@@ -14,6 +14,8 @@ const TopDateWrapper = styled.div`
         padding: 6px 12px;
         border-radius: var(--brSemi);
         display: inline-block;
+        font-weight: 500;
+        font-size: 0.8rem;
     }
 `
 
@@ -22,11 +24,13 @@ interface Props {
 }
 
 const TopDate = ({ date }: Props) => {
-    return !!date ? (
+    if (!date) return null
+
+    return (
         <TopDateWrapper>
             <Title size={5}>{date}</Title>
         </TopDateWrapper>
-    ) : null
+    )
 }
 
 export default TopDate

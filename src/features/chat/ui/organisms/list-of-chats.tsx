@@ -1,13 +1,13 @@
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
 import { AddNewChat } from '@features/add-new-chat'
 import { chatSidebarModel } from '@features/chat/model'
-import { Colors, OLD_LK_URL } from '@shared/constants'
 import Search from '@shared/ui/search'
-import { Button, Divider, Title } from '@ui/atoms'
+import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
+import Flex from '../../../../shared/ui/flex'
 import { ChatItems } from '../molecules'
 
 export const ListOfChats = () => {
@@ -21,19 +21,11 @@ export const ListOfChats = () => {
                 <Title size={3} align="left">
                     Чаты
                 </Title>
-                <Buttons>
-                    <a href={`${OLD_LK_URL}/?p=messages`}>
-                        <GoToOldVersion
-                            text="старый дизайн"
-                            background={Colors.blue.main}
-                            textColor={Colors.white.main}
-                        />
-                    </a>
-                    <AddNewChat />
-                </Buttons>
+                <AddNewChat />
             </ChatListTopSection>
-
-            <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
+            <Flex gap="10px" p="0 14px">
+                <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
+            </Flex>
             <Divider margin="10px auto" />
             <ChatItems />
         </ListOfChatsWrapper>
@@ -41,15 +33,17 @@ export const ListOfChats = () => {
 }
 
 const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
-    padding: 14px;
     min-width: ${({ isOpen }) => (isOpen ? '350px' : '115px')};
     width: ${({ isOpen }) => (isOpen ? '350px' : '115px')};
     transition: 0.2s width, 0.2s min-width, 0.2s padding, 0.2s opacity;
     height: 100%;
-    background: var(--block);
     color: var(--text);
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px;
     overflow: hidden;
+    border-right: 1px solid #00000018;
+    display: flex;
+    flex-direction: column;
+    background: var(--block-content);
 
     @media (max-width: 1000px) {
         width: ${({ chatId }) => (chatId ? '0' : '100%')};
@@ -64,6 +58,7 @@ const ChatListTopSection = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    padding: 14px;
 
     .collapse-button {
         min-width: 30px;
@@ -89,5 +84,3 @@ export const Buttons = styled.div`
     flex-direction: row;
     gap: 8px;
 `
-
-const GoToOldVersion = styled(Button)``

@@ -28,8 +28,8 @@ export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
                 isActive={!disabled}
                 background={editor.isActive('italic') ? Colors.blue.main : undefined}
                 textColor={editor.isActive('italic') ? Colors.white.main : undefined}
-                height="24px"
-                width="24px"
+                height="26px"
+                width="26px"
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 icon={<FaItalic />}
             />
@@ -37,8 +37,8 @@ export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
                 isActive={!disabled}
                 background={editor.isActive('strike') ? Colors.blue.main : undefined}
                 textColor={editor.isActive('strike') ? Colors.white.main : undefined}
-                height="24px"
-                width="24px"
+                height="26px"
+                width="26px"
                 onClick={() => editor.chain().focus().toggleStrike().run()}
                 icon={<FaStrikethrough />}
             />
@@ -47,8 +47,8 @@ export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
                 background={editor.isActive('orderedList') ? Colors.blue.main : undefined}
                 isActive={!disabled}
                 textColor={editor.isActive('orderedList') ? Colors.white.main : undefined}
-                height="24px"
-                width="24px"
+                height="26px"
+                width="26px"
                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                 icon={<FaListOl />}
             />
@@ -57,8 +57,8 @@ export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
                 background={editor.isActive('bulletList') ? Colors.blue.main : undefined}
                 isActive={!disabled}
                 textColor={editor.isActive('bulletList') ? Colors.white.main : undefined}
-                height="24px"
-                width="24px"
+                height="26px"
+                width="26px"
                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                 icon={<FaListUl />}
             />

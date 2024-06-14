@@ -54,6 +54,8 @@ import {
     EditPhonebookEmail,
     ContactDetails,
     ContactDetailsForm,
+    SalarySupplements,
+    CreateSalarySupplement,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -98,6 +100,8 @@ import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
+export const SALARY_SUPPLEMENTS = '/salary-supplements'
+export const CREATE_SALARY_SUPPLEMENT = SALARY_SUPPLEMENTS + '/create'
 export const JOB_ROUTE = '/job'
 export const ORDERS_ROUTE = '/staff_orders'
 export const DOCUMENT_BLANKS_ROUTE = '/staff_blanks'
@@ -133,7 +137,6 @@ export const ALL_STAFF_ROUTE = '/all-staff'
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
-export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -517,6 +520,38 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+    },
+    'salary-supplements': {
+        id: 'salary-supplements',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: SALARY_SUPPLEMENTS,
+        Component: SalarySupplements,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        pageSize: 'big',
+        isNew: true,
+
+        isSupplementApprover: true,
+        isSupplementInitiator: true,
+    },
+    'create-salary-supplements': {
+        id: 'create-salary-supplements',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: CREATE_SALARY_SUPPLEMENT,
+        Component: CreateSalarySupplement,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        pageSize: 'big',
+        fallbackPrevPage: SALARY_SUPPLEMENTS,
+        hiddenTitle: true,
+        isSubPage: true,
+        show: false,
+
+        isSupplementInitiator: true,
     },
     'data-verification': {
         id: 'data-verification',

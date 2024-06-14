@@ -1,36 +1,26 @@
 export type SalarySupplementsApprovalStatus = null
 
-export type SalarySupplement = {
+export type HandbookItem = {
     id: string
-    approvers: Approver[]
-    activityArea: string
-    fundingSource: string
-    supplementType: string
-    commentary: string
-    employees: (Employee & SalarySupplementsApprovalStatus)[]
+    name: string
 }
 
-type Employee = {
+export type SalarySupplement = {
     id: string
-    initials: Initials
-    divisionId: string
-    divisionName: string
-    period: string
+    activityArea: HandbookItem
+    fundingSource: HandbookItem
+    allowanceType: HandbookItem
+    commentary: string
+    employees: (Employee & { approvalStatus: SalarySupplementsApprovalStatus })[]
+}
+
+export type Employee = {
+    id: string
+    initials: string
+    division: HandbookItem
+    startDate: string
+    endDate: string
     sum: number
 }
 
-type Approver = {
-    id: string
-    initials: Initials
-    divisionId: string
-    divisionName: string
-    higherApproverId: string
-}
-
-type Initials = {
-    surname: string
-    name: string
-    patronymic: string
-    fullName: string
-    shortName: string
-}
+export type Role = 'initiator' | 'approver'

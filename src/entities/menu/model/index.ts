@@ -10,6 +10,8 @@ import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_C
 import { combine, createEvent, createStore, sample } from 'effector'
 import { useUnit } from 'effector-react'
 import findRoutesByConfig from '../lib/find-routes-by-config'
+import { Role } from '@entities/salary-supplements/types'
+import { salarySupplementsModel } from '@entities/salary-supplements'
 
 export interface Menu {
     allRoutes: IRoutes | null
@@ -62,7 +64,12 @@ const useMenu = () => {
 
 const changeOpen = createEvent<{ isOpen: boolean; currentPage?: string }>()
 const clearStore = createEvent()
-const defineMenu = createEvent<{ user: User | null; adminLinks: AdminLinks | null; homeRoutes?: string[] }>()
+const defineMenu = createEvent<{
+    user: User | null
+    adminLinks: AdminLinks | null
+    supplementRole: Role | null
+    homeRoutes?: string[]
+}>()
 const changeNotifications = createEvent<{ page: string; notifications: ((prev: number) => number) | number }>()
 
 const getNewNotifications = (page: string, notifications: number, routes: IRoutes | null) => {
@@ -73,7 +80,7 @@ const getNewNotifications = (page: string, notifications: number, routes: IRoute
     return newRoutes
 }
 
-const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => {
+const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, supplementsRole: Role | null): IRoutes => {
     if (!adminLinks) {
         return teachersPrivateRoutes()
     }
@@ -83,9 +90,12 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
     const hasAdminLinks = !!accepts.length || !!agreements.length || !!checkdata.length || !!studLogins?.length
 
     const adminRoute = 'download-agreements'
-
     const filteredRoutes = Object.entries(teachersPrivateRoutes()).filter(
-        ([key]) => key !== adminRoute || (key === adminRoute && hasAdminLinks),
+        ([key, value]) =>
+            (key !== adminRoute && !value.isSupplementApprover && !value.isSupplementInitiator) ||
+            (key === adminRoute && hasAdminLinks) ||
+            (value.isSupplementApprover && supplementsRole === 'approver') ||
+            (value.isSupplementInitiator && supplementsRole === 'initiator'),
     )
 
     return Object.fromEntries(filteredRoutes)
@@ -95,13 +105,14 @@ const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    (user, settings, adminLinks) => {
+    salarySupplementsModel.stores.role,
+    (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
             getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks.data, role), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -111,13 +122,14 @@ const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    (user, settings, adminLinks) => {
+    salarySupplementsModel.stores.role,
+    (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
             settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks.data, role), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -128,14 +140,16 @@ sample({
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
+        supplementRole: salarySupplementsModel.stores.role,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore.currentUser)
     },
-    fn: ({ settings, adminLinks, userStore }) => ({
+    fn: ({ settings, adminLinks, userStore, supplementRole }) => ({
         homeRoutes: settings!.homePage.pages,
         user: userStore.currentUser!,
         adminLinks: adminLinks.data!,
+        supplementRole: supplementRole,
     }),
     target: defineMenu,
 })
@@ -150,17 +164,20 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))
-    .on(defineMenu, (oldData, { user, adminLinks }) => ({
+    .on(defineMenu, (oldData, { user, adminLinks, supplementRole }) => ({
         ...oldData,
         currentPage:
             user?.user_status === 'staff'
-                ? filterTeachersPrivateRoutes(adminLinks)[window.location.hash.slice(2, window.location.hash.length)]
+                ? filterTeachersPrivateRoutes(adminLinks, supplementRole)[
+                      window.location.hash.slice(2, window.location.hash.length)
+                  ]
                 : privateRoutes()[window.location.hash.slice(2, window.location.hash.length)],
         allRoutes:
             user?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks, supplementRole), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user) },
-        visibleRoutes: user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
+        visibleRoutes:
+            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks, supplementRole) : privateRoutes(),
     }))
     .on(changeNotifications, (oldData, { page, notifications }) => ({
         ...oldData,

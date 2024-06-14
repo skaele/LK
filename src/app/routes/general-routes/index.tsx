@@ -121,6 +121,8 @@ export interface IRoute {
     isTemplate: boolean
     shortTitle?: string
     isAdmin?: boolean
+    isSupplementApprover?: boolean
+    isSupplementInitiator?: boolean
     isNew?: boolean
     show?: boolean
     notifications?: number

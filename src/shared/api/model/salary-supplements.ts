@@ -1,4 +1,9 @@
-import { SalarySupplement, SalarySupplementsApprovalStatus } from '@entities/salary-supplements/types'
+import {
+    Employee,
+    HandbookItem,
+    SalarySupplement,
+    SalarySupplementsApprovalStatus,
+} from '@entities/salary-supplements/types'
 import { $salarySupplementsApi } from '../config/salary-supplements-config'
 
 type DocumentType = null
@@ -22,65 +27,71 @@ type DownloadResponse = {
     fileContent: string
 }
 
-type EditRequest = Pick<
-    SalarySupplement,
-    'id' | 'activityArea' | 'fundingSource' | 'supplementType' | 'commentary' | 'employees'
->
+type SalarySupplementRequest = {
+    initiatorId: string
+    activityAreaId: string
+    fundingSourceId: string
+    allowanceTypeId: string
+    commentary: string
+    employees: Employee[]
+}
 
 type ApplicationResult = { applicationId: string; result: string }
 
-export const approverApi = {
-    get: async (params: GetRequestParams) => {
-        const { data } = await $salarySupplementsApi.get<SalarySupplement[]>(
-            `salarysupplements/approver/applications`,
-            {
+export const getAllowances = async (params?: GetRequestParams) => {
+    try {
+        const { data } = await $salarySupplementsApi
+            .get<SalarySupplement[]>(`/allowances`, {
                 params: params,
-            },
-        )
+            })
+            .catch((e) => {
+                throw new Error(e?.response?.data || e.message)
+            })
         return data
-    },
-    approve: async (
-        applicationId: string,
-        employeeId: string,
-        req: {
-            approvalStatus: SalarySupplementsApprovalStatus
-        },
-    ) => {
-        await $salarySupplementsApi.post<ApplicationResult>(
-            `salarysupplements/approver/applications/${applicationId}/employees/${employeeId}`,
-            req,
-        )
-    },
+    } catch (error) {
+        throw new Error(error as string)
+    }
 }
 
-export const initiatorApi = {
-    get: async (params: GetRequestParams) => {
-        const { data } = await $salarySupplementsApi.get<SalarySupplement[]>(
-            `salarysupplements/initiator/applications`,
-            {
-                params: params,
-            },
-        )
-        return data
-    },
-    edit: async (applicationId: string, req: EditRequest) => {
-        const { data } = await $salarySupplementsApi.post<ApplicationResult>(
-            `salarysupplements/initiator/applications/${applicationId}`,
-            req,
-        )
-        return data
-    },
-    rework: async (req: Pick<SalarySupplement, 'id'>) => {
-        const { data } = await $salarySupplementsApi.get<SalarySupplement>(
-            `salarysupplements/initiator/applications/rework/${req.id}`,
-        )
-        return data
-    },
+export const createAllowance = async (allowance: SalarySupplementRequest) => {
+    console.log(allowance)
+    const { data } = await $salarySupplementsApi.post<ApplicationResult>(`/allowances`, allowance)
+    return data
 }
 
-export const download = async (params: DownloadParams) => {
-    const { data } = await $salarySupplementsApi.get<DownloadResponse>(`salarysupplements/download`, {
-        params: params,
+// TODO: implement on backend
+export const initRequest = async () => {
+    const { data } = await $salarySupplementsApi.get(``)
+    return data
+}
+
+export const getSupplementHandbook = async (handbookName: string) => {
+    const { data } = await $salarySupplementsApi.get<HandbookItem[]>(`allowances/GetHandbook/${handbookName}`)
+    return data
+}
+
+// TODO: take approverID from token
+export const approveAllowance = async (
+    allowanceId: string,
+    approverId: string,
+    employeeId: string,
+    approvalStatus: SalarySupplementsApprovalStatus,
+) => {
+    await $salarySupplementsApi.post<ApplicationResult>(`allowances/SetAllowanceVerdict`, {
+        allowanceId,
+        approverId,
+        employeeId,
+        approvalStatus,
     })
+}
+
+// TODO: force backend to get rid of this
+export const download = async (params: DownloadParams) => {
+    const { data } = await $salarySupplementsApi.get<DownloadResponse>(
+        `allowances/download/${params.documentId}/${params.documentType}`,
+        {
+            params: params,
+        },
+    )
     return data
 }

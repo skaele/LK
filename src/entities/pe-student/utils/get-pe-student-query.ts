@@ -10,7 +10,7 @@ export const getPEStudentsQuery = (
     return `query {
       students (take:${STUDENT_PAGE_SIZE}, skip: ${
         pageSize * page
-    }, where: ${stringifyFilters}, order: [{fullName:ASC}]){
+    }, where: isActive: {eq: true} ${stringifyFilters}, order: [{fullName:ASC}]){
         items {
             fullName
             groupNumber

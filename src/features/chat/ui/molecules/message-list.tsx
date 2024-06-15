@@ -9,13 +9,29 @@ import styled from 'styled-components'
 import { MessageItem } from '../atoms'
 import EmptyHere from '../atoms/empty-here'
 import TopDate from '../atoms/top-date'
+import { useModal } from '../../../../widgets'
+import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
+import { StudentModal } from '../../../../widgets/user/ui'
 
 export const MessageList = () => {
+    const { open } = useModal()
     const [allMessages, chat, user] = useUnit([
         allChatMessagesModel.stores.messages,
         chatModel.stores.selectedChat,
         userModel.stores.user,
     ])
+
+    const handleOpenUserModal = () => {
+        if (chat !== null) {
+            open(
+                chat?.opponent?.status === 'сотрудник' ? (
+                    <StaffModal {...chat.opponent} />
+                ) : (
+                    <StudentModal {...chat?.opponent} id={chat.opponent?.id} name={chat.opponent?.name ?? ''} />
+                ),
+            )
+        }
+    }
 
     if (!chat || !user || !allMessages) return null
 
@@ -40,6 +56,7 @@ export const MessageList = () => {
                                     width="32px"
                                     height="32px"
                                     marginRight="0"
+                                    onClick={handleOpenUserModal}
                                 />
                             </div>
                             <div className="messages">
@@ -73,7 +90,6 @@ const MessageListWrapper = styled.div`
         display: flex;
         align-items: flex-end;
         width: 100%;
-        flex: 1;
 
         .messages {
             width: 100%;
@@ -86,6 +102,7 @@ const MessageListWrapper = styled.div`
         position: sticky;
         bottom: 7px;
         margin-bottom: 10px;
+        cursor: pointer;
     }
 
     @media (max-width: 1000px) {

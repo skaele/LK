@@ -41,24 +41,32 @@ const GroupModal = ({ group }: Props) => {
                 </Icon>
                 <Subtext fontSize="1.2rem">{group}</Subtext>
             </Flex>
-            <Flex gap="8px">
-                <LinkStyled
-                    to={getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
-                        page: 'current',
-                        filter: group,
-                    })}
-                >
-                    <Button
-                        icon={<FiClock />}
-                        width="100%"
-                        text="Расписание"
-                        background="var(--theme-4)"
-                        onClick={close}
-                    />
-                </LinkStyled>
-                <LinkStyled to={`${ALL_STUDENTS_ROUTE}/${group}`}>
-                    <Button icon={<FiList />} width="100%" text="Список" background="var(--theme-4)" onClick={close} />
-                </LinkStyled>
+            <Flex d="column" gap="8px">
+                <Flex gap="8px">
+                    <LinkStyled
+                        to={getEnrichedTemplatePath(SCHEDULE_FILTER_ROUTE, {
+                            page: 'current',
+                            filter: group,
+                        })}
+                    >
+                        <Button
+                            icon={<FiClock />}
+                            width="100%"
+                            text="Расписание"
+                            background="var(--theme-4)"
+                            onClick={close}
+                        />
+                    </LinkStyled>
+                    <LinkStyled to={`${ALL_STUDENTS_ROUTE}/${group}`}>
+                        <Button
+                            icon={<FiList />}
+                            width="100%"
+                            text="Список"
+                            background="var(--theme-4)"
+                            onClick={close}
+                        />
+                    </LinkStyled>
+                </Flex>
                 <SendMessage group={group} />
             </Flex>
         </GroupModalStyled>

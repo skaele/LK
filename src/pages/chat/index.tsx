@@ -6,6 +6,7 @@ import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
+import { MEDIA_QUERIES } from '../../shared/constants'
 
 const ChatPage = () => {
     const params = useRouteMatch<{ chatId: string | undefined }>(TEMPLATE_CHAT_ROUTE)?.params
@@ -48,11 +49,13 @@ const ChatPageWrapper = styled.div`
     background: var(--block);
 
     box-shadow: var(--very-mild-shadow);
-    border-radius: 10px;
+    border-radius: 12px;
+    overflow: hidden;
 
-    @media (max-width: 1000px) {
+    ${MEDIA_QUERIES.isSmallTesktop} {
         margin: 0;
         height: 100%;
         border-radius: 0;
+        max-width: 100%;
     }
 `

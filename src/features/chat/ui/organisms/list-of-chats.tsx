@@ -7,6 +7,7 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
+import { MEDIA_QUERIES } from '../../../../shared/constants'
 import Flex from '../../../../shared/ui/flex'
 import { ChatItems } from '../molecules'
 
@@ -23,7 +24,7 @@ export const ListOfChats = () => {
                 </Title>
                 <AddNewChat />
             </ChatListTopSection>
-            <Flex gap="10px" p="0 14px">
+            <Flex gap="4px" p="0 14px" d="column">
                 <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
             </Flex>
             <Divider margin="10px auto" />
@@ -45,10 +46,11 @@ const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
     flex-direction: column;
     background: var(--block-content);
 
-    @media (max-width: 1000px) {
+    ${MEDIA_QUERIES.isTablet} {
+        padding: 0;
+        border-radius: 0;
         width: ${({ chatId }) => (chatId ? '0' : '100%')};
         min-width: ${({ chatId }) => (chatId ? '0' : '100%')};
-        padding: ${({ chatId }) => (chatId ? '0' : '14px')};
         opacity: ${({ chatId }) => (chatId ? '0' : '1')};
     }
 `

@@ -1,21 +1,25 @@
-import { Title } from '@ui/atoms'
 import React from 'react'
 import styled from 'styled-components'
 
 const TopDateWrapper = styled.div`
-    margin: 5px 0 10px 0;
+    margin-top: 30px;
+    margin-bottom: 10px;
     color: var(--text);
     position: sticky;
     top: 10px;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    h5 {
-        background: var(--search);
+    span {
+        background: var(--theme);
         padding: 6px 12px;
         border-radius: var(--brSemi);
         display: inline-block;
         font-weight: 500;
         font-size: 0.8rem;
+        color: var(--theme-mild-opposite);
     }
 `
 
@@ -28,7 +32,7 @@ const TopDate = ({ date }: Props) => {
 
     return (
         <TopDateWrapper>
-            <Title size={5}>{date}</Title>
+            <span>{date}</span>
         </TopDateWrapper>
     )
 }

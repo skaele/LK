@@ -5,18 +5,21 @@ import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import React from 'react'
-import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
-import { MdOutlineAvTimer, MdOutlineWarningAmber } from 'react-icons/md'
 import styled from 'styled-components'
 import { MessageContextMenu } from '.'
 import Subtext from '../../../../shared/ui/subtext'
 import { getTimeFromDate } from '../../lib/get-time-from-date'
 import { FileView } from './file-view'
+import { ReadStatusIcon } from './read-status-icon'
 
 interface Props {
     name: string
     message: RawChatMessage
     isLast: boolean
+}
+
+function linkifyString(s: string) {
+    return s.replace(/(https?:\/\/[^\s|)|<]+)/g, '<a href="$1">$1</a>')
 }
 
 export const MessageItem = ({ name, message, isLast }: Props) => {
@@ -35,41 +38,22 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
                 <div className="name-and-time">
                     <b>{name}</b>
                 </div>
-                <span className="message" dangerouslySetInnerHTML={{ __html: message.html }} />
+                <span className="message" dangerouslySetInnerHTML={{ __html: linkifyString(message.html) }} />
 
-                <Flex d="column" gap="4px">
-                    {message.files.map((file) => {
-                        return <FileView file={file} key={file.name} />
-                    })}
-                </Flex>
-                <Flex jc="flex-end" gap="4px">
-                    <Subtext fontSize="0.7rem">{time}</Subtext>
-                    <Icon message={message} />
+                {!!message.files.length && (
+                    <Flex d="column" gap="4px">
+                        {message.files.map((file) => {
+                            return <FileView file={file} key={file.name} />
+                        })}
+                    </Flex>
+                )}
+                <Flex jc="flex-end" gap="4px" h="2px">
+                    <Subtext fontSize="0.65rem">{time}</Subtext>
+                    <ReadStatusIcon message={message} />
                 </Flex>
             </div>
         </MessageItemWrapper>
     )
-}
-
-const Icon = ({ message }: { message: RawChatMessage }) => {
-    const [user] = useUnit([userModel.stores.user])
-
-    if (message.status === 'inProgress') {
-        return <MdOutlineAvTimer className="icon" />
-    }
-
-    if (message.status === 'error') {
-        return <MdOutlineWarningAmber className="icon red" />
-    }
-
-    if (
-        (message.author_id === user?.currentUser?.id.toString() && message.readed_opponent) ||
-        message.author_id !== user?.currentUser?.id.toString()
-    ) {
-        return <IoCheckmarkDoneOutline className="icon" />
-    }
-
-    return <IoCheckmarkOutline className="icon" />
 }
 
 const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean }>`
@@ -91,14 +75,41 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
         display: flex;
         flex-direction: column;
         gap: 8px;
-        background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : 'var(--message-item)')};
+        background: ${({ isYourMessage }) => (isYourMessage ? 'var(--reallyBlue)' : 'var(--message-item)')};
         color: ${({ isYourMessage }) => (isYourMessage ? '#fff' : 'var(--text)')};
         padding: 12px;
         border-radius: ${({ isLast }) => (!isLast ? '10px' : '10px 10px 10px 0')};
-        margin-left: 10px;
+        margin-left: 16px;
         max-width: 430px;
         width: 100%;
         position: relative;
+
+        &::before {
+            content: '';
+            display: ${({ isLast }) => (!isLast ? 'none' : 'block')};
+            position: absolute;
+            width: 12px;
+            height: 17px;
+            bottom: 0px;
+            left: -12px;
+            background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : 'var(--message-item)')};
+        }
+
+        &::after {
+            content: '';
+            display: ${({ isLast }) => (!isLast ? 'none' : 'block')};
+            position: absolute;
+            width: 16px;
+            height: 25px;
+            bottom: 0px;
+            left: -16px;
+            border-radius: 0 0 30px;
+            background: var(--block);
+        }
+
+        a {
+            text-decoration: underline;
+        }
 
         .name-and-time {
             b {
@@ -118,7 +129,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
         .message {
             font-size: 0.85em;
             word-break: break-word;
-            line-height: 1.4rem;
+            line-height: 1.3rem;
 
             & p {
                 line-height: 1.4rem;

@@ -3,7 +3,7 @@ import { chatModel, chatsModel } from '@entities/chats'
 import { Button } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import React, { useRef } from 'react'
-import { FiX } from 'react-icons/fi'
+import { FiArrowLeft } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import { User } from 'widgets'
@@ -25,7 +25,7 @@ export const ChatHeader = () => {
 
     return (
         <ChatHeaderWrapper ref={menuRef}>
-            <Button icon={<FiX />} onClick={handleClick} background="var(--block)" />
+            <Button icon={<FiArrowLeft />} onClick={handleClick} background="transparent" />
             {(chat?.opponent?.id || loading) && (
                 <User
                     id={chat?.opponent?.id}
@@ -38,9 +38,9 @@ export const ChatHeader = () => {
             )}
 
             {!loading && !!chat?.subject.length && (
-                <Flex gap="8px" w="240px">
+                <Flex gap="8px" w="fit-content">
                     <GroupIcon />
-                    <Subtext>{chat?.subject}</Subtext>
+                    <Subtext style={{ color: 'var(--text)', whiteSpace: 'nowrap' }}>{chat?.subject}</Subtext>
                 </Flex>
             )}
 

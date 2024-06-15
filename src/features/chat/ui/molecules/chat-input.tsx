@@ -52,7 +52,7 @@ export const ChatInput = () => {
 const ChatInputWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    background: var(--block);
+    background: var(--block-content);
     padding: 8px 16px;
     border-top: 1px solid #00000018;
 

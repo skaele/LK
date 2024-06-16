@@ -2,24 +2,16 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import { HiOutlineClock, HiOutlineExclamationCircle } from 'react-icons/hi'
 import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
-import { LastMessage } from '../../../../entities/chats'
 import { userModel } from '../../../../entities/user'
 import { RawChatMessage } from '../../type'
 import { Tooltip } from '../../../../shared/ui/tooltip'
 
-export const ReadStatusIcon = ({ message }: { message: RawChatMessage | LastMessage }) => {
+type Props = {
+    message: RawChatMessage
+}
+
+export const ReadStatusIcon = ({ message }: Props) => {
     const [user] = useUnit([userModel.stores.user])
-
-    if ('from' in message) {
-        if (message.from === 'you' && message.readed)
-            return (
-                <Tooltip direction="left" text="Прочитано">
-                    <IoCheckmarkDoneOutline />
-                </Tooltip>
-            )
-
-        return null
-    }
 
     if (message.status === 'inProgress') {
         return <HiOutlineClock className="icon" />

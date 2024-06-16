@@ -1,17 +1,21 @@
+import { chatMessagesModel } from '@entities/chat-messages'
 import { contextMenuModel } from '@entities/context-menu'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { RawChatMessage } from '@features/chat/type'
+import Flex from '@shared/ui/flex'
 import { Button } from '@ui/button'
 import React from 'react'
 import { FiCopy } from 'react-icons/fi'
+import { IoReload } from 'react-icons/io5'
+import sanitize from 'sanitize-html'
 
 interface Props {
     message: RawChatMessage
 }
 
-const MessageContextMenu = ({ message }: Props) => {
+export const MessageContextMenu = ({ message }: Props) => {
     return (
-        <>
+        <Flex gap="8px" d="column">
             <Button
                 text="Копировать"
                 icon={<FiCopy />}
@@ -19,13 +23,24 @@ const MessageContextMenu = ({ message }: Props) => {
                 align="left"
                 background="transparent"
                 onClick={() => {
-                    navigator.clipboard.writeText(message.html ?? '')
+                    navigator.clipboard.writeText(sanitize(message.html, { allowedTags: [] }) ?? '')
                     contextMenuModel.events.close()
                     popUpMessageModel.events.evokePopUpMessage({ message: 'Сообщение скопировано', type: 'info' })
                 }}
             />
-        </>
+            {message.status === 'error' && (
+                <Button
+                    text="Повторить"
+                    icon={<IoReload />}
+                    width="100%"
+                    align="left"
+                    background="transparent"
+                    onClick={() => {
+                        chatMessagesModel.events.resendErrorMessage(message)
+                        contextMenuModel.events.close()
+                    }}
+                />
+            )}
+        </Flex>
     )
 }
-
-export default MessageContextMenu

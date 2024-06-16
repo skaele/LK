@@ -7,9 +7,13 @@ import styled from 'styled-components'
 import { ChatItem, SkeletonLoading } from '../atoms'
 
 export const ChatItems = () => {
-    const [loading, chats] = useUnit([chatsModel.queries.chats.$pending, chatSidebarModel.stores.foundChats])
+    const [loading, chats, isFirstFetched] = useUnit([
+        chatsModel.queries.chats.$pending,
+        chatSidebarModel.stores.foundChats,
+        chatsModel.stores.isFirstFetched,
+    ])
 
-    if (loading)
+    if (loading && !isFirstFetched)
         return (
             <ChatItemsWrapper>
                 <SkeletonLoading />

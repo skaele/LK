@@ -1,6 +1,8 @@
 import { CHAT_ROUTE, TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
+import { chatMessagesModel } from '@entities/chat-messages'
 import { Chat } from '@entities/chats'
 import Avatar from '@features/home/ui/molecules/avatar'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
@@ -8,9 +10,9 @@ import Badge from '../../../../shared/ui/badge'
 import Flex from '../../../../shared/ui/flex'
 import Subtext from '../../../../shared/ui/subtext'
 import { getTimeFromDate } from '../../lib/get-time-from-date'
+import { ChatItemLastMessageStatus } from './chat-item-last-message-status'
 import ChatItemWrapper from './chat-item-wrapper'
 import { GroupIcon } from './group-icon'
-import { ReadStatusIcon } from './read-status-icon'
 
 const NotificationBadge = styled(Badge)`
     min-width: 20px;
@@ -32,6 +34,7 @@ const getLastMessageTime = (lastMessageDatetime: string) => {
 
 const ChatItem = (chat: Chat) => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
+    const isFirstFetchedChats = useUnit(chatMessagesModel.stores.isFirstFetchedChats)
 
     const avatarProps = {
         name: chat.opponent?.name ?? '',
@@ -45,6 +48,7 @@ const ChatItem = (chat: Chat) => {
     const lastMessage = chat.lastmessage.from === 'you' ? 'Вы: ' + chat.lastmessage.text : chat.lastmessage.text
     const isGroupMessageSendedByYou = chat.subject.split(' ')[0] === 'Группе' && chat.lastmessage.from === 'you'
     const lastMessageTime = getLastMessageTime(chat.lastmessage.datetime)
+    const isFirstFetchedChat = !!isFirstFetchedChats[chat.id]
 
     return (
         <ChatItemWrapper to={CHAT_ROUTE + `/${chat.id}`} isChosen={params?.chatId === chat.id} isOpen>
@@ -57,14 +61,16 @@ const ChatItem = (chat: Chat) => {
                             <Flex jc="space-between" w="100%" gap="8px">
                                 <b>{chat.opponent.name}</b>
                                 <Flex gap="4px" w="fit-content">
-                                    <ReadStatusIcon message={chat.lastmessage} />
+                                    <ChatItemLastMessageStatus lastMessage={chat.lastmessage} />
                                     <Subtext fontSize="0.7rem">{lastMessageTime}</Subtext>
                                 </Flex>
                             </Flex>
                         )}
                         <Flex gap="6px">
                             <div className="last-message">{lastMessage}</div>
-                            <NotificationBadge visible={!chat.lastmessage.readed}>1</NotificationBadge>
+                            <NotificationBadge visible={!chat.lastmessage.readed && !isFirstFetchedChat}>
+                                1
+                            </NotificationBadge>
                         </Flex>
                     </div>
                 </>

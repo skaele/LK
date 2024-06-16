@@ -1,3 +1,5 @@
+import { ChatFile } from '@entities/chat-messages/type'
+
 export type Chat = {
     id: string
     /**
@@ -24,8 +26,8 @@ export type LastMessage = {
     from: 'you' | 'opponent'
     html: string
     text: string
-    files: File[]
+    files: ChatFile[]
     datetime: string
     readed: boolean
-    opponent_readed: boolean
+    readed_opponent: boolean
 }

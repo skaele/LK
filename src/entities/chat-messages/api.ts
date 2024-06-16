@@ -2,8 +2,8 @@ import { $api } from '@shared/api/config'
 import getToken from '@shared/lib/token'
 import { AddChatMessage, AddGroupMessage, AddUserMessage, ChatMessage } from './type'
 
-export const getChatMessages = async (chatId: string) => {
-    return $api.get<ChatMessage[]>(`?getMessagesInDialogue=${chatId}&token=${getToken()}`)
+export const getChatMessages = async (chatId: string, signal: AbortSignal) => {
+    return $api.get<ChatMessage[]>(`?getMessagesInDialogue=${chatId}&token=${getToken()}`, { signal })
 }
 
 export const addMessage = async ({ ...body }: AddChatMessage | AddGroupMessage | AddUserMessage) => {

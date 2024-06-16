@@ -9,6 +9,7 @@ import ListOfFiles from '@shared/ui/file-input/ui/list-of-files'
 import { RichTextInput } from '@shared/ui/rich-text-input'
 import { UploadFileButton } from '@shared/ui/upload-file-button'
 import { useUnit } from 'effector-react'
+import { MEDIA_QUERIES } from '@shared/constants'
 
 export const ChatInput = () => {
     const [message, selectedChat] = useUnit([chatsMessageModel.stores.currentMessage, chatModel.stores.selectedChat])
@@ -38,7 +39,7 @@ export const ChatInput = () => {
                 />
             </ActionsWrapper>
 
-            <ListOfFiles
+            <StyledListOfFiles
                 hideHeader
                 files={message.files}
                 setFiles={(files) => {
@@ -58,12 +59,20 @@ const ChatInputWrapper = styled.div`
 
     flex: 1;
 
-    gap: 4px;
+    gap: 8px;
     max-width: 100%;
 `
 
 const ActionsWrapper = styled.div`
     display: flex;
     align-items: flex-end;
-    gap: 4px;
+    gap: 8px;
+`
+
+const StyledListOfFiles = styled(ListOfFiles)`
+    padding: 0 48px 0 46px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        padding: 0;
+    }
 `

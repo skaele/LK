@@ -4,6 +4,7 @@ import { FaBold, FaItalic, FaListOl, FaListUl, FaStrikethrough } from 'react-ico
 import { Button } from '../atoms'
 import styled from 'styled-components'
 import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 type MenuBarProps = {
     editor: Editor
@@ -12,6 +13,10 @@ type MenuBarProps = {
 
 // TODO: use one button
 export const MenuBar = ({ editor, disabled }: MenuBarProps) => {
+    const { isMobile } = useCurrentDevice()
+
+    if (isMobile) return null
+
     return (
         <Wrapper>
             <MenuBarButton

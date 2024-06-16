@@ -4,9 +4,9 @@ import File from './ui/file'
 import React from 'react'
 import { confirmModel } from '@entities/confirm'
 
-type Props = Pick<FileInputProps, 'files' | 'setFiles'> & { hideHeader?: boolean }
+type Props = Pick<FileInputProps, 'files' | 'setFiles'> & { hideHeader?: boolean; className?: string }
 
-const ListOfFiles = ({ files, setFiles, hideHeader }: Props) => {
+const ListOfFiles = ({ files, setFiles, hideHeader, className }: Props) => {
     const listProps = hideHeader
         ? {}
         : {
@@ -21,7 +21,7 @@ const ListOfFiles = ({ files, setFiles, hideHeader }: Props) => {
           }
 
     return (
-        <List {...listProps}>
+        <List {...listProps} className={className}>
             {files.map((file) => {
                 return <File file={file} files={files} setFiles={setFiles} key={file.name} />
             })}

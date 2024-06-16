@@ -79,7 +79,7 @@ const StyledEditorContent = styled(EditorContent)`
         padding: 10px;
 
         max-height: 300px;
-        overflow-y: scroll;
+        overflow-y: auto;
         font-size: 0.85rem;
         border-radius: 7px;
 

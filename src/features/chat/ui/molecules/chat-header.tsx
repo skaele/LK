@@ -12,7 +12,11 @@ import Subtext from '../../../../shared/ui/subtext'
 import { GroupIcon } from '../atoms/group-icon'
 
 export const ChatHeader = () => {
-    const [chat, loading] = useUnit([chatModel.stores.selectedChat, chatsModel.queries.chats.$pending])
+    const [chat, loading, isFirstFetched] = useUnit([
+        chatModel.stores.selectedChat,
+        chatsModel.queries.chats.$pending,
+        chatsModel.stores.isFirstFetched,
+    ])
 
     const menuRef = useRef<HTMLDivElement>(null)
     const history = useHistory()
@@ -23,21 +27,23 @@ export const ChatHeader = () => {
 
     const isEmployee = chat?.opponent?.status === 'сотрудник'
 
+    const isFirstLoading = loading && !isFirstFetched
+
     return (
         <ChatHeaderWrapper ref={menuRef}>
             <Button icon={<FiArrowLeft />} onClick={handleClick} background="transparent" />
-            {(chat?.opponent?.id || loading) && (
+            {(chat?.opponent?.id || isFirstLoading) && (
                 <User
                     id={chat?.opponent?.id}
                     type={isEmployee ? 'staff' : 'stud'}
                     avatar={chat?.opponent?.avatar}
                     name={chat?.opponent?.name ?? ''}
-                    loading={loading}
+                    loading={isFirstLoading}
                     group={!isEmployee ? chat?.opponent?.data : undefined}
                 />
             )}
 
-            {!loading && !!chat?.subject.length && (
+            {!isFirstLoading && !!chat?.subject.length && (
                 <Flex gap="8px" w="fit-content">
                     <GroupIcon />
                     <Subtext style={{ color: 'var(--text)', whiteSpace: 'nowrap' }}>{chat?.subject}</Subtext>

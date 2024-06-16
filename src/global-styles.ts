@@ -35,11 +35,11 @@ const GlobalStyles = createGlobalStyle`
 		::-webkit-scrollbar {
 			width: 14px;
 		}
-	
+
 		::-webkit-scrollbar-track {
 			background-color: transparent;
 		}
-	
+
 		::-webkit-scrollbar-thumb {
 			border-radius: 100px;
 			border: 4px solid transparent;

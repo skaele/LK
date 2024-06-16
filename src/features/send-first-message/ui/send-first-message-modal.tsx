@@ -1,5 +1,5 @@
 import { CHAT_ROUTE } from '@app/routes/general-routes'
-import { Colors } from '@shared/constants'
+import { Colors, MEDIA_QUERIES } from '@shared/constants'
 import { Button, Divider, Title } from '@shared/ui/atoms'
 import ListOfFiles from '@shared/ui/file-input/ui/list-of-files'
 import { RichTextInput } from '@shared/ui/rich-text-input'
@@ -53,7 +53,7 @@ export const SendMessageModal = (props: SendMessageProps) => {
                 />
             </ActionsWrapper>
 
-            <ListOfFiles
+            <StyledListOfFiles
                 hideHeader
                 files={files}
                 setFiles={(files) => {
@@ -98,7 +98,7 @@ export const SendMessageModal = (props: SendMessageProps) => {
 const ActionsWrapper = styled.div`
     display: flex;
     align-items: flex-end;
-    gap: 4px;
+    gap: 8px;
 `
 
 const InputWrapper = styled.div`
@@ -110,7 +110,7 @@ const InputWrapper = styled.div`
 
     flex: 1;
 
-    gap: 4px;
+    gap: 8px;
     max-width: 100%;
 `
 
@@ -120,4 +120,12 @@ const GroupWrapper = styled.div`
     min-width: 30dvw;
 
     gap: 4px;
+`
+
+const StyledListOfFiles = styled(ListOfFiles)`
+    padding: 0 48px 0 46px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        padding: 0;
+    }
 `

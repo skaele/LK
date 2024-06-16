@@ -11,7 +11,6 @@ import {
     AllStudentsPage,
     AllTeachersPage,
     CantAccessPage,
-    ChatPage,
     DecreisDirectivesPage,
     ElectronicInteractionAgreementPage,
     FeedbackPage,
@@ -44,6 +43,7 @@ import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineVie
 import { DOCLIST_ROUTE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
+import ChatPage from '@pages/chat'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'

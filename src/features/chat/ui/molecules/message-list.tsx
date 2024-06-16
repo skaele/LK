@@ -12,6 +12,7 @@ import TopDate from '../atoms/top-date'
 import { useModal } from '../../../../widgets'
 import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
 import { StudentModal } from '../../../../widgets/user/ui'
+import { RawChatMessage } from '@features/chat/type'
 
 export const MessageList = () => {
     const { open } = useModal()
@@ -21,16 +22,16 @@ export const MessageList = () => {
         userModel.stores.user,
     ])
 
-    const handleOpenUserModal = () => {
-        if (chat !== null) {
-            open(
-                chat?.opponent?.status === 'сотрудник' ? (
-                    <StaffModal {...chat.opponent} />
-                ) : (
-                    <StudentModal {...chat?.opponent} id={chat.opponent?.id} name={chat.opponent?.name ?? ''} />
-                ),
-            )
-        }
+    const handleOpenUserModal = (message: RawChatMessage) => {
+        if (!chat || message.author_id === user?.currentUser?.id.toString()) return
+
+        open(
+            chat?.opponent?.status === 'сотрудник' ? (
+                <StaffModal {...chat.opponent} />
+            ) : (
+                <StudentModal {...chat?.opponent} id={chat.opponent?.id} name={chat.opponent?.name ?? ''} />
+            ),
+        )
     }
 
     if (!chat || !user || !allMessages) return null
@@ -46,7 +47,7 @@ export const MessageList = () => {
                 }),
             ).map((messageGroup, i) => {
                 return (
-                    <React.Fragment key={messageGroup.date}>
+                    <React.Fragment key={messageGroup.date + chat.id + messageGroup.avatar}>
                         <TopDate date={messageGroup.date} />
                         <div className="messages-section" key={i}>
                             <div className={'message-avatar'}>
@@ -56,7 +57,7 @@ export const MessageList = () => {
                                     width="32px"
                                     height="32px"
                                     marginRight="0"
-                                    onClick={handleOpenUserModal}
+                                    onClick={() => handleOpenUserModal(messageGroup.messages[0])}
                                 />
                             </div>
                             <div className="messages">
@@ -84,6 +85,7 @@ const MessageListWrapper = styled.div`
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 
     .messages-section {
         position: relative;

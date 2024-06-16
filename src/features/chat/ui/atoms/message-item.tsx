@@ -2,14 +2,16 @@ import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
 import { RawChatMessage } from '@features/chat/type'
 import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import React from 'react'
+import sanitize from 'sanitize-html'
 import styled from 'styled-components'
-import { MessageContextMenu } from '.'
 import Subtext from '../../../../shared/ui/subtext'
 import { getTimeFromDate } from '../../lib/get-time-from-date'
 import { FileView } from './file-view'
+import { MessageContextMenu } from './message-context-menu'
 import { ReadStatusIcon } from './read-status-icon'
 
 interface Props {
@@ -26,24 +28,34 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
     const [user] = useUnit([userModel.stores.user])
     const time = getTimeFromDate(message.datetime)
 
+    const { isMobile } = useCurrentDevice()
+
+    const isYourMessage = message.author_id === user.currentUser?.id.toString()
+
+    const openContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+        // prevent click on link and files
+        if ('tagName' in e.target && (e.target as HTMLElement).tagName === 'A') return
+
+        contextMenuModel.events.open({ e, content: <MessageContextMenu message={message} />, height: 70 })
+    }
+
     return (
         <MessageItemWrapper
-            isYourMessage={message.author_id === user.currentUser?.id.toString()}
+            onClick={isMobile ? openContextMenu : undefined}
+            isYourMessage={isYourMessage}
             isLast={isLast}
-            onContextMenu={(e) => {
-                contextMenuModel.events.open({ e, content: <MessageContextMenu message={message} />, height: 70 })
-            }}
+            onContextMenu={openContextMenu}
         >
             <div className="name-and-message">
                 <div className="name-and-time">
                     <b>{name}</b>
                 </div>
-                <span className="message" dangerouslySetInnerHTML={{ __html: linkifyString(message.html) }} />
+                <span className="message" dangerouslySetInnerHTML={{ __html: sanitize(linkifyString(message.html)) }} />
 
                 {!!message.files.length && (
-                    <Flex d="column" gap="4px">
+                    <Flex d="column" className="files" gap="4px">
                         {message.files.map((file) => {
-                            return <FileView file={file} key={file.name} />
+                            return <FileView isYourMessage={isYourMessage} file={file} key={file.name} />
                         })}
                     </Flex>
                 )}
@@ -92,7 +104,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
             height: 17px;
             bottom: 0px;
             left: -12px;
-            background: ${({ isYourMessage }) => (isYourMessage ? Colors.blue.main : 'var(--message-item)')};
+            background: ${({ isYourMessage }) => (isYourMessage ? 'var(--reallyBlue)' : 'var(--message-item)')};
         }
 
         &::after {
@@ -130,6 +142,11 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
             font-size: 0.85em;
             word-break: break-word;
             line-height: 1.3rem;
+
+            ul,
+            li {
+                margin-left: 1em;
+            }
 
             & p {
                 line-height: 1.4rem;

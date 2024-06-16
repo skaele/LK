@@ -8,9 +8,9 @@ type SearchChatsParams = {
 
 const searchChats = ({ chats, search }: SearchChatsParams) => {
     return chats.filter((chat) =>
-        normalizeString(chat.opponent?.name + chat.lastmessage.text + chat.lastmessage.datetime).includes(
-            normalizeString(search),
-        ),
+        normalizeString(
+            chat.opponent?.name + chat.lastmessage.text + chat.lastmessage.datetime + chat.subject,
+        ).includes(normalizeString(search)),
     )
 }
 

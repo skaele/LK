@@ -8,6 +8,7 @@ import styled from 'styled-components'
 
 type FileProps = {
     file: ChatFile | File
+    isYourMessage: boolean
 }
 
 const ICONS = {
@@ -19,10 +20,12 @@ const ICONS = {
     png: <FcImageFile />,
 }
 
-export const FileView = ({ file }: FileProps) => {
+export const FileView = ({ file, isYourMessage }: FileProps) => {
     const format = file.name.split('.').pop() ?? 'doc'
 
-    const handleClick = () => {
+    const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        e.stopPropagation()
+
         if ('url' in file && file.url) {
             window.open(file.url, '_blank')
         }
@@ -35,9 +38,11 @@ export const FileView = ({ file }: FileProps) => {
     return (
         <FileWrapper onClick={handleClick}>
             <div className="file-body">
-                <div className="image-container">{ICONS[format as keyof typeof ICONS]}</div>
+                <div className="image-container">{ICONS[format as keyof typeof ICONS] ?? <FcFile />}</div>
                 <div className="name-and-size">
-                    <b className="file-name">{file.name}</b>
+                    <b className="file-name" style={{ color: isYourMessage ? Colors.white.main : Colors.blue.main }}>
+                        {file.name}
+                    </b>
                 </div>
             </div>
         </FileWrapper>
@@ -73,7 +78,6 @@ const FileWrapper = styled.div`
                 font-size: 0.8em;
                 word-break: break-all;
                 font-weight: 500;
-                color: var(--blue);
             }
         }
 

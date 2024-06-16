@@ -42,8 +42,8 @@ update(chatsModel.queries.chats, {
                             datetime: formatISO(Date.now()),
                             html: mutation.params.text,
                             readed: true,
-                            opponent_readed: false,
-                            files: mutation.params.files ?? [],
+                            readed_opponent: false,
+                            files: mutation.params.files?.map((file) => ({ name: file.name, url: '' })) ?? [],
                             from: 'you',
                             // clear from tags
                             text: sanitizeHtml(mutation.params.text, {

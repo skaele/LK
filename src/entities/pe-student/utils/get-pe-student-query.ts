@@ -6,32 +6,32 @@ export const getPEStudentsQuery = (
     filters: Record<string, unknown> | null = null,
     pageSize = STUDENT_PAGE_SIZE,
 ) => {
-    const stringifyFilters = jsonStringifyGraphql(filters, ['course'])
-    return `query {
-      students (take:${STUDENT_PAGE_SIZE}, skip: ${
+    const combinedFilters = { ...filters, isActive: { eq: true } }
+    const stringifyFilters = jsonStringifyGraphql(combinedFilters, ['course'])
+    return `query { students (take:${pageSize}, skip: ${
         pageSize * page
-    }, where: isActive: {eq: true} ${stringifyFilters}, order: [{fullName:ASC}]){
-        items {
-            fullName
-            groupNumber
-            studentGuid
-            visits
-            additionalPoints
-            pointsForStandards
-            group {
-                visitValue
-            }
-            hasDebtFromPreviousSemester
-            archivedVisitValue
-            course
-            department
-            pointsHistory(where: {workType: {eq: ONLINE_WORK}}) {
-              points
-            }
-        }
-        totalCount
+    }, where: ${stringifyFilters}, order: [{fullName:ASC}]){
+      items {
+          fullName
+          groupNumber
+          studentGuid
+          visits
+          additionalPoints
+          pointsForStandards
+          group {
+              visitValue
+          }
+          hasDebtFromPreviousSemester
+          archivedVisitValue
+          course
+          department
+          pointsHistory(where: {workType: {eq: ONLINE_WORK}}) {
+            points
+          }
       }
-    }`
+      totalCount
+    }
+  }`
 }
 
 export const getPEStudentQuery = (studentId: string) => `{
@@ -83,11 +83,11 @@ export const getPEStudentQuery = (studentId: string) => `{
 }`
 
 export const getPEStudentsTotalCountQuery = (filters: Record<string, unknown> | null = null) => {
-    const stringifyFilters = jsonStringifyGraphql(filters, ['course'])
-
+    const combinedFilters = { ...filters, isActive: { eq: true } }
+    const stringifyFilters = jsonStringifyGraphql(combinedFilters, ['course'])
     return `{
-      students(where: ${stringifyFilters}) {
-        totalCount
-      }
-    }`
+    students(where: ${stringifyFilters}) {
+      totalCount
+    }
+  }`
 }

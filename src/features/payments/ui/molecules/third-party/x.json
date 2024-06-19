@@ -1,0 +1,241 @@
+{
+    "contracts": {
+        "education": [
+            {
+                "id": "ea2047ba-037a-11ed-ab0c-b4b52f5f733d",
+                "contragent": "eКоробчак Евгения Валерьевна",
+                "student": "eСтулов Владимир Вячеславович",
+                "number": "e0188-1S10/1-22/23",
+                "name": "e0188-1S10/1-22/23 от 14.07.2022 со студентом Коробчак Константин Сергеевич",
+                "type": "Обучение",
+                "level": "Специалист",
+                "sides": "3",
+                "user_fio": "eСтулов Владимир Вячеславович",
+                "user_email": "eawqsome@bk.ru",
+                "client_fio": "eКоробчак Евгения Валерьевна",
+                "client_email": "ekorobchakzhenya@rambler.ru",
+                "dorm_num": "",
+                "dorm_room": "",
+                "file": "https://e.mospolytech.ru/old/getcontract.php?g=da2047ba-037a-11ed-ab0c-b4b52f5f733d&k=089d0c9a0c032266651465d81a67f4cd&t=1718801452",
+                "bill": "https://e.mospolytech.ru/old/getbill.php?g=da2047ba-037a-11ed-ab0c-b4b52f5f733d&k=089d0c9a0c032266651465d81a67f4cd&t=1718801452",
+                "can_sign": false,
+                "sign_text": "Данный вид договора недоступен для электронной подписи",
+                "signed_user": false,
+                "signed_user_date": "2022-07-14",
+                "signed_user_time": "",
+                "startDate": "September 15, 2022",
+                "endDatePlan": "March 14, 2030",
+                "endDateFact": "",
+                "qr_current": "https://e.mospolytech.ru/old/qr.php?data=ST00012%7CName%3D%D3%D4%CA%20%EF%EE%20%E3.%20%CC%EE%F1%EA%E2%E5%20%28%CC%EE%F1%EA%EE%E2%F1%EA%E8%E9%20%CF%EE%EB%E8%F2%E5%F5%20%EB%2F%F1%2030736%CA16920%29%7CPersonalAcc%3D03214643000000017300%7CBankName%3D%C3%D3%20%C1%C0%CD%CA%C0%20%D0%CE%D1%D1%C8%C8%20%CF%CE%20%D6%D4%CE%20%D3%D4%CA%20%CF%CE%20%C3.%20%CC%CE%D1%CA%C2%C5%20%E3.%20%CC%EE%F1%EA%E2%E0%7CBIC%3D004525988%7CCorrespAcc%3D40102810545370000003%7CPayeeINN%3D7719455553%7CCategory%3DPSTUD%7CContract%3D0188-1S10%2F1-22%2F23%7CLastName%3D%7CFirstName%3D%7CMiddleName%3D%7CPayerAddress%3D%7CChildFio%3D%D1%F2%F3%EB%EE%E2%20%C2%EB%E0%E4%E8%EC%E8%F0%20%C2%FF%F7%E5%F1%EB%E0%E2%EE%E2%E8%F7%7CCBC%3D00000000000000000130%7COKTMO%3D45314000%7CPurpose%3D%CE%EF%EB%E0%F2%E0%20%EE%E1%F3%F7%E5%ED%E8%FF%2C%20%E4%EE%E3%EE%E2%EE%F0%20%EE%F2%2014.07.2022%20%B9%200188-1S10%2F1-22%2F23%2C%2009.03.02%20%C8%ED%F4%EE%F0%EC%E0%F6%E8%EE%ED%ED%FB%E5%20%F1%E8%F1%F2%E5%EC%FB%20%E8%20%F2%E5%F5%ED%EE%EB%EE%E3%E8%E8%7CSum%3D0%7C&size=2&ic=1",
+                "qr_total": "https://e.mospolytech.ru/old/qr.php?data=ST00012%7CName%3D%D3%D4%CA%20%EF%EE%20%E3.%20%CC%EE%F1%EA%E2%E5%20%28%CC%EE%F1%EA%EE%E2%F1%EA%E8%E9%20%CF%EE%EB%E8%F2%E5%F5%20%EB%2F%F1%2030736%CA16920%29%7CPersonalAcc%3D03214643000000017300%7CBankName%3D%C3%D3%20%C1%C0%CD%CA%C0%20%D0%CE%D1%D1%C8%C8%20%CF%CE%20%D6%D4%CE%20%D3%D4%CA%20%CF%CE%20%C3.%20%CC%CE%D1%CA%C2%C5%20%E3.%20%CC%EE%F1%EA%E2%E0%7CBIC%3D004525988%7CCorrespAcc%3D40102810545370000003%7CPayeeINN%3D7719455553%7CCategory%3DPSTUD%7CContract%3D0188-1S10%2F1-22%2F23%7CLastName%3D%7CFirstName%3D%7CMiddleName%3D%7CPayerAddress%3D%7CChildFio%3D%D1%F2%F3%EB%EE%E2%20%C2%EB%E0%E4%E8%EC%E8%F0%20%C2%FF%F7%E5%F1%EB%E0%E2%EE%E2%E8%F7%7CCBC%3D00000000000000000130%7COKTMO%3D45314000%7CPurpose%3D%CE%EF%EB%E0%F2%E0%20%EE%E1%F3%F7%E5%ED%E8%FF%2C%20%E4%EE%E3%EE%E2%EE%F0%20%EE%F2%2014.07.2022%20%B9%200188-1S10%2F1-22%2F23%2C%2009.03.02%20%C8%ED%F4%EE%F0%EC%E0%F6%E8%EE%ED%ED%FB%E5%20%F1%E8%F1%F2%E5%EC%FB%20%E8%20%F2%E5%F5%ED%EE%EB%EE%E3%E8%E8%7CSum%3D137912500%7C&size=2&ic=1",
+                "sum": "1655725",
+                "balance": "1379125",
+                "balance_currdate": "-69150",
+                "lastPaymentDate": "January 30, 2023",
+                "payments": [
+                    {
+                        "date": "January 30, 2023",
+                        "value": "138 300"
+                    },
+                    {
+                        "date": "July 18, 2022",
+                        "value": "138 300"
+                    }
+                ],
+                "agreements": [
+                    {
+                        "id": "f9d49a1a-f32f-11ed-87ce-b4b52f5f733d",
+                        "sides": "3",
+                        "user_fio": "fСтулов Владимир Вячеславович",
+                        "user_email": "fawqsome@bk.ru",
+                        "client_fio": "fКоробчак Евгения Валерьевна",
+                        "client_email": "fkorobchakzhenya@rambler.ru",
+                        "code_sent": false,
+                        "reason": "",
+                        "name": "fпредоставление АКО",
+                        "type": "fпредоставление АКО",
+                        "date": "2023-05-19",
+                        "file": "",
+                        "can_sign": true,
+                        "signed_user": false,
+                        "signed_user_date": "",
+                        "signed_user_time": ""
+                    }
+                ],
+                "paygraph": [
+                    {
+                        "year": "2022/2023",
+                        "semestr": "1",
+                        "date_plan": "2022-09-15",
+                        "date_start": "2022-09-15",
+                        "date_end": "2023-02-28",
+                        "sum_price": "138300",
+                        "sum": "138300",
+                        "sum_pay": "138300"
+                    },
+                    {
+                        "year": "2022/2023",
+                        "semestr": "2",
+                        "date_plan": "2023-02-01",
+                        "date_start": "2023-03-01",
+                        "date_end": "2023-05-31",
+                        "sum_price": "138300",
+                        "sum": "69150",
+                        "sum_pay": "69150"
+                    },
+                    {
+                        "year": "2022/2023",
+                        "semestr": "2",
+                        "date_plan": "2023-06-01",
+                        "date_start": "2023-06-01",
+                        "date_end": "2023-08-31",
+                        "sum_price": "0",
+                        "sum": "0",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2023/2024",
+                        "semestr": "3",
+                        "date_plan": "2023-09-01",
+                        "date_start": "2023-09-01",
+                        "date_end": "2024-02-29",
+                        "sum_price": "145900",
+                        "sum": "0",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2023/2024",
+                        "semestr": "4",
+                        "date_plan": "2024-02-01",
+                        "date_start": "2024-03-01",
+                        "date_end": "2024-08-31",
+                        "sum_price": "145900",
+                        "sum": "0",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2024/2025",
+                        "semestr": "5",
+                        "date_plan": "2024-09-01",
+                        "date_start": "2024-09-01",
+                        "date_end": "2025-02-28",
+                        "sum_price": "152450",
+                        "sum": "0",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2024/2025",
+                        "semestr": "6",
+                        "date_plan": "2025-02-01",
+                        "date_start": "2025-03-01",
+                        "date_end": "2025-05-31",
+                        "sum_price": "152450",
+                        "sum": "0",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2024/2025",
+                        "semestr": "2",
+                        "date_plan": "2025-06-01",
+                        "date_start": "2025-06-01",
+                        "date_end": "2025-08-31",
+                        "sum_price": "0",
+                        "sum": "76225",
+                        "sum_pay": "69150"
+                    },
+                    {
+                        "year": "2025/2026",
+                        "semestr": "3",
+                        "date_plan": "2025-09-01",
+                        "date_start": "2025-09-01",
+                        "date_end": "2026-02-28",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2025/2026",
+                        "semestr": "4",
+                        "date_plan": "2026-02-01",
+                        "date_start": "2026-03-01",
+                        "date_end": "2026-08-31",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2026/2027",
+                        "semestr": "5",
+                        "date_plan": "2026-09-01",
+                        "date_start": "2026-09-01",
+                        "date_end": "2027-02-28",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2026/2027",
+                        "semestr": "6",
+                        "date_plan": "2027-02-01",
+                        "date_start": "2027-03-01",
+                        "date_end": "2027-08-31",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2027/2028",
+                        "semestr": "7",
+                        "date_plan": "2027-09-01",
+                        "date_start": "2027-09-01",
+                        "date_end": "2028-02-29",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2028/2029",
+                        "semestr": "8",
+                        "date_plan": "2028-02-01",
+                        "date_start": "2028-03-01",
+                        "date_end": "2028-08-31",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2028/2029",
+                        "semestr": "9",
+                        "date_plan": "2028-09-01",
+                        "date_start": "2028-09-01",
+                        "date_end": "2029-02-28",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2029/2030",
+                        "semestr": "10",
+                        "date_plan": "2029-02-01",
+                        "date_start": "2029-03-01",
+                        "date_end": "2029-08-31",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    },
+                    {
+                        "year": "2029/2030",
+                        "semestr": "11",
+                        "date_plan": "2029-09-01",
+                        "date_start": "2029-09-01",
+                        "date_end": "2030-03-14",
+                        "sum_price": "152450",
+                        "sum": "152450",
+                        "sum_pay": "0"
+                    }
+                ]
+            }
+        ],
+        "dormitory": []
+    }
+}

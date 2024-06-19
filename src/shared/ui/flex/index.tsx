@@ -16,7 +16,9 @@ const Flex = styled.div<{
     $wrap?: boolean
     p?: string
     m?: string
+    position?: string
 }>`
+    position: ${({ position }) => position};
     width: ${({ w }) => w ?? '100%'};
     max-width: ${({ mw }) => mw};
     height: ${({ h }) => h ?? 'fit-content'};

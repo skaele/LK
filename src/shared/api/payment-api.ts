@@ -2,6 +2,18 @@ import { $api } from '@api/config'
 import token from '@utils/token'
 import { LoadPayments } from './model'
 
+export type SendAgreementCodesReq = {
+    agreementId: string
+    userEmail: string
+    clientEmail: string
+}
+
+export type SignAgreementReq = {
+    agreementId: string
+    userPass: string
+    clientPass: string
+}
+
 export const get = () => {
     return $api.get<LoadPayments>(`?getPayments&token=${token()}`)
 }
@@ -14,22 +26,22 @@ export const signContract = (contractId: string) => {
     return $api.get(`?signContract=${contractId}&token=${token()}`)
 }
 
-export const sendAgreementCodesApi = async (data: {
-    guid_agreement: string
-    email_student: string
-    email_client: string
-}) => {
-    const response = await $api.post(`?mailCode4Agreement=1&token=${token()}`, data)
-    return response.data
+export const sendAgreementCodesApi = async ({ agreementId, userEmail, clientEmail }: SendAgreementCodesReq) => {
+    const { data } = await $api.post(`?mailCode4Agreement=1&token=${token()}`, {
+        guid_agreement: agreementId,
+        email_student: userEmail,
+        email_client: clientEmail,
+    })
+
+    if (data.result !== 'ok') throw new Error(data.error_text)
+    return data
 }
 
-export const signThirdPartyAgreementApi = async (params: { id: string; pass_student: string; pass_client: string }) => {
-    const response = await $api.get(
-        `?signAgreement=${params.id}&token=${token()}&pass_student=${params.pass_student}&pass_client=${
-            params.pass_client
-        }`,
+export const signThirdPartyAgreementApi = async ({ agreementId, userPass, clientPass }: SignAgreementReq) => {
+    const { data } = await $api.get(
+        `?signAgreement=${agreementId}&token=${token()}&pass_student=${userPass}&pass_client=${clientPass}`,
     )
 
-    if (response.data.result === 'ok') return response.data
-    else throw new Error(response.data.error_text)
+    if (data.result !== 'ok') throw new Error(data.error_text)
+    return data
 }

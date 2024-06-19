@@ -1,5 +1,5 @@
 import { Agreement } from '@api/model'
-import { paymentsModel } from '@entities/payments'
+import { paymentsModel, thirdPartyAgreementModel } from '@entities/payments'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import Accordion from '@ui/accordion/accordion'
@@ -10,6 +10,8 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import { FiCheck, FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
+import { useModal } from 'widgets'
+import { ThirdPartyModal } from './third-party'
 
 interface Props {
     data: Agreement
@@ -32,11 +34,22 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
         paymentsModel.stores.$done,
         paymentsModel.stores.$completed,
         paymentsModel.stores.$loading,
+        thirdPartyAgreementModel.stores.step,
     ])
 
     const height = signedUser || done ? 140 : 100
-    const handleSubmit = () => paymentsModel.events.signAgreement(id)
+
+    const { open } = useModal()
+    const handleSubmit = (isThirdParty: boolean) => {
+        if (isThirdParty) {
+            thirdPartyAgreementModel.events.signStarted
+            open(<ThirdPartyModal agreement={data} />)
+            return
+        }
+        paymentsModel.events.signAgreement(id)
+    }
     const setCompleted = paymentsModel.events.setCompleted
+    const isThirdParty = data.sides === '3'
 
     return (
         <Accordion height={height} title={name} confirmed={signedUser || done}>
@@ -59,7 +72,7 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                     {!(signedUser || done) && (
                         <SubmitButton
                             text={!(signedUser || done) ? 'Подписать' : 'Подписано'}
-                            action={handleSubmit}
+                            action={() => handleSubmit(isThirdParty)}
                             isLoading={loading}
                             completed={completed}
                             isDone={signedUser || done}

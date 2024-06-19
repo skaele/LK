@@ -36,6 +36,9 @@ export const IssuanceOfLicensesPage = lazy(() => import('@pages/teachers-applica
 export const NumberOfUnusedVacationDaysPage = lazy(
     () => import('@pages/teachers-applications/pages/number-of-unused-vacation-days'),
 )
+export const IncreaseAntiplagiatLimits = lazy(
+    () => import('@pages/teachers-applications/pages/increase-antiplagiat-limits'),
+)
 
 export const EditPhonebookSubdivision = lazy(
     () => import('@pages/teachers-applications/pages/edit-phonebook-subdivision'),

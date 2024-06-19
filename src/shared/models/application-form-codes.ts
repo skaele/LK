@@ -61,6 +61,7 @@ export enum ApplicationTeachersFormCodes {
     VISA_CERTIFICATE = 'visa-certificate',
     CERTIFICATE_OF_WORK_EXPERIENCE = 'certificate-of-work-experience',
     NUMBER_OF_UNUSED_VACATION_DAYS = 'number-of-unused-vacation-days',
+    INCREASE_ANTIPLAGIAT_LIMITS = 'increase-antiplagiat-limits',
     COPY_OF_EMPLOYMENT_RECORD = 'copy-of-the-employment-record',
     COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = 'copies-of-documents-from-the-personal-file',
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = 'work-on-the-terms-of-external-concurrency',

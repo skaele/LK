@@ -32,6 +32,7 @@ export type PhonebookInfo = {
     }[]
 }
 
+// TODO: make two separate components for divisions and employees
 export const PhonebookModal = ({
     title,
     info,

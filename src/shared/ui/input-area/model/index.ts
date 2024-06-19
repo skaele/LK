@@ -73,6 +73,7 @@ export interface IInputAreaData {
     width?: string
     required?: boolean
     mask?: boolean
+    customMask?: (value: string) => string
     editable?: boolean
     placeholder?: string
     autocomplete?: boolean

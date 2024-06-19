@@ -111,6 +111,7 @@ const getSectionLinks = (): Section[] => {
                     title: 'Расторжение договора найма',
                 },
                 {
+                    disabled: isProduction,
                     link: ACCOMMODATION_FOR_GRADUATES,
                     title: 'Предоставление права проживания в период каникул',
                 },

@@ -234,7 +234,7 @@ export const privateRoutes: () => IRoutes = () => ({
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
-        show: new Date() > new Date(EndDateSuperiorRoom) ? false : true,
+        show: isProduction ? (new Date() > new Date(EndDateSuperiorRoom) ? false : true) : true,
     },
     'all-teachers': {
         id: 'all-teachers',
@@ -480,9 +480,10 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         icon: BiIdCard,
         path: ACCOMMODATION_FOR_GRADUATES,
         Component:
-            ['4', '5', '6'].includes(user?.course ?? '') ||
-            user?.status?.toLocaleLowerCase()?.includes('окончил') ||
-            (user?.degreeLevel?.toLocaleLowerCase() === 'магистратура' && user?.course === '2')
+            !isProduction &&
+            (['4', '5', '6'].includes(user?.course ?? '') ||
+                user?.status?.toLocaleLowerCase()?.includes('окончил') ||
+                (user?.degreeLevel?.toLocaleLowerCase() === 'магистратура' && user?.course === '2'))
                 ? AccommodationForGraduatesPage
                 : () => (
                       <PageIsNotReady
@@ -496,6 +497,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'payment-recipient': {
         id: 'payment-recipient',

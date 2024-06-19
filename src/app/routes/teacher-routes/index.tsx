@@ -54,6 +54,7 @@ import {
     EditPhonebookEmail,
     ContactDetails,
     ContactDetailsForm,
+    IncreaseAntiplagiatLimits,
     SalarySupplements,
     CreateSalarySupplement,
 } from './pages'
@@ -149,6 +150,7 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+export const INCREASE_ANTIPLAGIAT_LIMITS = APPLICATIONS_ROUTE + '/increase-antiplagiat-limits'
 
 export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
 export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
@@ -978,6 +980,25 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'increase-antiplagiat-limits': {
+        id: 'increase-antiplagiat-limits',
+        title: 'Запрос на увеличение лимита проверок в системе «Антиплагиат»',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: INCREASE_ANTIPLAGIAT_LIMITS,
+
+        Component: isProduction
+            ? () => <PageIsNotReady isRedirectButtonVisible={false} errorText={'Сервис находится в разработке'} />
+            : IncreaseAntiplagiatLimits,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'edit-phonebook-subdivision': {
         id: 'edit-phonebook-subdivision',

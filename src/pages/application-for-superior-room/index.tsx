@@ -11,6 +11,7 @@ import getForm from './lib/get-form'
 import sendForm from './lib/send-form'
 import { SelectPage } from '@features/select'
 import { getStatusFormSuperiorRoom } from './lib/get-status'
+import { isProduction } from '@shared/constants'
 
 const ApplicationForSuperiorRoomWrapper = styled.div<{ isDone: boolean }>`
     display: flex;
@@ -46,7 +47,7 @@ const ApplicationForSuperiorRoom = () => {
     }
 
     const statusForm = getStatusFormSuperiorRoom(user)
-    if (!!statusForm) {
+    if (isProduction && !!statusForm) {
         return <Error text={statusForm} />
     }
 

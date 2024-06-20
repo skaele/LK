@@ -3,6 +3,7 @@ import { getJwtToken } from '@entities/user/lib/jwt-token'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import { InternalAxiosRequestConfig } from 'axios'
 import { refreshAccessToken } from '../user-api'
+import { isProduction } from '@shared/constants'
 
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')
 
@@ -30,10 +31,12 @@ export const getAuthResponseInterceptor = (apiInstance: any) => async (error: an
                 }
                 return apiInstance(originalRequest)
             } catch (error) {
-                userModel.events.logout()
+                // Чтобы тестСтуда не разлогинило, у него нет jwt
+                if (isProduction) userModel.events.logout()
             }
         } else {
-            userModel.events.logout()
+            // Чтобы тестСтуда не разлогинило, у него нет jwt
+            if (isProduction) userModel.events.logout()
         }
     }
     return Promise.reject(error)

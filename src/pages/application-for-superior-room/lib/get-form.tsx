@@ -1,6 +1,6 @@
 import React from 'react'
 import { SuperiorRoom } from '@api/model'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
+import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { SelectPage } from '@features/select'
 
 const mAllocationTypes = [
@@ -18,44 +18,44 @@ const dormLocations = [
     { id: 1, title: 'ул. Бориса Галушкина, д. 9' },
 ]
 
-// const extracurricularActivities: CheckboxDocs[] = [
-//     {
-//         value: false,
-//         title: 'Общественная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'society',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Научная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'science',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Спортивная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'sport',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Творческая',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'creativity',
-//         checkboxCondition: 'straight',
-//     },
-// ]
+const extracurricularActivities: CheckboxDocs[] = [
+    {
+        value: false,
+        title: 'Общественная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'society',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Научная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'science',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Спортивная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'sport',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Творческая',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'creativity',
+        checkboxCondition: 'straight',
+    },
+]
 
 const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
     const { fio, phone, email } = data
@@ -126,15 +126,15 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
             //     type: 'checkbox',
             //     editable: true,
             // },
-            // {
-            //     title: 'Участие во внеучебной деятельности',
-            //     value: null,
-            //     fieldName: 'extracurricular',
-            //     type: 'checkbox-docs',
-            //     items: extracurricularActivities,
-            //     width: '100%',
-            //     editable: true,
-            // },
+            {
+                title: 'Участие во внеучебной деятельности',
+                value: null,
+                fieldName: 'extracurricular',
+                type: 'checkbox-docs',
+                items: extracurricularActivities,
+                width: '100%',
+                editable: true,
+            },
             // {
             //     title: 'Дополнительная информация',
             //     value: (form?.data[6] as IInputAreaData)?.value ?? '',

@@ -14,8 +14,9 @@ const bgAllocationTypes = [
 ]
 
 const dormLocations = [
-    { id: 0, title: 'ул. Михалковская, д. 7, корп. 3' },
-    { id: 1, title: 'ул. Бориса Галушкина, д. 9' },
+    { id: 0, title: 'ул. Бориса Галушкина, д. 9' },
+    { id: 1, title: 'ул. Михалковская, д. 7, корп. 3' },
+    { id: 2, title: 'ул. Малая Семеновская, д. 12' },
 ]
 
 const extracurricularActivities: CheckboxDocs[] = [
@@ -104,7 +105,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
                 value: null,
                 fieldName: 'allocation',
                 type: 'select',
-                items: dormId === 1 ? bgAllocationTypes : mAllocationTypes,
+                items: dormId === 0 ? bgAllocationTypes : mAllocationTypes,
                 width: '100%',
                 editable: true,
                 required: true,
@@ -114,7 +115,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
                 value: null,
                 fieldName: 'alternative-allocation',
                 type: 'select',
-                items: dormId === 1 ? bgAllocationTypes : mAllocationTypes,
+                items: dormId === 0 ? bgAllocationTypes : mAllocationTypes,
                 width: '100%',
                 editable: true,
                 required: true,

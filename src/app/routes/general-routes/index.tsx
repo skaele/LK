@@ -290,7 +290,7 @@ export const generalRoutes: IRoutes = {
         path: CHAT_ROUTE,
         Component: ChatPage,
         color: 'red',
-        group: 'OTHER',
+        group: 'COMMUNICATION',
         keywords: ['чат', 'сообщения', 'написать'],
         pageSize: 'big',
         isTemplate: false,

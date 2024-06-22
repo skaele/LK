@@ -211,7 +211,7 @@ update(chatMessagesQuery, {
                     datetime: formatISO(Date.now()),
                     html: mutation.params.text,
                     readed: true,
-                    readed_opponent: true,
+                    readed_opponent: false,
                     files: mutation.params.files?.map((file) => ({ name: file.name, url: '' })) ?? [],
                     author_id: currentUser?.id.toString() ?? '',
                     author_name: getFullUserName(currentUser),

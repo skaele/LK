@@ -234,7 +234,7 @@ export const privateRoutes: () => IRoutes = () => ({
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
-        show: new Date() > new Date(EndDateSuperiorRoom) ? false : true,
+        show: isProduction ? (new Date() > new Date(EndDateSuperiorRoom) ? false : true) : true,
     },
     'all-teachers': {
         id: 'all-teachers',

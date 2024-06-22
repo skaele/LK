@@ -28,6 +28,7 @@ export const ChatInput = () => {
             <ActionsWrapper>
                 <UploadFileButton setFiles={handleFileUploaded} />
                 <RichTextInput
+                    key={selectedChat?.id}
                     value={message.text}
                     setValue={(value: string) => chatsMessageModel.events.changed({ ...message, text: value })}
                     placeholder={'Введите сообщение...'}

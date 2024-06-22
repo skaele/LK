@@ -13,7 +13,8 @@
         "preview": "vite preview",
         "reinstall": "rm -rf node_modules && rm -rf package-lock.json && npm cache clean -f && npm i",
         "reinstall-win": "npm rm -rf node_modules && npm rm -rf package-lock.json && npm cache clean -f && npm i",
-        "knip": "knip"
+        "knip": "knip",
+        "start:external": "npm run start -- --host"
     },
     "dependencies": {
         "@farfetched/core": "^0.12.4",

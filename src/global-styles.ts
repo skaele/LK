@@ -16,15 +16,18 @@ const GlobalStyles = createGlobalStyle`
 
 	#root {
 		display: flex;
-		height: 100%;
-		max-height: 100%;
+		height: 100vh;
+    	height: 100svh;
+   		height: 100dvh;
+		overflow: hidden;
 	}
 
-	body {
+	html, body {
 		-webkit-overflow-scrolling: touch;
-		scrollbar-gutter: stable;
 		position: relative;
-   		height: 100vh;
+		height: 100vh;
+    	height: 100svh;
+   		height: 100dvh;
 
 		overflow: hidden;
 	}

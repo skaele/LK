@@ -8,7 +8,7 @@ const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }
     background: ${({ headerVisible }) => (headerVisible ? 'var(--theme)' : 'transparent')};
     z-index: 12;
     align-items: center;
-    position: fixed;
+    position: absolute;
     justify-content: center;
     top: 0;
     padding: 0 15px;

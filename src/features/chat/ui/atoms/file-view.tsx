@@ -40,7 +40,7 @@ export const FileView = ({ file, isYourMessage }: FileProps) => {
             <div className="file-body">
                 <div className="image-container">{ICONS[format as keyof typeof ICONS] ?? <FcFile />}</div>
                 <div className="name-and-size">
-                    <b className="file-name" style={{ color: isYourMessage ? Colors.white.main : Colors.blue.main }}>
+                    <b className="file-name" style={{ color: isYourMessage ? Colors.white.main : 'var(--text)' }}>
                         {file.name}
                     </b>
                 </div>

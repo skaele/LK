@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import { useModal } from 'widgets'
 import { sendFirstMessageModel } from '../model'
 import { SendFirstMessageProps as SendMessageProps } from '../type'
+import sanitize from 'sanitize-html'
 
 export const SendMessageModal = (props: SendMessageProps) => {
     const { close } = useModal()
@@ -46,7 +47,11 @@ export const SendMessageModal = (props: SendMessageProps) => {
                 <UploadFileButton isActive={!pending} setFiles={handleFileUploaded} />
                 <RichTextInput value={messageText} setValue={setMessageText} placeholder={'Введите сообщение...'} />
                 <Button
-                    isActive={(!!messageText || !!files.length) && !pending}
+                    isActive={
+                        !!sanitize(messageText, {
+                            allowedTags: [],
+                        }).trim() && !pending
+                    }
                     icon={<IoMdSend />}
                     onClick={handleSend}
                     background="transparent"

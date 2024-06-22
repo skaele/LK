@@ -10,6 +10,7 @@ import { RichTextInput } from '@shared/ui/rich-text-input'
 import { UploadFileButton } from '@shared/ui/upload-file-button'
 import { useUnit } from 'effector-react'
 import { MEDIA_QUERIES } from '@shared/constants'
+import sanitize from 'sanitize-html'
 
 export const ChatInput = () => {
     const [message, selectedChat] = useUnit([chatsMessageModel.stores.currentMessage, chatModel.stores.selectedChat])
@@ -35,7 +36,11 @@ export const ChatInput = () => {
                     icon={<IoMdSend />}
                     onClick={() => chatsMessageModel.events.sended()}
                     background="transparent"
-                    isActive={!!message.text || !!message.files.length}
+                    isActive={
+                        !!sanitize(message.text, {
+                            allowedTags: [],
+                        }).trim()
+                    }
                 />
             </ActionsWrapper>
 
@@ -56,8 +61,6 @@ const ChatInputWrapper = styled.div`
     background: var(--block-content);
     padding: 8px 16px;
     border-top: 1px solid #00000018;
-
-    flex: 1;
 
     gap: 8px;
     max-width: 100%;

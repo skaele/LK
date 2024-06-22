@@ -42,5 +42,4 @@ export const ChatItems = () => {
 const ChatItemsWrapper = styled.div`
     overflow-y: auto;
     height: 100%;
-    padding-bottom: 50%;
 `

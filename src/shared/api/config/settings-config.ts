@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
-export const URL = 'https://api.mospolytech.ru/config'
+export const URL = 'https://api.mospolytech.ru/config/'
 
 export const $settingsApi = axios.create({ baseURL: URL })
 

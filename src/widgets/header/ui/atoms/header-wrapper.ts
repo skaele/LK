@@ -8,17 +8,19 @@ const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }
     background: ${({ headerVisible }) => (headerVisible ? 'var(--theme)' : 'transparent')};
     z-index: 12;
     align-items: center;
-    position: absolute;
+    position: fixed;
     justify-content: center;
     top: 0;
     padding: 0 15px;
     transition: 0.1s background;
     color: var(--text);
     display: ${({ hidden = false }) => (hidden ? 'none' : 'flex')};
+    background-color: var(--theme);
 
     & .back-button-wrapper button {
         transform: translateX(${({ headerVisible }) => (headerVisible ? '-35px' : '0')});
     }
+
     ${MEDIA_QUERIES.isTablet} {
         & .back-button-wrapper button {
             transform: translateX(${({ headerVisible }) => (headerVisible ? '-25px' : '0')});

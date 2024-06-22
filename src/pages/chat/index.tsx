@@ -44,7 +44,7 @@ export default ChatPage
 const ChatPageWrapper = styled.div`
     display: flex;
     height: 90%;
-    max-width: 963px;
+    max-width: 1100px;
     margin: 40px auto;
     background: var(--block);
 

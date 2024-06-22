@@ -3,7 +3,7 @@ import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
 import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import ErrorBoundary from '@shared/ui/error-boundary'
-import React, { Suspense, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Confirm, HintModal, LeftsideBar, MobileBottomMenu, PopUpMessage } from 'widgets'
 import ContextMenu from 'widgets/context-menu'
 import Header from 'widgets/header'
@@ -12,7 +12,7 @@ import PopUpNotifications from 'widgets/pop-up-notifications'
 import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
-import { ContentWrapper, PageContent, Wrapper } from './styled'
+import { ContentWrapper, PageContent } from './styled'
 
 const ContentLayout = () => {
     const {
@@ -27,13 +27,28 @@ const ContentLayout = () => {
         setHeaderVisible(e.currentTarget.scrollTop > 0)
     }
 
+    // const [isScrolled, setIsScrolled] = useState(false)
+
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setIsScrolled(window.scrollY > 0)
+    //     }
+
+    //     window.addEventListener('scroll', handleScroll)
+
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, [])
+
     useScrollToTop(pageContentRef.current!)
 
     return (
-        <Wrapper>
+        <>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
             <LeftsideBar />
+
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent
@@ -55,7 +70,7 @@ const ContentLayout = () => {
             <ContextMenu />
             <HintModal />
             <PopUpNotifications />
-        </Wrapper>
+        </>
     )
 }
 

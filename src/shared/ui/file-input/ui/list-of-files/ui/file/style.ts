@@ -21,6 +21,7 @@ const FileWrapper = styled.div`
 
             .file-name {
                 font-size: 0.8em;
+                word-break: break-all;
             }
         }
 

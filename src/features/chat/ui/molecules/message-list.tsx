@@ -1,24 +1,26 @@
+import { chatMessagesModel } from '@entities/chat-messages'
 import { chatModel } from '@entities/chats'
 import { userModel } from '@entities/user'
 import { prepareMessages } from '@features/chat/lib/prepare-messages'
 import { allChatMessagesModel } from '@features/chat/model'
+import { RawChatMessage } from '@features/chat/type'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
+import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
+import { useModal } from '../../../../widgets'
+import { StudentModal } from '../../../../widgets/user/ui'
 import { MessageItem } from '../atoms'
 import EmptyHere from '../atoms/empty-here'
 import TopDate from '../atoms/top-date'
-import { useModal } from '../../../../widgets'
-import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
-import { StudentModal } from '../../../../widgets/user/ui'
-import { RawChatMessage } from '@features/chat/type'
 
 export const MessageList = () => {
     const { open } = useModal()
-    const [allMessages, chat, user] = useUnit([
+    const [allMessages, chat, pending, user] = useUnit([
         allChatMessagesModel.stores.messages,
         chatModel.stores.selectedChat,
+        chatMessagesModel.queries.chatMessages.$pending,
         userModel.stores.user,
     ])
 
@@ -38,18 +40,18 @@ export const MessageList = () => {
 
     return (
         <MessageListWrapper>
-            {allMessages?.length === 0 && <EmptyHere message="Нет сообщений" />}
+            {allMessages?.length === 0 && !pending && <EmptyHere message="Нет сообщений" />}
             {Object.values(
                 prepareMessages({
                     chat: chat!,
                     messages: allMessages,
                     currentUser: user.currentUser!,
                 }),
-            ).map((messageGroup, i) => {
+            ).map((messageGroup) => {
                 return (
-                    <React.Fragment key={messageGroup.date + chat.id + messageGroup.avatar}>
+                    <React.Fragment key={messageGroup.date + chat.id + messageGroup.messages[0].msg_id}>
                         <TopDate date={messageGroup.date} />
-                        <div className="messages-section" key={i}>
+                        <div className="messages-section">
                             <div className={'message-avatar'}>
                                 <Avatar
                                     name={messageGroup.messages[0].author_name.split(' ').reverse().join(' ')}

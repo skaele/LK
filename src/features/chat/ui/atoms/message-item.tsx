@@ -72,7 +72,6 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
     display: flex;
     align-items: flex-end;
     padding: ${({ isLast }) => (!isLast ? '4px 0' : '4px 0 4px 0')};
-    position: static;
 
     .message-avatar {
         width: 32px;
@@ -160,7 +159,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
 
     @media (max-width: 1000px) {
         .name-and-message {
-            max-width: 70%;
+            max-width: 80%;
         }
     }
 `

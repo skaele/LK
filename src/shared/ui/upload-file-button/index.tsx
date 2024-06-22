@@ -25,7 +25,7 @@ export const UploadFileButton = ({ setFiles, className }: UploadFileButtonProps)
             <input
                 ref={inputFileRef}
                 type="file"
-                accept="image/*"
+                accept=".jpg, .doc, .xls, .pdf, .png, .rtf, .rar, .zip, .gz, .txt, .jpeg"
                 style={{ display: 'none' }}
                 onChange={handleChange}
             />

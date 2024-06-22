@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 // import Highlight from "@tiptap/extension-highlight";
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { MenuBar } from './menu-bar'
 import OrderedList from '@tiptap/extension-ordered-list'
 import BulletList from '@tiptap/extension-bullet-list'
@@ -18,6 +18,8 @@ type RichTextInputProps = {
 }
 
 export const RichTextInput = ({ value, placeholder, setValue, disabled }: RichTextInputProps) => {
+    const valueSetted = useRef(false)
+
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -37,6 +39,11 @@ export const RichTextInput = ({ value, placeholder, setValue, disabled }: RichTe
     useEffect(() => {
         if (!value && editor) {
             editor.commands.clearContent()
+        }
+
+        if (value && !valueSetted.current) {
+            editor?.commands.setContent(value)
+            valueSetted.current = true
         }
     }, [value])
 

@@ -26,8 +26,6 @@ const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null) => {
             return acc
         }, {} as Record<Groups, IRoutes>)
 
-    console.log(tabs)
-
     return tabs
 }
 

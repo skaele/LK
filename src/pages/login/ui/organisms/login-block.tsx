@@ -7,7 +7,6 @@ import Inputs from '../molecules/inputs'
 
 const LoginBlockStyled = styled(BlockWrapper)<{ isAuthenticated: boolean }>`
     overflow: hidden;
-    box-shadow: ${({ isAuthenticated }) => (!isAuthenticated ? '0 0 1px var(--theme-mild-opposite)' : 'none')};
     min-height: 480px;
     transition: 0.2s box-shadow;
     position: relative;

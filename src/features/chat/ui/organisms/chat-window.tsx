@@ -1,16 +1,26 @@
-import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-import React, { useEffect, useState } from 'react'
-import { useRouteMatch } from 'react-router'
+import React from 'react'
 import styled from 'styled-components'
 import { ChatHeader, Messages } from '../molecules'
-import ChatInput from '../molecules/chat-input'
+import { ChatInput } from '../molecules/chat-input'
+
+const ChatWindow = () => {
+    return (
+        <ChatWindowWrapper>
+            <ChatHeader />
+            <Messages />
+            <ChatInput />
+        </ChatWindowWrapper>
+    )
+}
+
+export default ChatWindow
 
 const ChatWindowWrapper = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     position: relative;
+    border-radius: 20px;
 
     & > img {
         position: absolute;
@@ -21,25 +31,3 @@ const ChatWindowWrapper = styled.div`
         opacity: 0.4;
     }
 `
-
-const ChatWindow = () => {
-    const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [params.chatId])
-
-    return (
-        <ChatWindowWrapper>
-            <ChatHeader name={'Леонаро ДиК априо'} loading={loading} />
-            <Messages loading={loading} />
-            <ChatInput />
-        </ChatWindowWrapper>
-    )
-}
-
-export default ChatWindow

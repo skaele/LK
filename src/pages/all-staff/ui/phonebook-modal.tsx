@@ -1,17 +1,18 @@
-import Flex from '@shared/ui/flex'
-import React from 'react'
-import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
-import { InfoItem } from '../info-item'
-import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
-import { Link } from 'react-router-dom'
-import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { ALL_TEACHERS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-import { FiClock, FiList, FiMessageCircle } from 'react-icons/fi'
-import { Button } from '@shared/ui/button'
-import { useModal } from 'widgets'
-import List from '@shared/ui/list'
+import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import Avatar from '@features/home/ui/molecules/avatar'
+import { SendMessage } from '@features/send-first-message'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
+import List from '@shared/ui/list'
+import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
+import React from 'react'
+import { FiClock, FiList } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+import { useModal } from 'widgets'
+import { InfoItem } from '../info-item'
+import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
 import { getSubdivisionInfo } from '../lib/get-subdivision-info'
 import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
 import { useUnit } from 'effector-react'
@@ -38,7 +39,9 @@ export const PhonebookModal = ({
     info,
     isEmployee,
     avatar,
+    id,
 }: {
+    id?: number | string
     title: string
     info: PhonebookInfo[]
     avatar?: string
@@ -51,13 +54,7 @@ export const PhonebookModal = ({
     return (
         <Flex d="column">
             <Header isEmployee={!!isEmployee}>
-                <UserHeaderBackground
-                    fullName={title}
-                    height="200px"
-                    width="calc(100% + 16px)"
-                    baseScale={1}
-                    baseScaleDelta={0.5}
-                />
+                <UserHeaderBackground fullName={title} height="200px" width="100%" baseScale={1} baseScaleDelta={0.5} />
                 {isEmployee && (
                     <AvatarWrapper>
                         <Avatar
@@ -176,14 +173,8 @@ export const PhonebookModal = ({
                             width="100%"
                         />
                     </Link>
-                    <Button
-                        icon={<FiMessageCircle />}
-                        text={'Написать'}
-                        onClick={() => close()}
-                        width="100%"
-                        background="var(--theme-4)"
-                        isActive={false}
-                    />
+
+                    <SendMessage avatar={avatar} fio={title} status="staff" userId={id?.toString()} />
                 </Buttons>
             ) : isMobile ? (
                 <LinkStyled to={`${ALL_TEACHERS_ROUTE}/${title}`} onClick={close}>

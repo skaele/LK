@@ -1,4 +1,5 @@
 import React from 'react'
+import { HiOutlineChatAlt2 } from 'react-icons/hi'
 import styled from 'styled-components'
 
 const EmptyHereWrapper = styled.div`
@@ -7,14 +8,16 @@ const EmptyHereWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     color: var(--text);
-    font-weight: 600;
-    font-size: 0.8em;
+    opacity: 0.5;
+    font-weight: 500;
+    font-size: 0.86em;
+    gap: 4px;
 
-    span {
-        padding: 10px 20px;
-        border-radius: var(--brSemi);
-        background: var(--almostTransparentOpposite);
+    svg {
+        width: 100px;
+        height: 100px;
     }
 `
 
@@ -25,6 +28,7 @@ interface Props {
 const EmptyHere = ({ message = 'Выберите чат' }: Props) => {
     return (
         <EmptyHereWrapper>
+            <HiOutlineChatAlt2 />
             <span>{message}</span>
         </EmptyHereWrapper>
     )

@@ -5,6 +5,8 @@ import styled from 'styled-components'
 const SkeletonLoadingWrapper = styled.div`
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 100%;
     .name-and-status {
         display: flex;
         flex-direction: column;

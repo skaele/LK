@@ -48,7 +48,7 @@ type PagintaionListProps<T> = {
 
 export const PAGINATION_OFFSET = 50
 
-export function PagintaionList<T extends { id: string; fio?: string; avatar?: string }>({
+export function PagintaionList<T extends { id: string | number; fio?: string; avatar?: string }>({
     items,
     renderItem,
     hasNext,

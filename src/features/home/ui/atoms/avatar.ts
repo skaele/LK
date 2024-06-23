@@ -83,7 +83,7 @@ export const Container = styled.div<{
         font-size: ${({ width }) => (width ? parseInt(width) / 50 + 'em' : '3em')};
         align-items: center;
         justify-content: center;
-        font-weight: bold;
+        font-weight: 600;
 
         ${imageAspectRatioFallback}
     }
@@ -97,6 +97,11 @@ export const Container = styled.div<{
         .name {
             font-size: ${({ width }) => (width ? parseInt(width) / 50 + 'em' : '1.5em')};
         }
+    }
+
+    .notification {
+        min-width: 30%;
+        height: 30%;
     }
 
     ${({ centerHorizontally }) =>

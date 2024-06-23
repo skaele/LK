@@ -1,9 +1,10 @@
 import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+import { SendMessage } from '@features/send-first-message'
 import getLettersColors from '@shared/lib/get-letters-colors'
 import { Button } from '@ui/button'
 import React from 'react'
-import { FiClock, FiMessageCircle } from 'react-icons/fi'
+import { FiClock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import useModal from 'widgets/modal'
 import { UserProps } from 'widgets/user/types'
@@ -12,7 +13,7 @@ import { UserModal } from '../atoms'
 
 type Props = Pick<
     UserProps,
-    'finance' | 'educationForm' | 'degreeLevel' | 'course' | 'group' | 'token' | 'isMe' | 'avatar' | 'name'
+    'finance' | 'educationForm' | 'degreeLevel' | 'course' | 'group' | 'token' | 'isMe' | 'avatar' | 'name' | 'id'
 >
 
 const StudentModal = (props: Props) => {
@@ -25,7 +26,6 @@ const StudentModal = (props: Props) => {
 
     return (
         <UserModal {...props} type="stud">
-            {/* <Link to={`${CHAT_ROUTE}/${name}`}> */}
             {!token && (
                 <>
                     {group && (
@@ -44,17 +44,9 @@ const StudentModal = (props: Props) => {
                             />
                         </Link>
                     )}
-                    <Button
-                        icon={<FiMessageCircle />}
-                        text={'Написать'}
-                        onClick={() => close()}
-                        width="100%"
-                        background="var(--theme-4)"
-                        isActive={false}
-                    />
+                    <SendMessage avatar={props.avatar} userId={props.id?.toString() ?? ''} status="stud" fio={name} />
                 </>
             )}
-            {/* </Link> */}
             {token && (
                 <Button
                     text="Войти в аккаунт"

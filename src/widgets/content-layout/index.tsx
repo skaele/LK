@@ -12,7 +12,7 @@ import PopUpNotifications from 'widgets/pop-up-notifications'
 import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
-import { ContentWrapper, PageContent, Wrapper } from './styled'
+import { ContentWrapper, PageContent } from './styled'
 
 const ContentLayout = () => {
     const {
@@ -27,13 +27,28 @@ const ContentLayout = () => {
         setHeaderVisible(e.currentTarget.scrollTop > 0)
     }
 
+    // const [isScrolled, setIsScrolled] = useState(false)
+
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setIsScrolled(window.scrollY > 0)
+    //     }
+
+    //     window.addEventListener('scroll', handleScroll)
+
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, [])
+
     useScrollToTop(pageContentRef.current!)
 
     return (
-        <Wrapper>
+        <>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
             <LeftsideBar />
+
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent
@@ -55,7 +70,7 @@ const ContentLayout = () => {
             <ContextMenu />
             <HintModal />
             <PopUpNotifications />
-        </Wrapper>
+        </>
     )
 }
 

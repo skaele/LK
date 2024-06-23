@@ -120,6 +120,7 @@ const MessageItemWrapper = styled.div<{ isYourMessage: boolean; isLast: boolean 
 
         a {
             text-decoration: underline;
+            color: ${({ isYourMessage }) => (isYourMessage ? '#fff' : '')};
         }
 
         .name-and-time {

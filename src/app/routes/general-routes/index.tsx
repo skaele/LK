@@ -308,7 +308,7 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         planeHeader: false,
         hiddenTitle: true,
-        group: 'OTHER',
+        group: 'COMMUNICATION',
         isSubPage: true,
         show: false,
     },

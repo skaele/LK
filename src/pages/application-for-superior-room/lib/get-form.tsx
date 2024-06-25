@@ -165,6 +165,11 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
                 link: 'https://e.mospolytech.ru/old/storage/files/Prikaz_po_osnovnoj_deyatelnosti_No_0597-OD_ot_08_06_2021_Ob_utverzhdenii_razmerov_platy_za_dopolnitelnye_usl.pdf',
                 type: 'document',
             },
+            {
+                title: 'Приказ № 15-АХД от 10.10.2023 (ул. Бориса Галушкина, д. 9)',
+                link: 'https://mospolytech.ru/upload/medialibrary/5d3/k1eyzf9xk6x6rgi8hq1l83fcz941ve94/razmer-platy-za-dopuslugu-10102023.PDF',
+                type: 'document',
+            },
         ],
     }
 }

@@ -88,8 +88,10 @@ const Img = styled.img`
     border-radius: 50%;
     right: 24px;
     top: 24px;
+    background-size: 20%;
 
     @media (min-width: 1000px) {
+        scale: 1;
         position: relative;
         width: 50%;
         max-width: 500px;

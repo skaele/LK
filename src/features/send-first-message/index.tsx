@@ -19,7 +19,7 @@ export const SendMessage = (props: SendFirstMessageProps) => {
 
     const chat =
         'userId' in props
-            ? chats?.find((chat) => chat.opponent?.id === props.userId)
+            ? chats?.find((chat) => chat.opponent?.id === props.userId && !chat.subject)
             : 'group' in props
             ? chats?.find((chat) => {
                   const [prefix, chatGroup] = chat.subject.split(' ')

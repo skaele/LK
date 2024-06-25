@@ -2,6 +2,7 @@ import React from 'react'
 import { SuperiorRoom } from '@api/model'
 import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { SelectPage } from '@features/select'
+import { superiorRoomAlert } from './get-status'
 
 const mAllocationTypes = [
     { id: 0, title: 'Один в комнате' },
@@ -145,7 +146,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
             //     placeholder: 'Желание проживать с другом и т.д.',
             // },
         ],
-        alert: <>Подача заявок открыта с 12:00 7 сентября до 12:00 8 сентября!</>,
+        alert: <>{superiorRoomAlert}</>,
         hint: 'Перед отправкой заявки обязательно проверьте указанную в форме контактную информацию (мобильный телефон и адрес электронной почты) и при необходимости внесите изменения.',
         optionalCheckbox: {
             title: `С приказами об изменении размеров платы за дополнительные услуги № 0597-ОД от 08.06.2021 и № 0032-АХД от 09.03.2022 ознакомлен(а)`,

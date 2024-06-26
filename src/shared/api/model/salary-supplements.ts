@@ -54,7 +54,6 @@ export const getAllowances = async (params?: GetRequestParams) => {
 }
 
 export const createAllowance = async (allowance: SalarySupplementRequest) => {
-    console.log(allowance)
     const { data } = await $salarySupplementsApi.post<ApplicationResult>(`/allowances`, allowance)
     return data
 }

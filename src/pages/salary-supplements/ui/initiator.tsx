@@ -1,11 +1,11 @@
 import useDebounce from '@shared/lib/hooks/use-debounce'
-import { Button } from '@shared/ui/atoms'
+import { Button, Message } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import Search from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { salarySupplementsQuery } from '@entities/salary-supplements/model/salary-supplements-query'
-import { FiPlus } from 'react-icons/fi'
+import { FiInfo, FiPlus } from 'react-icons/fi'
 import Table from '@shared/ui/table'
 import { getSalarySupplementsColumns } from '../lib/get-salary-supplements-columns'
 import { CREATE_SALARY_SUPPLEMENT } from '@app/routes/teacher-routes'
@@ -48,6 +48,9 @@ export const Initiator = () => {
                 />
             }
         >
+            <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                <p>Интерфейс все еще находится в разработке</p>
+            </Message>
             <Search value={searchValue} setValue={setSearchValue} loading={loading} placeholder={'Сотрудник'} />
             <Table
                 // loading={!salarySupplements}

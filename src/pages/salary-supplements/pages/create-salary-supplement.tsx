@@ -1,5 +1,5 @@
 import checkFormFields from '@shared/lib/check-form-fields'
-import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import { FormBlock, Message, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
 import React, { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { useUnit } from 'effector-react'
 import { salarySupplementsModel } from '@entities/salary-supplements'
 import { applicationsModel } from '@entities/applications'
+import { FiInfo } from 'react-icons/fi'
 
 const CreateSalarySupplement = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -35,6 +36,9 @@ const CreateSalarySupplement = () => {
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!employees && (
                 <FormBlock noHeader>
+                    <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                        <p>Интерфейс все еще находится в разработке</p>
+                    </Message>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                     <InputArea {...employees} collapsed={isDone} setData={setEmployees as LoadedState} />
                     <SubmitButton

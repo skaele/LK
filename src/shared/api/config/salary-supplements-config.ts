@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { addAuthHeaderToRequests } from './utils'
 
-const SALARY_SUPPLEMENTS_URL = ''
+const SALARY_SUPPLEMENTS_URL = 'http://apilin.mospolytech.ru:5030/'
 
 export const $salarySupplementsApi = axios.create({ baseURL: SALARY_SUPPLEMENTS_URL })
 

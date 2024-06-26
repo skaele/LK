@@ -16,16 +16,18 @@ const SalarySupplements = () => {
     ])
 
     return (
-        <Loader
-            load={pageMounted}
-            loading={loading}
-            error={error ? (error as Error).message : null}
-            // data={salarySupplements}
-            data={!null}
-            couldBeReloaded
-        >
-            {role === 'initiator' ? <Initiator /> : <Approver />}
-        </Loader>
+        <>
+            <Loader
+                load={pageMounted}
+                loading={loading}
+                error={error ? (error as Error).message : null}
+                // data={salarySupplements}
+                data={!null}
+                couldBeReloaded
+            >
+                {role === 'initiator' ? <Initiator /> : <Approver />}
+            </Loader>
+        </>
     )
 }
 

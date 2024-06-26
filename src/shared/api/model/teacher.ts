@@ -3,4 +3,5 @@ export type TTeacher = {
     fio: string
     divisions: string
     post: string
+    division?: string
 }

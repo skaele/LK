@@ -2,7 +2,7 @@ import { OLD_LK_URL, isProduction } from '@shared/constants'
 import axios, { AxiosError } from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
-export const API_BASE_URL = `${OLD_LK_URL}/lk_api.php`
+export const API_BASE_URL = import.meta.env.MODE === 'development' ? '/api' : `${OLD_LK_URL}/lk_api.php`
 export const API_HR_URL = `https://api.mospolytech.ru/serviceforfrontpersonnelorders`
 
 export const $api = axios.create({ baseURL: API_BASE_URL, withCredentials: true })

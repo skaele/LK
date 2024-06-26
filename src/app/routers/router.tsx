@@ -29,6 +29,7 @@ const Router = () => {
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
+            // chatsModel.events.load()
             tutorialModel.events.getTutorialData()
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()

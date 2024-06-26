@@ -1,31 +1,82 @@
-import { Button, Input } from '@ui/atoms'
-import React, { useState } from 'react'
-import { ImAttachment } from 'react-icons/im'
+import { Button } from '@ui/atoms'
+import React from 'react'
 import { IoMdSend } from 'react-icons/io'
 import styled from 'styled-components'
 
-const ChatInputWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    background: var(--block);
-    padding: 5px 10px;
-    /* box-shadow: 0 0 1px #00000039; */
-    box-shadow: 3px -2px 3px #00000029;
+import { chatModel } from '@entities/chats'
+import { chatsMessageModel } from '@features/chat/model'
+import ListOfFiles from '@shared/ui/file-input/ui/list-of-files'
+import { RichTextInput } from '@shared/ui/rich-text-input'
+import { UploadFileButton } from '@shared/ui/upload-file-button'
+import { useUnit } from 'effector-react'
+import { MEDIA_QUERIES } from '@shared/constants'
+import sanitize from 'sanitize-html'
 
-    input {
-        background: var(--block);
+export const ChatInput = () => {
+    const [message, selectedChat] = useUnit([chatsMessageModel.stores.currentMessage, chatModel.stores.selectedChat])
+
+    const handleFileUploaded = (files: File[]) => {
+        chatsMessageModel.events.changed({ ...message, files: [...message.files, ...files] })
     }
-`
 
-const ChatInput = () => {
-    const [message, setMessage] = useState<string>('')
+    if (selectedChat?.subject && selectedChat.lastmessage.from === 'opponent') {
+        return null
+    }
+
     return (
         <ChatInputWrapper>
-            <Button icon={<ImAttachment />} onClick={() => null} background="transparent" />
-            <Input value={message} setValue={setMessage} placeholder="Введите сообщение..." />
-            <Button icon={<IoMdSend />} onClick={() => null} background="transparent" />
+            <ActionsWrapper>
+                <UploadFileButton setFiles={handleFileUploaded} />
+                <RichTextInput
+                    key={selectedChat?.id}
+                    value={message.text}
+                    setValue={(value: string) => chatsMessageModel.events.changed({ ...message, text: value })}
+                    placeholder={'Введите сообщение...'}
+                />
+                <Button
+                    icon={<IoMdSend />}
+                    onClick={() => chatsMessageModel.events.sended()}
+                    background="transparent"
+                    isActive={
+                        !!sanitize(message.text, {
+                            allowedTags: [],
+                        }).trim()
+                    }
+                />
+            </ActionsWrapper>
+
+            <StyledListOfFiles
+                hideHeader
+                files={message.files}
+                setFiles={(files) => {
+                    chatsMessageModel.events.changed({ ...message, files })
+                }}
+            />
         </ChatInputWrapper>
     )
 }
 
-export default ChatInput
+const ChatInputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    background: var(--block-content);
+    padding: 8px 16px;
+    border-top: 1px solid #00000018;
+
+    gap: 8px;
+    max-width: 100%;
+`
+
+const ActionsWrapper = styled.div`
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+`
+
+const StyledListOfFiles = styled(ListOfFiles)`
+    padding: 0 48px 0 46px;
+
+    ${MEDIA_QUERIES.isMobile} {
+        padding: 0;
+    }
+`

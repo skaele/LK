@@ -21,6 +21,10 @@ import React, { useMemo, useState } from 'react'
 import { User } from 'widgets'
 import NotificationList from 'widgets/lk-notification-list/ui/list'
 import getDataLength from '../lib/get-data-length'
+import { phonebookModel } from '@entities/phonebook'
+import { useUnit } from 'effector-react'
+import { findEmployee } from '@pages/all-staff/lib/find-employee'
+import { Employee } from '@shared/api/model/phonebook'
 
 type SearchConfig = {
     title: string
@@ -30,13 +34,32 @@ type SearchConfig = {
     search: (value: string) => Promise<void> | void
 }[]
 
-const FoundPeople = ({ people, type }: { people: (TTeacher | TStudent)[] | null; type: 'stud' | 'staff' }) => {
+const FoundPeople = ({
+    people,
+    type,
+}: {
+    people: (TTeacher | TStudent | Employee)[] | null
+    type: 'stud' | 'staff'
+}) => {
     if (!people || people.length === 0) return null
 
     return (
         <Flex d="column">
             {people.map((s) => (
-                <User name={s.fio} type={type} {...s} key={s.id} />
+                <User
+                    id={'guid_person' in s ? s.guid_person : s.id}
+                    name={s.fio}
+                    type={type}
+                    {...s}
+                    key={'id' in s ? s.id : s.guid_person}
+                    division={
+                        'division' in s
+                            ? s.division
+                            : 'job' in s
+                            ? s.job.find((j) => j.post === s.post)?.subdivision
+                            : ''
+                    }
+                />
             ))}
         </Flex>
     )
@@ -48,6 +71,7 @@ const useSearchConfig = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
+    const subdivisions = useUnit(phonebookModel.stores.subdivisions)
     const isStaff = user?.user_status === 'staff'
 
     const mergedPages = useMemo(
@@ -61,7 +85,7 @@ const useSearchConfig = () => {
     )
     const [groups, setGroups] = useState<string[] | null>(null)
     const [divisions, setDivisions] = useState<string[] | null>(null)
-    const [staff, setStaff] = useState<TTeacher[] | null>(null)
+    const [staff, setStaff] = useState<(TTeacher | Employee)[] | null>(null)
     const [students, setStudents] = useState<TStudent[] | null>(null)
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [foundNotifications, setFoundNotifications] = useState<TNotification[] | null>(null)
@@ -102,8 +126,14 @@ const useSearchConfig = () => {
                 setStaff(null)
             },
             search: async (value) => {
-                const { data } = await teacherApi.get(value, '', 1, 20)
-                setStaff(data.items)
+                if (isStaff) {
+                    if (!subdivisions) return
+                    const staff = findEmployee(subdivisions, value)
+                    setStaff(staff)
+                } else {
+                    const { data } = await teacherApi.get(value, '', 1, 20)
+                    setStaff(data.items)
+                }
             },
         },
         {

@@ -9,7 +9,7 @@ const AttachmentsWrapper = styled.div`
     }
 `
 
-const Attachments = () => {
+export const Attachments = () => {
     return (
         <AttachmentsWrapper>
             <Title size={2} align="left">
@@ -18,5 +18,3 @@ const Attachments = () => {
         </AttachmentsWrapper>
     )
 }
-
-export default Attachments

@@ -22,7 +22,7 @@ const Allowances = () => {
         return (
             <>
                 <Loader
-                    load={() => pageMounted({ role, userId: user.currentUser.guid })}
+                    load={() => pageMounted({ role, userId: user.currentUser?.guid ?? '' })}
                     loading={loading}
                     error={error ? (error as Error).message : null}
                     data={Allowances}
@@ -33,6 +33,8 @@ const Allowances = () => {
             </>
         )
     }
+
+    return null
 }
 
 export default Allowances

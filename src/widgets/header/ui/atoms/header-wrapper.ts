@@ -15,10 +15,12 @@ const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }
     transition: 0.1s background;
     color: var(--text);
     display: ${({ hidden = false }) => (hidden ? 'none' : 'flex')};
+    background-color: var(--theme);
 
     & .back-button-wrapper button {
         transform: translateX(${({ headerVisible }) => (headerVisible ? '-35px' : '0')});
     }
+
     ${MEDIA_QUERIES.isTablet} {
         & .back-button-wrapper button {
             transform: translateX(${({ headerVisible }) => (headerVisible ? '-25px' : '0')});

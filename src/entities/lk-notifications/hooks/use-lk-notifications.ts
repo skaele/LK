@@ -37,7 +37,7 @@ const useLkNotifications = () => {
 
     useEffect(() => {
         if (!!user && !!notificationSettings) {
-            if (notificationSettings.all !== false && !loaded && !loading) {
+            if (Object.values(notificationSettings).some(Boolean) && !loaded && !loading) {
                 const scheduleNotification: NotificationsResponse = [
                     { id: 'schedule', type: 'schedule', title: 'Скоро пара!', text: 'Осталось меньше 15 мин.' },
                 ]

@@ -16,13 +16,14 @@ const GlobalStyles = createGlobalStyle`
 
 	#root {
 		display: flex;
-		height: 100%;
-		max-height: 100%;
+		height: 100vh;
+    	height: 100svh;
+   		height: 100dvh;
+		overflow: hidden;
 	}
 
-	body {
+	html, body {
 		-webkit-overflow-scrolling: touch;
-		scrollbar-gutter: stable;
 		position: relative;
 		height: 100vh;
     	height: 100svh;
@@ -35,11 +36,11 @@ const GlobalStyles = createGlobalStyle`
 		::-webkit-scrollbar {
 			width: 14px;
 		}
-	
+
 		::-webkit-scrollbar-track {
 			background-color: transparent;
 		}
-	
+
 		::-webkit-scrollbar-thumb {
 			border-radius: 100px;
 			border: 4px solid transparent;

@@ -1,12 +1,12 @@
 import { menuModel } from '@entities/menu'
 import { UserSettings } from '@entities/settings/types'
+import { userModel } from '@entities/user'
 import { lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
-import { TNotification } from '../types'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
-import { userModel } from '@entities/user'
+import { TNotification } from '../types'
 
 type TStore = {
     notifications: TNotification[]

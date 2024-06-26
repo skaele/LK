@@ -1,9 +1,9 @@
 import React from 'react'
-import { SalarySupplementConstants, SalarySupplementStatusType } from '@entities/salary-supplements/consts'
+import { AllowanceConstants, AllowanceStatusType } from '@entities/allowances/consts'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
 
-export const getSalarySupplementsColumns = (): ColumnProps[] => {
+export const getAllowancesColumns = (): ColumnProps[] => {
     return [
         { title: 'Заявление', field: 'application', priority: 'three', width: '150px', search: true },
         {
@@ -21,9 +21,9 @@ export const getSalarySupplementsColumns = (): ColumnProps[] => {
             priority: 'one',
             width: '165px',
             catalogs: [
-                ...(Object.values(SalarySupplementConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+                ...(Object.values(AllowanceConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
-            render: (value: SalarySupplementStatusType) => {
+            render: (value: AllowanceStatusType) => {
                 return (
                     <Message
                         type={

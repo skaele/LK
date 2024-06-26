@@ -1,17 +1,17 @@
-export type SalarySupplementsApprovalStatus = null
+export type AllowancesApprovalStatus = null
 
 export type HandbookItem = {
     id: string
     name: string
 }
 
-export type SalarySupplement = {
+export type Allowance = {
     id: string
     activityArea: HandbookItem
     fundingSource: HandbookItem
     allowanceType: HandbookItem
     commentary: string
-    employees: (Employee & { approvalStatus: SalarySupplementsApprovalStatus })[]
+    employees: (Employee & { approvalStatus: AllowancesApprovalStatus })[]
 }
 
 export type Employee = {

@@ -10,8 +10,8 @@ import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_C
 import { combine, createEvent, createStore, sample } from 'effector'
 import { useUnit } from 'effector-react'
 import findRoutesByConfig from '../lib/find-routes-by-config'
-import { Role } from '@entities/salary-supplements/types'
-import { salarySupplementsModel } from '@entities/salary-supplements'
+import { Role } from '@entities/allowances/types'
+import { allowancesModel } from '@entities/allowances'
 
 export interface Menu {
     allRoutes: IRoutes | null
@@ -105,7 +105,7 @@ const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    salarySupplementsModel.stores.role,
+    allowancesModel.stores.role,
     (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
@@ -122,7 +122,7 @@ const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    salarySupplementsModel.stores.role,
+    allowancesModel.stores.role,
     (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
@@ -140,7 +140,7 @@ sample({
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
-        supplementRole: salarySupplementsModel.stores.role,
+        supplementRole: allowancesModel.stores.role,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore.currentUser)

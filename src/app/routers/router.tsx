@@ -9,7 +9,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
-import { salarySupplementsModel } from '@entities/salary-supplements'
+import { allowancesModel } from '@entities/allowances'
 
 const Router = () => {
     const {
@@ -34,7 +34,7 @@ const Router = () => {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()
                 phonebookModel.events.getSubdivisions()
-                salarySupplementsModel.events.appStarted()
+                allowancesModel.events.appStarted()
                 loadDivisions()
             }
             peTeacherModel.events.load()

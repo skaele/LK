@@ -1,4 +1,4 @@
-export const SalarySupplementConstants = {
+export const AllowanceConstants = {
     ready: 'Готово',
     completed: 'Выполнена',
     issued: 'Выдано',
@@ -9,4 +9,4 @@ export const SalarySupplementConstants = {
     rejected: 'Отклонено',
 } as const
 
-export type SalarySupplementStatusType = (typeof SalarySupplementConstants)[keyof typeof SalarySupplementConstants]
+export type AllowanceStatusType = (typeof AllowanceConstants)[keyof typeof AllowanceConstants]

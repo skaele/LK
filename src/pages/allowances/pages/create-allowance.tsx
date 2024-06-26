@@ -7,11 +7,11 @@ import { LoadedState } from 'widgets/template-form'
 import { getEmployees, getForm } from '../lib/get-form'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useUnit } from 'effector-react'
-import { salarySupplementsModel } from '@entities/salary-supplements'
+import { allowancesModel } from '@entities/allowances'
 import { applicationsModel } from '@entities/applications'
 import { FiInfo } from 'react-icons/fi'
 
-const CreateSalarySupplement = () => {
+const CreateAllowance = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [employees, setEmployees] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
@@ -21,8 +21,8 @@ const CreateSalarySupplement = () => {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
     const [createSupplement, loading] = useUnit([
-        salarySupplementsModel.events.createSupplement,
-        salarySupplementsModel.mutations.createSupplement.$pending,
+        allowancesModel.events.createSupplement,
+        allowancesModel.mutations.createSupplement.$pending,
     ])
 
     useEffect(() => {
@@ -62,4 +62,4 @@ const CreateSalarySupplement = () => {
     )
 }
 
-export default CreateSalarySupplement
+export default CreateAllowance

@@ -1,6 +1,6 @@
 import { createEvent, createStore, sample } from 'effector'
-import { Role, SalarySupplement } from '../types'
-import { createAllowance, initRequest } from '@shared/api/model/salary-supplements'
+import { Role, Allowance } from '../types'
+import { createAllowance, initRequest } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
@@ -14,7 +14,7 @@ const createSupplementMutation = createMutation({
 })
 
 const $role = createStore<Role | null>(null)
-const $chosen = createStore<SalarySupplement | null>(null)
+const $chosen = createStore<Allowance | null>(null)
 const supplementsStateQuery = createQuery({
     handler: initRequest,
 })

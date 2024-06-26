@@ -129,6 +129,8 @@ export const createFormStore = <DataType, PostDataType>({
             useForm,
         },
         effects: {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             getFormFx,
             postFormFx,
         },

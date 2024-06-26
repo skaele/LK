@@ -56,7 +56,7 @@ export const ButtonWrapper = styled.button<{
     &:hover {
         background: ${({ hoverBackground, isChosen, background }) =>
             hoverBackground ?? (isChosen ? 'var(--blue)' : background ?? 'var(--search)')};
-        filter: brightness(0.97);
+        filter: brightness(0.9);
         color: ${({ hoverTextColor }) => hoverTextColor};
     }
 

@@ -12,7 +12,7 @@ import PopUpNotifications from 'widgets/pop-up-notifications'
 import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
-import { ContentWrapper, PageContent, Wrapper } from './styled'
+import { ContentWrapper, PageContent } from './styled'
 import { TutorialHero } from 'widgets/tutorial'
 import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
 import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
@@ -30,16 +30,31 @@ const ContentLayout = () => {
         setHeaderVisible(e.currentTarget.scrollTop > 0)
     }
 
+    // const [isScrolled, setIsScrolled] = useState(false)
+
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         setIsScrolled(window.scrollY > 0)
+    //     }
+
+    //     window.addEventListener('scroll', handleScroll)
+
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll)
+    //     }
+    // }, [])
+
     useScrollToTop(pageContentRef.current!)
     useSetTutorial()
 
     return (
-        <Wrapper>
+        <>
             <InitialLoader loading={!user || !allRoutes} />
             <Story />
             <LeftSideBarTutorial
             // tutorialModule={{ id: 'sidebar', step: 0, params: { noPadding: true } }}
             />
+
             <ContentWrapper>
                 <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
                 <PageContent
@@ -62,7 +77,7 @@ const ContentLayout = () => {
             <HintModal />
             <TutorialHero />
             <PopUpNotifications />
-        </Wrapper>
+        </>
     )
 }
 

@@ -11,13 +11,16 @@ const TeacherWithModalWrapper = styled.strong`
 `
 
 interface Props {
+    id: number | string
     fio: string
 }
 
-const TeacherWithModal = ({ fio }: Props) => {
+const TeacherWithModal = ({ fio, id }: Props) => {
     const { open } = useModal()
 
-    return <TeacherWithModalWrapper onClick={() => open(<StaffModal name={fio} />)}>{fio}</TeacherWithModalWrapper>
+    return (
+        <TeacherWithModalWrapper onClick={() => open(<StaffModal id={id} name={fio} />)}>{fio}</TeacherWithModalWrapper>
+    )
 }
 
 export default TeacherWithModal

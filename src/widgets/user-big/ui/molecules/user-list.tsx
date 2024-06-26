@@ -24,7 +24,7 @@ const UserList = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
-    const [chosenUsers, setChosenUsers] = useState<string[]>([])
+    const [chosenUsers, setChosenUsers] = useState<number[]>([])
 
     const handleCheck = (user: UserType) => {
         if (chosenUsers.includes(user.id)) {
@@ -37,7 +37,8 @@ const UserList = () => {
     const renderItem = (item: UserType, isMe: boolean, index?: number) => {
         return (
             <User
-                checked={!!chosenUsers.find((el) => el === item.id)}
+                id={item.id}
+                checked={!!chosenUsers.find((el) => el.toString() === item.id.toString())}
                 name={item.fullName}
                 avatar={item?.avatar}
                 type={item.user_status}

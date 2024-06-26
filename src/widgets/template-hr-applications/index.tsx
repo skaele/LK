@@ -89,7 +89,7 @@ const LinksList = styled.div`
         gap: 16px;
     }
 `
-export interface Section {
+interface Section {
     title: string
     disabled?: boolean
     links: { title: string; link: string; isExternalLink?: boolean; isOpenInNewWindow?: boolean }[]

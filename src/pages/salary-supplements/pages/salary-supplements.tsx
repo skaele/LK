@@ -21,8 +21,7 @@ const SalarySupplements = () => {
                 load={pageMounted}
                 loading={loading}
                 error={error ? (error as Error).message : null}
-                // data={salarySupplements}
-                data={!null}
+                data={salarySupplements}
                 couldBeReloaded
             >
                 {role === 'initiator' ? <Initiator /> : <Approver />}

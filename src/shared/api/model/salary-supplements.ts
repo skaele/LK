@@ -41,7 +41,7 @@ type ApplicationResult = { applicationId: string; result: string }
 export const getAllowances = async (params?: GetRequestParams) => {
     try {
         const { data } = await $salarySupplementsApi
-            .get<SalarySupplement[]>(`/allowances`, {
+            .get<SalarySupplement[]>(`/allowances/get-handbook/AllowanceType`, {
                 params: params,
             })
             .catch((e) => {
@@ -60,8 +60,9 @@ export const createAllowance = async (allowance: SalarySupplementRequest) => {
 
 // TODO: implement on backend
 export const initRequest = async () => {
-    const { data } = await $salarySupplementsApi.get(``)
-    return data
+    // const { data } = await $salarySupplementsApi.get(``)
+    // return data
+    return 'initiator'
 }
 
 export const getSupplementHandbook = async (handbookName: string) => {

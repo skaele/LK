@@ -1,8 +1,8 @@
 import { createMutation } from '@farfetched/core'
-import { changeTutorialState } from '@shared/api/tutorail-api'
-import { tutorialModel } from '..'
+import { tutorialModel } from '../index'
 import { sample } from 'effector'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { changeTutorialState } from '@shared/api/tutorial-api'
 
 export const changeTutorialStateMutation = createMutation({
     handler: changeTutorialState,

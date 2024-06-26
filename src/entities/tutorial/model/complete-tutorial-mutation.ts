@@ -1,9 +1,8 @@
 import { createMutation } from '@farfetched/core'
 import { tutorialModel } from '..'
 import { sample } from 'effector'
-import { completeModule } from '@shared/api/tutorail-api'
+import { completeModule } from '@shared/api/tutorial-api'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { getTutorialDataQuery } from './get-tutorial-data-query'
 
 export const completeModuleMutation = createMutation({
     handler: completeModule,
@@ -16,7 +15,7 @@ sample({
 
 sample({
     clock: completeModuleMutation.$succeeded,
-    target: getTutorialDataQuery.start,
+    target: tutorialModel.queries.getTutorialDataQuery.start,
 })
 
 sample({

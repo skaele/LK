@@ -1,5 +1,7 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Module, Modules, TutorialId } from '../types'
+import { createQuery } from '@farfetched/core'
+import { getUserTutorials } from '@shared/api/tutorial-api'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -99,6 +101,33 @@ sample({
     target: $tutorials,
 })
 
+const getTutorialDataQuery = createQuery({
+    handler: getUserTutorials,
+})
+
+sample({
+    clock: getTutorialData,
+    target: getTutorialDataQuery.start,
+})
+
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { tutorialState } }) => tutorialState,
+    target: $tutorialState,
+})
+
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { tutorials } }) => tutorials,
+    target: $tutorials,
+})
+
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { interactions } }) => interactions,
+    target: $interactions,
+})
+
 export const stores = {
     tutorialState: $tutorialState,
     currentModule: $currentModule,
@@ -120,4 +149,8 @@ export const events = {
     clearProgress,
     resetStep,
     increasedInteractions,
+}
+
+export const queries = {
+    getTutorialDataQuery,
 }

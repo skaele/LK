@@ -1,9 +1,8 @@
 import { createMutation } from '@farfetched/core'
-import { resetTutorial } from '@shared/api/tutorail-api'
+import { resetTutorial } from '@shared/api/tutorial-api'
 import { tutorialModel } from '..'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { sample } from 'effector'
-import { getTutorialDataQuery } from './get-tutorial-data-query'
 
 export const resetTutorialMutation = createMutation({
     handler: resetTutorial,
@@ -16,7 +15,7 @@ sample({
 
 sample({
     clock: resetTutorialMutation.$succeeded,
-    target: getTutorialDataQuery.start,
+    target: tutorialModel.queries.getTutorialDataQuery.start,
 })
 
 sample({

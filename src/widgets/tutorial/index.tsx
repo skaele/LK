@@ -11,14 +11,16 @@ import styled from 'styled-components'
 
 export const TutorialHero = () => {
     const [isDeleted, setIsDeleted] = useState(false)
-    const [heroVisited, tutorialEnabled, setHeroVisited] = useUnit([
+    const [heroVisitedNow, setHeroVisitedNow] = useState(false)
+    const [heroVisited, tutorialState, tutorialEnabled, setHeroVisited] = useUnit([
         tutorialModel.stores.heroVisited,
+        tutorialModel.stores.tutorialState,
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.setHeroVisited,
     ])
 
     const { isMobile, isTablet } = useCurrentDevice()
-    if (heroVisited && !isDeleted) return null
+    if (tutorialState || heroVisited || (heroVisitedNow && !isDeleted)) return null
 
     return (
         <TutorialHeroLayout onMouseUp={() => setHeroVisited(true)}>
@@ -48,6 +50,7 @@ export const TutorialHero = () => {
                             onClick={() => {
                                 tutorialEnabled(false)
                                 setHeroVisited(true)
+                                setHeroVisitedNow(true)
                                 setIsDeleted(true)
 
                                 setTimeout(() => {
@@ -66,6 +69,7 @@ export const TutorialHero = () => {
                             onClick={() => {
                                 tutorialEnabled(true)
                                 setHeroVisited(true)
+                                setHeroVisitedNow(true)
                                 setIsDeleted(true)
 
                                 setTimeout(() => {

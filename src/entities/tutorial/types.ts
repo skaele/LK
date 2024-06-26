@@ -8,5 +8,5 @@ export type Modules = { [id in TutorialId]: Module }
 export type Tutorials = {
     tutorialState: boolean
     interactions: number
-    tutorials: Modules
+    tutorials: [{ id: TutorialId; completed: boolean }]
 }

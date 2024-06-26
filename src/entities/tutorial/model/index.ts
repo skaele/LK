@@ -1,7 +1,16 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Module, Modules, TutorialId } from '../types'
-import { createQuery } from '@farfetched/core'
-import { getUserTutorials } from '@shared/api/tutorial-api'
+import { createMutation, createQuery } from '@farfetched/core'
+import {
+    callUserInteraction,
+    changeTutorialState,
+    completeModule,
+    getUserTutorials,
+    initializeTutorials,
+    resetTutorial,
+} from '@shared/api/tutorial-api'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { commonTutorialIds, commonTutorials } from '../lib/tutorials'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -104,10 +113,19 @@ sample({
 const getTutorialDataQuery = createQuery({
     handler: getUserTutorials,
 })
+const updatedQuery = createQuery({
+    handler: initializeTutorials,
+})
 
 sample({
     clock: getTutorialData,
     target: getTutorialDataQuery.start,
+})
+
+sample({
+    clock: getTutorialData,
+    fn: () => commonTutorialIds,
+    target: updatedQuery.start,
 })
 
 sample({
@@ -118,7 +136,16 @@ sample({
 
 sample({
     clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorials } }) => tutorials,
+    fn: ({ result: { tutorials } }) =>
+        tutorials.reduce((acc, tutorial) => {
+            return {
+                ...acc,
+                [tutorial.id]: {
+                    ...commonTutorials[tutorial.id],
+                    ...tutorial,
+                },
+            }
+        }, {} as Modules),
     target: $tutorials,
 })
 
@@ -126,6 +153,94 @@ sample({
     clock: getTutorialDataQuery.finished.success,
     fn: ({ result: { interactions } }) => interactions,
     target: $interactions,
+})
+
+const callInteractionMutation = createQuery({
+    handler: callUserInteraction,
+})
+
+sample({
+    clock: increasedInteractions,
+    target: callInteractionMutation.start,
+})
+
+const changeTutorialStateMutation = createMutation({
+    handler: changeTutorialState,
+})
+
+sample({
+    clock: tutorialEnabled,
+    target: changeTutorialStateMutation.start,
+})
+
+sample({
+    clock: changeTutorialStateMutation.$succeeded,
+    source: changeTutorialStateMutation.__.$latestParams,
+    filter: Boolean,
+    target: $tutorialState,
+})
+
+sample({
+    clock: changeTutorialStateMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось сохранить данные о прохождении',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+const resetTutorialMutation = createMutation({
+    handler: resetTutorial,
+})
+
+sample({
+    clock: clearProgress,
+    target: resetTutorialMutation.start,
+})
+
+sample({
+    clock: resetTutorialMutation.$succeeded,
+    target: getTutorialDataQuery.start,
+})
+
+sample({
+    clock: resetTutorialMutation.$succeeded,
+    fn: () => ({
+        message: 'Прогресс успешно сброшен',
+        type: 'success' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: resetTutorialMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось сбросить данные о прохождении',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+const completeModuleMutation = createMutation({
+    handler: completeModule,
+})
+
+sample({
+    clock: moduleCompleted,
+    target: completeModuleMutation.start,
+})
+
+sample({
+    clock: completeModuleMutation.$succeeded,
+    target: getTutorialDataQuery.start,
+})
+
+sample({
+    clock: completeModuleMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось сохранить данные о прохождении',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 export const stores = {
@@ -153,4 +268,5 @@ export const events = {
 
 export const queries = {
     getTutorialDataQuery,
+    callInteractionMutation,
 }

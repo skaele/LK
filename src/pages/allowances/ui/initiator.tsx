@@ -4,7 +4,7 @@ import PageBlock from '@shared/ui/page-block'
 import Search from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
-import { AllowancesQuery } from '@entities/allowances/model/allowances-query'
+import { allowancesQuery } from '@entities/allowances/model/allowances-query'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 import Table from '@shared/ui/table'
 import { getAllowancesColumns } from '../lib/get-allowances-columns'
@@ -13,7 +13,7 @@ import { CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 
 export const Initiator = () => {
     const history = useHistory()
-    const [Allowances] = useUnit([AllowancesQuery.$data])
+    const [allowances] = useUnit([allowancesQuery.$data])
 
     const [lastSearch, setLastSearch] = useState('')
     const [fio, setFio] = useState('')
@@ -56,7 +56,7 @@ export const Initiator = () => {
                 // loading={!Allowances}
                 loading={false}
                 columns={getAllowancesColumns()}
-                data={Allowances}
+                data={allowances}
                 maxOnPage={7}
             />
         </PageBlock>

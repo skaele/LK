@@ -1,11 +1,11 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Role, Allowance } from '../types'
-import { createAllowance, initRequest } from '@shared/api/model/allowances'
+import { createAllowance, getHandbook, initRequest } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 
-const pageMounted = createEvent()
+const pageMounted = createEvent<{ role: Role; userId: string }>()
 const appStarted = createEvent()
 const createSupplement = createEvent<{ form: IInputArea; employees: IInputArea }>()
 
@@ -17,6 +17,15 @@ const $role = createStore<Role | null>(null)
 const $chosen = createStore<Allowance | null>(null)
 const supplementsStateQuery = createQuery({
     handler: initRequest,
+})
+const allowanceTypesQuery = createQuery({
+    handler: getHandbook,
+})
+const fundingSourcesQuery = createQuery({
+    handler: getHandbook,
+})
+const activityAreasQuery = createQuery({
+    handler: getHandbook,
 })
 
 sample({
@@ -43,6 +52,22 @@ sample({
     target: $role,
 })
 
+sample({
+    clock: pageMounted,
+    fn: () => 'AllowanceType' as const,
+    target: allowanceTypesQuery.start,
+})
+sample({
+    clock: pageMounted,
+    fn: () => 'FundingSource' as const,
+    target: fundingSourcesQuery.start,
+})
+sample({
+    clock: pageMounted,
+    fn: () => 'ActivityArea' as const,
+    target: activityAreasQuery.start,
+})
+
 export const events = {
     pageMounted,
     appStarted,
@@ -51,6 +76,9 @@ export const events = {
 
 export const queries = {
     supplements: supplementsStateQuery,
+    allowanceTypes: allowanceTypesQuery,
+    fundingSources: fundingSourcesQuery,
+    activityAreas: activityAreasQuery,
 }
 
 export const mutations = {

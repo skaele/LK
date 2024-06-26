@@ -20,14 +20,17 @@ const CreateAllowance = () => {
     const {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
-    const [createSupplement, loading] = useUnit([
+    const [createSupplement, loading, allowanceTypes, fundingSources, activityAreas] = useUnit([
         allowancesModel.events.createSupplement,
         allowancesModel.mutations.createSupplement.$pending,
+        allowancesModel.queries.allowanceTypes.$data,
+        allowancesModel.queries.fundingSources.$data,
+        allowancesModel.queries.activityAreas.$data,
     ])
 
     useEffect(() => {
-        if (!!dataUserApplication) {
-            setForm(getForm(dataUserApplication))
+        if (!!dataUserApplication && !!allowanceTypes && !!fundingSources && !!activityAreas) {
+            setForm(getForm(dataUserApplication, fundingSources, allowanceTypes, activityAreas))
             setEmployees(getEmployees())
         }
     }, [])

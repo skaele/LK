@@ -1,9 +1,15 @@
+import { HandbookItem } from '@entities/allowances/types'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
-export const getForm = (data: UserApplication): IInputArea => {
+export const getForm = (
+    data: UserApplication,
+    fundingSources: HandbookItem[],
+    allowanceTypes: HandbookItem[],
+    activityAreas: HandbookItem[],
+): IInputArea => {
     const subdivisions = getFormattedSubDivisions(data.subdivisions)
     return {
         title: 'Установление надбавок',
@@ -32,11 +38,14 @@ export const getForm = (data: UserApplication): IInputArea => {
                 fieldName: 'activityAreaId',
                 title: 'Направление деятельности',
                 type: 'select',
-                value: getDefaultSubdivision(data.subdivisions),
+                value: null,
                 required: true,
-                editable: subdivisions.length > 1,
+                editable: activityAreas.length > 1,
                 width: '100',
-                items: subdivisions,
+                items: activityAreas.map((item) => ({
+                    id: item.id,
+                    title: item.name,
+                })),
                 isSpecificSelect: true,
             },
             {
@@ -45,9 +54,12 @@ export const getForm = (data: UserApplication): IInputArea => {
                 type: 'select',
                 value: getDefaultSubdivision(data.subdivisions),
                 required: true,
-                editable: subdivisions.length > 1,
+                editable: fundingSources.length > 1,
                 width: '100',
-                items: subdivisions,
+                items: fundingSources.map((item) => ({
+                    id: item.id,
+                    title: item.name,
+                })),
                 isSpecificSelect: true,
             },
             {
@@ -56,9 +68,12 @@ export const getForm = (data: UserApplication): IInputArea => {
                 type: 'select',
                 value: getDefaultSubdivision(data.subdivisions),
                 required: true,
-                editable: subdivisions.length > 1,
+                editable: allowanceTypes.length > 1,
                 width: '100',
-                items: subdivisions,
+                items: allowanceTypes.map((item) => ({
+                    id: item.id,
+                    title: item.name,
+                })),
                 isSpecificSelect: true,
             },
             {
@@ -74,7 +89,7 @@ export const getForm = (data: UserApplication): IInputArea => {
 export const getEmployees = (): IInputArea => {
     return {
         title: 'Сотрудники',
-        id: 'employees',
+        id: 'allowanceEmployees',
         data: [],
         default: [
             [

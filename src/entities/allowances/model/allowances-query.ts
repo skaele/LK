@@ -3,11 +3,11 @@ import { allowancesModel } from '..'
 import { sample } from 'effector'
 import { getAllowances } from '@shared/api/model/allowances'
 
-export const AllowancesQuery = createQuery({
+export const allowancesQuery = createQuery({
     handler: getAllowances,
 })
 
 sample({
     clock: allowancesModel.events.pageMounted,
-    target: AllowancesQuery.start,
+    target: allowancesQuery.start,
 })

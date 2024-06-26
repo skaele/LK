@@ -5,6 +5,8 @@ export type HandbookItem = {
     name: string
 }
 
+export type HandbookType = 'AllowanceType' | 'FundingSource' | 'ActivityArea'
+
 export type Allowance = {
     id: string
     activityArea: HandbookItem

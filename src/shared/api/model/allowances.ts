@@ -1,4 +1,11 @@
-import { Employee, HandbookItem, Allowance, AllowancesApprovalStatus } from '@entities/allowances/types'
+import {
+    Employee,
+    HandbookItem,
+    Allowance,
+    AllowancesApprovalStatus,
+    HandbookType,
+    Role,
+} from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
 
 type DocumentType = null
@@ -28,15 +35,36 @@ type AllowanceRequest = {
     fundingSourceId: string
     allowanceTypeId: string
     commentary: string
-    employees: Employee[]
+    allowanceEmployees: Employee[]
 }
 
 type ApplicationResult = { applicationId: string; result: string }
 
-export const getAllowances = async (params?: GetRequestParams) => {
+// TODO: implement on backend
+export const initRequest = async () => {
+    // const { data } = await $allowancesApi.get(``)
+    // return data
+    return 'initiator'
+}
+
+export const getHandbook = async (handbookName: HandbookType) => {
+    const { data } = await $allowancesApi.get<HandbookItem[]>('allowances/get-handbook/' + handbookName)
+    return data
+}
+
+export const getAllowances = async ({
+    role,
+    userId,
+    params,
+}: {
+    role: Role
+    userId: string
+    params?: GetRequestParams
+}) => {
     try {
         const { data } = await $allowancesApi
-            .get<Allowance[]>(`/allowances/get-handbook/AllowanceType`, {
+            // TODO: get rid of role, id
+            .get<Allowance[]>(`/allowances/${role}/${userId}/get-allowances`, {
                 params: params,
             })
             .catch((e) => {
@@ -48,33 +76,49 @@ export const getAllowances = async (params?: GetRequestParams) => {
     }
 }
 
-export const createAllowance = async (allowance: AllowanceRequest) => {
-    const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances`, allowance)
+export const inspectAllowance = async ({
+    allowanceId,
+    role,
+    userId,
+}: {
+    role: Role
+    allowanceId: string
+    userId: string
+}) => {
+    const { data } = await $allowancesApi.get<ApplicationResult>(
+        `allowances/allowance/${allowanceId}/get-employees/${role}/${userId}`,
+    )
     return data
 }
 
-// TODO: implement on backend
-export const initRequest = async () => {
-    // const { data } = await $allowancesApi.get(``)
-    // return data
-    return 'initiator'
-}
-
-export const getSupplementHandbook = async (handbookName: string) => {
-    const { data } = await $allowancesApi.get<HandbookItem[]>(`allowances/GetHandbook/${handbookName}`)
+export const createAllowance = async (allowance: AllowanceRequest) => {
+    const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/add-allowance`, {
+        ...allowance,
+        initiatorId: '96d4f97d-8adf-4fd3-ad4d-394eaddebb0f',
+        allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
+            ...emloyee,
+            sum: 100,
+            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            fio: undefined,
+            division: {
+                id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                name: 'ЭТО ТОЧНО НУЖНО УБРАТЬ, ТАК ДЕЛАТЬ НЕ НАДО',
+            },
+        })),
+    })
     return data
 }
 
 // TODO: take approverID from token
 export const approveAllowance = async (
     allowanceId: string,
-    approverId: string,
+    approverEmployeeId: string,
     employeeId: string,
     approvalStatus: AllowancesApprovalStatus,
 ) => {
-    await $allowancesApi.post<ApplicationResult>(`allowances/SetAllowanceVerdict`, {
+    await $allowancesApi.post<ApplicationResult>(`allowances/set-verdict`, {
         allowanceId,
-        approverId,
+        approverEmployeeId,
         employeeId,
         approvalStatus,
     })

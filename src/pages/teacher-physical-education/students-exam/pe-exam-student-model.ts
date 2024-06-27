@@ -20,7 +20,7 @@ const loadFx = attach({
     source: $selectedGroup,
     effect: async (group) => {
         const { students } = await pERequest<{ students: { items: PEStudent[] } }>(
-            getPEStudentsQuery(0, getFilters({ 'group.groupName': { value: group ?? '', strict: true } }), 1000),
+            getPEStudentsQuery(0, getFilters({ 'group.groupName': { value: group ?? '', strict: true } }), 100),
         )
 
         return students

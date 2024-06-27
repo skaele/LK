@@ -10,7 +10,7 @@ import { userModel } from '@entities/user'
 const Allowances = () => {
     const [pageMounted, role, Allowances, loading, error, user] = useUnit([
         allowancesModel.events.pageMounted,
-        allowancesModel.stores.role,
+        allowancesModel.queries.role.$data,
         allowancesQuery.$data,
         allowancesQuery.$pending,
         allowancesQuery.$error,
@@ -22,13 +22,13 @@ const Allowances = () => {
         return (
             <>
                 <Loader
-                    load={() => pageMounted({ role, userId: user.currentUser?.guid ?? '' })}
+                    load={() => pageMounted({ role: role[0], userId: user.currentUser?.guid ?? '' })}
                     loading={loading}
                     error={error ? (error as Error).message : null}
                     data={Allowances}
                     couldBeReloaded
                 >
-                    {role === 'initiator' ? <Initiator /> : <Approver />}
+                    {role.some((r) => r === 'initiator') ? <Initiator /> : <Approver />}
                 </Loader>
             </>
         )

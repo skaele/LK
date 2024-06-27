@@ -1,9 +1,10 @@
 import { createEvent, createStore, sample } from 'effector'
 import { Role, Allowance } from '../types'
-import { createAllowance, getHandbook, initRequest } from '@shared/api/model/allowances'
+import { createAllowance, getHandbook, getRole } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
+import { userModel } from '@entities/user'
 
 const pageMounted = createEvent<{ role: Role; userId: string }>()
 const appStarted = createEvent()
@@ -13,10 +14,9 @@ const createSupplementMutation = createMutation({
     handler: createAllowance,
 })
 
-const $role = createStore<Role | null>(null)
 const $chosen = createStore<Allowance | null>(null)
-const supplementsStateQuery = createQuery({
-    handler: initRequest,
+const roleQuery = createQuery({
+    handler: getRole,
 })
 const allowanceTypesQuery = createQuery({
     handler: getHandbook,
@@ -31,7 +31,6 @@ const activityAreasQuery = createQuery({
 sample({
     clock: createSupplement,
     fn: ({ form, employees }) => {
-        console.log(employees)
         const parsed = parseInputArea([form, employees])
         return parsed
     },
@@ -40,19 +39,9 @@ sample({
 
 sample({
     clock: appStarted,
-    target: supplementsStateQuery.start,
+    source: userModel.stores.userGuid,
+    target: roleQuery.start,
 })
-sample({
-    clock: supplementsStateQuery.finished.success,
-    fn: () => 'initiator' as const,
-    target: $role,
-})
-sample({
-    clock: supplementsStateQuery.finished.finally,
-    fn: () => 'initiator' as const,
-    target: $role,
-})
-
 sample({
     clock: pageMounted,
     fn: () => 'AllowanceType' as const,
@@ -76,7 +65,7 @@ export const events = {
 }
 
 export const queries = {
-    supplements: supplementsStateQuery,
+    role: roleQuery,
     allowanceTypes: allowanceTypesQuery,
     fundingSources: fundingSourcesQuery,
     activityAreas: activityAreasQuery,
@@ -87,6 +76,5 @@ export const mutations = {
 }
 
 export const stores = {
-    role: $role,
     chosen: $chosen,
 }

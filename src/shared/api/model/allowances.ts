@@ -40,13 +40,6 @@ type AllowanceRequest = {
 
 type ApplicationResult = { applicationId: string; result: string }
 
-// TODO: implement on backend
-export const initRequest = async () => {
-    // const { data } = await $allowancesApi.get(``)
-    // return data
-    return 'initiator'
-}
-
 export const getHandbook = async (handbookName: HandbookType) => {
     const { data } = await $allowancesApi.get<HandbookItem[]>('allowances/get-handbook/' + handbookName)
     return data
@@ -98,9 +91,17 @@ export const createAllowance = async (allowance: AllowanceRequest) => {
         allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
             ...emloyee,
             sum: 100,
-            divisionId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            divisionId: '08329f89-5cfe-4555-b6a3-141ca28e90e6',
         })),
     })
+    return data
+}
+
+export const getRole = async (userId: string | null) => {
+    // if (userId === '907afd9b-d9c5-11e7-940a-b4b52f5f5349')
+    // test purposes
+    return ['initiator', 'approver'] as Role[]
+    const { data } = await $allowancesApi.get<Role[]>(`allowances/employee/${userId}/get-roles`)
     return data
 }
 

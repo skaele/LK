@@ -67,7 +67,7 @@ const clearStore = createEvent()
 const defineMenu = createEvent<{
     user: User | null
     adminLinks: AdminLinks | null
-    supplementRole: Role | null
+    supplementRoles: Role[] | null
     homeRoutes?: string[]
 }>()
 const changeNotifications = createEvent<{ page: string; notifications: ((prev: number) => number) | number }>()
@@ -80,7 +80,7 @@ const getNewNotifications = (page: string, notifications: number, routes: IRoute
     return newRoutes
 }
 
-const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, supplementsRole: Role | null): IRoutes => {
+const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, supplementsRoles: Role[] | null): IRoutes => {
     if (!adminLinks) {
         return teachersPrivateRoutes()
     }
@@ -94,8 +94,8 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, supplementsR
         ([key, value]) =>
             (key !== adminRoute && !value.isSupplementApprover && !value.isSupplementInitiator) ||
             (key === adminRoute && hasAdminLinks) ||
-            (value.isSupplementApprover && supplementsRole === 'approver') ||
-            (value.isSupplementInitiator && supplementsRole === 'initiator'),
+            (value.isSupplementApprover && supplementsRoles?.includes('approver')) ||
+            (value.isSupplementInitiator && supplementsRoles?.includes('initiator')),
     )
 
     return Object.fromEntries(filteredRoutes)
@@ -105,7 +105,7 @@ const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    allowancesModel.stores.role,
+    allowancesModel.queries.role.$data,
     (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
@@ -122,7 +122,7 @@ const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    allowancesModel.stores.role,
+    allowancesModel.queries.role.$data,
     (user, settings, adminLinks, role) => {
         if (!user || !settings) return null
 
@@ -140,16 +140,16 @@ sample({
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
-        supplementRole: allowancesModel.stores.role,
+        supplementRoles: allowancesModel.queries.role.$data,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore.currentUser)
     },
-    fn: ({ settings, adminLinks, userStore, supplementRole }) => ({
+    fn: ({ settings, adminLinks, userStore, supplementRoles }) => ({
         homeRoutes: settings!.homePage.pages,
         user: userStore.currentUser!,
         adminLinks: adminLinks.data!,
-        supplementRole: supplementRole,
+        supplementRoles,
     }),
     target: defineMenu,
 })
@@ -164,20 +164,20 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))
-    .on(defineMenu, (oldData, { user, adminLinks, supplementRole }) => ({
+    .on(defineMenu, (oldData, { user, adminLinks, supplementRoles }) => ({
         ...oldData,
         currentPage:
             user?.user_status === 'staff'
-                ? filterTeachersPrivateRoutes(adminLinks, supplementRole)[
+                ? filterTeachersPrivateRoutes(adminLinks, supplementRoles)[
                       window.location.hash.slice(2, window.location.hash.length)
                   ]
                 : privateRoutes()[window.location.hash.slice(2, window.location.hash.length)],
         allRoutes:
             user?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks, supplementRole), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks, supplementRoles), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user) },
         visibleRoutes:
-            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks, supplementRole) : privateRoutes(),
+            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks, supplementRoles) : privateRoutes(),
     }))
     .on(changeNotifications, (oldData, { page, notifications }) => ({
         ...oldData,

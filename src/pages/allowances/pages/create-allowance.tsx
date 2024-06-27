@@ -29,7 +29,7 @@ const CreateAllowance = () => {
             allowancesModel.queries.fundingSources.$data,
             allowancesModel.queries.activityAreas.$data,
             allowancesModel.events.pageMounted,
-            allowancesModel.stores.role,
+            allowancesModel.queries.role.$data,
             userModel.stores.user,
         ],
     )
@@ -42,7 +42,7 @@ const CreateAllowance = () => {
     }, [dataUserApplication, allowanceTypes, fundingSources, activityAreas])
 
     useEffect(() => {
-        pageMounted({ role: role || 'initiator', userId: user.currentUser?.guid ?? '' })
+        pageMounted({ role: (role && role[0]) || 'initiator', userId: user.currentUser?.guid ?? '' })
     }, [])
 
     return (

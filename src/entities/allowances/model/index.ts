@@ -31,6 +31,7 @@ const activityAreasQuery = createQuery({
 sample({
     clock: createSupplement,
     fn: ({ form, employees }) => {
+        console.log(employees)
         const parsed = parseInputArea([form, employees])
         return parsed
     },

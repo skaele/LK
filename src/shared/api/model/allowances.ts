@@ -98,12 +98,7 @@ export const createAllowance = async (allowance: AllowanceRequest) => {
         allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
             ...emloyee,
             sum: 100,
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            fio: undefined,
-            division: {
-                id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-                name: 'ЭТО ТОЧНО НУЖНО УБРАТЬ, ТАК ДЕЛАТЬ НЕ НАДО',
-            },
+            divisionId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         })),
     })
     return data

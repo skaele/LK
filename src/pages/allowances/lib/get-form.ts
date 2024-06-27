@@ -1,6 +1,4 @@
 import { HandbookItem } from '@entities/allowances/types'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
-import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
@@ -10,7 +8,7 @@ export const getForm = (
     allowanceTypes: HandbookItem[],
     activityAreas: HandbookItem[],
 ): IInputArea => {
-    const subdivisions = getFormattedSubDivisions(data.subdivisions)
+    // const subdivisions = getFormattedSubDivisions(data.subdivisions)
     return {
         title: 'Установление надбавок',
         data: [
@@ -23,17 +21,17 @@ export const getForm = (
                 editable: false,
                 visible: false,
             },
-            {
-                fieldName: 'divisionId',
-                title: 'Наименования подразделения',
-                type: 'select',
-                value: getDefaultSubdivision(data.subdivisions),
-                required: true,
-                editable: subdivisions.length > 1,
-                width: '100',
-                items: subdivisions,
-                isSpecificSelect: true,
-            },
+            // {
+            //     fieldName: 'divisionId',
+            //     title: 'Наименования подразделения',
+            //     type: 'select',
+            //     value: getDefaultSubdivision(data.subdivisions),
+            //     required: true,
+            //     editable: subdivisions.length > 1,
+            //     width: '100',
+            //     items: subdivisions,
+            //     isSpecificSelect: true,
+            // },
             {
                 fieldName: 'activityAreaId',
                 title: 'Направление деятельности',
@@ -52,7 +50,7 @@ export const getForm = (
                 fieldName: 'fundingSourceId',
                 title: 'Источник финансирования',
                 type: 'select',
-                value: getDefaultSubdivision(data.subdivisions),
+                value: null,
                 required: true,
                 editable: fundingSources.length > 1,
                 width: '100',
@@ -66,7 +64,7 @@ export const getForm = (
                 fieldName: 'allowanceTypeId',
                 title: 'Вид набавки',
                 type: 'select',
-                value: getDefaultSubdivision(data.subdivisions),
+                value: null,
                 required: true,
                 editable: allowanceTypes.length > 1,
                 width: '100',
@@ -94,10 +92,26 @@ export const getEmployees = (): IInputArea => {
         default: [
             [
                 {
-                    fieldName: 'fio',
-                    title: 'ФИО',
-                    value: '',
+                    fieldName: 'id',
+                    title: 'Сотрудник',
+                    type: 'select',
+                    value: null,
                     required: true,
+                    items: [
+                        {
+                            id: '96d4f97d-8adf-4fd3-ad4d-394eaddebb0f',
+                            title: 'сам инициатор',
+                        },
+                        {
+                            id: '31d589d8-878b-40c0-861f-a83ea8bb7a20',
+                            title: 'сотрудник 1',
+                        },
+                        {
+                            id: 'c1db211d-dc0a-4382-954a-b621cbed376b',
+                            title: 'сотрудник 2',
+                        },
+                    ],
+                    isSpecificSelect: true,
                 },
                 {
                     fieldName: 'sum',

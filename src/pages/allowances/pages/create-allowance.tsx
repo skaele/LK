@@ -10,6 +10,7 @@ import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
 import { applicationsModel } from '@entities/applications'
 import { FiInfo } from 'react-icons/fi'
+import { userModel } from '@entities/user'
 
 const CreateAllowance = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -20,19 +21,28 @@ const CreateAllowance = () => {
     const {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
-    const [createSupplement, loading, allowanceTypes, fundingSources, activityAreas] = useUnit([
-        allowancesModel.events.createSupplement,
-        allowancesModel.mutations.createSupplement.$pending,
-        allowancesModel.queries.allowanceTypes.$data,
-        allowancesModel.queries.fundingSources.$data,
-        allowancesModel.queries.activityAreas.$data,
-    ])
+    const [createSupplement, loading, allowanceTypes, fundingSources, activityAreas, pageMounted, role, user] = useUnit(
+        [
+            allowancesModel.events.createSupplement,
+            allowancesModel.mutations.createSupplement.$pending,
+            allowancesModel.queries.allowanceTypes.$data,
+            allowancesModel.queries.fundingSources.$data,
+            allowancesModel.queries.activityAreas.$data,
+            allowancesModel.events.pageMounted,
+            allowancesModel.stores.role,
+            userModel.stores.user,
+        ],
+    )
 
     useEffect(() => {
         if (!!dataUserApplication && !!allowanceTypes && !!fundingSources && !!activityAreas) {
             setForm(getForm(dataUserApplication, fundingSources, allowanceTypes, activityAreas))
             setEmployees(getEmployees())
         }
+    }, [dataUserApplication, allowanceTypes, fundingSources, activityAreas])
+
+    useEffect(() => {
+        pageMounted({ role: role || 'initiator', userId: user.currentUser?.guid ?? '' })
     }, [])
 
     return (

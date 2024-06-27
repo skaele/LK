@@ -68,6 +68,7 @@ const createResultElementForm = (elementForm: IInputAreaData) => {
         )
     }
     if (elementForm.type === 'select') {
+        console.log(123, !!elementForm.isSpecificSelect)
         obj[elementForm.fieldName] = !!elementForm.isSpecificSelect
             ? (elementForm.value as SelectPage).id
             : (elementForm.value as SelectPage).title || null

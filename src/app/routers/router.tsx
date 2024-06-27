@@ -9,7 +9,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
-import { tutorialModel } from '@entities/tutorial'
+import { initializeTutorials } from '@entities/tutorial/lib/initialize'
 
 const Router = () => {
     const {
@@ -30,7 +30,7 @@ const Router = () => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
             // chatsModel.events.load()
-            tutorialModel.events.getTutorialData()
+            if (user?.guid) initializeTutorials()
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()

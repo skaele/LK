@@ -26,6 +26,13 @@ export const completeModule = async (tutorialId: TutorialId) => {
     return data
 }
 
+export const rerunModule = async (tutorialId: TutorialId) => {
+    const { data } = await $tutorialApi.post<Tutorials>('/users/rerun', {
+        tutorialId,
+    })
+
+    return data
+}
 export const changeTutorialState = async (tutorialState: boolean) => {
     const { data } = await $tutorialApi.post<boolean>('/users/enableTutorial', {
         tutorialState,
@@ -41,5 +48,10 @@ export const resetTutorial = async () => {
 
 export const callUserInteraction = async () => {
     const { data } = await $tutorialApi.post<boolean>('/users/call')
+    return data
+}
+
+export const clear = async () => {
+    const { data } = await $tutorialApi.delete<boolean>('/users/clear')
     return data
 }

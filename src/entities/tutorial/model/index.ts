@@ -4,13 +4,18 @@ import { createMutation, createQuery } from '@farfetched/core'
 import {
     callUserInteraction,
     changeTutorialState,
+    clear,
     completeModule,
     getUserTutorials,
     initializeTutorials,
+    rerunModule,
     resetTutorial,
 } from '@shared/api/tutorial-api'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { commonTutorialIds, commonTutorials } from '../lib/tutorials'
+import { commonTutorials } from '../lib/tutorials'
+import { stringToHash } from '@shared/lib/stringToHash'
+import { TUTORIAL_HASH } from '../lib/initialize'
+import { userModel } from '@entities/user'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -24,26 +29,30 @@ const resetStep = createEvent()
 const getTutorialData = createEvent()
 const clearProgress = createEvent()
 
-const $tutorialState = createStore<boolean | null>(null)
-const $heroVisited = createStore<boolean>(false).on(setHeroVisited, (_, value) => {
-    localStorage.setItem('heroVisited', String(value))
-    return value
-})
-const $currentModule = createStore<Module | null>(null)
-const $currentStep = createStore<number>(0).reset(resetStep)
-const $tutorials = createStore<Modules | null>(null).on(moduleCompleted, (state, id) => {
-    if (!state) return null
-    const tutorials = {
-        ...state,
-        [id]: {
-            ...state[id],
-            completed: true,
-        },
-    }
-    localStorage.setItem('tutorials', JSON.stringify(tutorials))
-    return tutorials
-})
-const $interactions = createStore<number>(0)
+const $tutorialState = createStore<boolean | null>(null).reset(userModel.events.logout)
+const $heroVisited = createStore<boolean>(false)
+    .on(setHeroVisited, (_, value) => {
+        localStorage.setItem('heroVisited', String(value))
+        return value
+    })
+    .reset(userModel.events.logout)
+const $currentModule = createStore<Module | null>(null).reset(userModel.events.logout)
+const $currentStep = createStore<number>(0).reset(resetStep).reset(userModel.events.logout)
+const $tutorials = createStore<Modules | null>(null)
+    .on(moduleCompleted, (state, id) => {
+        if (!state) return null
+        const tutorials = {
+            ...state,
+            [id]: {
+                ...state[id],
+                completed: true,
+            },
+        }
+        localStorage.setItem('tutorials', JSON.stringify(tutorials))
+        return tutorials
+    })
+    .reset(userModel.events.logout)
+const $interactions = createStore<number>(0).reset(userModel.events.logout)
 
 sample({
     clock: nextStep,
@@ -88,44 +97,70 @@ sample({
     clock: moduleCompleted,
     target: resetStep,
 })
+
+const rerunModuleMutation = createMutation({
+    handler: rerunModule,
+})
+
 sample({
     clock: moduleRestarted,
-    source: {
-        tutorials: $tutorials,
-        tutorialState: $tutorialState,
-    },
-    fn: ({ tutorials, tutorialState }, id) => {
-        if (!tutorials) return null
-        if (!tutorialState) return tutorials
-        const newTutorials = {
-            ...tutorials,
-            [id]: {
-                ...tutorials[id],
-                completed: false,
-            },
-        }
-        localStorage.setItem('tutorials', JSON.stringify(newTutorials))
-        return newTutorials
+    target: rerunModuleMutation.start,
+})
+
+sample({
+    clock: rerunModuleMutation.$succeeded,
+    source: { id: rerunModuleMutation.__.$latestParams, tutorials: $tutorials },
+    filter: Boolean,
+    fn: ({ id, tutorials }) => {
+        if (!tutorials || !id) return null
+        return { ...tutorials, [id]: { ...tutorials[id], completed: false } }
     },
     target: $tutorials,
 })
 
+sample({
+    clock: rerunModuleMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось перезапустить модуль',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+// sample({
+//     clock: moduleRestarted,
+//     source: {
+//         tutorials: $tutorials,
+//         tutorialState: $tutorialState,
+//     },
+//     fn: ({ tutorials, tutorialState }, id) => {
+//         if (!tutorials) return null
+//         if (!tutorialState) return tutorials
+//         const newTutorials = {
+//             ...tutorials,
+//             [id]: {
+//                 ...tutorials[id],
+//                 completed: false,
+//             },
+//         }
+//         localStorage.setItem('tutorials', JSON.stringify(newTutorials))
+//         return newTutorials
+//     },
+//     target: $tutorials,
+// })
+
 const getTutorialDataQuery = createQuery({
     handler: getUserTutorials,
 })
-const updatedQuery = createQuery({
-    handler: initializeTutorials,
+
+sample({
+    clock: getTutorialData,
+    fn: () => Boolean(localStorage.getItem('heroVisited')),
+    target: setHeroVisited,
 })
 
 sample({
     clock: getTutorialData,
     target: getTutorialDataQuery.start,
-})
-
-sample({
-    clock: getTutorialData,
-    fn: () => commonTutorialIds,
-    target: updatedQuery.start,
 })
 
 sample({
@@ -154,8 +189,24 @@ sample({
     fn: ({ result: { interactions } }) => interactions,
     target: $interactions,
 })
+const initialized = createEvent<TutorialId[]>()
+const updatedM = createMutation({
+    handler: initializeTutorials,
+})
 
-const callInteractionMutation = createQuery({
+sample({
+    clock: initialized,
+    target: updatedM.start,
+})
+
+sample({
+    clock: updatedM.finished.success,
+    source: updatedM.__.$latestParams,
+    fn: (req) => localStorage.setItem(TUTORIAL_HASH, stringToHash(JSON.stringify(req)).toString()),
+    target: getTutorialDataQuery.start,
+})
+
+const callInteractionMutation = createMutation({
     handler: callUserInteraction,
 })
 
@@ -179,6 +230,10 @@ sample({
     filter: Boolean,
     target: $tutorialState,
 })
+sample({
+    clock: changeTutorialStateMutation.$succeeded,
+    target: getTutorialDataQuery.start,
+})
 
 sample({
     clock: changeTutorialStateMutation.$failed,
@@ -195,6 +250,23 @@ const resetTutorialMutation = createMutation({
 sample({
     clock: clearProgress,
     target: resetTutorialMutation.start,
+})
+
+const clearAll = createEvent()
+const clearMut = createMutation({
+    handler: clear,
+})
+sample({
+    clock: clearAll,
+    target: clearMut.start,
+})
+
+sample({
+    clock: clearMut.$succeeded,
+    fn: () => {
+        localStorage.clear()
+    },
+    target: userModel.events.logout,
 })
 
 sample({
@@ -243,6 +315,11 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
+sample({
+    clock: userModel.events.logout,
+    target: [getTutorialDataQuery.reset],
+})
+
 export const stores = {
     tutorialState: $tutorialState,
     currentModule: $currentModule,
@@ -264,9 +341,6 @@ export const events = {
     clearProgress,
     resetStep,
     increasedInteractions,
-}
-
-export const queries = {
-    getTutorialDataQuery,
-    callInteractionMutation,
+    initialized,
+    clearAll,
 }

@@ -10,7 +10,12 @@ import { getEntries } from '@shared/lib/typescript/getEntries'
 
 export const StartTutorialLinks = () => {
     const history = useHistory()
-    const [tutorials, moduleRestarted] = useUnit([tutorialModel.stores.tutorials, tutorialModel.events.moduleRestarted])
+    const [tutorials, state, tutorialEnabled, moduleRestarted] = useUnit([
+        tutorialModel.stores.tutorials,
+        tutorialModel.stores.tutorialState,
+        tutorialModel.events.tutorialEnabled,
+        tutorialModel.events.moduleRestarted,
+    ])
     if (!tutorials) return null
     return (
         <div>
@@ -23,7 +28,8 @@ export const StartTutorialLinks = () => {
                         completed={value.completed}
                         key={key}
                         action={() => {
-                            moduleRestarted(key)
+                            if (value.completed) moduleRestarted(key)
+                            if (!state) tutorialEnabled(true)
                             history.push(value.path)
                         }}
                         title={value.name}

@@ -7,6 +7,7 @@ export const commonTutorialIds = [
     'profile',
     'medical-certificate',
     'schedule',
+    'chat',
 ] as const
 
 export type ModuleData = {
@@ -147,6 +148,16 @@ export const commonTutorials: ModuleData = {
             {
                 title: 'Пересдачи',
                 description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
+            },
+        ],
+    },
+    chat: {
+        path: '/chat',
+        name: 'Сообщения',
+        steps: [
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
             },
         ],
     },

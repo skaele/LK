@@ -12,10 +12,12 @@ import { TutorialProgressBar } from './tutorial-progress-bar'
 import { StartTutorialLinks } from './start-tutorial-links'
 
 export const TutorialSettings = () => {
-    const [tutorialEnabled, setTutorialState, clearProgress] = useUnit([
+    const [tutorialEnabled, setTutorialState, clearProgress, clearAll] = useUnit([
         tutorialModel.stores.tutorialState,
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.clearProgress,
+
+        tutorialModel.events.clearAll,
     ])
     const evokeConfirm = useUnit(confirmModel.events.evokeConfirm)
     return (
@@ -47,6 +49,20 @@ export const TutorialSettings = () => {
                         })
                     }}
                     text="Сбросить прогресс"
+                    background={Colors.red.main}
+                    textColor="white"
+                />
+                <ButtonStyled
+                    onClick={() => {
+                        evokeConfirm({
+                            message: 'Ваш аккаунт будет удален из базы обучния. Продолжить?',
+                            onConfirm: () => {
+                                clearAll()
+                                confirmModel.events.closeConfirm()
+                            },
+                        })
+                    }}
+                    text="Сбросить все (для теста)"
                     background={Colors.red.main}
                     textColor="white"
                 />

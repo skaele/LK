@@ -116,7 +116,7 @@ const DebtAndQr = (props: Props) => {
                         hasDebt={hasDebt}
                         qr_current={qr_current}
                         qr_total={qr_total}
-                        tutorialModule={{ id: 'payments', step: 2 }}
+                        tutorialModule={{ id: 'payments', step: 2, params: { position: 'left' } }}
                     />
                 </DebtAndQrContentStyled>
                 <ButtonsList>

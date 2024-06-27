@@ -19,7 +19,6 @@ export const TutorialHero = () => {
     ])
 
     const { isMobile, isTablet } = useCurrentDevice()
-    console.log(tutorialState, heroVisited, heroVisited && !isDeleted)
     if (tutorialState || (heroVisited && !isDeleted)) return null
 
     return (

@@ -4,10 +4,10 @@ export const commonTutorialIds = [
     'home',
     'stud_applications',
     'payments',
-    'profile',
-    'medical-certificate',
-    'schedule',
-    'chat',
+    // 'profile',
+    // 'medical-certificate',
+    // 'schedule',
+    // 'chat',
 ] as const
 
 export type ModuleData = {
@@ -112,53 +112,53 @@ export const commonTutorials: ModuleData = {
             },
         ],
     },
-    profile: {
-        path: '/profile',
-        name: 'Профиль',
-        steps: [
-            {
-                title: 'Профиль',
-                description: 'В этом разделе можно изменить пароль и имя',
-            },
-        ],
-    },
-    'medical-certificate': {
-        path: '/medical-certificate',
-        name: 'Предоставление медицинских справок',
-        steps: [
-            {
-                title: 'Приложите справки',
-                description: 'В этом разделе можно приложить медицинские справки для проживания в общежитии',
-            },
-            {
-                title: 'Заполните завление',
-                description: 'Введите обязательные поля и приложите справки',
-            },
-        ],
-    },
-    schedule: {
-        path: '/schedule',
-        name: 'Расписание',
-        steps: [
-            {
-                title: 'Расписание',
-                description:
-                    'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
-            },
-            {
-                title: 'Пересдачи',
-                description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
-            },
-        ],
-    },
-    chat: {
-        path: '/chat',
-        name: 'Сообщения',
-        steps: [
-            {
-                title: 'Чат',
-                description: 'В этом разделе можно общаться в чате',
-            },
-        ],
-    },
+    // profile: {
+    //     path: '/profile',
+    //     name: 'Профиль',
+    //     steps: [
+    //         {
+    //             title: 'Профиль',
+    //             description: 'В этом разделе можно изменить пароль и имя',
+    //         },
+    //     ],
+    // },
+    // 'medical-certificate': {
+    //     path: '/medical-certificate',
+    //     name: 'Предоставление медицинских справок',
+    //     steps: [
+    //         {
+    //             title: 'Приложите справки',
+    //             description: 'В этом разделе можно приложить медицинские справки для проживания в общежитии',
+    //         },
+    //         {
+    //             title: 'Заполните завление',
+    //             description: 'Введите обязательные поля и приложите справки',
+    //         },
+    //     ],
+    // },
+    // schedule: {
+    //     path: '/schedule',
+    //     name: 'Расписание',
+    //     steps: [
+    //         {
+    //             title: 'Расписание',
+    //             description:
+    //                 'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
+    //         },
+    //         {
+    //             title: 'Пересдачи',
+    //             description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
+    //         },
+    //     ],
+    // },
+    // chat: {
+    //     path: '/chat',
+    //     name: 'Сообщения',
+    //     steps: [
+    //         {
+    //             title: 'Чат',
+    //             description: 'В этом разделе можно общаться в чате',
+    //         },
+    //     ],
+    // },
 }

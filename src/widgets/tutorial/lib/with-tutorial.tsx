@@ -237,26 +237,29 @@ const Hint = styled.div<{
                     return top + height + 10
                 case 'top':
                     return top - 30
+                default:
+                    return top - 20
             }
         }}px;
         left: ${({ pageWidth, dimensions: { width }, childPosition: { left }, relativePosition }) => {
             switch (relativePosition) {
-                case 'right':
                 case 'bottom':
                 case 'top':
                     return pageWidth - left > 250 ? left - 20 + 'px' : 'auto'
                 case 'left':
+                    return 'auto'
+                case 'right':
                     return left + width + 10 + 'px'
             }
         }};
-        right: ${({ pageWidth, childPosition: { left }, relativePosition }) => {
+        right: ${({ pageWidth, dimensions: { width }, childPosition: { left, right }, relativePosition }) => {
             switch (relativePosition) {
-                case 'right':
                 case 'bottom':
                 case 'top':
-                    return pageWidth - left > 250 ? 'auto' : '10px'
+                case 'right':
+                    return pageWidth - left - width - 20 > 250 ? 'auto' : '10px'
                 case 'left':
-                    return 'auto'
+                    return pageWidth - right + width + 10 + 'px'
             }
         }};
         transform: translateY(${({ relativePosition }) => (relativePosition === 'top' ? '-100%' : '0')});

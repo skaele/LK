@@ -2,8 +2,6 @@ import axios from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 import { isProduction } from '@shared/constants'
 
-//https://docker.mospolytech.ru/physedjournal/graphql/
-// export const PE_URL = 'http://45.10.42.218:3333/graphql/'
 export const PE_URL = isProduction
     ? 'https://api.mospolytech.ru/physedjournal/graphql/'
     : 'http://docker.mospolytech.ru:5200/graphql/'

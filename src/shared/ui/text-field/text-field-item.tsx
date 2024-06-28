@@ -39,7 +39,7 @@ const TextFieldItem = ({
 export default TextFieldItem
 
 const RightIconContainer = styled.div<{ completed?: boolean }>`
-    color: ${({ completed }) => (completed ? Colors.green.main : '')};
+    color: ${({ completed }) => (completed ? 'var(--greenMain)' : '')};
     z-index: 2;
 
     display: flex;
@@ -53,7 +53,7 @@ const TextFieldStyledInfo = styled.div<{ completed?: boolean }>`
     width: 100%;
     display: flex;
     flex-direction: column;
-    color: ${({ completed }) => (completed ? Colors.green.main : '')};
+    color: ${({ completed }) => (completed ? 'var(--greenMain)' : 'var(--text)')};
 
     b {
         opacity: ${({ completed }) => (completed ? 1 : 0.8)};
@@ -81,7 +81,7 @@ const TextFieldStyled = styled.div<{ completed?: boolean; fancyBG?: boolean }>`
 
     background: ${({ fancyBG }) => {
         if (!fancyBG) return ''
-        return 'linear-gradient(90deg, #383838 0%, #2e2e2e 50%)'
+        return 'linear-gradient(90deg, var(--bgLink1) 0%, var(--block) 50%)'
     }};
 
     &:hover {
@@ -89,11 +89,11 @@ const TextFieldStyled = styled.div<{ completed?: boolean; fancyBG?: boolean }>`
             if (!fancyBG) return 'var(--theme-4)'
             return completed
                 ? 'linear-gradient(270deg, rgba(60, 210, 136, 0) 0%, rgba(60, 210, 136, 0.4) 100%)'
-                : 'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                : 'linear-gradient(270deg, var(--bgLink2) 0%, var(--bgLink3) 100%)'
         }};
 
         ${RightIconContainer}, ${TextFieldStyledInfo}, .icon > svg {
-            color: white;
+            color: var(--text);
         }
 
         ${RightIconContainer} {
@@ -114,7 +114,7 @@ const TextFieldStyled = styled.div<{ completed?: boolean; fancyBG?: boolean }>`
             width: 22px;
             height: 22px;
             opacity: 0.4;
-            color: ${({ completed }) => (completed ? Colors.green.main : '')};
+            color: ${({ completed }) => (completed ? 'var(--greenMain)' : 'var(--text)')};
         }
     }
 

@@ -74,8 +74,6 @@ sample({
     target: setRoles,
 })
 
-$roles.watch(console.log)
-
 sample({
     clock: nextStep,
     source: {

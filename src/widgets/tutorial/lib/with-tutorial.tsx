@@ -6,7 +6,6 @@ import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import { Title } from '@shared/ui/title'
 import Flex from '@shared/ui/flex'
 import { tutorialModel } from '@entities/tutorial'
-import { commonTutorials } from '@entities/tutorial/lib/tutorials'
 import { SkipButton } from '../ui/skip-button'
 import useResize from '@shared/lib/hooks/use-resize'
 import { TutorialId } from '@entities/tutorial/types'
@@ -79,8 +78,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
         const completed = tutorials[id]?.completed
-        const module = commonTutorials[id]
-        const lastStep = module ? currentStep === module.steps.length - 1 : 0
+        const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
 
         return (
             <>

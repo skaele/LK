@@ -7,6 +7,8 @@ export const TUTORIAL_HASH = 'tHash'
 export const initializeTutorials = () => {
     const hash = stringToHash(JSON.stringify(commonTutorialIds))
 
+    tutorialModel.events.setRoles([])
+
     const oldHash = localStorage.getItem(TUTORIAL_HASH)
     if (hash !== Number(oldHash)) {
         return tutorialModel.events.initialized([...commonTutorialIds])

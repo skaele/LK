@@ -1,5 +1,5 @@
 import { createEvent, createStore, sample } from 'effector'
-import { Module, Modules, TutorialId } from '../types'
+import { Module, Modules, TutorialId, TutorialRoles } from '../types'
 import { createMutation, createQuery } from '@farfetched/core'
 import {
     callUserInteraction,
@@ -12,10 +12,11 @@ import {
     resetTutorial,
 } from '@shared/api/tutorial-api'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { commonTutorials } from '../lib/tutorials'
+import { ModuleData, commonTutorials } from '../lib/tutorials'
 import { stringToHash } from '@shared/lib/stringToHash'
 import { TUTORIAL_HASH } from '../lib/initialize'
 import { userModel } from '@entities/user'
+import { paymentsModel } from '@entities/payments'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -53,6 +54,27 @@ const $tutorials = createStore<Modules | null>(null)
     })
     .reset(userModel.events.logout)
 const $interactions = createStore<number>(0).reset(userModel.events.logout)
+
+const setRoles = createEvent<TutorialRoles>()
+const $roles = createStore<TutorialRoles>([])
+    .on(setRoles, (_, roles) => roles)
+    .reset(userModel.events.logout)
+const $userTutorialsData = createStore<ModuleData | null>(null)
+    .on($roles, (_, roles) => commonTutorials(roles))
+    .reset(userModel.events.logout)
+
+sample({
+    clock: paymentsModel.effects.getPaymentsFx.doneData,
+    fn: ({ dormitory, education }) => {
+        const roles: TutorialRoles = []
+        if (dormitory.length) roles.push('dormitory')
+        if (education.length) roles.push('education')
+        return roles
+    },
+    target: setRoles,
+})
+
+$roles.watch(console.log)
 
 sample({
     clock: nextStep,
@@ -171,16 +193,20 @@ sample({
 
 sample({
     clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorials } }) =>
-        tutorials.reduce((acc, tutorial) => {
+    source: $userTutorialsData,
+    fn: (userTutorials, { result: { tutorials } }) => {
+        if (!userTutorials || !tutorials) return null
+
+        return tutorials.reduce((acc, tutorial) => {
             return {
                 ...acc,
                 [tutorial.id]: {
-                    ...commonTutorials[tutorial.id],
+                    ...userTutorials[tutorial.id],
                     ...tutorial,
                 },
             }
-        }, {} as Modules),
+        }, {} as Modules)
+    },
     target: $tutorials,
 })
 
@@ -343,4 +369,5 @@ export const events = {
     increasedInteractions,
     initialized,
     clearAll,
+    setRoles,
 }

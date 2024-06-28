@@ -10,3 +10,5 @@ export type Tutorials = {
     interactions: number
     tutorials: [{ id: TutorialId; completed: boolean }]
 }
+
+export type TutorialRoles = ('dormitory' | 'education')[]

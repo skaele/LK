@@ -11,7 +11,7 @@ type Props = {
     currentDay?: number
     events: DayCalendarEvent[] | null | undefined
     shift: number
-    currentEvent: DayCalendarEvent | null
+    showCurrentEvent: boolean
     scale: number
     onClick: (event: DayCalendarEvent) => void
     shortInfo?: boolean
@@ -32,6 +32,7 @@ const Events = ({
     onClick,
     currentDay,
     isCurrentDay,
+    showCurrentEvent = true,
 }: Props) => {
     const eventsPrepared = prepareEvents(events)
 
@@ -42,7 +43,7 @@ const Events = ({
         <EventsWrapper h="100%" d="column">
             {isCurrent && (
                 <CurrentTimeLine
-                    isVisible={isTimelineVisible}
+                    isVisible={showCurrentEvent && isTimelineVisible}
                     showTime={showTime}
                     scale={scale}
                     shift={shift}
@@ -56,8 +57,8 @@ const Events = ({
                             leftShift={index}
                             quantity={eventsPrepared[key].length}
                             scale={scale}
-                            isCurrentEvent={checkIfEventIsCurrent(event, isCurrent)}
-                            isNextEvent={isNextEvent(events, event, isCurrent)}
+                            isCurrentEvent={showCurrentEvent && checkIfEventIsCurrent(event, isCurrent)}
+                            isNextEvent={showCurrentEvent && isNextEvent(events, event, isCurrent)}
                             {...event}
                             onClick={onClick}
                             shift={shift}

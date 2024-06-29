@@ -24,6 +24,8 @@ export const CurrentTimeLine = ({ isVisible = true, shift, scale, interval, show
         return () => clearInterval(intervalRef.current)
     }, [isVisible])
 
+    if (!isVisible) return null
+
     return (
         <CurrentTimeLineStyled currentTime={(currentTime - shift) * scale}>
             {showTime && <CurrentTime>{getTimeFromMinutes(currentTime)}</CurrentTime>}

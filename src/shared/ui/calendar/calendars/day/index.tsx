@@ -50,6 +50,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
                                 currentDay={currentDay}
                                 shift={shift}
                                 onEventClick={onEventClick}
+                                showCurrentEvent={showDates}
                             />
                         )
                     })}
@@ -70,7 +71,7 @@ export const DayCalendar = (props: DayCalendarProps) => {
                             teachers={chosenEvent.people}
                             dateInterval={chosenEvent.dateInterval}
                             rooms={chosenEvent.rooms ?? []}
-                            isCurrentEvent={checkIfEventIsCurrent(chosenEvent, true)}
+                            isCurrentEvent={showDates && checkIfEventIsCurrent(chosenEvent, true)}
                         />
                     )}
                 </EventInfo>

@@ -14,7 +14,6 @@ import Story from '../../shared/ui/story'
 import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent } from './styled'
 import { TutorialHero } from 'widgets/tutorial'
-import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
 import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
 
 const ContentLayout = () => {
@@ -45,7 +44,6 @@ const ContentLayout = () => {
     // }, [])
 
     useScrollToTop(pageContentRef.current!)
-    useSetTutorial()
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback, useState } from 'react'
+import React, { ComponentType, useCallback, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
@@ -33,24 +33,37 @@ export type TutorialComponent = {
     forwardedRef?: (node: HTMLElement | null) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+const debounce = (fn: Function, ms = 300) => {
+    let timeoutId: ReturnType<typeof setTimeout>
+    return function (this: any, ...args: any[]) {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => fn.apply(this, args), ms)
+    }
+}
+
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
-    const Wrapper: React.FC<P & TutorialWrapperProps> = (props) => {
+    const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
         const { width } = useResize()
         const [animation, setAnimation] = useState<'in' | 'out'>('in')
+        const [clickCounter, setClickCounter] = useState(0)
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
         const [visible, setVisible] = useState(false)
+        const counter = useRef(0)
 
         const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
         const [position, setPosition] = useState<Position | null>(null)
-
+        const nodeRef = useRef<HTMLElement | null>(null)
         const handleRef = useCallback((node: HTMLElement | null) => {
+            nodeRef.current = node
             if (!node || !root) return
             const measureDOMNode = () => {
                 const rect = node.getBoundingClientRect()
                 setDimensions({ width: rect.width, height: rect.height })
                 setPosition({ top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom })
             }
+            const debouncedUpdate = debounce(measureDOMNode)
             measureDOMNode()
 
             const intersectionObserver = new IntersectionObserver(([entry]) => {
@@ -63,7 +76,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             mutationObserver.observe(root, { childList: true, subtree: true })
             intersectionObserver.observe(node)
             window.addEventListener('resize', measureDOMNode)
-            window.addEventListener('scroll', measureDOMNode, true)
+            window.addEventListener('scroll', debouncedUpdate, true)
         }, [])
         const [tutorialState, currentModule, currentStep, tutorials] = useUnit([
             tutorialModel.stores.tutorialState,
@@ -72,13 +85,22 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.tutorials,
         ])
 
-        if (!visible || !portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
+        if (!portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
         const completed = tutorials[id]?.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
+
+        if (currentModule?.id === id && currentStep === step && !visible) {
+            if (counter.current > 0) {
+                nodeRef.current?.scrollIntoView()
+            }
+            counter.current++
+        }
+
+        if (!visible) return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         return (
             <>
@@ -141,7 +163,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                                 setTimeout(() => {
                                                     tutorialModel.events.moduleCompleted(id)
                                                     setAnimation('in')
-                                                }, 200)
+                                                }, 300)
                                             } else tutorialModel.events.nextStep()
                                         }}
                                     >
@@ -157,7 +179,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         )
     }
 
-    return Wrapper
+    return TutWrapper
 }
 
 const Blocker = styled.div`
@@ -306,11 +328,17 @@ const Button = styled.button`
     aspect-ratio: 1;
     background-color: transparent;
     border: none;
-    cursor: pointer;
     padding: 0;
     color: #f4f4f4;
 
-    &:hover {
+    :disabled {
+        opacity: 0.5;
+    }
+
+    :not(:disabled) {
+        cursor: pointer;
+    }
+    &:hover:not(:disabled) {
         opacity: 0.7;
     }
     &:focus {

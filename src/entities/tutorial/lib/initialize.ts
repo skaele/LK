@@ -1,8 +1,7 @@
 import { stringToHash } from '@shared/lib/stringToHash'
 import { commonTutorialIds } from './tutorials'
 import { tutorialModel } from '..'
-
-export const TUTORIAL_HASH = 'tHash'
+import { TUTORIAL_HASH } from '@shared/constants'
 
 export const initializeTutorials = () => {
     const hash = stringToHash(JSON.stringify(commonTutorialIds))

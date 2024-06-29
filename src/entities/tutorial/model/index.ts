@@ -14,9 +14,9 @@ import {
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { ModuleData, commonTutorials } from '../lib/tutorials'
 import { stringToHash } from '@shared/lib/stringToHash'
-import { TUTORIAL_HASH } from '../lib/initialize'
 import { userModel } from '@entities/user'
 import { paymentsModel } from '@entities/payments'
+import { TUTORIAL_HASH } from '@shared/constants'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -49,7 +49,6 @@ const $tutorials = createStore<Modules | null>(null)
                 completed: true,
             },
         }
-        localStorage.setItem('tutorials', JSON.stringify(tutorials))
         return tutorials
     })
     .reset(userModel.events.logout)
@@ -162,7 +161,6 @@ sample({
 //                 completed: false,
 //             },
 //         }
-//         localStorage.setItem('tutorials', JSON.stringify(newTutorials))
 //         return newTutorials
 //     },
 //     target: $tutorials,

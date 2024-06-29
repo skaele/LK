@@ -5,8 +5,9 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 import { ChatItem, SkeletonLoading } from '../atoms'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
-export const ChatItems = () => {
+export const ChatItems = ({ forwardedRef }: TutorialComponent) => {
     const [loading, chats, isFirstFetched] = useUnit([
         chatsModel.queries.chats.$pending,
         chatSidebarModel.stores.foundChats,
@@ -15,7 +16,7 @@ export const ChatItems = () => {
 
     if (loading && !isFirstFetched)
         return (
-            <ChatItemsWrapper>
+            <ChatItemsWrapper ref={forwardedRef}>
                 <SkeletonLoading />
                 <SkeletonLoading />
                 <SkeletonLoading />
@@ -30,7 +31,7 @@ export const ChatItems = () => {
         )
 
     return (
-        <ChatItemsWrapper>
+        <ChatItemsWrapper ref={forwardedRef}>
             {!chats?.length && <Title size={3}>Нет чатов</Title>}
             {chats?.map((chat) => (
                 <ChatItem {...chat} key={chat.id} />

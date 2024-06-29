@@ -1,5 +1,5 @@
 import { tutorialModel } from '@entities/tutorial'
-import { Colors } from '@shared/constants'
+import { Colors, isProduction } from '@shared/constants'
 import { Button, Title } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
@@ -13,7 +13,7 @@ import { StartTutorialLinks } from './start-tutorial-links'
 import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
 
 export const TutorialSettings = () => {
-    const [tutorialEnabled, setTutorialState, clearProgress, sync, pending] = useUnit([
+    const [tutorialEnabled, setTutorialState, clearProgress, sync, pending, clearAll] = useUnit([
         tutorialModel.stores.tutorialState,
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.clearProgress,
@@ -32,7 +32,6 @@ export const TutorialSettings = () => {
         setIsOnline(navigator.onLine)
 
         if (navigator.onLine) {
-            console.log('sync')
             sync()
         }
     }
@@ -107,20 +106,22 @@ export const TutorialSettings = () => {
                     background={Colors.red.main}
                     textColor="white"
                 />
-                {/* <ButtonStyled
-                    onClick={() => {
-                        evokeConfirm({
-                            message: 'Ваш аккаунт будет удален из базы обучния. Продолжить?',
-                            onConfirm: () => {
-                                clearAll()
-                                confirmModel.events.closeConfirm()
-                            },
-                        })
-                    }}
-                    text="Сбросить все (для теста)"
-                    background={Colors.red.main}
-                    textColor="white"
-                /> */}
+                {!isProduction && (
+                    <ButtonStyled
+                        onClick={() => {
+                            evokeConfirm({
+                                message: 'Ваш аккаунт будет удален из базы обучния. Продолжить?',
+                                onConfirm: () => {
+                                    clearAll()
+                                    confirmModel.events.closeConfirm()
+                                },
+                            })
+                        }}
+                        text="Сбросить все (для теста)"
+                        background={Colors.red.main}
+                        textColor="white"
+                    />
+                )}
             </div>
         </Wrapper>
     )

@@ -2,12 +2,14 @@ import { Module, TutorialId, TutorialRoles, TutorialStep } from '../types'
 
 export const commonTutorialIds = [
     'home',
-    'stud_applications',
-    'payments',
-    // 'profile',
+    'settings',
+    'chat',
+    'applications',
     // 'medical-certificate',
-    // 'schedule',
-    // 'chat',
+    'payments',
+    'stud-physical-education',
+    'stud-project-activity',
+    'schedule',
 ] as const
 
 export type ModuleData = {
@@ -52,24 +54,25 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => ({
             },
             {
                 title: 'Поиск',
-                description: 'На главной странице также есть поиск для быстрого поиска информации или контента',
+                description: 'Здесь есть поиск для быстрого поиска информации, раздела или контента',
             },
             {
                 title: 'Меню быстрого доступа',
-                description: 'На главной странице находится другое меню быстрого доступа',
+                description: 'А также меню быстрого доступа к разделам. Его можно изменить или убрать в настройках',
             },
             {
                 title: 'Уведомления',
-                description: 'Просмотрите уведомления о важных событиях или сообщениях, щелкнув по иконке колокольчика',
+                description:
+                    'Просмотрите уведомления о важных событиях или сообщениях, щелкнув по иконке колокольчика. Уведомления можно выключить или изменить в настройках',
             },
             {
                 title: 'Виджеты',
                 description:
-                    'Используйте виджеты для быстрого доступа к информации или функциям, размещенным на главной странице',
+                    'Используйте виджеты для быстрого доступа к информации или функциям, размещенным на главной странице. Виджеты можно изменить в настройках',
             },
         ],
     },
-    stud_applications: {
+    applications: {
         path: '/applications',
         name: 'Цифровые сервисы',
         steps: [
@@ -89,7 +92,7 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => ({
             },
             {
                 title: 'Подать заявление',
-                description: 'Чтобы подать заявление, нажмите на кнопку',
+                description: 'Чтобы подать заявление, нажмите на эту кнопку',
             },
         ],
     },
@@ -98,16 +101,24 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => ({
         name: 'Договоры и оплаты',
         steps: initPaymentsSteps(roles),
     },
-    // profile: {
-    //     path: '/profile',
-    //     name: 'Профиль',
-    //     steps: [
-    //         {
-    //             title: 'Профиль',
-    //             description: 'В этом разделе можно изменить пароль и имя',
-    //         },
-    //     ],
-    // },
+    chat: {
+        path: '/chat',
+        name: 'Сообщения',
+        steps: [
+            {
+                title: 'Список диалогов',
+                description: 'Здесь будут указаны все ваши чаты',
+            },
+            {
+                title: 'Новое сообщение',
+                description: 'Чтобы создать новый чат, нажмите на эту кнопку',
+            },
+            {
+                title: 'Поиск',
+                description: 'Для быстрого поиска диалога можно воспользоваться поиском',
+            },
+        ],
+    },
     // 'medical-certificate': {
     //     path: '/medical-certificate',
     //     name: 'Предоставление медицинских справок',
@@ -122,31 +133,63 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => ({
     //         },
     //     ],
     // },
-    // schedule: {
-    //     path: '/schedule',
-    //     name: 'Расписание',
-    //     steps: [
-    //         {
-    //             title: 'Расписание',
-    //             description:
-    //                 'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
-    //         },
-    //         {
-    //             title: 'Пересдачи',
-    //             description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
-    //         },
-    //     ],
-    // },
-    // chat: {
-    //     path: '/chat',
-    //     name: 'Сообщения',
-    //     steps: [
-    //         {
-    //             title: 'Чат',
-    //             description: 'В этом разделе можно общаться в чате',
-    //         },
-    //     ],
-    // },
+    schedule: {
+        path: '/schedule',
+        name: 'Расписание',
+        steps: [
+            {
+                title: 'Расписание',
+                description:
+                    'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
+            },
+            {
+                title: 'Пересдачи',
+                description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
+            },
+        ],
+    },
+    settings: {
+        path: '/settings',
+        name: 'Настройки',
+        steps: [
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+        ],
+    },
+    'stud-project-activity': {
+        path: '/chat',
+        name: 'Проектная деятельность',
+        steps: [
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+        ],
+    },
+    'stud-physical-education': {
+        path: '/chat',
+        name: 'Физическая культура',
+        steps: [
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+            {
+                title: 'Чат',
+                description: 'В этом разделе можно общаться в чате',
+            },
+        ],
+    },
 })
 
 const initPaymentsSteps = (roles: TutorialRoles): TutorialStep[] => [

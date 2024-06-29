@@ -47,7 +47,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                         minWidth="35px"
                         height="36px"
                         shrinkTextInMobile
-                        tutorialModule={{ id: 'stud_applications', step: 3, params: { position: 'bottom' } }}
+                        tutorialModule={{ id: 'applications', step: 3, params: { position: 'bottom' } }}
                     />
                 }
             >
@@ -80,7 +80,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                     columnsExtended={getExtendedApplicationsColumns()}
                     data={listApplication}
                     maxOnPage={7}
-                    tutorialModule={{ id: 'stud_applications', step: [0, 1, 2], params: { position: 'top' } }}
+                    tutorialModule={{ id: 'applications', step: [0, 1, 2], params: { position: 'top' } }}
                 />
             </PageBlock>
         </Wrapper>

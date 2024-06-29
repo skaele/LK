@@ -320,6 +320,16 @@ const completeModuleMutation = createMutation({
     handler: completeModule,
 })
 
+const sync = createEvent()
+const syncMutation = createMutation({
+    handler: getUserTutorials,
+})
+
+sample({
+    clock: sync,
+    target: syncMutation.start,
+})
+
 sample({
     clock: moduleCompleted,
     target: completeModuleMutation.start,
@@ -367,5 +377,10 @@ export const events = {
     increasedInteractions,
     initialized,
     clearAll,
+    sync,
     setRoles,
+}
+
+export const mutations = {
+    syncMutation,
 }

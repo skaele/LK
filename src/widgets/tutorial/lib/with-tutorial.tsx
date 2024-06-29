@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback, useRef, useState } from 'react'
+import React, { ComponentType, useCallback, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
@@ -45,18 +45,15 @@ const debounce = (fn: Function, ms = 300) => {
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
         const { width } = useResize()
-        const [animation, setAnimation] = useState<'in' | 'out'>('in')
+        const [animation, setAnimation] = useState<'in' | 'out' | 'removed'>('in')
         const [clickCounter, setClickCounter] = useState(0)
         const portal = document.getElementById('portal')
         const root = document.getElementById('root')
         const [visible, setVisible] = useState(false)
-        const counter = useRef(0)
 
         const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
         const [position, setPosition] = useState<Position | null>(null)
-        const nodeRef = useRef<HTMLElement | null>(null)
         const handleRef = useCallback((node: HTMLElement | null) => {
-            nodeRef.current = node
             if (!node || !root) return
             const measureDOMNode = () => {
                 const rect = node.getBoundingClientRect()
@@ -93,13 +90,6 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const completed = tutorials[id]?.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
 
-        if (currentModule?.id === id && currentStep === step && !visible) {
-            if (counter.current > 0) {
-                nodeRef.current?.scrollIntoView()
-            }
-            counter.current++
-        }
-
         if (!visible) return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         return (
@@ -119,19 +109,17 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
                                         setTimeout(() => {
                                             tutorialModel.events.moduleCompleted(id)
-                                            setAnimation('in')
+                                            setAnimation('removed')
                                         }, 300)
                                     }
                                 }}
                             />
-                            {(animation !== 'out' || (lastStep && animation === 'out')) && (
-                                <Layout
-                                    dimensions={dimensions}
-                                    position={position}
-                                    lastStep={animation === 'out'}
-                                    noPadding={props.tutorialModule.params?.noPadding}
-                                ></Layout>
-                            )}
+                            <Layout
+                                dimensions={dimensions}
+                                position={position}
+                                lastStep={animation === 'out'}
+                                noPadding={props.tutorialModule.params?.noPadding}
+                            ></Layout>
                             <Hint
                                 pageWidth={width}
                                 dimensions={dimensions}
@@ -162,7 +150,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
                                                 setTimeout(() => {
                                                     tutorialModel.events.moduleCompleted(id)
-                                                    setAnimation('in')
+                                                    setAnimation('removed')
                                                 }, 300)
                                             } else tutorialModel.events.nextStep()
                                         }}

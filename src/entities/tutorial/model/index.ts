@@ -17,6 +17,7 @@ import { stringToHash } from '@shared/lib/stringToHash'
 import { userModel } from '@entities/user'
 import { paymentsModel } from '@entities/payments'
 import { TUTORIAL_HASH } from '@shared/constants'
+import { getKeys } from '@shared/lib/typescript/getKeys'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -58,9 +59,14 @@ const setRoles = createEvent<TutorialRoles>()
 const $roles = createStore<TutorialRoles>([])
     .on(setRoles, (_, roles) => roles)
     .reset(userModel.events.logout)
-const $userTutorialsData = createStore<ModuleData | null>(null)
-    .on($roles, (_, roles) => commonTutorials(roles))
-    .reset(userModel.events.logout)
+
+const $userTutorialsData = createStore<ModuleData | null>(null).reset(userModel.events.logout)
+
+sample({
+    clock: $roles,
+    fn: (roles) => commonTutorials(roles),
+    target: $userTutorialsData,
+})
 
 sample({
     clock: paymentsModel.effects.getPaymentsFx.doneData,
@@ -202,6 +208,25 @@ sample({
                 },
             }
         }, {} as Modules)
+    },
+    target: $tutorials,
+})
+
+sample({
+    clock: $userTutorialsData,
+    source: $tutorials,
+    fn: (tutorials, userTutorials) => {
+        if (!userTutorials || !tutorials) return null
+
+        const newTutorials = { ...tutorials }
+        getKeys(tutorials).forEach((key) => {
+            newTutorials[key] = {
+                ...tutorials[key],
+                ...userTutorials[key],
+            }
+        })
+
+        return newTutorials
     },
     target: $tutorials,
 })
@@ -359,6 +384,8 @@ export const stores = {
     tutorials: $tutorials,
     heroVisited: $heroVisited,
     interactions: $interactions,
+    roles: $roles,
+    userTutorials: $userTutorialsData,
 }
 
 export const events = {

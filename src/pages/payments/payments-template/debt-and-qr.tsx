@@ -102,7 +102,13 @@ const DebtAndQr = (props: Props) => {
                 />
                 <DebtAndQrContentStyled>
                     <Flex d="column" gap="12px" ai="flex-start">
-                        <DebtTutorial debt={chosenDebt} tutorialModule={{ id: 'payments', step: 1 }} />
+                        <DebtTutorial
+                            debt={chosenDebt}
+                            tutorialModule={{
+                                id: 'payments',
+                                step: 1,
+                            }}
+                        />
 
                         <Flex d="column" gap="4px" ai="flex-start">
                             <Title size={3} align="left">
@@ -116,7 +122,11 @@ const DebtAndQr = (props: Props) => {
                         hasDebt={hasDebt}
                         qr_current={qr_current}
                         qr_total={qr_total}
-                        tutorialModule={{ id: 'payments', step: 2, params: { position: 'left' } }}
+                        tutorialModule={{
+                            id: 'payments',
+                            step: 2,
+                            params: { position: 'left' },
+                        }}
                     />
                 </DebtAndQrContentStyled>
                 <ButtonsList>

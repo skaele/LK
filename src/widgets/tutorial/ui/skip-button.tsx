@@ -4,7 +4,7 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
-export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out') => void }) => {
+export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out' | 'removed') => void }) => {
     const module = useUnit(tutorialModel.stores.currentModule)
     const { isMobile, isTablet } = useCurrentDevice()
     if (!module || isMobile || isTablet) return null
@@ -15,7 +15,7 @@ export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out
 
                 setTimeout(() => {
                     tutorialModel.events.moduleCompleted(module.id)
-                    setAnimation('in')
+                    setAnimation('removed')
                 }, 300)
             }}
         >

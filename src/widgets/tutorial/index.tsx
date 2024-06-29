@@ -8,6 +8,7 @@ import { tutorialModel } from '@entities/tutorial'
 import { Buttons, Text, Title, Hero, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import styled from 'styled-components'
+import { userModel } from '@entities/user'
 
 export const TutorialHero = () => {
     const [isDeleted, setIsDeleted] = useState(false)
@@ -17,6 +18,9 @@ export const TutorialHero = () => {
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.setHeroVisited,
     ])
+    const {
+        data: { user },
+    } = userModel.selectors.useUser()
 
     const { isMobile, isTablet } = useCurrentDevice()
     if (tutorialState || (heroVisited && !isDeleted)) return null
@@ -26,17 +30,43 @@ export const TutorialHero = () => {
             <Hero onMouseUp={(e) => e.stopPropagation()} deleted={isDeleted}>
                 <Img src={TrainingPic} />
                 <TutorialHeroText>
-                    <Title>Привет!</Title>
-                    <Text>
-                        В Личном кабинете появилось обучение. Пройдя его, ты познакомишься с основными моментами
-                        и возможностями, которые сделают твое обучение более удобным.
-                    </Text>
-                    {!isMobile && !isTablet && (
-                        <Text>
-                            Отслеживай расписание, заказывай справки, проводи оплаты, общайся с сотрудниками,
-                            преподавателями и студентами - все в одном месте.
-                        </Text>
+                    {user?.user_status === 'staff' ? (
+                        <>
+                            <Text>
+                                В Личном кабинете появилось обучение. При его прохождении можно познакомиться
+                                с основными разделами и возможностями Личного кабинета.
+                            </Text>
+                            <Text>
+                                Следить за прогрессом прохождения можно в настройках Личного кабинета. Также,
+                                в настройках можно напрямую запусить обучение по разделу.
+                            </Text>
+                            {!isMobile && !isTablet && (
+                                <Text>
+                                    Связь с студентами и сотрудниками, доступ к корпоративным контактным данным,
+                                    цифровые заявления - все одном месте.
+                                </Text>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <Title>Привет!</Title>
+                            <Text>
+                                В Личном кабинете появилось обучение. Пройдя его, ты познакомишься с основными разделами
+                                и возможностями Личного кабинета, которые сделают твое обучение удобнее.
+                            </Text>
+                            <Text>
+                                Следить за прогрессом прохождения можно в настройках Личного кабинета. Также,
+                                в настройках можно напрямую запусить обучение по разделу.
+                            </Text>
+                            {!isMobile && !isTablet && (
+                                <Text>
+                                    Отслеживай расписание, заказывай справки, проводи оплаты, общайся с сотрудниками,
+                                    преподавателями и студентами  - все в одном месте.
+                                </Text>
+                            )}
+                        </>
                     )}
+
                     <Buttons>
                         <Button
                             padding="16px 24px"

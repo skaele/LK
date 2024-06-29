@@ -4,11 +4,24 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
-export const SkipButton = () => {
+export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out') => void }) => {
     const module = useUnit(tutorialModel.stores.currentModule)
     const { isMobile, isTablet } = useCurrentDevice()
     if (!module || isMobile || isTablet) return null
-    return <Button onClick={() => tutorialModel.events.moduleCompleted(module.id)}>Пропустить {'>'}</Button>
+    return (
+        <Button
+            onClick={() => {
+                setAnimation('out')
+
+                setTimeout(() => {
+                    tutorialModel.events.moduleCompleted(module.id)
+                    setAnimation('in')
+                }, 300)
+            }}
+        >
+            Пропустить {'>'}
+        </Button>
+    )
 }
 
 const Button = styled.button`

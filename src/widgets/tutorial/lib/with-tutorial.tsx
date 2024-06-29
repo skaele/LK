@@ -89,11 +89,24 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                         !completed)) &&
                     ReactDOM.createPortal(
                         <>
+                            <Blocker
+                                onClick={() => {
+                                    setClickCounter(clickCounter + 1)
+                                    if (clickCounter > 1) {
+                                        setAnimation('out')
+
+                                        setTimeout(() => {
+                                            tutorialModel.events.moduleCompleted(id)
+                                            setAnimation('in')
+                                        }, 300)
+                                    }
+                                }}
+                            />
                             {(animation !== 'out' || (lastStep && animation === 'out')) && (
                                 <Layout
                                     dimensions={dimensions}
                                     position={position}
-                                    lastStep={animation === 'out' && lastStep ? true : false}
+                                    lastStep={animation === 'out'}
                                     noPadding={props.tutorialModule.params?.noPadding}
                                 ></Layout>
                             )}
@@ -102,7 +115,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 dimensions={dimensions}
                                 childPosition={position}
                                 relativePosition={props.tutorialModule.params?.position || 'right'}
-                                lastStep={animation === 'out' && lastStep ? true : false}
+                                lastStep={animation === 'out'}
                             >
                                 <Title size={4} align="left">
                                     {title}
@@ -136,7 +149,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                     </Button>
                                 </Buttons>
                             </Hint>
-                            <SkipButton />
+                            <SkipButton setAnimation={(val) => setAnimation(val)} />
                         </>,
                         portal,
                     )}
@@ -146,6 +159,15 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
     return Wrapper
 }
+
+const Blocker = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+`
 
 const FadeIn = keyframes`
         0% {

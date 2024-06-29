@@ -16,7 +16,7 @@ export const ChatItems = ({ forwardedRef }: TutorialComponent) => {
 
     if (loading && !isFirstFetched)
         return (
-            <ChatItemsWrapper ref={forwardedRef}>
+            <ChatItemsWrapper>
                 <SkeletonLoading />
                 <SkeletonLoading />
                 <SkeletonLoading />

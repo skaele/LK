@@ -17,7 +17,7 @@ const ScheduleAndNotification = () => {
             showPages
             gap={10}
             visible={!!widgetSchedule || !!widgetPayment}
-            tutorialModule={{ id: 'home', step: 4, params: { position: 'bottom' } }}
+            tutorialModule={{ id: 'home', step: 4, params: { position: 'top' } }}
         >
             {widgetSchedule && <ScheduleWidget />}
             {widgetPayment && <PaymentsWidget />}

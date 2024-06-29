@@ -24,7 +24,7 @@ export interface TutorialWrapperProps {
             // TODO: implement
             inside?: boolean
             widthMatchParent?: boolean
-            heighyMatchParent?: boolean
+            heightMatchParent?: boolean
         }
     }
 }

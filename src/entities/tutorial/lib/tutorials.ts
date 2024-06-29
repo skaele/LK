@@ -2,14 +2,14 @@ import { Module, TutorialId, TutorialRoles, TutorialStep } from '../types'
 
 export const commonTutorialIds = [
     'home',
-    'settings',
+    // 'settings',
     'chat',
     'applications',
     // 'medical-certificate',
     'payments',
-    'stud-physical-education',
-    'stud-project-activity',
-    'schedule',
+    // 'stud-physical-education',
+    // 'stud-project-activity',
+    // 'schedule',
 ] as const
 
 export type ModuleData = {
@@ -134,63 +134,63 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => {
         //         },
         //     ],
         // },
-        schedule: {
-            path: '/schedule',
-            name: 'Расписание',
-            steps: [
-                {
-                    title: 'Расписание',
-                    description:
-                        'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
-                },
-                {
-                    title: 'Пересдачи',
-                    description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
-                },
-            ],
-        },
-        settings: {
-            path: '/settings',
-            name: 'Настройки',
-            steps: [
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-            ],
-        },
-        'stud-project-activity': {
-            path: '/project-activity',
-            name: 'Проектная деятельность',
-            steps: [
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-            ],
-        },
-        'stud-physical-education': {
-            path: '/physical-education/student',
-            name: 'Физическая культура',
-            steps: [
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-                {
-                    title: 'Чат',
-                    description: 'В этом разделе можно общаться в чате',
-                },
-            ],
-        },
+        // schedule: {
+        //     path: '/schedule',
+        //     name: 'Расписание',
+        //     steps: [
+        //         {
+        //             title: 'Расписание',
+        //             description:
+        //                 'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
+        //         },
+        //         {
+        //             title: 'Пересдачи',
+        //             description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
+        //         },
+        //     ],
+        // },
+        // settings: {
+        //     path: '/settings',
+        //     name: 'Настройки',
+        //     steps: [
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //     ],
+        // },
+        // 'stud-project-activity': {
+        //     path: '/project-activity',
+        //     name: 'Проектная деятельность',
+        //     steps: [
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //     ],
+        // },
+        // 'stud-physical-education': {
+        //     path: '/physical-education/student',
+        //     name: 'Физическая культура',
+        //     steps: [
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //         {
+        //             title: 'Чат',
+        //             description: 'В этом разделе можно общаться в чате',
+        //         },
+        //     ],
+        // },
     }
 }
 

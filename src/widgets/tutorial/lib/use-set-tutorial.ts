@@ -17,12 +17,13 @@ export const useSetTutorial = () => {
     useEffect(() => {
         if (tutorials) {
             const tutorial = Object.values(tutorials).find((tutorial) => tutorial.path === path)
-            if (!tutorial) setCurrentTutorial(null)
-            else {
-                if (currentModule?.id !== tutorial.id) {
-                    setCurrentTutorial(tutorial.id)
-                    resetStep()
-                }
+            if (!tutorial) {
+                setCurrentTutorial(null)
+                return
+            }
+            if (currentModule?.id !== tutorial.id) {
+                setCurrentTutorial(tutorial.id)
+                resetStep()
             }
         }
     }, [tutorials, path])

@@ -90,8 +90,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const completed = currentModule.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
 
-        if (!visible || completed || animation === 'removed')
-            return <WrappedComponent forwardedRef={handleRef} {...props} />
+        if (!visible || completed) return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         return (
             <>

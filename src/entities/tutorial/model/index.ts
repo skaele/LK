@@ -39,9 +39,9 @@ const $heroVisited = createStore<boolean>(false)
     })
     .reset(userModel.events.logout)
 const $currentModule = createStore<Module | null>(null)
-    .reset(moduleRestarted)
     .on(moduleCompleted, (module) => ({ ...module, completed: true } as Module))
     .reset(userModel.events.logout)
+
 const $currentStep = createStore<number>(0).reset(resetStep).reset(userModel.events.logout)
 const $tutorials = createStore<Modules | null>(null)
     .on(moduleCompleted, (state, id) => {
@@ -135,6 +135,15 @@ sample({
     target: rerunModuleMutation.start,
 })
 
+sample({
+    clock: moduleRestarted,
+    source: $tutorials,
+    fn: (tutorials, id) => {
+        if (!tutorials || !id) return null
+        return { ...tutorials, [id]: { ...tutorials[id], completed: false } }
+    },
+    target: $tutorials,
+})
 sample({
     clock: rerunModuleMutation.$succeeded,
     source: { id: rerunModuleMutation.__.$latestParams, tutorials: $tutorials },

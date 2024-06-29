@@ -164,7 +164,7 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => {
             ],
         },
         'stud-project-activity': {
-            path: '/chat',
+            path: '/project-activity',
             name: 'Проектная деятельность',
             steps: [
                 {
@@ -178,7 +178,7 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => {
             ],
         },
         'stud-physical-education': {
-            path: '/chat',
+            path: '/physical-education/student',
             name: 'Физическая культура',
             steps: [
                 {

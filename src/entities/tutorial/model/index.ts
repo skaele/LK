@@ -24,7 +24,7 @@ const setHeroVisited = createEvent<boolean>()
 const increasedInteractions = createEvent()
 const moduleCompleted = createEvent<TutorialId>()
 const moduleRestarted = createEvent<TutorialId>()
-const setCurrentTutorial = createEvent<TutorialId>()
+const setCurrentTutorial = createEvent<TutorialId | null>()
 const nextStep = createEvent()
 const prevStep = createEvent()
 const resetStep = createEvent()
@@ -38,7 +38,10 @@ const $heroVisited = createStore<boolean>(false)
         return value
     })
     .reset(userModel.events.logout)
-const $currentModule = createStore<Module | null>(null).reset(userModel.events.logout)
+const $currentModule = createStore<Module | null>(null)
+    .reset(moduleRestarted)
+    .on(moduleCompleted, (module) => ({ ...module, completed: true } as Module))
+    .reset(userModel.events.logout)
 const $currentStep = createStore<number>(0).reset(resetStep).reset(userModel.events.logout)
 const $tutorials = createStore<Modules | null>(null)
     .on(moduleCompleted, (state, id) => {
@@ -111,7 +114,7 @@ sample({
     clock: setCurrentTutorial,
     source: $tutorials,
     fn: (tutorials, id) => {
-        if (!tutorials) return null
+        if (!tutorials || !id) return null
         const tutorial = tutorials[id]
         return tutorial ?? null
     },

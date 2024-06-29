@@ -1,5 +1,4 @@
 import { tutorialModel } from '@entities/tutorial'
-import { getKeys } from '@shared/lib/typescript/getKeys'
 import { useUnit } from 'effector-react'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
@@ -16,13 +15,15 @@ export const useSetTutorial = () => {
     ])
 
     useEffect(() => {
-        if (tutorials)
-            getKeys(tutorials).forEach((key) => {
-                const tutorial = tutorials[key]
-                if (tutorial.path === path) {
+        if (tutorials) {
+            const tutorial = Object.values(tutorials).find((tutorial) => tutorial.path === path)
+            if (!tutorial) setCurrentTutorial(null)
+            else {
+                if (currentModule?.id !== tutorial.id) {
                     setCurrentTutorial(tutorial.id)
-                    if (currentModule?.id !== tutorial.id) resetStep()
+                    resetStep()
                 }
-            })
+            }
+        }
     }, [tutorials, path])
 }

@@ -87,18 +87,17 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
         const { title, description } = currentModule.steps[currentStep]
         const { id, step } = props.tutorialModule
-        const completed = tutorials[id]?.completed
+        const completed = currentModule.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
 
-        if (!visible) return <WrappedComponent forwardedRef={handleRef} {...props} />
+        if (!visible || completed || animation === 'removed')
+            return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
-                {(animation === 'out' ||
-                    ((typeof step === 'number' ? step === currentStep : step.some((step) => step === currentStep)) &&
-                        id === currentModule.id &&
-                        !completed)) &&
+                {(typeof step === 'number' ? step === currentStep : step.some((step) => step === currentStep)) &&
+                    id === currentModule.id &&
                     ReactDOM.createPortal(
                         <>
                             <Blocker
@@ -108,9 +107,9 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                         setAnimation('out')
 
                                         setTimeout(() => {
-                                            tutorialModel.events.moduleCompleted(id)
                                             setAnimation('removed')
-                                        }, 300)
+                                            tutorialModel.events.moduleCompleted(id)
+                                        }, 200)
                                     }
                                 }}
                             />
@@ -149,9 +148,9 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                                 setAnimation('out')
 
                                                 setTimeout(() => {
-                                                    tutorialModel.events.moduleCompleted(id)
                                                     setAnimation('removed')
-                                                }, 300)
+                                                    tutorialModel.events.moduleCompleted(id)
+                                                }, 200)
                                             } else tutorialModel.events.nextStep()
                                         }}
                                     >

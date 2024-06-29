@@ -2,18 +2,14 @@ import { $tutorialApi } from './config/tutorial-config'
 import { TutorialId, Tutorials } from '@entities/tutorial/types'
 
 export const initializeTutorials = async (tutorials: TutorialId[]) => {
-    const { data } = await $tutorialApi.post<Tutorials>(
-        '/tutorials/init',
-        {
-            tutorials,
-        },
-        { signal: AbortSignal.timeout(1000) },
-    )
+    const { data } = await $tutorialApi.post<Tutorials>('/tutorials/init', {
+        tutorials,
+    })
     return data
 }
 
 export const getUserTutorials = async () => {
-    const { data } = await $tutorialApi.get<Tutorials>('/users/tutorials', { signal: AbortSignal.timeout(1000) })
+    const { data } = await $tutorialApi.get<Tutorials>('/users/tutorials')
 
     return data
 }

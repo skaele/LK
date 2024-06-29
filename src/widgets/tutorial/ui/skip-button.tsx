@@ -15,8 +15,7 @@ export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out
 
                 setTimeout(() => {
                     tutorialModel.events.moduleCompleted(module.id)
-                    setAnimation('removed')
-                }, 300)
+                }, 200)
             }}
         >
             Пропустить {'>'}

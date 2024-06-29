@@ -43,18 +43,30 @@ export interface PaymentsContract {
     student: string
     sum: string
     type: string
+    sides: string
+    user_fio: string
+    user_email: string
+    client_fio: string
+    client_email: string
 }
 
 export interface Agreement {
     can_sign: boolean
+    client_email: string
+    client_fio: string
+    code_sent: boolean
     date: string
     file: string
     id: string
     name: string
+    reason: string
+    sides: string
     signed_user: boolean
     signed_user_date: string
     signed_user_time: string
     type: string
+    user_email: string
+    user_fio: string
 }
 
 export interface LoadPayments {

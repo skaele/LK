@@ -10,6 +10,7 @@ export const TutorialStepSchema = z.object({
 
 export const ModuleSchema = z.object({
     id: TutorialIdSchema,
+    index: z.number(),
     name: z.string(),
     completed: z.boolean(),
     steps: z.array(TutorialStepSchema),

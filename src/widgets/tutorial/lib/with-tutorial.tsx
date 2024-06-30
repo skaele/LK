@@ -37,34 +37,6 @@ export type TutorialComponent = {
     forwardedRef?: (node: HTMLElement | null) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-// type DebouncedFunction<T extends (...args: any[]) => any> = {
-//     (...args: Parameters<T>): void
-//     cancel: () => void
-// }
-
-// function debounce<T extends (...args: any[]) => any>(func: T, wait = 300): DebouncedFunction<T> {
-//     let timeoutId: ReturnType<typeof setTimeout> | null
-
-//     const debouncedFunction = (...args: Parameters<T>): void => {
-//         if (timeoutId !== null) {
-//             clearTimeout(timeoutId)
-//         }
-//         timeoutId = setTimeout(() => {
-//             func(...args)
-//         }, wait)
-//     }
-
-//     debouncedFunction.cancel = () => {
-//         if (timeoutId !== null) {
-//             clearTimeout(timeoutId)
-//         }
-//         timeoutId = null
-//     }
-
-//     return debouncedFunction as DebouncedFunction<T>
-// }
-
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
         const hintRef = React.useRef<HTMLDivElement | null>(null)
@@ -112,6 +84,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             step === currentStep &&
             !isIntersecting
         ) {
+            console.log('scroll')
             if (componentRef.current) {
                 componentRef.current.scrollIntoView({ behavior: 'smooth' })
             }

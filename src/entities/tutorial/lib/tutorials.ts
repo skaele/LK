@@ -13,7 +13,7 @@ export const commonTutorialIds = [
 ] as const
 
 export type ModuleData = {
-    [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name'>
+    [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name' | 'index'>
 }
 
 export const createTutorials = (roles: TutorialRoles): ModuleData => {
@@ -46,6 +46,7 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
         //     ],
         // },
         home: {
+            index: 0,
             path: '/home',
             name: 'Главная',
             steps: [
@@ -77,7 +78,33 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                     : []),
             ],
         },
+        chat: {
+            index: 1,
+            path: '/chat',
+            name: 'Сообщения',
+            steps: [
+                {
+                    title: 'Список диалогов',
+                    description: 'Здесь будут указаны все ваши чаты',
+                },
+                {
+                    title: 'Новое сообщение',
+                    description: 'Чтобы создать новый чат, нажмите на эту кнопку',
+                },
+                {
+                    title: 'Поиск',
+                    description: 'Для быстрого поиска диалога можно воспользоваться поиском',
+                },
+            ],
+        },
+        payments: {
+            index: 2,
+            path: '/payments',
+            name: 'Договоры и оплаты',
+            steps: initPaymentsSteps(roles),
+        },
         applications: {
+            index: 3,
             path: '/applications',
             name: 'Цифровые сервисы',
             steps: [
@@ -101,59 +128,48 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                 },
             ],
         },
-        payments: {
-            path: '/payments',
-            name: 'Договоры и оплаты',
-            steps: initPaymentsSteps(roles),
-        },
-        chat: {
-            path: '/chat',
-            name: 'Сообщения',
-            steps: [
-                {
-                    title: 'Список диалогов',
-                    description: 'Здесь будут указаны все ваши чаты',
-                },
-                {
-                    title: 'Новое сообщение',
-                    description: 'Чтобы создать новый чат, нажмите на эту кнопку',
-                },
-                {
-                    title: 'Поиск',
-                    description: 'Для быстрого поиска диалога можно воспользоваться поиском',
-                },
-            ],
-        },
         // 'medical-certificate': {
         //     path: '/medical-certificate',
         //     name: 'Предоставление медицинских справок',
         //     steps: [
-        //         {
-        //             title: 'Приложите справки',
-        //             description: 'В этом разделе можно приложить медицинские справки для проживания в общежитии',
-        //         },
-        //         {
-        //             title: 'Заполните завление',
-        //             description: 'Введите обязательные поля и приложите справки',
-        //         },
         //     ],
         // },
         // schedule: {
         //     path: '/schedule',
         //     name: 'Расписание',
         //     steps: [
-        //         {
-        //             title: 'Расписание',
-        //             description:
-        //                 'В этом разделе можно посмотреть свое расписание, расписание других групп или преподавателей',
-        //         },
-        //         {
-        //             title: 'Пересдачи',
-        //             description: 'При нажатии на кнопку пересдач можно посмотреть список пересдач',
-        //         },
         //     ],
         // },
+        'stud-project-activity': {
+            index: 4,
+            path: '/project-activity',
+            name: 'Проектная деятельность',
+            steps: [
+                {
+                    title: 'Проектная деятельность',
+                    description: 'В этом разделе можно узнать информацию о твоем проекте по проектной деятельности',
+                },
+                {
+                    title: 'Проект',
+                    description: 'Здесь указано название проекта и полезная информация',
+                },
+                {
+                    title: 'Текущий семестр',
+                    description: 'Раздел с текущим семестром. Для зачета нужно набрать 60 баллов',
+                },
+                {
+                    title: 'Предыдущий семестр',
+                    description:
+                        'Если за предыдущий семсетр стоит "не зачтено", то нужно донабрать баллы в текущем семестре',
+                },
+                {
+                    title: 'Итого',
+                    description: 'В последнем разделе посчитано итоговое количество баллов и предварительная оценка',
+                },
+            ],
+        },
         settings: {
+            index: 5,
             path: '/configurations',
             name: 'Настройки',
             steps: [
@@ -189,33 +205,6 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                     title: 'Обучение',
                     description:
                         'В этом разделе можно выключить обучение, посмотреть прогресс обучения или запустить программу для выбранного раздела',
-                },
-            ],
-        },
-        'stud-project-activity': {
-            path: '/project-activity',
-            name: 'Проектная деятельность',
-            steps: [
-                {
-                    title: 'Преоктная деятельность',
-                    description: 'В этом разделе можно узнать информацию о твоем проекте по проектной деятельности',
-                },
-                {
-                    title: 'Проект',
-                    description: 'Здесь указано название проекта и полезная информация',
-                },
-                {
-                    title: 'Текущий семестр',
-                    description: 'Раздел с текущим семестром. Для зачета нужно набрать 60 баллов',
-                },
-                {
-                    title: 'Предыдущий семестр',
-                    description:
-                        'Если за предыдущий семсетр стоит "не зачтено", то нужно донабрать баллы в текущем семестре',
-                },
-                {
-                    title: 'Итого',
-                    description: 'В последнем разделе посчитано итоговое количество баллов и предварительная оценка',
                 },
             ],
         },

@@ -48,6 +48,7 @@ const List = (props: Props & TutorialComponent) => {
         horizontalAlign = 'left',
         scroll = true,
         visible = true,
+        forwardedRef,
         ...restProps
     } = props
 
@@ -58,7 +59,7 @@ const List = (props: Props & TutorialComponent) => {
 
     return (
         <Wrapper
-            ref={props.forwardedRef}
+            ref={forwardedRef}
             padding={padding}
             position={position}
             width={width}

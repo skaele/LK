@@ -1,4 +1,4 @@
-import list from '@shared/ui/list'
+import List from '@shared/ui/list'
 import { withTutorial } from '../lib/with-tutorial'
 
-export const ListTutorial = withTutorial(list)
+export const ListTutorial = withTutorial(List)

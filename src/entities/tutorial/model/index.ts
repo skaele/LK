@@ -78,6 +78,7 @@ sample({
 sample({
     clock: projectActivitesModel.store,
     source: $roles,
+    filter: (roles) => !roles.includes('has PA last semester'),
     fn: (roles, pa) =>
         pa.data?.last_semestr_result !== 'Данные отсутствуют' ? ([...roles, 'has PA last semester'] as const) : roles,
     target: $roles,
@@ -90,10 +91,11 @@ sample({
 
 sample({
     clock: paymentsModel.effects.getPaymentsFx.doneData,
-    fn: ({ dormitory, education }) => {
-        const roles: TutorialRoles = []
-        if (dormitory.length) roles.push('dormitory')
-        if (education.length) roles.push('education')
+    source: $roles,
+    fn: (oldRoles, { dormitory, education }) => {
+        const roles = [...oldRoles]
+        if (dormitory.length && !roles.includes('dormitory')) roles.push('dormitory')
+        if (education.length && !roles.includes('education')) roles.push('education')
         return roles
     },
     target: setRoles,

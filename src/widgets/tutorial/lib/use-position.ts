@@ -1,6 +1,33 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Dimensions, Position } from './with-tutorial'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+type DebouncedFunction<T extends (...args: any[]) => any> = {
+    (...args: Parameters<T>): void
+    cancel: () => void
+}
+
+function debounce<T extends (...args: any[]) => any>(func: T, wait = 300): DebouncedFunction<T> {
+    let timeoutId: ReturnType<typeof setTimeout> | null
+
+    const debouncedFunction = (...args: Parameters<T>): void => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId)
+        }
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, wait)
+    }
+
+    debouncedFunction.cancel = () => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId)
+        }
+        timeoutId = null
+    }
+
+    return debouncedFunction as DebouncedFunction<T>
+}
 export const usePosition = () => {
     const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
     const [position, setPosition] = useState<Position | null>(null)
@@ -25,6 +52,7 @@ export const usePosition = () => {
                 setPosition({ top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom })
             }
         }
+        const measureDebounced = debounce(measureDOMNode, 200)
 
         const root = document.getElementById('root')
         if (!root) return
@@ -44,13 +72,13 @@ export const usePosition = () => {
         mutationObserver.observe(root, { childList: true, subtree: true })
         intersectionObserver.observe(node)
         window.addEventListener('resize', measureDOMNode)
-        window.addEventListener('scroll', measureDOMNode, true)
+        window.addEventListener('scroll', measureDebounced, true)
 
         return () => {
             intersectionObserver.disconnect()
             mutationObserver.disconnect()
             window.removeEventListener('resize', measureDOMNode)
-            window.removeEventListener('scroll', measureDOMNode, true)
+            window.removeEventListener('scroll', measureDebounced, true)
         }
     }, [])
 

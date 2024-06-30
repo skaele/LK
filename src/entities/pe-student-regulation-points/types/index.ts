@@ -1,19 +1,18 @@
 export interface AddStudentRegulationPoints {
     studentGuid: string
-    standardType: RegulationType
+    type: RegulationType
     date: string
-    pointsAmount: number
-    isOverride: boolean
+    points: number
 }
 
 export enum RegulationType {
-    FlexionAndExtensionOfArms = 'FLEXION_AND_EXTENSION_OF_ARMS', // сгибание и разгибание рук
-    JumpingRopeJumps = 'JUMPING_ROPE_JUMPS', // прыжки со скакалкой
-    Jumps = 'JUMPS', // прыжки
-    PullUps = 'PULL_UPS', // подтягивания
-    ShuttleRun = 'SHUTTLE_RUN', // челночный бег
-    Squats = 'SQUATS', // приседания
-    Tilts = 'TILTS', // наклон
-    TorsoLifts = 'TORSO_LIFTS', // подъемы туловища
-    Other = 'OTHER', // другое
+    FlexionAndExtensionOfArms = 'FlexionAndExtensionOfArms', // сгибание и разгибание рук
+    JumpingRopeJumps = 'JumpingRopeJumps', // прыжки со скакалкой
+    Jumps = 'Jumps', // прыжки
+    PullUps = 'PullUps', // подтягивания
+    ShuttleRun = 'ShuttleRun', // челночный бег
+    Squats = 'Squats', // приседания
+    Tilts = 'Tilts', // наклон
+    TorsoLifts = 'TorsoLifts', // подъемы туловища
+    Other = 'Other', // другое
 }

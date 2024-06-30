@@ -1,6 +1,6 @@
 import { $tutorialApi } from './config/tutorial-config'
-import { TutorialId, Tutorials } from '@entities/tutorial/types'
-
+import { Module, TutorialId, Tutorials } from '@entities/tutorial/types'
+export type TutorialData = Pick<Module, 'id' | 'completed'>[]
 export const initializeTutorials = async (tutorials: TutorialId[]) => {
     const { data } = await $tutorialApi.post<Tutorials>('/tutorials/init', {
         tutorials,
@@ -49,5 +49,10 @@ export const callUserInteraction = async () => {
 
 export const clear = async () => {
     const { data } = await $tutorialApi.delete<boolean>('/users/clear')
+    return data
+}
+
+export const syncModules = async (tutorials: TutorialData) => {
+    const { data } = await $tutorialApi.post<{ hash: number; tutorials: TutorialData }>('/users/sync', tutorials)
     return data
 }

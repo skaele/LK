@@ -1,5 +1,5 @@
 import { tutorialModel } from '@entities/tutorial'
-import { Colors, isProduction } from '@shared/constants'
+import { Colors, TUTORIAL_PROGRESS, isProduction } from '@shared/constants'
 import { Button, Title } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
@@ -32,7 +32,7 @@ export const TutorialSettings = () => {
         setIsOnline(navigator.onLine)
 
         if (navigator.onLine) {
-            sync()
+            sync(JSON.parse(localStorage.getItem(TUTORIAL_PROGRESS) || ''))
         }
     }
     useEffect(() => {

@@ -1,7 +1,8 @@
-import { createEvent, createStore, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { Module, Modules, TutorialId, TutorialRoles } from '../types'
 import { createMutation, createQuery } from '@farfetched/core'
 import {
+    TutorialData,
     callUserInteraction,
     changeTutorialState,
     clear,
@@ -10,13 +11,14 @@ import {
     initializeTutorials,
     rerunModule,
     resetTutorial,
+    syncModules,
 } from '@shared/api/tutorial-api'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { ModuleData, createTutorials } from '../lib/tutorials'
 import { stringToHash } from '@shared/lib/stringToHash'
 import { userModel } from '@entities/user'
 import { paymentsModel } from '@entities/payments'
-import { TUTORIAL_HASH } from '@shared/constants'
+import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 import { getKeys } from '@shared/lib/typescript/getKeys'
 import { userSettingsModel } from '@entities/settings'
 import { projectActivitesModel } from '@entities/project-activites'
@@ -32,6 +34,11 @@ const prevStep = createEvent()
 const resetStep = createEvent()
 const getTutorialData = createEvent()
 const clearProgress = createEvent()
+
+const saveProgressLocally = createEffect(({ tutorials, hash }: { tutorials: TutorialData; hash?: number }) => {
+    localStorage.setItem(TUTORIAL_PROGRESS, JSON.stringify(tutorials))
+    if (hash) localStorage.setItem(TUTORIAL_PROGRESS_HASH, hash.toString())
+})
 
 const $tutorialState = createStore<boolean | null>(null).reset(userModel.events.logout)
 const $heroVisited = createStore<boolean>(false)
@@ -226,6 +233,17 @@ sample({
 
 sample({
     clock: getTutorialDataQuery.finished.success,
+    fn: ({ result: { tutorials } }) => ({ tutorials: tutorials }),
+    target: saveProgressLocally,
+})
+sample({
+    clock: getTutorialDataQuery.finished.failure,
+    fn: () => false,
+    target: $tutorialState,
+})
+
+sample({
+    clock: getTutorialDataQuery.finished.success,
     source: $userTutorialsData,
     fn: (userTutorials, { result: { tutorials } }) => {
         if (!userTutorials || !tutorials) return null
@@ -374,14 +392,49 @@ const completeModuleMutation = createMutation({
     handler: completeModule,
 })
 
-const sync = createEvent()
+const sync = createEvent<TutorialData>()
 const syncMutation = createMutation({
-    handler: getUserTutorials,
+    handler: syncModules,
+})
+
+sample({
+    clock: getTutorialDataQuery.finished.success,
+    filter: ({ result: { hash } }) =>
+        hash !== Number(localStorage.getItem(TUTORIAL_PROGRESS_HASH)) && !!localStorage.getItem(TUTORIAL_PROGRESS),
+    fn: (): TutorialData => {
+        const progress = localStorage.getItem(TUTORIAL_PROGRESS)
+        return JSON.parse(progress || '')
+    },
+    target: sync,
 })
 
 sample({
     clock: sync,
     target: syncMutation.start,
+})
+
+sample({
+    clock: syncMutation.finished.success,
+    fn: ({ result }) => result,
+    target: saveProgressLocally,
+})
+sample({
+    clock: syncMutation.finished.success,
+    source: $tutorials,
+    fn: (userTutorials, { result: { tutorials } }) => {
+        if (!userTutorials || !tutorials) return null
+
+        return tutorials.reduce((acc, tutorial) => {
+            return {
+                ...acc,
+                [tutorial.id]: {
+                    ...userTutorials[tutorial.id],
+                    ...tutorial,
+                },
+            }
+        }, {} as Modules)
+    },
+    target: $tutorials,
 })
 
 sample({

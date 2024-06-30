@@ -13,15 +13,20 @@ import { StartTutorialLinks } from './start-tutorial-links'
 import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
 
 export const TutorialSettings = () => {
-    const [tutorialEnabled, setTutorialState, clearProgress, sync, pending, clearAll] = useUnit([
+    const [tutorialEnabled, setTutorialState, clearProgress, getTutorialData, sync, pending, clearAll] = useUnit([
         tutorialModel.stores.tutorialState,
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.clearProgress,
+        tutorialModel.events.getTutorialData,
         tutorialModel.events.sync,
         tutorialModel.mutations.syncMutation.$pending,
 
         tutorialModel.events.clearAll,
     ])
+
+    useEffect(() => {
+        getTutorialData()
+    }, [])
     const evokeConfirm = useUnit(confirmModel.events.evokeConfirm)
 
     const [isOnline, setIsOnline] = useState(navigator.onLine)
@@ -45,6 +50,20 @@ export const TutorialSettings = () => {
             window.removeEventListener('offline', updateOnlineStatus)
         }
     }, [])
+
+    if (tutorialEnabled === null)
+        return (
+            <Wrapper>
+                <Title {...TITLE_CONFIG} bottomGap={'4px'}>
+                    Общее
+                </Title>
+                <ToggleItem
+                    title={'Обучение'}
+                    state={Boolean(tutorialEnabled)}
+                    action={(newValue) => setTutorialState(newValue)}
+                />
+            </Wrapper>
+        )
 
     return (
         <Wrapper>

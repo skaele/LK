@@ -7,15 +7,18 @@ import { useHistory } from 'react-router'
 import { CompletableLinkField } from './ui/completable-link-field'
 import styled from 'styled-components'
 import { getEntries } from '@shared/lib/typescript/getEntries'
+import { userModel } from '@entities/user'
 
 export const StartTutorialLinks = () => {
     const history = useHistory()
-    const [tutorials, state, tutorialEnabled, moduleRestarted] = useUnit([
+    const [tutorials, state, tutorialEnabled, moduleRestarted, user] = useUnit([
         tutorialModel.stores.tutorials,
         tutorialModel.stores.tutorialState,
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.moduleRestarted,
+        userModel.stores.user,
     ])
+
     if (!tutorials) return null
     return (
         <div>
@@ -25,6 +28,7 @@ export const StartTutorialLinks = () => {
             <Container>
                 {getEntries(tutorials)
                     .sort((a, b) => a[1].index - b[1].index)
+                    .filter(([, value]) => value.roles.includes(user?.currentUser?.user_status || ''))
                     .map(([key, value]) => {
                         if (value.name)
                             return (

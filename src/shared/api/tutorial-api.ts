@@ -52,7 +52,7 @@ export const clear = async () => {
     return data
 }
 
-export const syncModules = async (tutorials: TutorialData) => {
-    const { data } = await $tutorialApi.post<{ hash: number; tutorials: TutorialData }>('/users/sync', tutorials)
+export const syncModules = async (req: { tutorials: TutorialData; date: string }) => {
+    const { data } = await $tutorialApi.post<{ hash: number; tutorials: TutorialData }>('/users/sync', req)
     return data
 }

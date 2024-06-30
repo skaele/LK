@@ -7,7 +7,7 @@ import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
-import { TUTORIAL_HASH } from '@shared/constants'
+import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null
@@ -103,6 +103,9 @@ const logoutFx = createEffect(() => {
         sessionStorage.removeItem(BrowserStorageKey.JWTRefresh)
     }
     localStorage.removeItem(TUTORIAL_HASH)
+    localStorage.removeItem(TUTORIAL_PROGRESS)
+    localStorage.removeItem(TUTORIAL_PROGRESS_DATE)
+    localStorage.removeItem(TUTORIAL_PROGRESS_HASH)
 })
 
 const changeSavePasswordFunc = (savePassword?: boolean) => {

@@ -18,7 +18,7 @@ import { ModuleData, createTutorials } from '../lib/tutorials'
 import { stringToHash } from '@shared/lib/stringToHash'
 import { userModel } from '@entities/user'
 import { paymentsModel } from '@entities/payments'
-import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
+import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 import { getKeys } from '@shared/lib/typescript/getKeys'
 import { userSettingsModel } from '@entities/settings'
 import { projectActivitesModel } from '@entities/project-activites'
@@ -35,8 +35,9 @@ const resetStep = createEvent()
 const getTutorialData = createEvent()
 const clearProgress = createEvent()
 
-const saveProgressLocally = createEffect(({ tutorials, hash }: { tutorials: TutorialData; hash?: number }) => {
+const saveProgressLocally = createEffect(({ tutorials, hash }: { tutorials: TutorialData; hash: number }) => {
     localStorage.setItem(TUTORIAL_PROGRESS, JSON.stringify(tutorials))
+    localStorage.setItem(TUTORIAL_PROGRESS_DATE, new Date().toISOString())
     if (hash) localStorage.setItem(TUTORIAL_PROGRESS_HASH, hash.toString())
 })
 
@@ -79,7 +80,9 @@ sample({
     source: $roles,
     filter: (_, settings) => Boolean(settings),
     fn: (roles, settings) =>
-        settings?.homePage.hasPayment && settings?.homePage.hasSchedule ? ([...roles, 'has widgets'] as const) : roles,
+        settings?.homePage.hasPayment && settings?.homePage.hasSchedule
+            ? ([...roles, 'has widgets'] as const)
+            : roles.filter((role) => role !== 'has widgets'),
     target: $roles,
 })
 sample({
@@ -87,7 +90,9 @@ sample({
     source: $roles,
     filter: (roles) => !roles.includes('has PA last semester'),
     fn: (roles, pa) =>
-        pa.data?.last_semestr_result !== 'Данные отсутствуют' ? ([...roles, 'has PA last semester'] as const) : roles,
+        pa.data?.last_semestr_result !== 'Данные отсутствуют'
+            ? ([...roles, 'has PA last semester'] as const)
+            : roles.filter((role) => role !== 'has PA last semester'),
     target: $roles,
 })
 sample({
@@ -233,7 +238,7 @@ sample({
 
 sample({
     clock: getTutorialDataQuery.finished.success,
-    fn: ({ result: { tutorials } }) => ({ tutorials: tutorials }),
+    fn: ({ result: { tutorials, hash } }) => ({ tutorials, hash }),
     target: saveProgressLocally,
 })
 sample({
@@ -348,6 +353,17 @@ sample({
     target: resetTutorialMutation.start,
 })
 
+const clearLocalProgressFx = createEffect(() => {
+    localStorage.removeItem(TUTORIAL_PROGRESS_HASH)
+    localStorage.removeItem(TUTORIAL_PROGRESS)
+    localStorage.removeItem(TUTORIAL_PROGRESS_DATE)
+})
+
+sample({
+    clock: clearProgress,
+    target: clearLocalProgressFx,
+})
+
 const clearAll = createEvent()
 const clearMut = createMutation({
     handler: clear,
@@ -392,7 +408,7 @@ const completeModuleMutation = createMutation({
     handler: completeModule,
 })
 
-const sync = createEvent<TutorialData>()
+const sync = createEvent<{ tutorials: TutorialData; date: string }>()
 const syncMutation = createMutation({
     handler: syncModules,
 })
@@ -400,10 +416,13 @@ const syncMutation = createMutation({
 sample({
     clock: getTutorialDataQuery.finished.success,
     filter: ({ result: { hash } }) =>
-        hash !== Number(localStorage.getItem(TUTORIAL_PROGRESS_HASH)) && !!localStorage.getItem(TUTORIAL_PROGRESS),
-    fn: (): TutorialData => {
-        const progress = localStorage.getItem(TUTORIAL_PROGRESS)
-        return JSON.parse(progress || '')
+        !!localStorage.getItem(TUTORIAL_PROGRESS_HASH) &&
+        !!localStorage.getItem(TUTORIAL_PROGRESS) &&
+        hash !== Number(localStorage.getItem(TUTORIAL_PROGRESS_HASH)),
+    fn: (): { tutorials: TutorialData; date: string } => {
+        const progress = JSON.parse(localStorage.getItem(TUTORIAL_PROGRESS) || '')
+        const date = localStorage.getItem(TUTORIAL_PROGRESS_DATE) || ''
+        return { tutorials: progress, date }
     },
     target: sync,
 })
@@ -421,6 +440,7 @@ sample({
 sample({
     clock: syncMutation.finished.success,
     source: $tutorials,
+    filter: (_, { result: { tutorials } }) => Boolean(tutorials?.length),
     fn: (userTutorials, { result: { tutorials } }) => {
         if (!userTutorials || !tutorials) return null
 

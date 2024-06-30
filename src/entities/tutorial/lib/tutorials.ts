@@ -13,7 +13,7 @@ export const commonTutorialIds = [
 ] as const
 
 export type ModuleData = {
-    [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name' | 'index'>
+    [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name' | 'index' | 'roles'>
 }
 
 export const createTutorials = (roles: TutorialRoles): ModuleData => {
@@ -77,6 +77,7 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                       ]
                     : []),
             ],
+            roles: ['stud', 'staff'],
         },
         chat: {
             index: 1,
@@ -96,12 +97,14 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                     description: 'Для быстрого поиска диалога можно воспользоваться поиском',
                 },
             ],
+            roles: ['stud', 'staff'],
         },
         payments: {
             index: 2,
             path: '/payments',
             name: 'Договоры и оплаты',
             steps: initPaymentsSteps(roles),
+            roles: initPaymentsRoles(roles),
         },
         applications: {
             index: 3,
@@ -127,6 +130,7 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                     description: 'Чтобы подать заявление, нажмите на эту кнопку',
                 },
             ],
+            roles: ['stud', 'staff'],
         },
         // 'medical-certificate': {
         //     path: '/medical-certificate',
@@ -167,6 +171,7 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                     description: 'В последнем разделе посчитано итоговое количество баллов и предварительная оценка',
                 },
             ],
+            roles: ['stud'],
         },
         settings: {
             index: 5,
@@ -207,6 +212,7 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                         'В этом разделе можно выключить обучение, посмотреть прогресс обучения или запустить программу для выбранного раздела',
                 },
             ],
+            roles: ['stud', 'staff'],
         },
         // 'stud-physical-education': {
         //     path: '/physical-education/student',
@@ -279,4 +285,8 @@ const initPaymentsSteps = (roles: TutorialRoles): TutorialStep[] => {
               ]
             : []),
     ]
+}
+const initPaymentsRoles = (roles: TutorialRoles) => {
+    if (roles.includes('education') || roles.includes('dormitory')) return ['stud', 'staff']
+    return []
 }

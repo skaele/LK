@@ -15,6 +15,7 @@ export const ModuleSchema = z.object({
     completed: z.boolean(),
     steps: z.array(TutorialStepSchema),
     path: z.string(),
+    roles: z.array(z.string()),
 })
 
 // export const TutorialsSchema = z.object({

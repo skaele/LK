@@ -18,8 +18,10 @@ import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
 import { tutorialModel } from '@entities/tutorial'
 import { useUnit } from 'effector-react'
 import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 const ProjectActivitiesPage = () => {
+    const { isMobile, isTablet } = useCurrentDevice()
     const { data, loading, error } = projectActivitesModel.selectors.useData()
     const [currentModule] = useUnit([tutorialModel.stores.currentModule])
     const {
@@ -42,7 +44,11 @@ const ProjectActivitiesPage = () => {
                 <PageBlock>
                     <ProjectActivityIntroMessage course={user?.course} />
                     <ProjectStyledTutorial
-                        tutorialModule={{ id: 'stud-project-activity', step: 0, params: { position: 'top' } }}
+                        tutorialModule={{
+                            id: 'stud-project-activity',
+                            step: 0,
+                            params: { position: 'top', noScroll: !isMobile && !isTablet },
+                        }}
                     >
                         <DivTutorial
                             tutorialModule={{ id: 'stud-project-activity', step: 1, params: { position: 'top' } }}

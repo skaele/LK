@@ -23,7 +23,7 @@ export const TutorialHero = () => {
     } = userModel.selectors.useUser()
 
     const { isMobile, isTablet } = useCurrentDevice()
-    if (tutorialState || (heroVisited && !isDeleted)) return null
+    if (tutorialState !== null || (heroVisited && !isDeleted)) return null
 
     return (
         <TutorialHeroLayout onMouseUp={() => setHeroVisited(true)}>

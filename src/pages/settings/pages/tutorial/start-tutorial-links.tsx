@@ -23,19 +23,22 @@ export const StartTutorialLinks = () => {
                 Запустить программу обучения
             </Title>
             <Container>
-                {getEntries(tutorials).map(([key, value]) => (
-                    <CompletableLinkField
-                        completed={value.completed}
-                        key={key}
-                        action={() => {
-                            if (value.completed) moduleRestarted(key)
-                            if (!state) tutorialEnabled(true)
-                            history.push(value.path)
-                        }}
-                        title={value.name}
-                        type="link"
-                    />
-                ))}
+                {getEntries(tutorials).map(([key, value]) => {
+                    if (value.name)
+                        return (
+                            <CompletableLinkField
+                                completed={value.completed}
+                                key={key}
+                                action={() => {
+                                    if (value.completed) moduleRestarted(key)
+                                    if (!state) tutorialEnabled(true)
+                                    history.push(value.path)
+                                }}
+                                title={value.name}
+                                type="link"
+                            />
+                        )
+                })}
             </Container>
         </div>
     )

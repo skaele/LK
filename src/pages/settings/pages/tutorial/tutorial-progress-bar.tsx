@@ -7,8 +7,10 @@ export const TutorialProgressBar = () => {
     const tutorials = useUnit(tutorialModel.stores.tutorials)
     if (!tutorials) return null
 
-    const length = Object.keys(tutorials).length
-    const completed = Object.values(tutorials).reduce((acc, module) => {
+    const tutorialsFiltered = Object.values(tutorials).filter((module) => module.name)
+
+    const length = Object.keys(tutorialsFiltered).length
+    const completed = Object.values(tutorialsFiltered).reduce((acc, module) => {
         if (module.completed) {
             return acc + 1
         }

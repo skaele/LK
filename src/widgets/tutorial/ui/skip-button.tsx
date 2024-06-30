@@ -41,7 +41,7 @@ export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out
 
 const Button = styled.button`
     position: absolute;
-    color: var(--text);
+    color: #ffffff;
     z-index: 6;
     background: transparent;
     border: none;

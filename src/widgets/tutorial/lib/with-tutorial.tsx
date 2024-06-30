@@ -81,10 +81,19 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.tutorials,
         ])
 
-        if (!portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
+        const stepData = currentModule?.steps[currentStep]
+        if (
+            !portal ||
+            !position ||
+            !tutorialState ||
+            !tutorials ||
+            !currentModule ||
+            !props.tutorialModule ||
+            !stepData
+        )
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
-        const { title, description } = currentModule.steps[currentStep]
+        const { title, description } = stepData
         const { id, step } = props.tutorialModule
         const completed = currentModule.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0

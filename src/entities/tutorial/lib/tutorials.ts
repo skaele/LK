@@ -16,7 +16,7 @@ export type ModuleData = {
     [id in TutorialId]: Pick<Module, 'steps' | 'path' | 'name'>
 }
 
-export const commonTutorials = (roles: TutorialRoles): ModuleData => {
+export const createTutorials = (roles: TutorialRoles): ModuleData => {
     return {
         // sidebar: {
         //     path: '',
@@ -66,11 +66,15 @@ export const commonTutorials = (roles: TutorialRoles): ModuleData => {
                     description:
                         'Просмотрите уведомления о важных событиях или сообщениях, щелкнув по иконке колокольчика. Уведомления можно выключить или изменить в настройках',
                 },
-                {
-                    title: 'Виджеты',
-                    description:
-                        'Используйте виджеты для быстрого доступа к информации или функциям, размещенным на главной странице. Виджеты можно изменить в настройках',
-                },
+                ...(roles.includes('has widgets')
+                    ? [
+                          {
+                              title: 'Виджеты',
+                              description:
+                                  'Используйте виджеты для быстрого доступа к информации или функциям, размещенным на главной странице. Виджеты можно изменить в настройках',
+                          },
+                      ]
+                    : []),
             ],
         },
         applications: {

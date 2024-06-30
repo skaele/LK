@@ -12,12 +12,13 @@ import {
     resetTutorial,
 } from '@shared/api/tutorial-api'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { ModuleData, commonTutorials } from '../lib/tutorials'
+import { ModuleData, createTutorials } from '../lib/tutorials'
 import { stringToHash } from '@shared/lib/stringToHash'
 import { userModel } from '@entities/user'
 import { paymentsModel } from '@entities/payments'
 import { TUTORIAL_HASH } from '@shared/constants'
 import { getKeys } from '@shared/lib/typescript/getKeys'
+import { userSettingsModel } from '@entities/settings'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -66,8 +67,16 @@ const $roles = createStore<TutorialRoles>([])
 const $userTutorialsData = createStore<ModuleData | null>(null).reset(userModel.events.logout)
 
 sample({
+    clock: userSettingsModel.stores.userSettings,
+    source: $roles,
+    filter: (_, settings) => Boolean(settings),
+    fn: (roles, settings) =>
+        settings?.homePage.hasPayment && settings?.homePage.hasSchedule ? ([...roles, 'has widgets'] as const) : roles,
+    target: $roles,
+})
+sample({
     clock: $roles,
-    fn: (roles) => commonTutorials(roles),
+    fn: (roles) => createTutorials(roles),
     target: $userTutorialsData,
 })
 

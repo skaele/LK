@@ -1,35 +1,85 @@
-import { Message } from '@api/model'
+import { chatMessagesModel } from '@entities/chat-messages'
 import scrollToBottom from '@features/chat/lib/scroll-to-bottom'
-import { Button, Wrapper } from '@ui/atoms'
-import React, { useEffect, useRef, useState } from 'react'
-import { FiChevronDown } from 'react-icons/fi'
+import { Loading } from '@ui/atoms'
+import { useUnit } from 'effector-react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { MessageList } from '.'
+import { chatModel } from '@entities/chats'
 
-const MessagesWrapper = styled.div<{ buttonVisible: boolean }>`
+export const Messages = () => {
+    const listRef = useRef<HTMLDivElement>(null)
+    const userScrolledRef = useRef(false)
+
+    const [messages, loading, isFirstFetched, inProgress, selectedChatId] = useUnit([
+        chatMessagesModel.queries.chatMessages.$data,
+        chatMessagesModel.queries.chatMessages.$pending,
+        chatMessagesModel.stores.isFirstFetched,
+        chatMessagesModel.stores.inProgressChatMessages,
+        chatModel.stores.selectedChatId,
+    ])
+
+    const isFirstLoading = loading && !isFirstFetched
+
+    useLayoutEffect(() => {
+        if (!listRef.current) return
+
+        const isScrolledToBottom =
+            listRef.current.scrollTop + listRef.current.clientHeight >= listRef.current.scrollHeight
+
+        if (messages && (!userScrolledRef.current || isScrolledToBottom) && !isFirstLoading) {
+            scrollToBottom(listRef)
+        }
+    }, [messages])
+
+    useEffect(() => {
+        userScrolledRef.current = false
+    }, [selectedChatId])
+
+    useEffect(() => {
+        if (listRef.current) {
+            const updateScroll = () => {
+                if (userScrolledRef.current) return
+
+                userScrolledRef.current = true
+            }
+            listRef.current.addEventListener('scroll', updateScroll)
+
+            return () => {
+                listRef.current?.removeEventListener('scroll', updateScroll)
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        scrollToBottom(listRef)
+    }, [inProgress, messages?.length])
+
+    // TODO: add spinner
+    return (
+        <MessagesWrapper data-is-loading={isFirstLoading} ref={listRef}>
+            {isFirstLoading ? <Loading /> : <MessageList />}
+        </MessagesWrapper>
+    )
+}
+
+const MessagesWrapper = styled.div`
     width: 100%;
-    height: 100%;
     position: relative;
     overflow-y: auto;
+    flex: 1;
 
-    button {
-        position: fixed;
-        right: 40px;
-        bottom: 70px;
-        min-width: 35px;
-        height: 35px;
-        border-radius: 100%;
-        padding: 0px;
-        background: var(--settings);
-        transition: 0.2s visibility, 0.2s opacity, 0.2s transform;
-        visibility: ${({ buttonVisible }) => (buttonVisible ? 'visible' : 'hidden')};
-        opacity: ${({ buttonVisible }) => (buttonVisible ? '1' : '0')};
-        transform: scale(${({ buttonVisible }) => (buttonVisible ? '1' : '0.9')});
+    padding: 10px;
 
-        svg {
-            width: 22px;
-            height: 22px;
-        }
+    .loading-circle {
+        max-height: 40px;
+    }
+
+    &[data-is-loading='true'] {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
     }
 
     @media (max-width: 1000px) {
@@ -41,108 +91,3 @@ const MessagesWrapper = styled.div<{ buttonVisible: boolean }>`
         }
     }
 `
-
-interface Props {
-    loading: boolean
-}
-
-const Messages = ({ loading }: Props) => {
-    const messages: Message[] = [
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        {
-            message: 'TestTestTestTestTestTest',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 5, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 5, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Peter Parker', sentTime: 'January 6, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 7, 2022 21:12' },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 7, 2022 21:12' },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        {
-            message:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias, non. Laboriosam aliquid animi magni sit perferendis, et minima maxime totam eos corporis saepe est sunt facilis? Quae iste nobis sapiente?',
-            sender: 'Kostya Doloz',
-            sentTime: 'January 7, 2022 21:12',
-        },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 8, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 9, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 9, 2022 21:12' },
-        { message: 'Test', sender: 'Kostya Doloz', sentTime: 'January 10, 2022 21:12' },
-    ]
-
-    const listRef = useRef<HTMLDivElement>(null)
-
-    const [buttonVisible, setButtonVisible] = useState(false)
-
-    useEffect(() => {
-        scrollToBottom(listRef)
-    }, [messages.length])
-
-    const handleScroll = () => {
-        if (!!listRef.current) {
-            const isScrolledEnough =
-                listRef.current.scrollHeight - listRef.current.offsetHeight - listRef.current?.scrollTop > 350
-            setButtonVisible(isScrolledEnough)
-        }
-    }
-
-    return (
-        <MessagesWrapper ref={listRef} buttonVisible={buttonVisible} onScroll={handleScroll}>
-            <Wrapper loading={loading} load={() => null} error={null} data={!loading}>
-                <MessageList messages={messages} />
-            </Wrapper>
-            <Button icon={<FiChevronDown />} onClick={() => scrollToBottom(listRef)} />
-        </MessagesWrapper>
-    )
-}
-
-export default Messages

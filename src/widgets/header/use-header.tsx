@@ -36,7 +36,7 @@ const useHeader = ({ headerVisible, currentPage }: Props) => {
                 ? currentPage.isSubPage
                     ? currentPage.subPageHeaderTitle || currentPage.title
                     : currentPage.title
-                : 'Не известная страница',
+                : '',
         [currentPage],
     )
 

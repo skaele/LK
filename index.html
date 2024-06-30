@@ -4,8 +4,7 @@
 <head>
     <link rel="icon" href="/icon.png" />
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Личный кабинет студента Московского Политеха" />
     <link rel="manifest" href="manifest.json">
@@ -37,6 +36,8 @@
             --mobile-bottom-menu-height: 60px;
             --theme: #fff;
             --block-content-shadow: 0 0 1px #3b3b3bab;
+
+            --ck-custom-background: hsl(270, 1%, 29%);
         }
 
         html[data-theme=dark] {
@@ -69,6 +70,7 @@
             --block-shadow: 0;
             --block-shadow-1: 0 0 2px #ffffff8f;
             --block-content: #252525;
+            --message-item: #00000036; 
         }
 
         html[data-theme=light] {
@@ -100,7 +102,9 @@
             --block-shadow: 0 0 2px rgb(0 0 0 / 24%);
             --block-shadow-1: 0 0 2px rgb(0 0 0 / 24%);
             --block-content: #fff;
+            --message-item: #f5f5f5; 
         }
+
     </style>
     <script>
         const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'

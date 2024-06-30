@@ -75,6 +75,7 @@ const UniversalInput = (props: Props) => {
             } else {
                 if ((area.data[i] as IInputAreaData).type === 'checkbox-docs') {
                     ;((area.data[i] as IInputAreaData).items as CheckboxDocs[])[j ?? 0].value = !!value
+                    ;(area.data[i] as IInputAreaData).value = true
                 } else {
                     ;(area.data[i] as IInputAreaData).value = value
                 }

@@ -2,7 +2,6 @@ import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
-import PageIsNotReady from '@pages/page-is-not-ready'
 import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
@@ -44,6 +43,7 @@ import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineVie
 import { DOCLIST_ROUTE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
+import ChatPage from '@pages/chat'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
@@ -284,18 +284,33 @@ export const generalRoutes: IRoutes = {
         pageSize: 'small',
     },
     chat: {
-        //ChatPage
         id: 'chat',
         title: 'Сообщения',
         icon: <BiMessageRounded />,
         path: CHAT_ROUTE,
-        isOldLkPage: true,
-        Component: () => PageIsNotReady({ oldVersionUrl: OLD_CHAT_ROUTE }),
+        Component: ChatPage,
         color: 'red',
-        isTemplate: true,
-        group: 'OTHER',
-        keywords: ['чат'],
-        planeHeader: true,
+        group: 'COMMUNICATION',
+        keywords: ['чат', 'сообщения', 'написать'],
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+    },
+    'specific-chat': {
+        id: 'specific-chat',
+        title: 'Сообщения',
+        icon: <BiMessageRounded />,
+        path: TEMPLATE_CHAT_ROUTE,
+        Component: ChatPage,
+        color: 'red',
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+        group: 'COMMUNICATION',
+        isSubPage: true,
+        show: false,
     },
     schedule: {
         id: 'schedule',

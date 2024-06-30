@@ -9,6 +9,7 @@ import { tutorialModel } from '@entities/tutorial'
 import { SkipButton } from '../ui/skip-button'
 import useResize from '@shared/lib/hooks/use-resize'
 import { TutorialId } from '@entities/tutorial/types'
+import { MobileSwiper } from '@shared/ui/mobile-swiper'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 type Dimensions = { width: number; height: number }
@@ -81,7 +82,6 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.currentStep,
             tutorialModel.stores.tutorials,
         ])
-
         if (!portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
@@ -92,6 +92,26 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
 
         if (!visible || completed) return <WrappedComponent forwardedRef={handleRef} {...props} />
 
+        const handleSwipe = ({ deltaX, deltaY }: { deltaX: number; deltaY: number }) => {
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                if (deltaX > 0) {
+                    // right
+                } else {
+                    // left
+                }
+            } else {
+                if (deltaY > 0) {
+                    setAnimation('out')
+
+                    setTimeout(() => {
+                        setAnimation('removed')
+                        tutorialModel.events.moduleCompleted(id)
+                    }, 200)
+                } else {
+                    // up
+                }
+            }
+        }
         return (
             <>
                 <WrappedComponent forwardedRef={handleRef} {...props} />
@@ -99,19 +119,21 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                     id === currentModule.id &&
                     ReactDOM.createPortal(
                         <>
-                            <Blocker
-                                onClick={() => {
-                                    setClickCounter(clickCounter + 1)
-                                    if (clickCounter > 1) {
-                                        setAnimation('out')
+                            <MobileSwiper onSwipe={handleSwipe}>
+                                <Blocker
+                                    onClick={() => {
+                                        setClickCounter(clickCounter + 1)
+                                        if (clickCounter > 1) {
+                                            setAnimation('out')
 
-                                        setTimeout(() => {
-                                            setAnimation('removed')
-                                            tutorialModel.events.moduleCompleted(id)
-                                        }, 200)
-                                    }
-                                }}
-                            />
+                                            setTimeout(() => {
+                                                setAnimation('removed')
+                                                tutorialModel.events.moduleCompleted(id)
+                                            }, 200)
+                                        }
+                                    }}
+                                />
+                            </MobileSwiper>
                             <Layout
                                 dimensions={dimensions}
                                 position={position}

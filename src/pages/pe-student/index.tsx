@@ -28,7 +28,6 @@ const PEStudent = () => {
 
     useEffect(() => {
         selectedPEStudentModel.events.setCurrentStudentId(studentId)
-
         peTeacherModel.events.load()
 
         return () => selectedPEStudentModel.events.resetStudentId()
@@ -43,7 +42,7 @@ const PEStudent = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
-                <Title size={3} align="left">
+                <Title size={3} align="left" style={{ color: student.hasDebtFromPreviousSemester ? 'red' : 'inherit' }}>
                     {student.fullName}
                 </Title>
 

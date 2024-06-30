@@ -8,7 +8,7 @@ export const getPEStudentsQuery = (
 ) => {
     const combinedFilters = { ...filters, isActive: { eq: true } }
     const stringifyFilters = jsonStringifyGraphql(combinedFilters, ['course'])
-    return `query { students (take:${pageSize}, skip: ${
+    return `query { students (take:${STUDENT_PAGE_SIZE}, skip: ${
         pageSize * page
     }, where: ${stringifyFilters}, order: [{fullName:ASC}]){
       items {

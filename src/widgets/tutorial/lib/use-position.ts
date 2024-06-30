@@ -6,7 +6,7 @@ export const usePosition = () => {
     const [position, setPosition] = useState<Position | null>(null)
     const [visible, setVisible] = useState(false)
     const isMounted = useRef(true)
-
+    const ref = useRef<HTMLElement | null>(null)
     useEffect(() => {
         isMounted.current = true
         return () => {
@@ -14,6 +14,7 @@ export const usePosition = () => {
         }
     }, [])
     const handleRef = useCallback((node: HTMLElement | null) => {
+        ref.current = node
         if (!node) return
 
         const measureDOMNode = () => {
@@ -59,5 +60,5 @@ export const usePosition = () => {
         }
     }, [handleRef])
 
-    return { dimensions, position, handleRef, visible }
+    return { dimensions, position, handleRef, visible, ref }
 }

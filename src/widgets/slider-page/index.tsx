@@ -120,7 +120,7 @@ const SliderPage = ({
                 tutorialModule={{
                     id: 'payments',
                     step: roles.includes('dormitory') && roles.includes('education') ? 0 : -1,
-                    params: { position: 'bottom' },
+                    params: { position: 'bottom', noScroll: true },
                 }}
             />
             <div className={className ?? 'slider-content'} ref={sliderContentRef} onScroll={handleScroll}>

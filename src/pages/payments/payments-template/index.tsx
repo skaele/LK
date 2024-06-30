@@ -23,7 +23,7 @@ const PaymentsTemplate = ({ contracts }: Props) => {
             tutorialModule={{
                 id: 'payments',
                 step: !roles.includes('dormitory') || !roles.includes('education') ? 0 : -1,
-                params: { position: 'top' },
+                params: { position: 'top', noScroll: true },
             }}
         >
             {contracts.map((contract, i) => {
@@ -43,7 +43,7 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                                 </Title>
                             </Flex>
                         </Flex>
-                        <DebtAndQr data={contract} />
+                        <DebtAndQr data={contract} index={i} isDormitory={isDormitory} />
                         <PaymentList payments={payments ?? []} />
                         <PaygraphTable paygraph={paygraph} />
                         <ElectronicAgreementList

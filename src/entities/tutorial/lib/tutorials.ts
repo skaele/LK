@@ -5,11 +5,11 @@ export const commonTutorialIds = [
     'settings',
     'chat',
     'applications',
-    // 'medical-certificate',
     'payments',
-    // 'stud-physical-education',
-    // 'stud-project-activity',
+    'stud-project-activity',
     // 'schedule',
+    // 'medical-certificate',
+    // 'stud-physical-education',
 ] as const
 
 export type ModuleData = {
@@ -192,20 +192,33 @@ export const createTutorials = (roles: TutorialRoles): ModuleData => {
                 },
             ],
         },
-        // 'stud-project-activity': {
-        //     path: '/project-activity',
-        //     name: 'Проектная деятельность',
-        //     steps: [
-        //         {
-        //             title: 'Чат',
-        //             description: 'В этом разделе можно общаться в чате',
-        //         },
-        //         {
-        //             title: 'Чат',
-        //             description: 'В этом разделе можно общаться в чате',
-        //         },
-        //     ],
-        // },
+        'stud-project-activity': {
+            path: '/project-activity',
+            name: 'Проектная деятельность',
+            steps: [
+                {
+                    title: 'Преоктная деятельность',
+                    description: 'В этом разделе можно узнать информацию о твоем проекте по проектной деятельности',
+                },
+                {
+                    title: 'Проект',
+                    description: 'Здесь указано название проекта и полезная информация',
+                },
+                {
+                    title: 'Текущий семестр',
+                    description: 'Раздел с текущим семестром. Для зачета нужно набрать 60 баллов',
+                },
+                {
+                    title: 'Предыдущий семестр',
+                    description:
+                        'Если за предыдущий семсетр стоит "не зачтено", то нужно донабрать баллы в текущем семестре',
+                },
+                {
+                    title: 'Итого',
+                    description: 'В последнем разделе посчитано итоговое количество баллов и предварительная оценка',
+                },
+            ],
+        },
         // 'stud-physical-education': {
         //     path: '/physical-education/student',
         //     name: 'Физическая культура',

@@ -1,3 +1,4 @@
+import { tutorialModel } from '@entities/tutorial'
 import { Contract } from '@features/payments'
 import { PaymentsContract } from '@shared/api/model'
 import { Colors } from '@shared/constants'
@@ -7,6 +8,7 @@ import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
+import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { BiWallet } from 'react-icons/bi'
 import styled from 'styled-components'
@@ -62,11 +64,14 @@ const ContractButtonWrapper = styled.div`
 
 type Props = {
     data: PaymentsContract
+    index?: number
+    isDormitory?: boolean
 }
 
 const DebtAndQr = (props: Props) => {
-    const { data } = props
+    const { data, index, isDormitory } = props
     const { balance_currdate, balance, endDatePlan, can_sign, bill, qr_current, qr_total } = data
+    const roles = useUnit(tutorialModel.stores.roles)
     const { open } = useModal()
     const [currentPage, setCurrentPage] = useState(0)
     const chosenDebt = currentPage === 0 ? +balance_currdate : +balance
@@ -83,6 +88,10 @@ const DebtAndQr = (props: Props) => {
     // const handleQrTutorial = () => {
     //     open(<></>, 'Как оплатить с помощью QR')
     // }
+    const showTutorial =
+        index === 0 &&
+        ((roles.includes('dormitory') && roles.includes('education') && isDormitory) ||
+            roles.includes('dormitory') === isDormitory)
 
     const handleOpenContract = () => {
         open(<Contract contract={data} />, 'Реквизиты договора')
@@ -104,10 +113,7 @@ const DebtAndQr = (props: Props) => {
                     <Flex d="column" gap="12px" ai="flex-start">
                         <DebtTutorial
                             debt={chosenDebt}
-                            tutorialModule={{
-                                id: 'payments',
-                                step: 1,
-                            }}
+                            tutorialModule={showTutorial ? { id: 'payments', step: 1 } : undefined}
                         />
 
                         <Flex d="column" gap="4px" ai="flex-start">
@@ -122,11 +128,15 @@ const DebtAndQr = (props: Props) => {
                         hasDebt={hasDebt}
                         qr_current={qr_current}
                         qr_total={qr_total}
-                        tutorialModule={{
-                            id: 'payments',
-                            step: 2,
-                            params: { position: 'left' },
-                        }}
+                        tutorialModule={
+                            showTutorial
+                                ? {
+                                      id: 'payments',
+                                      step: 2,
+                                      params: { position: 'left' },
+                                  }
+                                : undefined
+                        }
                     />
                 </DebtAndQrContentStyled>
                 <ButtonsList>

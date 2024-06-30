@@ -11,4 +11,4 @@ export type Tutorials = {
     tutorials: [{ id: TutorialId; completed: boolean }]
 }
 
-export type TutorialRoles = ('dormitory' | 'education' | 'has widgets')[]
+export type TutorialRoles = ('dormitory' | 'education' | 'has widgets' | 'has PA last semester')[]

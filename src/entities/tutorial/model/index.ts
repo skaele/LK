@@ -19,6 +19,7 @@ import { paymentsModel } from '@entities/payments'
 import { TUTORIAL_HASH } from '@shared/constants'
 import { getKeys } from '@shared/lib/typescript/getKeys'
 import { userSettingsModel } from '@entities/settings'
+import { projectActivitesModel } from '@entities/project-activites'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -72,6 +73,13 @@ sample({
     filter: (_, settings) => Boolean(settings),
     fn: (roles, settings) =>
         settings?.homePage.hasPayment && settings?.homePage.hasSchedule ? ([...roles, 'has widgets'] as const) : roles,
+    target: $roles,
+})
+sample({
+    clock: projectActivitesModel.store,
+    source: $roles,
+    fn: (roles, pa) =>
+        pa.data?.last_semestr_result !== 'Данные отсутствуют' ? ([...roles, 'has PA last semester'] as const) : roles,
     target: $roles,
 })
 sample({

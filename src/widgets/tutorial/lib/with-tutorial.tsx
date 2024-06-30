@@ -1,4 +1,4 @@
-import React, { ComponentType, useState } from 'react'
+import React, { ComponentType, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
@@ -11,6 +11,7 @@ import useResize from '@shared/lib/hooks/use-resize'
 import { TutorialId } from '@entities/tutorial/types'
 import { MobileSwiper } from '@shared/ui/mobile-swiper'
 import { usePosition } from './use-position'
+import { useIntersectionObserver } from '@shared/lib/hooks/use-intersection-observer'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 export type Dimensions = { width: number; height: number }
@@ -27,6 +28,7 @@ export interface TutorialWrapperProps {
             inside?: boolean
             widthMatchParent?: boolean
             heightMatchParent?: boolean
+            noScroll?: boolean
         }
     }
 }
@@ -36,43 +38,42 @@ export type TutorialComponent = {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type DebouncedFunction<T extends (...args: any[]) => any> = {
-    (...args: Parameters<T>): void
-    cancel: () => void
-}
+// type DebouncedFunction<T extends (...args: any[]) => any> = {
+//     (...args: Parameters<T>): void
+//     cancel: () => void
+// }
 
-function debounce<T extends (...args: any[]) => any>(func: T, wait = 300): DebouncedFunction<T> {
-    let timeoutId: ReturnType<typeof setTimeout> | null
+// function debounce<T extends (...args: any[]) => any>(func: T, wait = 300): DebouncedFunction<T> {
+//     let timeoutId: ReturnType<typeof setTimeout> | null
 
-    const debouncedFunction = (...args: Parameters<T>): void => {
-        if (timeoutId !== null) {
-            clearTimeout(timeoutId)
-        }
-        timeoutId = setTimeout(() => {
-            func(...args)
-        }, wait)
-    }
+//     const debouncedFunction = (...args: Parameters<T>): void => {
+//         if (timeoutId !== null) {
+//             clearTimeout(timeoutId)
+//         }
+//         timeoutId = setTimeout(() => {
+//             func(...args)
+//         }, wait)
+//     }
 
-    debouncedFunction.cancel = () => {
-        if (timeoutId !== null) {
-            clearTimeout(timeoutId)
-        }
-        timeoutId = null
-    }
+//     debouncedFunction.cancel = () => {
+//         if (timeoutId !== null) {
+//             clearTimeout(timeoutId)
+//         }
+//         timeoutId = null
+//     }
 
-    return debouncedFunction as DebouncedFunction<T>
-}
-
-export default debounce
+//     return debouncedFunction as DebouncedFunction<T>
+// }
 
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
+        const hintRef = React.useRef<HTMLDivElement | null>(null)
         const { width } = useResize()
         const [animation, setAnimation] = useState<'in' | 'out' | 'removed'>('in')
         const [clickCounter, setClickCounter] = useState(0)
         const portal = document.getElementById('portal')
 
-        const { dimensions, position, handleRef, visible } = usePosition()
+        const { dimensions, position, handleRef, visible, ref: componentRef } = usePosition()
 
         const [tutorialState, currentModule, currentStep, tutorials] = useUnit([
             tutorialModel.stores.tutorialState,
@@ -80,8 +81,13 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.currentStep,
             tutorialModel.stores.tutorials,
         ])
-
+        const { isIntersecting, ref } = useIntersectionObserver({
+            threshold: 0.5,
+        })
         const stepData = currentModule?.steps[currentStep]
+        useEffect(() => {
+            if (handleRef) handleRef(componentRef.current)
+        }, [])
         if (
             !portal ||
             !position ||
@@ -94,9 +100,22 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 
         const { title, description } = stepData
-        const { id, step } = props.tutorialModule
+        const { id, step, params } = props.tutorialModule
         const completed = currentModule.completed
         const lastStep = currentModule ? currentStep === currentModule.steps.length - 1 : 0
+
+        if (
+            !params?.noScroll &&
+            !visible &&
+            !completed &&
+            currentModule.id === id &&
+            step === currentStep &&
+            !isIntersecting
+        ) {
+            if (componentRef.current) {
+                componentRef.current.scrollIntoView({ behavior: 'smooth' })
+            }
+        }
 
         if (!visible || completed) return <WrappedComponent forwardedRef={handleRef} {...props} />
 
@@ -149,6 +168,12 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 noPadding={props.tutorialModule.params?.noPadding}
                             ></Layout>
                             <Hint
+                                ref={(node) => {
+                                    if (node) {
+                                        hintRef.current = node
+                                        ref(node)
+                                    }
+                                }}
                                 pageWidth={width}
                                 dimensions={dimensions}
                                 childPosition={position}

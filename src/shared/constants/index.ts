@@ -411,5 +411,11 @@ export const isProduction =
     window.location.port === '4001' ||
     window.location.port === '4002'
 
+export const runsLocally = false
+export const TUTORIAL_HASH = 'tHash'
+export const TUTORIAL_PROGRESS_HASH = 'tProgressHash'
+export const TUTORIAL_PROGRESS = 'tProgress'
+export const TUTORIAL_PROGRESS_DATE = 'tProgressDate'
+
 // eslint-disable-next-line no-console
 console.log('Running on production', isProduction)

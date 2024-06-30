@@ -1,6 +1,6 @@
 import { paymentApi } from '@api'
 import { Payments } from '@api/model'
-import { createEffect, createStore, combine, createEvent, forward, sample } from 'effector'
+import { createEffect, createStore, combine, createEvent, sample } from 'effector'
 import changeCanSign from '../lib/change-can-sign'
 import { agreementSubmit } from '@shared/api/payment-api'
 import { MessageType } from '@shared/ui/types'
@@ -79,9 +79,9 @@ export const stores = {
     $paymentsStore,
 }
 
-forward({
-    from: getPayments,
-    to: getPaymentsFx,
+sample({
+    clock: getPayments,
+    target: getPaymentsFx,
 })
 
 export const effects = {

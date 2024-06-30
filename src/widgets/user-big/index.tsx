@@ -9,6 +9,7 @@ import React from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const UserBigWrapper = styled(Link)`
     display: flex;
@@ -33,7 +34,7 @@ const UserBigWrapper = styled(Link)`
     }
 `
 
-interface Props {
+interface Props extends TutorialComponent {
     name: string
     avatar?: string
     loading?: boolean
@@ -42,7 +43,7 @@ interface Props {
     selected?: boolean
 }
 
-const UserBig = ({ name, avatar, loading, size, notifications, selected }: Props) => {
+const UserBig = ({ name, avatar, loading, size, notifications, selected, forwardedRef }: Props) => {
     if (loading)
         return (
             <SkeletonShape
@@ -65,7 +66,7 @@ const UserBig = ({ name, avatar, loading, size, notifications, selected }: Props
     }
 
     return (
-        <UserBigWrapper to={PROFILE_ROUTE}>
+        <UserBigWrapper to={PROFILE_ROUTE} ref={forwardedRef}>
             <Button
                 icon={<FiMoreVertical />}
                 className="more-button"

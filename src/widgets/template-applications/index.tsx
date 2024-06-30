@@ -2,9 +2,10 @@ import { applicationsModel } from '@entities/applications'
 import getApplicationsColumns from '@features/applications/lib/get-applications-columns'
 import { getExtendedApplicationsColumns } from '@features/applications/lib/get-extended-application-columns'
 import CreateApplicationList from '@features/applications/ui/molecules/create-application-list'
+import { ButtonTutorial } from 'widgets/tutorial/tutorials/button-tutorial'
 import PageBlock from '@shared/ui/page-block'
-import { Button, Message, Wrapper } from '@ui/atoms'
-import Table from '@ui/table'
+import { TableTutorial } from 'widgets/tutorial/tutorials/table-tutorial'
+import { Message, Wrapper } from '@ui/atoms'
 import React, { memo, useCallback } from 'react'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 import { useModal } from 'widgets'
@@ -37,7 +38,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
         >
             <PageBlock
                 topRightCornerElement={
-                    <Button
+                    <ButtonTutorial
                         onClick={handleOpenModal}
                         text="Подать заявку"
                         background="var(--reallyBlue)"
@@ -46,6 +47,7 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                         minWidth="35px"
                         height="36px"
                         shrinkTextInMobile
+                        tutorialModule={{ id: 'applications', step: 3, params: { position: 'bottom' } }}
                     />
                 }
             >
@@ -72,12 +74,13 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
                     </p>
                 </Message>
 
-                <Table
+                <TableTutorial
                     loading={!listApplication}
                     columns={getApplicationsColumns()}
                     columnsExtended={getExtendedApplicationsColumns()}
                     data={listApplication}
                     maxOnPage={7}
+                    tutorialModule={{ id: 'applications', step: [0, 1, 2], params: { position: 'top' } }}
                 />
             </PageBlock>
         </Wrapper>

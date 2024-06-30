@@ -8,6 +8,7 @@ import React, { HtmlHTMLAttributes } from 'react'
 import { FiChevronLeft, FiChevronRight, FiPlus } from 'react-icons/fi'
 import useList from './hooks/use-list'
 import { ListWrapper, StyleProps, Wrapper } from './styles'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 type BaseProps = HtmlHTMLAttributes<HTMLDivElement>
 
@@ -24,7 +25,7 @@ type Props = StyleProps &
         showPages?: boolean
     }
 
-const List = (props: Props) => {
+const List = (props: Props & TutorialComponent) => {
     const {
         title,
         children,
@@ -47,6 +48,7 @@ const List = (props: Props) => {
         horizontalAlign = 'left',
         scroll = true,
         visible = true,
+        forwardedRef,
         ...restProps
     } = props
 
@@ -56,7 +58,14 @@ const List = (props: Props) => {
         useList(gap, children)
 
     return (
-        <Wrapper padding={padding} position={position} width={width} minWidth={minWidth} height={height}>
+        <Wrapper
+            ref={forwardedRef}
+            padding={padding}
+            position={position}
+            width={width}
+            minWidth={minWidth}
+            height={height}
+        >
             <Title size={4} align="left" bottomGap visible={!!title} width="calc(fit-content + 50px)">
                 {title}
                 {onAdd && (

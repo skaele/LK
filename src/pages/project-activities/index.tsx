@@ -13,27 +13,17 @@ import InfoModal from './ui/project-info/info-modal'
 import Result from './ui/result'
 import { userModel } from '@entities/user'
 import { ProjectActivityIntroMessage } from './ui/intro-message'
-
-const Container = styled.div`
-    h3 {
-        background: ${Colors.blue.main};
-        background: linear-gradient(to right, ${Colors.blue.main} 0%, ${Colors.pink.main} 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    @media (max-width: 1000px) {
-        padding: 0px;
-    }
-`
-
-const ProjectStyled = styled.div`
-    width: 100%;
-`
+import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
+import { tutorialModel } from '@entities/tutorial'
+import { useUnit } from 'effector-react'
+import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 const ProjectActivitiesPage = () => {
+    const { isMobile, isTablet } = useCurrentDevice()
     const { data, loading, error } = projectActivitesModel.selectors.useData()
+    const [currentModule] = useUnit([tutorialModel.stores.currentModule])
     const {
         data: { user },
     } = userModel.selectors.useUser()
@@ -53,38 +43,68 @@ const ProjectActivitiesPage = () => {
             <Container>
                 <PageBlock>
                     <ProjectActivityIntroMessage course={user?.course} />
-                    <ProjectStyled>
-                        <Subtext fontSize="0.85rem">Вам назначен проект</Subtext>
-                        <Title size={3} align="left" bottomGap>
-                            {data?.project ?? '-'}
-                        </Title>
-                        <Subtext>
-                            Тематика проекта: {data?.project_theme ?? '-'}
-                            <br />
-                            Подпроект: {data?.subproject.length ? data?.subproject : '-'}
-                            <br />
-                            Куратор: {data?.curator.length === 0 ? '-' : data?.curator}
-                        </Subtext>
-                        <Button
-                            icon={<FiInfo />}
-                            onClick={handleOpenModal}
-                            text="Подробнее"
-                            background="transparent"
-                            padding="12px 0 0 0"
-                            height="30px"
-                        />
+                    <ProjectStyledTutorial
+                        tutorialModule={{
+                            id: 'stud-project-activity',
+                            step: 0,
+                            params: { position: 'top', noScroll: !isMobile && !isTablet },
+                        }}
+                    >
+                        <DivTutorial
+                            tutorialModule={{ id: 'stud-project-activity', step: 1, params: { position: 'top' } }}
+                        >
+                            <Subtext fontSize="0.85rem">Вам назначен проект</Subtext>
+                            <Title size={3} align="left" bottomGap>
+                                {data?.project ?? '-'}
+                            </Title>
+                            <Subtext>
+                                Тематика проекта: {data?.project_theme ?? '-'}
+                                <br />
+                                Подпроект: {data?.subproject.length ? data?.subproject : '-'}
+                                <br />
+                                Куратор: {data?.curator.length === 0 ? '-' : data?.curator}
+                            </Subtext>
+                            <Button
+                                icon={<FiInfo />}
+                                onClick={handleOpenModal}
+                                text="Подробнее"
+                                background="transparent"
+                                padding="12px 0 0 0"
+                                height="30px"
+                            />
+                        </DivTutorial>
                         <Divider width="100%" margin="16px 0" />
-                        <CurrentSemestr data={data} />
+                        <DivTutorial
+                            tutorialModule={{ id: 'stud-project-activity', step: 2, params: { position: 'top' } }}
+                        >
+                            <CurrentSemestr data={data} />
+                        </DivTutorial>
                         {data?.last_semestr_result !== 'Данные отсутствуют' && (
                             <>
                                 <Divider width="100%" margin="16px 0" />
-                                <LastSemestr data={data} />
+                                <DivTutorial
+                                    tutorialModule={{
+                                        id: 'stud-project-activity',
+                                        step: 3,
+                                        params: { position: 'top' },
+                                    }}
+                                >
+                                    <LastSemestr data={data} />
+                                </DivTutorial>
                             </>
                         )}
                         <Divider width="100%" margin="16px 0" />
-                        <Result data={data} />
-                    </ProjectStyled>
-
+                        <DivTutorial
+                            tutorialModule={{
+                                id: 'stud-project-activity',
+                                step: data?.last_semestr_result !== 'Данные отсутствуют' ? 4 : 3,
+                                params: { position: 'top' },
+                            }}
+                        >
+                            <Result data={data} />
+                        </DivTutorial>
+                    </ProjectStyledTutorial>
+                    <EmptyDiv height={currentModule?.completed ? 0 : 10} />
                     {/* {data ? (
                         <Content data={data} loading={loading} />
                     ) : (
@@ -95,5 +115,28 @@ const ProjectActivitiesPage = () => {
         </Wrapper>
     )
 }
+
+const Container = styled.div`
+    h3 {
+        background: ${Colors.blue.main};
+        background: linear-gradient(to right, ${Colors.blue.main} 0%, ${Colors.pink.main} 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 1000px) {
+        padding: 0px;
+    }
+`
+
+const ProjectStyled = styled.div`
+    width: 100%;
+`
+const ProjectStyledTutorial = withTutorial(
+    ({ forwardedRef, children }: TutorialComponent & { children?: React.ReactNode }) => (
+        <ProjectStyled ref={forwardedRef}>{children}</ProjectStyled>
+    ),
+)
 
 export default ProjectActivitiesPage

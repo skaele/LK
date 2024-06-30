@@ -5,6 +5,7 @@ import { useModal } from 'widgets'
 import PayQRModal from './pay-qr-modal'
 import { HiOutlineQrcode } from 'react-icons/hi'
 import { Direction } from '@shared/ui/types'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 type Props = {
     qr_current: string
@@ -13,7 +14,7 @@ type Props = {
     currentPage?: number
 }
 
-const PaymentButton = ({ type = 'horizontal', ...props }: Props) => {
+const PaymentButton = ({ type = 'horizontal', forwardedRef, ...props }: Props & TutorialComponent) => {
     const { open } = useModal()
     const title = 'Оплатить через QR-code'
     const background = `linear-gradient(45deg, ${Colors.green.main}, ${Colors.green.dark1})`
@@ -33,11 +34,21 @@ const PaymentButton = ({ type = 'horizontal', ...props }: Props) => {
                 icon={<HiOutlineQrcode />}
                 textColor="#fff"
                 background={background}
+                forwardedRef={forwardedRef}
             />
         )
     }
 
-    return <Button text={title} onClick={handleClickPay} width="100%" textColor="#fff" background={background} />
+    return (
+        <Button
+            text={title}
+            onClick={handleClickPay}
+            width="100%"
+            textColor="#fff"
+            background={background}
+            forwardedRef={forwardedRef}
+        />
+    )
 }
 
 export default PaymentButton

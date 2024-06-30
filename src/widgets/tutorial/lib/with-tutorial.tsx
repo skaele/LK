@@ -84,7 +84,6 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             step === currentStep &&
             !isIntersecting
         ) {
-            console.log('scroll')
             if (componentRef.current) {
                 componentRef.current.scrollIntoView({ behavior: 'smooth' })
             }
@@ -159,7 +158,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
                                 <Description>{description}</Description>
                                 <Buttons jc="flex-end" gap="20px">
                                     <Button
-                                        disabled={step == 0}
+                                        disabled={currentStep == 0}
                                         onClick={() => {
                                             tutorialModel.events.prevStep()
                                         }}

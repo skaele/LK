@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback, useState } from 'react'
+import React, { ComponentType, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
@@ -10,10 +10,11 @@ import { SkipButton } from '../ui/skip-button'
 import useResize from '@shared/lib/hooks/use-resize'
 import { TutorialId } from '@entities/tutorial/types'
 import { MobileSwiper } from '@shared/ui/mobile-swiper'
+import { usePosition } from './use-position'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
-type Dimensions = { width: number; height: number }
-type Position = { top: number; left: number; right: number; bottom: number }
+export type Dimensions = { width: number; height: number }
+export type Position = { top: number; left: number; right: number; bottom: number }
 export interface TutorialWrapperProps {
     tutorialModule?: {
         id: TutorialId
@@ -35,13 +36,34 @@ export type TutorialComponent = {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const debounce = (fn: Function, ms = 300) => {
-    let timeoutId: ReturnType<typeof setTimeout>
-    return function (this: any, ...args: any[]) {
-        clearTimeout(timeoutId)
-        timeoutId = setTimeout(() => fn.apply(this, args), ms)
-    }
+type DebouncedFunction<T extends (...args: any[]) => any> = {
+    (...args: Parameters<T>): void
+    cancel: () => void
 }
+
+function debounce<T extends (...args: any[]) => any>(func: T, wait = 300): DebouncedFunction<T> {
+    let timeoutId: ReturnType<typeof setTimeout> | null
+
+    const debouncedFunction = (...args: Parameters<T>): void => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId)
+        }
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, wait)
+    }
+
+    debouncedFunction.cancel = () => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId)
+        }
+        timeoutId = null
+    }
+
+    return debouncedFunction as DebouncedFunction<T>
+}
+
+export default debounce
 
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
@@ -49,33 +71,9 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
         const [animation, setAnimation] = useState<'in' | 'out' | 'removed'>('in')
         const [clickCounter, setClickCounter] = useState(0)
         const portal = document.getElementById('portal')
-        const root = document.getElementById('root')
-        const [visible, setVisible] = useState(false)
 
-        const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
-        const [position, setPosition] = useState<Position | null>(null)
-        const handleRef = useCallback((node: HTMLElement | null) => {
-            if (!node || !root) return
-            const measureDOMNode = () => {
-                const rect = node.getBoundingClientRect()
-                setDimensions({ width: rect.width, height: rect.height })
-                setPosition({ top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom })
-            }
-            const debouncedUpdate = debounce(measureDOMNode)
-            measureDOMNode()
+        const { dimensions, position, handleRef, visible } = usePosition()
 
-            const intersectionObserver = new IntersectionObserver(([entry]) => {
-                setVisible(entry.isIntersecting)
-                if (entry.isIntersecting) {
-                    intersectionObserver.unobserve(node)
-                }
-            })
-            const mutationObserver = new MutationObserver(measureDOMNode)
-            mutationObserver.observe(root, { childList: true, subtree: true })
-            intersectionObserver.observe(node)
-            window.addEventListener('resize', measureDOMNode)
-            window.addEventListener('scroll', debouncedUpdate, true)
-        }, [])
         const [tutorialState, currentModule, currentStep, tutorials] = useUnit([
             tutorialModel.stores.tutorialState,
             tutorialModel.stores.currentModule,

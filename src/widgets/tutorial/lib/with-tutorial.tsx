@@ -80,6 +80,7 @@ export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialCom
             tutorialModel.stores.currentStep,
             tutorialModel.stores.tutorials,
         ])
+
         if (!portal || !position || !tutorialState || !tutorials || !currentModule || !props.tutorialModule)
             return <WrappedComponent forwardedRef={handleRef} {...props} />
 

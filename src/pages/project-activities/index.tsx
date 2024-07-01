@@ -11,22 +11,16 @@ import CurrentSemestr from './ui/current-semestr'
 import LastSemestr from './ui/last-semestr'
 import InfoModal from './ui/project-info/info-modal'
 import Result from './ui/result'
-import { userModel } from '@entities/user'
 import { ProjectActivityIntroMessage } from './ui/intro-message'
 import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
 import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
 import { tutorialModel } from '@entities/tutorial'
 import { useUnit } from 'effector-react'
 import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 const ProjectActivitiesPage = () => {
-    const { isMobile, isTablet } = useCurrentDevice()
     const { data, loading, error } = projectActivitesModel.selectors.useData()
     const [currentModule] = useUnit([tutorialModel.stores.currentModule])
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
     const { open } = useModal()
 
     const handleOpenModal = () => {
@@ -42,12 +36,12 @@ const ProjectActivitiesPage = () => {
         >
             <Container>
                 <PageBlock>
-                    <ProjectActivityIntroMessage course={user?.course} />
+                    <ProjectActivityIntroMessage />
                     <ProjectStyledTutorial
                         tutorialModule={{
                             id: 'stud-project-activity',
                             step: 0,
-                            params: { position: 'top', noScroll: !isMobile && !isTablet },
+                            params: { position: 'top' },
                         }}
                     >
                         <DivTutorial

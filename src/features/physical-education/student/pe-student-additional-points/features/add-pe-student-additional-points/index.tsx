@@ -27,9 +27,9 @@ export const AddPEStudentAdditionalPoints = () => {
         peStudentAdditionalPointsModel.events.addAdditionPoints({
             comment: type?.id === WorkType.Competition ? competition?.title ?? '' : comment,
             date: localizeDate(date, 'numeric'),
-            pointsAmount: Number(pointsAmount),
+            points: Number(pointsAmount),
             studentGuid: student?.studentGuid,
-            workType: type?.id,
+            type: type?.id,
         } as AddStudentAdditionalPoints)
     }
 

@@ -22,7 +22,7 @@ export const $additionalPointsColumns = combine(
         },
         {
             title: 'Тип работ',
-            field: 'workType',
+            field: 'type',
             render: (data, row) => {
                 const workType = SelectorData.find(({ id }) => id === data)
 
@@ -39,8 +39,7 @@ export const $additionalPointsColumns = combine(
         },
         {
             title: 'Преподаватель',
-            field: 'teacher',
-            render: (data) => data.fullName,
+            field: 'teacherFullName',
         },
         {
             title: 'Комментарий',

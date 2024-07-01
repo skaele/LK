@@ -1,21 +1,23 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { pERequest } from '@shared/api/config/pe-config'
+
 import { createEffect, createEvent, sample } from 'effector'
 import { modalModel } from 'widgets/modal/model'
 import { AddStudentVisits } from '../types/add-student-visits'
-import { getAddVisitMutation, getRemoveVisitMutation } from '../utils/get-visits-mutations'
+
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
 
 const addVisit = createEvent<AddStudentVisits>()
 const removeVisit = createEvent<{ id: string }>()
 
 const addVisitFx = createEffect(async (payload: AddStudentVisits) => {
-    await pERequest(getAddVisitMutation(payload))
+    await peApi.addVisit(payload)
 
     return payload
 })
 
 const removeVisitFx = createEffect(async ({ id }: { id: string }) => {
-    await pERequest(getRemoveVisitMutation(id))
+    await peApi.removeVisit(id)
 
     return id
 })
@@ -28,8 +30,8 @@ sample({ clock: addVisitFx.doneData, target: modalModel.events.close })
 
 sample({
     clock: addVisitFx.failData,
-    fn: () => ({
-        message: 'Не удалось добавить посещение',
+    fn: (err) => ({
+        message: getPeErrorMsg(err, 'Не удалось добавить посещение'),
         type: 'failure' as const,
         time: 3000,
     }),
@@ -60,8 +62,8 @@ sample({
 
 sample({
     clock: removeVisitFx.failData,
-    fn: () => ({
-        message: 'Не удалось удалить посещение',
+    fn: (err) => ({
+        message: getPeErrorMsg(err, 'Не удалось удалить посещение'),
         type: 'failure' as const,
         time: 3000,
     }),

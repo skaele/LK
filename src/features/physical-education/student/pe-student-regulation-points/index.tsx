@@ -7,7 +7,6 @@ import { StyledTable, Wrapper } from './styled'
 import React from 'react'
 import { Colors } from '@shared/constants'
 import { $regularPointsColumns } from './model'
-import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { Message } from '@shared/ui/message'
 import { peTeacherModel } from '@entities/pe-teacher'
 
@@ -20,7 +19,7 @@ export const PEStudentRegulationPoints = () => {
 
     const { open } = useModal()
 
-    const points = !!student && calcSummaryPoints(student)
+    const points = student?.totalPoints
 
     const handleClick = () => {
         open(<AddPEStudentRegulationPoints />, 'Добавить норматив')

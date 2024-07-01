@@ -1,25 +1,27 @@
-import { pERequest } from '@shared/api/config/pe-config'
 import { createEffect, createEvent, sample } from 'effector'
 import { modalModel } from 'widgets/modal/model'
 
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { AddCompetition } from './types'
-import { getAddCompetition } from './utils'
+
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
+
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
 
 export const addCompetition = createEvent<AddCompetition>()
 
-const addCompetitionFx = createEffect(async (payload: AddCompetition) => {
-    return await pERequest(getAddCompetition(payload))
+const addCompetitionFx = createEffect((payload: AddCompetition) => {
+    return peApi.createCompetition(payload.competitionName)
 })
 
 sample({ clock: addCompetition, target: addCompetitionFx })
 
 sample({
     clock: addCompetitionFx.failData,
-    fn: () => {
+    fn: (err) => {
         return {
-            message: 'Не удалось добавить соревнование',
+            message: getPeErrorMsg(err, 'Не удалось добавить соревнование'),
             type: 'failure' as const,
             time: 3000,
         }

@@ -9,11 +9,7 @@ const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStora
 export const getAuthResponseInterceptor = (apiInstance: any) => async (error: any) => {
     const originalRequest = error?.config ?? {}
 
-    if (
-        error.request.status === 401 ||
-        error?.data?.errors?.[0].extensions?.code === 'AUTH_NOT_AUTHENTICATED' ||
-        error?.response?.data?.errors?.[0].extensions?.code === 'AUTH_NOT_AUTHENTICATED'
-    ) {
+    if (error.request.status === 401) {
         if (!originalRequest._retry) {
             originalRequest._retry = true
             const refreshToken = localStorage.getItem(BrowserStorageKey.JWTRefresh)

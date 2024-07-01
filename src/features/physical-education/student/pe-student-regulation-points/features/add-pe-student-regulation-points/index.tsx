@@ -21,10 +21,9 @@ export const AddPEStudentRegulationPoints = () => {
     const handleClick = () => {
         peStudentRegulationPointsModel.events.addRegulationPoints({
             date: localizeDate(date, 'numeric'),
-            pointsAmount: Number(pointsAmount),
+            points: Number(pointsAmount),
             studentGuid: student?.studentGuid,
-            standardType: type?.id,
-            isOverride: false,
+            type: type?.id,
             comment: type?.id === RegulationType.Other ? comment ?? '' : '',
         } as AddStudentRegulationPoints)
     }

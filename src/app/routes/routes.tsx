@@ -458,15 +458,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component:
-            Date.now() > new Date('2024-07-01').getTime()
-                ? () => (
-                      <PageIsNotReady
-                          isRedirectButtonVisible={false}
-                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
-                      />
-                  )
-                : RelocationToAnotherHostelPage,
+        Component: RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

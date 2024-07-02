@@ -87,11 +87,10 @@ export const inspectAllowance = async ({
 export const createAllowance = async (allowance: AllowanceRequest) => {
     const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/add-allowance`, {
         ...allowance,
-        initiatorId: '96d4f97d-8adf-4fd3-ad4d-394eaddebb0f',
         allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
             ...emloyee,
-            sum: 100,
-            divisionId: '08329f89-5cfe-4555-b6a3-141ca28e90e6',
+            sum: Number(emloyee.sum),
+            divisionId: '27bb8e1d-bf7a-4f55-882e-838d46f3d60f',
         })),
     })
     return data

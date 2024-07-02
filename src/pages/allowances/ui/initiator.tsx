@@ -1,19 +1,16 @@
 import useDebounce from '@shared/lib/hooks/use-debounce'
-import { Button, Message } from '@shared/ui/atoms'
-import PageBlock from '@shared/ui/page-block'
+import { Message } from '@shared/ui/atoms'
 import Search from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
-import { allowancesQuery } from '@entities/allowances/model/allowances-query'
-import { FiInfo, FiPlus } from 'react-icons/fi'
+import { FiInfo } from 'react-icons/fi'
 import Table from '@shared/ui/table'
 import { getAllowancesColumns } from '../lib/get-allowances-columns'
-import { useHistory } from 'react-router'
-import { CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
+import { initiatorAllowancesQuery } from '@entities/allowances/model/allowances-query'
+import Flex from '@shared/ui/flex'
 
 export const Initiator = () => {
-    const history = useHistory()
-    const [allowances] = useUnit([allowancesQuery.$data])
+    const [allowances] = useUnit([initiatorAllowancesQuery.$data])
 
     const [lastSearch, setLastSearch] = useState('')
     const [fio, setFio] = useState('')
@@ -29,26 +26,10 @@ export const Initiator = () => {
         onClear: setFio,
     })
 
-    const handleCreateApplication = () => {
-        history.push(CREATE_ALLOWANCE)
-    }
-
     return (
-        <PageBlock
-            topRightCornerElement={
-                <Button
-                    onClick={handleCreateApplication}
-                    text="Подать заявку"
-                    background="var(--reallyBlue)"
-                    textColor="#fff"
-                    icon={<FiPlus />}
-                    minWidth="35px"
-                    height="36px"
-                    shrinkTextInMobile
-                />
-            }
-        >
+        <Flex gap="16px" d="column">
             <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                <p>Роль: Инициатор</p>
                 <p>Интерфейс все еще находится в разработке</p>
             </Message>
             <Search value={searchValue} setValue={setSearchValue} loading={loading} placeholder={'Сотрудник'} />
@@ -59,6 +40,6 @@ export const Initiator = () => {
                 data={allowances}
                 maxOnPage={7}
             />
-        </PageBlock>
+        </Flex>
     )
 }

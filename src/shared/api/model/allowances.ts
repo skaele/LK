@@ -87,6 +87,7 @@ export const inspectAllowance = async ({
 export const createAllowance = async (allowance: AllowanceRequest) => {
     const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/add-allowance`, {
         ...allowance,
+        // initiatorId: '7f9a30ea-e7b3-11ea-9434-b4b52f5f5349',
         allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
             ...emloyee,
             sum: Number(emloyee.sum),
@@ -97,9 +98,6 @@ export const createAllowance = async (allowance: AllowanceRequest) => {
 }
 
 export const getRole = async (userId: string | null) => {
-    // if (userId === '907afd9b-d9c5-11e7-940a-b4b52f5f5349')
-    // test purposes
-    return ['initiator', 'approver'] as Role[]
     const { data } = await $allowancesApi.get<Role[]>(`allowances/employee/${userId}/get-roles`)
     return data
 }

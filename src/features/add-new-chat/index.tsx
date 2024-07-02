@@ -3,6 +3,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import { Modal } from './ui/modal'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const AddButtonStyled = styled.button`
     width: fit-content;
@@ -28,7 +29,7 @@ const AddButtonStyled = styled.button`
     }
 `
 
-export const AddNewChat = () => {
+export const AddNewChat = ({ forwardedRef }: TutorialComponent) => {
     const { open } = useModal()
 
     const handleClick = () => {
@@ -36,7 +37,7 @@ export const AddNewChat = () => {
     }
 
     return (
-        <AddButtonStyled onClick={handleClick}>
+        <AddButtonStyled ref={forwardedRef} onClick={handleClick}>
             <HiOutlinePencilAlt />
             Написать
         </AddButtonStyled>

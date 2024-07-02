@@ -1,10 +1,12 @@
+import { tutorialModel } from '@entities/tutorial'
 import { Error } from '@ui/atoms'
 import convertHorizontalAlign from '@ui/list/lib/convert-horizontal-align'
 import { Align } from '@ui/types'
 import useResize from '@utils/hooks/use-resize'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Slider } from 'widgets'
+import { SliderTutorial } from 'widgets/tutorial/tutorials/slider-tutorial'
 
 const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: string }>`
     display: flex;
@@ -102,9 +104,11 @@ const SliderPage = ({
         handleChangePage(page)
     }, [currentPage, screenWidth])
 
+    const roles = useUnit(tutorialModel.stores.roles)
+
     return (
         <SliderPageWrapper width={width} align={align} maxWidth={maxWidth}>
-            <Slider
+            <SliderTutorial
                 pages={pages.map(({ title, condition }) => ({
                     title,
                     condition,
@@ -113,6 +117,11 @@ const SliderPage = ({
                 setCurrentPage={handleChangePage}
                 sliderWidth={sliderWidth}
                 appearance={appearance}
+                tutorialModule={{
+                    id: 'payments',
+                    step: roles.includes('dormitory') && roles.includes('education') ? 0 : -1,
+                    params: { position: 'bottom', noScroll: true },
+                }}
             />
             <div className={className ?? 'slider-content'} ref={sliderContentRef} onScroll={handleScroll}>
                 {pages.map((page) =>

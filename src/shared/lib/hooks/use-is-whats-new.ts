@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react'
 import { userModel } from '@entities/user'
 import { LastUpdateWhatsNew } from '@shared/constants'
+import { useUnit } from 'effector-react'
+import { tutorialModel } from '@entities/tutorial'
 
 const useIsShowWhatsNew = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
+    const [heroVisited, tutorialState] = useUnit([tutorialModel.stores.heroVisited, tutorialModel.stores.tutorialState])
     const [isShowNotification, setIsShowNotification] = useState<boolean>(false)
 
     const checkingShowNotification = (lastAccess: string) => {
         const lastLocalAccess = localStorage.getItem('lastLocalAccess') || lastAccess
         const UpdateWhatsNewDate = new Date(LastUpdateWhatsNew)
-
-        if (new Date(lastAccess) < UpdateWhatsNewDate && new Date(lastLocalAccess) < UpdateWhatsNewDate) {
+        if (
+            new Date(lastAccess) < UpdateWhatsNewDate &&
+            new Date(lastLocalAccess) < UpdateWhatsNewDate &&
+            (heroVisited || tutorialState)
+        ) {
             localStorage.setItem('lastLocalAccess', new Date().toISOString())
             setIsShowNotification(true)
         }

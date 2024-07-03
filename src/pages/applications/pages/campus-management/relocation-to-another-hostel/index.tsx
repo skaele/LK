@@ -27,7 +27,7 @@ const RelocationToAnotherHostelPage = () => {
         }
     }, [dataUserApplication])
 
-    if (new Date() < new Date(2024, 7, 15)) return <CampusError />
+    if (new Date() < new Date(2024, 8, 15)) return <CampusError />
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (

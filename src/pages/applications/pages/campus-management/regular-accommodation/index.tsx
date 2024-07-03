@@ -53,7 +53,7 @@ const RegularAccommodationPage = () => {
         return null
     }
 
-    if (new Date() < new Date(2024, 7, 15)) return <CampusError />
+    if (new Date() < new Date(2024, 8, 15)) return <CampusError />
 
     const stagesConfigs: StagesConfigsT = [
         [{ dataForm: form, setDataForm: setForm as LoadedState }],

@@ -115,6 +115,7 @@ export enum Groups {
     LEARNING_ACTIVITIES = 'Учебная деятельность',
     OTHER = 'Находится в разработке',
     COMMUNICATION = 'Коммуникация',
+    SCIENCE = 'Научная деятельность',
 }
 
 export interface IRoute {

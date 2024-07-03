@@ -8,7 +8,8 @@ export const routesOrder: RoutesOrder = {
     'Кадровая среда': 1,
     'Учебная деятельность': 2,
     Коммуникация: 3,
-    'Находится в разработке': 4,
+    'Научная деятельность': 4,
+    'Находится в разработке': 5,
 }
 
 const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null) => {
@@ -26,6 +27,7 @@ const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null) => {
             return acc
         }, {} as Record<Groups, IRoutes>)
 
+    console.log(tabs)
     return tabs
 }
 

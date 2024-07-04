@@ -5,6 +5,7 @@ import {
     HandbookType,
     Role,
     Subordnate,
+    AllowanceEmployee,
 } from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
@@ -54,7 +55,7 @@ export const inspectAllowance = async ({
     allowanceId: string
     userId: string
 }) => {
-    const { data } = await $allowancesApi.get<ApplicationResult>(
+    const { data } = await $allowancesApi.get<AllowanceEmployee[]>(
         `allowances/${allowanceId}/${role}s/${userId}/employees`,
     )
     return data

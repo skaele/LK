@@ -16,6 +16,17 @@ export type Allowance = {
     employees: (Employee & { approvalStatus: AllowancesApprovalStatus })[]
 }
 
+export type AllowanceEmployee = {
+    id: string
+    sum: number
+    startDate: string
+    endDate: string
+    divisionName: string
+    initials: string
+    position: string
+    approvalStatus: AllowancesApprovalStatus
+}
+
 export type Employee = {
     id: string
     sum: number

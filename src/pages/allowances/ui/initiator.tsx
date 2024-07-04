@@ -9,8 +9,11 @@ import { getAllowancesColumns } from '../lib/get-allowances-columns'
 import Flex from '@shared/ui/flex'
 import { allowancesModel } from '@entities/allowances'
 import Select, { SelectPage } from '@features/select'
+import { useHistory } from 'react-router'
+import { ALLOWANCES } from '@app/routes/teacher-routes'
 
 export const Initiator = () => {
+    const history = useHistory()
     const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
 
     const [lastSearch, setLastSearch] = useState('')
@@ -56,6 +59,9 @@ export const Initiator = () => {
                 columns={getAllowancesColumns()}
                 data={job && allowances ? allowances[job.id].initiatorAllowances : null}
                 maxOnPage={7}
+                onRowClick={(allowance) => {
+                    history.push(ALLOWANCES + `/info/${job?.id}/initiator/${allowance.id}`)
+                }}
             />
         </Flex>
     )

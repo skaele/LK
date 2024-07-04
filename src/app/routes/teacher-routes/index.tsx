@@ -57,6 +57,7 @@ import {
     IncreaseAntiplagiatLimits,
     Allowances,
     CreateAllowance,
+    AllowanceInfo,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -104,6 +105,7 @@ export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
 export const ALLOWANCES = '/allowances'
 export const CREATE_ALLOWANCE = ALLOWANCES + '/create'
+export const ALLOWANCE_INFO = ALLOWANCES + '/info/:jobId/:role/:id'
 export const JOB_ROUTE = '/job'
 export const ORDERS_ROUTE = '/staff_orders'
 export const DOCUMENT_BLANKS_ROUTE = '/staff_blanks'
@@ -542,23 +544,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isSupplementApprover: true,
         isSupplementInitiator: true,
     },
-    'create-allowances': {
-        id: 'create-allowances',
-        title: 'Установление надбавок',
-        icon: <FiFileText />,
-        path: CREATE_ALLOWANCE,
-        Component: CreateAllowance,
-        color: 'orange',
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        pageSize: 'big',
-        fallbackPrevPage: ALLOWANCES,
-        hiddenTitle: true,
-        isSubPage: true,
-        show: false,
-
-        isSupplementInitiator: true,
-    },
     'data-verification': {
         id: 'data-verification',
         title: 'Анкета для сверки данных',
@@ -644,6 +629,36 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         show: false,
+    },
+    'allowance-info': {
+        id: 'allowance-info',
+        title: 'Информация о надбавке',
+        icon: <FiFileText />,
+        path: ALLOWANCE_INFO,
+        Component: AllowanceInfo,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        fallbackPrevPage: ALLOWANCES,
+        isSubPage: true,
+
+        isSupplementApprover: true,
+        isSupplementInitiator: true,
+    },
+    'create-allowances': {
+        id: 'create-allowances',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: CREATE_ALLOWANCE,
+        Component: CreateAllowance,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        fallbackPrevPage: ALLOWANCES,
+        hiddenTitle: true,
+        isSubPage: true,
+
+        isSupplementInitiator: true,
     },
     'pps-vote': {
         id: 'pps-vote',

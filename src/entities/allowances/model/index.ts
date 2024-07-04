@@ -1,22 +1,26 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { Allowance, Subordnate } from '../types'
+import { Allowance, Role, Subordnate } from '../types'
 import {
+    approveAllowance,
     createAllowance,
     getAllowances,
     getHandbook,
     getRoles,
     getSubordinates,
+    inspectAllowance,
     JobRoles,
 } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 import { userModel } from '@entities/user'
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
+const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
 
 const $completed = createStore(false)
@@ -27,6 +31,7 @@ const $allowances = createStore<{
 const $subordinates = createStore<{
     [key: string]: Subordnate[]
 } | null>(null)
+
 const getAllowancesFx = createEffect(async (userId: string) => {
     return getAllowances(userId)
 })
@@ -36,6 +41,33 @@ const getSubordinatesFx = createEffect(async (userId: string) => {
 
 const createSupplementMutation = createMutation({
     handler: createAllowance,
+})
+
+const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
+const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
+const veridctMutation = createMutation({
+    handler: approveAllowance,
+})
+
+sample({
+    clock: approve,
+    fn: ({ employeeId, allowanceId, approverEmployeeId }) => ({
+        employeeId,
+        allowanceId,
+        approverEmployeeId,
+        approvalStatus: 'Approved' as const,
+    }),
+    target: veridctMutation.start,
+})
+sample({
+    clock: reject,
+    fn: ({ employeeId, allowanceId, approverEmployeeId }) => ({
+        employeeId,
+        allowanceId,
+        approverEmployeeId,
+        approvalStatus: 'Declined' as const,
+    }),
+    target: veridctMutation.start,
 })
 
 const $chosen = createStore<Allowance | null>(null)
@@ -52,6 +84,9 @@ const activityAreasQuery = createQuery({
     handler: getHandbook,
 })
 
+const allowanceQuery = createQuery({
+    handler: inspectAllowance,
+})
 sample({
     clock: createSupplement,
     fn: ({ initiator, form, employees }) => {
@@ -60,11 +95,27 @@ sample({
     },
     target: createSupplementMutation.start,
 })
-
+sample({
+    clock: infoPageMounted,
+    fn: ({ id, role, userId }) => ({
+        role,
+        allowanceId: id,
+        userId: userId,
+    }),
+    target: allowanceQuery.start,
+})
 sample({
     clock: createSupplementMutation.$succeeded,
     fn: () => true,
     target: setCompleted,
+})
+sample({
+    clock: createSupplementMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось создать надбавку. Проверьте правильность заполненных полей и попробуйте еще раз',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 $completed.on(setCompleted, (_, val) => val)
@@ -115,9 +166,20 @@ const getAllEmployees = createEffect(async (jobs: JobRoles) => {
 })
 
 sample({
+    clock: veridctMutation.$finished,
+    source: veridctMutation.__.$latestParams,
+    fn: (params) => ({
+        role: 'Approver' as const,
+        allowanceId: params?.allowanceId || '',
+        userId: params?.approverEmployeeId || '',
+    }),
+    target: allowanceQuery.start,
+})
+sample({
     clock: pageMounted,
     source: roleQuery.$data,
     filter: (roles) => roles !== null,
+    fn: (roles) => roles as JobRoles,
     target: getAllAllowances,
 })
 sample({
@@ -129,6 +191,7 @@ sample({
     clock: pageMounted,
     source: roleQuery.$data,
     filter: (roles) => roles !== null,
+    fn: (roles) => roles as JobRoles,
     target: getAllEmployees,
 })
 sample({
@@ -141,6 +204,9 @@ export const events = {
     appStarted,
     createSupplement,
     setCompleted,
+    infoPageMounted,
+    approve,
+    reject,
 }
 
 export const queries = {
@@ -148,6 +214,7 @@ export const queries = {
     allowanceTypes: allowanceTypesQuery,
     fundingSources: fundingSourcesQuery,
     activityAreas: activityAreasQuery,
+    allowance: allowanceQuery,
 }
 
 export const mutations = {

@@ -30,38 +30,36 @@ const Allowances = () => {
     }, [])
     if (roles && user?.currentUser?.guid) {
         return (
-            <>
-                <PageBlock
-                    topRightCornerElement={
-                        roles.some((employee) => employee.roles.includes('Initiator')) && (
-                            <Button
-                                onClick={handleCreateApplication}
-                                text="Подать заявку"
-                                background="var(--reallyBlue)"
-                                textColor="#fff"
-                                icon={<FiPlus />}
-                                minWidth="35px"
-                                height="36px"
-                                shrinkTextInMobile
-                            />
-                        )
-                    }
-                >
-                    {roles.length > 1 ? (
-                        <SliderPage
-                            pages={[
-                                { title: 'Согласование надбавок', content: <Approver /> },
-                                { title: 'Установление надбавок', content: <Initiator /> },
-                            ]}
-                            appearance={false}
+            <PageBlock
+                topRightCornerElement={
+                    roles.some((employee) => employee.roles.includes('Initiator')) && (
+                        <Button
+                            onClick={handleCreateApplication}
+                            text="Подать заявку"
+                            background="var(--reallyBlue)"
+                            textColor="#fff"
+                            icon={<FiPlus />}
+                            minWidth="35px"
+                            height="36px"
+                            shrinkTextInMobile
                         />
-                    ) : roles.some((employee) => employee.roles[0] === 'Initiator') ? (
-                        <Initiator />
-                    ) : (
-                        <Approver />
-                    )}
-                </PageBlock>
-            </>
+                    )
+                }
+            >
+                {roles.length > 1 ? (
+                    <SliderPage
+                        pages={[
+                            { title: 'Согласование надбавок', content: <Approver /> },
+                            { title: 'Установление надбавок', content: <Initiator /> },
+                        ]}
+                        appearance={false}
+                    />
+                ) : roles.some((employee) => employee.roles[0] === 'Initiator') ? (
+                    <Initiator />
+                ) : (
+                    <Approver />
+                )}
+            </PageBlock>
         )
     }
 

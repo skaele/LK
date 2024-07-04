@@ -22,6 +22,14 @@ export const Employee = ({
     id: string
 }) => {
     const [approve, reject] = useUnit([allowancesModel.events.approve, allowancesModel.events.reject])
+
+    const statusText =
+        employee?.approvalStatus ||
+        (employee?.employeeVerdict?.every((verdict) => verdict.approvalStatus === 'Approved')
+            ? 'Approved'
+            : employee?.employeeVerdict?.every((verdict) => verdict.approvalStatus === 'Declined')
+            ? 'Declined'
+            : 'Unknown')
     return (
         <Layout>
             <Title align="left" size={4}>
@@ -31,14 +39,8 @@ export const Employee = ({
                 {employee.divisionName}, {employee.position}
             </Title>
             <Message
-                type={
-                    employee.approvalStatus === 'Approved'
-                        ? 'success'
-                        : employee.approvalStatus === 'Declined'
-                        ? 'failure'
-                        : 'alert'
-                }
-                title={allowanceConstants[employee.approvalStatus] || '—'}
+                type={statusText === 'Approved' ? 'success' : statusText === 'Declined' ? 'failure' : 'alert'}
+                title={allowanceConstants[statusText] || '—'}
                 align="left"
                 icon={null}
             />
@@ -46,7 +48,7 @@ export const Employee = ({
             <Subtext>
                 Период: {localizeDate(employee.startDate)} - {localizeDate(employee.endDate)}
             </Subtext>
-            {role === 'Approver'.toLowerCase() && (
+            {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (
                 <Flex jc="space-between">
                     <Button
                         text="Отказать"
@@ -66,7 +68,7 @@ export const Employee = ({
                         textColor="white"
                         onClick={() => {
                             approve({
-                                allowanceId: employee.id,
+                                allowanceId: id,
                                 approverEmployeeId: userId,
                                 employeeId: employee.id,
                             })

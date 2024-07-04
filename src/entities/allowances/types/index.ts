@@ -24,7 +24,13 @@ export type AllowanceEmployee = {
     divisionName: string
     initials: string
     position: string
-    approvalStatus: AllowancesApprovalStatus
+    approvalStatus?: AllowancesApprovalStatus
+    employeeVerdict?: {
+        approverEmployeeId: string
+        approverName: string
+        approvalStatus: AllowancesApprovalStatus
+        approverOrderNumber: number
+    }[]
 }
 
 export type Employee = {

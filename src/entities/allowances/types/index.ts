@@ -1,4 +1,4 @@
-export type AllowancesApprovalStatus = null
+export type AllowancesApprovalStatus = 'Unknown' | 'InProgress' | 'Approved' | 'Declined'
 
 export type HandbookItem = {
     id: string
@@ -18,11 +18,15 @@ export type Allowance = {
 
 export type Employee = {
     id: string
-    initials: string
-    division: HandbookItem
+    sum: number
     startDate: string
     endDate: string
-    sum: number
 }
 
-export type Role = 'initiator' | 'approver'
+export type Subordnate = {
+    divisionName: string
+    employeeId: string
+    employeeName: string
+}
+
+export type Role = 'Initiator' | 'Approver'

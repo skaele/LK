@@ -1,14 +1,38 @@
-import { createEvent, createStore, sample } from 'effector'
-import { Role, Allowance } from '../types'
-import { createAllowance, getHandbook, getRole } from '@shared/api/model/allowances'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+import { Allowance, Subordnate } from '../types'
+import {
+    createAllowance,
+    getAllowances,
+    getHandbook,
+    getRoles,
+    getSubordinates,
+    JobRoles,
+} from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 import { userModel } from '@entities/user'
 
-const pageMounted = createEvent<{ role: Role; userId: string }>()
+export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
+
 const appStarted = createEvent()
-const createSupplement = createEvent<{ form: IInputArea; employees: IInputArea }>()
+const pageMounted = createEvent()
+const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
+
+const $completed = createStore(false)
+const setCompleted = createEvent<boolean>()
+const $allowances = createStore<{
+    [key: string]: AllAllowances
+} | null>(null)
+const $subordinates = createStore<{
+    [key: string]: Subordnate[]
+} | null>(null)
+const getAllowancesFx = createEffect(async (userId: string) => {
+    return getAllowances(userId)
+})
+const getSubordinatesFx = createEffect(async (userId: string) => {
+    return getSubordinates(userId)
+})
 
 const createSupplementMutation = createMutation({
     handler: createAllowance,
@@ -16,7 +40,7 @@ const createSupplementMutation = createMutation({
 
 const $chosen = createStore<Allowance | null>(null)
 const roleQuery = createQuery({
-    handler: getRole,
+    handler: getRoles,
 })
 const allowanceTypesQuery = createQuery({
     handler: getHandbook,
@@ -30,18 +54,26 @@ const activityAreasQuery = createQuery({
 
 sample({
     clock: createSupplement,
-    fn: ({ form, employees }) => {
-        const parsed = parseInputArea([form, employees])
+    fn: ({ initiator, form, employees }) => {
+        const parsed = parseInputArea([initiator, form, employees])
         return parsed
     },
     target: createSupplementMutation.start,
 })
 
 sample({
+    clock: createSupplementMutation.$succeeded,
+    fn: () => true,
+    target: setCompleted,
+})
+
+$completed.on(setCompleted, (_, val) => val)
+sample({
     clock: appStarted,
     source: userModel.stores.userGuid,
     target: roleQuery.start,
 })
+
 sample({
     clock: pageMounted,
     fn: () => 'AllowanceType' as const,
@@ -58,10 +90,57 @@ sample({
     target: activityAreasQuery.start,
 })
 
+const getAllAllowances = createEffect(async (jobs: JobRoles) => {
+    const allowances = await Promise.all(
+        jobs.map(async (job) => {
+            return await getAllowancesFx(job.employeeId)
+        }),
+    )
+    return jobs.reduce((acc, job, index) => {
+        acc[job.employeeId] = allowances[index]
+        return acc
+    }, {} as { [key: string]: AllAllowances })
+})
+
+const getAllEmployees = createEffect(async (jobs: JobRoles) => {
+    const employees = await Promise.all(
+        jobs.map(async (job) => {
+            return await getSubordinatesFx(job.employeeId)
+        }),
+    )
+    return jobs.reduce((acc, job, index) => {
+        acc[job.employeeId] = employees[index]
+        return acc
+    }, {} as { [key: string]: Subordnate[] })
+})
+
+sample({
+    clock: pageMounted,
+    source: roleQuery.$data,
+    filter: (roles) => roles !== null,
+    target: getAllAllowances,
+})
+sample({
+    clock: getAllAllowances.doneData,
+    target: $allowances,
+})
+
+sample({
+    clock: pageMounted,
+    source: roleQuery.$data,
+    filter: (roles) => roles !== null,
+    target: getAllEmployees,
+})
+sample({
+    clock: getAllEmployees.doneData,
+    target: $subordinates,
+})
+
 export const events = {
     pageMounted,
     appStarted,
     createSupplement,
+    setCompleted,
 }
 
 export const queries = {
@@ -77,4 +156,7 @@ export const mutations = {
 
 export const stores = {
     chosen: $chosen,
+    allowances: $allowances,
+    employees: $subordinates,
+    completed: $completed,
 }

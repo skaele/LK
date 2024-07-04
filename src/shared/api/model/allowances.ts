@@ -1,38 +1,18 @@
 import {
     Employee,
     HandbookItem,
-    Allowance,
     AllowancesApprovalStatus,
     HandbookType,
     Role,
+    Subordnate,
 } from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
-
-type DocumentType = null
-
-type GetRequestParams = {
-    status: string
-    fio: string
-}
-
-type DownloadParams = {
-    documentId: string
-    documentType: DocumentType
-}
-
-type DownloadResponse = {
-    documentId: string
-    fileName: string
-    fileExtension: string
-    documentNumber: number
-    documentType: DocumentType
-    fileContent: string
-}
+import { AllAllowances } from '@entities/allowances/model'
 
 type AllowanceRequest = {
     initiatorId: string
-    activityAreaId: string
     fundingSourceId: string
+    activityAreaId: string
     allowanceTypeId: string
     commentary: string
     allowanceEmployees: Employee[]
@@ -40,26 +20,12 @@ type AllowanceRequest = {
 
 type ApplicationResult = { applicationId: string; result: string }
 
-export const getHandbook = async (handbookName: HandbookType) => {
-    const { data } = await $allowancesApi.get<HandbookItem[]>('allowances/get-handbook/' + handbookName)
-    return data
-}
+export type JobRoles = { employeeId: string; division: string; roles: Role[] }[]
 
-export const getAllowances = async ({
-    role,
-    userId,
-    params,
-}: {
-    role: Role
-    userId: string
-    params?: GetRequestParams
-}) => {
+export const getAllowances = async (employeeId: string) => {
     try {
         const { data } = await $allowancesApi
-            // TODO: get rid of role, id
-            .get<Allowance[]>(`/allowances/${role}/${userId}/get-allowances`, {
-                params: params,
-            })
+            .get<AllAllowances>(`/allowances?` + new URLSearchParams({ employeeId }))
             .catch((e) => {
                 throw new Error(e?.response?.data || e.message)
             })
@@ -67,6 +33,16 @@ export const getAllowances = async ({
     } catch (error) {
         throw new Error(error as string)
     }
+}
+
+export const createAllowance = async (allowance: AllowanceRequest) => {
+    const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances`, allowance)
+    return data
+}
+
+export const getSubordinates = async (userId: string) => {
+    const { data } = await $allowancesApi.get<Subordnate[]>(`initiators/${userId}/employees`)
+    return data
 }
 
 export const inspectAllowance = async ({
@@ -79,51 +55,27 @@ export const inspectAllowance = async ({
     userId: string
 }) => {
     const { data } = await $allowancesApi.get<ApplicationResult>(
-        `allowances/allowance/${allowanceId}/get-employees/${role}/${userId}`,
+        `allowances/${allowanceId}/${role}s/${userId}/employees`,
     )
     return data
 }
 
-export const createAllowance = async (allowance: AllowanceRequest) => {
-    const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/add-allowance`, {
-        ...allowance,
-        // initiatorId: '7f9a30ea-e7b3-11ea-9434-b4b52f5f5349',
-        allowanceEmployees: allowance.allowanceEmployees.map((emloyee) => ({
-            ...emloyee,
-            sum: Number(emloyee.sum),
-            divisionId: '27bb8e1d-bf7a-4f55-882e-838d46f3d60f',
-        })),
-    })
+export const approveAllowance = async (request: {
+    allowanceId: string
+    approverEmployeeId: string
+    employeeId: string
+    approvalStatus: AllowancesApprovalStatus
+}) => {
+    const { data } = await $allowancesApi.post<ApplicationResult>(`allowances/verdict`, request)
     return data
 }
 
-export const getRole = async (userId: string | null) => {
-    const { data } = await $allowancesApi.get<Role[]>(`allowances/employee/${userId}/get-roles`)
+export const getRoles = async (userId: string | null) => {
+    const { data } = await $allowancesApi.get<JobRoles>(`employees/${userId}/roles`)
     return data
 }
 
-// TODO: take approverID from token
-export const approveAllowance = async (
-    allowanceId: string,
-    approverEmployeeId: string,
-    employeeId: string,
-    approvalStatus: AllowancesApprovalStatus,
-) => {
-    await $allowancesApi.post<ApplicationResult>(`allowances/set-verdict`, {
-        allowanceId,
-        approverEmployeeId,
-        employeeId,
-        approvalStatus,
-    })
-}
-
-// TODO: force backend to get rid of this
-export const download = async (params: DownloadParams) => {
-    const { data } = await $allowancesApi.get<DownloadResponse>(
-        `allowances/download/${params.documentId}/${params.documentType}`,
-        {
-            params: params,
-        },
-    )
+export const getHandbook = async (handbookName: HandbookType) => {
+    const { data } = await $allowancesApi.get<HandbookItem[]>('handbooks/' + handbookName)
     return data
 }

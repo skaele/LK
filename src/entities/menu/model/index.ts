@@ -94,8 +94,8 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, supplementsR
         ([key, value]) =>
             (key !== adminRoute && !value.isSupplementApprover && !value.isSupplementInitiator) ||
             (key === adminRoute && hasAdminLinks) ||
-            (value.isSupplementApprover && supplementsRoles?.includes('approver')) ||
-            (value.isSupplementInitiator && supplementsRoles?.includes('initiator')),
+            (value.isSupplementApprover && supplementsRoles?.includes('Approver')) ||
+            (value.isSupplementInitiator && supplementsRoles?.includes('Initiator')),
     )
 
     return Object.fromEntries(filteredRoutes)
@@ -112,7 +112,12 @@ const $leftSidebar = combine(
         return findRoutesByConfig(
             getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data, role), ...teachersHiddenRoutes() }
+                ? {
+                      ...filterTeachersPrivateRoutes(adminLinks.data, [
+                          ...(role?.map((employee) => employee.roles).flat() || []),
+                      ]),
+                      ...teachersHiddenRoutes(),
+                  }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -129,7 +134,12 @@ const $homeRoutes = combine(
         return findRoutesByConfig(
             settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data, role), ...teachersHiddenRoutes() }
+                ? {
+                      ...filterTeachersPrivateRoutes(adminLinks.data, [
+                          ...(role?.map((employee) => employee.roles).flat() || []),
+                      ]),
+                      ...teachersHiddenRoutes(),
+                  }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -149,7 +159,7 @@ sample({
         homeRoutes: settings!.homePage.pages,
         user: userStore.currentUser!,
         adminLinks: adminLinks.data!,
-        supplementRoles,
+        supplementRoles: [...(supplementRoles?.map((employee) => employee.roles).flat() || [])],
     }),
     target: defineMenu,
 })

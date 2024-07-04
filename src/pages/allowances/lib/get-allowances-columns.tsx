@@ -1,14 +1,36 @@
 import React from 'react'
-import { AllowanceConstants, AllowanceStatusType } from '@entities/allowances/consts'
+import { allowanceConstants } from '@entities/allowances/consts'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
+import { AllowancesApprovalStatus } from '@entities/allowances/types'
 
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [
-        { title: 'Заявление', field: 'application', priority: 'three', width: '150px', search: true },
+        {
+            title: 'Тип',
+            field: 'allowanceType',
+            priority: 'three',
+            width: '150px',
+            render: (value) => value.name || '-',
+        },
+        {
+            title: 'Вид деятельности',
+            field: 'activityArea',
+            priority: 'two',
+            width: '150px',
+            render: (value) => value.name || '-',
+        },
+        {
+            title: 'Источник финансирования',
+            field: 'fundingSource',
+            priority: 'four',
+            width: '150px',
+            render: (value) => value.name || '-',
+        },
+        { title: 'Комментарий', field: 'commentary' },
         {
             title: 'Дата',
-            field: 'created',
+            field: 'createdAt',
             priority: 'two',
             sort: true,
             type: 'date',
@@ -21,31 +43,18 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             priority: 'one',
             width: '165px',
             catalogs: [
-                ...(Object.values(AllowanceConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+                ...(Object.values(allowanceConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
-            render: (value: AllowanceStatusType) => {
+            render: (value: AllowancesApprovalStatus) => {
                 return (
                     <Message
-                        type={
-                            value === 'Готово' || value === 'Выдано' || value === 'Получено' || value === 'Выполнена'
-                                ? 'success'
-                                : value === 'Отклонено'
-                                ? 'failure'
-                                : 'alert'
-                        }
-                        title={value || '—'}
+                        type={value === 'Approved' ? 'success' : value === 'Declined' ? 'failure' : 'alert'}
+                        title={allowanceConstants[value] || '—'}
                         align="center"
                         icon={null}
                     />
                 )
             },
-        },
-        {
-            title: 'Направление деятельности',
-            priority: 'four',
-            field: 'type',
-            showFull: false,
-            search: true,
         },
     ]
 }

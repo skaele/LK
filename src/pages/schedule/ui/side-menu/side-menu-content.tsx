@@ -11,6 +11,7 @@ import { useLocation } from 'react-router'
 import { NewPageLink } from './new-page-link'
 import { SideMenuProps } from './types'
 import { userModel } from '@entities/user'
+import { useUnit } from 'effector-react'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,
@@ -21,7 +22,7 @@ export const SideMenuContent = ({
 }: SideMenuProps) => {
     const {
         data: { searchValue, filter },
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
     const location = useLocation()
     const {
         data: { user },

@@ -42,7 +42,7 @@ export const HomePage = ({ forwardedRef }: TutorialComponent) => {
     const payments = useUnit(paymentsModel.stores.$paymentsStore)
     const {
         data: { schedule },
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
 
     useEffect(() => {
         if (!payments) {

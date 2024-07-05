@@ -17,6 +17,7 @@ import { SideMenuContent } from '../ui/side-menu/side-menu-content'
 import Flex from '@shared/ui/flex'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { TIME_IN_MS } from '@shared/constants'
+import { useUnit } from 'effector-react'
 
 const useSchedule = () => {
     const {
@@ -24,7 +25,7 @@ const useSchedule = () => {
     } = userModel.selectors.useUser()
     const {
         data: { filter, view, errorInData },
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
 
     const { isTablet, isMobile } = useCurrentDevice()
     const [isSideMenuOpen, setIsSideMenuOpen] = useState(true)

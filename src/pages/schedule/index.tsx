@@ -12,13 +12,14 @@ import { Redirect, Route, Switch } from 'react-router'
 import { Slider } from 'widgets'
 import useSchedule from './hooks/use-schedule'
 import { SideMenu } from './ui/side-menu'
+import { useUnit } from 'effector-react'
 
 const Schedule = () => {
     const {
         data: { view, schedule, externalSchedule, errorInData },
         loading,
         error,
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
     const { allRoutes } = menuModel.selectors.useMenu()
     const {
         isSideMenuOpen,

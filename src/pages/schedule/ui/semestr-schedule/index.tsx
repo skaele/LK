@@ -2,12 +2,13 @@ import { scheduleModel } from '@entities/schedule'
 import { Template } from '../template'
 import React from 'react'
 import { SCHEDULE_NO_RESULT } from '@entities/schedule/consts'
+import { useUnit } from 'effector-react'
 
 const SemestrSchedule = () => {
     const {
         data: { schedule, externalSchedule, view },
         loading,
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
 
     const resultSchedule = loading
         ? SCHEDULE_NO_RESULT.schedule

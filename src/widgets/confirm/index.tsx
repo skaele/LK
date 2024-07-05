@@ -6,6 +6,7 @@ import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import React, { useRef } from 'react'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+import { useUnit } from 'effector-react'
 
 const ConfirmWrapper = styled.div<{ isOpen: boolean }>`
     position: absolute;
@@ -33,7 +34,7 @@ const ConfirmWrapper = styled.div<{ isOpen: boolean }>`
 `
 
 const ConfirmMessage = () => {
-    const { isOpen, message, onConfirm, onReject, isSubmitSuccess } = confirmModel.selectors.useConfirm()
+    const { isOpen, message, onConfirm, onReject, isSubmitSuccess } = useUnit(confirmModel.stores.confirm)
     const confirmRef = useRef<HTMLDivElement>(null)
 
     useOnClickOutside(confirmRef, () => confirmModel.events.closeConfirm())

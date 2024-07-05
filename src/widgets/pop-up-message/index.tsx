@@ -3,6 +3,7 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { Message } from '@ui/atoms'
 import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
+import { useUnit } from 'effector-react'
 
 const PopUpMessageWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }>`
     width: 300px;
@@ -29,7 +30,7 @@ const PopUpMessageWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }
 `
 
 const PopUpMessage = () => {
-    const { isOpen, message, type, time, onClick } = popUpMessageModel.selectors.usePopUpMessage()
+    const { isOpen, message, type, time, onClick } = useUnit(popUpMessageModel.stores.popUp)
 
     useEffect(() => {
         if (isOpen) {

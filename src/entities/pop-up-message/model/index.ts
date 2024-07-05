@@ -1,5 +1,4 @@
 import { createStore, createEvent } from 'effector'
-import { useStore } from 'effector-react/compat'
 import { MessageType } from '@ui/types'
 import { userModel } from '@entities/user'
 
@@ -18,10 +17,6 @@ const DEFAULT_STORE: IPopUpMessage = {
     time: 2000,
 }
 
-const usePopUpMessage = () => {
-    return useStore($popUpstore)
-}
-
 const evokePopUpMessage = createEvent<{
     message: ChildrenType
     type: MessageType
@@ -31,7 +26,7 @@ const evokePopUpMessage = createEvent<{
 
 const openPopUpMessage = createEvent<{ isOpen: boolean }>()
 
-const $popUpstore = createStore<IPopUpMessage>(DEFAULT_STORE)
+const $popUp = createStore<IPopUpMessage>(DEFAULT_STORE)
     .on(evokePopUpMessage, (_, { message, type, time = 2000, onClick }) => ({
         isOpen: true,
         message,
@@ -47,8 +42,8 @@ const $popUpstore = createStore<IPopUpMessage>(DEFAULT_STORE)
         ...DEFAULT_STORE,
     }))
 
-export const selectors = {
-    usePopUpMessage,
+export const stores = {
+    popUp: $popUp,
 }
 
 export const events = {

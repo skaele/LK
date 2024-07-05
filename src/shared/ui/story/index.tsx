@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
 import PagesIndicator from './ui/pages-indicator'
 import StoryPage from './ui/story-page'
+import { useUnit } from 'effector-react'
 
 const StoryWrapper = styled.div<{ isOpen: boolean }>`
     padding: 15px;
@@ -70,7 +71,7 @@ const ClickField = styled.div<{ right?: string; left?: string }>`
 `
 
 const Story = () => {
-    const { pages, isOpen, currentPage } = storyModel.selectors.useStory()
+    const { pages, isOpen, currentPage } = useUnit(storyModel.store.story)
     const storyRef = useRef<HTMLDivElement>(null)
     useOnClickOutside(storyRef, () => storyModel.events.close())
 

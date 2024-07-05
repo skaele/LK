@@ -1,6 +1,7 @@
 //import { messageType } from '@consts'
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { Message } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
@@ -33,7 +34,7 @@ const PopUpMessageHrWrapper = styled.div<{ isOpen: boolean; isClickable: boolean
 `
 
 const PopUpMessageHr = () => {
-    const { isOpen, message, type, time, onClick } = popUpMessageModelHr.selectors.usePopUpMessage()
+    const { isOpen, message, type, time, onClick } = useUnit(popUpMessageModelHr.stores.popUp)
     useEffect(() => {
         if (isOpen) {
             setTimeout(() => {

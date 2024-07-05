@@ -1,6 +1,5 @@
 import { Coordinates } from '@ui/types'
 import { createEvent, createStore } from 'effector'
-import { useStore } from 'effector-react'
 import React from 'react'
 import calcPosition from 'widgets/context-menu/lib/calc-position'
 
@@ -22,10 +21,6 @@ const DEFAULT_STORE: ContextMenuStore = {
     position: { x: 0, y: 0 },
 }
 
-const useContextMenu = () => {
-    return useStore($contextMenuStore)
-}
-
 const open = createEvent<{
     e: ClickEvent
     content: ChildrenType
@@ -37,7 +32,7 @@ const close = createEvent()
 
 const changePosition = createEvent<{ position: { x: number; y: number } }>()
 
-const $contextMenuStore = createStore(DEFAULT_STORE)
+const $contextMenu = createStore(DEFAULT_STORE)
     .on(open, (oldData, { content, e, height, type = 'left-click' }) => ({
         position: calcPosition(e, 220, height),
         open: true,
@@ -59,6 +54,6 @@ export const events = {
     changePosition,
 }
 
-export const selectors = {
-    useContextMenu,
+export const stores = {
+    contextMenu: $contextMenu,
 }

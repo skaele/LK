@@ -1,11 +1,12 @@
 import { menuModel } from '@entities/menu'
-import { PageLink } from '@features/all-pages'
 import React from 'react'
 import styled from 'styled-components'
 import { SETTINGS_PAGES } from '../contants'
 import { useRouteMatch } from 'react-router'
 import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
 import { MEDIA_QUERIES } from '@shared/constants'
+import { PageLinkTutorial } from 'widgets/tutorial/tutorials/page-link-tutorial'
+import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
 
 export const SettingsList = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
@@ -14,9 +15,9 @@ export const SettingsList = () => {
     if (!allRoutes) return null
 
     return (
-        <Wrapper data-is-base-settings-page={!pathParams?.id}>
-            {SETTINGS_PAGES.map((id) => (
-                <PageLink
+        <WrapperTutorial data-is-base-settings-page={!pathParams?.id} tutorialModule={{ id: 'settings', step: 0 }}>
+            {SETTINGS_PAGES.map((id, index) => (
+                <PageLinkTutorial
                     {...allRoutes[id]}
                     title={allRoutes[id].title.slice(11, allRoutes[id].title.length)}
                     key={id}
@@ -24,9 +25,10 @@ export const SettingsList = () => {
                     shadow={false}
                     // id should be equal to path
                     isActive={id === pathParams?.id}
+                    tutorialModule={{ id: 'settings', step: index + 1 }}
                 />
             ))}
-        </Wrapper>
+        </WrapperTutorial>
     )
 }
 
@@ -45,3 +47,14 @@ const Wrapper = styled.div`
         }
     }
 `
+
+const WrapperTutorial = withTutorial(
+    ({ children, forwardedRef }: { children?: React.ReactNode } & TutorialComponent) => {
+        const pathParams = useRouteMatch<{ id?: string }>(TEMPLATE_SETTINGS_ROUTE)?.params
+        return (
+            <Wrapper ref={forwardedRef} data-is-base-settings-page={!pathParams?.id}>
+                {children}
+            </Wrapper>
+        )
+    },
+)

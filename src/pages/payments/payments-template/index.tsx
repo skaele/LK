@@ -1,4 +1,4 @@
-import { ElectronicAgreementList, PageWrapper, PaymentList } from '@features/payments'
+import { ElectronicAgreementList, PaymentList } from '@features/payments'
 import Flex from '@shared/ui/flex'
 import { Divider, Title } from '@ui/atoms'
 import React from 'react'
@@ -6,16 +6,26 @@ import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'
 import { PaymentsContract } from '@shared/api/model'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
+import { useUnit } from 'effector-react'
+import { tutorialModel } from '@entities/tutorial'
 
 type Props = {
     contracts: PaymentsContract[] | undefined
 }
 
 const PaymentsTemplate = ({ contracts }: Props) => {
+    const roles = useUnit(tutorialModel.stores.roles)
     if (!contracts) return null
 
     return (
-        <PageWrapper>
+        <PageWrapperTutorial
+            tutorialModule={{
+                id: 'payments',
+                step: !roles.includes('dormitory') || !roles.includes('education') ? 0 : -1,
+                params: { position: 'top', noScroll: true },
+            }}
+        >
             {contracts.map((contract, i) => {
                 const { agreements, number, paygraph, payments, signed_user_date } = contract
                 // Временная мера. Потом апи будет раздавать точную информацию о статусе договора.
@@ -31,7 +41,7 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                                 </Title>
                             </Flex>
                         </Flex>
-                        <DebtAndQr data={contract} />
+                        <DebtAndQr data={contract} index={i} isDormitory={isDormitory} />
                         <PaymentList payments={payments ?? []} />
                         <PaygraphTable paygraph={paygraph} />
                         <ElectronicAgreementList
@@ -42,7 +52,7 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                     </React.Fragment>
                 )
             })}
-        </PageWrapper>
+        </PageWrapperTutorial>
     )
 }
 

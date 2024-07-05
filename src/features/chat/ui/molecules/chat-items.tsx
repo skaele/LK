@@ -1,30 +1,46 @@
+import { chatsModel } from '@entities/chats'
+import { chatSidebarModel } from '@features/chat/model'
 import { Title } from '@ui/atoms'
-import useResize from '@utils/hooks/use-resize'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
-import { ChatItem } from '../atoms'
+import { ChatItem, SkeletonLoading } from '../atoms'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
-const ChatItemsWrapper = styled.div<{ height: number }>`
-    overflow-y: auto;
-    max-height: ${({ height }) => height - 170 + 'px'};
-`
+export const ChatItems = ({ forwardedRef }: TutorialComponent) => {
+    const [loading, chats, isFirstFetched] = useUnit([
+        chatsModel.queries.chats.$pending,
+        chatSidebarModel.stores.foundChats,
+        chatsModel.stores.isFirstFetched,
+    ])
 
-interface Props {
-    chats: any[]
-    isOpen: boolean
-}
-
-const ChatItems = ({ chats, isOpen }: Props) => {
-    const { height } = useResize()
+    if (loading && !isFirstFetched)
+        return (
+            <ChatItemsWrapper>
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+                <SkeletonLoading />
+            </ChatItemsWrapper>
+        )
 
     return (
-        <ChatItemsWrapper height={height}>
-            {!chats.length && <Title size={3}>Нет чатов</Title>}
-            {chats.map((chat) => (
-                <ChatItem {...chat} key={chat.name} loading={false} isOpen={isOpen} />
+        <ChatItemsWrapper ref={forwardedRef}>
+            {!chats?.length && <Title size={3}>Нет чатов</Title>}
+            {chats?.map((chat) => (
+                <ChatItem {...chat} key={chat.id} />
             ))}
         </ChatItemsWrapper>
     )
 }
 
-export default ChatItems
+const ChatItemsWrapper = styled.div`
+    overflow-y: auto;
+    height: 100%;
+`

@@ -9,6 +9,8 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import ContentLayout from 'widgets/content-layout'
 import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
+import { initializeTutorials } from '@entities/tutorial/lib/initialize'
+import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
 
 const Router = () => {
     const {
@@ -28,6 +30,10 @@ const Router = () => {
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
+            // chatsModel.events.load()
+            if (user?.guid) {
+                initializeTutorials()
+            }
             if (user?.user_status === 'staff') {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()
@@ -37,6 +43,7 @@ const Router = () => {
             peTeacherModel.events.load()
         }
     }, [isAuthenticated, user])
+    useSetTutorial()
 
     return isAuthenticated ? (
         <ContentLayout />

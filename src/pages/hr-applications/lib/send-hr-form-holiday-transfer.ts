@@ -51,7 +51,6 @@ const sendHrFormHolidayTransfer = async (
         .flat()
 
     const result = Object.assign({}, ...form)
-    //console.log(result)
 
     const response = await bufferHolidayTransferModel.effects.sendBufferHolidayTransferFx({
         employeeGuid: result.jobGuid,

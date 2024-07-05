@@ -8,6 +8,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import { applicationsModel } from '@entities/applications'
+import { CampusError } from '../ui/error'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -25,6 +26,7 @@ const RelocationInsideHostelPage = () => {
         }
     }, [dataUserApplication])
 
+    if (new Date() < new Date(2024, 8, 15)) return <CampusError />
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (

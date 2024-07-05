@@ -149,7 +149,8 @@ const SubjectModal = (props: Props) => {
                             </Title>
 
                             {teachers.map((teacher) => {
-                                return <User type="staff" name={teacher} key={teacher} />
+                                // TODO: return id from backend
+                                return <User id={undefined} type="staff" name={teacher} key={teacher} />
                             })}
                         </>
                     )}

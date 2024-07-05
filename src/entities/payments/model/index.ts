@@ -32,8 +32,7 @@ const signContractFx = createEffect(async (contractId: string) => {
 
 const signAgreementFx = createEffect(async (id: string) => {
     const response = await agreementSubmit(id)
-
-    if (!response.data.contracts.education && !response.data.contracts.dormitory) throw new Error()
+    if (response.data[0].result !== 'ok') throw new Error()
 })
 
 sample({
@@ -74,7 +73,7 @@ export const stores = {
 
 sample({
     clock: getPayments,
-    to: getPaymentsFx,
+    target: getPaymentsFx,
 })
 
 export const effects = {

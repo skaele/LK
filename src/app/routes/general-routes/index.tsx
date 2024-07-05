@@ -2,7 +2,6 @@ import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
-import PageIsNotReady from '@pages/page-is-not-ready'
 import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
@@ -40,10 +39,18 @@ import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
 import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
-import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
+import {
+    HiOutlineAcademicCap,
+    HiOutlineCalendar,
+    HiOutlineClipboardCheck,
+    HiOutlineFlag,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
 import { DOCLIST_ROUTE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
+import ChatPage from '@pages/chat'
+import { TutorialSettings } from '@pages/settings/pages/tutorial'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
@@ -79,6 +86,7 @@ export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/settings-personal'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-home-page'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/settings-notifications'
+export const SETTINGS_TUTORIAL = SETTINGS_ROUTE + '/settings-tutorial'
 
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
@@ -107,6 +115,7 @@ export enum Groups {
     LEARNING_ACTIVITIES = 'Учебная деятельность',
     OTHER = 'Находится в разработке',
     COMMUNICATION = 'Коммуникация',
+    SCIENCE = 'Научная деятельность',
 }
 
 export interface IRoute {
@@ -284,18 +293,33 @@ export const generalRoutes: IRoutes = {
         pageSize: 'small',
     },
     chat: {
-        //ChatPage
         id: 'chat',
         title: 'Сообщения',
         icon: <BiMessageRounded />,
         path: CHAT_ROUTE,
-        isOldLkPage: true,
-        Component: () => PageIsNotReady({ oldVersionUrl: OLD_CHAT_ROUTE }),
+        Component: ChatPage,
         color: 'red',
-        isTemplate: true,
-        group: 'OTHER',
-        keywords: ['чат'],
-        planeHeader: true,
+        group: 'COMMUNICATION',
+        keywords: ['чат', 'сообщения', 'написать'],
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+    },
+    'specific-chat': {
+        id: 'specific-chat',
+        title: 'Сообщения',
+        icon: <BiMessageRounded />,
+        path: TEMPLATE_CHAT_ROUTE,
+        Component: ChatPage,
+        color: 'red',
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+        group: 'COMMUNICATION',
+        isSubPage: true,
+        show: false,
     },
     schedule: {
         id: 'schedule',
@@ -539,6 +563,21 @@ export const generalHiddenRoutes: IRoutes = {
         show: true,
         isSubPage: true,
         subPageHeaderTitle: 'Уведомления',
+        fallbackPrevPage: SETTINGS_ROUTE,
+
+        backButtonText: 'Настройки',
+    },
+    'settings-tutorial': {
+        id: 'settings-tutorial',
+        title: 'Настройки. Обучение',
+        icon: <HiOutlineAcademicCap />,
+        path: SETTINGS_TUTORIAL,
+        Component: TutorialSettings,
+        color: 'green',
+        isTemplate: true,
+        show: true,
+        isSubPage: true,
+        subPageHeaderTitle: 'Обучение',
         fallbackPrevPage: SETTINGS_ROUTE,
 
         backButtonText: 'Настройки',

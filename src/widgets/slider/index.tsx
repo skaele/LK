@@ -3,6 +3,7 @@ import useResize from '@utils/hooks/use-resize'
 import React, { memo, useEffect, useRef, useState } from 'react'
 import { SliderWrapper } from './styles'
 import { CurrentPage, SliderItem } from './ui'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 interface ISlider {
     pages: { title: string; condition?: boolean }[]
@@ -13,7 +14,15 @@ interface ISlider {
     size?: Size
 }
 
-const Slider = ({ pages, currentPage, setCurrentPage, sliderWidth, appearance = true, size = 'middle' }: ISlider) => {
+const Slider = ({
+    pages,
+    currentPage,
+    setCurrentPage,
+    sliderWidth,
+    appearance = true,
+    size = 'middle',
+    forwardedRef,
+}: ISlider & TutorialComponent) => {
     const [elementsVisible, setElementsVisible] = useState(5)
     const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -26,6 +35,10 @@ const Slider = ({ pages, currentPage, setCurrentPage, sliderWidth, appearance = 
         else if (innerWidth > 400 && innerWidth <= 600) setElementsVisible(4)
         else if (innerWidth <= 400) setElementsVisible(3)
     }, [width, sliderRef.current])
+
+    useEffect(() => {
+        if (forwardedRef) forwardedRef(sliderRef.current)
+    }, [])
 
     return (
         <SliderWrapper

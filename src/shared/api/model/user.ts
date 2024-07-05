@@ -36,7 +36,7 @@ export type StaffAccount = {
 export type GeneralAccount = GeneralAccountFields & StudentAccount & StaffAccount & TechicalAccount
 
 export type User = StudentAccount & {
-    id: string
+    id: number
     guid: string
     name: string
     fullName: string

@@ -47,6 +47,7 @@ const FoundPeople = ({
         <Flex d="column">
             {people.map((s) => (
                 <User
+                    id={'guid_person' in s ? s.guid_person : s.id}
                     name={s.fio}
                     type={type}
                     {...s}

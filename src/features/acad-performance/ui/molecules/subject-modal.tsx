@@ -42,7 +42,12 @@ const SubjectModal = ({ item, color }: Props) => {
             <KeyValue keyStr="Номер ведомости" value={item.bill_num} />
             <KeyValue keyStr="Семестр" value={findSemestr(item.exam_date, +item.course)} />
             <KeyValue keyStr="Кафедра" value={item.chair} />
-            <KeyValue keyStr="Преподаватель" value={<User type="staff" name={item.teacher} />} direction="vertical" />
+            <KeyValue
+                keyStr="Преподаватель"
+                // TODO: add teacher id
+                value={<User id={undefined} type="staff" name={item.teacher} />}
+                direction="vertical"
+            />
         </Container>
     )
 }

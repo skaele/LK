@@ -33,7 +33,6 @@ const signContractFx = createEffect(async (contractId: string) => {
 
 const signAgreementFx = createEffect(async (id: string) => {
     const response = await agreementSubmit(id)
-    console.log(response)
     if (response.data[0].result !== 'ok') throw new Error()
 })
 

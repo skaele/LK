@@ -10,6 +10,7 @@ import Input from '../../shared/ui/input'
 import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
+import { useUnit } from 'effector-react'
 
 const ElementsControlNotification = styled.div`
     display: flex;
@@ -44,7 +45,10 @@ const NOTIFICATION_FILTER_LIST = [
 ]
 
 const NotificationsPage = ({ docsType }: Props) => {
-    const { data: notifications, error } = personalNotificationModel.selectors.usePersonalNotifications()
+    const [notifications, error] = useUnit([
+        personalNotificationModel.stores.notifications,
+        personalNotificationModel.stores.error,
+    ])
     const [foundNotification, setFoundNotification] = useState<Notifications>()
     const [notificationType, setNotificationType] = useState<NotificationType>('docs')
     const [searchValue, setSearchValue] = useState<string>('')

@@ -1,42 +1,14 @@
 import { notificationApi, docsApi } from '@api'
-import { useStore } from 'effector-react/compat'
 import { createEffect, createEvent, createStore } from 'effector'
 import { Notifications } from '@api/model/notification'
 import { userModel } from '@entities/user'
-
-interface PersonalNotificationsStore {
-    type: 'notifications' | 'docs' | null
-    personalNotifications: Notifications | null
-    error: string | null
-    completed: boolean
-}
-
-const DEFAULT_STORE: PersonalNotificationsStore = {
-    type: null,
-    personalNotifications: null,
-    error: null,
-    completed: false,
-}
-
-const usePersonalNotifications = () => {
-    return {
-        data: useStore($personalNotificationsStore).personalNotifications,
-        loading: useStore(getPersonalNotificationsFx.pending),
-        error: useStore($personalNotificationsStore).error,
-        completed: useStore($personalNotificationsStore).completed,
-    }
-}
-
-const useType = () => {
-    return useStore($personalNotificationsStore).type
-}
 
 const changeCompleted = createEvent<{ completed: boolean }>()
 
 const setNotificationsType = createEffect((type: 'notifications' | 'docs') => type)
 
 const getPersonalNotificationsFx = createEffect(async (): Promise<Notifications> => {
-    const { type } = $personalNotificationsStore.getState()
+    const type = $type.getState()
 
     if (type === 'notifications') {
         try {
@@ -60,8 +32,7 @@ const getPersonalNotificationsFx = createEffect(async (): Promise<Notifications>
 })
 
 const viewPersonalNotificationsFx = createEffect(async (notificationId: string): Promise<string> => {
-    const { type } = $personalNotificationsStore.getState()
-    const api = type === 'notifications' ? notificationApi : docsApi
+    const api = $type.getState() === 'notifications' ? notificationApi : docsApi
 
     try {
         await api.view(notificationId)
@@ -71,41 +42,32 @@ const viewPersonalNotificationsFx = createEffect(async (notificationId: string):
     }
 })
 
-const $personalNotificationsStore = createStore<PersonalNotificationsStore>(DEFAULT_STORE)
-    .on(setNotificationsType, (oldData, newData) => ({
-        ...oldData,
-        type: newData,
-    }))
-    .on(getPersonalNotificationsFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
-    .on(getPersonalNotificationsFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        personalNotifications: newData,
-    }))
-    .on(getPersonalNotificationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(viewPersonalNotificationsFx.doneData, (oldData) => ({ ...oldData }))
-    .on(viewPersonalNotificationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(changeCompleted, (oldData, newData) => ({
-        ...oldData,
-        completed: newData.completed,
-    }))
-    .on(userModel.stores.userGuid, () => ({
-        ...DEFAULT_STORE,
-    }))
+const $personalNotifications = createStore<Notifications | null>(null)
+    .on(getPersonalNotificationsFx.doneData, (_, newData) => newData)
+    .reset(userModel.stores.userGuid)
+
+const $type = createStore<'notifications' | 'docs' | null>(null)
+    .on(setNotificationsType, (_, newData) => newData)
+    .reset(userModel.stores.userGuid)
+
+const $error = createStore<string | null>(null)
+    .on(getPersonalNotificationsFx, () => null)
+    .on(getPersonalNotificationsFx.failData, (_, { message }) => message)
+    .on(viewPersonalNotificationsFx.failData, (_, { message }) => message)
+    .reset(userModel.stores.userGuid)
+
+const $completed = createStore<boolean>(false)
+    .on(changeCompleted, (_, { completed }) => completed)
+    .reset(userModel.stores.userGuid)
 
 viewPersonalNotificationsFx.doneData.watch(() => getPersonalNotificationsFx())
 
-export const selectors = {
-    usePersonalNotifications,
-    useType,
+export const stores = {
+    notifications: $personalNotifications,
+    loading: getPersonalNotificationsFx.pending,
+    completed: $completed,
+    error: $error,
+    type: $type,
 }
 
 export const effects = {

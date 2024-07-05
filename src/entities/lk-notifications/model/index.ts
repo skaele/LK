@@ -2,7 +2,7 @@ import { menuModel } from '@entities/menu'
 import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
 import { lkNotificationApi } from '@shared/api'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
@@ -85,9 +85,9 @@ const clearAllVisible = createEvent()
 
 const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
 
-forward({
-    from: initialize,
-    to: fetchNotifications,
+sample({
+    clock: initialize,
+    target: fetchNotifications,
 })
 
 sample({
@@ -127,9 +127,9 @@ sample({
     target: [$lkNotificationsStore, addNotificationToPageFx],
 })
 
-forward({
-    from: clearById,
-    to: clearNotificationByIdFx,
+sample({
+    clock: clearById,
+    target: clearNotificationByIdFx,
 })
 
 sample({
@@ -161,9 +161,9 @@ sample({
     target: $lkNotificationsStore,
 })
 
-forward({
-    from: clearAll,
-    to: clearAllNotificationsFx,
+sample({
+    clock: clearAll,
+    target: clearAllNotificationsFx,
 })
 
 sample({

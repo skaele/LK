@@ -1,6 +1,6 @@
 import { hrApplicationApi } from '@api'
 import { HrApplication, HrUserApplication } from '@api/model'
-import { createEvent, forward, sample } from 'effector'
+import { createEvent, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { createEffect, createStore } from 'effector'
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
@@ -81,7 +81,7 @@ sample({
 
 const clearStore = createEvent()
 
-forward({ from: postApplicationFx.doneData, to: getApplicationsFx })
+sample({ clock: postApplicationFx.doneData, target: getApplicationsFx })
 
 const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
     .on(getUserDataApplicationsFx, (oldData) => ({

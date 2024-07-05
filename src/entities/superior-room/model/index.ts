@@ -1,9 +1,8 @@
 import { superiorRoomApi } from '@api'
 import { SuperiorRoom } from '@api/model'
 import { userModel } from '@entities/user'
-import { createEffect, createStore, createEvent } from 'effector'
+import { createEffect, createStore, createEvent, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
-import { forward } from 'effector/effector.mjs'
 
 interface SuperiorRoomStore {
     superiorRoom: SuperiorRoom | null
@@ -34,7 +33,7 @@ const postSuperiorRoomFx = createEffect(async (postData: SuperiorRoom): Promise<
     }
 })
 
-forward({ from: postSuperiorRoom, to: postSuperiorRoomFx })
+sample({ clock: postSuperiorRoom, target: postSuperiorRoomFx })
 
 const getSuperiorRoomFx = createEffect(async (): Promise<SuperiorRoom> => {
     try {

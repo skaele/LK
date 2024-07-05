@@ -1,7 +1,7 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
@@ -57,7 +57,7 @@ const useBufferMedicalExamination = () => {
 
 const clearStore = createEvent()
 
-forward({ from: sendBufferMedicalExaminationFx.doneData, to: loadBufferMedicalExaminationFx })
+sample({ clock: sendBufferMedicalExaminationFx.doneData, target: loadBufferMedicalExaminationFx })
 
 sample({
     clock: sendBufferMedicalExaminationFx.doneData,

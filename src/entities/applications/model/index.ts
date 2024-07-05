@@ -5,7 +5,7 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
 import { MessageType } from '@shared/ui/types'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
-import { combine, createEffect, createStore, forward, sample } from 'effector'
+import { combine, createEffect, createStore, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 
 interface ApplicationsStore {
@@ -75,7 +75,7 @@ const useApplications = () => {
     }
 }
 
-forward({ from: postApplicationFx.doneData, to: getApplicationsFx })
+sample({ clock: postApplicationFx.doneData, target: getApplicationsFx })
 
 sample({
     clock: postApplicationFx.failData,

@@ -1,9 +1,8 @@
 import { teacherDataVerificationApi } from '@api'
 import { TeacherDataVerification } from '@api/model'
 import { userModel } from '@entities/user'
-import { createEffect, createStore, createEvent } from 'effector'
+import { createEffect, createStore, createEvent, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
-import { forward } from 'effector/effector.mjs'
 
 interface TeacherDataVerificationStore {
     teacherDataVerification: TeacherDataVerification | null
@@ -39,7 +38,7 @@ const postTeacherDataVerificationFx = createEffect(async (postData: TeacherDataV
     }
 })
 
-forward({ from: postTeacherDataVerification, to: postTeacherDataVerificationFx })
+sample({ clock: postTeacherDataVerification, target: postTeacherDataVerificationFx })
 
 const getTeacherDataVerificationFx = createEffect(async (): Promise<TeacherDataVerification> => {
     try {

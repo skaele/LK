@@ -12,6 +12,7 @@ import sendForm from './lib/send-form'
 import { SelectPage } from '@features/select'
 import { getStatusFormSuperiorRoom } from './lib/get-status'
 import { isProduction } from '@shared/constants'
+import { useUnit } from 'effector-react'
 
 const ApplicationForSuperiorRoomWrapper = styled.div<{ isDone: boolean }>`
     display: flex;
@@ -31,7 +32,7 @@ type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const ApplicationForSuperiorRoom = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const { data, error } = superiorRoomModel.selectors.useSuperiorRoom()
+    const [data, error] = useUnit([superiorRoomModel.stores.data, superiorRoomModel.stores.error])
     const [dormId, setDormId] = useState<number>(0)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)

@@ -2,25 +2,6 @@ import { superiorRoomApi } from '@api'
 import { SuperiorRoom } from '@api/model'
 import { userModel } from '@entities/user'
 import { createEffect, createStore, createEvent, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
-
-interface SuperiorRoomStore {
-    superiorRoom: SuperiorRoom | null
-    error: string | null
-}
-
-const DEFAULT_STORE: SuperiorRoomStore = {
-    superiorRoom: null,
-    error: null,
-}
-
-const useSuperiorRoom = () => {
-    return {
-        data: useStore($superiorRoomStore).superiorRoom,
-        loading: useStore(getSuperiorRoomFx.pending),
-        error: useStore($superiorRoomStore).error,
-    }
-}
 
 const postSuperiorRoom = createEvent<SuperiorRoom>()
 
@@ -45,25 +26,19 @@ const getSuperiorRoomFx = createEffect(async (): Promise<SuperiorRoom> => {
     }
 })
 
-const $superiorRoomStore = createStore<SuperiorRoomStore>(DEFAULT_STORE)
-    .on(getSuperiorRoomFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
-    .on(getSuperiorRoomFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        superiorRoom: newData,
-    }))
-    .on(getSuperiorRoomFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(userModel.stores.userGuid, () => ({
-        ...DEFAULT_STORE,
-    }))
+const $superiorRoomStore = createStore<SuperiorRoom | null>(null)
+    .on(getSuperiorRoomFx.doneData, (_, newData) => newData)
+    .reset(userModel.stores.userGuid)
 
-export const selectors = {
-    useSuperiorRoom,
+const $error = createStore<string | null>(null)
+    .on(getSuperiorRoomFx, () => null)
+    .on(getSuperiorRoomFx.failData, (_, { message }) => message)
+    .reset(userModel.stores.userGuid)
+
+export const stores = {
+    data: $superiorRoomStore,
+    loading: getSuperiorRoomFx.pending,
+    error: $error,
 }
 
 export const effects = {

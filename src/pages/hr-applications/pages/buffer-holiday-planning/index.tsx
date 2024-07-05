@@ -5,12 +5,13 @@ import { FiCalendar, FiInfo } from 'react-icons/fi'
 import { Button, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { applicationsModel } from '@entities/applications'
+import { useUnit } from 'effector-react'
 
 const HolidayPlanningBufferPage = () => {
-    const {
-        data: { dataWorkerApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
+    const [{ dataWorkerApplication }, error] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.error,
+    ])
 
     const history = useHistory()
 

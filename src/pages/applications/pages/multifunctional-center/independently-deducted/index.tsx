@@ -9,6 +9,7 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { applicationsModel } from '@entities/applications'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -17,9 +18,7 @@ const ApplicationIndependentlyDeduction = () => {
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

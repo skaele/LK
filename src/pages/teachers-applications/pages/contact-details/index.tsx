@@ -7,15 +7,16 @@ import { useHistory } from 'react-router'
 import { CONTACT_DETAILS } from '@app/routes/teacher-routes'
 import ContactDetailsForm from './form'
 import { LinkField } from '@pages/settings/ui'
+import { useUnit } from 'effector-react'
 
 const ContactDetails = () => {
     const [hasPartTime, setHasPartTime] = useState(false)
     const history = useHistory()
 
-    const {
-        data: { dataUserApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
+    const [{ dataUserApplication }, error] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.error,
+    ])
 
     useEffect(() => {
         if (!!dataUserApplication?.subdivisions?.length && dataUserApplication?.subdivisions?.length > 1)

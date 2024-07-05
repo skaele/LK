@@ -10,14 +10,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { bufferHolidayTransferModel } from '../buffer-holiday-transfer/model'
 import getForm from './lib/get-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const HolidayTransfer = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading: loading } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false

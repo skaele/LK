@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { applicationsModel } from '@entities/applications'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -14,9 +15,7 @@ const MilitaryRegistrationCard = () => {
     const [completed, setCompleted] = useState(false)
     const [loading] = useState(false)
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

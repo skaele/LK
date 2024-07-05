@@ -4,12 +4,13 @@ import { Message, Wrapper } from '@ui/atoms'
 import Content from './ui/content'
 import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
+import { useUnit } from 'effector-react'
 
 const MedicalExaminationBufferPage = () => {
-    const {
-        data: { dataWorkerApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
+    const [{ dataWorkerApplication }, error] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.error,
+    ])
 
     return (
         // <Wrapper

@@ -10,14 +10,13 @@ import checkFormFields from '@utils/check-form-fields'
 import globalAppSendForm from '@pages/applications/lib/global-app-send-form'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import getExtraHolidayLength from './lib/get-extra-holiday-length'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const ExtraHolidayColl = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})

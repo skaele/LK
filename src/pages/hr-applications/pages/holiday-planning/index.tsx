@@ -11,6 +11,7 @@ import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import PageBlock from '@shared/ui/page-block'
+import { useUnit } from 'effector-react'
 
 const HolidayPlanning = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -20,9 +21,7 @@ const HolidayPlanning = () => {
     const [endDate, setEndDate] = useState<string | null>(null)
     const [collType, setCollType] = useState<string | null>(null)
     const [holidayType, setHolidayType] = useState<string | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)

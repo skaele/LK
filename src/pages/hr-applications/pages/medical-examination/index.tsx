@@ -11,6 +11,7 @@ import { bufferMedicalExaminationModel } from '../buffer-medical-examination/mod
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
 import PageBlock from '@shared/ui/page-block'
+import { useUnit } from 'effector-react'
 
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -19,9 +20,7 @@ const MedicalExamination = () => {
     const [jobGuid, setJobGuid] = useState<string | null>(null)
     const [jobTitle, setJobTitle] = useState<string | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)

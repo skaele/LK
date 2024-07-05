@@ -11,6 +11,7 @@ import { useParams } from 'react-router'
 import { applicationsModel } from '@entities/applications'
 import { contactDetailsModel } from '@entities/contact-details'
 import { ContactDetails } from '@shared/api/model'
+import { useUnit } from 'effector-react'
 
 const ContactDetailsForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -21,9 +22,7 @@ const ContactDetailsForm = () => {
     const [guidStaff, setGuidStaff] = useState(guid)
 
     const { data, error } = contactDetailsModel.selectors.useForm()
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

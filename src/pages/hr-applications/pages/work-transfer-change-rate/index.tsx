@@ -19,9 +19,7 @@ type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const WorkTransferChangeRate = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading: loading } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
     const [completed, setCompleted] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})

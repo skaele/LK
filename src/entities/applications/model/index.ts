@@ -6,13 +6,11 @@ import { userModel } from '@entities/user'
 import { MessageType } from '@shared/ui/types'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
 import { combine, createEffect, createStore, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
 
 interface ApplicationsStore {
     listApplication: Application[] | null
     dataUserApplication: UserApplication | null
     dataWorkerApplication: WorkerApplication[] | null
-    error: string | null
 }
 
 export interface ApplicationCreating {
@@ -20,7 +18,7 @@ export interface ApplicationCreating {
     args: { [key: string]: any }
 }
 
-const DEFAULT_STORE = { listApplication: null, error: null, dataUserApplication: null, dataWorkerApplication: null }
+const DEFAULT_STORE = { listApplication: null, dataUserApplication: null, dataWorkerApplication: null }
 
 const getWorkerPostsFx = createEffect(async (): Promise<any[]> => {
     const response = await applicationApi.getWorkerData()
@@ -58,22 +56,6 @@ const postApplicationFx = createEffect(async (data: ApplicationCreating): Promis
         throw new Error(resultAddApplication.error_text)
     }
 })
-
-const useApplications = () => {
-    const { listApplication, dataUserApplication, dataWorkerApplication, error } = useStore($applicationsStore)
-    return {
-        data: { listApplication, dataUserApplication, dataWorkerApplication },
-        loading: useStore(getUserDataApplicationsFx.pending),
-        workerLoading: useStore(
-            combine(
-                getWorkerPostsFx.pending,
-                applicationsModel.effects.postApplicationFx.pending,
-                (first, second) => first || second,
-            ),
-        ),
-        error: error,
-    }
-}
 
 sample({ clock: postApplicationFx.doneData, target: getApplicationsFx })
 
@@ -134,14 +116,28 @@ const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
     .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
-
-export const selectors = {
-    useApplications,
-}
+const $error = createStore<string | null>(null)
+    .on(getUserDataApplicationsFx, () => null)
+    .on(getUserDataApplicationsFx.failData, (_, newData) => newData.message)
+    .on(getApplicationsFx, () => null)
+    .on(getApplicationsFx.failData, (_, newData) => newData.message)
+    .on(getWorkerPostsFx, () => null)
+    .reset(userModel.stores.userGuid)
 
 export const effects = {
     getApplicationsFx,
     getUserDataApplicationsFx,
     postApplicationFx,
     getWorkerPosts: getWorkerPostsFx,
+}
+
+export const stores = {
+    applicationsStore: $applicationsStore,
+    loading: getUserDataApplicationsFx.pending,
+    workerLoading: combine(
+        getWorkerPostsFx.pending,
+        applicationsModel.effects.postApplicationFx.pending,
+        (first, second) => first || second,
+    ),
+    error: $error,
 }

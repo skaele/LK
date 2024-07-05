@@ -20,9 +20,7 @@ type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 const WorkTransfer = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const suggestions = useUnit($hrDivisionsSuggestions)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading: loading } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
     const [completed, setCompleted] = useState(false)
     const [partTimeType, setPartTimeType] = useState<any | null>(null)

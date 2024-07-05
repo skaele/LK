@@ -8,6 +8,7 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -16,9 +17,7 @@ const MilitaryRegistrationDocuments = () => {
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

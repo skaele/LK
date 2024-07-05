@@ -11,6 +11,7 @@ import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
 import { CampusError } from '../ui/error'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -21,9 +22,7 @@ const RegularAccommodationPage = () => {
     const [vichRwCert, setVichRwCert] = useState<IInputArea>(listConfigCert.vichRwCert)
     const [graftCert, setGraftCert] = useState<IInputArea>(listConfigCert.graftCert)
 
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const {
         data: { user },
     } = userModel.selectors.useUser()

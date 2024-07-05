@@ -17,9 +17,7 @@ type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const PartTimeEmployment = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { loading: loading } = bufferPartTimeEmploymentModel.selectors.useBufferPartTimeEmployment()
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false

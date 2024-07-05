@@ -11,6 +11,7 @@ import { applicationsModel } from '@entities/applications'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import getEmployment from './lib/get-employment'
+import { useUnit } from 'effector-react'
 
 const StudentEmployment = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -19,9 +20,7 @@ const StudentEmployment = () => {
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
 
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

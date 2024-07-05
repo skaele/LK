@@ -12,15 +12,14 @@ import { useParams } from 'react-router'
 import { bufferHolidayWorkModel } from '../buffer-holiday-work/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const HolidayWork = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
     const { loading } = bufferHolidayWorkModel.selectors.useBufferHolidayWork()
+    const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     const [completed, setCompleted] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})

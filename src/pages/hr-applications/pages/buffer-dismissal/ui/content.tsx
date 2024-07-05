@@ -4,11 +4,10 @@ import { useState } from 'react'
 import History from './history'
 import JobTitle from './job-title'
 import styled from 'styled-components'
+import { useUnit } from 'effector-react'
 
 const Content = () => {
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
 
     if (!dataWorkerApplication) {

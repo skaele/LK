@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import Content from './ui/content'
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+import { useUnit } from 'effector-react'
 
 const WorkTransferBufferPage = () => {
-    const {
-        data: { listApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
-
+    const [{ listApplication }, error] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.error,
+    ])
     return (
         <Wrapper
             load={() => applicationsModel.effects.getApplicationsFx()}

@@ -9,15 +9,17 @@ import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import getForm from './lib/get-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const Dismissal = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication, dataWorkerApplication },
-        workerLoading: loading,
-    } = applicationsModel.selectors.useApplications()
+
+    const [{ dataUserApplication, dataWorkerApplication }, loading] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.workerLoading,
+    ])
     const [completed, setCompleted] = useState(false)
     const [getTk, setGetTk] = useState<any | null>(null)
     const [isRetirement, setIsRetirement] = useState<boolean>(false)

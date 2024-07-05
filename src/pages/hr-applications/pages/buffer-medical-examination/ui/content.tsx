@@ -12,12 +12,11 @@ import { compareDesc } from 'date-fns'
 import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useUnit } from 'effector-react'
 
 const Content = () => {
     const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     const jobExaminations =
         dataWorkerApplication &&

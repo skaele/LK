@@ -1,6 +1,5 @@
 import { applicationApi } from '@api'
 import { Application, UserApplication, WorkerApplication } from '@api/model'
-import { applicationsModel } from '@entities/hr-applications'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
 import { MessageType } from '@shared/ui/types'
@@ -134,10 +133,6 @@ export const effects = {
 export const stores = {
     applicationsStore: $applicationsStore,
     loading: getUserDataApplicationsFx.pending,
-    workerLoading: combine(
-        getWorkerPostsFx.pending,
-        applicationsModel.effects.postApplicationFx.pending,
-        (first, second) => first || second,
-    ),
+    workerLoading: combine(getWorkerPostsFx.pending, postApplicationFx.pending, (first, second) => first || second),
     error: $error,
 }

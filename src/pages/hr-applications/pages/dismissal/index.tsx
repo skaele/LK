@@ -1,10 +1,8 @@
 import { applicationsModel } from '@entities/applications'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import sendHrFormDismissal from '@pages/hr-applications/lib/send-hr-form-dismissal'
 import InputArea from '@shared/ui/input-area'
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import { IInputArea } from '@ui/input-area/model'
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
@@ -59,7 +57,7 @@ const Dismissal = () => {
 
                     <SubmitButton
                         text={'Отправить'}
-                        action={() => sendHrFormDismissal(ApplicationFormCodes.DISMISSAL, [form], setCompleted)}
+                        action={() => {}}
                         isLoading={loading}
                         completed={completed}
                         setCompleted={setCompleted}

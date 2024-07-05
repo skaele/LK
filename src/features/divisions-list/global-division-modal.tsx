@@ -8,9 +8,7 @@ import { getSubdivisionPath } from '@pages/all-staff/lib/get-subdivision-path'
 import { getSubdivisionInfo } from '@pages/all-staff/lib/get-subdivision-info'
 
 export const GlobalDivisionModal = ({ division }: { division: string }) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const isStaff = user?.user_status === 'staff'
     const { subdivisions } = useUnit({

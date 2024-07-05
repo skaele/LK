@@ -15,12 +15,11 @@ import { HiOutlineEmojiSad } from 'react-icons/hi'
 import GradeGraph from './ui/grade-graph'
 import PerformanceMessage from './ui/performance-message'
 import Flex from '@shared/ui/flex'
+import { useUnit } from 'effector-react'
 
 const AcadPerformance = () => {
     const { data, preparedData, loading, error } = acadPerformanceModel.selectors.useData()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const items = useMemo(() => createSelectItems(user?.course ?? 0), [user])
 
     const [selected, setSelected] = useState<SelectPage | null>({

@@ -4,6 +4,7 @@ import { studentApi, teacherApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
 import { Hint } from '@shared/ui/search'
 import { AxiosResponse } from 'axios'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { FiSearch, FiUsers } from 'react-icons/fi'
 import { HiOutlineUserCircle } from 'react-icons/hi'
@@ -17,9 +18,7 @@ type Props = {
 
 export const TeacherGroupSearch = ({ value, setValue, onHintClick, onValueEmpty }: Props) => {
     const isGroup = /\d/.test(value)
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const request = async (value: string): Promise<AxiosResponse<{ items: any[] }>> => {
         if (isGroup) {

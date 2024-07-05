@@ -24,9 +24,7 @@ export const SideMenuContent = ({
         data: { searchValue, filter },
     } = useUnit(scheduleModel.stores.schedule)
     const location = useLocation()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const isStaff = user?.user_status === 'staff'
 
     return (

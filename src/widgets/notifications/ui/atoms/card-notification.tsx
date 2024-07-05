@@ -9,6 +9,7 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
+import { useUnit } from 'effector-react'
 
 const CardNotificationWrapper = styled.div`
     display: flex;
@@ -57,9 +58,7 @@ interface Props {
 }
 
 const CardNotification = ({ data }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
     return (

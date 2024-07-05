@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import Subtext from '@shared/ui/subtext'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { lkNotificationModel } from '@entities/lk-notifications'
+import { useUnit } from 'effector-react'
 
 const CardDocumentWrapper = styled.div`
     width: 100%;
@@ -57,9 +58,7 @@ interface Props {
 }
 
 const CardDocument = ({ data }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
     const handleView = () => {

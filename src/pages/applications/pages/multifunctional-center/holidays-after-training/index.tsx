@@ -21,9 +21,7 @@ const ApplicationHolidaysAfterTraining = () => {
     const isDone = completed ?? false
     const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     useEffect(() => {
         if (!!dataUserApplication && !!user) {

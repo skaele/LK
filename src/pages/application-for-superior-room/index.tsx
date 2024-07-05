@@ -39,9 +39,7 @@ const ApplicationForSuperiorRoom = () => {
 
     const isDone = (completed || !data?.is_avaliable) ?? false
 
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     if (user?.educationForm !== 'Очная') {
         return <Error text={'Данный раздел недоступен для вашей формы обучения'} />

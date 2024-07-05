@@ -7,6 +7,7 @@ import { Button } from '../button'
 import { Divider } from '../divider'
 import { Error } from '../error'
 import { Title } from '../title'
+import { useUnit } from 'effector-react'
 
 const List = styled.div`
     display: flex;
@@ -59,9 +60,7 @@ export function PagintaionList<T extends { id: string | number; fio?: string; av
     noResultContent,
     offset = PAGINATION_OFFSET,
 }: PagintaionListProps<T>) {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     let lastLetter = ''
     const scrollHandler = useCallback(
         (event: React.UIEvent<HTMLDivElement>) => {

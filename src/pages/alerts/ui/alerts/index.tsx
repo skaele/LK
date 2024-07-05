@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import AlertItem from 'widgets/alerts-widget/alert-item'
 import search from '../../lib/search'
 import Collapse from './collapse'
+import { useUnit } from 'effector-react'
 
 const AlertsStyled = styled.div`
     width: 100%;
@@ -21,9 +22,7 @@ type Props = {
 }
 
 const Alerts = ({ alerts, listView }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [foundAlerts, setFoundAlerts] = useState<PreparedAlerts | null>(null)
 
     const finalAlerts = foundAlerts ?? alerts

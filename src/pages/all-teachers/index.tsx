@@ -6,7 +6,7 @@ import { getDivisions } from '@shared/api/teacher-api'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
-import { useStore } from 'effector-react'
+import { useStore, useUnit } from 'effector-react'
 import React from 'react'
 import { useHistory, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
@@ -24,9 +24,7 @@ const PageWrapper = styled.div`
 `
 
 const AllTeachersPage = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const { $isPending, $items } = paginationList
     const route: { params: { filter?: string } } = useRouteMatch()
     const history = useHistory()

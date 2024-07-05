@@ -10,12 +10,11 @@ import { Button } from '@shared/ui/button'
 import { Colors } from '@shared/constants'
 import { Link } from 'react-router-dom'
 import { ALERTS_ROUTE } from '@app/routes/general-routes'
+import { useUnit } from 'effector-react'
 
 const AlertsWidget = () => {
     const { preparedData, loading } = alertModel.selectors.useData()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const currentNews = preparedData?.[new Date().getFullYear()]?.slice(0, 3)
     const { isMobile } = useCurrentDevice()
     useEffect(() => {

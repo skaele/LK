@@ -11,6 +11,7 @@ import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers
 import { User } from '@api/model'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
 import { userModel } from '@entities/user'
+import { useUnit } from 'effector-react'
 
 const CreateApplicationListWrapper = styled.div`
     @media (min-width: 1001px) {
@@ -96,9 +97,7 @@ interface Props {
 
 const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Props) => {
     const { close } = useModal()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const sections: Section[] = (isTeachers && user ? getTeachersSectionLinks(user) : getSectionLinks()).map(
         (section) => {
             const links = section.links.filter((link) => !link.disabled)

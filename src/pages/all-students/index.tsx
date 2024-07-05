@@ -5,7 +5,7 @@ import { getGroups } from '@shared/api/student-api'
 import Masks from '@shared/lib/masks'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
-import { useStore } from 'effector-react'
+import { useStore, useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
@@ -27,9 +27,7 @@ const AllStudentsPage = () => {
     const isPending = useStore($isPending)
     const route: { params: { filter?: string } } = useRouteMatch()
     const items = useStore($items)
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const filter = route.params.filter ?? user?.group ?? ''
 

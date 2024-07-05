@@ -11,9 +11,7 @@ import { UserProps } from 'widgets/user/types'
 type Props = Pick<UserProps, 'name' | 'division' | 'avatar' | 'id'>
 
 export const StaffModal = ({ name, ...props }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const isStaff = user?.user_status === 'staff'
     const { subdivisions } = useUnit({

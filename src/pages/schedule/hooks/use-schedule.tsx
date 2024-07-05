@@ -20,9 +20,7 @@ import { TIME_IN_MS } from '@shared/constants'
 import { useUnit } from 'effector-react'
 
 const useSchedule = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const {
         data: { filter, view, errorInData },
     } = useUnit(scheduleModel.stores.schedule)

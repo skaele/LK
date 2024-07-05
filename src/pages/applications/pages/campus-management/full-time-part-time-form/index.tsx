@@ -22,9 +22,7 @@ const FullTimePartTimeFormPage = () => {
     const [graftCert, setGraftCert] = useState<IInputArea>(listConfigCert.graftCert)
 
     const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [disability, setDisability] = useState<IInputArea | null>(null)

@@ -11,16 +11,15 @@ import getLettersColors from '@shared/lib/get-letters-colors'
 import Flex from '../flex'
 import { Colors } from '@shared/constants'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { useUnit } from 'effector-react'
 
 interface Props {
     loading: boolean
 }
 
 const InitialLoader = ({ loading }: Props) => {
-    const {
-        data: { user },
-        error,
-    } = userModel.selectors.useUser()
+    const [{ currentUser: user }, error] = useUnit([userModel.stores.user, userModel.stores.error])
+
     const color = user ? getLettersColors(user?.fullName) : Colors.blue.main
 
     const loadUser = () =>

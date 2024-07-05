@@ -15,11 +15,10 @@ import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent } from './styled'
 import { TutorialHero } from 'widgets/tutorial'
 import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
+import { useUnit } from 'effector-react'
 
 const ContentLayout = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const pageContentRef = useRef<HTMLDivElement>(null)
     const { allRoutes } = menuModel.selectors.useMenu()
     const { currentPage } = useContentLayout()

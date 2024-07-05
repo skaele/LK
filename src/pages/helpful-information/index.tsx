@@ -8,13 +8,14 @@ import { SliderPage } from 'widgets'
 import pages from './config/pages-config'
 import getPages from './lib/get-pages'
 import { CenterPage } from '@shared/ui/atoms'
+import { useUnit } from 'effector-react'
 
 const HelpfulInformation = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
     const { replace } = useHistory()
     const params = useRouteMatch(TEMPLATE_USEFUL_INFO_ROUTE)?.params as { infoType: string | undefined }
-    const { data: userData } = userModel.selectors.useUser()
-    const isStaff = useMemo(() => userData?.user?.user_status === 'staff', [userData])
+    const { currentUser: user } = useUnit(userModel.stores.user)
+    const isStaff = useMemo(() => user?.user_status === 'staff', [user])
 
     const sliderPages = useMemo(() => getPages(Object.values(pages), isStaff), [pages, isStaff])
 

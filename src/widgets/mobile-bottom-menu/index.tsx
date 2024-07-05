@@ -14,6 +14,7 @@ import { MEDIA_QUERIES } from '@shared/constants'
 import { userModel } from '@entities/user'
 import { useScheduleWidget } from '@features/home/ui/schedule-widget/hooks/use-schedule-widget'
 import { useLocation } from 'react-router'
+import { useUnit } from 'effector-react'
 
 const MobileBottomMenuWrapper = styled(ListWrapper)`
     position: fixed;
@@ -48,9 +49,7 @@ const LinkSkeleton = () => {
 
 const MobileBottomMenu = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const { hasNoSchedule, loading } = useScheduleWidget()
     const location = useLocation()
 

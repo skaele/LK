@@ -1,5 +1,6 @@
 import { userModel } from '@entities/user'
 import { LinkButton } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -21,9 +22,7 @@ const MistakeModalWrapper = styled.div`
 `
 
 const MistakeModal = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     return (
         <MistakeModalWrapper>
             {user?.user_status === 'stud' ? (

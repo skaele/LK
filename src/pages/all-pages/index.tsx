@@ -20,9 +20,7 @@ const AllPages = () => {
     const peTeacher = useUnit(peTeacherModel.stores.peTeacher)
     const groupedPages = useMemo(() => getGroupPages(visibleRoutes, peTeacher), [visibleRoutes, peTeacher])
 
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     if (!visibleRoutes) return null
 

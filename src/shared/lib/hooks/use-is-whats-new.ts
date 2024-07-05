@@ -5,9 +5,7 @@ import { useUnit } from 'effector-react'
 import { tutorialModel } from '@entities/tutorial'
 
 const useIsShowWhatsNew = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [heroVisited, tutorialState] = useUnit([tutorialModel.stores.heroVisited, tutorialModel.stores.tutorialState])
     const [isShowNotification, setIsShowNotification] = useState<boolean>(false)
 

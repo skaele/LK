@@ -3,6 +3,7 @@ import { userModel } from '@entities/user'
 import Subtext from '@shared/ui/subtext'
 import { Size } from '@shared/ui/types'
 import List from '@ui/list'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { useModal, User } from 'widgets'
 import { UserList } from 'widgets/user-big/ui'
@@ -13,9 +14,7 @@ type Props = {
 }
 
 const AvailableAccounts = ({ padding, size = 'middle' }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const { open } = useModal()
     const isAdmin = false
 

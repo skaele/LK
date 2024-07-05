@@ -31,9 +31,7 @@ const HomePageStyled = styled.div`
     }
 `
 export const HomePage = ({ forwardedRef }: TutorialComponent) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const { homeRoutes } = menuModel.selectors.useMenu()
     const settings = useUnit(userSettingsModel.stores.userSettings)

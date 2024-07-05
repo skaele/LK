@@ -2,7 +2,7 @@ import { userModel } from '@entities/user'
 import { CenterPage, Input, Message, SubmitButton, Title } from '@ui/atoms'
 import Block from '@ui/block'
 import GoBackButton from '@ui/go-back-button'
-import { useStore } from 'effector-react'
+import { useStore, useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { USER_NOT_FOUND } from './config/ad-result-status'
@@ -19,9 +19,7 @@ const GetYourLoginPage = () => {
     const [passportNumber, setPassportNumber] = useState('')
     const loading = useStore(userModel.effects.getLoginEuzFx.pending)
     const [completed, setCompleted] = useState(false)
-    const {
-        data: { loginEuz },
-    } = userModel.selectors.useUser()
+    const { loginEuz } = useUnit(userModel.stores.user)
 
     const getADName = () => {
         userModel.effects.getLoginEuzFx({ fio: fio, pn: passportNumber })

@@ -10,9 +10,14 @@ import Flex from '@shared/ui/flex'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useUnit } from 'effector-react'
 
 const Content = () => {
-    const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
+    const [data, getDataLoading] = useUnit([
+        bufferHolidayPlanningModel.stores.data,
+        bufferHolidayPlanningModel.stores.getDataLoading,
+    ])
+
     const load = () => bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
 
     const jobVacations =

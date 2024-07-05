@@ -6,7 +6,7 @@ import { getDivisions } from '@shared/api/teacher-api'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
-import { useStore, useUnit } from 'effector-react'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { useHistory, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
@@ -29,8 +29,8 @@ const AllTeachersPage = () => {
     const route: { params: { filter?: string } } = useRouteMatch()
     const history = useHistory()
 
-    const isPending = useStore($isPending)
-    const items = useStore($items)
+    const isPending = useUnit($isPending)
+    const items = useUnit($items)
     const filter = route.params.filter ?? user?.subdivisions?.[0].subdivision ?? ''
 
     const underSearchText = (filter: SelectPage | null) => {

@@ -9,7 +9,7 @@ import { useUnit } from 'effector-react'
 
 const Content = () => {
     const { dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
-    const { data } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
+    const data = useUnit(bufferHolidayTransferModel.stores.data)
     const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
 
     if (!data) {

@@ -22,7 +22,7 @@ const HolidayPlanning = () => {
     const [collType, setCollType] = useState<string | null>(null)
     const [holidayType, setHolidayType] = useState<string | null>(null)
     const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
-    const { loading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
+    const loading = useUnit(bufferHolidayPlanningModel.stores.loading)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false

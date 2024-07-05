@@ -6,11 +6,11 @@ import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import styled from 'styled-components'
 import getExHrApplicationsColumns from '../lib/get-ex-hr-applications-columns'
 import { bufferHolidayTransferModel } from '../model'
+import { useUnit } from 'effector-react'
 
 const History = () => {
     const [openedHistory, setOpenedHistory] = useState<boolean>(false)
-
-    const { data } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
+    const data = useUnit(bufferHolidayTransferModel.stores.data)
     const historyIsEmpty = !!data.every((d) => !d)
 
     return (

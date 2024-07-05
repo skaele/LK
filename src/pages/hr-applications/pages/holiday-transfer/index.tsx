@@ -17,7 +17,7 @@ type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 const HolidayTransfer = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
-    const { loading: loading } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
+    const loading = useUnit(bufferHolidayTransferModel.stores.loading)
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false
     const { id } = useParams<{ id: string }>()

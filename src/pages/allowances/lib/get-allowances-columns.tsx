@@ -27,7 +27,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             width: '150px',
             render: (value) => value.name || '-',
         },
-        { title: 'Комментарий', field: 'commentary' },
+        { title: 'Комментарий', field: 'commentary', render: (value) => value.name || '-' },
         {
             title: 'Дата',
             field: 'createdAt',

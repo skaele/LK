@@ -27,10 +27,14 @@ export const signContract = (contractId: string) => {
 }
 
 export const sendAgreementCodesApi = async ({ agreementId, userEmail, clientEmail }: SendAgreementCodesReq) => {
-    const { data } = await $api.post(`?mailCode4Agreement=1&token=${token()}`, {
-        guid_agreement: agreementId,
-        email_student: userEmail,
-        email_client: clientEmail,
+    const formData = new FormData()
+    formData.append('guid_agreement', agreementId)
+    formData.append('email_student', userEmail)
+    formData.append('email_client', clientEmail)
+    const { data } = await $api.post(`?mailCode4Agreement=1&token=${token()}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
     })
 
     if (data.result !== 'ok') throw new Error(data.error_text)

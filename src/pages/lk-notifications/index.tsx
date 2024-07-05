@@ -5,13 +5,14 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { Button, CenterPage, Loading } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
+import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import LkNotificationList from 'widgets/lk-notification-list'
 
 const LkNotificationsPage = () => {
-    const { notifications, clearAllError, clearAllLoading } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications, clearAllError, clearAllLoading } = useUnit(lkNotificationModel.stores.lkNotifications)
 
     const handleClearAll = () => {
         confirmModel.events.evokeConfirm({

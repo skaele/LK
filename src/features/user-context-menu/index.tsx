@@ -10,6 +10,7 @@ import { Divider } from '@shared/ui/atoms'
 import { Button } from '@shared/ui/button'
 import NewVersionMessage from '@shared/ui/new-version-message'
 import Notification from '@ui/notification'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { BiUserCircle } from 'react-icons/bi'
 import { FiArrowLeftCircle, FiBell, FiLogOut, FiSettings } from 'react-icons/fi'
@@ -23,7 +24,7 @@ const NotificationButtonWrapper = styled.div`
 
 const UserContextMenu = () => {
     const { open } = useModal()
-    const { notifications } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications } = useUnit(lkNotificationModel.stores.lkNotifications)
 
     const handleClose = () => contextMenuModel.events.close()
 

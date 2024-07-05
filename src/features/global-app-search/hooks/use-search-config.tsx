@@ -67,7 +67,7 @@ const FoundPeople = ({
 
 const useSearchConfig = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
-    const { notifications, removeNotificationLoading } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications, removeNotificationLoading } = useUnit(lkNotificationModel.stores.lkNotifications)
     const {
         data: { user },
     } = userModel.selectors.useUser()

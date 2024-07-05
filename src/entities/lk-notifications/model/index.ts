@@ -3,7 +3,6 @@ import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
 import { lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
@@ -83,7 +82,7 @@ const clearById = createEvent<{ id: string; pageId?: string }>()
 const clearAll = createEvent()
 const clearAllVisible = createEvent()
 
-const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
+const $$lkNotifications = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
 
 sample({
     clock: initialize,
@@ -92,21 +91,21 @@ sample({
 
 sample({
     clock: fetchNotifications.pending,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, clk) => ({ ...store, loading: clk }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: fetchNotifications.failData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, clk) => ({ ...store, error: clk.message }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: fetchNotifications.doneData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, clk) => ({
         ...store,
         notifications: [...clk, ...store.notifications],
@@ -114,17 +113,17 @@ sample({
         error: null,
         loaded: true,
     }),
-    target: [$lkNotificationsStore, addNotificationsToPagesFx],
+    target: [$$lkNotifications, addNotificationsToPagesFx],
 })
 
 sample({
     clock: add,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (src, clk) => ({
         notifications: [...src.notifications, clk],
         visibleNotifications: [...src.visibleNotifications, clk],
     }),
-    target: [$lkNotificationsStore, addNotificationToPageFx],
+    target: [$$lkNotifications, addNotificationToPageFx],
 })
 
 sample({
@@ -134,7 +133,7 @@ sample({
 
 sample({
     clock: clearNotificationByIdFx.doneData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: ({ notifications, visibleNotifications, ...store }, { id, pageId }) => {
         removeNotificationFromPageFx(pageId)
 
@@ -144,21 +143,21 @@ sample({
             visibleNotifications: visibleNotifications.filter((n) => n.id !== id),
         }
     },
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearNotificationByIdFx.failData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, err) => ({ ...store, removeNotificationError: err.message }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearNotificationByIdFx.pending,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, loading) => ({ ...store, removeNotificationLoading: loading }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
@@ -168,46 +167,42 @@ sample({
 
 sample({
     clock: clearAllNotificationsFx.pending,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, clk) => ({ ...store, clearAllLoading: clk, clearAllError: null }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearAllNotificationsFx.failData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store, clk) => ({ ...store, clearAllError: clk.message }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearAllNotificationsFx.doneData,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: (store) => ({ ...store, notifications: [], visibleNotifications: [] }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearVisibleById,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: ({ notifications, visibleNotifications, ...store }, id) => ({
         ...store,
         notifications,
         visibleNotifications: visibleNotifications.filter((n) => n.id !== id),
     }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
 sample({
     clock: clearAllVisible,
-    source: $lkNotificationsStore,
+    source: $$lkNotifications,
     fn: ({ notifications, ...store }) => ({ ...store, notifications, visibleNotifications: [] }),
-    target: $lkNotificationsStore,
+    target: $$lkNotifications,
 })
 
-const useLkNotifications = () => {
-    return useStore($lkNotificationsStore)
-}
-
 export const events = { initialize, add, clearById, clearVisibleById, clearAll, clearAllVisible }
-export const selectors = { useLkNotifications }
+export const stores = { lkNotifications: $$lkNotifications }

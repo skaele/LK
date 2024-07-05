@@ -5,6 +5,7 @@ import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import { FiBell } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -35,7 +36,7 @@ const NotificationBellStyled = styled.div`
 
 export const NotificationsModal = () => {
     const { close } = useModal()
-    const { notifications } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications } = useUnit(lkNotificationModel.stores.lkNotifications)
     const MAX_QUANTITY = 3
 
     return (
@@ -63,7 +64,7 @@ export const NotificationsModal = () => {
 }
 
 const NotificationBellSection = ({ forwardedRef }: TutorialComponent) => {
-    const { notifications } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications } = useUnit(lkNotificationModel.stores.lkNotifications)
     const { open } = useModal()
 
     const handleClick = () => {

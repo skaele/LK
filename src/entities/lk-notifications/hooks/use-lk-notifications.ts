@@ -15,7 +15,7 @@ const useLkNotifications = () => {
         data: { user },
     } = userModel.selectors.useUser()
 
-    const { notifications, loading, loaded } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications, loading, loaded } = useUnit(lkNotificationModel.stores.lkNotifications)
     const settings = useUnit(userSettingsModel.stores.userSettings)
 
     const [preparedData] = useUnit([electronicInteractionModel.stores.$electronicInteractionStore])

@@ -3,9 +3,10 @@ import React from 'react'
 import NotificationItem from 'widgets/lk-notification-list/ui/notification-item'
 import usePopUpNotifications from './hooks/use-pop-up-notifications'
 import { PopUpNotificationsItem, PopUpNotificationsStyled } from './styles'
+import { useUnit } from 'effector-react'
 
 const PopUpNotifications = () => {
-    const { visibleNotifications } = lkNotificationModel.selectors.useLkNotifications()
+    const { visibleNotifications } = useUnit(lkNotificationModel.stores.lkNotifications)
     const { closing, handleClose } = usePopUpNotifications()
     return (
         <PopUpNotificationsStyled>

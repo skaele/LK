@@ -76,33 +76,13 @@ sample({
 })
 
 const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
-    .on(getUserDataApplicationsFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getUserDataApplicationsFx.doneData, (oldData, newData) => ({
         ...oldData,
         dataUserApplication: newData,
     }))
-    .on(getUserDataApplicationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(getApplicationsFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getApplicationsFx.doneData, (oldData, newData) => ({
         ...oldData,
         listApplication: newData,
-    }))
-    .on(getApplicationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(getWorkerPostsFx, (oldData) => ({
-        ...oldData,
-        error: null,
     }))
     .on(getWorkerPostsFx.doneData, (oldData, newData) => ({
         ...oldData,
@@ -115,6 +95,7 @@ const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
     .on(userModel.stores.userGuid, () => ({
         ...DEFAULT_STORE,
     }))
+
 const $error = createStore<string | null>(null)
     .on(getUserDataApplicationsFx, () => null)
     .on(getUserDataApplicationsFx.failData, (_, newData) => newData.message)

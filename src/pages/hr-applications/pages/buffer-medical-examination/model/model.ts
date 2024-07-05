@@ -2,18 +2,10 @@ import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
 import { BufferMedicalExamination, BufferMedicalExaminationForm, BufferMedicalExaminationOrder } from '../types'
 import { popUpMessageModel } from '@entities/pop-up-message'
-
-interface MedicalExaminationStore {
-    listMedicalExamination: BufferMedicalExaminationOrder[] | null
-    error: string | null
-}
-
-const DEFAULT_STORE = { listMedicalExamination: null, error: null }
 
 const loadBufferMedicalExaminationFx = createEffect(async () => {
     const response = await $hrApi.get<BufferMedicalExamination>(
@@ -45,16 +37,6 @@ const sendBufferMedicalExaminationFx = createEffect(async (data: BufferMedicalEx
     }
 })
 
-const useBufferMedicalExamination = () => {
-    const { listMedicalExamination, error } = useStore($medicalExaminationStore)
-    return {
-        data: listMedicalExamination,
-        loading: useStore(sendBufferMedicalExaminationFx.pending),
-        getDataLoading: useStore(loadBufferMedicalExaminationFx.pending),
-        error: error,
-    }
-}
-
 const clearStore = createEvent()
 
 sample({ clock: sendBufferMedicalExaminationFx.doneData, target: loadBufferMedicalExaminationFx })
@@ -77,23 +59,23 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
-const $medicalExaminationStore = createStore<MedicalExaminationStore>(DEFAULT_STORE)
-    .on(loadBufferMedicalExaminationFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
-    .on(loadBufferMedicalExaminationFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        listMedicalExamination: newData,
-    }))
-    .on(loadBufferMedicalExaminationFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
+const $medicalExamination = createStore<BufferMedicalExaminationOrder[] | null>(null).on(
+    loadBufferMedicalExaminationFx.doneData,
+    (_, newData) => newData,
+)
+
+const $error = createStore<string | null>(null)
+    .on(loadBufferMedicalExaminationFx, () => null)
+    .on(loadBufferMedicalExaminationFx.failData, (_, { message }) => message)
 
 export const effects = { loadBufferMedicalExaminationFx, sendBufferMedicalExaminationFx }
 
-export const selectors = { useBufferMedicalExamination }
+export const stores = {
+    data: $medicalExamination,
+    loading: sendBufferMedicalExaminationFx.pending,
+    error: $error,
+    getDataLoading: loadBufferMedicalExaminationFx.pending,
+}
 
 export const events = {
     clearStore,

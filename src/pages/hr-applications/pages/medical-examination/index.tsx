@@ -21,7 +21,7 @@ const MedicalExamination = () => {
     const [jobTitle, setJobTitle] = useState<string | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
     const { dataUserApplication, dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
-    const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const loading = useUnit(bufferMedicalExaminationModel.stores.loading)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false

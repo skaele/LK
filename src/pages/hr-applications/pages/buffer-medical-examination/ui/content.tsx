@@ -15,7 +15,10 @@ import { FiPlus } from 'react-icons/fi'
 import { useUnit } from 'effector-react'
 
 const Content = () => {
-    const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
+    const [data, getDataLoading] = useUnit([
+        bufferMedicalExaminationModel.stores.data,
+        bufferMedicalExaminationModel.stores.getDataLoading,
+    ])
     const { dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     const jobExaminations =

@@ -1,4 +1,5 @@
 export type AllowancesApprovalStatus = 'Unknown' | 'InProgress' | 'Approved' | 'Declined'
+export type AllowancesApprovalResponse = 'На рассмотрении' | 'Согласовано' | 'Отклонено'
 
 export type HandbookItem = {
     id: string
@@ -13,7 +14,7 @@ export type Allowance = {
     fundingSource: HandbookItem
     allowanceType: HandbookItem
     commentary: string
-    employees: (Employee & { approvalStatus: AllowancesApprovalStatus })[]
+    employees: (Employee & { approvalStatus: AllowancesApprovalResponse })[]
 }
 
 export type AllowanceEmployee = {

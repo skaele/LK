@@ -1,6 +1,8 @@
 export const allowanceConstants = {
-    Approved: 'Одобрено',
+    Approved: 'Согласовано',
     Unknown: 'На рассмотрении',
-    InProgress: 'В работе',
+    InProgress: 'На рассмотрении',
     Declined: 'Отклонено',
 } as const
+
+export const allownaceResponseConstants = ['Согласовано', 'Отклонено', 'На рассмотрении']

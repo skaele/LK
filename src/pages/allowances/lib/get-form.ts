@@ -8,7 +8,7 @@ import { IInputArea } from '@shared/ui/input-area/model'
 export const getJob = (data: UserApplication): IInputArea => {
     const subdivisions = getFormattedSubDivisions(data.subdivisions)
     return {
-        title: 'Установление надбавок',
+        title: 'Подразделение',
         data: [
             {
                 fieldName: 'initiatorId',

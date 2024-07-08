@@ -1,6 +1,6 @@
-import useDebounce from '@shared/lib/hooks/use-debounce'
+// import useDebounce from '@shared/lib/hooks/use-debounce'
+// import Search from '@shared/ui/search'
 import { Message } from '@shared/ui/atoms'
-import Search from '@shared/ui/search'
 import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
@@ -16,8 +16,8 @@ export const Initiator = () => {
     const history = useHistory()
     const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
 
-    const [lastSearch, setLastSearch] = useState('')
-    const [fio, setFio] = useState('')
+    // const [lastSearch, setLastSearch] = useState('')
+    // const [fio, setFio] = useState('')
     const [job, setJob] = useState<SelectPage | null>(
         jobs
             ? {
@@ -26,17 +26,22 @@ export const Initiator = () => {
               }
             : null,
     )
-    const [searchValue, setSearchValue, loading] = useDebounce({
-        onDebounce: setFio,
-        delay: 400,
-        defaultValue: fio,
-        triggerDelay: 200,
-        triggerOn: (val) => {
-            setLastSearch(val)
-            return lastSearch !== val
-        },
-        onClear: setFio,
-    })
+    // const [searchValue, setSearchValue, loading] = useDebounce({
+    //     onDebounce: setFio,
+    //     delay: 400,
+    //     defaultValue: fio,
+    //     triggerDelay: 200,
+    //     triggerOn: (val) => {
+    //         setLastSearch(val)
+    //         return lastSearch !== val
+    //     },
+    //     onClear: setFio,
+    // })
+
+    // const filteredAllowances = useMemo(() => {
+    //     if (!allowances || !job) return null
+    //     return allowances[job.id].initiatorAllowances.filter(allowance => allowance.employees.some(employee => employee.fio.includes(searchValue)))
+    // }, [allowances, fio, job?.id])
 
     if (!jobs) return null
 
@@ -53,7 +58,7 @@ export const Initiator = () => {
                     setSelected={setJob}
                 />
             </Flex>
-            <Search value={searchValue} setValue={setSearchValue} loading={loading} placeholder={'Сотрудник'} />
+            {/* <Search value={searchValue} setValue={setSearchValue} loading={loading} placeholder={'Сотрудник'} /> */}
             <Table
                 loading={!allowances}
                 columns={getAllowancesColumns()}

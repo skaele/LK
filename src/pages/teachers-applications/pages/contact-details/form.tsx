@@ -21,7 +21,7 @@ const ContactDetailsForm = () => {
     const isDone = completed ?? false
     const [guidStaff, setGuidStaff] = useState(guid)
 
-    const { data, error } = contactDetailsModel.selectors.useForm()
+    const [data, error] = useUnit([contactDetailsModel.stores.data, contactDetailsModel.stores.error])
     const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {

@@ -2,20 +2,9 @@ import { applicationsModel } from '@entities/applications'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { MessageType } from '@shared/ui/types'
 import { AxiosResponse } from 'axios'
-import { Effect, EventCallable, createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
-
-export interface TemplateFormStore<DataType> {
-    data: DataType | null
-    completed: boolean
-    error: string | null
-    loading: boolean
-}
+import { Effect, EventCallable, Store, createEffect, createEvent, createStore, sample } from 'effector'
 
 export interface TemplateFormStoreOutput<DataType, PostDataType> {
-    selectors: {
-        useForm: () => TemplateFormStore<DataType>
-    }
     effects: {
         getFormFx: Effect<string | void, DataType | null, Error>
         postFormFx: Effect<PostDataType, void, Error>
@@ -26,6 +15,12 @@ export interface TemplateFormStoreOutput<DataType, PostDataType> {
         }>
         clearStore: EventCallable<void>
     }
+    stores: {
+        data: Store<DataType | null>
+        loading: Store<boolean>
+        error: Store<string | null>
+        completed: Store<boolean>
+    }
 }
 
 interface APIType<DataType, PostDataType> {
@@ -35,7 +30,7 @@ interface APIType<DataType, PostDataType> {
 }
 
 interface Args<DataType, PostDataType> {
-    defaultStore: TemplateFormStore<DataType>
+    defaultStore: DataType | null
     api: APIType<DataType, PostDataType>
 }
 
@@ -44,15 +39,6 @@ export const createFormStore = <DataType, PostDataType>({
     api,
 }: Args<DataType, PostDataType>): TemplateFormStoreOutput<DataType, PostDataType> => {
     const DEFAULT_STORE = defaultStore
-
-    const useForm = () => {
-        return {
-            data: useStore($formStore).data,
-            loading: useStore(getFormFx.pending),
-            error: useStore($formStore).error,
-            completed: useStore($formStore).completed,
-        }
-    }
 
     const changeCompleted = createEvent<{ completed: boolean }>()
 
@@ -98,36 +84,22 @@ export const createFormStore = <DataType, PostDataType>({
             }
         }
 
-        return DEFAULT_STORE.data
+        return DEFAULT_STORE
     })
 
     const clearStore = createEvent()
 
-    const $formStore = createStore<TemplateFormStore<DataType>>(DEFAULT_STORE)
-        .on(getFormFx, (oldData) => ({
-            ...oldData,
-            error: null,
-        }))
-        .on(getFormFx.doneData, (oldData, newData) => ({
-            ...oldData,
-            data: newData,
-        }))
-        .on(getFormFx.failData, (oldData, newData) => ({
-            ...oldData,
-            error: newData.message,
-        }))
-        .on(changeCompleted, (oldData, newData) => ({
-            ...oldData,
-            completed: newData.completed,
-        }))
-        .on(clearStore, () => ({
-            ...DEFAULT_STORE,
-        }))
-
+    const $data = createStore<DataType | null>(DEFAULT_STORE)
+        .on(getFormFx.doneData, (_, newData) => newData)
+        .reset(clearStore)
+    const $completed = createStore<boolean>(false)
+        .on(changeCompleted, (_, { completed }) => completed)
+        .reset(clearStore)
+    const $error = createStore<string | null>(null)
+        .reset(clearStore)
+        .on(getFormFx, () => null)
+        .on(getFormFx.failData, (_, { message }) => message)
     return {
-        selectors: {
-            useForm,
-        },
         effects: {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -137,6 +109,12 @@ export const createFormStore = <DataType, PostDataType>({
         events: {
             changeCompleted,
             clearStore,
+        },
+        stores: {
+            data: $data,
+            loading: getFormFx.pending,
+            error: $error,
+            completed: $completed,
         },
     }
 }

@@ -1,18 +1,9 @@
 import { DEFAULT_API_LOAD_ERROR_MESSAGE } from '@shared/constants'
-import { createEffect, createEvent, createStore } from 'effector'
-import { useStore } from 'effector-react'
-import { Args, EffectReturnType, TemplateStore, TemplateStoreOutput } from './types'
+import { combine, createEffect, createEvent, createStore } from 'effector'
+import { Args, EffectReturnType, TemplateStoreOutput } from './types'
 import { userModel } from '@entities/user'
 
-const DEFAULT_STORE = {
-    data: null,
-    preparedData: null,
-    loading: false,
-    error: null,
-}
-
 export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArgs = void, APIPostArgs = void>({
-    initialStore,
     api,
     prepareData,
     errorMessage = () => DEFAULT_API_LOAD_ERROR_MESSAGE,
@@ -23,18 +14,6 @@ export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArg
     APIPostArgs
 > => {
     type PreparedDataType = TypeChoice<OutputDataType, APIDataType>
-    type Store = TemplateStore<APIDataType, PreparedDataType>
-
-    const defaultStore = initialStore ?? DEFAULT_STORE
-
-    const useData = (): Store => {
-        return {
-            data: useStore($store).data,
-            preparedData: useStore($store).preparedData,
-            loading: useStore(getFx.pending),
-            error: useStore($store).error,
-        }
-    }
 
     const getFx = createEffect(async (args: APIGetArgs): Promise<EffectReturnType<APIDataType, PreparedDataType>> => {
         try {
@@ -64,33 +43,29 @@ export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArg
 
     const clearStore = createEvent()
 
-    const $store = createStore<Store>(defaultStore)
-        .on(getFx, (oldData) => ({
-            ...oldData,
-            error: null,
-        }))
-        .on(postFx.pending, (oldData) => ({ ...oldData, loading: true }))
-        .on(postFx.failData, (oldData, { message }) => ({ ...oldData, error: message, loading: false }))
-        .on(postFx.doneData, (oldData) => ({ ...oldData, error: null, loading: false }))
-        .on(getFx.doneData, (oldData, { data, preparedData }) => ({
-            ...oldData,
-            data,
-            preparedData,
-        }))
-        .on(getFx.failData, (oldData, newData) => ({
-            ...oldData,
-            error: newData.message,
-        }))
-        .on(clearStore, () => ({
-            ...DEFAULT_STORE,
-        }))
-        .on(userModel.stores.userGuid, () => ({
-            ...DEFAULT_STORE,
-        }))
+    const $data = createStore<APIDataType | null>(null)
+        .on(getFx.doneData, (_, { data }) => data)
+        .reset(clearStore)
+        .reset(userModel.stores.userGuid)
+    const $preparedData = createStore<PreparedDataType | null>(null)
+        .on(getFx.doneData, (_, { preparedData }) => preparedData)
+        .reset(clearStore)
+        .reset(userModel.stores.userGuid)
+
+    const $error = createStore<string | null>(null)
+        .on(getFx, () => null)
+        .on(postFx.failData, (_, { message }) => message)
+        .on(postFx.doneData, () => null)
+        .on(getFx.failData, (_, { message }) => message)
+        .reset(clearStore)
+        .reset(userModel.stores.userGuid)
 
     return {
-        selectors: {
-            useData,
+        stores: {
+            error: $error,
+            data: $data,
+            preparedData: $preparedData,
+            loading: combine(getFx.pending, postFx.pending, (first, second) => first || second),
         },
         effects: {
             getFx,
@@ -99,6 +74,5 @@ export const createDefaultStore = <APIDataType, OutputDataType = void, APIGetArg
         events: {
             clearStore,
         },
-        store: $store,
     }
 }

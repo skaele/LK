@@ -86,11 +86,11 @@ sample({
     target: $roles,
 })
 sample({
-    clock: projectActivitesModel.store,
+    clock: projectActivitesModel.stores.data,
     source: $roles,
     filter: (roles) => !roles.includes('has PA last semester'),
     fn: (roles, pa) =>
-        pa.data?.last_semestr_result !== 'Данные отсутствуют'
+        pa?.last_semestr_result !== 'Данные отсутствуют'
             ? ([...roles, 'has PA last semester'] as const)
             : roles.filter((role) => role !== 'has PA last semester'),
     target: $roles,

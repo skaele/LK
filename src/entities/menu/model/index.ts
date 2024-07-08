@@ -94,14 +94,14 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
 const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
-    adminLinksModel.store,
+    adminLinksModel.stores.data,
     (user, settings, adminLinks) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
-            getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
+            getLeftsideBarConfig(user.currentUser, settings!, adminLinks),
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -110,14 +110,14 @@ const $leftSidebar = combine(
 const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
-    adminLinksModel.store,
+    adminLinksModel.stores.data,
     (user, settings, adminLinks) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
             settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -127,7 +127,7 @@ sample({
     source: {
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
-        adminLinks: adminLinksModel.store,
+        adminLinks: adminLinksModel.stores.data,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore.currentUser)
@@ -135,7 +135,7 @@ sample({
     fn: ({ settings, adminLinks, userStore }) => ({
         homeRoutes: settings!.homePage.pages,
         user: userStore.currentUser!,
-        adminLinks: adminLinks.data!,
+        adminLinks: adminLinks!,
     }),
     target: defineMenu,
 })

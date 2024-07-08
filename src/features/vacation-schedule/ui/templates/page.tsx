@@ -20,7 +20,7 @@ const calendarUrls = {
 
 const Page = () => {
     const { currentUser: user } = useUnit(userModel.stores.user)
-    const { data, error } = vacationScheduleModel.selectors.useData()
+    const [data, error] = useUnit([vacationScheduleModel.stores.data, vacationScheduleModel.stores.error])
 
     const items: SelectPage[] = useMemo(() => {
         return data?.map((value, index) => ({ id: index, title: value.division })) || []

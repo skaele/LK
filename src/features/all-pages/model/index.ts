@@ -50,8 +50,8 @@ export const addPageToSidebar = createEvent<{ pageId: string }>()
 export const deletePageFromSidebar = createEvent<{ pageId: string }>()
 export const $requiredSidebarItems = combine(
     userModel.stores.user,
-    adminLinksModel.store,
-    ({ currentUser }, { data }) => {
+    adminLinksModel.stores.data,
+    ({ currentUser }, data) => {
         if (currentUser?.status === '') {
             return REQUIRED_LEFTSIDE_BAR_CONFIG
         }

@@ -46,6 +46,6 @@ export const signThirdPartyAgreementApi = async ({ agreementId, userPass, client
         `?signAgreement=${agreementId}&token=${token()}&pass_student=${userPass}&pass_client=${clientPass}`,
     )
 
-    if (data.result !== 'ok') throw new Error(data.error_text)
+    if (data[0].result !== 'ok') throw new Error(data[0].error_text)
     return data
 }

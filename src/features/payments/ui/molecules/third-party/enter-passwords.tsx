@@ -10,6 +10,7 @@ export const EnterPasswords = ({ agreement }: { agreement: Agreement }) => {
     const [userPass, setUserPass] = useState('')
     const [clientPass, setClientPass] = useState('')
     const [signAgreement] = useUnit([thirdPartyAgreementModel.events.signAgreement])
+
     return (
         <>
             <Grid columns="1fr 1fr" rows="1fr 1fr" rowGap="8px" columnGap="8px">

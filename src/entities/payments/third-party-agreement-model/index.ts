@@ -3,6 +3,7 @@ import { createMutation } from '@farfetched/core'
 import { SendAgreementCodesReq, sendAgreementCodesApi, signThirdPartyAgreementApi } from '@shared/api/payment-api'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
+import { paymentsModel } from '..'
 type Emails = { clientEmail: string; userEmail: string }
 
 const signStarted = createEvent()
@@ -20,12 +21,12 @@ const checkEmails = createEffect(async ({ clientEmail, userEmail }: Emails) => {
     return { clientEmail, userEmail }
 })
 
-const $step = createStore(0)
-    .on(signStarted, (state) => state + 1)
-    .on(goBack, (state) => state - 1)
+const $step = createStore(0).on(goBack, (state) => state - 1)
 const $userEmail = createStore('')
 const $clientEmail = createStore('')
 const $signButtonActive = createStore(false).on(activateSignButton, () => true)
+// to sync effector and hooks
+const $signed = createStore<boolean>(false)
 
 sample({
     clock: signStarted,
@@ -111,6 +112,10 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 sample({
+    clock: signThirdPartyAgreementMutation.$succeeded,
+    target: paymentsModel.events.getPayments,
+})
+sample({
     clock: signThirdPartyAgreementMutation.finished.failure,
     fn: ({ error }) => ({
         message: axios.isAxiosError(error)
@@ -120,6 +125,8 @@ sample({
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })
+
+$signed.on(signThirdPartyAgreementMutation.$succeeded, () => true)
 
 export const events = {
     signStarted,
@@ -135,4 +142,5 @@ export const stores = {
     userEmail: $userEmail,
     clientEmail: $clientEmail,
     signButtonActive: $signButtonActive,
+    signed: $signed,
 }

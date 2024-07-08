@@ -1,19 +1,20 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { pERequest } from '@shared/api/config/pe-config'
+
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { getCompetitionsQuery, getRemoveCompetitionMutation } from '../utils/get-competitions-query'
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
 
 const load = createEvent()
 const remove = createEvent<string>()
 
 const loadFx = createEffect(async () => {
-    const { competitions } = await pERequest<{ competitions: string[] }>(getCompetitionsQuery())
+    const { data } = await peApi.getCompetitions()
 
-    return competitions
+    return data.competitions
 })
 
 const removeFx = createEffect(async (compName: string) => {
-    await pERequest(getRemoveCompetitionMutation(compName))
+    await peApi.removeCompetition(compName)
 
     return compName
 })
@@ -22,8 +23,8 @@ sample({ clock: remove, target: removeFx })
 
 sample({
     clock: removeFx.failData,
-    fn: () => ({
-        message: 'Не удалось удалить соревнование',
+    fn: (err) => ({
+        message: getPeErrorMsg(err, 'Не удалось удалить соревнование'),
         type: 'failure' as const,
         time: 3000,
     }),

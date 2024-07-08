@@ -4,44 +4,42 @@ export interface PEStudent {
     studentGuid: string
     fullName: string
     groupNumber: string
-    hasDebtFromPreviousSemester: boolean
-    archivedVisitValue: number
+    hasDebt: boolean
     visits: number
-    additionalPoints: number
-    pointsForStandards: number
-    group: {
-        visitValue: number
-    }
-    pointsHistory: {
-        points: number
-    }[]
+    standardPoints: number
     course: number
-    department: string
+    totalPoints: number
+    lmsPoints: number
 }
 
-export type PEStudentProfile = PEStudent & {
+export type PEStudentProfile = {
+    studentGuid: string
+    fullName: string
+    groupNumber: string
+    hasDebt: boolean
+    totalPoints: number
+    lmsPoints: number
+    visits: number
+    course: number
     visitsHistory: {
         id: number
         date: string
         teacherGuid: string
-        teacher: {
-            fullName: string
-        }
+        teacherFullName: string
     }[]
     pointsHistory: {
         id: string
-        workType: WorkType
+        type: WorkType
         comment: string
         date: string
         points: number
         teacherGuid: string
+        teacherFullName: string
     }[]
     standardsHistory: {
         id: string
-        standardType: string
-        teacher: {
-            fullName: string
-        }
+        type: string
+        teacherFullName: string
         points: number
         date: string
         teacherGuid: string

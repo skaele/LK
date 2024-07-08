@@ -1,17 +1,17 @@
 export interface AddStudentAdditionalPoints {
     studentGuid: string
-    workType: WorkType
+    type: WorkType
     date: string
-    pointsAmount: number
+    points: number
     comment: string
 }
 
 export enum WorkType {
-    Activist = 'ACTIVIST',
-    Competition = 'COMPETITION',
-    ExternalFitness = 'EXTERNAL_FITNESS',
+    Activist = 'Activist',
+    Competition = 'Competition',
+    ExternalFitness = 'ExternalFitness',
     GTO = 'GTO',
-    InternalTeam = 'INTERNAL_TEAM',
-    OnlineWork = 'ONLINE_WORK',
-    Science = 'SCIENCE',
+    InternalTeam = 'InternalTeam',
+    OnlineWork = 'OnlineWork',
+    Science = 'Science',
 }

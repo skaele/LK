@@ -1,10 +1,9 @@
 import { PEStudent } from '@entities/pe-student/types'
-import { getFilters } from '@entities/pe-student/utils/get-filters'
-import { getPEStudentsQuery } from '@entities/pe-student/utils/get-pe-student-query'
 import { peStudentEndSemesterModel } from '@features/physical-education/student/pe-student-end-semester'
 import { Status } from '@features/physical-education/student/pe-student-end-semester/model'
-import { pERequest } from '@shared/api/config/pe-config'
 import { attach, combine, createEvent, createStore, sample } from 'effector'
+
+import { peApi } from '@shared/api'
 
 const selectedGroupChanged = createEvent<string>()
 
@@ -19,18 +18,16 @@ const $selectedGroup = createStore<string>('')
 const loadFx = attach({
     source: $selectedGroup,
     effect: async (group) => {
-        const { students } = await pERequest<{ students: { items: PEStudent[] } }>(
-            getPEStudentsQuery(0, getFilters({ 'group.groupName': { value: group ?? '', strict: true } }), 1000),
-        )
+        const { data } = await peApi.getStudents(0, { group: { value: group } }, 200)
 
-        return students
+        return data.data.students
     },
 })
 
 sample({ source: $selectedGroup, filter: Boolean, target: loadFx })
 
 const $pEStudents = createStore<PEStudent[]>([])
-    .on(loadFx.doneData, (_, students) => students.items)
+    .on(loadFx.doneData, (_, students) => students)
     .reset(reset)
 
 const $loading = combine(loadFx.pending, Boolean)

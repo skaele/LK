@@ -1,6 +1,5 @@
-import { WorkType } from '@entities/pe-student-additional-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
-import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
+
 import { peTeacherModel } from '@entities/pe-teacher'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
 import { CenterPage, Error } from '@shared/ui/atoms'
@@ -49,15 +48,9 @@ const PEStudent = () => {
 
                 <UserData>
                     <UserDataBlock label="Группа" value={student.groupNumber} />
-                    <UserDataBlock label="Баллы" value={calcSummaryPoints(student).toString()} />
+                    <UserDataBlock label="Баллы" value={student.totalPoints.toString()} />
                     <UserDataBlock label="Курс" value={student.course.toString()} />
-                    <UserDataBlock
-                        label="ЛМС"
-                        value={student.pointsHistory
-                            .filter((d) => (d as any).workType === WorkType.OnlineWork)
-                            .reduce((sum, d) => sum + d.points, 0)
-                            .toString()}
-                    />
+                    <UserDataBlock label="ЛМС" value={student.lmsPoints.toString()} />
                 </UserData>
 
                 <Slider

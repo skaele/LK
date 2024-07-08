@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
 import { contextMenuModel } from '../../entities/context-menu'
+import { useUnit } from 'effector-react'
 
 const ContextMenuWrapper = styled.div<{
     isVisible: boolean
@@ -37,7 +38,7 @@ const ContextMenuWrapper = styled.div<{
 `
 
 const ContextMenu = () => {
-    const { open, content, position } = contextMenuModel.selectors.useContextMenu()
+    const { open, content, position } = useUnit(contextMenuModel.stores.contextMenu)
     const contextRef = useRef<HTMLDivElement>(null)
 
     useOnClickOutside(contextRef, () => contextMenuModel.events.close())

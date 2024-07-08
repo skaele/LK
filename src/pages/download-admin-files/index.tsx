@@ -9,9 +9,10 @@ import AdditionalAgreements from './pages/additional-agreements'
 import DownloadCheckdata from './pages/checkdata'
 import { CenterPage } from '@shared/ui/atoms'
 import { DownloadPhonebookData } from './pages/phonebook'
+import { useUnit } from 'effector-react'
 
 const DownloadAdminFilesPage = () => {
-    const { data } = adminLinksModel.selectors.useData()
+    const data = useUnit(adminLinksModel.stores.data)
     return (
         <CenterPage padding="10px">
             <PageBlock>

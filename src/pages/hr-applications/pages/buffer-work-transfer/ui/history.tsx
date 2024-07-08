@@ -6,11 +6,12 @@ import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import styled from 'styled-components'
 import getWorkTransferHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 import { bufferWorkTransferModel } from '../model'
+import { useUnit } from 'effector-react'
 
 const History = () => {
     const [openedHistory, setOpenedHistory] = useState<boolean>(false)
     useEffect(bufferWorkTransferModel.events.loadBufferWorkTransfer, [])
-    const { data } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
+    const data = useUnit(bufferWorkTransferModel.stores.data)
     const historyIsEmpty = !!data.every((d) => !d)
     return (
         <Block

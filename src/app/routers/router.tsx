@@ -11,11 +11,10 @@ import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
 import { initializeTutorials } from '@entities/tutorial/lib/initialize'
 import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
+import { useUnit } from 'effector-react'
 
 const Router = () => {
-    const {
-        data: { isAuthenticated, user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user, isAuthenticated } = useUnit(userModel.stores.user)
 
     // scroll window to top when change route
     useScrollToTop(window)

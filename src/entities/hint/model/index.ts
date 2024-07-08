@@ -1,5 +1,4 @@
 import { Coordinates } from '@ui/types'
-import { useStore } from 'effector-react/compat'
 import { createEvent, createStore } from 'effector'
 
 export interface Hint {
@@ -22,10 +21,6 @@ const DEFAULT_STORE: HintStore = {
     hints: [],
 }
 
-const useHint = () => {
-    return useStore($hint)
-}
-
 const evoke = createEvent<{ message: string; position: Coordinates }>()
 
 const close = createEvent()
@@ -42,8 +37,8 @@ const $hint = createStore<HintStore>(DEFAULT_STORE)
         ...DEFAULT_STORE,
     }))
 
-export const selectors = {
-    useHint,
+export const stores = {
+    hint: $hint,
 }
 
 export const events = {

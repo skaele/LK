@@ -11,11 +11,9 @@ import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-
 
 // todo: move logic to effector
 const useLkNotifications = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
-    const { notifications, loading, loaded } = lkNotificationModel.selectors.useLkNotifications()
+    const { notifications, loading, loaded } = useUnit(lkNotificationModel.stores.lkNotifications)
     const settings = useUnit(userSettingsModel.stores.userSettings)
 
     const [preparedData] = useUnit([electronicInteractionModel.stores.$electronicInteractionStore])

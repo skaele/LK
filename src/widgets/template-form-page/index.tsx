@@ -4,6 +4,7 @@ import { IInputArea } from '@ui/input-area/model'
 import { useEffect, useState } from 'react'
 import TemplateForm, { TemplateFormProps } from 'widgets/template-form'
 import React from 'react'
+import { useUnit } from 'effector-react'
 
 type Props<T extends { last_update?: string }> = TemplateFormProps<T> & {
     pageAvailability?: {
@@ -28,7 +29,8 @@ const TemplateFormPage = <T extends { last_update?: string }>({
     isSpecialField = false,
     title,
 }: Props<T>) => {
-    const { data, error } = model.selectors.useForm()
+    const [data, error] = useUnit([model.stores.data, model.stores.error])
+
     const [form, setForm] = useState<IInputArea | null>(null)
 
     if ((!!pageAvailability && !pageAvailability?.isAvailable) ?? false) {

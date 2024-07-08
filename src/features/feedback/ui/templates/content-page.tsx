@@ -3,11 +3,10 @@ import GoBackButton from '@shared/ui/go-back-button'
 import React from 'react'
 import { HelpLinks, OtherContacts } from '../organisms'
 import PageBlock from '@shared/ui/page-block'
+import { useUnit } from 'effector-react'
 
 export function ContentPage() {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     return (
         <PageBlock>
             {!user && <GoBackButton />}

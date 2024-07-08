@@ -19,7 +19,11 @@ import { useUnit } from 'effector-react'
 import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
 
 const ProjectActivitiesPage = () => {
-    const { data, loading, error } = projectActivitesModel.selectors.useData()
+    const [data, loading, error] = useUnit([
+        projectActivitesModel.stores.data,
+        projectActivitesModel.stores.loading,
+        projectActivitesModel.stores.error,
+    ])
     const [currentModule] = useUnit([tutorialModel.stores.currentModule])
     const { open } = useModal()
 

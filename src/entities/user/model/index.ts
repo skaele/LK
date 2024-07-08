@@ -5,14 +5,12 @@ import createFullName from '@features/home/lib/create-full-name'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
 import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null
     isAuthenticated: boolean | null
-    error: string | null
     savePassword: boolean
     loginEuz?: string
 }
@@ -69,7 +67,6 @@ const getUserFx = createEffect<Pick<UserToken, 'jwt' | 'token'>, UserStore>(asyn
                 fullName: createFullName({ name, surname, patronymic }),
             },
             isAuthenticated: !!token,
-            error: null,
             savePassword: savePasswordInStorage(),
         }
     } catch (error) {
@@ -133,7 +130,6 @@ sample({ clock: logout, target: logoutFx })
 
 const DEFAULT_STORE: UserStore = {
     currentUser: null,
-    error: null,
     isAuthenticated: !!tokenInStorage?.length,
     savePassword: savePasswordInStorage(),
     loginEuz: '',
@@ -143,25 +139,18 @@ changeSavePasswordFunc()
 
 // TODO: separate store
 const $userStore = createStore(DEFAULT_STORE)
-    .on(getUserFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getUserFx.doneData, (_, newData) => newData)
-    .on(getUserFx.failData, (_, error) => ({
-        error: error.message,
+    .on(getUserFx.failData, () => ({
         currentUser: null,
         isAuthenticated: !!tokenInStorage?.length,
         savePassword: savePasswordInStorage(),
     }))
-    .on(getUserTokenFx.failData, (_, error) => ({
-        error: error.message,
+    .on(getUserTokenFx.failData, () => ({
         isAuthenticated: null,
         currentUser: null,
         savePassword: savePasswordInStorage(),
     }))
     .on(logout, () => ({
-        error: '',
         isAuthenticated: null,
         currentUser: null,
         savePassword: savePasswordInStorage(),
@@ -170,17 +159,9 @@ const $userStore = createStore(DEFAULT_STORE)
         ...oldData,
         savePassword: changeSavePasswordFunc(savePassword),
     }))
-    .on(getLoginEuzFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getLoginEuzFx.doneData, (oldData, newData) => ({
         ...oldData,
         loginEuz: newData,
-    }))
-    .on(getUserFx.failData, (oldData, error) => ({
-        ...oldData,
-        error: error.message,
     }))
     .on(update, (oldData, { key, value }) => ({
         ...oldData,
@@ -196,17 +177,14 @@ const $userStore = createStore(DEFAULT_STORE)
     }))
 
 const $userGuid = $userStore.map(({ currentUser }) => currentUser?.guid ?? null)
-
-export const selectors = {
-    useUser: () => {
-        const { currentUser: user, error, isAuthenticated, savePassword, loginEuz } = useStore($userStore)
-        return {
-            data: { user, isAuthenticated, savePassword, loginEuz },
-            loading: useStore(getUserTokenFx.pending),
-            error: error,
-        }
-    },
-}
+const $error = createStore<string | null>(null)
+    .on(getUserFx, () => null)
+    .on(getUserFx.doneData, () => null)
+    .on(getUserFx.failData, (_, { message }) => message)
+    .on(getUserTokenFx.failData, (_, { message }) => message)
+    .on(logout, () => '')
+    .on(getLoginEuzFx, () => null)
+    .on(getUserFx.failData, (_, { message }) => message)
 
 export const events = {
     login,
@@ -223,6 +201,8 @@ export const effects = {
 }
 
 export const stores = {
+    loading: getUserTokenFx.pending,
+    error: $error,
     user: $userStore,
     userGuid: $userGuid,
 }

@@ -5,6 +5,7 @@ import React from 'react'
 import { FiPause, FiPlay, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
 import Indicator from '../indicator'
+import { useUnit } from 'effector-react'
 
 const PagesIndicatorWrapper = styled(ListWrapper)`
     position: absolute;
@@ -26,7 +27,7 @@ interface Props {
 }
 
 const PagesIndicator = ({ playing, pages, onClose }: Props) => {
-    const { currentPage } = storyModel.selectors.useStory()
+    const { currentPage } = useUnit(storyModel.store.story)
     return (
         <PagesIndicatorWrapper height="10px" verticalAlign="center" direction="horizontal" width="100%">
             {Array(pages)

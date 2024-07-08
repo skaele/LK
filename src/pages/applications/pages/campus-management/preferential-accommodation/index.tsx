@@ -9,6 +9,7 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -18,9 +19,7 @@ const PreferentialAccommodationPage = () => {
     const [fluorographyCert, setFluorographyCert] = useState<IInputArea>(listConfigCert.fluorographyCert)
     const [vichRwCert, setVichRwCert] = useState<IInputArea>(listConfigCert.vichRwCert)
     const [graftCert, setGraftCert] = useState<IInputArea>(listConfigCert.graftCert)
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const [completed, setCompleted] = useState(false)
     const [disability, setDisability] = useState<IInputArea | null>(null)
     const [registration, setRegistration] = useState<IInputArea | null>(null)

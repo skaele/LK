@@ -3,12 +3,10 @@ import { Wrapper } from '@ui/atoms'
 import React from 'react'
 import HomeTopPlate from './ui/home-top-plate'
 import { HomePageTutorial } from 'widgets/tutorial/tutorials/home-page-tutorial'
+import { useUnit } from 'effector-react'
 
 const Home = () => {
-    const {
-        data: { user },
-        error,
-    } = userModel.selectors.useUser()
+    const [{ currentUser: user }, error] = useUnit([userModel.stores.user, userModel.stores.error])
 
     if (!user) return null
     return (

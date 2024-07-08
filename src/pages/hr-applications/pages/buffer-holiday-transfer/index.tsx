@@ -5,9 +5,10 @@ import Content from './ui/content'
 import { bufferHolidayTransferModel } from './model'
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+import { useUnit } from 'effector-react'
 
 const HolidayTransferBufferPage = () => {
-    const { data, loading } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
+    const [data, loading] = useUnit([bufferHolidayTransferModel.stores.data, bufferHolidayTransferModel.stores.loading])
 
     useEffect(() => {
         bufferHolidayTransferModel.events.loadBufferHolidayTransfer()

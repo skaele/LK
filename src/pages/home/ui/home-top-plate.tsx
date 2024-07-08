@@ -1,6 +1,7 @@
 import { userModel } from '@entities/user'
 import { Colors } from '@shared/constants'
 import getLettersColors from '@shared/lib/get-letters-colors'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -75,9 +76,7 @@ const HomeTopPlateStyled = styled.div<{ dark: string; main: string; light: strin
 `
 
 const HomeTopPlate = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const dark = getLettersColors(user?.fullName ?? '', 'dark1') ?? Colors.blue.dark2
     const main = getLettersColors(user?.fullName ?? '', 'main') ?? Colors.blue.main
     const light = getLettersColors(user?.fullName ?? '', 'light1') ?? Colors.blue.light2

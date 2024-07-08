@@ -5,12 +5,11 @@ import History from './history'
 import JobTitle from './job-title'
 import styled from 'styled-components'
 import { bufferHolidayTransferModel } from '../model'
+import { useUnit } from 'effector-react'
 
 const Content = () => {
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
-    const { data } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()
+    const { dataWorkerApplication } = useUnit(applicationsModel.stores.applicationsStore)
+    const data = useUnit(bufferHolidayTransferModel.stores.data)
     const [historyIsEmpty, setHistoryIsEmpty] = useState<boolean>(true)
 
     if (!data) {

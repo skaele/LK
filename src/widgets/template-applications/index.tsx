@@ -9,15 +9,14 @@ import { Message, Wrapper } from '@ui/atoms'
 import React, { memo, useCallback } from 'react'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 import { useModal } from 'widgets'
+import { useUnit } from 'effector-react'
 
 interface Props {
     isTeachers: boolean
 }
 
 const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
-    const {
-        data: { listApplication, dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { listApplication, dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const { open } = useModal()
 
     const handleOpenModal = useCallback(() => {

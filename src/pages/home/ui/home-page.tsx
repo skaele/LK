@@ -31,9 +31,7 @@ const HomePageStyled = styled.div`
     }
 `
 export const HomePage = ({ forwardedRef }: TutorialComponent) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const { homeRoutes } = menuModel.selectors.useMenu()
     const settings = useUnit(userSettingsModel.stores.userSettings)
@@ -42,7 +40,7 @@ export const HomePage = ({ forwardedRef }: TutorialComponent) => {
     const payments = useUnit(paymentsModel.stores.$paymentsStore)
     const {
         data: { schedule },
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
 
     useEffect(() => {
         if (!payments) {

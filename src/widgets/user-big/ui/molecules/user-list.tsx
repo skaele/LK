@@ -8,6 +8,7 @@ import { User as UserType } from '@api/model'
 import { userModel } from '@entities/user'
 import { SubmitButton } from '@ui/atoms'
 import getCorrectWordForm from '@utils/get-correct-word-form'
+import { useUnit } from 'effector-react'
 
 const UserListWrapper = styled.div`
     display: flex;
@@ -21,9 +22,7 @@ const UserListWrapper = styled.div`
 `
 
 const UserList = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [chosenUsers, setChosenUsers] = useState<number[]>([])
 
     const handleCheck = (user: UserType) => {

@@ -20,6 +20,7 @@ import getPassport from './lib/get-passport'
 import getPersonalData from './lib/get-personal-data'
 import getRegistration from './lib/get-registration'
 import sendForm from './lib/send-form'
+import { useUnit } from 'effector-react'
 
 const DataVerificationPageWrapper = styled.div`
     display: flex;
@@ -56,7 +57,11 @@ const DataVerificationPageWrapper = styled.div`
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const DataVerificationPage = () => {
-    const { data, error, completed } = teacherDateVerificationModel.selectors.useTeacherDataVerification()
+    const [data, error, completed] = useUnit([
+        teacherDateVerificationModel.stores.data,
+        teacherDateVerificationModel.stores.error,
+        teacherDateVerificationModel.stores.completed,
+    ])
 
     // Про это написно ниже, в сабмит баттоне
     const [submitLoading, setSubmitLoading] = useState(false)

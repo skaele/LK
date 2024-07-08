@@ -5,6 +5,7 @@ import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import { DotPages } from '@shared/ui/molecules'
 import PieChart from '@shared/ui/pie-chart'
+import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
@@ -40,7 +41,10 @@ const Buttons = styled.div`
 `
 
 const GraphicInfo = () => {
-    const { preparedData, loading } = acadPerformanceModel.selectors.useData()
+    const [preparedData, loading] = useUnit([
+        acadPerformanceModel.stores.preparedData,
+        acadPerformanceModel.stores.loading,
+    ])
 
     const [circleMode, setCircleMode] = useState(0)
     const examPercentage = '0'

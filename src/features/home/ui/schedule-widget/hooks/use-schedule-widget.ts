@@ -6,12 +6,14 @@ import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
 import { TIME_IN_MS } from '@shared/constants'
 import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
 import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
+import { useUnit } from 'effector-react'
 
 export const useScheduleWidget = () => {
     const {
         data: { schedule, hasNoSchedule, errorInData },
         loading,
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
+
     const handleOpenModal = useScheduleSubjectModal()
     const noSchedule = schedule?.today?.length === 0 || !schedule?.today
     const isEnded = isDayEnded(schedule?.today)

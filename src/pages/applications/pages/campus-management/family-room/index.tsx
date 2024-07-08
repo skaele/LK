@@ -16,14 +16,13 @@ import getRegistrationFamilyMembers from '@pages/applications/pages/campus-manag
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
 import { CampusError } from '../ui/error'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const FamilyRoomPage = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [family, setFamily] = useState<IInputArea | null>(null)

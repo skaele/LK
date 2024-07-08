@@ -1,6 +1,5 @@
 import { userModel } from '@entities/user'
 import { createEvent, createStore } from 'effector'
-import { useStore } from 'effector-react/compat'
 
 export interface Confirm {
     isOpen: boolean
@@ -15,10 +14,6 @@ const DEFAULT_STORE: Confirm = {
     message: null,
     onConfirm: () => null,
     onReject: () => null,
-}
-
-const useConfirm = () => {
-    return useStore($confirm)
 }
 
 const evokeConfirm = createEvent<Omit<Confirm, 'isOpen'>>()
@@ -41,8 +36,8 @@ const $confirm = createStore<Confirm>(DEFAULT_STORE)
         ...DEFAULT_STORE,
     }))
 
-export const selectors = {
-    useConfirm,
+export const stores = {
+    confirm: $confirm,
 }
 
 export const events = {

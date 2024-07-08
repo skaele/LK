@@ -7,10 +7,15 @@ import List from '@ui/list'
 import { Message } from '@ui/message'
 import Subtext from '@ui/subtext'
 import { Title } from '@ui/title'
+import { useUnit } from 'effector-react'
 import React from 'react'
 
 const Inputs = () => {
-    const { loading, error, data } = userModel.selectors.useUser()
+    const [{ savePassword, isAuthenticated }, error, loading] = useUnit([
+        userModel.stores.user,
+        userModel.stores.error,
+        userModel.stores.loading,
+    ])
     const {
         isSubmitActive,
         password,
@@ -58,7 +63,7 @@ const Inputs = () => {
                     <Message type="failure" visible={!!error}>
                         {error}
                     </Message>
-                    <Message type="success" visible={data?.isAuthenticated ?? false}>
+                    <Message type="success" visible={isAuthenticated ?? false}>
                         Вы вошли в аккаунт
                     </Message>
                     <Input value={login} setValue={setLogin} title="Логин" placeholder="Введите логин" />
@@ -70,7 +75,7 @@ const Inputs = () => {
                         type="password"
                         alertMessage={capsLock ? 'Включен Capslock' : undefined}
                     />
-                    <Checkbox text="Оставаться в системе" checked={data.savePassword} setChecked={handleSavePassword} />
+                    <Checkbox text="Оставаться в системе" checked={savePassword} setChecked={handleSavePassword} />
                 </List>
                 <SubmitButton
                     text="Вход"

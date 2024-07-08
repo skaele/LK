@@ -2,7 +2,7 @@ import { SelectPage } from '@features/select'
 import PagintaionList from '@shared/ui/pagination-list'
 import { Hint } from '@shared/ui/search'
 import { EventCallable, Store } from 'effector'
-import { useStore } from 'effector-react'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import User from 'widgets/user'
 
@@ -29,8 +29,8 @@ type Props<T extends TUser> = {
 
 const PeoplePaginationList = <T extends TUser>({ filter, paginationList, noResultContent }: Props<T>) => {
     const { $items, $isPending, $hasNext, next, load } = paginationList
-    const isPending = useStore($isPending)
-    const hasNext = useStore($hasNext)
+    const isPending = useUnit($isPending)
+    const hasNext = useUnit($hasNext)
 
     const handleNext = () => {
         next({ filter })

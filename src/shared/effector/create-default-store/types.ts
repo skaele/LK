@@ -1,20 +1,16 @@
 import { Effect, Event, Store } from 'effector'
 
-export interface TemplateStore<DataType, PreparedDataType> {
-    data: DataType | null
-    preparedData: PreparedDataType | null
-    error: string | null
-    loading: boolean
-}
-
 export type EffectReturnType<DataType, PreparedDataType> = {
     data: DataType
     preparedData: PreparedDataType
 }
 
 export interface TemplateStoreOutput<DataType, PreparedDataType, APIGetArgs, APIPostArgs = void> {
-    selectors: {
-        useData: () => TemplateStore<DataType, PreparedDataType>
+    stores: {
+        data: Store<DataType | null>
+        preparedData: Store<PreparedDataType | null>
+        error: Store<string | null>
+        loading: Store<boolean>
     }
     effects: {
         getFx: Effect<APIGetArgs, EffectReturnType<DataType, PreparedDataType>, Error>
@@ -23,7 +19,6 @@ export interface TemplateStoreOutput<DataType, PreparedDataType, APIGetArgs, API
     events: {
         clearStore: Event<void>
     }
-    store: Store<TemplateStore<DataType, PreparedDataType>>
 }
 
 interface APIType<APIGetArgs, DataType, APIPostArgs> {
@@ -32,10 +27,6 @@ interface APIType<APIGetArgs, DataType, APIPostArgs> {
 }
 
 export interface Args<APIDataType, OutputDataType, APIGetArgs, APIPostArgs> {
-    /**
-     * Изначальное значение стора. Если не прокинуть, вставит дефольные значения
-     */
-    initialStore?: TemplateStore<APIDataType, TypeChoice<OutputDataType, APIDataType>>
     /**
      * Запросы
      */

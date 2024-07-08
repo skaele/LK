@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import instructionsStudentData, { InstructionsType } from './data/student-data'
 import instructionsTeacherData from './data/teacher-data'
 import search from './lib/search'
+import { useUnit } from 'effector-react'
 
 const CustomBlock = styled(BlockWrapper)`
     .wrapper {
@@ -56,9 +57,7 @@ const CustomLink = styled.a`
 
 const InstructionsPage = () => {
     const [foundLinks, setFoundLinks] = useState<Nullable<InstructionsType[]>>(null)
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const data = user?.user_status === 'stud' ? instructionsStudentData : instructionsTeacherData
     return (
         <CenterPage alignItems="flex-start" padding="10px">

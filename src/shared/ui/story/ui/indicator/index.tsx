@@ -1,4 +1,5 @@
 import { storyModel } from '@entities/story'
+import { useUnit } from 'effector-react'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -39,7 +40,7 @@ export type IndicatorProps = StyledProps & {
 }
 
 const Indicator = ({ filled, playing, isLast, onClose }: IndicatorProps) => {
-    const { currentPage } = storyModel.selectors.useStory()
+    const { currentPage } = useUnit(storyModel.store.story)
 
     return (
         <IndicatorWrapper filled={filled} playing={playing}>

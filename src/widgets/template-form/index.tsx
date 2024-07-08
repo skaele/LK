@@ -10,6 +10,7 @@ import { FiInfo } from 'react-icons/fi'
 import { TemplateFormStoreOutput } from 'shared/effector/create-form-store'
 import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import { useUnit } from 'effector-react'
 
 export type TemplateFormProps<T extends { last_update?: string }> = {
     model: TemplateFormStoreOutput<T, T>
@@ -33,7 +34,8 @@ const TemplateForm = <T extends { last_update?: string }>({
     formId,
     isSpecialField,
 }: TemplateFormProps<T> & { outerForm?: IInputArea | null }) => {
-    const { data, completed } = model.selectors.useForm()
+    const [data, completed] = useUnit([model.stores.data, model.stores.completed])
+
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})

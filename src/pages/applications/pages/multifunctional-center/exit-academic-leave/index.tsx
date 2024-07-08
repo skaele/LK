@@ -11,6 +11,7 @@ import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { LoadedState } from 'widgets/template-form'
 import checkFormFields from '@shared/lib/check-form-fields'
+import { useUnit } from 'effector-react'
 
 const ApplicationExitAcademicLeave = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -18,9 +19,7 @@ const ApplicationExitAcademicLeave = () => {
     const [loading, setLoading] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

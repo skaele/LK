@@ -67,10 +67,8 @@ const FoundPeople = ({
 
 const useSearchConfig = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
-    const { notifications, removeNotificationLoading } = lkNotificationModel.selectors.useLkNotifications()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { notifications, removeNotificationLoading } = useUnit(lkNotificationModel.stores.lkNotifications)
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const subdivisions = useUnit(phonebookModel.stores.subdivisions)
     const isStaff = user?.user_status === 'staff'
 

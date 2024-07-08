@@ -9,15 +9,14 @@ import { LoadedState } from 'widgets/template-form'
 import { globalAppSendForm } from '@pages/applications/lib'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
+import { useUnit } from 'effector-react'
 
 const EditPhonebookEmail = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

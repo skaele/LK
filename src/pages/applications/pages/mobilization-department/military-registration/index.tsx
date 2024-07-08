@@ -18,6 +18,7 @@ import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import checkFormFields from '@shared/lib/check-form-fields'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
 import { LoadedState } from 'widgets/template-form'
+import { useUnit } from 'effector-react'
 
 const MilitaryRegistration = () => {
     const [generalData, setGeneralData] = useState<IInputArea | null>(null)
@@ -35,9 +36,7 @@ const MilitaryRegistration = () => {
     const [completed, setCompleted] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

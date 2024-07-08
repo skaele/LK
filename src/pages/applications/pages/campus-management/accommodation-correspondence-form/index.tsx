@@ -10,6 +10,7 @@ import { userModel } from '@entities/user'
 import { getAdditionally, getRegistration, getDisability, globalAppSendForm } from '@pages/applications/lib'
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -19,12 +20,8 @@ const AccommodationCorrespondenceFormPage = () => {
     const [fluorographyCert, setFluorographyCert] = useState<IInputArea>(listConfigCert.fluorographyCert)
     const [vichRwCert, setVichRwCert] = useState<IInputArea>(listConfigCert.vichRwCert)
     const [graftCert, setGraftCert] = useState<IInputArea>(listConfigCert.graftCert)
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
+    const { currentUser: user } = useUnit(userModel.stores.user)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [disability, setDisability] = useState<IInputArea | null>(null)

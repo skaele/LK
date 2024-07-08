@@ -13,6 +13,7 @@ import Top from './ui/top'
 import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useHistory } from 'react-router'
+import { useUnit } from 'effector-react'
 
 const ContentList = styled.div`
     display: flex;
@@ -23,10 +24,7 @@ const ContentList = styled.div`
 `
 
 const ProfilePage = () => {
-    const {
-        data: { user },
-        error,
-    } = userModel.selectors.useUser()
+    const [{ currentUser: user }, error] = useUnit([userModel.stores.user, userModel.stores.error])
     const history = useHistory()
     const query = useQueryParams()
     const page = query.get('page')

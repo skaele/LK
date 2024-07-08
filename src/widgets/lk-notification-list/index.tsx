@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import { FiBellOff, FiXCircle } from 'react-icons/fi'
 import styled from 'styled-components'
 import NotificationList from './ui/list'
+import { useUnit } from 'effector-react'
 
 const LkNotificationListStyled = styled.div`
     display: flex;
@@ -26,8 +27,9 @@ type Props = {
 }
 
 const LkNotificationList = ({ maxNotificationsVisible }: Props) => {
-    const { error, loading, notifications, removeNotificationError, removeNotificationLoading } =
-        lkNotificationModel.selectors.useLkNotifications()
+    const { error, loading, notifications, removeNotificationError, removeNotificationLoading } = useUnit(
+        lkNotificationModel.stores.lkNotifications,
+    )
 
     useEffect(() => {
         if (removeNotificationError) {

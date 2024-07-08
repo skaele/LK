@@ -3,7 +3,6 @@ import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
 import { BufferHolidayPlanningForm } from '../types'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
@@ -96,10 +95,8 @@ export const events = {
 export const effects = {
     sendBufferHolidayPlanningFx,
 }
-export const selectors = {
-    useBufferHolidayPlanning: () => ({
-        data: useStore($bufferHolidayPlanning),
-        loading: useStore(sendBufferHolidayPlanningFx.pending),
-        getDataLoading: useStore(loadBufferHolidayPlanningFx.pending),
-    }),
+export const stores = {
+    data: $bufferHolidayPlanning,
+    loading: sendBufferHolidayPlanningFx.pending,
+    getDataLoading: loadBufferHolidayPlanningFx.pending,
 }

@@ -11,6 +11,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { applicationsModel } from '@entities/applications'
 import getReasonAcademic from '@pages/applications/pages/multifunctional-center/provision-academic-leave/lib/get-reason-academic'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -20,9 +21,7 @@ const ApplicationProvisionAcademicLeave = () => {
     const [loading, setLoading] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

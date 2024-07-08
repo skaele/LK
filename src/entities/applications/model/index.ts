@@ -1,18 +1,15 @@
 import { applicationApi } from '@api'
 import { Application, UserApplication, WorkerApplication } from '@api/model'
-import { applicationsModel } from '@entities/hr-applications'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
 import { MessageType } from '@shared/ui/types'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
-import { combine, createEffect, createStore, forward, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
+import { combine, createEffect, createStore, sample } from 'effector'
 
 interface ApplicationsStore {
     listApplication: Application[] | null
     dataUserApplication: UserApplication | null
     dataWorkerApplication: WorkerApplication[] | null
-    error: string | null
 }
 
 export interface ApplicationCreating {
@@ -20,7 +17,7 @@ export interface ApplicationCreating {
     args: { [key: string]: any }
 }
 
-const DEFAULT_STORE = { listApplication: null, error: null, dataUserApplication: null, dataWorkerApplication: null }
+const DEFAULT_STORE = { listApplication: null, dataUserApplication: null, dataWorkerApplication: null }
 
 const getWorkerPostsFx = createEffect(async (): Promise<any[]> => {
     const response = await applicationApi.getWorkerData()
@@ -59,23 +56,7 @@ const postApplicationFx = createEffect(async (data: ApplicationCreating): Promis
     }
 })
 
-const useApplications = () => {
-    const { listApplication, dataUserApplication, dataWorkerApplication, error } = useStore($applicationsStore)
-    return {
-        data: { listApplication, dataUserApplication, dataWorkerApplication },
-        loading: useStore(getUserDataApplicationsFx.pending),
-        workerLoading: useStore(
-            combine(
-                getWorkerPostsFx.pending,
-                applicationsModel.effects.postApplicationFx.pending,
-                (first, second) => first || second,
-            ),
-        ),
-        error: error,
-    }
-}
-
-forward({ from: postApplicationFx.doneData, to: getApplicationsFx })
+sample({ clock: postApplicationFx.doneData, target: getApplicationsFx })
 
 sample({
     clock: postApplicationFx.failData,
@@ -95,33 +76,13 @@ sample({
 })
 
 const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
-    .on(getUserDataApplicationsFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getUserDataApplicationsFx.doneData, (oldData, newData) => ({
         ...oldData,
         dataUserApplication: newData,
     }))
-    .on(getUserDataApplicationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(getApplicationsFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
     .on(getApplicationsFx.doneData, (oldData, newData) => ({
         ...oldData,
         listApplication: newData,
-    }))
-    .on(getApplicationsFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(getWorkerPostsFx, (oldData) => ({
-        ...oldData,
-        error: null,
     }))
     .on(getWorkerPostsFx.doneData, (oldData, newData) => ({
         ...oldData,
@@ -135,13 +96,24 @@ const $applicationsStore = createStore<ApplicationsStore>(DEFAULT_STORE)
         ...DEFAULT_STORE,
     }))
 
-export const selectors = {
-    useApplications,
-}
+const $error = createStore<string | null>(null)
+    .on(getUserDataApplicationsFx, () => null)
+    .on(getUserDataApplicationsFx.failData, (_, newData) => newData.message)
+    .on(getApplicationsFx, () => null)
+    .on(getApplicationsFx.failData, (_, newData) => newData.message)
+    .on(getWorkerPostsFx, () => null)
+    .reset(userModel.stores.userGuid)
 
 export const effects = {
     getApplicationsFx,
     getUserDataApplicationsFx,
     postApplicationFx,
     getWorkerPosts: getWorkerPostsFx,
+}
+
+export const stores = {
+    applicationsStore: $applicationsStore,
+    loading: getUserDataApplicationsFx.pending,
+    workerLoading: combine(getWorkerPostsFx.pending, postApplicationFx.pending, (first, second) => first || second),
+    error: $error,
 }

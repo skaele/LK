@@ -9,6 +9,7 @@ import Subtext from '@ui/subtext'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Vacation } from '../organism'
 import { FiPlus } from 'react-icons/fi'
+import { useUnit } from 'effector-react'
 
 const calendarUrls = {
     fiveWorkDays:
@@ -18,10 +19,8 @@ const calendarUrls = {
 }
 
 const Page = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
-    const { data, error } = vacationScheduleModel.selectors.useData()
+    const { currentUser: user } = useUnit(userModel.stores.user)
+    const [data, error] = useUnit([vacationScheduleModel.stores.data, vacationScheduleModel.stores.error])
 
     const items: SelectPage[] = useMemo(() => {
         return data?.map((value, index) => ({ id: index, title: value.division })) || []

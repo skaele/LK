@@ -10,6 +10,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { applicationsModel } from '@entities/applications'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
+import { useUnit } from 'effector-react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -19,9 +20,7 @@ const ApplicationPaperCall = () => {
     const [loading, setLoading] = useState(false)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const isDone = completed ?? false
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         if (!!dataUserApplication) {

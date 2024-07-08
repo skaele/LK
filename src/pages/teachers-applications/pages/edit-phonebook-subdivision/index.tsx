@@ -9,6 +9,7 @@ import { globalAppSendForm } from '@pages/applications/lib'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
 import { userModel } from '@entities/user'
+import { useUnit } from 'effector-react'
 
 const EditPhonebookSubdivision = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -21,9 +22,7 @@ const EditPhonebookSubdivision = () => {
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     useEffect(() => {
         if (!!user) {

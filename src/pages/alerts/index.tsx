@@ -4,9 +4,14 @@ import { Error, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import React, { useEffect } from 'react'
 import Alerts from './ui/alerts'
+import { useUnit } from 'effector-react'
 
 const AlertsPage = () => {
-    const { preparedData, error, loading } = alertModel.selectors.useData()
+    const [preparedData, error, loading] = useUnit([
+        alertModel.stores.preparedData,
+        alertModel.stores.error,
+        alertModel.stores.loading,
+    ])
 
     useEffect(() => {
         lkNotificationModel.events.clearById({ id: 'alert', pageId: 'alerts' })

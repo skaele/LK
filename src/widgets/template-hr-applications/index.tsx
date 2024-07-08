@@ -5,6 +5,7 @@ import PageBlock from '@shared/ui/page-block'
 import { Message, Title, Wrapper } from '@ui/atoms'
 import { Error } from '@ui/error'
 import { LocalSearch } from '@ui/molecules'
+import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -100,10 +101,10 @@ interface Props {
 }
 
 const TeachersHrApplicationsPage = ({}: Props) => {
-    const {
-        data: { listApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
+    const [{ listApplication }, error] = useUnit([
+        applicationsModel.stores.applicationsStore,
+        applicationsModel.stores.error,
+    ])
     const { close } = useModal()
     const sections: Section[] = getTeachersHRSectionLinks()
     const [search, setSearch] = useState<string>('')

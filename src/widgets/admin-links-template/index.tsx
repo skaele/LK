@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { FiDownload, FiInfo } from 'react-icons/fi'
 import styled from 'styled-components'
 import getMessage from './lib/get-message'
+import { useUnit } from 'effector-react'
 
 const AdminLinksTemplateWrapper = styled.div`
     .content {
@@ -29,7 +30,7 @@ interface Props {
 const AdminLinksTemplate = ({ title, links }: Props) => {
     const [dates, setDates] = useState(['', ''])
     const [validDates, setValidDates] = useState(true)
-    const { data } = adminLinksModel.selectors.useData()
+    const data = useUnit(adminLinksModel.stores.data)
     return !!data ? (
         <AdminLinksTemplateWrapper>
             <Title size={3} align="left" bottomGap>

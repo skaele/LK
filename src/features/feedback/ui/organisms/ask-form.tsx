@@ -6,13 +6,14 @@ import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
 import sendForm from '@utils/send-form'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 export function AskForm() {
     const [form, setForm] = useState<IInputArea | null>(null)
-    const { data, completed } = feedbackModel.selectors.useForm()
+    const [data, completed] = useUnit([feedbackModel.stores.data, feedbackModel.stores.completed])
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
 

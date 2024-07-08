@@ -12,13 +12,12 @@ import { LinkTutoiral } from 'widgets/tutorial/tutorials/link-tutorial'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 import { LeftSideBarListTutorial } from 'widgets/tutorial/tutorials/left-sidebar-list-tutorial'
 import { UserBigTutorial } from 'widgets/tutorial/tutorials/user-big-tutoria'
+import { useUnit } from 'effector-react'
 
 const LeftsideBar = ({ forwardedRef }: TutorialComponent) => {
     const { isOpen } = menuModel.selectors.useMenu()
     const { width, height } = useResize()
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const { visibleRoutes } = menuModel.selectors.useMenu()
     const location = useLocation()

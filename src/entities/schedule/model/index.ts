@@ -1,6 +1,5 @@
 import { IFullSchedule, ISchedule, User } from '@api/model'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
 import { EMPTY_WEEK, View } from '../consts'
 import { getGroupSchedule } from '../lib/get-group-schedule'
 import { getTeacherSchedule } from '../lib/get-teacher-schedule'
@@ -17,10 +16,6 @@ const DEFAULT_STORE: ISchedule = {
     },
     loading: false,
     error: null,
-}
-
-const useSchedule = () => {
-    return useStore($schedule)
 }
 
 const getScheduleFx = createEffect(async (user: User | undefined | null) => {
@@ -182,8 +177,8 @@ sample({
     target: $schedule,
 })
 
-export const selectors = {
-    useSchedule,
+export const stores = {
+    schedule: $schedule,
 }
 
 export const events = {

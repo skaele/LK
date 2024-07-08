@@ -11,6 +11,7 @@ import { IInputArea } from '@shared/ui/input-area/model'
 import React, { useEffect, useState } from 'react'
 import { getCertForm } from './lib/cert-form'
 import { getForm } from './lib/main-form'
+import { useUnit } from 'effector-react'
 
 const MedicalCertificate = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -24,9 +25,7 @@ const MedicalCertificate = () => {
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
 
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
+    const { dataUserApplication } = useUnit(applicationsModel.stores.applicationsStore)
 
     useEffect(() => {
         dataUserApplication && setForm(getForm(dataUserApplication))

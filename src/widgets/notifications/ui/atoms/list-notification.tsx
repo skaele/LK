@@ -4,13 +4,14 @@ import Flex from '@shared/ui/flex'
 import { Error } from '@ui/error'
 import React from 'react'
 import { CardDocument, CardNotification } from './index'
+import { useUnit } from 'effector-react'
 
 interface Props {
     listNotification: ItemNotification[]
 }
 
 const ListNotifications = ({ listNotification }: Props) => {
-    const type = personalNotificationModel.selectors.useType()
+    const type = useUnit(personalNotificationModel.stores.type)
 
     return (
         <Flex d="column" gap="8px">

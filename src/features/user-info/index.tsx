@@ -6,6 +6,7 @@ import React from 'react'
 import styled from 'styled-components'
 import GlobalAppSearch from '@features/global-app-search'
 import { NotificationBellTutorial } from 'widgets/tutorial/tutorials/notification-bell-tutorial'
+import { useUnit } from 'effector-react'
 
 const UserInfoStyled = styled.div`
     padding: 4px;
@@ -24,9 +25,7 @@ type Props = {
 }
 
 const UserInfo = ({ showSearch = false }: Props) => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     if (!user) return null
 

@@ -3,6 +3,7 @@ import { hintModel } from '@entities/hint'
 import { Message } from '@ui/message'
 import React from 'react'
 import styled from 'styled-components'
+import { useUnit } from 'effector-react'
 
 const HintModalWrapper = styled.div<{ open: boolean; left: number; top: number }>`
     left: ${({ left }) => left + 'px'};
@@ -42,7 +43,7 @@ const HintModalWrapper = styled.div<{ open: boolean; left: number; top: number }
 `
 
 const HintModal = () => {
-    const { hints } = hintModel.selectors.useHint()
+    const { hints } = useUnit(hintModel.stores.hint)
     const currentHint = hints[0]
 
     if (!currentHint) return null

@@ -6,11 +6,12 @@ import React from 'react'
 import { useModal } from 'widgets'
 import { EventsModal } from './events-modal'
 import { getWeekDayFromDate } from '@shared/lib/dates/get-weekday-from-date'
+import { useUnit } from 'effector-react'
 
 export const ShowNextDayEventsButton = () => {
     const {
         data: { schedule },
-    } = scheduleModel.selectors.useSchedule()
+    } = useUnit(scheduleModel.stores.schedule)
     const { open } = useModal()
     const nextDay = getDateInSomeDays(new Date(), 1)
     const modalTitle = capitalizeFirstLetter(

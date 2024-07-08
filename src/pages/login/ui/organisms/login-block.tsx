@@ -4,6 +4,7 @@ import BlockWrapper from '@ui/block/styles'
 import styled from 'styled-components'
 import Information from '../molecules/information'
 import Inputs from '../molecules/inputs'
+import { useUnit } from 'effector-react'
 
 const LoginBlockStyled = styled(BlockWrapper)<{ isAuthenticated: boolean }>`
     overflow: hidden;
@@ -127,9 +128,7 @@ const LoginBlockStyled = styled(BlockWrapper)<{ isAuthenticated: boolean }>`
 `
 
 const LoginBlock = () => {
-    const {
-        data: { isAuthenticated },
-    } = userModel.selectors.useUser()
+    const { isAuthenticated } = useUnit(userModel.stores.user)
     return (
         <LoginBlockStyled
             isAuthenticated={isAuthenticated ?? false}

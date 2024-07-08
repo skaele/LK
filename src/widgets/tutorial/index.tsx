@@ -18,9 +18,7 @@ export const TutorialHero = () => {
         tutorialModel.events.tutorialEnabled,
         tutorialModel.events.setHeroVisited,
     ])
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     const { isMobile, isTablet } = useCurrentDevice()
     if (tutorialState !== null || (heroVisited && !isDeleted)) return null

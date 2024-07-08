@@ -1,5 +1,4 @@
 import { createEvent, createStore } from 'effector'
-import { useStore } from 'effector-react/compat'
 import { StoryProps } from '@ui/story/ui/story-page'
 
 export interface IStory {
@@ -12,10 +11,6 @@ const DEFAULT_STORE: IStory = {
     isOpen: false,
     pages: [],
     currentPage: 0,
-}
-
-const useStory = () => {
-    return useStore($story)
 }
 
 const open = createEvent<{ pages: StoryProps[] }>()
@@ -43,8 +38,8 @@ const $story = createStore<IStory>(DEFAULT_STORE)
         ...DEFAULT_STORE,
     }))
 
-export const selectors = {
-    useStory,
+export const store = {
+    story: $story,
 }
 
 export const events = {

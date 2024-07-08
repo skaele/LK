@@ -1,30 +1,7 @@
 import { teacherDataVerificationApi } from '@api'
 import { TeacherDataVerification } from '@api/model'
 import { userModel } from '@entities/user'
-import { createEffect, createStore, createEvent } from 'effector'
-import { useStore } from 'effector-react/compat'
-import { forward } from 'effector/effector.mjs'
-
-interface TeacherDataVerificationStore {
-    teacherDataVerification: TeacherDataVerification | null
-    error: string | null
-    completed: boolean
-}
-
-const DEFAULT_STORE: TeacherDataVerificationStore = {
-    teacherDataVerification: null,
-    error: null,
-    completed: false,
-}
-
-const useTeacherDataVerification = () => {
-    return {
-        data: useStore($teacherDataVerificationStore).teacherDataVerification,
-        loading: useStore(getTeacherDataVerificationFx.pending),
-        error: useStore($teacherDataVerificationStore).error,
-        completed: useStore($teacherDataVerificationStore).completed,
-    }
-}
+import { createEffect, createStore, createEvent, sample } from 'effector'
 
 const postTeacherDataVerification = createEvent<TeacherDataVerification>()
 const changeCompleted = createEvent<{ completed: boolean }>()
@@ -39,7 +16,7 @@ const postTeacherDataVerificationFx = createEffect(async (postData: TeacherDataV
     }
 })
 
-forward({ from: postTeacherDataVerification, to: postTeacherDataVerificationFx })
+sample({ clock: postTeacherDataVerification, target: postTeacherDataVerificationFx })
 
 const getTeacherDataVerificationFx = createEffect(async (): Promise<TeacherDataVerification> => {
     try {
@@ -51,29 +28,24 @@ const getTeacherDataVerificationFx = createEffect(async (): Promise<TeacherDataV
     }
 })
 
-const $teacherDataVerificationStore = createStore<TeacherDataVerificationStore>(DEFAULT_STORE)
-    .on(getTeacherDataVerificationFx, (oldData) => ({
-        ...oldData,
-        error: null,
-    }))
-    .on(getTeacherDataVerificationFx.doneData, (oldData, newData) => ({
-        ...oldData,
-        teacherDataVerification: newData,
-    }))
-    .on(getTeacherDataVerificationFx.failData, (oldData, newData) => ({
-        ...oldData,
-        error: newData.message,
-    }))
-    .on(changeCompleted, (oldData, newData) => ({
-        ...oldData,
-        completed: newData.completed,
-    }))
-    .on(userModel.stores.userGuid, () => ({
-        ...DEFAULT_STORE,
-    }))
+const $teacherDataVerification = createStore<TeacherDataVerification | null>(null)
+    .on(getTeacherDataVerificationFx.doneData, (_, newData) => newData)
+    .reset(userModel.stores.userGuid)
 
-export const selectors = {
-    useTeacherDataVerification,
+const $error = createStore<string | null>(null)
+    .on(getTeacherDataVerificationFx, () => null)
+    .on(getTeacherDataVerificationFx.failData, (_, { message }) => message)
+    .reset(userModel.stores.userGuid)
+
+const $completed = createStore<boolean>(false)
+    .on(changeCompleted, (oldData, { completed }) => completed)
+    .reset(userModel.stores.userGuid)
+
+export const stores = {
+    data: $teacherDataVerification,
+    loading: getTeacherDataVerificationFx.pending,
+    error: $error,
+    completed: $completed,
 }
 
 export const effects = {

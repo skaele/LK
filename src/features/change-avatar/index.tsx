@@ -7,6 +7,7 @@ import FileInput from '@shared/ui/file-input'
 import List from '@shared/ui/list'
 import useSubmitButton from '@shared/ui/submit-button/use-submit-button'
 import UserHeader from '@shared/ui/user-header'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -21,9 +22,7 @@ const ChangeAvatarStyled = styled.div`
 `
 
 const ChangeAvatar = () => {
-    const {
-        data: { user },
-    } = userModel.selectors.useUser()
+    const { currentUser: user } = useUnit(userModel.stores.user)
 
     if (!user) return null
 

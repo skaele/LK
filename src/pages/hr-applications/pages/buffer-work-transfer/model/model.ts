@@ -3,7 +3,6 @@ import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
 import { BufferWorkTransfer, BufferWorkTransferForm, BufferWorkTransferHistories } from '../types'
 
 const loadBufferWorkTransfer = createEvent()
@@ -72,9 +71,7 @@ export const events = {
 export const effects = {
     sendBufferWorkTransferFx,
 }
-export const selectors = {
-    useBufferWorkTransfer: () => ({
-        data: useStore($bufferWorkTransferOrders),
-        loading: useStore($bufferWorkTransferLoading),
-    }),
+export const stores = {
+    data: $bufferWorkTransferOrders,
+    loading: $bufferWorkTransferLoading,
 }

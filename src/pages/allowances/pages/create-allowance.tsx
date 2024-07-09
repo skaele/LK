@@ -68,7 +68,7 @@ const CreateAllowance = () => {
 
     return (
         <BaseApplicationWrapper isDone={isDone}>
-            {!!form && !!employees && !!job && (
+            {!!roles && !!form && !!employees && !!job && (
                 <FormBlock noHeader>
                     <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
                         <p>Интерфейс все еще находится в разработке</p>

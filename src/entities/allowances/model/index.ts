@@ -135,7 +135,7 @@ sample({
         allowanceId: id,
         userId: userId,
     }),
-    target: allowanceQuery.start,
+    target: [allowanceQuery.reset, allowanceQuery.start],
 })
 sample({
     clock: createSupplementMutation.$succeeded,

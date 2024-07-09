@@ -18,14 +18,14 @@ export const Initiator = () => {
 
     // const [lastSearch, setLastSearch] = useState('')
     // const [fio, setFio] = useState('')
-    const [job, setJob] = useState<SelectPage | null>(
-        jobs
-            ? {
-                  id: jobs[0].employeeId,
-                  title: jobs[0].division,
-              }
-            : null,
-    )
+    const [job, setJob] = useState<SelectPage | null>(() => {
+        const job = jobs && jobs.find((job) => job.roles.includes('Initiator'))
+        if (!job) return null
+        return {
+            id: job.employeeId,
+            title: job.division,
+        }
+    })
     // const [searchValue, setSearchValue, loading] = useDebounce({
     //     onDebounce: setFio,
     //     delay: 400,
@@ -53,7 +53,11 @@ export const Initiator = () => {
             </Message>
             <Flex d="column" jc="flex-start" ai="flex-start">
                 <Select
-                    items={jobs.map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]}
+                    items={
+                        jobs
+                            .filter((job) => job.roles.includes('Initiator'))
+                            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+                    }
                     selected={job}
                     setSelected={setJob}
                 />

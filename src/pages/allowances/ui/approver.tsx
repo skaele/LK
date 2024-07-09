@@ -14,14 +14,14 @@ export const Approver = () => {
     const history = useHistory()
     const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
 
-    const [job, setJob] = useState<SelectPage | null>(
-        jobs
-            ? {
-                  id: jobs[0].employeeId,
-                  title: jobs[0].division,
-              }
-            : null,
-    )
+    const [job, setJob] = useState<SelectPage | null>(() => {
+        const job = jobs && jobs.find((job) => job.roles.includes('Approver'))
+        if (!job) return null
+        return {
+            id: job.employeeId,
+            title: job.division,
+        }
+    })
 
     if (!jobs) return null
     return (
@@ -32,7 +32,11 @@ export const Approver = () => {
             </Message>
             <Flex d="column" jc="flex-start" ai="flex-start">
                 <Select
-                    items={jobs.map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]}
+                    items={
+                        jobs
+                            .filter((job) => job.roles.includes('Approver'))
+                            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+                    }
                     selected={job}
                     setSelected={setJob}
                 />

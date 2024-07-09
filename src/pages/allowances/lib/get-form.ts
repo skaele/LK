@@ -4,10 +4,12 @@ import { JobRoles } from '@shared/api/model/allowances'
 import { IInputArea } from '@shared/ui/input-area/model'
 
 export const getJob = (data: JobRoles): IInputArea => {
-    const subdivisions = data.map((job) => ({
-        id: job.employeeId,
-        title: job.division,
-    }))
+    const subdivisions = data
+        .filter((job) => job.roles.includes('Initiator'))
+        .map((job) => ({
+            id: job.employeeId,
+            title: job.division,
+        }))
     return {
         title: 'Подразделение',
         data: [
@@ -15,7 +17,7 @@ export const getJob = (data: JobRoles): IInputArea => {
                 fieldName: 'initiatorId',
                 title: 'Подразделение',
                 type: 'select',
-                value: subdivisions && subdivisions.length === 1 ? subdivisions : null,
+                value: subdivisions && subdivisions.length === 1 ? subdivisions[0] : null,
                 required: true,
                 editable: subdivisions.length > 1,
                 width: '100',

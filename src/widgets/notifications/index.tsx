@@ -10,6 +10,8 @@ import Input from '../../shared/ui/input'
 import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
+import { NotificationType } from '@entities/notification/model'
+import { AllowanceList } from './ui/allowance-list'
 
 const ElementsControlNotification = styled.div`
     display: flex;
@@ -18,18 +20,9 @@ const ElementsControlNotification = styled.div`
     width: 100%;
 `
 
-const PageWrapper = styled.div`
-    .slider-list-notification {
-        margin-top: 12px;
-        width: 100%;
-    }
-`
-
 interface Props {
     docsType?: boolean
 }
-
-type NotificationType = 'notifications' | 'docs'
 
 const BASE_FILTER_LIST = [
     { id: 'all', title: 'Все' },
@@ -115,52 +108,49 @@ const NotificationsPage = ({ docsType }: Props) => {
             error={error}
             data={foundNotification}
         >
-            <PageWrapper>
-                <PageBlock>
-                    <ElementsControlNotification>
-                        <Input
-                            value={searchValue}
-                            setValue={setSearchValue}
-                            placeholder={'Поиск'}
-                            leftIcon={<FiSearch />}
-                        />
-                        <Select
-                            items={notificationType === 'notifications' ? NOTIFICATION_FILTER_LIST : BASE_FILTER_LIST}
-                            selected={notificationType === 'notifications' ? notificationsFilter : baseFilter}
-                            setSelected={notificationType === 'notifications' ? setNotificationsFilter : setBaseFilter}
-                        />
-                    </ElementsControlNotification>
-                    {docsType && foundNotification?.docs ? (
-                        <ListNotification listNotification={foundNotification?.docs} />
-                    ) : (
-                        <SliderPage
-                            onChangePage={handleSlideChange}
-                            pages={[
-                                {
-                                    id: 'docs',
-                                    title: 'Приказы',
-                                    content: foundNotification?.docs && (
-                                        <ListNotification listNotification={foundNotification?.docs} />
-                                    ),
-                                },
-                                {
-                                    id: 'notifications',
-                                    title: 'Кадровые уведомления',
-                                    content: filteredNotifications.length ? (
-                                        <ListNotification listNotification={filteredNotifications} />
-                                    ) : undefined,
-                                },
-                                {
-                                    title: 'Надбавки',
-                                    condition: undefined,
-                                    content: undefined,
-                                },
-                            ]}
-                            className="slider-list-notification"
-                        />
-                    )}
-                </PageBlock>
-            </PageWrapper>
+            <PageBlock>
+                <ElementsControlNotification>
+                    <Input
+                        value={searchValue}
+                        setValue={setSearchValue}
+                        placeholder={'Поиск'}
+                        leftIcon={<FiSearch />}
+                    />
+                    <Select
+                        items={notificationType === 'notifications' ? NOTIFICATION_FILTER_LIST : BASE_FILTER_LIST}
+                        selected={notificationType === 'notifications' ? notificationsFilter : baseFilter}
+                        setSelected={notificationType === 'notifications' ? setNotificationsFilter : setBaseFilter}
+                    />
+                </ElementsControlNotification>
+                {docsType && foundNotification?.docs ? (
+                    <ListNotification listNotification={foundNotification?.docs} />
+                ) : (
+                    <SliderPage
+                        onChangePage={handleSlideChange}
+                        pages={[
+                            {
+                                id: 'docs',
+                                title: 'Приказы',
+                                content: foundNotification?.docs && (
+                                    <ListNotification listNotification={foundNotification?.docs} />
+                                ),
+                            },
+                            {
+                                id: 'notifications',
+                                title: 'Кадровые уведомления',
+                                content: filteredNotifications.length ? (
+                                    <ListNotification listNotification={filteredNotifications} />
+                                ) : undefined,
+                            },
+                            {
+                                id: 'allowances',
+                                title: 'Надбавки',
+                                content: <AllowanceList />,
+                            },
+                        ]}
+                    />
+                )}
+            </PageBlock>
         </Wrapper>
     )
 }

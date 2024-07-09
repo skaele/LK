@@ -15,14 +15,47 @@ import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { AllowanceNotification } from '@shared/api/model/notification'
 
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
+const allowanceStatusChanged = createEvent<{ id: string; status: 'approved' | 'rejected' }>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
 
+const $employeeAllowances = createStore<AllowanceNotification[] | null>([
+    {
+        id: '2',
+        initials: 'Хуснулина Дария Рашитовна',
+        sum: 10000,
+        startDate: '2024-06-01',
+        endDate: '2024-07-01',
+        divisionName: 'Центр развития технологий в цифровом образовании',
+        status: 'unknown',
+    },
+    {
+        id: '1',
+        initials: 'Хуснулина Дария Рашитовна',
+        sum: 20000,
+        startDate: '2024-03-01',
+        endDate: '2024-04-01',
+        divisionName: 'Кафедра "Информатика и информационные технологии"',
+        status: 'approved',
+    },
+    {
+        id: '0',
+        initials: 'Хуснулина Дария Рашитовна',
+        sum: 100000,
+        startDate: '2024-04-15',
+        endDate: '2024-07-22',
+        divisionName: 'Центр развития технологий в цифровом образовании',
+        status: 'rejected',
+    },
+]).on(allowanceStatusChanged, (allowances, status) =>
+    allowances?.map((allowance) => (allowance.id === status.id ? { ...allowance, status: status.status } : allowance)),
+)
 const $completed = createStore(false)
 const setCompleted = createEvent<boolean>()
 const $allowances = createStore<{
@@ -207,6 +240,7 @@ export const events = {
     infoPageMounted,
     approve,
     reject,
+    allowanceStatusChanged,
 }
 
 export const queries = {
@@ -226,4 +260,5 @@ export const stores = {
     allowances: $allowances,
     employees: $subordinates,
     completed: $completed,
+    employeeAllowances: $employeeAllowances,
 }

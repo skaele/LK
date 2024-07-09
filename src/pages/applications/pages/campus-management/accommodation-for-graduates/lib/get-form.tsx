@@ -1,6 +1,7 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import listHostelsOptions from '@features/applications/lib/get-list-hostels'
+import React from 'react'
 
 const statusesStudentForHostelOptions = [
     {
@@ -80,7 +81,16 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 items: statusesStudentForHostelOptions,
             },
         ],
-        hint: 'Прикрепите справку из приемной комиссии о подаче документов для поступления и/или выписку из приказа о предоставлении каникул',
+        hint: (
+            <>
+                <p>
+                    Прикрепите справку из приемной комиссии о подаче документов для поступления и/или выписку из приказа
+                    о предоставлении каникул
+                </p>
+                <br />
+                <p>Подача заявок будет недоступна с 01.08.2024</p>
+            </>
+        ),
         documents: { files: [], fieldName: 'docs', required: false, maxFiles: 3, allowedTypes: ['application/pdf'] },
     }
 }

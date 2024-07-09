@@ -8,7 +8,6 @@ import { getEmployees, getForm, getJob } from '../lib/get-form'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
-import { applicationsModel } from '@entities/applications'
 import { FiInfo } from 'react-icons/fi'
 import { SelectPage } from '@features/select'
 
@@ -17,9 +16,6 @@ const CreateAllowance = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [employees, setEmployees] = useState<IInputArea | null>(null)
 
-    const {
-        data: { dataUserApplication },
-    } = applicationsModel.selectors.useApplications()
     const [
         createSupplement,
         loading,
@@ -28,6 +24,7 @@ const CreateAllowance = () => {
         activityAreas,
         pageMounted,
         subordinates,
+        roles,
         completed,
         setCompleted,
     ] = useUnit([
@@ -38,18 +35,19 @@ const CreateAllowance = () => {
         allowancesModel.queries.activityAreas.$data,
         allowancesModel.events.pageMounted,
         allowancesModel.stores.employees,
+        allowancesModel.queries.role.$data,
         allowancesModel.stores.completed,
         allowancesModel.events.setCompleted,
     ])
 
     const isDone = completed ?? false
     useEffect(() => {
-        if (!!dataUserApplication && !!allowanceTypes && !!fundingSources && !!activityAreas) {
-            const jobForm = getJob(dataUserApplication)
+        if (!!roles && !!allowanceTypes && !!fundingSources && !!activityAreas) {
+            const jobForm = getJob(roles)
             setJob(jobForm)
             setForm(getForm(fundingSources, allowanceTypes, activityAreas))
         }
-    }, [dataUserApplication, allowanceTypes, fundingSources, activityAreas])
+    }, [roles, allowanceTypes, fundingSources, activityAreas])
 
     useEffect(() => {
         if (!!job && !!subordinates) {

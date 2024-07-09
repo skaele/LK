@@ -1,20 +1,21 @@
 import { HandbookItem } from '@entities/allowances/types'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { SelectPage } from '@features/select'
-import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
-import { UserApplication } from '@shared/api/model'
+import { JobRoles } from '@shared/api/model/allowances'
 import { IInputArea } from '@shared/ui/input-area/model'
 
-export const getJob = (data: UserApplication): IInputArea => {
-    const subdivisions = getFormattedSubDivisions(data.subdivisions)
+export const getJob = (data: JobRoles): IInputArea => {
+    const subdivisions = data.map((job) => ({
+        id: job.employeeId,
+        title: job.division,
+    }))
     return {
         title: 'Подразделение',
         data: [
             {
                 fieldName: 'initiatorId',
-                title: 'Должность, подразделение',
+                title: 'Подразделение',
                 type: 'select',
-                value: getDefaultSubdivision(data.subdivisions),
+                value: subdivisions && subdivisions.length === 1 ? subdivisions : null,
                 required: true,
                 editable: subdivisions.length > 1,
                 width: '100',

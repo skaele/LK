@@ -8,26 +8,19 @@ export const getAllowancesColumns = (): ColumnProps[] => {
     return [
         {
             title: 'Тип',
-            field: 'allowanceType',
+            field: 'paymentIdentifier',
             priority: 'three',
             width: '150px',
-            render: (value) => value.name || '-',
-        },
-        {
-            title: 'Вид деятельности',
-            field: 'activityArea',
-            priority: 'two',
-            width: '150px',
-            render: (value) => value.name || '-',
+            render: (value) => value || '-',
         },
         {
             title: 'Источник финансирования',
-            field: 'fundingSource',
+            field: 'sourceOfFunding',
             priority: 'four',
             width: '150px',
-            render: (value) => value.name || '-',
+            render: (value) => value || '-',
         },
-        { title: 'Комментарий', field: 'commentary', render: (value) => value.name || '-' },
+        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
         {
             title: 'Дата',
             field: 'createdAt',

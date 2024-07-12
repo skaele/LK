@@ -19,9 +19,8 @@ const CreateAllowance = () => {
     const [
         createSupplement,
         loading,
-        allowanceTypes,
-        fundingSources,
-        activityAreas,
+        paymentIdentifiers,
+        sourcesOfFunding,
         pageMounted,
         subordinates,
         roles,
@@ -30,9 +29,8 @@ const CreateAllowance = () => {
     ] = useUnit([
         allowancesModel.events.createSupplement,
         allowancesModel.mutations.createSupplement.$pending,
-        allowancesModel.queries.allowanceTypes.$data,
-        allowancesModel.queries.fundingSources.$data,
-        allowancesModel.queries.activityAreas.$data,
+        allowancesModel.queries.paymentIdentifiers.$data,
+        allowancesModel.queries.sourcesOfFunding.$data,
         allowancesModel.events.pageMounted,
         allowancesModel.stores.employees,
         allowancesModel.queries.role.$data,
@@ -42,12 +40,12 @@ const CreateAllowance = () => {
 
     const isDone = completed ?? false
     useEffect(() => {
-        if (!!roles && !!allowanceTypes && !!fundingSources && !!activityAreas) {
+        if (!!roles && !!paymentIdentifiers && !!sourcesOfFunding) {
             const jobForm = getJob(roles)
             setJob(jobForm)
-            setForm(getForm(fundingSources, allowanceTypes, activityAreas))
+            setForm(getForm(sourcesOfFunding, paymentIdentifiers))
         }
-    }, [roles, allowanceTypes, fundingSources, activityAreas])
+    }, [roles, paymentIdentifiers, sourcesOfFunding])
 
     useEffect(() => {
         if (!!job && !!subordinates) {

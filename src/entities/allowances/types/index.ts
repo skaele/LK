@@ -6,15 +6,16 @@ export type HandbookItem = {
     name: string
 }
 
-export type HandbookType = 'AllowanceType' | 'FundingSource' | 'ActivityArea'
+export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
 
 export type Allowance = {
     id: string
-    activityArea: HandbookItem
-    fundingSource: HandbookItem
-    allowanceType: HandbookItem
+    sourceOfFunding: HandbookItem
+    paymentIdentifier: HandbookItem
     commentary: string
-    employees: (Employee & { approvalStatus: AllowancesApprovalResponse })[]
+    createdAt: string
+    status: AllowancesApprovalResponse
+    attachedFileIds: string[]
 }
 
 export type AllowanceEmployee = {
@@ -25,11 +26,13 @@ export type AllowanceEmployee = {
     divisionName: string
     initials: string
     position: string
+    sourceOfFunding?: HandbookItem
+    paymentIdentifier?: HandbookItem
     approvalStatus?: AllowancesApprovalStatus
-    employeeVerdict?: {
+    employeeVerdicts?: {
         approverEmployeeId: string
         approverName: string
-        approvalStatus: AllowancesApprovalStatus
+        approvalStatus: AllowancesApprovalResponse
         approverOrderNumber: number
     }[]
 }

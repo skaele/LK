@@ -25,9 +25,9 @@ export const Employee = ({
 
     const statusText =
         employee?.approvalStatus ||
-        (employee?.employeeVerdict?.every((verdict) => verdict.approvalStatus === 'Approved')
+        (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Согласовано')
             ? 'Approved'
-            : employee?.employeeVerdict?.every((verdict) => verdict.approvalStatus === 'Declined')
+            : employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Отклонено')
             ? 'Declined'
             : 'Unknown')
     return (
@@ -38,16 +38,17 @@ export const Employee = ({
             <Title align="left" size={5}>
                 {employee.divisionName}, {employee.position}
             </Title>
+            {employee.paymentIdentifier && <Subtext>{employee.paymentIdentifier}</Subtext>}
+            <Subtext>Сумма: {employee.sum} руб.</Subtext>
+            <Subtext>
+                Период: {localizeDate(employee.startDate)} - {localizeDate(employee.endDate)}
+            </Subtext>
             <Message
                 type={statusText === 'Approved' ? 'success' : statusText === 'Declined' ? 'failure' : 'alert'}
                 title={allowanceConstants[statusText] || '—'}
                 align="left"
                 icon={null}
             />
-            <Subtext>Сумма: {employee.sum}</Subtext>
-            <Subtext>
-                Период: {localizeDate(employee.startDate)} - {localizeDate(employee.endDate)}
-            </Subtext>
             {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (
                 <Flex jc="space-between">
                     <Button

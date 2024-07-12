@@ -27,51 +27,33 @@ export const getJob = (data: JobRoles): IInputArea => {
         ],
     }
 }
-export const getForm = (
-    fundingSources: HandbookItem[],
-    allowanceTypes: HandbookItem[],
-    activityAreas: HandbookItem[],
-): IInputArea => {
+export const getForm = (sourceOfFundings: HandbookItem[], paymentIdentifiers: HandbookItem[]): IInputArea => {
     return {
         title: 'Установление надбавок',
         data: [
             {
-                fieldName: 'activityAreaId',
-                title: 'Направление деятельности',
-                type: 'select',
-                value: null,
-                required: true,
-                editable: activityAreas.length > 1,
-                width: '100',
-                items: activityAreas.map((item) => ({
-                    id: item.id,
-                    title: item.name,
-                })),
-                isSpecificSelect: true,
-            },
-            {
-                fieldName: 'fundingSourceId',
+                fieldName: 'sourceOfFundingId',
                 title: 'Источник финансирования',
                 type: 'select',
                 value: null,
                 required: true,
-                editable: fundingSources.length > 1,
+                editable: sourceOfFundings.length > 1,
                 width: '100',
-                items: fundingSources.map((item) => ({
+                items: sourceOfFundings.map((item) => ({
                     id: item.id,
                     title: item.name,
                 })),
                 isSpecificSelect: true,
             },
             {
-                fieldName: 'allowanceTypeId',
+                fieldName: 'paymentIdentifierId',
                 title: 'Вид набавки',
                 type: 'select',
                 value: null,
                 required: true,
-                editable: allowanceTypes.length > 1,
+                editable: paymentIdentifiers.length > 1,
                 width: '100',
-                items: allowanceTypes.map((item) => ({
+                items: paymentIdentifiers.map((item) => ({
                     id: item.id,
                     title: item.name,
                 })),

@@ -12,9 +12,8 @@ import { AllAllowances } from '@entities/allowances/model'
 
 type AllowanceRequest = {
     initiatorId: string
-    fundingSourceId: string
-    activityAreaId: string
-    allowanceTypeId: string
+    sourceOfFundingId: string
+    paymentIdentifierId: string
     commentary: string
     allowanceEmployees: Employee[]
 }

@@ -107,13 +107,10 @@ const $chosen = createStore<Allowance | null>(null)
 const roleQuery = createQuery({
     handler: getRoles,
 })
-const allowanceTypesQuery = createQuery({
+const paymentIdentifierQuery = createQuery({
     handler: getHandbook,
 })
-const fundingSourcesQuery = createQuery({
-    handler: getHandbook,
-})
-const activityAreasQuery = createQuery({
+const sourceOfFundingQuery = createQuery({
     handler: getHandbook,
 })
 
@@ -160,18 +157,13 @@ sample({
 
 sample({
     clock: pageMounted,
-    fn: () => 'AllowanceType' as const,
-    target: allowanceTypesQuery.start,
+    fn: () => 'PaymentIdentifier' as const,
+    target: paymentIdentifierQuery.start,
 })
 sample({
     clock: pageMounted,
-    fn: () => 'FundingSource' as const,
-    target: fundingSourcesQuery.start,
-})
-sample({
-    clock: pageMounted,
-    fn: () => 'ActivityArea' as const,
-    target: activityAreasQuery.start,
+    fn: () => 'SourceOfFunding' as const,
+    target: sourceOfFundingQuery.start,
 })
 
 const getAllAllowances = createEffect(async (jobs: JobRoles) => {
@@ -245,9 +237,8 @@ export const events = {
 
 export const queries = {
     role: roleQuery,
-    allowanceTypes: allowanceTypesQuery,
-    fundingSources: fundingSourcesQuery,
-    activityAreas: activityAreasQuery,
+    sourcesOfFunding: paymentIdentifierQuery,
+    paymentIdentifiers: paymentIdentifierQuery,
     allowance: allowanceQuery,
 }
 

@@ -1,3 +1,5 @@
+import { AllowancesApprovalResponse } from '@entities/allowances/types'
+
 export interface businesstripNotification {
     id: string
     analit?: number
@@ -58,7 +60,7 @@ export interface PersonalAllowance {
     issueDate: string
     paymentIdentifier: string
     sourceOfFunding: string
-    status: boolean | null
+    selfApprovalStatus: AllowancesApprovalResponse
 }
 
 export type ItemNotification = baseNotification | businesstripNotification | docsNotification

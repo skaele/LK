@@ -46,7 +46,6 @@ const confirmPersonalAllowanceMutation = createMutation({
     handler: confirmPersonalAllowance,
 })
 
-//     allowances?.map((allowance) => (allowance.id === status.id ? { ...allowance, status: status.status } : allowance)),
 const $completed = createStore(false)
 const $allowances = createStore<{
     [key: string]: AllAllowances

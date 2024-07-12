@@ -7,6 +7,7 @@ import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
+import { allowancesModel } from '@entities/allowances'
 
 type TStore = {
     notifications: TNotification[]
@@ -84,6 +85,12 @@ const clearAll = createEvent()
 const clearAllVisible = createEvent()
 
 const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
+const $allowancesNotifications = allowancesModel.queries.notifications.$data.map((allowances) => {
+    if (!allowances) return []
+    return allowances.map((allowance) =>
+        createNotification('allowance', allowance.notificationId, 'Надбавки', allowance.message),
+    )
+})
 
 forward({
     from: initialize,
@@ -91,7 +98,7 @@ forward({
 })
 
 sample({
-    clock: fetchNotifications.pending,
+    clock: [fetchNotifications.pending, allowancesModel.queries.notifications.$pending],
     source: $lkNotificationsStore,
     fn: (store, clk) => ({ ...store, loading: clk }),
     target: $lkNotificationsStore,
@@ -105,7 +112,7 @@ sample({
 })
 
 sample({
-    clock: fetchNotifications.doneData,
+    clock: [fetchNotifications.doneData, $allowancesNotifications],
     source: $lkNotificationsStore,
     fn: (store, clk) => ({
         ...store,

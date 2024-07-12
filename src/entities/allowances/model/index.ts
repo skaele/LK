@@ -29,6 +29,9 @@ const personalAllowancesMounted = createEvent()
 const allowanceStatusChanged = createEvent<Omit<ConfirmRequest, 'personalId'>>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
+const setCompleted = createEvent<boolean>()
+const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
+const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
 
 const notificationsQuery = createQuery({
     handler: getAllowancesNotifications,
@@ -43,11 +46,8 @@ const confirmPersonalAllowanceMutation = createMutation({
     handler: confirmPersonalAllowance,
 })
 
-// .on(allowanceStatusChanged, (allowances, status) =>
 //     allowances?.map((allowance) => (allowance.id === status.id ? { ...allowance, status: status.status } : allowance)),
-// )
 const $completed = createStore(false)
-const setCompleted = createEvent<boolean>()
 const $allowances = createStore<{
     [key: string]: AllAllowances
 } | null>(null)
@@ -66,8 +66,6 @@ const createSupplementMutation = createMutation({
     handler: createAllowance,
 })
 
-const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
-const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
 const veridctMutation = createMutation({
     handler: approveAllowance,
 })
@@ -241,6 +239,17 @@ sample({
     target: personalAllowancesQuery.start,
 })
 
+sample({
+    clock: userModel.events.logout,
+    target: [
+        roleQuery.reset,
+        sourceOfFundingQuery.reset,
+        paymentIdentifierQuery.reset,
+        allowanceQuery.reset,
+        personalAllowancesQuery.reset,
+        notificationsQuery.reset,
+    ],
+})
 export const events = {
     pageMounted,
     personalAllowancesMounted,
@@ -255,7 +264,7 @@ export const events = {
 
 export const queries = {
     role: roleQuery,
-    sourcesOfFunding: paymentIdentifierQuery,
+    sourcesOfFunding: sourceOfFundingQuery,
     paymentIdentifiers: paymentIdentifierQuery,
     allowance: allowanceQuery,
     personalAllowances: personalAllowancesQuery,

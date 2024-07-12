@@ -6,8 +6,9 @@ import {
     SCHEDULE_ROUTE,
 } from '@app/routes/general-routes'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
-import { DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
+import { ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
 import { NotificationType, TNotification } from '../types'
+import { allowancesModel } from '@entities/allowances'
 
 const createNotification = (type: NotificationType, id: string, title?: string, text?: string) => {
     const notifs: Record<NotificationType, TNotification> = {
@@ -106,6 +107,14 @@ const createNotification = (type: NotificationType, id: string, title?: string, 
             type: 'electronic-interaction',
             goTo: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
             pageId: 'electronic-interaction-agreement',
+        },
+        allowance: {
+            id,
+            title: title ?? 'Новая надбавка',
+            text: text ?? '',
+            type: 'allowance',
+            goTo: ALLOWANCES,
+            onClose: () => allowancesModel.mutations.viewNotification.start(id),
         },
     }
 

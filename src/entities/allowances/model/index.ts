@@ -2,60 +2,50 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 import { Allowance, Role, Subordnate } from '../types'
 import {
     approveAllowance,
+    confirmPersonalAllowance,
+    ConfirmRequest,
     createAllowance,
     getAllowances,
+    getAllowancesNotifications,
     getHandbook,
+    getPersonalAllowances,
     getRoles,
     getSubordinates,
     inspectAllowance,
     JobRoles,
+    viewNotification,
 } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
 import { IInputArea } from '@shared/ui/input-area/model'
 import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { AllowanceNotification } from '@shared/api/model/notification'
 
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
-const allowanceStatusChanged = createEvent<{ id: string; status: 'approved' | 'rejected' }>()
+const personalAllowancesMounted = createEvent()
+const allowanceStatusChanged = createEvent<Omit<ConfirmRequest, 'personalId'>>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
 
-const $employeeAllowances = createStore<AllowanceNotification[] | null>([
-    {
-        id: '2',
-        initials: 'Хуснулина Дария Рашитовна',
-        sum: 10000,
-        startDate: '2024-06-01',
-        endDate: '2024-07-01',
-        divisionName: 'Центр развития технологий в цифровом образовании',
-        status: 'unknown',
-    },
-    {
-        id: '1',
-        initials: 'Хуснулина Дария Рашитовна',
-        sum: 20000,
-        startDate: '2024-03-01',
-        endDate: '2024-04-01',
-        divisionName: 'Кафедра "Информатика и информационные технологии"',
-        status: 'approved',
-    },
-    {
-        id: '0',
-        initials: 'Хуснулина Дария Рашитовна',
-        sum: 100000,
-        startDate: '2024-04-15',
-        endDate: '2024-07-22',
-        divisionName: 'Центр развития технологий в цифровом образовании',
-        status: 'rejected',
-    },
-]).on(allowanceStatusChanged, (allowances, status) =>
-    allowances?.map((allowance) => (allowance.id === status.id ? { ...allowance, status: status.status } : allowance)),
-)
+const notificationsQuery = createQuery({
+    handler: getAllowancesNotifications,
+})
+const personalAllowancesQuery = createQuery({
+    handler: getPersonalAllowances,
+})
+const viewNotificationMutation = createMutation({
+    handler: viewNotification,
+})
+const confirmPersonalAllowanceMutation = createMutation({
+    handler: confirmPersonalAllowance,
+})
+
+// .on(allowanceStatusChanged, (allowances, status) =>
+//     allowances?.map((allowance) => (allowance.id === status.id ? { ...allowance, status: status.status } : allowance)),
+// )
 const $completed = createStore(false)
 const setCompleted = createEvent<boolean>()
 const $allowances = createStore<{
@@ -154,6 +144,11 @@ sample({
     source: userModel.stores.userGuid,
     target: roleQuery.start,
 })
+sample({
+    clock: appStarted,
+    source: userModel.stores.userGuid,
+    target: notificationsQuery.start,
+})
 
 sample({
     clock: pageMounted,
@@ -224,8 +219,31 @@ sample({
     target: $subordinates,
 })
 
+sample({
+    clock: personalAllowancesMounted,
+    source: userModel.stores.userGuid,
+    target: personalAllowancesQuery.start,
+})
+
+sample({
+    clock: allowanceStatusChanged,
+    source: userModel.stores.userGuid,
+    fn: (personalId, allowance) => ({
+        personalId,
+        ...allowance,
+    }),
+    target: confirmPersonalAllowanceMutation.start,
+})
+
+sample({
+    clock: confirmPersonalAllowanceMutation.$succeeded,
+    source: userModel.stores.userGuid,
+    target: personalAllowancesQuery.start,
+})
+
 export const events = {
     pageMounted,
+    personalAllowancesMounted,
     appStarted,
     createSupplement,
     setCompleted,
@@ -240,10 +258,14 @@ export const queries = {
     sourcesOfFunding: paymentIdentifierQuery,
     paymentIdentifiers: paymentIdentifierQuery,
     allowance: allowanceQuery,
+    personalAllowances: personalAllowancesQuery,
+    notifications: notificationsQuery,
 }
 
 export const mutations = {
     createSupplement: createSupplementMutation,
+    viewNotification: viewNotificationMutation,
+    confirmPersonalAllowance: confirmPersonalAllowanceMutation,
 }
 
 export const stores = {
@@ -251,5 +273,4 @@ export const stores = {
     allowances: $allowances,
     employees: $subordinates,
     completed: $completed,
-    employeeAllowances: $employeeAllowances,
 }

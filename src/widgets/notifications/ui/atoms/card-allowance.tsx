@@ -1,45 +1,57 @@
 import { Info } from '@pages/profile/ui/top/styles'
-import { AllowanceNotification } from '@shared/api/model/notification'
+import { PersonalAllowance } from '@shared/api/model/notification'
 import React from 'react'
-import { CardTitle } from './styled'
 import Subtext from '@shared/ui/subtext'
 import localizeDate from '@shared/lib/dates/localize-date'
 import styled from 'styled-components'
-import { Button } from '@shared/ui/atoms'
+import { Button, Title } from '@shared/ui/atoms'
 import { Colors } from '@shared/constants'
 import { allowancesModel } from '@entities/allowances'
 import { useUnit } from 'effector-react'
 
-export const CardAllowance = ({ allowance }: { allowance: AllowanceNotification }) => {
+export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)
     if (!allowance) return null
     return (
         <CardWrapper>
             <Info>
-                <Title>{allowance.initials}</Title>
-                <Title>{allowance.divisionName}</Title>
-                {allowance.status === 'approved' && (
+                <Title align="left" size={3}>
+                    Инициатор: {allowance.initiatorName}, {allowance.position}
+                </Title>
+                {allowance.status === true && (
                     <Subtext fontSize="1em" color="var(--greenMain)">
                         Согласовано
                     </Subtext>
                 )}{' '}
-                {allowance.status === 'rejected' && (
+                {allowance.status === false && (
                     <Subtext fontSize="1em" color="#c54646">
                         Отказано
                     </Subtext>
                 )}
-                {allowance.startDate && (
-                    <Subtext>
-                        Период: {localizeDate(allowance.startDate, 'numeric')} -{' '}
-                        {localizeDate(allowance.endDate, 'numeric')}{' '}
-                    </Subtext>
-                )}
+                <Title align="left" size={4}>
+                    {allowance.paymentIdentifier}
+                </Title>
+                <Title align="left" size={5}>
+                    Источник: {allowance.sourceOfFunding}
+                </Title>
+                <Title align="left" size={5}>
+                    Сумма: {allowance.sum} руб.
+                </Title>
+                <Subtext>
+                    Период: {localizeDate(allowance.startDate, 'numeric')} -{' '}
+                    {localizeDate(allowance.endDate, 'numeric')}{' '}
+                </Subtext>
             </Info>
-            {allowance.status === 'unknown' && (
+            {allowance.status === null && (
                 <BlockButtons>
                     <Button
                         text="Отказаться"
-                        onClick={() => changeStatus({ status: 'rejected', id: allowance.id })}
+                        onClick={() =>
+                            changeStatus({
+                                allowanceId: allowance.allowanceId,
+                                isConfirmed: false,
+                            })
+                        }
                         background={Colors.red.main}
                         textColor="white"
                         height="35px"
@@ -48,7 +60,12 @@ export const CardAllowance = ({ allowance }: { allowance: AllowanceNotification 
                     />
                     <Button
                         text="Согласиться"
-                        onClick={() => changeStatus({ status: 'approved', id: allowance.id })}
+                        onClick={() =>
+                            changeStatus({
+                                allowanceId: allowance.allowanceId,
+                                isConfirmed: true,
+                            })
+                        }
                         background={Colors.green.main}
                         textColor="white"
                         height="35px"
@@ -71,9 +88,6 @@ const CardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-`
-const Title = styled(CardTitle)`
-    text-align: left;
 `
 const BlockButtons = styled.div`
     display: flex;

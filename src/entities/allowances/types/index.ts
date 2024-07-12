@@ -6,6 +6,13 @@ export type HandbookItem = {
     name: string
 }
 
+export type AllowanceNotification = {
+    notificationId: string
+    allowanceId: string
+    isRead: boolean
+    message: string
+}
+
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
 
 export type Allowance = {

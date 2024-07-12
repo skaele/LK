@@ -47,14 +47,18 @@ export interface docsNotification {
     notificationType: 'docs'
 }
 
-export interface AllowanceNotification {
-    id: string
-    initials: string
+export interface PersonalAllowance {
+    allowanceId: string
+    initiatorId: string
+    initiatorName: string
+    position: string
     sum: number
     startDate: string
     endDate: string
-    divisionName: string
-    status: 'approved' | 'rejected' | 'unknown'
+    issueDate: string
+    paymentIdentifier: string
+    sourceOfFunding: string
+    status: boolean | null
 }
 
 export type ItemNotification = baseNotification | businesstripNotification | docsNotification

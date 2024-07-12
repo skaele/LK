@@ -6,9 +6,11 @@ import {
     Role,
     Subordnate,
     AllowanceEmployee,
+    AllowanceNotification,
 } from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
+import { PersonalAllowance } from './notification'
 
 type AllowanceRequest = {
     initiatorId: string
@@ -20,6 +22,11 @@ type AllowanceRequest = {
 
 type ApplicationResult = { applicationId: string; result: string }
 
+export type ConfirmRequest = {
+    personalId: string | null
+    allowanceId: string
+    isConfirmed: boolean
+}
 export type JobRoles = { employeeId: string; division: string; roles: Role[] }[]
 
 export const getAllowances = async (employeeId: string) => {
@@ -79,3 +86,25 @@ export const getHandbook = async (handbookName: HandbookType) => {
     const { data } = await $allowancesApi.get<HandbookItem[]>('handbooks/' + handbookName)
     return data
 }
+
+// #region notifications
+export const getAllowancesNotifications = async (personalId: string | null) => {
+    const { data } = await $allowancesApi.get<AllowanceNotification[]>('notifications/' + personalId)
+    return data
+}
+export const viewNotification = async (notificationId: string) => {
+    const { data } = await $allowancesApi.patch('notifications/' + notificationId)
+    return data
+}
+// #end region
+
+// #region personal allowances
+export const getPersonalAllowances = async (personalId: string | null) => {
+    const { data } = await $allowancesApi.get<PersonalAllowance[]>('allowances/personal/' + personalId)
+    return data
+}
+export const confirmPersonalAllowance = async (req: ConfirmRequest) => {
+    const { data } = await $allowancesApi.post('allowances/confirm', req)
+    return data
+}
+// #end region

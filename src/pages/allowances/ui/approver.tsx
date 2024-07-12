@@ -1,7 +1,7 @@
 import { Message } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 import { getAllowancesColumns } from '../lib/get-allowances-columns'
 import Flex from '@shared/ui/flex'
@@ -22,6 +22,12 @@ export const Approver = () => {
             title: job.division,
         }
     })
+    const jobItems = useMemo(() => {
+        if (!jobs) return []
+        return jobs
+            .filter((job) => job.roles.includes('Approver'))
+            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+    }, [jobs])
 
     if (!jobs) return null
     return (
@@ -30,17 +36,11 @@ export const Approver = () => {
                 <p>Роль: Согласующий</p>
                 <p>Интерфейс все еще находится в разработке</p>
             </Message>
-            <Flex d="column" jc="flex-start" ai="flex-start">
-                <Select
-                    items={
-                        jobs
-                            .filter((job) => job.roles.includes('Approver'))
-                            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
-                    }
-                    selected={job}
-                    setSelected={setJob}
-                />
-            </Flex>
+            {jobItems.length > 1 && (
+                <Flex d="column" jc="flex-start" ai="flex-start">
+                    <Select items={jobItems} selected={job} setSelected={setJob} />
+                </Flex>
+            )}
             <Table
                 loading={!allowances}
                 columns={getAllowancesColumns()}

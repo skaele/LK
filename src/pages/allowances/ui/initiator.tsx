@@ -2,7 +2,7 @@
 // import Search from '@shared/ui/search'
 import { Message } from '@shared/ui/atoms'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 import Table from '@shared/ui/table'
 import { getAllowancesColumns } from '../lib/get-allowances-columns'
@@ -43,6 +43,12 @@ export const Initiator = () => {
     //     return allowances[job.id].initiatorAllowances.filter(allowance => allowance.employees.some(employee => employee.fio.includes(searchValue)))
     // }, [allowances, fio, job?.id])
 
+    const jobItems = useMemo(() => {
+        if (!jobs) return []
+        return jobs
+            .filter((job) => job.roles.includes('Approver'))
+            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+    }, [jobs])
     if (!jobs) return null
 
     return (
@@ -51,17 +57,19 @@ export const Initiator = () => {
                 <p>Роль: Инициатор</p>
                 <p>Интерфейс все еще находится в разработке</p>
             </Message>
-            <Flex d="column" jc="flex-start" ai="flex-start">
-                <Select
-                    items={
-                        jobs
-                            .filter((job) => job.roles.includes('Initiator'))
-                            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
-                    }
-                    selected={job}
-                    setSelected={setJob}
-                />
-            </Flex>
+            {jobItems.length > 1 && (
+                <Flex d="column" jc="flex-start" ai="flex-start">
+                    <Select
+                        items={
+                            jobs
+                                .filter((job) => job.roles.includes('Initiator'))
+                                .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+                        }
+                        selected={job}
+                        setSelected={setJob}
+                    />
+                </Flex>
+            )}
             {/* <Search value={searchValue} setValue={setSearchValue} loading={loading} placeholder={'Сотрудник'} /> */}
             <Table
                 loading={!allowances}

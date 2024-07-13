@@ -41,7 +41,7 @@ const PEStudent = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
-                <Title size={3} align="left" style={{ color: student.hasDebtFromPreviousSemester ? 'red' : 'inherit' }}>
+                <Title size={3} align="left" style={{ color: student.hasDebt ? 'red' : 'inherit' }}>
                     {student.fullName}
                 </Title>
 

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import PageLinkContent from './page-link-content'
 import React from 'react'
 import { useModal } from 'widgets'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const LinkWrapper = styled(Link)<{ width: number | string }>`
     width: ${({ width }) =>
@@ -32,7 +33,7 @@ export type PageLinkProps = IRoute & {
     isActive?: boolean
 }
 
-const PageLink = (props: PageLinkProps) => {
+const PageLink = (props: PageLinkProps & TutorialComponent) => {
     const { close } = useModal()
     const { menuPath, path, orientation = 'vertical', mode = 'use' } = props
     const maxWordLength = orientation === 'vertical' ? 17 : 50
@@ -53,6 +54,7 @@ const PageLink = (props: PageLinkProps) => {
 
     return (
         <LinkWrapper
+            ref={props.forwardedRef}
             to={menuPath ?? path}
             onClick={handleClickLink}
             width={orientation === 'vertical' ? linkWidth : '100%'}

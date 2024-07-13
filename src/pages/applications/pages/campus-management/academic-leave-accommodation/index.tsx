@@ -9,6 +9,7 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import React, { useEffect, useState } from 'react'
 import getForm from './lib/get-form'
+import { CampusError } from '../ui/error'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -36,6 +37,7 @@ const AcademicLeaveAccommodationPage = () => {
     if (!isForm) {
         return null
     }
+    if (new Date() < new Date(2024, 8, 15)) return <CampusError />
 
     const stagesConfigs: StagesConfigsT = [
         [{ dataForm: form, setDataForm: setForm as LoadedState }],

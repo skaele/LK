@@ -2,6 +2,7 @@ import { SkeletonShape } from '@ui/skeleton-shape'
 import React from 'react'
 import styled from 'styled-components'
 import BlockWrapper, { StyledProps } from './styles'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 type Props = StyledProps &
     React.HTMLAttributes<HTMLDivElement> & {
@@ -9,7 +10,7 @@ type Props = StyledProps &
         loading?: boolean
         skeleton?: ChildrenType
         background?: string
-    }
+    } & TutorialComponent
 
 const SkeletonWrapper = styled.div`
     width: 100%;
@@ -87,10 +88,10 @@ const DefaultSkeleton = () => {
     )
 }
 
-const Block = (props: Props) => {
+const Block = ({ forwardedRef, ...props }: Props) => {
     const { children, skeleton = <DefaultSkeleton />, loading = false, ...restProps } = props
     return (
-        <BlockWrapper {...restProps} className="block">
+        <BlockWrapper ref={forwardedRef} {...restProps} className="block">
             {!loading ? children : skeleton}
         </BlockWrapper>
     )

@@ -1,6 +1,6 @@
 import { paymentApi } from '@api'
 import { Payments } from '@api/model'
-import { createEffect, createStore, combine, createEvent, forward, sample } from 'effector'
+import { createEffect, createStore, combine, createEvent, sample } from 'effector'
 import changeCanSign from '../lib/change-can-sign'
 import { agreementSubmit } from '@shared/api/payment-api'
 import { MessageType } from '@shared/ui/types'
@@ -33,8 +33,7 @@ const signContractFx = createEffect(async (contractId: string) => {
 
 const signAgreementFx = createEffect(async (id: string) => {
     const response = await agreementSubmit(id)
-
-    if (!response.data.contracts.education && !response.data.contracts.dormitory) throw new Error()
+    if (response.data[0].result !== 'ok') throw new Error()
 })
 
 sample({
@@ -79,9 +78,9 @@ export const stores = {
     $paymentsStore,
 }
 
-forward({
-    from: getPayments,
-    to: getPaymentsFx,
+sample({
+    clock: getPayments,
+    target: getPaymentsFx,
 })
 
 export const effects = {

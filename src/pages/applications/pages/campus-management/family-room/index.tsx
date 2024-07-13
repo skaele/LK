@@ -15,6 +15,7 @@ import getRegistrationDoc from '@pages/applications/pages/campus-management/fami
 import getRegistrationFamilyMembers from '@pages/applications/pages/campus-management/family-room/lib/get-registration-family-members'
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
+import { CampusError } from '../ui/error'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -65,6 +66,7 @@ const FamilyRoomPage = () => {
     if (!isForm) {
         return null
     }
+    if (new Date() < new Date(2024, 8, 15)) return <CampusError />
     const stagesConfigs: StagesConfigsT = [
         [{ dataForm: form, setDataForm: setForm as LoadedState }],
         [{ dataForm: family, setDataForm: setFamily as LoadedState }],

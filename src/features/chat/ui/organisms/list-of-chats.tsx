@@ -1,5 +1,4 @@
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-import { AddNewChat } from '@features/add-new-chat'
 import { chatSidebarModel } from '@features/chat/model'
 import Search from '@shared/ui/search'
 import { Divider, Title } from '@ui/atoms'
@@ -8,8 +7,9 @@ import React from 'react'
 import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import { MEDIA_QUERIES } from '../../../../shared/constants'
-import Flex from '../../../../shared/ui/flex'
-import { ChatItems } from '../molecules'
+import { AddNewChatTutorial } from 'widgets/tutorial/tutorials/new-chat'
+import { ChatItemsTutorial } from 'widgets/tutorial/tutorials/chat-items-tutorial'
+import { FlexTutorial } from 'widgets/tutorial/tutorials/flex-tutorial'
 
 export const ListOfChats = () => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
@@ -22,13 +22,13 @@ export const ListOfChats = () => {
                 <Title size={3} align="left">
                     Чаты
                 </Title>
-                <AddNewChat />
+                <AddNewChatTutorial tutorialModule={{ id: 'chat', step: 1 }} />
             </ChatListTopSection>
-            <Flex gap="4px" p="0 14px" d="column">
+            <FlexTutorial gap="4px" p="0 14px" d="column" tutorialModule={{ id: 'chat', step: 2 }}>
                 <Search value={search} setValue={chatSidebarModel.events.setSearch} placeholder={'Поиск чатов'} />
-            </Flex>
+            </FlexTutorial>
             <Divider margin="10px auto" />
-            <ChatItems />
+            <ChatItemsTutorial tutorialModule={{ id: 'chat', step: 0 }} />
         </ListOfChatsWrapper>
     )
 }

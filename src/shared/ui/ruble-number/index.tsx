@@ -2,6 +2,7 @@ import React from 'react'
 import { BiRuble } from 'react-icons/bi'
 import styled from 'styled-components'
 import { Size } from '../types'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const RubleNumberStyled = styled.div<{ fontSize: string; iconSize: string; fontWeight?: string }>`
     display: flex;
@@ -27,11 +28,17 @@ type Props = {
     fontWeight?: string
 }
 
-const RubleNumber = ({ children, size, color, fontWeight }: Props) => {
+const RubleNumber = ({ children, size, color, fontWeight, forwardedRef }: Props & TutorialComponent) => {
     const fontSize = size === 'small' ? '1rem' : size === 'big' ? '1.5rem' : '1.2rem'
     const iconSize = size === 'small' ? '17px' : size === 'big' ? '22px' : '18px'
     return (
-        <RubleNumberStyled color={color} fontSize={fontSize} iconSize={iconSize} fontWeight={fontWeight}>
+        <RubleNumberStyled
+            ref={forwardedRef}
+            color={color}
+            fontSize={fontSize}
+            iconSize={iconSize}
+            fontWeight={fontWeight}
+        >
             {children}
             <BiRuble />
         </RubleNumberStyled>

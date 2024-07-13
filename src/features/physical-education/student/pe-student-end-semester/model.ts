@@ -1,14 +1,14 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { getEndSemesterMutation } from './lib'
-import { pERequest } from '@shared/api/config/pe-config'
+
+import { peApi } from '@shared/api'
 
 const endSemester = createEvent<{ studentId: string }>()
 const reset = createEvent()
 
 const endSemesterFx = createEffect(async ({ studentId }: { studentId: string }) => {
-    const data = await pERequest<{ archivedStudentEntity: { studentGuid: string } }>(getEndSemesterMutation(studentId))
+    await peApi.endSemesterForStudent(studentId)
 
-    return data.archivedStudentEntity
+    return { studentGuid: studentId }
 })
 
 export enum Status {

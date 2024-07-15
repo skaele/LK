@@ -12,6 +12,7 @@ import Slider from 'widgets/slider'
 import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 import { userModel } from '@entities/user'
+import { Colors } from '@shared/constants'
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
@@ -41,7 +42,7 @@ const PEStudent = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
-                <Title size={3} align="left" style={{ color: student.hasDebt ? 'red' : 'inherit' }}>
+                <Title size={3} align="left" style={{ color: student.hasDebt ? Colors.red.main : 'inherit' }}>
                     {student.fullName}
                 </Title>
 

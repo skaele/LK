@@ -1,5 +1,5 @@
 import { Agreement } from '@api/model'
-import { paymentsModel, thirdPartyAgreementModel } from '@entities/payments'
+import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } from '@entities/payments'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import Accordion from '@ui/accordion/accordion'
@@ -12,6 +12,9 @@ import { FiCheck, FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import { ThirdPartyModal } from './third-party'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { useHistory } from 'react-router'
+import { THIRD_PARTY_ELECTRONIC_INTERACTION } from '@app/routes/general-routes'
 
 interface Props {
     data: Agreement
@@ -29,12 +32,14 @@ const SignBlock = styled.div`
 `
 
 const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
+    const history = useHistory()
     const { id, signed_user: signedUser, name, can_sign: isActive, date } = data
-    const [done, completed, loading, signed] = useUnit([
+    const [done, completed, loading, signed, TPAgreement] = useUnit([
         paymentsModel.stores.$done,
         paymentsModel.stores.$completed,
         paymentsModel.stores.$loading,
         thirdPartyAgreementModel.stores.signed,
+        thirdPartyInteractionModel.stores.thirdPartyInteractionAgreement,
     ])
 
     const height = signedUser || done || signed ? 140 : 100
@@ -47,7 +52,16 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
 
     const handleSubmit = (isThirdParty: boolean) => {
         if (isThirdParty) {
-            thirdPartyAgreementModel.events.signStarted
+            if (!TPAgreement) {
+                popUpMessageModel.events.evokePopUpMessage({
+                    message: 'Чтобы продолжить, подпишите соглашение об электронном взаимодействии',
+                    type: 'failure',
+                    time: 10000,
+                })
+                history.push(THIRD_PARTY_ELECTRONIC_INTERACTION)
+                return
+            }
+            thirdPartyAgreementModel.events.signStarted()
             open(<ThirdPartyModal agreement={data} />)
             return
         }

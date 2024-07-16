@@ -12,7 +12,7 @@ import { Colors } from '@shared/constants'
 import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { useUnit } from 'effector-react'
 
-const ElectornicAgreementStyled = styled.div`
+export const ElectornicAgreementStyled = styled.div`
     .info-text {
         margin: 16px 0;
         line-height: 1.7rem;

@@ -12,6 +12,7 @@ import Flex from '@shared/ui/flex'
 import { Email } from './steps/email'
 import { Code } from './steps/code'
 import { Modal } from './modal'
+import { ElectornicAgreementStyled } from 'widgets/electonic-agreement/ui'
 
 const ElectronicInteractionAgreementPage = () => {
     const history = useHistory()
@@ -22,7 +23,6 @@ const ElectronicInteractionAgreementPage = () => {
     ])
     const { type } = useParams<{ type: string }>()
     const { open, close } = useModal()
-    const [step, setStep] = useState(0)
 
     const load = () => electronicInteractionModel.events.getElectronicInteraction()
 
@@ -76,49 +76,51 @@ const ElectronicInteractionAgreementPage = () => {
                             id: 'third-party',
                             title: 'Соглашение для третьей стороны',
                             content: preparedData && (
-                                <div>
-                                    <div>
-                                        Я, <b>{preparedData.fio}</b>,
-                                        <p>
-                                            <b>Паспорт: </b>
-                                            {preparedData.passSer} {preparedData.passNum}, выдан{' '}
-                                            {localizeDate(preparedData.passDate)} {preparedData.passDiv}
-                                            <br />
-                                            <b>Дата рождения: </b>
-                                            {preparedData.bdate}
-                                            <br />
-                                            <b>Номер мобильного телефона: </b>
-                                            {preparedData.phone}
-                                            <br />
-                                            <b>Адрес электронной почты: </b>
-                                            {preparedData.email}
-                                        </p>
-                                        <p>
-                                            настоящим безоговорочно без каких-либо изъятий или ограничений на условиях
-                                            присоединения принимаю условия{' '}
-                                            <a
-                                                target="_blank"
-                                                href="https://e.mospolytech.ru/old/storage/files/EAccept.pdf"
-                                                rel="noreferrer"
-                                            >
-                                                СОГЛАШЕНИЯ
-                                            </a>{' '}
-                                            об электронном взаимодействии, опубликованного на официальном сайте
-                                            Университета, и выражаю согласие на подписание электронных документов в
-                                            личном кабинете.
-                                        </p>
-                                    </div>
-                                    <SubmitButton
-                                        text={'Подписать'}
-                                        action={() => {
-                                            open(<Modal />)
-                                        }}
-                                        isLoading={false}
-                                        completed={false}
-                                        isDone={false}
-                                        setCompleted={() => {}}
-                                    />
-                                </div>
+                                <ElectornicAgreementStyled>
+                                    <Flex d="column" gap="2rem">
+                                        <div className="info-text">
+                                            Я, <b>{preparedData.fio}</b>,
+                                            <p>
+                                                <b>Паспорт: </b>
+                                                {preparedData.passSer} {preparedData.passNum}, выдан{' '}
+                                                {localizeDate(preparedData.passDate)} {preparedData.passDiv}
+                                                <br />
+                                                <b>Дата рождения: </b>
+                                                {preparedData.bdate}
+                                                <br />
+                                                <b>Номер мобильного телефона: </b>
+                                                {preparedData.phone}
+                                                <br />
+                                                <b>Адрес электронной почты: </b>
+                                                {preparedData.email}
+                                            </p>
+                                            <p>
+                                                настоящим безоговорочно без каких-либо изъятий или ограничений на
+                                                условиях присоединения принимаю условия{' '}
+                                                <a
+                                                    target="_blank"
+                                                    href="https://e.mospolytech.ru/old/storage/files/EAccept.pdf"
+                                                    rel="noreferrer"
+                                                >
+                                                    СОГЛАШЕНИЯ
+                                                </a>{' '}
+                                                об электронном взаимодействии, опубликованного на официальном сайте
+                                                Университета, и выражаю согласие на подписание электронных документов в
+                                                личном кабинете.
+                                            </p>
+                                        </div>
+                                        <SubmitButton
+                                            text={'Подписать'}
+                                            action={() => {
+                                                open(<Modal />)
+                                            }}
+                                            isLoading={false}
+                                            completed={false}
+                                            isDone={false}
+                                            setCompleted={() => {}}
+                                        />
+                                    </Flex>
+                                </ElectornicAgreementStyled>
                             ),
                         },
                     ]}
@@ -127,6 +129,5 @@ const ElectronicInteractionAgreementPage = () => {
         </Wrapper>
     )
 }
-const titles = ['Введите e-mail заказчика', 'Введите код, полученный на почту']
 
 export default ElectronicInteractionAgreementPage

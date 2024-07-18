@@ -4,20 +4,24 @@ import React, { useState } from 'react'
 import { useModal } from 'widgets'
 import { Email } from './steps/email'
 import { Code } from './steps/code'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
-export const Modal = () => {
+export const Modal = ({ guid, email }: { guid: string; email: string }) => {
     const [step, setStep] = useState(0)
 
-    const { open, close } = useModal()
+    const { close } = useModal()
+    const { isMobile, isTablet } = useCurrentDevice()
 
     return (
-        <Flex w="600px" d="column">
+        <Flex w={isMobile || isTablet ? '100%' : '600px'} d="column">
             <Title align="left" size={3} width="530px">
                 {titles[step]}
             </Title>
             <Flex d="column" gap="24px">
                 {step === 0 && (
                     <Email
+                        guid={guid}
+                        defaultEmail={email}
                         next={() => {
                             setStep(1)
                         }}
@@ -25,6 +29,7 @@ export const Modal = () => {
                 )}
                 {step === 1 && (
                     <Code
+                        guid={guid}
                         next={() => {
                             close()
                             setStep(0)

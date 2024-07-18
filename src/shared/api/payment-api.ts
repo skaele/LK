@@ -49,3 +49,36 @@ export const signThirdPartyAgreementApi = async ({ agreementId, userPass, client
     if (data[0].result !== 'ok') throw new Error(data[0].error_text)
     return data
 }
+export type SendElectronicInteractionCodes = {
+    clientGuid: string
+    clientEmail: string
+}
+
+export const sendElectroincInteractionCodes = async ({ clientGuid, clientEmail }: SendElectronicInteractionCodes) => {
+    const formData = new FormData()
+    formData.append('guid_client', clientGuid)
+    formData.append('email_client', clientEmail)
+    const { data } = await $api.post(`?mailCode4Client=1&token=${token()}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+
+    if (data.result !== 'ok') throw new Error(data.error_text)
+    return data
+}
+export type SignThirdPartyElectronicInteraction = {
+    clientGuid: string
+    clientPass: string
+}
+export const signThirdPartyElectronicInteraction = async ({
+    clientGuid,
+    clientPass,
+}: SignThirdPartyElectronicInteraction) => {
+    const { data } = await $api.get(
+        `?setPEPAcceptClient&client_guid=${clientGuid}&client_pass=${clientPass}&token=${token()}`,
+    )
+
+    if (data[0].result !== 'ok') throw new Error(data[0].error_text)
+    return data
+}

@@ -104,14 +104,19 @@ import { IoNewspaperOutline } from 'react-icons/io5'
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
 export const ALLOWANCES = '/allowances'
-export const CREATE_ALLOWANCE = ALLOWANCES + '/create'
-export const ALLOWANCE_INFO = ALLOWANCES + '/info/:jobId/:role/:id'
+export const ALLOWANCES_ROLE = ALLOWANCES + '/:role'
+export const ALLOWANCES_INITIATOR = ALLOWANCES + '/initiator'
+export const ALLOWANCES_APPROVER = ALLOWANCES + '/approver'
+export const CREATE_ALLOWANCE = '/allowances-create'
+export const ALLOWANCE_INFO_CUT = '/allowances-info'
+export const ALLOWANCE_INFO = ALLOWANCE_INFO_CUT + '/:jobId/:role/:id'
 export const JOB_ROUTE = '/job'
 export const ORDERS_ROUTE = '/staff_orders'
 export const DOCUMENT_BLANKS_ROUTE = '/staff_blanks'
 export const STUDENTS_LOGINS_ROUTE = '/ad_logins'
 export const VAX_ROUTE = '/vaccination'
 export const DOCLIST_ROUTE = '/doclist'
+export const DOCLIST_TYPE = '/doclist/:type'
 export const PPS_VOTE_ROUTE = '/pps_vote2020'
 export const CHILDREN_ROUTE = '/children'
 export const PPS_CONTEST_ROUTE = '/pps_contest'
@@ -628,6 +633,18 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
+        show: false,
+    },
+    'allowances-role': {
+        id: 'allowances-role',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: ALLOWANCES_ROLE,
+        Component: Allowances,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        pageSize: 'big',
         show: false,
     },
     'allowance-info': {

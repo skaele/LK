@@ -22,7 +22,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                     <Subtext fontSize="1em" color="var(--greenMain)">
                         Согласовано
                     </Subtext>
-                )}{' '}
+                )}
                 {allowance.selfApprovalStatus === 'Отклонено' && (
                     <Subtext fontSize="1em" color="#c54646">
                         Отказано

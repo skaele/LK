@@ -77,7 +77,7 @@ export const approveAllowance = async (request: {
     return data
 }
 
-export const getRoles = async (userId: string | null) => {
+export const getRoles = async (userId: string | null): Promise<JobRoles> => {
     const { data } = await $allowancesApi.get<JobRoles>(`employees/${userId}/roles`)
     return data
 }

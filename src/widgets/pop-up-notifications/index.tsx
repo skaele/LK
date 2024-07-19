@@ -12,7 +12,10 @@ const PopUpNotifications = () => {
             {visibleNotifications.map((notification) => {
                 return (
                     <PopUpNotificationsItem
-                        onClick={handleClose(notification.id)}
+                        onClick={() => {
+                            handleClose(notification.id)()
+                            notification.onClick?.()
+                        }}
                         key={notification.id}
                         open={closing !== notification.id}
                     >

@@ -27,7 +27,7 @@ export const Employee = ({
         employee?.approvalStatus ||
         (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Согласовано')
             ? 'Approved'
-            : employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Отклонено')
+            : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Отклонено')
             ? 'Declined'
             : 'Unknown')
     return (
@@ -49,6 +49,26 @@ export const Employee = ({
                 align="left"
                 icon={null}
             />
+            {role === 'Initiator'.toLowerCase() && (
+                <>
+                    {employee.employeeVerdicts?.map((verdict) => (
+                        <Flex w="100%" jc="space-between" ai="center" key={verdict.approverEmployeeId}>
+                            <Subtext>{verdict.approverName}</Subtext>
+                            <Message
+                                width="180px"
+                                type={
+                                    verdict.approvalStatus === 'Согласовано'
+                                        ? 'success'
+                                        : verdict.approvalStatus === 'Отклонено'
+                                        ? 'failure'
+                                        : 'alert'
+                                }
+                                title={verdict.approvalStatus}
+                            />
+                        </Flex>
+                    ))}
+                </>
+            )}
             {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (
                 <Flex jc="space-between">
                     <Button

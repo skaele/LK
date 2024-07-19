@@ -6,10 +6,20 @@ export type HandbookItem = {
     name: string
 }
 
+export type AllowanceNotificationType =
+    | 'RecepientDeclinedByZkgu'
+    | 'RecepientDeclinedByAppover'
+    | 'RecepientSelfDeclined'
+    | 'RecepientSelfConfirmed'
+    | 'FullyCompleted'
+    | 'ToApprove'
+    | 'ToConfirm'
+    | 'AllowanceOrderCompleted'
+
 export type AllowanceNotification = {
     notificationId: string
     allowanceId: string
-    isRead: boolean
+    notificationType: AllowanceNotificationType
     message: string
 }
 

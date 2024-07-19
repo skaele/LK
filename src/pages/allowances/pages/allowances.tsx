@@ -8,18 +8,21 @@ import { SliderPage } from 'widgets'
 import PageBlock from '@shared/ui/page-block'
 import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
-import { CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
-import { useHistory } from 'react-router'
+import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
+import { useHistory, useParams } from 'react-router'
 
 const Allowances = () => {
+    const history = useHistory()
+    const { role } = useParams<{ role: 'approver' | 'initiator' }>()
+    const setRole = (role: string | undefined) => {
+        history.push(ALLOWANCES + `/${role}`)
+    }
     const [pageMounted, roles, user] = useUnit([
         allowancesModel.events.pageMounted,
         allowancesModel.queries.role.$data,
 
         userModel.stores.user,
     ])
-
-    const history = useHistory()
 
     const handleCreateApplication = () => {
         history.push(CREATE_ALLOWANCE)
@@ -46,12 +49,14 @@ const Allowances = () => {
                     )
                 }
             >
-                {roles.length > 1 ? (
+                {roles.some((employee) => employee.roles.length > 1) ? (
                     <SliderPage
                         pages={[
-                            { title: 'Согласование надбавок', content: <Approver /> },
-                            { title: 'Установление надбавок', content: <Initiator /> },
+                            { id: 'approver', title: 'Согласование надбавок', content: <Approver /> },
+                            { id: 'initiator', title: 'Установление надбавок', content: <Initiator /> },
                         ]}
+                        currentPage={role === 'approver' ? 0 : 1}
+                        onChangePage={setRole}
                         appearance={false}
                     />
                 ) : roles.some((employee) => employee.roles[0] === 'Initiator') ? (

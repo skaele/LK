@@ -8,6 +8,7 @@ import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
 import { allowancesModel } from '@entities/allowances'
+import { NotificationLinks, NotificationTitles } from '@entities/allowances/consts'
 
 type TStore = {
     notifications: TNotification[]
@@ -88,7 +89,13 @@ const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel
 const $allowancesNotifications = allowancesModel.queries.notifications.$data.map((allowances) => {
     if (!allowances) return []
     return allowances.map((allowance) =>
-        createNotification('allowance', allowance.notificationId, 'Надбавки', allowance.message),
+        createNotification(
+            'allowance',
+            allowance.notificationId,
+            NotificationTitles[allowance.notificationType],
+            allowance.message,
+            NotificationLinks[allowance.notificationType],
+        ),
     )
 })
 

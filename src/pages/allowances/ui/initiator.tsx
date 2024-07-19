@@ -10,7 +10,7 @@ import Flex from '@shared/ui/flex'
 import { allowancesModel } from '@entities/allowances'
 import Select, { SelectPage } from '@features/select'
 import { useHistory } from 'react-router'
-import { ALLOWANCES } from '@app/routes/teacher-routes'
+import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
 
 export const Initiator = () => {
     const history = useHistory()
@@ -77,7 +77,7 @@ export const Initiator = () => {
                 data={job && allowances ? allowances[job.id].initiatorAllowances : null}
                 maxOnPage={7}
                 onRowClick={(allowance) => {
-                    history.push(ALLOWANCES + `/info/${job?.id}/initiator/${allowance.id}`)
+                    history.push(ALLOWANCE_INFO_CUT + `/${job?.id}/initiator/${allowance.id}`)
                 }}
             />
         </Flex>

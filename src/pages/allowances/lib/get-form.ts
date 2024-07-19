@@ -37,7 +37,7 @@ export const getForm = (sourceOfFundings: HandbookItem[], paymentIdentifiers: Ha
                 type: 'select',
                 value: null,
                 required: true,
-                editable: sourceOfFundings.length > 1,
+                editable: true,
                 width: '100',
                 items: sourceOfFundings.map((item) => ({
                     id: item.id,
@@ -51,7 +51,7 @@ export const getForm = (sourceOfFundings: HandbookItem[], paymentIdentifiers: Ha
                 type: 'select',
                 value: null,
                 required: true,
-                editable: paymentIdentifiers.length > 1,
+                editable: true,
                 width: '100',
                 items: paymentIdentifiers.map((item) => ({
                     id: item.id,

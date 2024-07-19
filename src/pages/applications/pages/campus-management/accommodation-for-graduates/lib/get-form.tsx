@@ -12,10 +12,6 @@ const statusesStudentForHostelOptions = [
         id: 1,
         title: 'Поступающий в аспирантуру',
     },
-    {
-        id: 2,
-        title: 'Не поступающий, на период каникул',
-    },
 ]
 
 const getForm = (dataUserApplication: UserApplication): IInputArea => {
@@ -83,10 +79,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
         ],
         hint: (
             <>
-                <p>
-                    Прикрепите справку из приемной комиссии о подаче документов для поступления и/или выписку из приказа
-                    о предоставлении каникул
-                </p>
+                <p>Прикрепите расписку из приемной комиссии о подаче документов для поступления</p>
                 <br />
                 <p>Подача заявок будет недоступна с 01.08.2024</p>
             </>

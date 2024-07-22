@@ -117,6 +117,7 @@ export const STUDENTS_LOGINS_ROUTE = '/ad_logins'
 export const VAX_ROUTE = '/vaccination'
 export const DOCLIST_ROUTE = '/doclist'
 export const DOCLIST_TYPE = '/doclist/:type'
+export const DOCLIST_ALLOWANCES = '/doclist/allowances'
 export const PPS_VOTE_ROUTE = '/pps_vote2020'
 export const CHILDREN_ROUTE = '/children'
 export const PPS_CONTEST_ROUTE = '/pps_contest'
@@ -634,6 +635,16 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         show: false,
+    },
+    'doclist-type': {
+        id: 'doclist-type',
+        title: 'Ознакомление с документами',
+        icon: <FiFileText />,
+        path: DOCLIST_TYPE,
+        Component: PersonalNotificationsPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
     },
     'allowances-role': {
         id: 'allowances-role',

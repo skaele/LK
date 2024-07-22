@@ -8,7 +8,8 @@ import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
 import { allowancesModel } from '@entities/allowances'
-import { NotificationLinks, NotificationTitles } from '@entities/allowances/consts'
+import { NotificationTitles } from '@entities/allowances/consts'
+import { createAllowancePath } from '../lib/create-allowance-path'
 
 type TStore = {
     notifications: TNotification[]
@@ -94,7 +95,7 @@ const $allowancesNotifications = allowancesModel.queries.notifications.$data.map
             allowance.notificationId,
             NotificationTitles[allowance.notificationType],
             allowance.message,
-            NotificationLinks[allowance.notificationType],
+            createAllowancePath(allowance),
         ),
     )
 })

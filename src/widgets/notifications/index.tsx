@@ -12,6 +12,8 @@ import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
 import { NotificationType } from '@entities/notification/model'
 import { AllowanceList } from './ui/allowance-list'
+import { useHistory, useParams } from 'react-router'
+import { DOCLIST_ROUTE } from '@app/routes/teacher-routes'
 
 const ElementsControlNotification = styled.div`
     display: flex;
@@ -37,9 +39,11 @@ const NOTIFICATION_FILTER_LIST = [
 ]
 
 const NotificationsPage = ({ docsType }: Props) => {
+    const history = useHistory()
+    const { type: notificationType } = useParams<{ type: NotificationType }>()
+    const setNotificationType = (type: string) => history.push(DOCLIST_ROUTE + '/' + type)
     const { data: notifications, error } = personalNotificationModel.selectors.usePersonalNotifications()
     const [foundNotification, setFoundNotification] = useState<Notifications>()
-    const [notificationType, setNotificationType] = useState<NotificationType>('docs')
     const [searchValue, setSearchValue] = useState<string>('')
 
     const [baseFilter, setBaseFilter] = useState<SelectPage | null>({ id: 'all', title: 'Все' })

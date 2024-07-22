@@ -1,4 +1,4 @@
-import { ALLOWANCES_APPROVER, ALLOWANCES_INITIATOR, DOCLIST_ROUTE } from '@app/routes/teacher-routes'
+import { ALLOWANCES_APPROVER, ALLOWANCES_INITIATOR, DOCLIST_ALLOWANCES } from '@app/routes/teacher-routes'
 import { AllowanceNotificationType } from './types'
 
 export const allowanceConstants = {
@@ -28,6 +28,6 @@ export const NotificationLinks: Record<AllowanceNotificationType, string> = {
     RecepientSelfConfirmed: ALLOWANCES_INITIATOR,
     FullyCompleted: ALLOWANCES_INITIATOR,
     ToApprove: ALLOWANCES_APPROVER,
-    ToConfirm: DOCLIST_ROUTE,
-    AllowanceOrderCompleted: DOCLIST_ROUTE,
+    ToConfirm: DOCLIST_ALLOWANCES,
+    AllowanceOrderCompleted: DOCLIST_ALLOWANCES,
 } as const

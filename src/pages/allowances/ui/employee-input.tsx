@@ -1,11 +1,12 @@
 import { Employee } from '@entities/allowances/types'
 import Select, { SelectPage } from '@features/select'
+import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/atoms'
-import { Grid } from '@shared/ui/grid'
+import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import React, { useEffect, useState } from 'react'
-import { FiMinus } from 'react-icons/fi'
+import { IoCloseCircleOutline } from 'react-icons/io5'
 
 export const EmployeeInput = ({
     remove,
@@ -30,11 +31,24 @@ export const EmployeeInput = ({
     }, [id, sum, startDate, endDate])
 
     return (
-        <Grid columns="1fr 1fr" rows="1fr 1fr" rowGap="1rem" columnGap="1rem">
-            <Select title="Сотрудник" items={employees} selected={id} required setSelected={setId} width="100%" />
-            <Input title="Сумма" value={sum} setValue={setSum} type="number" required width="100%" />
-            <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="100%" />
-            <Input title="Дата окончания" value={endDate} setValue={setEndDate} type="date" required width="100%" />
+        <Flex gap="0.5rem" d="column">
+            <Flex gap="0.5rem" ai="flex-end">
+                <Select title="Сотрудник" items={employees} selected={id} required setSelected={setId} width="100%" />
+                <Button
+                    icon={<IoCloseCircleOutline />}
+                    onClick={() => {
+                        remove()
+                    }}
+                    textColor={Colors.red.main}
+                    background="transparent"
+                    hoverBackground={Colors.red.transparent3}
+                />
+            </Flex>
+            <Flex jc="space-between" ai="flex-end">
+                <Input title="Сумма" value={sum} setValue={setSum} type="number" required width="33%" />
+                <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="33%" />
+                <Input title="Дата окончания" value={endDate} setValue={setEndDate} type="date" required width="33%" />
+            </Flex>
             {/* <DateInterval
                 title="Дата окончания"
                 required
@@ -45,12 +59,6 @@ export const EmployeeInput = ({
                 minValue={minValueInput}
                 diff={diff}
             /> */}
-            <Button
-                icon={<FiMinus />}
-                onClick={() => {
-                    remove()
-                }}
-            />
-        </Grid>
+        </Flex>
     )
 }

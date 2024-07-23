@@ -9,6 +9,8 @@ import { EmployeeInput } from '../ui/employee-input'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Subtext from '@shared/ui/subtext'
 import DragAndDropArea from '@shared/ui/file-input/ui/drag-and-drop-area'
+import { Colors } from '@shared/constants'
+import Flex from '@shared/ui/flex'
 
 const CreateAllowance = () => {
     const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
@@ -127,7 +129,7 @@ function Commentary() {
 }
 
 function Employees() {
-    const { addItem, removeItem, setValue } = useUnit(allowancesModel.fields.employees)
+    const { addItem, removeItem, setValue, value: employees } = useUnit(allowancesModel.fields.employees)
     const subordinates = useUnit(allowancesModel.stores.employees)
     const { value: job } = useUnit(allowancesModel.fields.job)
     const em = useList(allowancesModel.fields.employees.value, (employee, index) => {
@@ -153,8 +155,19 @@ function Employees() {
             </Title>
             {job ? (
                 <>
-                    {em}
-                    <Button icon={<FiPlus />} onClick={() => addItem()} />
+                    {employees.filter((e) => e !== null).length > 0 && (
+                        <Flex gap="3rem" d="column">
+                            {em}
+                        </Flex>
+                    )}
+                    <Button
+                        icon={<FiPlus />}
+                        onClick={() => addItem()}
+                        text="Добавить"
+                        textColor={Colors.blue.main}
+                        background="transparent"
+                        hoverBackground={Colors.blue.transparent3}
+                    />
                 </>
             ) : (
                 <Subtext>Выберите должность</Subtext>

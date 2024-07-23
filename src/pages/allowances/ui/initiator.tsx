@@ -55,7 +55,7 @@ export const Initiator = () => {
         <Flex gap="16px" d="column">
             <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
                 <p>Роль: Инициатор</p>
-                <p>Интерфейс все еще находится в разработке</p>
+                <p>Интерфейс находится в разработке</p>
             </Message>
             {jobItems.length > 1 && (
                 <Flex d="column" jc="flex-start" ai="flex-start">

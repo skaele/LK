@@ -1,64 +1,27 @@
-import checkFormFields from '@shared/lib/check-form-fields'
-import { FormBlock, Message, SubmitButton } from '@shared/ui/atoms'
-import InputArea from '@shared/ui/input-area'
-import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
-import React, { useEffect, useState } from 'react'
-import { LoadedState } from 'widgets/template-form'
-import { getEmployees, getForm, getJob } from '../lib/get-form'
+import { Button, Message, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
+import React, { useEffect, useMemo } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { useUnit } from 'effector-react'
+import { useList, useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
-import { FiInfo } from 'react-icons/fi'
-import { SelectPage } from '@features/select'
+import { FiInfo, FiPlus } from 'react-icons/fi'
+import Select from '@features/select'
+import { EmployeeInput } from '../ui/employee-input'
+import FormBlockWrapper from '@shared/ui/atoms/form-block'
+import Subtext from '@shared/ui/subtext'
+import DragAndDropArea from '@shared/ui/file-input/ui/drag-and-drop-area'
 
 const CreateAllowance = () => {
-    const [job, setJob] = useState<IInputArea | null>(null)
-    const [form, setForm] = useState<IInputArea | null>(null)
-    const [employees, setEmployees] = useState<IInputArea | null>(null)
-
-    const [
-        createSupplement,
-        loading,
-        paymentIdentifiers,
-        sourcesOfFunding,
-        pageMounted,
-        subordinates,
-        roles,
-        completed,
-        setCompleted,
-    ] = useUnit([
+    const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
         allowancesModel.events.createSupplement,
         allowancesModel.mutations.createSupplement.$pending,
-        allowancesModel.queries.paymentIdentifiers.$data,
-        allowancesModel.queries.sourcesOfFunding.$data,
         allowancesModel.events.pageMounted,
-        allowancesModel.stores.employees,
         allowancesModel.queries.role.$data,
         allowancesModel.stores.completed,
         allowancesModel.events.setCompleted,
+        allowancesModel.stores.isActive,
     ])
 
     const isDone = completed ?? false
-    useEffect(() => {
-        if (!!roles && !!paymentIdentifiers && !!sourcesOfFunding) {
-            const jobForm = getJob(roles)
-            setJob(jobForm)
-            setForm(getForm(sourcesOfFunding, paymentIdentifiers))
-        }
-    }, [roles, paymentIdentifiers, sourcesOfFunding])
-
-    useEffect(() => {
-        if (!!job && !!subordinates) {
-            setEmployees(
-                getEmployees(
-                    subordinates[((job?.data[0] as IInputAreaData)?.value as SelectPage)?.id]?.map((item) => ({
-                        id: item.employeeId,
-                        title: item.employeeName,
-                    })) || [],
-                ),
-            )
-        }
-    }, [subordinates, job])
 
     useEffect(() => {
         pageMounted()
@@ -66,32 +29,137 @@ const CreateAllowance = () => {
 
     return (
         <BaseApplicationWrapper isDone={isDone}>
-            {!!roles && !!form && !!employees && !!job && (
-                <FormBlock noHeader>
+            {!!roles && (
+                <FormBlockWrapper noHeader>
                     <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                        <p>Интерфейс все еще находится в разработке</p>
+                        <p>Интерфейс находится в разработке</p>
                     </Message>
-                    <InputArea {...job} collapsed={isDone} setData={setJob as LoadedState} />
-                    <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
-                    <InputArea {...employees} collapsed={isDone} setData={setEmployees as LoadedState} />
+                    <Job />
+                    <SourceOfFunding />
+                    <PaymentIdentifier />
+                    <Commentary />
+                    <Employees />
+                    {/* <DragAndDropArea files={files} setFiles={setFiles} isActive={true} /> */}
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
-                        action={() => {
-                            createSupplement({ initiator: job, form, employees })
-                        }}
+                        action={createSupplement}
                         isLoading={loading}
                         completed={completed}
                         setCompleted={setCompleted}
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}
-                        isActive={checkFormFields(job) && checkFormFields(form) && checkFormFields(employees)}
+                        isActive={isActive}
                         popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
                         popUpSuccessMessage="Данные формы успешно отправлены"
                     />
-                </FormBlock>
+                </FormBlockWrapper>
             )}
         </BaseApplicationWrapper>
+    )
+}
+
+function Job() {
+    const { value, setValue } = useUnit(allowancesModel.fields.job)
+    const roles = useUnit(allowancesModel.queries.role.$data)
+
+    if (!roles) return null
+
+    const items = useMemo(() => {
+        return roles
+            .filter((job) => job.roles.includes('Initiator'))
+            .map((job) => ({
+                id: job.employeeId,
+                title: job.division,
+            }))
+    }, roles)
+    useEffect(() => {
+        if (items.length === 1) setValue(items[0])
+    }, [items])
+    return (
+        <Select
+            title="Должность / Подразделение"
+            items={items}
+            selected={items.length === 1 ? items[0] : value}
+            setSelected={setValue}
+            isActive={items.length > 1}
+            required
+            width="100%"
+        />
+    )
+}
+function SourceOfFunding() {
+    const items = useUnit(allowancesModel.stores.sourcesOfFunding)
+    const { value, setValue } = useUnit(allowancesModel.fields.sourceOfFunding)
+
+    return (
+        <Select
+            title="Источник финансирования"
+            items={items}
+            selected={items.length === 1 ? items[0] : value}
+            setSelected={setValue}
+            isActive={items.length > 1}
+            required
+            width="100%"
+        />
+    )
+}
+function PaymentIdentifier() {
+    const items = useUnit(allowancesModel.stores.paymentIdentifiers)
+    const { value, setValue } = useUnit(allowancesModel.fields.paymentIdentifier)
+
+    return (
+        <Select
+            title="Вид набавки"
+            items={items}
+            selected={items.length === 1 ? items[0] : value}
+            setSelected={setValue}
+            isActive={items.length > 1}
+            required
+            width="100%"
+        />
+    )
+}
+
+function Commentary() {
+    const { value, setValue } = useUnit(allowancesModel.fields.commentary)
+    return <TextArea title="Комментарий" placeholder="Комментарий" value={value} setValue={setValue} />
+}
+
+function Employees() {
+    const { addItem, removeItem, setValue } = useUnit(allowancesModel.fields.employees)
+    const subordinates = useUnit(allowancesModel.stores.employees)
+    const { value: job } = useUnit(allowancesModel.fields.job)
+    const em = useList(allowancesModel.fields.employees.value, (employee, index) => {
+        if (employee && subordinates)
+            return (
+                <EmployeeInput
+                    index={index}
+                    employee={employee}
+                    remove={() => removeItem(index)}
+                    setEmployee={setValue}
+                    employees={subordinates[job?.id || ''].map((e) => ({
+                        id: e.employeeId,
+                        title: e.employeeName + ' (' + e.divisionName + ')',
+                    }))}
+                />
+            )
+        return null
+    })
+    return (
+        <>
+            <Title size={5} required={false} align="left" bottomGap="5px" visible>
+                Сотрудники
+            </Title>
+            {job ? (
+                <>
+                    {em}
+                    <Button icon={<FiPlus />} onClick={() => addItem()} />
+                </>
+            ) : (
+                <Subtext>Выберите должность</Subtext>
+            )}
+        </>
     )
 }
 

@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { Allowance, Role, Subordnate } from '../types'
+import { Allowance, Employee, Role, Subordnate } from '../types'
 import {
     approveAllowance,
     confirmPersonalAllowance,
@@ -16,10 +16,9 @@ import {
     viewNotification,
 } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
-import { IInputArea } from '@shared/ui/input-area/model'
-import { parseInputArea } from '@shared/lib/forms/parse-input-area'
 import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { SelectPage } from '@features/select'
 
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
@@ -28,7 +27,8 @@ const pageMounted = createEvent()
 const personalAllowancesMounted = createEvent()
 const allowanceStatusChanged = createEvent<Omit<ConfirmRequest, 'personalId'>>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
-const createSupplement = createEvent<{ initiator: IInputArea; form: IInputArea; employees: IInputArea }>()
+const getSubordinatesEvent = createEvent<string>()
+const createSupplement = createEvent()
 const setCompleted = createEvent<boolean>()
 const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
 const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
@@ -46,6 +46,12 @@ const confirmPersonalAllowanceMutation = createMutation({
     handler: confirmPersonalAllowance,
 })
 
+const job = createSelectField()
+const sourceOfFunding = createSelectField()
+const paymentIdentifier = createSelectField()
+const commentary = createInputField()
+const employees = createEmployeeField()
+
 const $completed = createStore(false)
 const $allowances = createStore<{
     [key: string]: AllAllowances
@@ -57,8 +63,13 @@ const $subordinates = createStore<{
 const getAllowancesFx = createEffect(async (userId: string) => {
     return getAllowances(userId)
 })
+
 const getSubordinatesFx = createEffect(async (userId: string) => {
     return getSubordinates(userId)
+})
+sample({
+    clock: getSubordinatesEvent,
+    target: getSubordinatesFx,
 })
 
 const createSupplementMutation = createMutation({
@@ -100,16 +111,54 @@ const paymentIdentifierQuery = createQuery({
 const sourceOfFundingQuery = createQuery({
     handler: getHandbook,
 })
+const $sourcesOfFunding = sourceOfFundingQuery.$data.map<SelectPage[]>((data) => {
+    if (!data) return []
+    return data.map((item) => ({
+        id: item.id,
+        title: item.name,
+    }))
+})
+const $paymentIdentifiers = paymentIdentifierQuery.$data.map<SelectPage[]>((data) => {
+    if (!data) return []
+    return data.map((item) => ({
+        id: item.id,
+        title: item.name,
+    }))
+})
 
 const allowanceQuery = createQuery({
     handler: inspectAllowance,
 })
+
+const $isActive = createStore<boolean>(false)
+sample({
+    clock: [job.setValue, sourceOfFunding.setValue, paymentIdentifier.setValue],
+    source: [job.value, sourceOfFunding.value, paymentIdentifier.value],
+    fn: (src) => src.every((formItem) => Boolean(formItem)),
+    target: $isActive,
+})
+
 sample({
     clock: createSupplement,
-    fn: ({ initiator, form, employees }) => {
-        const parsed = parseInputArea([initiator, form, employees])
-        return parsed
+    source: {
+        job: job.value,
+        sourceOfFunding: sourceOfFunding.value,
+        paymentIdentifier: paymentIdentifier.value,
+        commentary: commentary.value,
+        allowanceEmployees: employees.value,
     },
+    filter: ({ job, sourceOfFunding, paymentIdentifier, allowanceEmployees }) =>
+        !!job?.id &&
+        !!sourceOfFunding?.id &&
+        !!paymentIdentifier?.id &&
+        allowanceEmployees.filter((e) => e !== null).length > 0,
+    fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees }) => ({
+        initiatorId: job?.id.toString() || '',
+        sourceOfFundingId: sourceOfFunding?.id.toString() || '',
+        paymentIdentifierId: paymentIdentifier?.id.toString() || '',
+        commentary: commentary,
+        allowanceEmployees: allowanceEmployees.filter((e) => e !== null) as Employee[],
+    }),
     target: createSupplementMutation.start,
 })
 sample({
@@ -259,6 +308,7 @@ export const events = {
     approve,
     reject,
     allowanceStatusChanged,
+    getSubordinates: getSubordinatesEvent,
 }
 
 export const queries = {
@@ -281,4 +331,52 @@ export const stores = {
     allowances: $allowances,
     employees: $subordinates,
     completed: $completed,
+    sourcesOfFunding: $sourcesOfFunding,
+    paymentIdentifiers: $paymentIdentifiers,
+    isActive: $isActive,
+}
+
+export const fields = {
+    job,
+    sourceOfFunding,
+    paymentIdentifier,
+    commentary,
+    employees,
+}
+
+function createInputField({ defaultValue }: { defaultValue?: string } = {}) {
+    const setValue = createEvent<string>()
+    const $store = createStore<string>(defaultValue ?? '').on(setValue, (_, newValue) => newValue)
+
+    return {
+        value: $store,
+        setValue,
+    }
+}
+
+function createSelectField({ defaultValue }: { defaultValue?: SelectPage | null } = {}) {
+    const setValue = createEvent<SelectPage | null>()
+    const $store = createStore<SelectPage | null>(defaultValue ?? null).on(setValue, (_, newValue) => newValue)
+
+    return {
+        value: $store,
+        setValue,
+    }
+}
+
+function createEmployeeField() {
+    const addEmployee = createEvent()
+    const setEmployee = createEvent<{ employee: Employee; index: number }>()
+    const removeEmployee = createEvent<number>()
+    const $employees = createStore<(Employee | null)[]>([])
+        .on(addEmployee, (employees) => [...employees, { id: '', divisionId: '', startDate: '', endDate: '', sum: 0 }])
+        .on(removeEmployee, (employees, index) => employees.map((e, i) => (i === index ? null : e)))
+        .on(setEmployee, (employees, { employee, index }) => employees.map((e, i) => (i === index ? employee : e)))
+
+    return {
+        value: $employees,
+        setValue: setEmployee,
+        addItem: addEmployee,
+        removeItem: removeEmployee,
+    }
 }

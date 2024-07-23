@@ -9,7 +9,7 @@ type MultipleSelect = React.Dispatch<React.SetStateAction<SelectPage[] | null>>
 
 export interface SelectProps {
     items: SelectPage[]
-    setSelected: SingleSelect | MultipleSelect
+    setSelected: SingleSelect | MultipleSelect | ((val: SelectPage | null) => void)
     selected: SelectPage | SelectPage[] | null
     isActive?: boolean
     title?: string

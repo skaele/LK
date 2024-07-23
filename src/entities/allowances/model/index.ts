@@ -51,6 +51,7 @@ const sourceOfFunding = createSelectField()
 const paymentIdentifier = createSelectField()
 const commentary = createInputField()
 const employees = createEmployeeField()
+const files = createFilesField()
 
 const $completed = createStore(false)
 const $allowances = createStore<{
@@ -342,6 +343,7 @@ export const fields = {
     paymentIdentifier,
     commentary,
     employees,
+    files,
 }
 
 function createInputField({ defaultValue }: { defaultValue?: string } = {}) {
@@ -378,5 +380,15 @@ function createEmployeeField() {
         setValue: setEmployee,
         addItem: addEmployee,
         removeItem: removeEmployee,
+    }
+}
+
+function createFilesField() {
+    const setValue = createEvent<File[]>()
+    const $store = createStore<File[]>([]).on(setValue, (_, newValue) => newValue)
+
+    return {
+        value: $store,
+        setValue,
     }
 }

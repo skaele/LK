@@ -39,7 +39,7 @@ const CreateAllowance = () => {
                     <PaymentIdentifier />
                     <Commentary />
                     <Employees />
-                    {/* <DragAndDropArea files={files} setFiles={setFiles} isActive={true} /> */}
+                    <Files />
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={createSupplement}
@@ -161,6 +161,11 @@ function Employees() {
             )}
         </>
     )
+}
+
+function Files() {
+    const { value, setValue } = useUnit(allowancesModel.fields.files)
+    return <DragAndDropArea files={value} setFiles={setValue} isActive={true} />
 }
 
 export default CreateAllowance

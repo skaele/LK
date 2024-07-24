@@ -129,9 +129,10 @@ sample({
 
 sample({
     clock: fileRemoved,
-    source: $filesMap,
+    source: { newFiles: files.value, filesMap: $filesMap },
     filter: Boolean,
-    fn: (filesMap, fileName) => {
+    fn: ({ newFiles, filesMap }, fileName) => {
+        if (newFiles.length === 0) return {}
         const newMap = {
             ...filesMap,
         }
@@ -217,9 +218,18 @@ const allowanceQuery = createQuery({
 
 const $isActive = createStore<boolean>(false)
 sample({
-    clock: [job.setValue, sourceOfFunding.setValue, paymentIdentifier.setValue],
-    source: [job.value, sourceOfFunding.value, paymentIdentifier.value],
-    fn: (src) => src.every((formItem) => Boolean(formItem)),
+    clock: [job.value, sourceOfFunding.value, paymentIdentifier.value, employees.value],
+    source: {
+        job: job.value,
+        sourceOfFunding: sourceOfFunding.value,
+        paymentIdentifier: paymentIdentifier.value,
+        allowanceEmployees: employees.value,
+    },
+    fn: ({ job, sourceOfFunding, paymentIdentifier, allowanceEmployees }) =>
+        Boolean(job) &&
+        Boolean(sourceOfFunding) &&
+        Boolean(paymentIdentifier) &&
+        allowanceEmployees.filter((e) => e !== null && e.id !== '').length > 0,
     target: $isActive,
 })
 

@@ -11,6 +11,7 @@ import Subtext from '@shared/ui/subtext'
 import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 const CreateAllowance = () => {
     const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
@@ -186,7 +187,22 @@ function Employees() {
 function Files() {
     const { value, setValue } = useUnit(allowancesModel.fields.files)
     const loading = useUnit(allowancesModel.mutations.uploadFile.$pending)
-    return <FileInput files={value} setFiles={setValue} isActive={!loading} />
+    return (
+        <FileInput
+            files={value}
+            setFiles={(files: File[]) => {
+                if (files.length > 0 && value.some((file) => file.name === files[files.length - 1].name)) {
+                    popUpMessageModel.events.evokePopUpMessage({
+                        message: 'Имя файла не может повторятся',
+                        type: 'failure',
+                    })
+                    return
+                }
+                setValue(files)
+            }}
+            isActive={!loading}
+        />
+    )
 }
 
 export default CreateAllowance

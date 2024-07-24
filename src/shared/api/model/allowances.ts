@@ -96,11 +96,6 @@ export const uploadFile = async (file: File) => {
     return data
 }
 
-export const downloadFile = async (fileId: string) => {
-    const { data } = await $allowancesApi.get('/files?' + new URLSearchParams({ fileId }))
-    return data
-}
-
 export const removeFile = async (fileId: string) => {
     // const { data } = await $allowancesApi.delete<ApplicationResult>(`/files/${fileId}`)
     // return data

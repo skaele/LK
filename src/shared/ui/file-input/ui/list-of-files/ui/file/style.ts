@@ -10,6 +10,15 @@ const FileWrapper = styled.div`
     background: ${Colors.grey.transparent3};
     border-radius: var(--brLight);
 
+    .loading-circle {
+        position: relative;
+        transform: none;
+        left: auto;
+        top: auto;
+        width: 20px;
+        height: 20px;
+    }
+
     .file-body {
         display: flex;
         gap: 8px;

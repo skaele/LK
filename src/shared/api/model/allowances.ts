@@ -66,7 +66,7 @@ export const inspectAllowance = async ({
     const { data } = await $allowancesApi.get<{ files: AllowanceFiles; employees: AllowanceEmployee[] }>(
         `allowances/${allowanceId}/${role}s/${userId}/employees`,
     )
-    return data.employees
+    return data
 }
 
 export const approveAllowance = async (request: {
@@ -93,6 +93,11 @@ export const uploadFile = async (file: File) => {
     const formData = new FormData()
     formData.append('file', file)
     const { data } = await $allowancesApi.post<{ fileId: string }>('/files', formData)
+    return data
+}
+
+export const downloadFile = async (fileId: string) => {
+    const { data } = await $allowancesApi.get('/files?' + new URLSearchParams({ fileId }))
     return data
 }
 

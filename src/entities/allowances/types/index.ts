@@ -25,7 +25,7 @@ export type AllowanceNotification = {
 
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
 
-type AttachedFile = {
+export type AttachedFile = {
     contentType: string
     extension: string
     id: string

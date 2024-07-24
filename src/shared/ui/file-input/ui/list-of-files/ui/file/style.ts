@@ -14,6 +14,7 @@ const FileWrapper = styled.div`
         display: flex;
         gap: 8px;
         align-items: center;
+        cursor: pointer;
 
         .name-and-size {
             display: flex;

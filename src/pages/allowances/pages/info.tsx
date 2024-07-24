@@ -6,6 +6,10 @@ import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Employee } from '../ui/employee'
+import { SliderPage } from 'widgets'
+import Flex from '@shared/ui/flex'
+import { Title } from '@shared/ui/title'
+import { File } from '../ui/file'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
@@ -23,9 +27,77 @@ const Info = () => {
     return (
         <PageBlock>
             <Loader load={() => {}} data={data} loading={pending} error={error ? (error as Error).message : null}>
-                {data?.map((employee) => (
-                    <Employee key={employee.id} employee={employee} role={role} userId={jobId} id={id} />
-                ))}
+                {Boolean(data?.files.order.length) ||
+                Boolean(data?.files.application.length) ||
+                Boolean(data?.files.other.length) ? (
+                    <SliderPage
+                        pages={[
+                            {
+                                title: 'Сотрудники',
+                                content: data?.employees.map((employee) => (
+                                    <Employee
+                                        key={employee.id}
+                                        employee={employee}
+                                        role={role}
+                                        userId={jobId}
+                                        id={id}
+                                    />
+                                )),
+                            },
+                            {
+                                title: 'Файлы',
+                                content: (
+                                    <Flex d="column" gap="2rem">
+                                        {Boolean(data?.files.application.length) && (
+                                            <>
+                                                <Title size={4} align="left">
+                                                    Файлы заявления
+                                                </Title>
+                                                <Flex d="column" gap="1rem">
+                                                    {data?.files.application.map((file) => (
+                                                        <File key={file.id} file={file} />
+                                                    ))}
+                                                </Flex>
+                                            </>
+                                        )}
+                                        {Boolean(data?.files.order.length) && (
+                                            <>
+                                                <Title size={4} align="left">
+                                                    Файлы приказа
+                                                </Title>
+                                                <Flex d="column" gap="1rem">
+                                                    {data?.files.order.map((file) => (
+                                                        <File key={file.id} file={file} />
+                                                    ))}
+                                                </Flex>
+                                            </>
+                                        )}
+                                        {Boolean(data?.files.other.length) && (
+                                            <>
+                                                {(Boolean(data?.files.order.length) ||
+                                                    Boolean(data?.files.application.length)) && (
+                                                    <Title size={4} align="left">
+                                                        Другое
+                                                    </Title>
+                                                )}
+
+                                                <Flex d="column" gap="0.5rem">
+                                                    {data?.files.other.map((file) => (
+                                                        <File key={file.id} file={file} />
+                                                    ))}
+                                                </Flex>
+                                            </>
+                                        )}
+                                    </Flex>
+                                ),
+                            },
+                        ]}
+                    />
+                ) : (
+                    data?.employees.map((employee) => (
+                        <Employee key={employee.id} employee={employee} role={role} userId={jobId} id={id} />
+                    ))
+                )}
             </Loader>
         </PageBlock>
     )

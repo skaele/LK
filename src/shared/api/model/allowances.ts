@@ -18,6 +18,7 @@ type AllowanceRequest = {
     paymentIdentifierId: string
     commentary: string
     allowanceEmployees: Employee[]
+    attachedFileIds: string[]
 }
 
 type ApplicationResult = { applicationId: string; result: string }
@@ -85,6 +86,18 @@ export const getRoles = async (userId: string | null): Promise<JobRoles> => {
 export const getHandbook = async (handbookName: HandbookType) => {
     const { data } = await $allowancesApi.get<HandbookItem[]>('handbooks/' + handbookName)
     return data
+}
+
+export const uploadFile = async (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    const { data } = await $allowancesApi.post<{ fileId: string }>('/files', formData)
+    return data
+}
+
+export const removeFile = async (fileId: string) => {
+    // const { data } = await $allowancesApi.delete<ApplicationResult>(`/files/${fileId}`)
+    // return data
 }
 
 // #region notifications

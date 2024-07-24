@@ -13,6 +13,8 @@ import {
     getSubordinates,
     inspectAllowance,
     JobRoles,
+    removeFile,
+    uploadFile,
     viewNotification,
 } from '@shared/api/model/allowances'
 import { createMutation, createQuery } from '@farfetched/core'
@@ -25,6 +27,8 @@ export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowanc
 const appStarted = createEvent()
 const pageMounted = createEvent()
 const personalAllowancesMounted = createEvent()
+const fileAttached = createEvent<File>()
+const fileRemoved = createEvent<string | undefined>()
 const allowanceStatusChanged = createEvent<Omit<ConfirmRequest, 'personalId'>>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const getSubordinatesEvent = createEvent<string>()
@@ -46,12 +50,22 @@ const confirmPersonalAllowanceMutation = createMutation({
     handler: confirmPersonalAllowance,
 })
 
+const uploadFileMutation = createMutation({
+    handler: uploadFile,
+})
+const removeFileMutation = createMutation({
+    handler: removeFile,
+})
+
 const job = createSelectField()
 const sourceOfFunding = createSelectField()
 const paymentIdentifier = createSelectField()
 const commentary = createInputField()
 const employees = createEmployeeField()
 const files = createFilesField()
+
+const $filesMap = createStore<Record<string, string>>({})
+const $fileIds = $filesMap.map((files) => Object.values(files))
 
 const $completed = createStore(false)
 const $allowances = createStore<{
@@ -79,6 +93,77 @@ const createSupplementMutation = createMutation({
 
 const veridctMutation = createMutation({
     handler: approveAllowance,
+})
+
+sample({
+    clock: files.setValue,
+    source: $filesMap,
+    filter: (oldFiles, newFiles) => newFiles.length > Object.keys(oldFiles).length,
+    fn: (_, newFiles) => newFiles[newFiles.length - 1],
+    target: fileAttached,
+})
+sample({
+    clock: files.setValue,
+    source: { filesMap: $filesMap },
+    filter: ({ filesMap }, newFiles) => newFiles.length < Object.keys(filesMap).length,
+    fn: ({ filesMap }, newFiles) => {
+        const deletedFileName = Object.keys(filesMap).find((file) => !newFiles.find((f) => f.name === file))
+
+        return deletedFileName
+    },
+    target: fileRemoved,
+})
+
+sample({
+    clock: fileAttached,
+    target: uploadFileMutation.start,
+})
+
+sample({
+    clock: fileRemoved,
+    source: $filesMap,
+    filter: Boolean,
+    fn: (filesMap, fileName) => filesMap[fileName!],
+    target: removeFileMutation.start,
+})
+
+sample({
+    clock: fileRemoved,
+    source: $filesMap,
+    filter: Boolean,
+    fn: (filesMap, fileName) => {
+        const newMap = {
+            ...filesMap,
+        }
+        delete newMap[fileName!]
+        return newMap
+    },
+    target: $filesMap,
+})
+
+sample({
+    clock: uploadFileMutation.finished.success,
+    source: $filesMap,
+    fn: (files, { params, result }) => ({
+        ...files,
+        [params.name]: result.fileId,
+    }),
+    target: $filesMap,
+})
+
+sample({
+    clock: uploadFileMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось прикрепить файл',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+sample({
+    clock: uploadFileMutation.finished.failure,
+    source: files.value,
+    fn: (files, { params }) => files.filter((file) => (file.name === params.name ? false : true)),
+    target: files.value,
 })
 
 sample({
@@ -147,18 +232,20 @@ sample({
         paymentIdentifier: paymentIdentifier.value,
         commentary: commentary.value,
         allowanceEmployees: employees.value,
+        files: $fileIds,
     },
     filter: ({ job, sourceOfFunding, paymentIdentifier, allowanceEmployees }) =>
         !!job?.id &&
         !!sourceOfFunding?.id &&
         !!paymentIdentifier?.id &&
         allowanceEmployees.filter((e) => e !== null).length > 0,
-    fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees }) => ({
+    fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees, files }) => ({
         initiatorId: job?.id.toString() || '',
         sourceOfFundingId: sourceOfFunding?.id.toString() || '',
         paymentIdentifierId: paymentIdentifier?.id.toString() || '',
         commentary: commentary,
         allowanceEmployees: allowanceEmployees.filter((e) => e !== null) as Employee[],
+        attachedFileIds: files,
     }),
     target: createSupplementMutation.start,
 })
@@ -325,6 +412,7 @@ export const mutations = {
     createSupplement: createSupplementMutation,
     viewNotification: viewNotificationMutation,
     confirmPersonalAllowance: confirmPersonalAllowanceMutation,
+    uploadFile: uploadFileMutation,
 }
 
 export const stores = {

@@ -8,9 +8,9 @@ import Select from '@features/select'
 import { EmployeeInput } from '../ui/employee-input'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Subtext from '@shared/ui/subtext'
-import DragAndDropArea from '@shared/ui/file-input/ui/drag-and-drop-area'
 import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
+import FileInput from '@shared/ui/file-input'
 
 const CreateAllowance = () => {
     const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
@@ -94,11 +94,15 @@ function SourceOfFunding() {
     const items = useUnit(allowancesModel.stores.sourcesOfFunding)
     const { value, setValue } = useUnit(allowancesModel.fields.sourceOfFunding)
 
+    useEffect(() => {
+        if (items.length === 1) setValue(items[0])
+    }, [items])
+
     return (
         <Select
             title="Источник финансирования"
             items={items}
-            selected={items.length === 1 ? items[0] : value}
+            selected={value}
             setSelected={setValue}
             isActive={items.length > 1}
             required
@@ -110,11 +114,14 @@ function PaymentIdentifier() {
     const items = useUnit(allowancesModel.stores.paymentIdentifiers)
     const { value, setValue } = useUnit(allowancesModel.fields.paymentIdentifier)
 
+    useEffect(() => {
+        if (items.length === 1) setValue(items[0])
+    }, [items])
     return (
         <Select
             title="Вид набавки"
             items={items}
-            selected={items.length === 1 ? items[0] : value}
+            selected={value}
             setSelected={setValue}
             isActive={items.length > 1}
             required
@@ -178,7 +185,8 @@ function Employees() {
 
 function Files() {
     const { value, setValue } = useUnit(allowancesModel.fields.files)
-    return <DragAndDropArea files={value} setFiles={setValue} isActive={true} />
+    const loading = useUnit(allowancesModel.mutations.uploadFile.$pending)
+    return <FileInput files={value} setFiles={setValue} isActive={!loading} />
 }
 
 export default CreateAllowance

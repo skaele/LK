@@ -7,6 +7,7 @@ import {
     Subordnate,
     AllowanceEmployee,
     AllowanceNotification,
+    AllowanceFiles,
 } from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
@@ -62,10 +63,10 @@ export const inspectAllowance = async ({
     allowanceId: string
     userId: string
 }) => {
-    const { data } = await $allowancesApi.get<AllowanceEmployee[]>(
+    const { data } = await $allowancesApi.get<{ files: AllowanceFiles; employees: AllowanceEmployee[] }>(
         `allowances/${allowanceId}/${role}s/${userId}/employees`,
     )
-    return data
+    return data.employees
 }
 
 export const approveAllowance = async (request: {

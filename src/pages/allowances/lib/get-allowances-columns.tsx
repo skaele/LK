@@ -2,7 +2,7 @@ import React from 'react'
 import { allownaceResponseConstants } from '@entities/allowances/consts'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
-import { AllowancesApprovalResponse } from '@entities/allowances/types'
+import { AllowanceFiles, AllowancesApprovalResponse } from '@entities/allowances/types'
 
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [
@@ -20,7 +20,6 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             width: '150px',
             render: (value) => value || '-',
         },
-        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
         {
             title: 'Дата',
             field: 'createdAt',
@@ -47,5 +46,13 @@ export const getAllowancesColumns = (): ColumnProps[] => {
                 )
             },
         },
+        {
+            title: 'Файлы',
+            field: 'files',
+            width: '100px',
+            align: 'center',
+            render: (value: AllowanceFiles) => value.application.length + value.other.length + value.order.length,
+        },
+        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
     ]
 }

@@ -187,7 +187,6 @@ sample({
     target: veridctMutation.start,
 })
 
-const $chosen = createStore<Allowance | null>(null)
 const roleQuery = createQuery({
     handler: getRoles,
 })
@@ -416,7 +415,6 @@ export const mutations = {
 }
 
 export const stores = {
-    chosen: $chosen,
     allowances: $allowances,
     employees: $subordinates,
     completed: $completed,

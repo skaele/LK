@@ -25,6 +25,17 @@ export type AllowanceNotification = {
 
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
 
+type AttachedFile = {
+    contentType: string
+    extension: string
+    id: string
+    name: string
+}
+export type AllowanceFiles = {
+    application: AttachedFile[]
+    order: AttachedFile[]
+    other: AttachedFile[]
+}
 export type Allowance = {
     id: string
     sourceOfFunding: HandbookItem
@@ -32,7 +43,7 @@ export type Allowance = {
     commentary: string
     createdAt: string
     status: AllowancesApprovalResponse
-    attachedFileIds: string[]
+    files: AllowanceFiles
 }
 
 export type AllowanceEmployee = {

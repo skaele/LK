@@ -27,13 +27,11 @@ const PaymentsTemplate = ({ contracts }: Props) => {
             }}
         >
             {contracts.map((contract, i) => {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const { agreements, number, type, paygraph, payments, signed_user_date } = contract
-                const isDormitory = type === 'Общежитие'
+                const { agreements, number, paygraph, payments, signed_user_date, type } = contract
                 // Временная мера. Потом апи будет раздавать точную информацию о статусе договора.
                 const isSigned = true
                 const electronicAgreements = agreements.filter((item) => new Date(item?.date) > new Date('2022-02-1'))
-
+                const isDormitory = type === 'Общежитие'
                 return (
                     <React.Fragment key={number}>
                         <Flex gap="8px">
@@ -47,7 +45,6 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                         <PaymentList payments={payments ?? []} />
                         <PaygraphTable paygraph={paygraph} />
                         <ElectronicAgreementList
-                            isDormitory={isDormitory}
                             isContractSigned={isSigned}
                             electronicAgreements={electronicAgreements}
                         />

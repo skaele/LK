@@ -8,7 +8,6 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
 
 const signAgreement = createEvent<string>()
-const changeDone = createEvent<boolean>()
 const setCompleted = createEvent<boolean>()
 
 const getPaymentsFx = createEffect(async (): Promise<Payments> => {
@@ -43,12 +42,6 @@ sample({
 })
 
 sample({
-    clock: signAgreementFx.doneData,
-    fn: () => true,
-    target: changeDone,
-})
-
-sample({
     clock: signAgreementFx.failData,
     fn: () => ({ message: 'У вас нет данных по оплате', type: 'failure' as MessageType }),
     target: popUpMessageModel.events.evokePopUpMessage,
@@ -60,7 +53,7 @@ const getPayments = createEvent()
 
 const $loading = combine(signAgreementFx.pending, getPaymentsFx.pending, Boolean)
 const $completed = createStore<boolean>(false).on(setCompleted, (_, completed) => completed)
-const $done = createStore<boolean>(false).on(changeDone, (_, done) => done)
+const $done = createStore<boolean>(false).on(signAgreementFx.doneData, () => true)
 const $error = createStore<string | null>(null)
     .on(getPaymentsFx, () => null)
     .on(getPaymentsFx.failData, (_, newData) => newData.message)

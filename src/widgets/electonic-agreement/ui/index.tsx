@@ -10,9 +10,9 @@ import styled from 'styled-components'
 import Subtext from '@shared/ui/subtext'
 import { Colors } from '@shared/constants'
 import { electronicInteractionModel } from '@entities/electronic-interaction'
-import { useUnit } from 'effector-react'
+import { ElectronicInteractionTemplate } from '@shared/api/model'
 
-const ElectornicAgreementStyled = styled.div`
+export const ElectornicAgreementStyled = styled.div`
     .info-text {
         margin: 16px 0;
         line-height: 1.7rem;
@@ -25,20 +25,16 @@ const ElectornicAgreementStyled = styled.div`
 
 interface Props {
     children: React.ReactChild
+    handleSubmit: () => void
+    data: ElectronicInteractionTemplate | null
+    done: boolean
+    completed: boolean
+    loading: boolean
 }
 
-const ElectornicAgreement = ({ children }: Props) => {
+const ElectornicAgreement = ({ children, handleSubmit, data, done, completed, loading }: Props) => {
     const { open } = useModal()
-    const [done, completed, workerLoading, data] = useUnit([
-        electronicInteractionModel.stores.$done,
-        electronicInteractionModel.stores.$completed,
-        electronicInteractionModel.stores.$workerLoading,
-        electronicInteractionModel.stores.$electronicInteractionStore,
-    ])
 
-    const handleSubmit = () => {
-        electronicInteractionModel.events.postElectronicInteraction()
-    }
     const setCompleted = electronicInteractionModel.events.changeCompleted
 
     if (!data) return null
@@ -46,15 +42,17 @@ const ElectornicAgreement = ({ children }: Props) => {
     return (
         <ElectornicAgreementStyled>
             <Flex gap="8px">
-                <LinkButton
-                    href={data.file}
-                    onClick={() => null}
-                    text="Скачать согласие"
-                    width="100%"
-                    minHeight="38px"
-                    height="38px"
-                    icon={<FiDownload />}
-                />
+                {data?.file && (
+                    <LinkButton
+                        href={data.file}
+                        onClick={() => null}
+                        text="Скачать согласие"
+                        width="100%"
+                        minHeight="38px"
+                        height="38px"
+                        icon={<FiDownload />}
+                    />
+                )}
                 <Message
                     type={'success'}
                     icon={<FiCheck />}
@@ -68,7 +66,7 @@ const ElectornicAgreement = ({ children }: Props) => {
                 <SubmitButton
                     text={!data.status && !done ? 'Подписать' : 'Подписано'}
                     action={handleSubmit}
-                    isLoading={workerLoading}
+                    isLoading={loading}
                     completed={completed}
                     isDone={done || data.status}
                     setCompleted={setCompleted}

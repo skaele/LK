@@ -105,6 +105,9 @@ export const SCHEDULE_SESSION_ROUTE = SCHEDULE_ROUTE + '/session'
 export const SCHEDULE_RETAKE_ROUTE = SCHEDULE_ROUTE + '/retake'
 export const TEMPLATE_USEFUL_INFO_ROUTE = USEFUL_INFO_ROUTE + '/:infoType'
 
+export const ELECTRONIC_INTERACTION_TYPE = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/:type'
+export const PERSONAL_ELECTRONIC_INTERACTION = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/personal'
+export const THIRD_PARTY_ELECTRONIC_INTERACTION = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/third-party'
 export interface IRoutes {
     [id: string]: IRoute
 }
@@ -285,12 +288,13 @@ export const generalRoutes: IRoutes = {
         title: 'Соглашение об электронном взаимодействии',
         shortTitle: 'Соглашение об электр...',
         icon: <HiOutlineClipboardCheck />,
-        path: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
+        path: ELECTRONIC_INTERACTION_TYPE,
         Component: ElectronicInteractionAgreementPage,
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
         pageSize: 'small',
+        menuPath: PERSONAL_ELECTRONIC_INTERACTION,
     },
     chat: {
         id: 'chat',

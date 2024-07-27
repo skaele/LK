@@ -1,7 +1,6 @@
 import {
     Employee,
     HandbookItem,
-    AllowancesApprovalStatus,
     HandbookType,
     Role,
     Subordnate,
@@ -12,6 +11,7 @@ import {
 import { $allowancesApi } from '../config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
 import { PersonalAllowance } from './notification'
+import { AllowancesApprovalStatus } from '@entities/allowances/consts'
 
 type AllowanceRequest = {
     initiatorId: string
@@ -50,7 +50,7 @@ export const createAllowance = async (allowance: AllowanceRequest) => {
 }
 
 export const getSubordinates = async (userId: string) => {
-    const { data } = await $allowancesApi.get<Subordnate[]>(`initiators/${userId}/employees`)
+    const { data } = await $allowancesApi.get<Subordnate[]>(`/initiators/${userId}/employees`)
     return data
 }
 
@@ -75,17 +75,17 @@ export const approveAllowance = async (request: {
     employeeId: string
     approvalStatus: AllowancesApprovalStatus
 }) => {
-    const { data } = await $allowancesApi.post<ApplicationResult>(`allowances/verdict`, request)
+    const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/verdict`, request)
     return data
 }
 
-export const getRoles = async (userId: string | null): Promise<JobRoles> => {
-    const { data } = await $allowancesApi.get<JobRoles>(`employees/${userId}/roles`)
+export const getRoles = async (): Promise<JobRoles> => {
+    const { data } = await $allowancesApi.get<JobRoles>(`/roles`)
     return data
 }
 
 export const getHandbook = async (handbookName: HandbookType) => {
-    const { data } = await $allowancesApi.get<HandbookItem[]>('handbooks/' + handbookName)
+    const { data } = await $allowancesApi.get<HandbookItem[]>('/handbooks/' + handbookName)
     return data
 }
 
@@ -97,28 +97,28 @@ export const uploadFile = async (file: File) => {
 }
 
 export const removeFile = async (fileId: string) => {
-    // const { data } = await $allowancesApi.delete<ApplicationResult>(`/files/${fileId}`)
-    // return data
+    const { data } = await $allowancesApi.delete<ApplicationResult>(`/files?` + new URLSearchParams({ fileId }))
+    return data
 }
 
 // #region notifications
-export const getAllowancesNotifications = async (personalId: string | null) => {
-    const { data } = await $allowancesApi.get<AllowanceNotification[]>('notifications/' + personalId)
+export const getAllowancesNotifications = async () => {
+    const { data } = await $allowancesApi.get<AllowanceNotification[]>('/notifications')
     return data
 }
 export const viewNotification = async (notificationId: string) => {
-    const { data } = await $allowancesApi.patch('notifications/' + notificationId)
+    const { data } = await $allowancesApi.patch('/notifications/' + notificationId)
     return data
 }
 // #end region
 
 // #region personal allowances
-export const getPersonalAllowances = async (personalId: string | null) => {
-    const { data } = await $allowancesApi.get<PersonalAllowance[]>('allowances/personal/' + personalId)
+export const getPersonalAllowances = async () => {
+    const { data } = await $allowancesApi.get<PersonalAllowance[]>('/allowances/confirmation')
     return data
 }
 export const confirmPersonalAllowance = async (req: ConfirmRequest) => {
-    const { data } = await $allowancesApi.post('allowances/confirm', req)
+    const { data } = await $allowancesApi.post('/allowances/confirmation', req)
     return data
 }
 // #end region

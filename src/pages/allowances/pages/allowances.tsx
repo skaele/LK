@@ -55,7 +55,7 @@ const Allowances = () => {
                             { id: 'approver', title: 'Согласование надбавок', content: <Approver /> },
                             { id: 'initiator', title: 'Установление надбавок', content: <Initiator /> },
                         ]}
-                        currentPage={role === 'approver' ? 0 : 1}
+                        currentPage={role === 'initiator' ? 1 : 0}
                         onChangePage={setRole}
                         appearance={false}
                     />

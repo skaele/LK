@@ -18,14 +18,14 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 <Title align="left" size={3}>
                     Инициатор: {allowance.initiatorName}, {allowance.position}
                 </Title>
-                {allowance.selfApprovalStatus === 'Согласовано' && (
+                {allowance.selfApprovalStatus === 'Подтверждено' && (
                     <Subtext fontSize="1em" color="var(--greenMain)">
-                        Согласовано
+                        {allowance.selfApprovalStatus}
                     </Subtext>
                 )}
-                {allowance.selfApprovalStatus === 'Отклонено' && (
+                {(allowance.selfApprovalStatus === 'Отказано' || allowance.selfApprovalStatus === 'Просрочено') && (
                     <Subtext fontSize="1em" color="#c54646">
-                        Отказано
+                        {allowance.selfApprovalStatus}
                     </Subtext>
                 )}
                 <Title align="left" size={4}>
@@ -42,7 +42,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                     {localizeDate(allowance.endDate, 'numeric')}{' '}
                 </Subtext>
             </Info>
-            {allowance.selfApprovalStatus === 'На рассмотрении' && (
+            {allowance.selfApprovalStatus === 'Неизвестно' && (
                 <BlockButtons>
                     <Button
                         text="Отказаться"

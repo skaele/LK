@@ -1,8 +1,8 @@
 import React from 'react'
-import { allownaceResponseConstants } from '@entities/allowances/consts'
+import { allowanceConstants, AllowancesApprovalResponse } from '@entities/allowances/consts'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
-import { AllowanceFiles, AllowancesApprovalResponse } from '@entities/allowances/types'
+import { AllowanceFiles } from '@entities/allowances/types'
 
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [
@@ -34,7 +34,9 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'status',
             priority: 'one',
             width: '165px',
-            catalogs: [...(allownaceResponseConstants.map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
+            catalogs: [
+                ...(Object.values(allowanceConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
             render: (value: AllowancesApprovalResponse) => {
                 return (
                     <Message

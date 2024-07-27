@@ -1,5 +1,4 @@
-export type AllowancesApprovalStatus = 'Unknown' | 'InProgress' | 'Approved' | 'Declined'
-export type AllowancesApprovalResponse = 'На рассмотрении' | 'Согласовано' | 'Отклонено'
+import { AllowancesApprovalResponse, AllowancesApprovalStatus } from '../consts'
 
 export type HandbookItem = {
     id: string
@@ -21,6 +20,7 @@ export type AllowanceNotification = {
     allowanceId: string
     notificationType: AllowanceNotificationType
     message: string
+    employeeId: string
 }
 
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'

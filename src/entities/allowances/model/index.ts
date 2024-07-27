@@ -284,12 +284,10 @@ sample({
 $completed.on(setCompleted, (_, val) => val)
 sample({
     clock: appStarted,
-    source: userModel.stores.userGuid,
     target: roleQuery.start,
 })
 sample({
     clock: appStarted,
-    source: userModel.stores.userGuid,
     target: notificationsQuery.start,
 })
 
@@ -364,7 +362,6 @@ sample({
 
 sample({
     clock: personalAllowancesMounted,
-    source: userModel.stores.userGuid,
     target: personalAllowancesQuery.start,
 })
 
@@ -380,7 +377,6 @@ sample({
 
 sample({
     clock: confirmPersonalAllowanceMutation.$succeeded,
-    source: userModel.stores.userGuid,
     target: personalAllowancesQuery.start,
 })
 

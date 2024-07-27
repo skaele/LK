@@ -6,17 +6,17 @@ export const createAllowancePath = (allowance: AllowanceNotification) => {
 
     switch (page) {
         case NotificationLinks.RecepientDeclinedByZkgu:
-            return page
+            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
         case NotificationLinks.RecepientDeclinedByAppover:
-            return page
+            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
         case NotificationLinks.RecepientSelfDeclined:
-            return page
+            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
         case NotificationLinks.RecepientSelfConfirmed:
-            return page
+            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
         case NotificationLinks.FullyCompleted:
-            return page
+            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
         case NotificationLinks.ToApprove:
-            return page
+            return `${page}/${allowance.employeeId}/approver/${allowance.allowanceId}`
         case NotificationLinks.ToConfirm:
             return page
         case NotificationLinks.AllowanceOrderCompleted:

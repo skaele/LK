@@ -1,4 +1,4 @@
-import { AllowancesApprovalResponse } from '@entities/allowances/types'
+import { SelfApprovalResponse } from '@entities/allowances/consts'
 
 export interface businesstripNotification {
     id: string
@@ -60,7 +60,7 @@ export interface PersonalAllowance {
     issueDate: string
     paymentIdentifier: string
     sourceOfFunding: string
-    selfApprovalStatus: AllowancesApprovalResponse
+    selfApprovalStatus: SelfApprovalResponse
 }
 
 export type ItemNotification = baseNotification | businesstripNotification | docsNotification

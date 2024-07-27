@@ -1,7 +1,7 @@
 import {
     ALERTS_ROUTE,
     CHAT_ROUTE,
-    ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
+    PERSONAL_ELECTRONIC_INTERACTION,
     PAYMENTS_ROUTE,
     SCHEDULE_ROUTE,
 } from '@app/routes/general-routes'
@@ -105,7 +105,7 @@ const createNotification = (type: NotificationType, id: string, title?: string, 
             title: title ?? 'Документ для подписания',
             text: 'Об электронном взаимодействии',
             type: 'electronic-interaction',
-            goTo: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
+            goTo: PERSONAL_ELECTRONIC_INTERACTION,
             pageId: 'electronic-interaction-agreement',
         },
         allowance: {

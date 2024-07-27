@@ -8,7 +8,6 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
 
 const signAgreement = createEvent<string>()
-const changeDone = createEvent<boolean>()
 const setCompleted = createEvent<boolean>()
 
 const getPaymentsFx = createEffect(async (): Promise<Payments> => {
@@ -33,20 +32,13 @@ const signContractFx = createEffect(async (contractId: string) => {
 
 const signAgreementFx = createEffect(async (id: string) => {
     const response = await agreementSubmit(id)
-
-    if (!response.data.contracts.education && !response.data.contracts.dormitory) throw new Error()
+    if (response.data[0].result !== 'ok') throw new Error()
 })
 
 sample({
     clock: signAgreementFx.doneData,
     fn: () => ({ message: 'Успешно подписано', type: 'success' as MessageType }),
     target: popUpMessageModel.events.evokePopUpMessage,
-})
-
-sample({
-    clock: signAgreementFx.doneData,
-    fn: () => true,
-    target: changeDone,
 })
 
 sample({
@@ -61,7 +53,7 @@ const getPayments = createEvent()
 
 const $loading = combine(signAgreementFx.pending, getPaymentsFx.pending, Boolean)
 const $completed = createStore<boolean>(false).on(setCompleted, (_, completed) => completed)
-const $done = createStore<boolean>(false).on(changeDone, (_, done) => done)
+const $done = createStore<boolean>(false).on(signAgreementFx.doneData, () => true)
 const $error = createStore<string | null>(null)
     .on(getPaymentsFx, () => null)
     .on(getPaymentsFx.failData, (_, newData) => newData.message)

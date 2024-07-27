@@ -1,16 +1,16 @@
 import { userModel } from '@entities/user'
-import { pERequest } from '@shared/api/config/pe-config'
+
 import { attach, createEvent, restore, sample } from 'effector'
-import { loadPeUserPermissions } from './lib'
-import { PETeacher } from './types'
+
+import { peApi } from '@shared/api'
 
 const load = createEvent()
 
 const loadFx = attach({
     effect: async ({ currentUser }) => {
-        const res = await pERequest<{ teacher: PETeacher }>(loadPeUserPermissions(currentUser?.guid ?? ''))
+        const { data } = await peApi.getTeacher(currentUser?.guid ?? '')
 
-        return { ...res.teacher, id: currentUser?.guid ?? '' }
+        return { ...data.data, id: currentUser?.guid ?? '' }
     },
     source: userModel.stores.user,
 })

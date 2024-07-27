@@ -1,4 +1,4 @@
-import { FormBlock, SubmitButton } from '@ui/atoms'
+import { Error, FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
@@ -26,10 +26,14 @@ const AccommodationForGraduatesPage = () => {
         }
     }, [dataUserApplication])
 
+    if (new Date() < new Date(2024, 6, 10) || new Date() > new Date(2024, 7, 1))
+        return <Error text="Подача заявок недоступна до 10.07.2024"></Error>
+    if (new Date() > new Date(2024, 7, 1)) return <Error text="Подача заявок закончилась"></Error>
+
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                     <SubmitButton
                         text={'Отправить'}

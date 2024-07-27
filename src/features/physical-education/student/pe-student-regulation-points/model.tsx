@@ -22,7 +22,7 @@ export const $regularPointsColumns = combine(
         },
         {
             title: 'Норматив',
-            field: 'standardType',
+            field: 'type',
             render: (data, row) => {
                 if (data === RegulationType.Other) {
                     return row.comment
@@ -37,8 +37,7 @@ export const $regularPointsColumns = combine(
         },
         {
             title: 'Преподаватель',
-            field: 'teacher',
-            render: (data) => data.fullName,
+            field: 'teacherFullName',
         },
         {
             title: 'Комментарий',

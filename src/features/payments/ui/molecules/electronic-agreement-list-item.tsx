@@ -1,5 +1,5 @@
 import { Agreement } from '@api/model'
-import { paymentsModel } from '@entities/payments'
+import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } from '@entities/payments'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import Accordion from '@ui/accordion/accordion'
@@ -7,9 +7,14 @@ import { LinkButton, SubmitButton, Title } from '@ui/atoms'
 import { Message } from '@ui/message'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { useUnit } from 'effector-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FiCheck, FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
+import { useModal } from 'widgets'
+import { ThirdPartyModal } from './third-party'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { useHistory } from 'react-router'
+import { THIRD_PARTY_ELECTRONIC_INTERACTION } from '@app/routes/general-routes'
 
 interface Props {
     data: Agreement
@@ -27,19 +32,46 @@ const SignBlock = styled.div`
 `
 
 const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
+    const history = useHistory()
     const { id, signed_user: signedUser, name, can_sign: isActive, date } = data
-    const [done, completed, loading] = useUnit([
+    const [done, completed, loading, signed, TPAgreement] = useUnit([
         paymentsModel.stores.$done,
         paymentsModel.stores.$completed,
         paymentsModel.stores.$loading,
+        thirdPartyAgreementModel.stores.signed,
+        thirdPartyInteractionModel.stores.thirdPartyInteractionAgreement,
     ])
 
-    const height = signedUser || done ? 140 : 100
-    const handleSubmit = () => paymentsModel.events.signAgreement(id)
+    const height = signedUser || done || signed ? 140 : 100
+
+    const { open, close } = useModal()
+
+    useEffect(() => {
+        if (signed) close()
+    }, [signed])
+
+    const handleSubmit = (isThirdParty: boolean) => {
+        if (isThirdParty) {
+            if (!TPAgreement) {
+                popUpMessageModel.events.evokePopUpMessage({
+                    message: 'Чтобы продолжить, подпишите соглашение об электронном взаимодействии',
+                    type: 'failure',
+                    time: 10000,
+                })
+                history.push(THIRD_PARTY_ELECTRONIC_INTERACTION)
+                return
+            }
+            thirdPartyAgreementModel.events.signStarted()
+            open(<ThirdPartyModal agreement={data} />)
+            return
+        }
+        paymentsModel.events.signAgreement(id)
+    }
     const setCompleted = paymentsModel.events.setCompleted
+    const isThirdParty = data.sides === '3'
 
     return (
-        <Accordion height={height} title={name} confirmed={signedUser || done}>
+        <Accordion height={height} title={name} confirmed={signedUser || done || signed}>
             <SignBlock>
                 <Flex d="column" ai="flex-start" gap="4px">
                     <Title size={5} align="left">
@@ -56,16 +88,16 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                         isActive={!!data.file}
                         // background="transparent"
                     />
-                    {!(signedUser || done) && (
+                    {!(signedUser || done || signed) && (
                         <SubmitButton
-                            text={!(signedUser || done) ? 'Подписать' : 'Подписано'}
-                            action={handleSubmit}
+                            text={!(signedUser || done || signed) ? 'Подписать' : 'Подписано'}
+                            action={() => handleSubmit(isThirdParty)}
                             isLoading={loading}
-                            completed={completed}
-                            isDone={signedUser || done}
+                            completed={completed || signed}
+                            isDone={signedUser || done || signed}
                             width="160px"
                             setCompleted={setCompleted}
-                            isActive={!(signedUser || done) && isActive}
+                            isActive={!(signedUser || done || signed) && isActive}
                             popUpFailureMessage={
                                 !isActive
                                     ? isContractSigned
@@ -82,11 +114,11 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                         icon={<FiCheck />}
                         align="center"
                         width="130px"
-                        visible={signedUser || done}
+                        visible={signedUser || done || signed}
                     />
                 </Flex>
             </SignBlock>
-            {(done || signedUser) && (
+            {(done || signedUser || signed) && (
                 <Subtext>
                     Дата подписания: {localizeDate(data.signed_user_date || new Date())},{' '}
                     {data.signed_user_time || `${new Date().getHours()}:${new Date().getMinutes()}`}

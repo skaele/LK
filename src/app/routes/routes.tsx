@@ -469,13 +469,12 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     'accommodation-for-graduates': {
         id: 'accommodation-for-graduates',
         title: 'Предоставление права проживания в каникулярный период',
-        icon: BiIdCard,
+        icon: <BiIdCard />,
         path: ACCOMMODATION_FOR_GRADUATES,
         Component:
-            !isProduction &&
-            (['4', '5', '6'].includes(user?.course ?? '') ||
-                user?.status?.toLocaleLowerCase()?.includes('окончил') ||
-                (user?.degreeLevel?.toLocaleLowerCase() === 'магистратура' && user?.course === '2'))
+            ['4', '5', '6'].includes(user?.course ?? '') ||
+            user?.status?.toLocaleLowerCase()?.includes('окончил') ||
+            (user?.degreeLevel?.toLocaleLowerCase() === 'магистратура' && user?.course === '2')
                 ? AccommodationForGraduatesPage
                 : () => (
                       <PageIsNotReady
@@ -486,10 +485,11 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
+        hiddenTitle: true,
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        show: !isProduction,
+        show: true,
     },
     'payment-recipient': {
         id: 'payment-recipient',

@@ -29,6 +29,7 @@ const pageMounted = createEvent()
 const personalAllowancesMounted = createEvent()
 const fileAttached = createEvent<File>()
 const fileRemoved = createEvent<string | undefined>()
+const allFilesRemoved = createEvent()
 const allowanceStatusChanged = createEvent<Omit<ConfirmRequest, 'personalId'>>()
 const infoPageMounted = createEvent<{ id: string; role: Role; userId: string }>()
 const getSubordinatesEvent = createEvent<string>()
@@ -36,6 +37,10 @@ const createSupplement = createEvent()
 const setCompleted = createEvent<boolean>()
 const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
 const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
+
+const removeAllFilesFx = createEffect(async (files: string[]) => {
+    await Promise.all(files.map((fileId) => removeFileMutation.start(fileId)))
+})
 
 const notificationsQuery = createQuery({
     handler: getAllowancesNotifications,
@@ -105,7 +110,7 @@ sample({
 sample({
     clock: files.setValue,
     source: { filesMap: $filesMap },
-    filter: ({ filesMap }, newFiles) => newFiles.length < Object.keys(filesMap).length,
+    filter: ({ filesMap }, newFiles) => newFiles.length < Object.keys(filesMap).length && newFiles.length > 0,
     fn: ({ filesMap }, newFiles) => {
         const deletedFileName = Object.keys(filesMap).find((file) => !newFiles.find((f) => f.name === file))
 
@@ -113,10 +118,21 @@ sample({
     },
     target: fileRemoved,
 })
+sample({
+    clock: files.setValue,
+    filter: (newFiles) => newFiles.length === 0,
+    target: allFilesRemoved,
+})
 
 sample({
     clock: fileAttached,
     target: uploadFileMutation.start,
+})
+
+sample({
+    clock: allFilesRemoved,
+    source: $fileIds,
+    target: removeAllFilesFx,
 })
 
 sample({

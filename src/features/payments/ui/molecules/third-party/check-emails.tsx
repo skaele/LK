@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Agreement } from '@shared/api/model'
-import { Grid } from '@pages/all-staff/styled/grid'
 import Input from '@shared/ui/input'
 import { Button, Message, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { Colors } from '@shared/constants'
 import { useModal } from 'widgets'
 import { thirdPartyAgreementModel } from '@entities/payments'
+import { Grid } from '@shared/ui/grid'
 
 export const CheckEmails = ({ agreement }: { agreement: Agreement }) => {
     const [userEmail, setUserEmail] = useState(agreement.user_email)

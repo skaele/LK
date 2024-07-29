@@ -30,6 +30,7 @@ export type AttachedFile = {
     extension: string
     id: string
     name: string
+    digitalSignature: string
 }
 export type AllowanceFiles = {
     application: AttachedFile[]

@@ -1,4 +1,4 @@
-import { Button, Message, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
+import { Button, Loading, Message, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import React, { useEffect, useMemo } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useList, useUnit } from 'effector-react'
@@ -15,7 +15,8 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { Forbidden } from '@shared/ui/forbidden'
 
 const CreateAllowance = () => {
-    const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
+    const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
+        allowancesModel.queries.role.$pending,
         allowancesModel.events.createSupplement,
         allowancesModel.mutations.createSupplement.$pending,
         allowancesModel.events.pageMounted,
@@ -31,6 +32,12 @@ const CreateAllowance = () => {
         pageMounted()
     }, [])
 
+    if (initLoading)
+        return (
+            <Flex w="100%" jc="center" ai="center">
+                <Loading />
+            </Flex>
+        )
     if (!roles.includes('Initiator')) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (

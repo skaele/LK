@@ -12,6 +12,7 @@ import { Title } from '@shared/ui/title'
 import { File } from '../ui/file'
 import { Divider } from '@shared/ui/divider'
 import { Forbidden } from '@shared/ui/forbidden'
+import { Loading } from '@shared/ui/loading'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
@@ -28,6 +29,12 @@ const Info = () => {
         infoPageMounted({ id, role, userId: jobId })
     }, [id, role, jobId])
 
+    if (pending)
+        return (
+            <Flex w="100%" jc="center" ai="center">
+                <Loading />
+            </Flex>
+        )
     if (!roles.includes('Initiator') || !roles.includes('Approver'))
         return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
@@ -108,9 +115,14 @@ const Info = () => {
                         ]}
                     />
                 ) : (
-                    data?.employees.map((employee) => (
-                        <Employee key={employee.id} employee={employee} role={role} userId={jobId} id={id} />
-                    ))
+                    <Flex d="column" gap="1rem" w="100%">
+                        {data?.employees.map((employee, index) => (
+                            <>
+                                {index !== 0 && <Divider />}
+                                <Employee key={employee.id} employee={employee} role={role} userId={jobId} id={id} />
+                            </>
+                        ))}
+                    </Flex>
                 )}
             </Loader>
         </PageBlock>

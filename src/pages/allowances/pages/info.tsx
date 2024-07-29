@@ -23,7 +23,7 @@ const Info = () => {
 
     useEffect(() => {
         infoPageMounted({ id, role, userId: jobId })
-    }, [])
+    }, [id, role, jobId])
     return (
         <PageBlock>
             <Loader load={() => {}} data={data} loading={pending} error={error ? (error as Error).message : null}>

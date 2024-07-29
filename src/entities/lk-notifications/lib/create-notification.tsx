@@ -6,7 +6,7 @@ import {
     SCHEDULE_ROUTE,
 } from '@app/routes/general-routes'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
-import { DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
+import { DOCLIST_ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
 import { NotificationType, TNotification } from '../types'
 import { allowancesModel } from '@entities/allowances'
 
@@ -113,7 +113,7 @@ const createNotification = (type: NotificationType, id: string, title?: string, 
             title: title ?? 'Надбавки',
             text: text ?? '',
             type: 'allowance',
-            goTo: goTo ?? DOCLIST_ROUTE,
+            goTo: goTo ?? DOCLIST_ALLOWANCES,
             onClick: () => allowancesModel.mutations.viewNotification.start(id),
             onClose: () => allowancesModel.mutations.viewNotification.start(id),
         },

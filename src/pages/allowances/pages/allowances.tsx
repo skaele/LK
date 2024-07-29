@@ -10,6 +10,7 @@ import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 import { useHistory, useParams } from 'react-router'
+import { Forbidden } from '@shared/ui/forbidden'
 
 const Allowances = () => {
     const history = useHistory()
@@ -19,7 +20,7 @@ const Allowances = () => {
     }
     const [pageMounted, roles, user] = useUnit([
         allowancesModel.events.pageMounted,
-        allowancesModel.queries.role.$data,
+        allowancesModel.stores.roles,
 
         userModel.stores.user,
     ])
@@ -31,44 +32,44 @@ const Allowances = () => {
     useEffect(() => {
         pageMounted()
     }, [])
-    if (roles && user?.currentUser?.guid) {
-        return (
-            <PageBlock
-                topRightCornerElement={
-                    roles.some((employee) => employee.roles.includes('Initiator')) && (
-                        <Button
-                            onClick={handleCreateApplication}
-                            text="Подать заявку"
-                            background="var(--reallyBlue)"
-                            textColor="#fff"
-                            icon={<FiPlus />}
-                            minWidth="35px"
-                            height="36px"
-                            shrinkTextInMobile
-                        />
-                    )
-                }
-            >
-                {roles.some((employee) => employee.roles.length > 1) ? (
-                    <SliderPage
-                        pages={[
-                            { id: 'approver', title: 'Согласование надбавок', content: <Approver /> },
-                            { id: 'initiator', title: 'Установление надбавок', content: <Initiator /> },
-                        ]}
-                        currentPage={role === 'initiator' ? 1 : 0}
-                        onChangePage={setRole}
-                        appearance={false}
-                    />
-                ) : roles.some((employee) => employee.roles[0] === 'Initiator') ? (
-                    <Initiator />
-                ) : (
-                    <Approver />
-                )}
-            </PageBlock>
-        )
-    }
 
-    return null
+    if (!roles.includes('Initiator') || !roles.includes('Approver') || !user?.currentUser?.guid)
+        return <Forbidden text={'У вас нет доступа к этому разделу'} />
+
+    return (
+        <PageBlock
+            topRightCornerElement={
+                roles.includes('Initiator') && (
+                    <Button
+                        onClick={handleCreateApplication}
+                        text="Подать заявку"
+                        background="var(--reallyBlue)"
+                        textColor="#fff"
+                        icon={<FiPlus />}
+                        minWidth="35px"
+                        height="36px"
+                        shrinkTextInMobile
+                    />
+                )
+            }
+        >
+            {roles.length > 1 ? (
+                <SliderPage
+                    pages={[
+                        { id: 'approver', title: 'Согласование надбавок', content: <Approver /> },
+                        { id: 'initiator', title: 'Установление надбавок', content: <Initiator /> },
+                    ]}
+                    currentPage={role === 'initiator' ? 1 : 0}
+                    onChangePage={setRole}
+                    appearance={false}
+                />
+            ) : roles[0] === 'Initiator' ? (
+                <Initiator />
+            ) : (
+                <Approver />
+            )}
+        </PageBlock>
+    )
 }
 
 export default Allowances

@@ -100,6 +100,7 @@ import { BsPeople } from 'react-icons/bs'
 import AllStaff from '@pages/all-staff'
 import AllTeachersPage from '@pages/all-teachers'
 import { IoNewspaperOutline } from 'react-icons/io5'
+import { Role } from '@entities/allowances/types'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -218,7 +219,7 @@ export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certifie
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
-export const teachersPrivateRoutes: () => IRoutes = () => ({
+export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
@@ -546,9 +547,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         pageSize: 'big',
         isNew: true,
-
-        isSupplementApprover: true,
-        isSupplementInitiator: true,
+        show: allowancesRoles.includes('Approver') || allowancesRoles.includes('Initiator'),
     },
     'data-verification': {
         id: 'data-verification',
@@ -620,7 +619,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     // },
 })
 
-export const teachersHiddenRoutes: () => IRoutes = () => ({
+export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     ...generalHiddenRoutes,
     // remove after mobile version is ready
     // #ASM
@@ -669,13 +668,11 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'FINANCES_DOCS',
         fallbackPrevPage: ALLOWANCES,
         isSubPage: true,
-
-        isSupplementApprover: true,
-        isSupplementInitiator: true,
+        show: false,
     },
     'create-allowances': {
         id: 'create-allowances',
-        title: 'Установление надбавок',
+        title: 'Запросить надбавку',
         icon: <FiFileText />,
         path: CREATE_ALLOWANCE,
         Component: CreateAllowance,
@@ -685,8 +682,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         fallbackPrevPage: ALLOWANCES,
         hiddenTitle: true,
         isSubPage: true,
-
-        isSupplementInitiator: true,
+        show: !isProduction || allowancesRoles.includes('Initiator'),
     },
     'pps-vote': {
         id: 'pps-vote',

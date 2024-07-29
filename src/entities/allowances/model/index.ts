@@ -207,6 +207,7 @@ sample({
 const roleQuery = createQuery({
     handler: getRoles,
 })
+const $roles = roleQuery.$data.map((jobs) => jobs?.map((job) => job.roles).flat() ?? [])
 const paymentIdentifierQuery = createQuery({
     handler: getHandbook,
 })
@@ -437,6 +438,7 @@ export const mutations = {
 }
 
 export const stores = {
+    roles: $roles,
     allowances: $allowances,
     employees: $subordinates,
     completed: $completed,

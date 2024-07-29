@@ -12,13 +12,14 @@ import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { Forbidden } from '@shared/ui/forbidden'
 
 const CreateAllowance = () => {
     const [createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
         allowancesModel.events.createSupplement,
         allowancesModel.mutations.createSupplement.$pending,
         allowancesModel.events.pageMounted,
-        allowancesModel.queries.role.$data,
+        allowancesModel.stores.roles,
         allowancesModel.stores.completed,
         allowancesModel.events.setCompleted,
         allowancesModel.stores.isActive,
@@ -30,52 +31,52 @@ const CreateAllowance = () => {
         pageMounted()
     }, [])
 
+    if (!roles.includes('Initiator')) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+
     return (
         <BaseApplicationWrapper isDone={isDone}>
-            {!!roles && (
-                <FormBlockWrapper noHeader>
-                    <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                        <p>Интерфейс находится в разработке</p>
-                    </Message>
-                    <Job />
-                    <SourceOfFunding />
-                    <PaymentIdentifier />
-                    <Commentary />
-                    <Employees />
-                    <Files />
-                    <SubmitButton
-                        text={!isDone ? 'Отправить' : 'Отправлено'}
-                        action={createSupplement}
-                        isLoading={loading}
-                        completed={completed}
-                        setCompleted={setCompleted}
-                        repeatable={false}
-                        buttonSuccessText="Отправлено"
-                        isDone={isDone}
-                        isActive={isActive}
-                        popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
-                        popUpSuccessMessage="Данные формы успешно отправлены"
-                    />
-                </FormBlockWrapper>
-            )}
+            <FormBlockWrapper noHeader>
+                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
+                    <p>Интерфейс находится в разработке</p>
+                </Message>
+                <Job />
+                <SourceOfFunding />
+                <PaymentIdentifier />
+                <Commentary />
+                <Employees />
+                <Files />
+                <SubmitButton
+                    text={!isDone ? 'Отправить' : 'Отправлено'}
+                    action={createSupplement}
+                    isLoading={loading}
+                    completed={completed}
+                    setCompleted={setCompleted}
+                    repeatable={false}
+                    buttonSuccessText="Отправлено"
+                    isDone={isDone}
+                    isActive={isActive}
+                    popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
+                    popUpSuccessMessage="Данные формы успешно отправлены"
+                />
+            </FormBlockWrapper>
         </BaseApplicationWrapper>
     )
 }
 
 function Job() {
     const { value, setValue } = useUnit(allowancesModel.fields.job)
-    const roles = useUnit(allowancesModel.queries.role.$data)
+    const jobRoles = useUnit(allowancesModel.queries.role.$data)
 
-    if (!roles) return null
+    if (!jobRoles) return null
 
     const items = useMemo(() => {
-        return roles
+        return jobRoles
             .filter((job) => job.roles.includes('Initiator'))
             .map((job) => ({
                 id: job.employeeId,
                 title: job.division,
             }))
-    }, roles)
+    }, jobRoles)
     useEffect(() => {
         if (items.length === 1) setValue(items[0])
     }, [items])

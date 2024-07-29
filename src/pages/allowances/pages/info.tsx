@@ -11,20 +11,26 @@ import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
 import { File } from '../ui/file'
 import { Divider } from '@shared/ui/divider'
+import { Forbidden } from '@shared/ui/forbidden'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
 
-    const [infoPageMounted, data, pending, error] = useUnit([
+    const [infoPageMounted, data, pending, error, roles] = useUnit([
         allowancesModel.events.infoPageMounted,
         allowancesModel.queries.allowance.$data,
         allowancesModel.queries.allowance.$pending,
         allowancesModel.queries.allowance.$error,
+        allowancesModel.stores.roles,
     ])
 
     useEffect(() => {
         infoPageMounted({ id, role, userId: jobId })
     }, [id, role, jobId])
+
+    if (!roles.includes('Initiator') || !roles.includes('Approver'))
+        return <Forbidden text={'У вас нет доступа к этому разделу'} />
+
     return (
         <PageBlock>
             <Loader load={() => {}} data={data} loading={pending} error={error ? (error as Error).message : null}>

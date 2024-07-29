@@ -1,4 +1,5 @@
 import { AttachedFile } from '@entities/allowances/types'
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { getJwtToken } from '@entities/user/lib/jwt-token'
 import { ALLOWANCES_URL } from '@shared/api/config/allowances-config'
 import getFileSize from '@shared/lib/get-file-size'
@@ -15,21 +16,28 @@ export const File = ({ file }: { file: AttachedFile }) => {
             <div
                 className="file-body"
                 onClick={() => {
-                    setLoading(true)
-                    fetch(`${ALLOWANCES_URL}files?${new URLSearchParams({ fileId: file.id })}`, {
-                        headers: {
-                            Authorization: `Bearer ${getJwtToken()}`,
-                        },
-                    })
-                        .then((response) => response.blob())
-                        .then((blob) => {
-                            window.open(window.URL.createObjectURL(blob), '_blank')?.focus() // window.open + focus
+                    if (file.sizeB) {
+                        setLoading(true)
+                        fetch(`${ALLOWANCES_URL}files?${new URLSearchParams({ fileId: file.id })}`, {
+                            headers: {
+                                Authorization: `Bearer ${getJwtToken()}`,
+                            },
                         })
-                        .catch((err) => {
-                            // eslint-disable-next-line no-console
-                            console.log(err)
+                            .then((response) => response.blob())
+                            .then((blob) => {
+                                window.open(window.URL.createObjectURL(blob), '_blank')?.focus() // window.open + focus
+                            })
+                            .catch((err) => {
+                                // eslint-disable-next-line no-console
+                                console.log(err)
+                            })
+                            .finally(() => setLoading(false))
+                    } else {
+                        popUpMessageModel.events.evokePopUpMessage({
+                            message: 'Файл недоступен',
+                            type: 'failure',
                         })
-                        .finally(() => setLoading(false))
+                    }
                 }}
             >
                 <div className="image-container">
@@ -46,7 +54,7 @@ export const File = ({ file }: { file: AttachedFile }) => {
                         {file.name}.{file.extension}
                     </b>
                     {file.digitalSignature && <Subtext fontSize="0.7em">{file.digitalSignature}</Subtext>}
-                    <Subtext fontSize="0.7em">{getFileSize(file.sizeB)}</Subtext>
+                    {!!file.sizeB && <Subtext fontSize="0.7em">{getFileSize(file.sizeB)}</Subtext>}
                 </div>
             </div>
         </FileWrapper>

@@ -102,11 +102,11 @@ export const Employee = ({
 }
 
 const Layout = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     background-color: var(--block-content);
-    padding: 0.5rem;
+    padding: 1rem 0.5rem;
     border-radius: 0.5rem;
-    margin-bottom: 1rem;
 `

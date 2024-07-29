@@ -10,6 +10,7 @@ import { SliderPage } from 'widgets'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
 import { File } from '../ui/file'
+import { Divider } from '@shared/ui/divider'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
@@ -34,15 +35,22 @@ const Info = () => {
                         pages={[
                             {
                                 title: 'Сотрудники',
-                                content: data?.employees.map((employee) => (
-                                    <Employee
-                                        key={employee.id}
-                                        employee={employee}
-                                        role={role}
-                                        userId={jobId}
-                                        id={id}
-                                    />
-                                )),
+                                content: (
+                                    <Flex d="column" gap="1rem" w="100%">
+                                        {data?.employees.map((employee, index) => (
+                                            <>
+                                                {index !== 0 && <Divider />}
+                                                <Employee
+                                                    key={employee.id}
+                                                    employee={employee}
+                                                    role={role}
+                                                    userId={jobId}
+                                                    id={id}
+                                                />
+                                            </>
+                                        ))}
+                                    </Flex>
+                                ),
                             },
                             {
                                 title: 'Файлы',

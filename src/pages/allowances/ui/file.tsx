@@ -1,4 +1,5 @@
 import { AttachedFile } from '@entities/allowances/types'
+import { getJwtToken } from '@entities/user/lib/jwt-token'
 import { ALLOWANCES_URL } from '@shared/api/config/allowances-config'
 import getFileSize from '@shared/lib/get-file-size'
 import FileWrapper from '@shared/ui/file-input/ui/list-of-files/ui/file/style'
@@ -17,7 +18,7 @@ export const File = ({ file }: { file: AttachedFile }) => {
                     setLoading(true)
                     fetch(`${ALLOWANCES_URL}files?${new URLSearchParams({ fileId: file.id })}`, {
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${getJwtToken()}`,
                         },
                     })
                         .then((response) => response.blob())

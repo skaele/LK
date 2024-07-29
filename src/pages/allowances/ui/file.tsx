@@ -44,9 +44,9 @@ export const File = ({ file }: { file: AttachedFile }) => {
                 <div className="name-and-size">
                     <b className="file-name">
                         {file.name}.{file.extension}
-                        {file.digitalSignature && ' (Подписано ЭЦП)'}
                     </b>
-                    <Subtext fontSize="0.7em">{getFileSize(1024 * 10 * 1024)}</Subtext>
+                    {file.digitalSignature && <Subtext fontSize="0.7em">{file.digitalSignature}</Subtext>}
+                    <Subtext fontSize="0.7em">{getFileSize(file.sizeB)}</Subtext>
                 </div>
             </div>
         </FileWrapper>

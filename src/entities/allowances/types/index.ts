@@ -31,6 +31,7 @@ export type AttachedFile = {
     id: string
     name: string
     digitalSignature: string
+    sizeB: number
 }
 export type AllowanceFiles = {
     application: AttachedFile[]

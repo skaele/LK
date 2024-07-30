@@ -36,9 +36,11 @@ const Allowances = () => {
 
     if (loading)
         return (
-            <Flex w="100%" jc="center" ai="center">
-                <Loading />
-            </Flex>
+            <PageBlock>
+                <Flex w="100%" jc="center" ai="center">
+                    <Loading />
+                </Flex>
+            </PageBlock>
         )
 
     if (!roles.includes('Initiator') || !roles.includes('Approver') || !user?.currentUser?.guid)

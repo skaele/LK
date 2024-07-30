@@ -3,7 +3,6 @@ import { AllowanceNotificationType } from './types'
 
 export const allowanceConstants = {
     Approved: 'Согласовано',
-    Unknown: 'На рассмотрении',
     InProgress: 'На рассмотрении',
     Declined: 'Отклонено',
 } as const
@@ -12,6 +11,7 @@ export const selfApprovalStatus = {
     Confirmed: 'Подтверждено',
     Expired: 'Просрочено',
     Unknown: 'Неизвестно',
+    InProgress: 'На рассмотрении',
 } as const
 export type AllowancesApprovalStatus = keyof typeof allowanceConstants
 export type AllowancesApprovalResponse = (typeof allowanceConstants)[keyof typeof allowanceConstants]

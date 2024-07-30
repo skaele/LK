@@ -1,4 +1,4 @@
-import { AllowancesApprovalResponse, AllowancesApprovalStatus } from '../consts'
+import { AllowancesApprovalResponse, AllowancesApprovalStatus, SelfApprovalResponse } from '../consts'
 
 export type HandbookItem = {
     id: string
@@ -24,6 +24,18 @@ export type AllowanceNotification = {
 }
 
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
+
+export type DigitalSignature = {
+    ИмяФайлаПодписи: string | null
+    Комментарий: string | null
+    КомуВыданСертификат: string | null
+    Отпечаток: string | null
+    Подпись: string | null
+    Сертификат: string | null
+    ДатаПодписи: string | null
+    РольИсполнителя: string | null
+    УстановившийПодпись: string | null
+}
 
 export type AttachedFile = {
     contentType: string
@@ -61,10 +73,13 @@ export type AllowanceEmployee = {
     approvalStatus?: AllowancesApprovalStatus
     employeeVerdicts?: {
         approverEmployeeId: string
+        approverPosition: string
         approverName: string
         approvalStatus: AllowancesApprovalResponse
         approverOrderNumber: number
     }[]
+    selfApprovalStatus: SelfApprovalResponse
+    zkguApprovalStatus: SelfApprovalResponse
 }
 
 export type Employee = {

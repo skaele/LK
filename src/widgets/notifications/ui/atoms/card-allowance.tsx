@@ -16,7 +16,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
         <CardWrapper>
             <Info>
                 <Title align="left" size={3}>
-                    Инициатор: {allowance.initiatorName}, {allowance.position}
+                    {allowance.position}, {allowance.paymentIdentifier}
                 </Title>
                 {allowance.selfApprovalStatus === 'Подтверждено' && (
                     <Subtext fontSize="1em" color="var(--greenMain)">
@@ -24,12 +24,12 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                     </Subtext>
                 )}
                 {(allowance.selfApprovalStatus === 'Отказано' || allowance.selfApprovalStatus === 'Просрочено') && (
-                    <Subtext fontSize="1em" color="#c54646">
+                    <Subtext fontSize="1em" color="var(--redMain)">
                         {allowance.selfApprovalStatus}
                     </Subtext>
                 )}
-                <Title align="left" size={4}>
-                    {allowance.paymentIdentifier}
+                <Title align="left" size={5}>
+                    Инициатор: {allowance.initiatorName}
                 </Title>
                 <Title align="left" size={5}>
                     Источник: {allowance.sourceOfFunding}

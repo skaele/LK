@@ -29,7 +29,7 @@ export const Employee = ({
             ? 'Approved'
             : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Отклонено')
             ? 'Declined'
-            : 'Unknown')
+            : 'InProgress')
     return (
         <Layout>
             <Title align="left" size={4}>
@@ -53,8 +53,12 @@ export const Employee = ({
                 <>
                     {employee.employeeVerdicts?.map((verdict) => (
                         <Flex w="100%" jc="space-between" ai="center" key={verdict.approverEmployeeId}>
-                            <Subtext>{verdict.approverName}</Subtext>
+                            <Flex d="column" ai="flex-start">
+                                <Subtext fontSize="0.9rem">{verdict.approverPosition}</Subtext>
+                                <Subtext>{verdict.approverName}</Subtext>
+                            </Flex>
                             <Message
+                                minWidth="180px"
                                 width="180px"
                                 type={
                                     verdict.approvalStatus === 'Согласовано'
@@ -67,6 +71,38 @@ export const Employee = ({
                             />
                         </Flex>
                     ))}
+                    <Flex w="100%" jc="space-between" ai="center">
+                        <Subtext fontSize="0.9rem">1С ЗКГУ</Subtext>
+                        <Message
+                            width="180px"
+                            type={
+                                employee.zkguApprovalStatus === 'Подтверждено'
+                                    ? 'success'
+                                    : employee.zkguApprovalStatus === 'Отказано'
+                                    ? 'failure'
+                                    : 'alert'
+                            }
+                            title={employee.zkguApprovalStatus}
+                        />
+                    </Flex>
+                    <Flex w="100%" jc="space-between" ai="center">
+                        <Flex d="column" ai="flex-start">
+                            <Subtext fontSize="0.9rem">Получатель надбавки</Subtext>
+                            <Subtext>{employee.initials}</Subtext>
+                        </Flex>
+                        <Message
+                            minWidth="180px"
+                            width="180px"
+                            type={
+                                employee.selfApprovalStatus === 'Подтверждено'
+                                    ? 'success'
+                                    : employee.selfApprovalStatus === 'Отказано'
+                                    ? 'failure'
+                                    : 'alert'
+                            }
+                            title={employee.selfApprovalStatus}
+                        />
+                    </Flex>
                 </>
             )}
             {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (

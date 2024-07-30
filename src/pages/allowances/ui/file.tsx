@@ -53,7 +53,7 @@ export const File = ({ file }: { file: AttachedFile }) => {
                     <b className="file-name">
                         {file.name}.{file.extension}
                     </b>
-                    {file.digitalSignature && <Subtext fontSize="0.7em">{file.digitalSignature}</Subtext>}
+                    {file.digitalSignature && <Subtext fontSize="0.7em">Подпись: {file.digitalSignature}</Subtext>}
                     {!!file.sizeB && <Subtext fontSize="0.7em">{getFileSize(file.sizeB)}</Subtext>}
                 </div>
             </div>

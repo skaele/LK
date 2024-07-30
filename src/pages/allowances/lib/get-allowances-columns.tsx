@@ -7,6 +7,15 @@ import { AllowanceFiles } from '@entities/allowances/types'
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [
         {
+            title: 'Дата',
+            field: 'createdAt',
+            priority: 'two',
+            sort: true,
+            type: 'date',
+            align: 'center',
+            width: '120px',
+        },
+        {
             title: 'Тип',
             field: 'paymentIdentifier',
             priority: 'three',
@@ -19,15 +28,6 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             priority: 'four',
             width: '150px',
             render: (value) => value || '-',
-        },
-        {
-            title: 'Дата',
-            field: 'createdAt',
-            priority: 'two',
-            sort: true,
-            type: 'date',
-            align: 'center',
-            width: '120px',
         },
         {
             title: 'Статус',
@@ -48,13 +48,14 @@ export const getAllowancesColumns = (): ColumnProps[] => {
                 )
             },
         },
+        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
         {
             title: 'Файлы',
             field: 'files',
             width: '100px',
             align: 'center',
-            render: (value: AllowanceFiles) => value.application.length + value.other.length + value.order.length,
+            render: (value: AllowanceFiles) =>
+                value.application.length + value.other.length + value.order.length || '-',
         },
-        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
     ]
 }

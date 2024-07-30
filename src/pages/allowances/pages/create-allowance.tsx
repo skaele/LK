@@ -1,9 +1,9 @@
-import { Button, Loading, Message, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
+import { Button, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import React, { useEffect, useMemo } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useList, useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
-import { FiInfo, FiPlus } from 'react-icons/fi'
+import { FiPlus } from 'react-icons/fi'
 import Select from '@features/select'
 import { EmployeeInput } from '../ui/employee-input'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
@@ -34,18 +34,19 @@ const CreateAllowance = () => {
 
     if (initLoading)
         return (
-            <Flex w="100%" jc="center" ai="center">
-                <Loading />
-            </Flex>
+            <BaseApplicationWrapper isDone={isDone}>
+                <FormBlockWrapper noHeader>
+                    <Flex w="100%" jc="center" ai="center">
+                        <Loading />
+                    </Flex>
+                </FormBlockWrapper>
+            </BaseApplicationWrapper>
         )
     if (!roles.includes('Initiator')) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (
         <BaseApplicationWrapper isDone={isDone}>
             <FormBlockWrapper noHeader>
-                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    <p>Интерфейс находится в разработке</p>
-                </Message>
                 <Job />
                 <SourceOfFunding />
                 <PaymentIdentifier />

@@ -98,10 +98,6 @@ export const Info = styled.div`
         font-size: 1.2rem;
     }
 
-    span {
-        opacity: 0.5;
-    }
-
     @media (max-width: 1000px) {
         & > .info {
             display: none;

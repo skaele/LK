@@ -131,6 +131,9 @@ const NotificationsPage = ({ docsType }: Props) => {
                 ) : (
                     <SliderPage
                         onChangePage={handleSlideChange}
+                        currentPage={
+                            notificationType === 'allowances' ? 2 : notificationType === 'notifications' ? 1 : 0
+                        }
                         pages={[
                             {
                                 id: 'docs',

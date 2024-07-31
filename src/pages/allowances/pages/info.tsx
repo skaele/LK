@@ -112,18 +112,6 @@ const Info = () => {
                                                     </Flex>
                                                 </>
                                             )}
-                                            {Boolean(data?.files.order.length) && (
-                                                <>
-                                                    <Title size={4} align="left">
-                                                        Файлы приказа
-                                                    </Title>
-                                                    <Flex d="column" gap="1rem">
-                                                        {data?.files.order.map((file) => (
-                                                            <File key={file.id} file={file} />
-                                                        ))}
-                                                    </Flex>
-                                                </>
-                                            )}
                                             {Boolean(data?.files.other.length) && (
                                                 <>
                                                     {(Boolean(data?.files.order.length) ||

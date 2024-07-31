@@ -152,7 +152,7 @@ const NotificationsPage = ({ docsType }: Props) => {
                             {
                                 id: 'allowances',
                                 title: 'Надбавки',
-                                content: <AllowanceList />,
+                                content: <AllowanceList filter={baseFilter} searchQuery={searchValue} />,
                             },
                         ]}
                     />

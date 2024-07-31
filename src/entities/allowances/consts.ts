@@ -10,7 +10,6 @@ export const selfApprovalStatus = {
     Rejected: 'Отказано',
     Confirmed: 'Подтверждено',
     Expired: 'Просрочено',
-    Unknown: 'Неизвестно',
     InProgress: 'На рассмотрении',
 } as const
 export type AllowancesApprovalStatus = keyof typeof allowanceConstants

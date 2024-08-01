@@ -33,7 +33,15 @@ export const EmployeeInput = ({
     return (
         <Flex gap="0.5rem" d="column">
             <Flex gap="0.5rem" ai="flex-end">
-                <Select title="Сотрудник" items={employees} selected={id} required setSelected={setId} width="100%" />
+                <Select
+                    title="Сотрудник"
+                    items={employees}
+                    selected={id}
+                    required
+                    setSelected={setId}
+                    width="100%"
+                    withSearch
+                />
                 <Button
                     icon={<IoCloseCircleOutline />}
                     onClick={() => {

@@ -1,7 +1,7 @@
 import { SelectPage } from '@features/select'
 import { Size } from '@shared/ui/types'
 import useOnClickOutside from '@utils/hooks/use-on-click-outside'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import findCurrentPage from '../find-current-page'
 
 type SingleSelect = React.Dispatch<React.SetStateAction<SelectPage | null>>
@@ -20,10 +20,12 @@ export interface SelectProps {
     placeholder?: string
     appearance?: boolean
     size?: Size
+    withSearch?: boolean
 }
 
 const useSelect = (props: SelectProps) => {
-    const { items, setSelected, onClick, selected, appearance = true, multiple = false } = props
+    const { items, setSelected, onClick, selected, appearance = true, multiple = false, withSearch } = props
+    const [searchQuery, setSearchQuery] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const refElement = useRef<HTMLDivElement | null>(null)
     const refItems = useRef<HTMLUListElement | null>(null)
@@ -57,6 +59,7 @@ const useSelect = (props: SelectProps) => {
                     }
                 } else {
                     ;(setSelected as SingleSelect)(page)
+                    if (withSearch) setSearchQuery(page.title)
                 }
 
                 !multiple && handleOpen()
@@ -88,6 +91,22 @@ const useSelect = (props: SelectProps) => {
         }
     })
 
+    const filteredItems = useMemo(() => {
+        if (!withSearch) return currentItems
+        return currentItems.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    }, [searchQuery, currentItems, withSearch])
+
+    const clearQuery = useCallback(() => {
+        setSelected(null)
+        setSearchQuery('')
+        setIsOpen(false)
+    }, [])
+    const changeQuery = useCallback((value: string) => {
+        setSelected(null)
+        setSearchQuery(value)
+        setIsOpen(true)
+    }, [])
+
     return {
         handleOpen,
         refElement,
@@ -95,11 +114,14 @@ const useSelect = (props: SelectProps) => {
         multiple,
         handleSelect,
         selectedRoute,
-        currentItems,
+        currentItems: filteredItems,
         route,
         goBack,
         refItems,
         appearance,
+        searchQuery,
+        changeQuery,
+        clearQuery,
     }
 }
 

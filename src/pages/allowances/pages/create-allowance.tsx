@@ -117,6 +117,7 @@ function SourceOfFunding() {
             isActive={items.length > 1}
             required
             width="100%"
+            withSearch
         />
     )
 }
@@ -136,6 +137,7 @@ function PaymentIdentifier() {
             isActive={items.length > 1}
             required
             width="100%"
+            withSearch
         />
     )
 }

@@ -72,6 +72,7 @@ export const ButtonWrapper = styled.button<{
         display: flex;
         align-items: center;
         justify-content: center;
+        background: transparent;
 
         svg {
             width: 100%;

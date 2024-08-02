@@ -103,6 +103,22 @@ export const Employee = ({
                             title={employee.selfApprovalStatus}
                         />
                     </Flex>
+                    {employee.orderStatus && (
+                        <Flex w="100%" jc="space-between" ai="center">
+                            <Subtext fontSize="0.9rem">Получатель надбавки</Subtext>
+                            <Message
+                                width="180px"
+                                type={
+                                    employee.selfApprovalStatus === 'Подтверждено'
+                                        ? 'success'
+                                        : employee.selfApprovalStatus === 'Отказано'
+                                        ? 'failure'
+                                        : 'alert'
+                                }
+                                title={employee.selfApprovalStatus}
+                            />
+                        </Flex>
+                    )}
                 </>
             )}
             {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (

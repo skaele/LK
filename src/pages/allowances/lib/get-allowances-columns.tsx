@@ -31,7 +31,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
         },
         {
             title: 'Статус',
-            field: 'status',
+            field: 'allowanceStatus',
             priority: 'one',
             width: '165px',
             catalogs: [
@@ -54,8 +54,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'files',
             width: '100px',
             align: 'center',
-            render: (value: AllowanceFiles) =>
-                value.application.length + value.other.length + value.order.length || '-',
+            render: (value: AllowanceFiles) => value.application.length + value.other.length || '-',
         },
     ]
 }

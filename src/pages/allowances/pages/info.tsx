@@ -13,7 +13,6 @@ import { File } from '../ui/file'
 import { Divider } from '@shared/ui/divider'
 import { Forbidden } from '@shared/ui/forbidden'
 import { Loading } from '@shared/ui/loading'
-import { Message } from '@shared/ui/atoms'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
@@ -45,36 +44,7 @@ const Info = () => {
         <PageBlock>
             <Loader load={() => {}} data={data} loading={pending} error={error ? (error as Error).message : null}>
                 <>
-                    {role === 'Initiator'.toLowerCase() &&
-                        (!!data &&
-                        (data.files.order.length > 0 ||
-                            data.employees.every(
-                                (employee) =>
-                                    employee.selfApprovalStatus !== 'На рассмотрении' &&
-                                    employee.zkguApprovalStatus !== 'На рассмотрении' &&
-                                    employee.employeeVerdicts?.every(
-                                        (verdict) => verdict.approvalStatus !== 'На рассмотрении',
-                                    ),
-                            )) ? (
-                            <Flex p="0 0 1rem 0">
-                                <Message
-                                    width="100%"
-                                    type={data.files.order.length > 0 ? 'success' : 'alert'}
-                                    title={data.files.order.length > 0 ? 'Приказ создан' : 'Создание приказа'}
-                                />
-                            </Flex>
-                        ) : (
-                            <Flex p="0 0 1rem 0">
-                                <Message
-                                    width="100%"
-                                    type={'alert'}
-                                    title="Ожидается подтверждение каждого сотрудника"
-                                />
-                            </Flex>
-                        ))}
-                    {Boolean(data?.files.order.length) ||
-                    Boolean(data?.files.application.length) ||
-                    Boolean(data?.files.other.length) ? (
+                    {Boolean(data?.files.application.length) || Boolean(data?.files.other.length) ? (
                         <SliderPage
                             pages={[
                                 {
@@ -114,8 +84,7 @@ const Info = () => {
                                             )}
                                             {Boolean(data?.files.other.length) && (
                                                 <>
-                                                    {(Boolean(data?.files.order.length) ||
-                                                        Boolean(data?.files.application.length)) && (
+                                                    {Boolean(data?.files.application.length) && (
                                                         <Title size={4} align="left">
                                                             Другое
                                                         </Title>

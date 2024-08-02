@@ -28,6 +28,11 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                         {allowance.selfApprovalStatus}
                     </Subtext>
                 )}
+                {allowance.orderStatus && (
+                    <Title align="left" size={4}>
+                        {allowance.orderStatus}
+                    </Title>
+                )}
                 <Title align="left" size={5}>
                     Инициатор: {allowance.initiatorName}
                 </Title>

@@ -47,7 +47,6 @@ export type AttachedFile = {
 }
 export type AllowanceFiles = {
     application: AttachedFile[]
-    order: AttachedFile[]
     other: AttachedFile[]
 }
 export type Allowance = {
@@ -57,6 +56,7 @@ export type Allowance = {
     commentary: string
     createdAt: string
     status: AllowancesApprovalResponse
+    allowanceStatus: string
     files: AllowanceFiles
 }
 
@@ -80,6 +80,7 @@ export type AllowanceEmployee = {
     }[]
     selfApprovalStatus: SelfApprovalResponse
     zkguApprovalStatus: SelfApprovalResponse
+    orderStatus: string | null
 }
 
 export type Employee = {

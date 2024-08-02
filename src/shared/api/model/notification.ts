@@ -1,4 +1,4 @@
-import { OrderStatus, SelfApprovalStatus } from '@entities/allowances/types'
+import { ApprovalStatus, OrderStatus } from '@entities/allowances/types'
 
 export interface businesstripNotification {
     id: string
@@ -60,7 +60,7 @@ export interface PersonalAllowance {
     issueDate: string
     paymentIdentifier: string
     sourceOfFunding: string
-    selfApprovalStatus: SelfApprovalStatus
+    selfApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
 }
 

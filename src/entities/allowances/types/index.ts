@@ -1,7 +1,6 @@
-import { approvalStatus, allowanceStatus, selfApprovalStatus, orderStatus } from '../consts'
+import { approvalStatus, allowanceStatus, orderStatus } from '../consts'
 
 export type ApprovalStatus = keyof typeof approvalStatus
-export type SelfApprovalStatus = keyof typeof selfApprovalStatus
 export type AllowanceStatus = keyof typeof allowanceStatus
 export type OrderStatus = keyof typeof orderStatus
 
@@ -70,8 +69,8 @@ export type AllowanceEmployee = {
         approvalStatus: ApprovalStatus
         approverOrderNumber: number
     }[]
-    selfApprovalStatus: SelfApprovalStatus
-    zkguApprovalStatus: SelfApprovalStatus
+    selfApprovalStatus: ApprovalStatus
+    zkguApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
 }
 

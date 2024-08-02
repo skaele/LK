@@ -1,5 +1,6 @@
 import { allowancesModel } from '@entities/allowances'
-import { approvalStatus, orderStatus, selfApprovalStatus } from '@entities/allowances/consts'
+import { approvalStatus, orderStatus } from '@entities/allowances/consts'
+import { getStatusType } from '@entities/allowances/lib/get-status'
 import { AllowanceEmployee, Role } from '@entities/allowances/types'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button, Message } from '@shared/ui/atoms'
@@ -60,14 +61,10 @@ export const Employee = ({
                             <Message
                                 minWidth="180px"
                                 width="180px"
-                                type={
-                                    verdict.approvalStatus === 'Approved'
-                                        ? 'success'
-                                        : verdict.approvalStatus === 'Declined'
-                                        ? 'failure'
-                                        : 'alert'
-                                }
+                                type={getStatusType(verdict.approvalStatus)}
+                                icon={verdict.approvalStatus === 'Unknown' ? null : undefined}
                                 title={approvalStatus[verdict.approvalStatus] || '—'}
+                                align={verdict.approvalStatus === 'Unknown' ? 'center' : 'left'}
                             />
                         </Flex>
                     ))}
@@ -75,14 +72,10 @@ export const Employee = ({
                         <Subtext fontSize="0.9rem">1С ЗКГУ</Subtext>
                         <Message
                             width="180px"
-                            type={
-                                employee.zkguApprovalStatus === 'Confirmed'
-                                    ? 'success'
-                                    : employee.zkguApprovalStatus === 'Rejected'
-                                    ? 'failure'
-                                    : 'alert'
-                            }
-                            title={selfApprovalStatus[employee.zkguApprovalStatus] || '—'}
+                            type={getStatusType(employee.zkguApprovalStatus)}
+                            icon={employee.zkguApprovalStatus === 'Unknown' ? null : undefined}
+                            title={approvalStatus[employee.zkguApprovalStatus] || '—'}
+                            align={employee.zkguApprovalStatus === 'Unknown' ? 'center' : 'left'}
                         />
                     </Flex>
                     <Flex w="100%" jc="space-between" ai="center">
@@ -93,14 +86,10 @@ export const Employee = ({
                         <Message
                             minWidth="180px"
                             width="180px"
-                            type={
-                                employee.selfApprovalStatus === 'Confirmed'
-                                    ? 'success'
-                                    : employee.selfApprovalStatus === 'Rejected'
-                                    ? 'failure'
-                                    : 'alert'
-                            }
-                            title={selfApprovalStatus[employee.selfApprovalStatus] || '—'}
+                            type={getStatusType(employee.selfApprovalStatus)}
+                            icon={employee.selfApprovalStatus === 'Unknown' ? null : undefined}
+                            title={approvalStatus[employee.selfApprovalStatus] || '—'}
+                            align={employee.selfApprovalStatus === 'Unknown' ? 'center' : 'left'}
                         />
                     </Flex>
                     {employee.orderStatus && (
@@ -108,13 +97,7 @@ export const Employee = ({
                             <Subtext fontSize="0.9rem">Получатель надбавки</Subtext>
                             <Message
                                 width="180px"
-                                type={
-                                    employee.selfApprovalStatus === 'Confirmed'
-                                        ? 'success'
-                                        : employee.selfApprovalStatus === 'Rejected'
-                                        ? 'failure'
-                                        : 'alert'
-                                }
+                                type={employee.orderStatus === 'Ready' ? 'success' : 'alert'}
                                 title={orderStatus[employee.orderStatus] || '—'}
                             />
                         </Flex>

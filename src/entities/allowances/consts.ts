@@ -3,23 +3,17 @@ import { AllowanceNotificationType } from './types'
 
 export const approvalStatus = {
     Approved: 'Согласовано',
+    Expired: 'Просрочено',
     InProgress: 'На рассмотрении',
     Declined: 'Отклонено',
-    Unknown: 'Неизвестно',
-} as const
-export const selfApprovalStatus = {
-    Rejected: 'Отказано',
-    Confirmed: 'Подтверждено',
-    Expired: 'Просрочено',
-    Unknown: 'На рассмотрении',
+    Unknown: '-',
 } as const
 
 export const allowanceStatus = {
     Completed: 'Приказ готов',
     PreparingOrder: 'Оформляется приказ',
-    SelfConfirm: 'Ожидает подтверждения получателем',
+    RecepientConfirm: 'Ожидает подтверждения получателем',
     Approval: 'На согласовании',
-    Initial: 'Заявка создана',
     Cancelled: 'Отменено',
     Unknown: 'Неизвестно',
 } as const

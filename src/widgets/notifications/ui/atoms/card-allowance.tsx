@@ -8,7 +8,7 @@ import { Button, Title } from '@shared/ui/atoms'
 import { Colors } from '@shared/constants'
 import { allowancesModel } from '@entities/allowances'
 import { useUnit } from 'effector-react'
-import { orderStatus, selfApprovalStatus } from '@entities/allowances/consts'
+import { approvalStatus, orderStatus } from '@entities/allowances/consts'
 
 export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)
@@ -24,14 +24,14 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                         {orderStatus[allowance.orderStatus]}
                     </Title>
                 )}
-                {allowance.selfApprovalStatus === 'Confirmed' && (
+                {allowance.selfApprovalStatus === 'Approved' && (
                     <Subtext fontSize="1em" color="var(--greenMain)">
-                        {selfApprovalStatus[allowance.selfApprovalStatus]}
+                        {approvalStatus[allowance.selfApprovalStatus]}
                     </Subtext>
                 )}
-                {(allowance.selfApprovalStatus === 'Rejected' || allowance.selfApprovalStatus === 'Expired') && (
+                {(allowance.selfApprovalStatus === 'Declined' || allowance.selfApprovalStatus === 'Expired') && (
                     <Subtext fontSize="1em" color="var(--redMain)">
-                        {selfApprovalStatus[allowance.selfApprovalStatus]}
+                        {approvalStatus[allowance.selfApprovalStatus]}
                     </Subtext>
                 )}
                 <Title align="left" size={5}>
@@ -48,7 +48,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                     {localizeDate(allowance.endDate, 'numeric')}{' '}
                 </Subtext>
             </Info>
-            {allowance.selfApprovalStatus === 'Unknown' && (
+            {(allowance.selfApprovalStatus === 'Unknown' || allowance.selfApprovalStatus === 'InProgress') && (
                 <BlockButtons>
                     <Button
                         text="Отказаться"

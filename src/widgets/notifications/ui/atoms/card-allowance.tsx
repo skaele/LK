@@ -8,6 +8,7 @@ import { Button, Title } from '@shared/ui/atoms'
 import { Colors } from '@shared/constants'
 import { allowancesModel } from '@entities/allowances'
 import { useUnit } from 'effector-react'
+import { orderStatus, selfApprovalStatus } from '@entities/allowances/consts'
 
 export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)
@@ -18,20 +19,20 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 <Title align="left" size={3}>
                     {allowance.position}, {allowance.paymentIdentifier}
                 </Title>
-                {allowance.selfApprovalStatus === 'Подтверждено' && (
-                    <Subtext fontSize="1em" color="var(--greenMain)">
-                        {allowance.selfApprovalStatus}
-                    </Subtext>
-                )}
-                {(allowance.selfApprovalStatus === 'Отказано' || allowance.selfApprovalStatus === 'Просрочено') && (
-                    <Subtext fontSize="1em" color="var(--redMain)">
-                        {allowance.selfApprovalStatus}
-                    </Subtext>
-                )}
                 {allowance.orderStatus && (
                     <Title align="left" size={4}>
-                        {allowance.orderStatus}
+                        {orderStatus[allowance.orderStatus]}
                     </Title>
+                )}
+                {allowance.selfApprovalStatus === 'Confirmed' && (
+                    <Subtext fontSize="1em" color="var(--greenMain)">
+                        {selfApprovalStatus[allowance.selfApprovalStatus]}
+                    </Subtext>
+                )}
+                {(allowance.selfApprovalStatus === 'Rejected' || allowance.selfApprovalStatus === 'Expired') && (
+                    <Subtext fontSize="1em" color="var(--redMain)">
+                        {selfApprovalStatus[allowance.selfApprovalStatus]}
+                    </Subtext>
                 )}
                 <Title align="left" size={5}>
                     Инициатор: {allowance.initiatorName}
@@ -47,7 +48,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                     {localizeDate(allowance.endDate, 'numeric')}{' '}
                 </Subtext>
             </Info>
-            {allowance.selfApprovalStatus === 'На рассмотрении' && (
+            {allowance.selfApprovalStatus === 'Unknown' && (
                 <BlockButtons>
                     <Button
                         text="Отказаться"

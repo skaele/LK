@@ -7,11 +7,11 @@ import {
     AllowanceEmployee,
     AllowanceNotification,
     AllowanceFiles,
+    ApprovalStatus,
 } from '@entities/allowances/types'
 import { $allowancesApi } from '../config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
 import { PersonalAllowance } from './notification'
-import { AllowancesApprovalStatus } from '@entities/allowances/consts'
 
 type AllowanceRequest = {
     initiatorId: string
@@ -73,7 +73,7 @@ export const approveAllowance = async (request: {
     allowanceId: string
     approverEmployeeId: string
     employeeId: string
-    approvalStatus: AllowancesApprovalStatus
+    approvalStatus: ApprovalStatus
 }) => {
     const { data } = await $allowancesApi.post<ApplicationResult>(`/allowances/verdict`, request)
     return data

@@ -1,8 +1,8 @@
 import React from 'react'
-import { allowanceConstants, AllowancesApprovalResponse } from '@entities/allowances/consts'
+import { allowanceStatus } from '@entities/allowances/consts'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
-import { AllowanceFiles } from '@entities/allowances/types'
+import { AllowanceFiles, AllowanceStatus } from '@entities/allowances/types'
 
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [
@@ -34,14 +34,13 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'allowanceStatus',
             priority: 'one',
             width: '165px',
-            catalogs: [
-                ...(Object.values(allowanceConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
-            ],
-            render: (value: AllowancesApprovalResponse) => {
+            showFull: true,
+            catalogs: [...(Object.values(allowanceStatus).map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
+            render: (value: AllowanceStatus) => {
                 return (
                     <Message
-                        type={value === 'Согласовано' ? 'success' : value === 'Отклонено' ? 'failure' : 'alert'}
-                        title={value || '—'}
+                        type={value === 'Completed' ? 'success' : value === 'Cancelled' ? 'failure' : 'alert'}
+                        title={allowanceStatus[value] || '—'}
                         align="center"
                         icon={null}
                     />

@@ -1,5 +1,5 @@
 import { allowancesModel } from '@entities/allowances'
-import { allowanceConstants } from '@entities/allowances/consts'
+import { approvalStatus, orderStatus, selfApprovalStatus } from '@entities/allowances/consts'
 import { AllowanceEmployee, Role } from '@entities/allowances/types'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button, Message } from '@shared/ui/atoms'
@@ -25,9 +25,9 @@ export const Employee = ({
 
     const statusText =
         employee?.approvalStatus ||
-        (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Согласовано')
+        (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Approved')
             ? 'Approved'
-            : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Отклонено')
+            : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Declined')
             ? 'Declined'
             : 'InProgress')
     return (
@@ -45,7 +45,7 @@ export const Employee = ({
             </Subtext>
             <Message
                 type={statusText === 'Approved' ? 'success' : statusText === 'Declined' ? 'failure' : 'alert'}
-                title={allowanceConstants[statusText] || '—'}
+                title={approvalStatus[statusText] || '—'}
                 align="left"
                 icon={null}
             />
@@ -61,13 +61,13 @@ export const Employee = ({
                                 minWidth="180px"
                                 width="180px"
                                 type={
-                                    verdict.approvalStatus === 'Согласовано'
+                                    verdict.approvalStatus === 'Approved'
                                         ? 'success'
-                                        : verdict.approvalStatus === 'Отклонено'
+                                        : verdict.approvalStatus === 'Declined'
                                         ? 'failure'
                                         : 'alert'
                                 }
-                                title={verdict.approvalStatus}
+                                title={approvalStatus[verdict.approvalStatus] || '—'}
                             />
                         </Flex>
                     ))}
@@ -76,13 +76,13 @@ export const Employee = ({
                         <Message
                             width="180px"
                             type={
-                                employee.zkguApprovalStatus === 'Подтверждено'
+                                employee.zkguApprovalStatus === 'Confirmed'
                                     ? 'success'
-                                    : employee.zkguApprovalStatus === 'Отказано'
+                                    : employee.zkguApprovalStatus === 'Rejected'
                                     ? 'failure'
                                     : 'alert'
                             }
-                            title={employee.zkguApprovalStatus}
+                            title={selfApprovalStatus[employee.zkguApprovalStatus] || '—'}
                         />
                     </Flex>
                     <Flex w="100%" jc="space-between" ai="center">
@@ -94,13 +94,13 @@ export const Employee = ({
                             minWidth="180px"
                             width="180px"
                             type={
-                                employee.selfApprovalStatus === 'Подтверждено'
+                                employee.selfApprovalStatus === 'Confirmed'
                                     ? 'success'
-                                    : employee.selfApprovalStatus === 'Отказано'
+                                    : employee.selfApprovalStatus === 'Rejected'
                                     ? 'failure'
                                     : 'alert'
                             }
-                            title={employee.selfApprovalStatus}
+                            title={selfApprovalStatus[employee.selfApprovalStatus] || '—'}
                         />
                     </Flex>
                     {employee.orderStatus && (
@@ -109,13 +109,13 @@ export const Employee = ({
                             <Message
                                 width="180px"
                                 type={
-                                    employee.selfApprovalStatus === 'Подтверждено'
+                                    employee.selfApprovalStatus === 'Confirmed'
                                         ? 'success'
-                                        : employee.selfApprovalStatus === 'Отказано'
+                                        : employee.selfApprovalStatus === 'Rejected'
                                         ? 'failure'
                                         : 'alert'
                                 }
-                                title={employee.selfApprovalStatus}
+                                title={orderStatus[employee.orderStatus] || '—'}
                             />
                         </Flex>
                     )}

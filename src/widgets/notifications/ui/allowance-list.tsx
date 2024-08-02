@@ -28,7 +28,7 @@ export const AllowanceList = ({ searchQuery, filter }: { searchQuery: string; fi
               )
             : allowances
         return filter && filter?.id === 'unread'
-            ? filteredBySearch?.filter((allowance) => allowance.selfApprovalStatus === 'На рассмотрении')
+            ? filteredBySearch?.filter((allowance) => allowance.selfApprovalStatus === 'Unknown')
             : filteredBySearch
     }, [allowances, searchQuery, filter])
 

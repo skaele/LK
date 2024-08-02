@@ -1,4 +1,9 @@
-import { AllowancesApprovalResponse, AllowancesApprovalStatus, SelfApprovalResponse } from '../consts'
+import { approvalStatus, allowanceStatus, selfApprovalStatus, orderStatus } from '../consts'
+
+export type ApprovalStatus = keyof typeof approvalStatus
+export type SelfApprovalStatus = keyof typeof selfApprovalStatus
+export type AllowanceStatus = keyof typeof allowanceStatus
+export type OrderStatus = keyof typeof orderStatus
 
 export type HandbookItem = {
     id: string
@@ -25,18 +30,6 @@ export type AllowanceNotification = {
 
 export type HandbookType = 'PaymentIdentifier' | 'SourceOfFunding'
 
-export type DigitalSignature = {
-    ИмяФайлаПодписи: string | null
-    Комментарий: string | null
-    КомуВыданСертификат: string | null
-    Отпечаток: string | null
-    Подпись: string | null
-    Сертификат: string | null
-    ДатаПодписи: string | null
-    РольИсполнителя: string | null
-    УстановившийПодпись: string | null
-}
-
 export type AttachedFile = {
     contentType: string
     extension: string
@@ -55,8 +48,7 @@ export type Allowance = {
     paymentIdentifier: HandbookItem
     commentary: string
     createdAt: string
-    status: AllowancesApprovalResponse
-    allowanceStatus: string
+    allowanceStatus: AllowanceStatus
     files: AllowanceFiles
 }
 
@@ -70,17 +62,17 @@ export type AllowanceEmployee = {
     position: string
     sourceOfFunding?: HandbookItem
     paymentIdentifier?: HandbookItem
-    approvalStatus?: AllowancesApprovalStatus
+    approvalStatus?: ApprovalStatus
     employeeVerdicts?: {
         approverEmployeeId: string
         approverPosition: string
         approverName: string
-        approvalStatus: AllowancesApprovalResponse
+        approvalStatus: ApprovalStatus
         approverOrderNumber: number
     }[]
-    selfApprovalStatus: SelfApprovalResponse
-    zkguApprovalStatus: SelfApprovalResponse
-    orderStatus: string | null
+    selfApprovalStatus: SelfApprovalStatus
+    zkguApprovalStatus: SelfApprovalStatus
+    orderStatus: OrderStatus
 }
 
 export type Employee = {

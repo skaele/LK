@@ -1,21 +1,34 @@
 import { ALLOWANCE_INFO_CUT, DOCLIST_ALLOWANCES } from '@app/routes/teacher-routes'
 import { AllowanceNotificationType } from './types'
 
-export const allowanceConstants = {
+export const approvalStatus = {
     Approved: 'Согласовано',
-    InProgress: 'На рассмотрении',
+    InProgress: 'На рассмотрении',
     Declined: 'Отклонено',
+    Unknown: 'Неизвестно',
 } as const
 export const selfApprovalStatus = {
     Rejected: 'Отказано',
     Confirmed: 'Подтверждено',
     Expired: 'Просрочено',
-    InProgress: 'На рассмотрении',
+    Unknown: 'На рассмотрении',
 } as const
-export type AllowancesApprovalStatus = keyof typeof allowanceConstants
-export type AllowancesApprovalResponse = (typeof allowanceConstants)[keyof typeof allowanceConstants]
-export type SelfApprovalStatus = keyof typeof selfApprovalStatus
-export type SelfApprovalResponse = (typeof selfApprovalStatus)[keyof typeof selfApprovalStatus]
+
+export const allowanceStatus = {
+    Completed: 'Приказ готов',
+    PreparingOrder: 'Оформляется приказ',
+    SelfConfirm: 'Ожидает подтверждения получателем',
+    Approval: 'На согласовании',
+    Initial: 'Заявка создана',
+    Cancelled: 'Отменено',
+    Unknown: 'Неизвестно',
+} as const
+
+export const orderStatus = {
+    NotReady: 'Приказ не создан',
+    InProgress: 'Приказ готовится',
+    Ready: 'Приказ готов',
+} as const
 
 export const NotificationTitles: Record<AllowanceNotificationType, string> = {
     RecepientDeclinedByZkgu: 'Заявка отклонена в 1С',

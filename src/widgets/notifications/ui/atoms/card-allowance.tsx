@@ -9,6 +9,14 @@ import { Colors } from '@shared/constants'
 import { allowancesModel } from '@entities/allowances'
 import { useUnit } from 'effector-react'
 import { approvalStatus, orderStatus } from '@entities/allowances/consts'
+import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+
+const RULES: Rules = {
+    fiveToNine: 'дней',
+    one: 'день',
+    twoToFour: 'дня',
+    zero: 'дней',
+}
 
 export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)
@@ -19,9 +27,14 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 <Title align="left" size={3}>
                     {allowance.position}, {allowance.paymentIdentifier}
                 </Title>
+                {allowance.toConfirmDaysLeft && (
+                    <Subtext fontSize="1em" color="var(--redMain)">
+                        Осталось {allowance.toConfirmDaysLeft} {getCorrectWordForm(allowance.toConfirmDaysLeft, RULES)}
+                    </Subtext>
+                )}
                 {allowance.orderStatus && (
                     <Title align="left" size={4}>
-                        {orderStatus[allowance.orderStatus]}
+                        {orderStatus[allowance.orderStatus]} ({allowance.orderTitle})
                     </Title>
                 )}
                 {allowance.selfApprovalStatus === 'Approved' && (

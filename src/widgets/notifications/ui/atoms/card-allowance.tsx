@@ -27,7 +27,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 <Title align="left" size={3}>
                     {allowance.position}, {allowance.paymentIdentifier}
                 </Title>
-                {allowance.toConfirmDaysLeft && (
+                {!!allowance.toConfirmDaysLeft && (
                     <Subtext fontSize="1em" color="var(--redMain)">
                         Осталось {allowance.toConfirmDaysLeft} {getCorrectWordForm(allowance.toConfirmDaysLeft, RULES)}
                     </Subtext>

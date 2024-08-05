@@ -126,8 +126,8 @@ const NotificationsPage = ({ docsType }: Props) => {
                         setSelected={notificationType === 'notifications' ? setNotificationsFilter : setBaseFilter}
                     />
                 </ElementsControlNotification>
-                {docsType && foundNotification?.docs ? (
-                    <ListNotification listNotification={foundNotification?.docs} />
+                {docsType ? (
+                    foundNotification?.docs && <ListNotification listNotification={foundNotification?.docs} />
                 ) : (
                     <SliderPage
                         onChangePage={handleSlideChange}

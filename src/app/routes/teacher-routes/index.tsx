@@ -131,6 +131,7 @@ export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const ALL_STAFF_ROUTE = '/all-staff'
+export const PUBLICATION_ACTIVITY = '/publication-activity'
 export const OPEN_PUBLICATION = '/open-publication'
 export const EXPORT_CONTROL = '/export-control'
 
@@ -546,6 +547,22 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         pageSize: 'big',
+    },
+    'publication-activity': {
+        id: 'publication-activity',
+        title: 'Публикационная активность',
+        icon: <FiFileText />,
+        path: PUBLICATION_ACTIVITY,
+        Component: () => (
+            <PageIsNotReady
+                isRedirectButtonVisible={false}
+                errorText={'Сервис еще в разработке. Приносим извинения за доставленные неудобства.'}
+            />
+        ),
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        isNew: true,
     },
     'open-publication': {
         id: 'open-publication',

@@ -69,7 +69,7 @@ export const Employee = ({
                         </Flex>
                     ))}
                     <Flex w="100%" jc="space-between" ai="center">
-                        <Subtext fontSize="0.9rem">1С ЗКГУ</Subtext>
+                        <Subtext fontSize="0.9rem">1С:ЗКГУ</Subtext>
                         <Message
                             width="180px"
                             type={getStatusType(employee.zkguApprovalStatus)}

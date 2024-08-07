@@ -2,6 +2,7 @@ import { approvalStatus, allowanceStatus, orderStatus } from '../consts'
 
 export type ApprovalStatus = keyof typeof approvalStatus
 export type AllowanceStatus = keyof typeof allowanceStatus
+export type AllowanceStatusTranslated = (typeof allowanceStatus)[AllowanceStatus]
 export type OrderStatus = keyof typeof orderStatus
 
 export type HandbookItem = {
@@ -41,14 +42,19 @@ export type AllowanceFiles = {
     application: AttachedFile[]
     other: AttachedFile[]
 }
-export type Allowance = {
+export type AllowanceBase = {
     id: string
     sourceOfFunding: HandbookItem
     paymentIdentifier: HandbookItem
     commentary: string
     createdAt: string
-    allowanceStatus: AllowanceStatus
     files: AllowanceFiles
+}
+export type Allowance = AllowanceBase & {
+    allowanceStatus: AllowanceStatus
+}
+export type AllowanceModified = AllowanceBase & {
+    allowanceStatus: AllowanceStatusTranslated
 }
 
 export type AllowanceEmployee = {

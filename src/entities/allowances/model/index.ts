@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { Allowance, Employee, Role, Subordnate } from '../types'
+import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'
 import {
     approveAllowance,
     confirmPersonalAllowance,
@@ -21,7 +21,12 @@ import { createMutation, createQuery } from '@farfetched/core'
 import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { SelectPage } from '@features/select'
+import { allowanceStatus } from '../consts'
 
+export type AllAllowancesModified = {
+    initiatorAllowances: AllowanceModified[]
+    approverAllowances: AllowanceModified[]
+}
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
 const appStarted = createEvent()
@@ -74,7 +79,7 @@ const $fileIds = $filesMap.map((files) => Object.values(files))
 
 const $completed = createStore(false)
 const $allowances = createStore<{
-    [key: string]: AllAllowances
+    [key: string]: AllAllowancesModified
 } | null>(null)
 const $subordinates = createStore<{
     [key: string]: Subordnate[]
@@ -322,13 +327,24 @@ sample({
 const getAllAllowances = createEffect(async (jobs: JobRoles) => {
     const allowances = await Promise.all(
         jobs.map(async (job) => {
-            return await getAllowancesFx(job.employeeId)
+            const rawData = await getAllowancesFx(job.employeeId)
+            const modifiedData: AllAllowancesModified = {
+                approverAllowances: rawData.approverAllowances.map((allowance) => ({
+                    ...allowance,
+                    allowanceStatus: allowanceStatus[allowance.allowanceStatus],
+                })),
+                initiatorAllowances: rawData.initiatorAllowances.map((allowance) => ({
+                    ...allowance,
+                    allowanceStatus: allowanceStatus[allowance.allowanceStatus],
+                })),
+            }
+            return modifiedData
         }),
     )
     return jobs.reduce((acc, job, index) => {
         acc[job.employeeId] = allowances[index]
         return acc
-    }, {} as { [key: string]: AllAllowances })
+    }, {} as { [key: string]: AllAllowancesModified })
 })
 
 const getAllEmployees = createEffect(async (jobs: JobRoles) => {

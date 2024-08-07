@@ -40,7 +40,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
                 return (
                     <Message
                         type={value === 'Completed' ? 'success' : value === 'Cancelled' ? 'failure' : 'alert'}
-                        title={allowanceStatus[value] || '—'}
+                        title={value || '—'}
                         align="center"
                         icon={null}
                     />

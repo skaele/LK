@@ -19,7 +19,6 @@ export const allowanceStatus = {
 } as const
 
 export const orderStatus = {
-    NotReady: 'Приказ не создан',
     InProgress: 'Приказ готовится',
     Ready: 'Приказ готов',
 } as const

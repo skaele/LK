@@ -32,7 +32,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                         Осталось {allowance.toConfirmDaysLeft} {getCorrectWordForm(allowance.toConfirmDaysLeft, RULES)}
                     </Subtext>
                 )}
-                {allowance.orderStatus && (
+                {allowance.orderStatus && allowance.selfApprovalStatus === 'Approved' && (
                     <Title align="left" size={4}>
                         {orderStatus[allowance.orderStatus]} {allowance.orderTitle && `(${allowance.orderTitle})`}
                     </Title>

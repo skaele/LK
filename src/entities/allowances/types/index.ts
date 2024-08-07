@@ -78,6 +78,7 @@ export type AllowanceEmployee = {
     selfApprovalStatus: ApprovalStatus
     zkguApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
+    orderTitle?: string
 }
 
 export type Employee = {

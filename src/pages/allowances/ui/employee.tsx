@@ -94,8 +94,12 @@ export const Employee = ({
                     </Flex>
                     {employee.orderStatus && (
                         <Flex w="100%" jc="space-between" ai="center">
-                            <Subtext fontSize="0.9rem">Статус приказа</Subtext>
+                            <Flex d="column" ai="flex-start">
+                                <Subtext fontSize="0.9rem">Статус приказа</Subtext>
+                                {employee.orderTitle && <Subtext>{employee.orderTitle}</Subtext>}
+                            </Flex>
                             <Message
+                                minWidth="180px"
                                 width="180px"
                                 type={employee.orderStatus === 'Ready' ? 'success' : 'alert'}
                                 title={orderStatus[employee.orderStatus] || '—'}

@@ -216,6 +216,7 @@ const UniversalInput = (props: Props) => {
                 type={type}
                 isActive={isActive}
                 inputAppearance={isActive}
+                hideCross={!isActive}
                 placeholder={placeholder ?? title}
                 required={required}
                 mask={mask}

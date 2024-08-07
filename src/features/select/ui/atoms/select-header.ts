@@ -42,7 +42,7 @@ const SelectHeader = styled.header<{ appearance: boolean }>`
         min-width: fit-content;
     }
 
-    .icon {
+    .select-icon {
         float: left;
         display: flex;
         align-items: center;

@@ -11,6 +11,7 @@ export type NotificationType =
     | 'schedule'
     | 'version-update'
     | 'electronic-interaction'
+    | 'allowance'
 
 export type TNotification = {
     id: string

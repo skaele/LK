@@ -1,0 +1,58 @@
+import { useUnit } from 'effector-react'
+import React, { useMemo, useState } from 'react'
+import Table from '@shared/ui/table'
+import { getAllowancesColumns } from '../lib/get-allowances-columns'
+import Flex from '@shared/ui/flex'
+import { allowancesModel } from '@entities/allowances'
+import Select, { SelectPage } from '@features/select'
+import { useHistory } from 'react-router'
+import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
+
+export const Initiator = () => {
+    const history = useHistory()
+    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
+
+    const [job, setJob] = useState<SelectPage | null>(() => {
+        const job = jobs && jobs.find((job) => job.roles.includes('Initiator'))
+        if (!job) return null
+        return {
+            id: job.employeeId,
+            title: job.division,
+        }
+    })
+
+    const jobItems = useMemo(() => {
+        if (!jobs) return []
+        return jobs
+            .filter((job) => job.roles.includes('Approver'))
+            .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+    }, [jobs])
+    if (!jobs) return null
+
+    return (
+        <Flex gap="16px" d="column">
+            {jobItems.length > 1 && (
+                <Flex d="column" jc="flex-start" ai="flex-start">
+                    <Select
+                        items={
+                            jobs
+                                .filter((job) => job.roles.includes('Initiator'))
+                                .map((item) => ({ id: item.employeeId, title: item.division })) as SelectPage[]
+                        }
+                        selected={job}
+                        setSelected={setJob}
+                    />
+                </Flex>
+            )}
+            <Table
+                loading={!allowances}
+                columns={getAllowancesColumns()}
+                data={job && allowances ? allowances[job.id].initiatorAllowances : null}
+                maxOnPage={7}
+                onRowClick={(allowance) => {
+                    history.push(ALLOWANCE_INFO_CUT + `/${job?.id}/initiator/${allowance.id}`)
+                }}
+            />
+        </Flex>
+    )
+}

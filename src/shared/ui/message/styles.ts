@@ -19,6 +19,7 @@ export const MessageWrapper = styled.div<{
     solidBackground: boolean
     align?: Align
     width?: string
+    minWidth?: string
     maxWidth?: string
     closable?: boolean
     fontSize?: string
@@ -33,6 +34,7 @@ export const MessageWrapper = styled.div<{
     background: ${({ type, solidBackground }) =>
         Colors[messageType[type].color][solidBackground ? 'main' : 'transparent3']};
     width: ${({ width }) => width ?? '100%'};
+    min-width: ${({ minWidth }) => minWidth ?? 'none'};
     max-width: ${({ maxWidth }) => maxWidth ?? 'none'};
     font-size: ${({ fontSize }) => fontSize ?? '0.8em'};
     padding: ${({ padding }) => padding ?? '10px'};

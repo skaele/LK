@@ -22,12 +22,12 @@ export const EmployeeInput = ({
     employees: SelectPage[]
 }) => {
     const [id, setId] = useState<SelectPage | null>(findCurrentInSelect(employees, employee.id))
-    const [sum, setSum] = useState(employee.sum.toString())
+    const [sum, setSum] = useState(employee.sum)
     const [startDate, setStartDate] = useState(employee.startDate)
     const [endDate, setEndDate] = useState(employee.endDate)
 
     useEffect(() => {
-        setEmployee({ employee: { id: id?.id.toString() || '', sum: Number(sum), startDate, endDate }, index })
+        setEmployee({ employee: { id: id?.id.toString() || '', sum, startDate, endDate }, index })
     }, [id, sum, startDate, endDate])
 
     return (

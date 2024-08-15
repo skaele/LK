@@ -20,11 +20,13 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'paymentIdentifier',
             priority: 'three',
             width: '150px',
+            showFull: true,
             render: (value) => value || '-',
         },
         {
             title: 'Источник финансирования',
             field: 'sourceOfFunding',
+            showFull: true,
             priority: 'four',
             width: '150px',
             render: (value) => value || '-',
@@ -53,6 +55,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'files',
             width: '100px',
             align: 'center',
+            showFull: true,
             render: (value: AllowanceFiles) => value.application.length + value.other.length || '-',
         },
     ]

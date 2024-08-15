@@ -497,7 +497,7 @@ function createEmployeeField() {
     const setEmployee = createEvent<{ employee: Employee; index: number }>()
     const removeEmployee = createEvent<number>()
     const $employees = createStore<(Employee | null)[]>([])
-        .on(addEmployee, (employees) => [...employees, { id: '', divisionId: '', startDate: '', endDate: '', sum: 0 }])
+        .on(addEmployee, (employees) => [...employees, { id: '', divisionId: '', startDate: '', endDate: '', sum: '' }])
         .on(removeEmployee, (employees, index) => employees.map((e, i) => (i === index ? null : e)))
         .on(setEmployee, (employees, { employee, index }) => employees.map((e, i) => (i === index ? employee : e)))
 

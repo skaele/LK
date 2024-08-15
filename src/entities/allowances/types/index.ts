@@ -83,7 +83,7 @@ export type AllowanceEmployee = {
 
 export type Employee = {
     id: string
-    sum: number
+    sum: string
     startDate: string
     endDate: string
 }

@@ -65,6 +65,7 @@ const Select = (props: SelectProps) => {
                             value={searchQuery}
                             setValue={changeQuery}
                             onClear={clearQuery}
+                            placeholder={placeholder}
                         />
                     ) : (
                         <div className="single-header">

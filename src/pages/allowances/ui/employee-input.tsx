@@ -41,6 +41,7 @@ export const EmployeeInput = ({
                     setSelected={setId}
                     width="100%"
                     withSearch
+                    placeholder="ФИО сотрудника"
                 />
                 <Button
                     icon={<IoCloseCircleOutline />}
@@ -53,7 +54,15 @@ export const EmployeeInput = ({
                 />
             </Flex>
             <Flex jc="space-between" ai="flex-end">
-                <Input title="Сумма" value={sum} setValue={setSum} type="number" required width="33%" />
+                <Input
+                    title="Сумма"
+                    value={sum}
+                    setValue={setSum}
+                    type="number"
+                    required
+                    width="33%"
+                    placeholder="Сумма выплаты"
+                />
                 <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="33%" />
                 <Input title="Дата окончания" value={endDate} setValue={setEndDate} type="date" required width="33%" />
             </Flex>

@@ -118,6 +118,7 @@ function SourceOfFunding() {
             required
             width="100%"
             withSearch
+            placeholder="Источник финансирования"
         />
     )
 }
@@ -138,6 +139,7 @@ function PaymentIdentifier() {
             required
             width="100%"
             withSearch
+            placeholder="Вид набавки"
         />
     )
 }

@@ -6,6 +6,7 @@ import getFormatName from './lib/get-format-name'
 import loadFiles from './lib/load-files'
 import DragAndDropAreaWrapper from './style'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import { DEFAULT_FILE_FORMATS } from '../../consts'
 
 type Props = FileInputProps
 
@@ -65,7 +66,9 @@ const DragAndDropArea = ({ files, maxFiles, setFiles, isActive, formats, maxFile
                 <Subtext align="center">
                     <DotSeparatedWords
                         words={[
-                            `Форматы: ${!formats ? 'jpg, png, pdf' : formats.map((t) => getFormatName(t)).join(', ')}`,
+                            `Форматы: ${
+                                !formats ? DEFAULT_FILE_FORMATS : formats.map((t) => getFormatName(t)).join(', ')
+                            }`,
                             !!maxFiles ? `Макс. файлов: ${maxFiles}` : '',
                         ]}
                     />

@@ -3,6 +3,7 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { getFileSize } from './get-file-size'
 import getFormatName from './get-format-name'
 import validateFile from './validate-file'
+import { DEFAULT_FILE_FORMATS } from '@shared/ui/file-input/consts'
 
 const loadFiles = (
     loadedFiles: FileList,
@@ -35,9 +36,9 @@ const loadFiles = (
             console.log(loadedFiles[i])
 
             popUpMessageModel.events.evokePopUpMessage({
-                message: `Неверный формат файла. Доступные форматы: ${allowedFormats?.map((format) =>
-                    getFormatName(format),
-                )}`,
+                message: `Неверный формат файла. Доступные форматы: ${
+                    allowedFormats?.map((format) => getFormatName(format)) ?? DEFAULT_FILE_FORMATS
+                }`,
                 type: 'failure',
                 time: 5000,
             })

@@ -22,6 +22,8 @@ const Table = ({
     maxOnPage,
     onRowClick,
     footer,
+    select,
+    selected,
     loading = false,
     forwardedRef,
 }: TableProps & TutorialComponent) => {
@@ -58,6 +60,7 @@ const Table = ({
                 setSearch={setSearch}
                 filter={filter}
                 setFilter={setFilter}
+                tableHasSelect={Boolean(select)}
             />
             <Body
                 loading={loading}
@@ -67,6 +70,8 @@ const Table = ({
                 columnsExtended={columnsExtended}
                 data={resultData}
                 maxOnPage={maxOnPage}
+                select={select}
+                selected={selected}
             />
             <Footer footer={footer} data={data} columns={columns} />
         </TableWrapper>

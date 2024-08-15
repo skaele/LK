@@ -32,6 +32,8 @@ export interface TableProps {
     columnsExtended?: ColumnProps[]
     footer?: Footer
     data: Nullable<IndexedProperties[]>
+    selected?: Set<number>
+    select?: (rowIndex: number) => void
     maxOnPage?: number
     onRowClick?: (obj: IndexedProperties) => void
     loading?: boolean

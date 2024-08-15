@@ -22,7 +22,27 @@ export const getAllArticles = async ({
     limit: number
     offset: number
     sorts: Sort[] | null
-}) => {
+}): Promise<Article[]> => {
+    return [
+        {
+            articleTitle: 'test',
+            authors: 'test',
+            doi: 'test',
+            documentType: 'test',
+            isScopus: true,
+            isWos: true,
+            sourceTitle: 'test',
+        },
+        {
+            articleTitle: 'test',
+            authors: 'test',
+            doi: 'test',
+            documentType: 'test',
+            isScopus: true,
+            isWos: true,
+            sourceTitle: 'test',
+        },
+    ]
     const { data } = await $scienceApi.get<Article[]>(
         `/data/all?${new URLSearchParams({
             limit: limit.toString(),
@@ -30,7 +50,6 @@ export const getAllArticles = async ({
             sorts: JSON.stringify(sorts),
         })}`,
     )
-
     return data
 }
 

@@ -8,8 +8,10 @@ import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 
 const Science = () => {
-    const [pageMounted, articles, loading] = useUnit([
+    const [pageMounted, select, selected, articles, loading] = useUnit([
         scienceModel.events.pageMounted,
+        scienceModel.events.selectArticle,
+        scienceModel.stores.selectedArticles,
         scienceModel.stores.articles,
         scienceModel.stores.articlesLoading,
     ])
@@ -33,7 +35,14 @@ const Science = () => {
                 />
             }
         >
-            <Table loading={loading} columns={getScienceColumns()} data={articles} maxOnPage={7} />
+            <Table
+                loading={loading}
+                columns={getScienceColumns()}
+                data={articles}
+                maxOnPage={7}
+                select={select}
+                selected={selected}
+            />
         </PageBlock>
     )
 }

@@ -55,6 +55,8 @@ const Body = ({
     maxOnPage,
     onRowClick,
     filter,
+    selected,
+    select,
 }: TableProps & { filter: TableCatalogType }) => {
     const [currentPage, setCurrentPage] = useState<number>(0)
     const pages = Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
@@ -75,6 +77,8 @@ const Body = ({
                         el={el}
                         key={i}
                         index={i}
+                        selected={selected?.has(i)}
+                        select={select}
                     />
                 )
             })}

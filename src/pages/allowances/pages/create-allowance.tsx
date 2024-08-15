@@ -204,7 +204,7 @@ function Files() {
         <FileInput
             files={value}
             setFiles={(files: File[]) => {
-                if (files.length > 0 && value.some((file) => file.name === files[files.length - 1].name)) {
+                if (value.length < files.length && value.some((file) => file.name === files[files.length - 1].name)) {
                     popUpMessageModel.events.evokePopUpMessage({
                         message: 'Имя файла не может повторятся',
                         type: 'failure',

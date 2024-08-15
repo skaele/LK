@@ -203,6 +203,7 @@ function Files() {
     return (
         <FileInput
             files={value}
+            formats={['doc', 'pdf', 'docx']}
             setFiles={(files: File[]) => {
                 if (value.length < files.length && value.some((file) => file.name === files[files.length - 1].name)) {
                     popUpMessageModel.events.evokePopUpMessage({

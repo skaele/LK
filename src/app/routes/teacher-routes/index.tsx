@@ -55,6 +55,7 @@ import {
     ContactDetails,
     ContactDetailsForm,
     IncreaseAntiplagiatLimits,
+    Science,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -553,16 +554,12 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         title: 'Публикационная активность',
         icon: <FiFileText />,
         path: PUBLICATION_ACTIVITY,
-        Component: () => (
-            <PageIsNotReady
-                isRedirectButtonVisible={false}
-                errorText={'Сервис еще в разработке. Приносим извинения за доставленные неудобства.'}
-            />
-        ),
+        Component: Science,
         color: 'blue',
         isTemplate: false,
         group: 'SCIENCE',
         isNew: true,
+        pageSize: 'big',
     },
     'open-publication': {
         id: 'open-publication',

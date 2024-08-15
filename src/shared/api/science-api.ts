@@ -1,28 +1,5 @@
+import { Article, Changes, Sort } from '@entities/science/types'
 import { $scienceApi } from './config/science-config'
-
-type Changes = Record<
-    string,
-    Record<
-        string,
-        {
-            old: object | null
-            new: object | null
-        }
-    >
->
-type Article = {
-    doi: string
-    authors: string
-    articleTitle: string
-    sourceTitle: string
-    documentType: string
-    isWos: boolean
-    isScopus: boolean
-}
-type Sort = {
-    field: string
-    order?: 'asc' | 'desc'
-}
 
 export const uploadArticle = async ({ scopusFile, wosFile }: { scopusFile: File; wosFile: File }) => {
     const formData = new FormData()
@@ -37,7 +14,7 @@ export const uploadArticle = async ({ scopusFile, wosFile }: { scopusFile: File;
     return data
 }
 
-export const getArticles = async ({
+export const getAllArticles = async ({
     limit,
     offset,
     sorts,

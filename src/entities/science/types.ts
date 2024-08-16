@@ -9,6 +9,7 @@ export type Changes = Record<
     >
 >
 export type Article = {
+    id: string
     doi: string
     authors: string
     articleTitle: string

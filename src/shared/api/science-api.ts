@@ -25,6 +25,7 @@ export const getAllArticles = async ({
 }): Promise<Article[]> => {
     return [
         {
+            id: '1',
             articleTitle: 'test',
             authors: 'test',
             doi: 'test',
@@ -34,6 +35,7 @@ export const getAllArticles = async ({
             sourceTitle: 'test',
         },
         {
+            id: '2',
             articleTitle: 'test',
             authors: 'test',
             doi: 'test',
@@ -53,7 +55,17 @@ export const getAllArticles = async ({
     return data
 }
 
-export const getArticle = async (id: string) => {
+export const getArticle = async (id: string): Promise<Article> => {
+    return {
+        articleTitle: 'test',
+        authors: 'test',
+        doi: 'test',
+        documentType: 'test',
+        isScopus: true,
+        isWos: true,
+        sourceTitle: 'test',
+        id: '0001',
+    }
     const { data } = await $scienceApi.get<Article>(`/data/${id}`)
 
     return data

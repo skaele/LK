@@ -3,9 +3,10 @@ import Table from '@shared/ui/table'
 import React, { useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { scienceModel } from '@entities/science'
-import { getScienceColumns } from './lib/get-columns'
 import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
+import Flex from '@shared/ui/flex'
+import { getScienceColumns } from '../lib/get-columns'
 
 const Science = () => {
     const [pageMounted, select, selected, articles, loading] = useUnit([
@@ -43,6 +44,17 @@ const Science = () => {
                 select={select}
                 selected={selected}
             />
+            <Flex jc="flex-end" w="100%">
+                <Button
+                    onClick={() => {}}
+                    text="Сохранить"
+                    background="var(--reallyBlue)"
+                    textColor="#fff"
+                    minWidth="35px"
+                    height="36px"
+                    isActive={false}
+                />
+            </Flex>
         </PageBlock>
     )
 }

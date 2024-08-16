@@ -52,10 +52,11 @@ const DragAndDropAreaWrapper = styled.label<{ showPulse: boolean; isActive: bool
         opacity: 0.7;
         color: var(--text);
         pointer-events: none;
-
+        padding: 0 0.5rem;
         b {
             font-weight: 600;
             margin-bottom: 4px;
+            text-align: center;
         }
 
         .front-icon {

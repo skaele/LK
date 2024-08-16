@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample, Unit } from 'effector'
 import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'
 import {
     approveAllowance,
@@ -67,17 +67,25 @@ const removeFileMutation = createMutation({
     handler: removeFile,
 })
 
+const createSupplementMutation = createMutation({
+    handler: createAllowance,
+})
+
+const veridctMutation = createMutation({
+    handler: approveAllowance,
+})
+
 const job = createSelectField()
-const sourceOfFunding = createSelectField()
-const paymentIdentifier = createSelectField()
-const commentary = createInputField()
-const employees = createEmployeeField()
-const files = createFilesField()
+const sourceOfFunding = createSelectField({ reset: pageMounted })
+const paymentIdentifier = createSelectField({ reset: pageMounted })
+const commentary = createInputField({ reset: pageMounted })
+const employees = createEmployeeField(pageMounted)
+const files = createFilesField(pageMounted)
 
 const $filesMap = createStore<Record<string, string>>({})
 const $fileIds = $filesMap.map((files) => Object.values(files))
 
-const $completed = createStore(false)
+const $completed = createStore(false).reset(pageMounted)
 const $allowances = createStore<{
     [key: string]: AllAllowancesModified
 } | null>(null)
@@ -92,17 +100,10 @@ const getAllowancesFx = createEffect(async (userId: string) => {
 const getSubordinatesFx = createEffect(async (userId: string) => {
     return getSubordinates(userId)
 })
+
 sample({
     clock: getSubordinatesEvent,
     target: getSubordinatesFx,
-})
-
-const createSupplementMutation = createMutation({
-    handler: createAllowance,
-})
-
-const veridctMutation = createMutation({
-    handler: approveAllowance,
 })
 
 sample({
@@ -472,9 +473,10 @@ export const fields = {
     files,
 }
 
-function createInputField({ defaultValue }: { defaultValue?: string } = {}) {
+function createInputField({ defaultValue, reset }: { defaultValue?: string; reset?: Unit<any> } = {}) {
     const setValue = createEvent<string>()
     const $store = createStore<string>(defaultValue ?? '').on(setValue, (_, newValue) => newValue)
+    if (reset) $store.reset(reset)
 
     return {
         value: $store,
@@ -482,9 +484,10 @@ function createInputField({ defaultValue }: { defaultValue?: string } = {}) {
     }
 }
 
-function createSelectField({ defaultValue }: { defaultValue?: SelectPage | null } = {}) {
+function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage | null; reset?: Unit<any> } = {}) {
     const setValue = createEvent<SelectPage | null>()
     const $store = createStore<SelectPage | null>(defaultValue ?? null).on(setValue, (_, newValue) => newValue)
+    if (reset) $store.reset(reset)
 
     return {
         value: $store,
@@ -492,7 +495,7 @@ function createSelectField({ defaultValue }: { defaultValue?: SelectPage | null 
     }
 }
 
-function createEmployeeField() {
+function createEmployeeField(reset: Unit<any>) {
     const addEmployee = createEvent()
     const setEmployee = createEvent<{ employee: Employee; index: number }>()
     const removeEmployee = createEvent<number>()
@@ -500,6 +503,7 @@ function createEmployeeField() {
         .on(addEmployee, (employees) => [...employees, { id: '', divisionId: '', startDate: '', endDate: '', sum: '' }])
         .on(removeEmployee, (employees, index) => employees.map((e, i) => (i === index ? null : e)))
         .on(setEmployee, (employees, { employee, index }) => employees.map((e, i) => (i === index ? employee : e)))
+        .reset(reset)
 
     return {
         value: $employees,
@@ -509,9 +513,11 @@ function createEmployeeField() {
     }
 }
 
-function createFilesField() {
+function createFilesField(reset: Unit<any>) {
     const setValue = createEvent<File[]>()
-    const $store = createStore<File[]>([]).on(setValue, (_, newValue) => newValue)
+    const $store = createStore<File[]>([])
+        .on(setValue, (_, newValue) => newValue)
+        .reset(reset)
 
     return {
         value: $store,

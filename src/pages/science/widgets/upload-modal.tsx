@@ -30,7 +30,6 @@ const ScopusFileInput = () => {
             </Title>
             <FileInput
                 files={scopusFiles}
-                title="Scopus"
                 isActive={true}
                 setFiles={setScopusFiles}
                 maxFiles={1}
@@ -51,7 +50,17 @@ const WosFileInput = () => {
             <Title size={4} align="left">
                 WoS
             </Title>
-            <FileInput files={wosFiles} isActive={true} setFiles={setWosFiles} maxFiles={1} />
+            <FileInput
+                files={wosFiles}
+                isActive={true}
+                setFiles={setWosFiles}
+                maxFiles={1}
+                formats={[
+                    'text/csv',
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                ]}
+            />
         </Flex>
     )
 }

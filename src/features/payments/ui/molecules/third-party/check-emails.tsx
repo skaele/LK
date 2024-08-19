@@ -7,10 +7,15 @@ import Flex from '@shared/ui/flex'
 import { Colors } from '@shared/constants'
 import { useModal } from 'widgets'
 import { thirdPartyAgreementModel } from '@entities/payments'
+import { useUnit } from 'effector-react'
 
 export const CheckEmails = ({ agreement }: { agreement: Agreement }) => {
-    const [userEmail, setUserEmail] = useState(agreement.user_email)
-    const [clientEmail, setClientEmail] = useState(agreement.client_email)
+    const [clientEditedEmail, userEditedEmail] = useUnit([
+        thirdPartyAgreementModel.stores.clientEmail,
+        thirdPartyAgreementModel.stores.userEmail,
+    ])
+    const [userEmail, setUserEmail] = useState(userEditedEmail || agreement.user_email)
+    const [clientEmail, setClientEmail] = useState(clientEditedEmail || agreement.client_email)
     const { close } = useModal()
 
     const handleConfirm = () => {

@@ -7,8 +7,6 @@ import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { useModal } from 'widgets'
 
-// const FILE_FORMATS = 'xls, xlsx, csv'
-
 export const UploadModal = () => {
     return (
         <Flex d="column" gap="0.5rem">
@@ -33,11 +31,7 @@ const ScopusFileInput = () => {
                 isActive={true}
                 setFiles={setScopusFiles}
                 maxFiles={1}
-                formats={[
-                    'text/csv',
-                    'application/vnd.ms-excel',
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                ]}
+                formats={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
             />
         </Flex>
     )
@@ -55,11 +49,7 @@ const WosFileInput = () => {
                 isActive={true}
                 setFiles={setWosFiles}
                 maxFiles={1}
-                formats={[
-                    'text/csv',
-                    'application/vnd.ms-excel',
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                ]}
+                formats={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
             />
         </Flex>
     )

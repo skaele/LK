@@ -7,9 +7,11 @@ import Flex from '@shared/ui/flex'
 import { Colors } from '@shared/constants'
 import { useModal } from 'widgets'
 import { thirdPartyAgreementModel } from '@entities/payments'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { useUnit } from 'effector-react'
 
 export const CheckEmails = ({ agreement }: { agreement: Agreement }) => {
+    const { isMobile } = useCurrentDevice()
     const [clientEditedEmail, userEditedEmail] = useUnit([
         thirdPartyAgreementModel.stores.clientEmail,
         thirdPartyAgreementModel.stores.userEmail,
@@ -30,7 +32,7 @@ export const CheckEmails = ({ agreement }: { agreement: Agreement }) => {
             <Message type="info">
                 Проверьте e-mail, при необходимости откорректируйте, в случае отсутствия введите
             </Message>
-            <Grid columns="1fr 1fr" rows="1fr 1fr" rowGap="8px" columnGap="8px">
+            <Grid columns={isMobile ? '1fr' : '1fr 1fr'} rows="1fr 1fr" rowGap="8px" columnGap="8px">
                 <Title align="left" size={4}>
                     {agreement.user_fio}:
                 </Title>

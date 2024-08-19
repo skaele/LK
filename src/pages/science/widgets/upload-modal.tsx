@@ -9,7 +9,7 @@ import { useModal } from 'widgets'
 
 export const UploadModal = () => {
     return (
-        <Flex d="column" gap="0.5rem">
+        <Flex d="column" gap="0.5rem" mw="calc(800px + 1rem)">
             <Flex gap="1rem" ai="flex-start">
                 <ScopusFileInput />
                 <WosFileInput />
@@ -22,7 +22,7 @@ export const UploadModal = () => {
 const ScopusFileInput = () => {
     const [scopusFiles, setScopusFiles] = useUnit([scienceModel.stores.scopusFile, scienceModel.events.setScopusFile])
     return (
-        <Flex d="column" w="50%">
+        <Flex d="column" w="50%" mw="400px">
             <Title size={4} align="left">
                 Scopus
             </Title>

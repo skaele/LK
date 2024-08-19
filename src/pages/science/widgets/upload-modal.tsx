@@ -89,6 +89,7 @@ const Submit = () => {
             textColor="#fff"
             minWidth="35px"
             height="36px"
+            isActive={scopusFiles.length > 0 && wosFiles.length > 0}
         />
     )
 }

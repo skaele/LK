@@ -1,5 +1,5 @@
 import { scienceModel } from '@entities/science'
-import { Button } from '@shared/ui/atoms'
+import { SubmitButton } from '@shared/ui/atoms'
 import FileInput from '@shared/ui/file-input'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
@@ -58,11 +58,12 @@ const WosFileInput = () => {
 const Submit = () => {
     const { close } = useModal()
 
-    const [scopusFiles, wosFiles, uploadFiles, filesUploaded] = useUnit([
+    const [scopusFiles, wosFiles, uploadFiles, filesUploaded, loading] = useUnit([
         scienceModel.stores.scopusFile,
         scienceModel.stores.wosFile,
         scienceModel.events.uploadFiles,
         scienceModel.stores.filesUploaded,
+        scienceModel.stores.uploadLoading,
     ])
 
     useEffect(() => {
@@ -70,15 +71,17 @@ const Submit = () => {
     }, [filesUploaded])
 
     return (
-        <Button
+        <SubmitButton
             text="Загрузить"
-            onClick={() => {
+            action={() => {
                 uploadFiles({ scopusFile: scopusFiles[0], wosFile: wosFiles[0] })
             }}
+            completed={filesUploaded}
+            isLoading={loading}
+            popUpFailureMessage="Необходимо загрузить оба файла!"
             background="var(--reallyBlue)"
-            textColor="#fff"
-            minWidth="35px"
             height="36px"
+            width="108px"
             isActive={scopusFiles.length > 0 && wosFiles.length > 0}
         />
     )

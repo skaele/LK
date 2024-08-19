@@ -73,6 +73,7 @@ export const stores = {
     filesUploaded: $filesUploaded,
     scopusFile: $scopusFile,
     wosFile: $wosFile,
+    uploadLoading: uploadArticleMutation.$pending,
 }
 
 export const events = { pageMounted, selectArticle, uploadFiles, modalOpened, setScopusFile, setWosFile }

@@ -57,7 +57,7 @@ const Article = () => {
     }
 
     return (
-        <PageBlock>
+        <PageBlock outerPadding="10px">
             <Title align="left" size={2}>
                 {article?.articleTitle}
             </Title>

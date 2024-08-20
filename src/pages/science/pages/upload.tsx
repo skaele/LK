@@ -27,6 +27,7 @@ const Science = () => {
 
     return (
         <PageBlock
+            outerPadding="10px"
             topRightCornerElement={
                 <Button
                     onClick={() => {

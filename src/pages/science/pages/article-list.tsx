@@ -60,7 +60,7 @@ const PublicationList = () => {
     ])
 
     return (
-        <PageBlock>
+        <PageBlock outerPadding="10px">
             <Flex jc="space-between" w="100%">
                 <Flex gap="1.5rem">
                     <Button

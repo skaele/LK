@@ -25,49 +25,15 @@ export const getAllArticles = async ({
     offset: number
     sorts: Sort[] | null
 }): Promise<Article[]> => {
-    // return [
-    //     {
-    //         id: '1',
-    //         articleTitle: 'test',
-    //         authors: 'test',
-    //         doi: 'test',
-    //         documentType: 'test',
-    //         isScopus: true,
-    //         isWos: true,
-    //         sourceTitle: 'test',
-    //     },
-    //     {
-    //         id: '2',
-    //         articleTitle: 'test',
-    //         authors: 'test',
-    //         doi: 'test',
-    //         documentType: 'test',
-    //         isScopus: true,
-    //         isWos: true,
-    //         sourceTitle: 'test',
-    //     },
-    // ]
-    const { data } = await $scienceApi.get<Article[]>(
-        `/data/all?${new URLSearchParams({
-            limit: limit.toString(),
-            offset: offset.toString(),
-            sorts: JSON.stringify(sorts),
-        })}`,
-    )
+    const { data } = await $scienceApi.post<Article[]>(`/data/all`, {
+        limit: limit,
+        offset: offset,
+        sorts: sorts,
+    })
     return data
 }
 
 export const getArticle = async (id: string): Promise<Article> => {
-    // return {
-    //     articleTitle: 'test',
-    //     authors: 'test',
-    //     doi: 'test',
-    //     documentType: 'test',
-    //     isScopus: true,
-    //     isWos: true,
-    //     sourceTitle: 'test',
-    //     id: '0001',
-    // }
     const { data } = await $scienceApi.get<Article>(`/data/${id}`)
 
     return data

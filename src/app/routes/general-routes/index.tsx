@@ -2,7 +2,7 @@ import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
-import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -22,6 +22,7 @@ import {
     MemoFreshmenPage,
     MemoTeacherPage,
     ProfilePage,
+    SafetyInformation,
     ScheduleCurrent,
     // ChatPage,
     SchedulePage,
@@ -96,6 +97,7 @@ export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
 export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
 
 export const USEFUL_INFO_ROUTE = '/helpful-information'
+export const SAFETY_INFORMATION = '/safety-information'
 
 // hidden
 export const SCHEDULE_FILTER_ROUTE = SCHEDULE_ROUTE + '/:page/:filter'
@@ -388,6 +390,16 @@ export const generalRoutes: IRoutes = {
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
         show: !isProduction,
+    },
+    'safety-information': {
+        id: 'safety-information',
+        title: 'Безопасность',
+        icon: <BiInfoCircle />,
+        path: SAFETY_INFORMATION,
+        Component: SafetyInformation,
+        color: 'red',
+        isTemplate: true,
+        group: 'GENERAL',
     },
 }
 

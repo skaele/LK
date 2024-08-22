@@ -25,6 +25,7 @@ import { phonebookModel } from '@entities/phonebook'
 import { useUnit } from 'effector-react'
 import { findEmployee } from '@pages/all-staff/lib/find-employee'
 import { Employee } from '@shared/api/model/phonebook'
+import { safetyPages } from '@pages/safety-information'
 
 type SearchConfig = {
     title: string
@@ -83,6 +84,7 @@ const useSearchConfig = () => {
             }),
         [isStaff],
     )
+
     const [groups, setGroups] = useState<string[] | null>(null)
     const [divisions, setDivisions] = useState<string[] | null>(null)
     const [staff, setStaff] = useState<(TTeacher | Employee)[] | null>(null)
@@ -90,6 +92,7 @@ const useSearchConfig = () => {
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [foundNotifications, setFoundNotifications] = useState<TNotification[] | null>(null)
     const [foundHelpfullPages, setFoundHelpfullPages] = useState<HelpfulPage[] | null>(null)
+    const [foundSafetyInformation, setFoundSafetyInformation] = useState<HelpfulPage[] | null>(null)
 
     const preconfig: SearchConfig = [
         {
@@ -184,6 +187,18 @@ const useSearchConfig = () => {
             },
             data: foundHelpfullPages,
         },
+        {
+            title: 'Безопасность',
+            content: <BlocksList blocks={foundSafetyInformation} isStaff={isStaff} />,
+            clear: () => {
+                setFoundSafetyInformation(null)
+            },
+            search: (value) => {
+                const found = search(value, safetyPages)
+                setFoundSafetyInformation(found)
+            },
+            data: foundSafetyInformation,
+        },
     ]
 
     const getAllTab = (): SearchConfig[number] => {
@@ -219,6 +234,7 @@ const useSearchConfig = () => {
                     preconfig[0].search(value)
                     preconfig[5].search(value)
                     preconfig[6].search(value)
+                    preconfig[7].search(value)
                     if (getDataLength(preconfig[0].data) === 0) {
                         // Other Search
                         await preconfig[1].search(value)

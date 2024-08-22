@@ -213,17 +213,18 @@ const useSearchConfig = () => {
 
     const getAllTab = (): SearchConfig[number] => {
         const { content, clear, data } = preconfig.reduce(
-            (acc, el) => {
+            (acc, el, index) => {
+                const isLast = index === preconfig.length - 1
                 if (getDataLength(el.data)) {
                     acc.data.push(el.data)
                     acc.content.push(
-                        <>
+                        <Flex d="column" gap="8px" p={isLast ? '0 0 0.5rem 0' : '0'}>
                             <Title size={4} align="left">
                                 {el.title}
                             </Title>
                             {el.content}
-                            <Divider />
-                        </>,
+                            {!isLast && <Divider />}
+                        </Flex>,
                     )
                 }
                 acc.clear.push(el.clear)

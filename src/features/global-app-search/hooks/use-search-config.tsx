@@ -77,11 +77,21 @@ const useSearchConfig = () => {
 
     const mergedPages = useMemo(
         () =>
-            pages.flatMap(({ visible, content }) => {
-                if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
-                    return content
-                return []
-            }),
+            pages
+                .flatMap(({ visible, content }) => {
+                    if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
+                        return content.map((page) => ({
+                            ...page,
+                            links: page.links.filter(
+                                (link) =>
+                                    link.visible === 'all' ||
+                                    (link.visible === 'staff' && isStaff) ||
+                                    (link.visible === 'student' && !isStaff),
+                            ),
+                        }))
+                    return null
+                })
+                .filter((page) => page !== null) as HelpfulPage[],
         [isStaff],
     )
 

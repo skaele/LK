@@ -85,7 +85,7 @@ const InputWrapper = styled.div<{
         width: 25px;
         height: 25px;
         border-radius: 5px;
-        background: var(--search2);
+        background: ${({ inputAppearance }) => (inputAppearance ? 'var(--search2)' : 'transparent')};
         color: var(--text);
         padding: 0;
 
@@ -127,6 +127,7 @@ interface Props {
     customMask?: (value: string, prevValue?: string) => string
     hideCross?: boolean
     stepSize?: number
+    onClear?: () => void
 }
 
 const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInputElement>) {
@@ -155,6 +156,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         hideCross = false,
         stepSize = 0.1,
         size = 'middle',
+        onClear,
     } = props
 
     const { inputType, buttonOnClick, danger, handleOnChange, phoneMaskKeyDown } = useInput(
@@ -204,11 +206,11 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
             />
             {type !== 'password' ? (
                 !!value?.length &&
-                inputAppearance &&
+                isActive &&
                 (loading ? (
                     <Loading />
                 ) : (
-                    !hideCross && <Button icon={<FiX />} onClick={() => setValue('')} tabIndex={-1} />
+                    !hideCross && <Button icon={<FiX />} onClick={onClear ?? (() => setValue(''))} tabIndex={-1} />
                 ))
             ) : (
                 <Button

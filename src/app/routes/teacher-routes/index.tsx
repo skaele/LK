@@ -55,6 +55,7 @@ import {
     ContactDetails,
     ContactDetailsForm,
     IncreaseAntiplagiatLimits,
+    TechnicalMaintenance,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -158,6 +159,8 @@ export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid
 export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
 export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
 export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
+
+export const TECHNICAL_MAINTENANCE = APPLICATIONS_ROUTE + '/technical-maintenance'
 
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
@@ -580,6 +583,22 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'orange',
         isTemplate: false,
         group: 'SCIENCE',
+    },
+    'technical-maintenance': {
+        id: 'technical-maintenance',
+        hiddenTitle: true,
+        title: 'КСУТО',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: TECHNICAL_MAINTENANCE,
+        Component: TechnicalMaintenance,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

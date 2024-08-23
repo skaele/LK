@@ -55,7 +55,6 @@ import {
     ContactDetails,
     ContactDetailsForm,
     IncreaseAntiplagiatLimits,
-    TechnicalMaintenance,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -583,22 +582,6 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'orange',
         isTemplate: false,
         group: 'SCIENCE',
-    },
-    'technical-maintenance': {
-        id: 'technical-maintenance',
-        hiddenTitle: true,
-        title: 'КСУТО',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: TECHNICAL_MAINTENANCE,
-        Component: TechnicalMaintenance,
-        isTemplate: false,
-        group: 'GENERAL',
-        isSubPage: true,
-        backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

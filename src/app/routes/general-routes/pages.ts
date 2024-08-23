@@ -27,3 +27,5 @@ export const MemoTeacherPage = lazy(() => import('@pages/memo-teacher'))
 export const MedicalCertificate = lazy(() => import('@pages/medical-certificate'))
 export const Onboarding = lazy(() => import('@pages/onboarding'))
 export const LkNotificationsPage = lazy(() => import('@pages/lk-notifications'))
+
+export const TechnicalMaintenance = lazy(() => import('@pages/teachers-applications/pages/technical-maintenance'))

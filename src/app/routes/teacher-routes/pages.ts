@@ -48,8 +48,6 @@ export const EditPhonebookInnerPhone = lazy(
 )
 export const EditPhonebookEmail = lazy(() => import('@pages/teachers-applications/pages/edit-phonebook-email'))
 
-export const TechnicalMaintenance = lazy(() => import('@pages/teachers-applications/pages/technical-maintenance'))
-
 export const OtherItServicesPage = lazy(() => import('@pages/teachers-applications/pages/other-it-services'))
 export const PaymentForChildCarePage = lazy(() => import('@pages/teachers-applications/pages/payment-for-child-care'))
 export const PaymentOfChildBirthAllowancePage = lazy(

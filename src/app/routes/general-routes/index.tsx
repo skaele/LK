@@ -29,6 +29,7 @@ import {
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
+    TechnicalMaintenance,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
@@ -47,7 +48,7 @@ import {
     HiOutlineFlag,
     HiOutlineViewGrid,
 } from 'react-icons/hi'
-import { DOCLIST_ROUTE } from '../teacher-routes'
+import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
 import ChatPage from '@pages/chat'
@@ -400,6 +401,19 @@ export const generalRoutes: IRoutes = {
         color: 'red',
         isTemplate: true,
         group: 'GENERAL',
+    },
+    'technical-maintenance': {
+        id: 'technical-maintenance',
+        hiddenTitle: true,
+        title: 'КСУТО',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: TECHNICAL_MAINTENANCE,
+        Component: TechnicalMaintenance,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        isNew: true,
     },
 }
 

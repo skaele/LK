@@ -15,8 +15,12 @@ const setNote = createEvent<string>()
 const setStack = createEvent<SelectPage | null>()
 const setLocation = createEvent<SelectPage | null>()
 
-const $files = createStore<File[]>([]).on(setFiles, (_, files) => files)
-const $note = createStore('').on(setNote, (_, note) => note)
+const $files = createStore<File[]>([])
+    .on(setFiles, (_, files) => files)
+    .reset(pageMounted)
+const $note = createStore('')
+    .on(setNote, (_, note) => note)
+    .reset(pageMounted)
 const $name = createStore('')
     .on(setName, (_, name) => name)
     .on(applicationsModel.stores.applications, (_, { dataUserApplication }) => {
@@ -30,8 +34,12 @@ const $phone = createStore('')
 const $email = createStore('')
     .on(setEmail, (_, email) => email)
     .on(applicationsModel.stores.applications, (_, { dataUserApplication }) => dataUserApplication?.email ?? '')
-const $stack = createStore<SelectPage | null>(null).on(setStack, (_, stack) => stack)
-const $location = createStore<SelectPage | null>(null).on(setLocation, (_, location) => location)
+const $stack = createStore<SelectPage | null>(null)
+    .on(setStack, (_, stack) => stack)
+    .reset(pageMounted)
+const $location = createStore<SelectPage | null>(null)
+    .on(setLocation, (_, location) => location)
+    .reset(pageMounted)
 const $applicationNumber = createStore('').reset(pageMounted)
 
 const sendFormMutation = createMutation({
@@ -40,7 +48,7 @@ const sendFormMutation = createMutation({
 
 sample({
     clock: pageMounted,
-    target: [sendFormMutation.reset],
+    target: [sendFormMutation.reset, applicationsModel.effects.getUserDataApplicationsFx],
 })
 sample({
     clock: sendForm,

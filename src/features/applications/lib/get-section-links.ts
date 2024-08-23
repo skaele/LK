@@ -35,6 +35,7 @@ import {
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
+import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -170,6 +171,10 @@ const getSectionLinks = (): Section[] => {
         {
             title: 'Прочее',
             links: [
+                {
+                    link: TECHNICAL_MAINTENANCE,
+                    title: 'Техническая эксплуатация',
+                },
                 {
                     link: ARBITRARY_REQUEST_ROUTE,
                     title: 'Произвольный запрос',

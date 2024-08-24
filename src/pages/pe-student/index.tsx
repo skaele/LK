@@ -13,6 +13,8 @@ import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 import { userModel } from '@entities/user'
 
+import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
+
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
     const [student, { currentUser }, isTeacherLoading, isStudentLoading] = useUnit([
@@ -52,6 +54,12 @@ const PEStudent = () => {
                     <UserDataBlock label="Курс" value={student.course.toString()} />
                     <UserDataBlock label="ЛМС" value={student.lmsPoints.toString()} />
                 </UserData>
+
+                <SetPEStudentHealthGroup
+                    studentGuid={student.studentGuid}
+                    studentGroup={student.groupNumber}
+                    healthGroup={student.healthGroup}
+                />
 
                 <Slider
                     appearance={false}

@@ -1,5 +1,5 @@
 import { PHYSICAL_EDUCATION_STUDENT } from '@app/routes/teacher-routes'
-import { PEStudent } from '@entities/pe-student/types'
+import { healthGroupToTitle, PEStudent } from '@entities/pe-student/types'
 import { buildRealLink } from '@shared/lib/buildRealLink'
 import KeyValue from '@shared/ui/atoms/key-value'
 import { Button } from '@shared/ui/button'
@@ -34,6 +34,7 @@ export const PEStudentModal = ({ student }: Props) => {
                     <KeyValue keyStr="Баллы" value={student.totalPoints} />
                     <KeyValue keyStr="Курс" value={student.course} />
                     <KeyValue keyStr="ЛМС" value={student.lmsPoints} />
+                    <KeyValue keyStr="Группа здоровья" value={healthGroupToTitle[student.healthGroup]} />
                 </Flex>
                 <Divider width="100%" margin="0" />
                 <Flex d="column" gap="4px" ai="flex-start">

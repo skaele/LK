@@ -1,5 +1,15 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 
+export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'Special' | 'HealthLimitations'
+
+export const healthGroupToTitle: Record<HealthGroup, string> = {
+    None: '-',
+    Basic: 'Базовая',
+    Special: 'Специальная',
+    Preparatory: 'Подготовительная',
+    HealthLimitations: 'С ограничениями',
+}
+
 export interface PEStudent {
     studentGuid: string
     fullName: string
@@ -10,6 +20,7 @@ export interface PEStudent {
     course: number
     totalPoints: number
     lmsPoints: number
+    healthGroup: HealthGroup
 }
 
 export type PEStudentProfile = {
@@ -17,6 +28,7 @@ export type PEStudentProfile = {
     fullName: string
     groupNumber: string
     hasDebt: boolean
+    healthGroup: HealthGroup
     totalPoints: number
     lmsPoints: number
     visits: number

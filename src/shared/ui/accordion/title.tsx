@@ -9,6 +9,7 @@ const AreaTitleWrapper = styled.div`
     justify-content: space-between;
     user-select: none;
     cursor: pointer;
+    position: -webkit-sticky; /* Safari */
     position: sticky;
     top: -2px;
     background: var(--block);

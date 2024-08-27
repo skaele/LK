@@ -101,7 +101,7 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                             popUpFailureMessage={
                                 !isActive
                                     ? isContractSigned
-                                        ? 'Необходимо сначала подписать соглашение об электронном взаимодейтсвии'
+                                        ? 'Необходимо сначала подписать соглашение об электронном взаимодействии'
                                         : 'Необходимо сначала подписать договор'
                                     : 'Согласие уже подписано'
                             }

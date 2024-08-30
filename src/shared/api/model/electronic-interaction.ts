@@ -1,4 +1,10 @@
-export interface ElectronicInteraction {
+export type ElectronicInteraction = {
+    clients: (ElectronicInteractionTemplate & {
+        guid: string
+    })[]
+} & ElectronicInteractionTemplate
+
+export type ElectronicInteractionTemplate = {
     bdate: string
     date: string
     email: string

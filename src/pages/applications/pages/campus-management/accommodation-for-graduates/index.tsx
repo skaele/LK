@@ -8,6 +8,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import { applicationsModel } from '@entities/applications'
+import { isProduction } from '@shared/constants'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -26,9 +27,7 @@ const AccommodationForGraduatesPage = () => {
         }
     }, [dataUserApplication])
 
-    if (new Date() < new Date(2024, 6, 10) || new Date() > new Date(2024, 7, 1))
-        return <Error text="Подача заявок недоступна до 10.07.2024"></Error>
-    if (new Date() > new Date(2024, 7, 1)) return <Error text="Подача заявок закончилась"></Error>
+    if (isProduction && new Date() > new Date('2024 Aug 08')) return <Error text="Подача заявок закончилась"></Error>
 
     return (
         <BaseApplicationWrapper isDone={isDone}>

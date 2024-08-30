@@ -50,6 +50,7 @@ const Pagination = ({ pages, condition, currentPage, setCurrentPage, align = 'ce
                     value={!!currentPageValue.length ? (+currentPageValue + 1).toString() : ''}
                     setValue={handleValue}
                     inputAppearance={false}
+                    hideCross={true}
                 />
                 /{' '}
                 <Subtext width="fit-content" fontSize="0.85rem">

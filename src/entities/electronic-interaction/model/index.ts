@@ -44,7 +44,6 @@ sample({
 const getElectronicInteractionFx = createEffect(async (): Promise<ElectronicInteraction> => {
     try {
         const response = await pepApi.get()
-
         return response[0]
     } catch (error) {
         throw new Error(error as string)

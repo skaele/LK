@@ -145,3 +145,4 @@ export const effects = {
     postApplicationFx,
     getWorkerPosts: getWorkerPostsFx,
 }
+export const stores = { applications: $applicationsStore }

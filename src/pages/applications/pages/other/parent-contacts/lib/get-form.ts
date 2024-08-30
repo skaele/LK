@@ -8,7 +8,7 @@ const relatives = [
     { id: 3, title: 'Дедушка' },
     { id: 4, title: 'Тетя' },
     { id: 5, title: 'Дядя' },
-    { id: 6, title: 'Др.' },
+    { id: 6, title: 'Другое' },
 ]
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
     const { phone, email } = dataUserApplication

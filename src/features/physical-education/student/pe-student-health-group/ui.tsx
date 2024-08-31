@@ -23,10 +23,10 @@ const Wrapper = styled.div`
 
 const selectorData = [
     { id: 'None', title: '-' },
-    { id: 'Basic', title: 'Базовая' },
+    { id: 'Basic', title: 'Основная' },
     { id: 'Preparatory', title: 'Подготовительная' },
     { id: 'Special', title: 'Специальная' },
-    { id: 'HealthLimitations', title: 'С ограничениями' },
+    { id: 'HealthLimitations', title: 'ОВЗ' },
 ]
 
 const healthGroupToSelector: Record<HealthGroup, (typeof selectorData)[number]> = {

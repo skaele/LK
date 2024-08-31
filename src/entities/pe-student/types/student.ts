@@ -4,10 +4,10 @@ export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'Special' | 'Health
 
 export const healthGroupToTitle: Record<HealthGroup, string> = {
     None: '-',
-    Basic: 'Базовая',
+    Basic: 'Основная',
     Special: 'Специальная',
     Preparatory: 'Подготовительная',
-    HealthLimitations: 'С ограничениями',
+    HealthLimitations: 'ОВЗ',
 }
 
 export interface PEStudent {
@@ -33,6 +33,7 @@ export type PEStudentProfile = {
     lmsPoints: number
     visits: number
     course: number
+    curator: { guid: string; fullName: string } | null
     visitsHistory: {
         id: number
         date: string

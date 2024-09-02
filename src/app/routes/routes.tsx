@@ -637,7 +637,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: new Date() > new Date('2024-08-01T00:00:00.000Z'),
+        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
     },
     'medical-certificates-086': {
@@ -652,7 +652,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: new Date() > new Date('2024-08-01T00:00:00.000Z'),
+        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
     },
     'state-accreditation': {

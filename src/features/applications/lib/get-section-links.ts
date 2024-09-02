@@ -174,6 +174,10 @@ const getSectionLinks = (): Section[] => {
             title: 'Прочее',
             links: [
                 {
+                    link: MEDICAL_CERTIFICATES_086,
+                    title: 'Предоставление медицинских справок по форме № 086/у',
+                },
+                {
                     link: TECHNICAL_MAINTENANCE,
                     title: 'Техническая эксплуатация',
                 },
@@ -190,10 +194,6 @@ const getSectionLinks = (): Section[] => {
                 {
                     link: PARENT_CONTACTS,
                     title: 'Контактные данные родителей',
-                },
-                {
-                    link: MEDICAL_CERTIFICATES_086,
-                    title: 'Предоставление медицинских справок по форме № 086/у',
                 },
                 {
                     link: STUDENT_EMPLOYMENT_ROUTE,

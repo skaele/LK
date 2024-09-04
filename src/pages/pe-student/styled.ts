@@ -11,19 +11,12 @@ export const Wrapper = styled.div`
     color: var(--text);
 `
 
-export const UserDataContainer = styled.div`
-    width: 100%;
-    display: grid;
-    grid-template-column: 1fr;
-    grid-template-row: 1fr 1fr;
-    gap: 5px;
-`
-
 export const UserData = styled.div`
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 5px;
-    flex-direction: row;
 `
 
 export const ContentWrapper = styled.div`

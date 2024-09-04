@@ -9,12 +9,13 @@ import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import Slider from 'widgets/slider'
-import { ContentWrapper, UserData, UserDataContainer } from './styled'
+import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 import { userModel } from '@entities/user'
 
 import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
-import { healthGroupToTitle } from '@entities/pe-student/types'
+import { SetPEStudentSpecialization } from '@features/physical-education/student/pe-student-specialization/ui'
+import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
@@ -50,25 +51,29 @@ const PEStudent = () => {
                     {student.fullName}
                 </Title>
 
-                <UserDataContainer>
-                    <UserData>
-                        <UserDataBlock label="Группа" value={student.groupNumber} />
-                        <UserDataBlock label="Баллы" value={student.totalPoints.toString()} />
-                        <UserDataBlock label="Курс" value={student.course.toString()} />
-                        <UserDataBlock label="ЛМС" value={student.lmsPoints.toString()} />
-                    </UserData>
-                    <UserData>
-                        <UserDataBlock label="Куратор" value={student.curator?.fullName ?? '-'} />
-                        <UserDataBlock label="Группа здоровья" value={healthGroupToTitle[student.healthGroup]} />
-                    </UserData>
-                </UserDataContainer>
+                <UserData>
+                    <UserDataBlock label="Группа" value={student.groupNumber} />
+                    <UserDataBlock label="Баллы" value={student.totalPoints.toString()} />
+                    <UserDataBlock label="Курс" value={student.course.toString()} />
+                    <UserDataBlock label="ЛМС" value={student.lmsPoints.toString()} />
+                    <UserDataBlock label="Куратор" value={student.curator?.fullName ?? '-'} />
+                    <UserDataBlock label="Группа здоровья" value={healthGroupToTitle[student.healthGroup]} />
+                    <UserDataBlock label="Специализация" value={specializationToTitle[student.specialization]} />
+                    <UserDataBlock label="Долг" value={student.hasDebt ? 'Есть' : 'Нет'} />
+                </UserData>
 
                 {!!peTeacher?.permissions?.length && (
-                    <SetPEStudentHealthGroup
-                        studentGuid={student.studentGuid}
-                        studentGroup={student.groupNumber}
-                        healthGroup={student.healthGroup}
-                    />
+                    <>
+                        <SetPEStudentSpecialization
+                            studentGuid={student.studentGuid}
+                            specialization={student.specialization}
+                        />
+                        <SetPEStudentHealthGroup
+                            studentGuid={student.studentGuid}
+                            studentGroup={student.groupNumber}
+                            healthGroup={student.healthGroup}
+                        />
+                    </>
                 )}
 
                 <Slider

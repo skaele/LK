@@ -7,6 +7,7 @@ import { PEStudent, PEStudentProfile } from '@entities/pe-student/types'
 import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
 import { Group } from '@pages/teacher-physical-education/my-groups/model'
 import { SetHealthGroup } from '@entities/pe-student/types/set-health-group'
+import { SetSpecialization } from '@entities/pe-student/types/set-specialization'
 
 const extractStudentFilters = (filters: Record<string, { value: string | number }>) => {
     const studentFilters: Record<string, string | number> = {}
@@ -94,4 +95,8 @@ export const endSemesterForStudent = (guid: string) => {
 
 export const setHealthGroup = (data: SetHealthGroup) => {
     return $peApi.post('/student/health-group', data)
+}
+
+export const setSpecialization = (data: SetSpecialization) => {
+    return $peApi.post('/student/specialization', data)
 }

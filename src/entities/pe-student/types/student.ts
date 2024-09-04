@@ -10,6 +10,35 @@ export const healthGroupToTitle: Record<HealthGroup, string> = {
     HealthLimitations: 'ОВЗ',
 }
 
+export type Specialization =
+    | 'None'
+    | 'Basketball'
+    | 'Volleyball'
+    | 'Aerobics'
+    | 'PowerLiftingAndCrossfit'
+    | 'StreetLiftingAndArmLifting'
+    | 'GeneralPhysicalTraining'
+    | 'GeneralPhysicalTrainingGym'
+    | 'FootRoom'
+    | 'SMG'
+    | 'TableTennis'
+    | 'NordicWalking'
+
+export const specializationToTitle: Record<Specialization, string> = {
+    None: '-',
+    Basketball: 'Баскетбол',
+    Volleyball: 'Волейбол',
+    Aerobics: 'Аэробика',
+    PowerLiftingAndCrossfit: 'Пауэрлифтинг и кроссфит',
+    StreetLiftingAndArmLifting: 'Стритлифтинг и армлифтинг',
+    GeneralPhysicalTraining: 'ОФП',
+    GeneralPhysicalTrainingGym: 'ОФП (тренажерный зал)',
+    FootRoom: 'Футзал',
+    SMG: 'СМГ',
+    TableTennis: 'СМГ настольный теннис',
+    NordicWalking: 'СМГ скандинавская ходьба',
+}
+
 export interface PEStudent {
     studentGuid: string
     fullName: string
@@ -21,6 +50,7 @@ export interface PEStudent {
     totalPoints: number
     lmsPoints: number
     healthGroup: HealthGroup
+    specialization: Specialization
 }
 
 export type PEStudentProfile = {
@@ -29,6 +59,7 @@ export type PEStudentProfile = {
     groupNumber: string
     hasDebt: boolean
     healthGroup: HealthGroup
+    specialization: Specialization
     totalPoints: number
     lmsPoints: number
     visits: number

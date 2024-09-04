@@ -1,5 +1,7 @@
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
+import * as peStudentSpecializationModel from './pe-student-specialization-model'
+import * as peStudentHealthGroupModel from './pe-student-health-group-model'
 
 import { combine, createEffect, createEvent, createStore, sample } from 'effector'
 import { pEStudentVisitModel } from '.'
@@ -26,6 +28,10 @@ sample({
     clock: [
         pEStudentVisitModel.effects.addVisitFx.doneData,
         pEStudentVisitModel.effects.removeVisitFx.doneData,
+
+        peStudentHealthGroupModel.effects.setHealthGroupFx.doneData,
+
+        peStudentSpecializationModel.effects.setSpecializationFx.doneData,
 
         peStudentAdditionalPointsModel.effects.addAdditionPointsFx.doneData,
         peStudentAdditionalPointsModel.effects.removeAdditionPointsFx.doneData,

@@ -1,5 +1,44 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 
+export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'Special' | 'HealthLimitations'
+
+export const healthGroupToTitle: Record<HealthGroup, string> = {
+    None: '-',
+    Basic: 'Основная',
+    Special: 'Специальная',
+    Preparatory: 'Подготовительная',
+    HealthLimitations: 'ОВЗ',
+}
+
+export type Specialization =
+    | 'None'
+    | 'Basketball'
+    | 'Volleyball'
+    | 'Aerobics'
+    | 'PowerLiftingAndCrossfit'
+    | 'StreetLiftingAndArmLifting'
+    | 'GeneralPhysicalTraining'
+    | 'GeneralPhysicalTrainingGym'
+    | 'FootRoom'
+    | 'SMG'
+    | 'TableTennis'
+    | 'NordicWalking'
+
+export const specializationToTitle: Record<Specialization, string> = {
+    None: '-',
+    Basketball: 'Баскетбол',
+    Volleyball: 'Волейбол',
+    Aerobics: 'Аэробика',
+    PowerLiftingAndCrossfit: 'Пауэрлифтинг и кроссфит',
+    StreetLiftingAndArmLifting: 'Стритлифтинг и армлифтинг',
+    GeneralPhysicalTraining: 'ОФП',
+    GeneralPhysicalTrainingGym: 'ОФП (тренажерный зал)',
+    FootRoom: 'Футзал',
+    SMG: 'СМГ',
+    TableTennis: 'СМГ настольный теннис',
+    NordicWalking: 'СМГ скандинавская ходьба',
+}
+
 export interface PEStudent {
     studentGuid: string
     fullName: string
@@ -10,6 +49,8 @@ export interface PEStudent {
     course: number
     totalPoints: number
     lmsPoints: number
+    healthGroup: HealthGroup
+    specialization: Specialization
 }
 
 export type PEStudentProfile = {
@@ -17,10 +58,13 @@ export type PEStudentProfile = {
     fullName: string
     groupNumber: string
     hasDebt: boolean
+    healthGroup: HealthGroup
+    specialization: Specialization
     totalPoints: number
     lmsPoints: number
     visits: number
     course: number
+    curator: { guid: string; fullName: string } | null
     visitsHistory: {
         id: number
         date: string

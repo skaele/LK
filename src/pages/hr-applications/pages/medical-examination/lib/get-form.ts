@@ -87,7 +87,7 @@ const getForm = (
                 },
             },
             {
-                title: 'Второй день отдыха',
+                title: 'Второй день диспансеризации',
                 type: 'date',
                 value: endDate,
                 onChange: (value) => {

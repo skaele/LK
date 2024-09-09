@@ -16,6 +16,7 @@ const ModalWrapper = styled.div<{ isOpen: boolean }>`
         0% {
             opacity: 0;
             visibility: hidden;
+            display: none;
         }
         100% {
             opacity: 1;
@@ -31,6 +32,7 @@ const ModalWrapper = styled.div<{ isOpen: boolean }>`
         100% {
             opacity: 0;
             visibility: hidden;
+            display: none;
         }
     }
 

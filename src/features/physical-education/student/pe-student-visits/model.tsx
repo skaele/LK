@@ -20,8 +20,7 @@ export const $peStudentVisitsColumns = combine(
         },
         {
             title: 'Преподаватель',
-            field: 'teacher',
-            render: (data) => data.fullName,
+            field: 'teacherFullName',
         },
         ...(teacher?.permissions?.length
             ? [

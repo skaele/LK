@@ -33,13 +33,14 @@ interface Props {
     size?: number
     borderRadius?: string
     badge?: string
+    marginRight?: string
 }
 
-const Icon = ({ children, color, borderRadius, badge, size = 38 }: Props) => {
+const Icon = ({ children, color, borderRadius, badge, marginRight, size = 38 }: Props) => {
     const visible = !!badge ? (isNaN(+badge) ? true : +badge > 0) : false
 
     return (
-        <IconWrapper borderRadius={borderRadius} backgroud={color} size={size} className="icon">
+        <IconWrapper style={{ marginRight }} borderRadius={borderRadius} backgroud={color} size={size} className="icon">
             <Notification
                 outline="4px solid var(--block)"
                 color="red"

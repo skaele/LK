@@ -1,4 +1,4 @@
-import { Title } from '@ui/atoms'
+import { Input, Title } from '@ui/atoms'
 import React, { memo } from 'react'
 import { FiCheck, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import useSelect, { SelectProps } from './lib/hooks/use-select'
@@ -25,8 +25,11 @@ const Select = (props: SelectProps) => {
         goBack,
         refItems,
         appearance,
+        searchQuery,
+        changeQuery,
+        clearQuery,
     } = useSelect(props)
-    const { isActive, width, title, required, selected, placeholder, size = 'middle' } = props
+    const { isActive, width, title, required, selected, placeholder, size = 'middle', withSearch } = props
 
     return (
         <SelectWrapper
@@ -43,12 +46,33 @@ const Select = (props: SelectProps) => {
             </Title>
             <SelectHeaderWrapper multiple={multiple} appearance={appearance} size={size}>
                 <SelectHeader appearance={appearance}>
-                    {!multiple ? (
+                    {multiple ? (
+                        !!selected ? (
+                            (selected as SelectPage[]).map((page) => {
+                                return (
+                                    <div className="header-item" key={page.id}>
+                                        {!!page.icon && <span className="icon">{page.icon}</span>}
+                                        <span className="header-title">{page.title}</span>
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            <span className="not-chosen multi">{placeholder ?? 'Не выбрано'}</span>
+                        )
+                    ) : withSearch ? (
+                        <Input
+                            inputAppearance={false}
+                            value={searchQuery}
+                            setValue={changeQuery}
+                            onClear={clearQuery}
+                            placeholder={placeholder}
+                        />
+                    ) : (
                         <div className="single-header">
                             {!!selected ? (
                                 <>
                                     {!!(selected as SelectPage).icon && (
-                                        <span className="icon">{(selected as SelectPage).icon}</span>
+                                        <span className="select-icon">{(selected as SelectPage).icon}</span>
                                     )}
                                     <span className="header-title">{(selected as SelectPage).title}</span>
                                 </>
@@ -56,17 +80,6 @@ const Select = (props: SelectProps) => {
                                 <span className="not-chosen">{placeholder ?? 'Не выбрано'}</span>
                             )}
                         </div>
-                    ) : !!selected ? (
-                        (selected as SelectPage[]).map((page) => {
-                            return (
-                                <div className="header-item" key={page.id}>
-                                    {!!page.icon && <span className="icon">{page.icon}</span>}
-                                    <span className="header-title">{page.title}</span>
-                                </div>
-                            )
-                        })
-                    ) : (
-                        <span className="not-chosen multi">{placeholder ?? 'Не выбрано'}</span>
                     )}
                 </SelectHeader>
                 <SelectArrow isOpen={isOpen} />

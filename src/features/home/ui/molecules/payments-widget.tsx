@@ -14,6 +14,7 @@ import { FiCheck, FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useUnit } from 'effector-react'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
     max-width: 400px;
@@ -137,7 +138,7 @@ const countPayment = (contracts: PaymentsContract[]) => {
     return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
 }
 
-const PaymentsWidget = () => {
+const PaymentsWidget = ({ forwardedRef }: TutorialComponent) => {
     const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
     if (error) return <ErrorMessage />
@@ -151,7 +152,7 @@ const PaymentsWidget = () => {
     const hasToPay = dormPayment > 0 || eduPayment > 0
 
     return (
-        <PaymentsWidgetWrapper background={hasToPay ? 'red' : 'green'}>
+        <PaymentsWidgetWrapper ref={forwardedRef} background={hasToPay ? 'red' : 'green'}>
             <TopMessage data={payments.dormitory} balance={dormPayment} section={'Общежитие'} />
             <TopMessage data={payments.education} balance={eduPayment} section={'Обучение'} />
         </PaymentsWidgetWrapper>

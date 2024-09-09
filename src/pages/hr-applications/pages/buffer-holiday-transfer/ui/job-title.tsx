@@ -20,7 +20,6 @@ interface Props {
 
 const JobTitle: React.FC<Props> = ({ info, index, data }) => {
     const { jobTitle, subDivision, rate } = info
-    //console.log(data)
     const jobs = useGetJobs()
     const [opened, setOpened] = useState<boolean>(false)
 

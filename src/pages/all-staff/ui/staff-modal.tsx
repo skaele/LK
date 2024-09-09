@@ -8,7 +8,8 @@ import { phonebookModel } from '@entities/phonebook'
 import { getEmployeeInfo } from '../lib/get-employee-info'
 import { UserProps } from 'widgets/user/types'
 
-type Props = Pick<UserProps, 'name' | 'division' | 'avatar'>
+type Props = Pick<UserProps, 'name' | 'division' | 'avatar' | 'id'>
+
 export const StaffModal = ({ name, ...props }: Props) => {
     const {
         data: { user },
@@ -21,5 +22,13 @@ export const StaffModal = ({ name, ...props }: Props) => {
 
     if (!isStaff || !subdivisions) return <TeacherModal name={name} {...props} />
     const employee = findEmployeeByFio(subdivisions, name)[0]
-    return <PhonebookModal title={employee.fio} info={getEmployeeInfo(employee)} avatar={employee.avatar} isEmployee />
+    return (
+        <PhonebookModal
+            id={props.id}
+            title={employee.fio}
+            info={getEmployeeInfo(employee)}
+            avatar={employee.avatar}
+            isEmployee
+        />
+    )
 }

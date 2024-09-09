@@ -1,47 +1,89 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 
+export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'Special' | 'HealthLimitations'
+
+export const healthGroupToTitle: Record<HealthGroup, string> = {
+    None: '-',
+    Basic: 'Основная',
+    Special: 'Специальная',
+    Preparatory: 'Подготовительная',
+    HealthLimitations: 'ОВЗ',
+}
+
+export type Specialization =
+    | 'None'
+    | 'Basketball'
+    | 'Volleyball'
+    | 'Aerobics'
+    | 'PowerLiftingAndCrossfit'
+    | 'StreetLiftingAndArmLifting'
+    | 'GeneralPhysicalTraining'
+    | 'GeneralPhysicalTrainingGym'
+    | 'FootRoom'
+    | 'SMG'
+    | 'TableTennis'
+    | 'NordicWalking'
+
+export const specializationToTitle: Record<Specialization, string> = {
+    None: '-',
+    Basketball: 'Баскетбол',
+    Volleyball: 'Волейбол',
+    Aerobics: 'Аэробика',
+    PowerLiftingAndCrossfit: 'Пауэрлифтинг и кроссфит',
+    StreetLiftingAndArmLifting: 'Стритлифтинг и армлифтинг',
+    GeneralPhysicalTraining: 'ОФП',
+    GeneralPhysicalTrainingGym: 'ОФП (тренажерный зал)',
+    FootRoom: 'Футзал',
+    SMG: 'СМГ',
+    TableTennis: 'СМГ настольный теннис',
+    NordicWalking: 'СМГ скандинавская ходьба',
+}
+
 export interface PEStudent {
     studentGuid: string
     fullName: string
     groupNumber: string
-    hasDebtFromPreviousSemester: boolean
-    archivedVisitValue: number
+    hasDebt: boolean
     visits: number
-    additionalPoints: number
-    pointsForStandards: number
-    group: {
-        visitValue: number
-    }
-    pointsHistory: {
-        points: number
-    }[]
+    standardPoints: number
     course: number
-    department: string
+    totalPoints: number
+    lmsPoints: number
+    healthGroup: HealthGroup
+    specialization: Specialization
 }
 
-export type PEStudentProfile = PEStudent & {
+export type PEStudentProfile = {
+    studentGuid: string
+    fullName: string
+    groupNumber: string
+    hasDebt: boolean
+    healthGroup: HealthGroup
+    specialization: Specialization
+    totalPoints: number
+    lmsPoints: number
+    visits: number
+    course: number
+    curator: { guid: string; fullName: string } | null
     visitsHistory: {
         id: number
         date: string
         teacherGuid: string
-        teacher: {
-            fullName: string
-        }
+        teacherFullName: string
     }[]
     pointsHistory: {
         id: string
-        workType: WorkType
+        type: WorkType
         comment: string
         date: string
         points: number
         teacherGuid: string
+        teacherFullName: string
     }[]
     standardsHistory: {
         id: string
-        standardType: string
-        teacher: {
-            fullName: string
-        }
+        type: string
+        teacherFullName: string
         points: number
         date: string
         teacherGuid: string

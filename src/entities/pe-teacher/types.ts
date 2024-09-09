@@ -2,6 +2,7 @@ export type PETeacher = {
     id: string
     permissions: PeTeacherPermission[]
     fullName: string
+    groups: string[]
 }
 
 export enum PeTeacherPermission {
@@ -10,12 +11,4 @@ export enum PeTeacherPermission {
     OnlineCourseAccess = 'OnlineCourseAccess',
     SecretaryAccess = 'SecretaryAccess',
     SuperUser = 'SuperUser',
-}
-
-export enum PeTeacherAddPermission {
-    AdminAccess = 'ADMIN_ACCESS',
-    DefaultAccess = 'DEFAULT_ACCESS',
-    OnlineCourseAccess = 'ONLINE_COURSE_ACCESS',
-    SecretaryAccess = 'SECRETARY_ACCESS',
-    SuperUser = 'SUPER_USER',
 }

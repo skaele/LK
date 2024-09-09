@@ -1,4 +1,5 @@
 import { Employee, Subdivision } from '@shared/api/model/phonebook'
+import { uniqueByProperty } from '@shared/lib/uniq'
 
 export const findEmployeeByFio = (subdivisions: Subdivision[], fio: string) => {
     const lowerCaseFio = fio.toLowerCase()
@@ -16,5 +17,5 @@ export const findEmployeeByFio = (subdivisions: Subdivision[], fio: string) => {
         const nestedResult = findEmployeeByFio(subdiv.subdivs, lowerCaseFio)
         result.push(...nestedResult)
     })
-    return result.filter((person, index, self) => index === self.findIndex((p) => p.fio === person.fio))
+    return uniqueByProperty(result, 'guid_person')
 }

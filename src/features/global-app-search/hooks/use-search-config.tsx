@@ -21,6 +21,11 @@ import React, { useMemo, useState } from 'react'
 import { User } from 'widgets'
 import NotificationList from 'widgets/lk-notification-list/ui/list'
 import getDataLength from '../lib/get-data-length'
+import { phonebookModel } from '@entities/phonebook'
+import { useUnit } from 'effector-react'
+import { findEmployee } from '@pages/all-staff/lib/find-employee'
+import { Employee } from '@shared/api/model/phonebook'
+import { safetyPages } from '@pages/safety-information'
 
 type SearchConfig = {
     title: string
@@ -30,13 +35,32 @@ type SearchConfig = {
     search: (value: string) => Promise<void> | void
 }[]
 
-const FoundPeople = ({ people, type }: { people: (TTeacher | TStudent)[] | null; type: 'stud' | 'staff' }) => {
+const FoundPeople = ({
+    people,
+    type,
+}: {
+    people: (TTeacher | TStudent | Employee)[] | null
+    type: 'stud' | 'staff'
+}) => {
     if (!people || people.length === 0) return null
 
     return (
         <Flex d="column">
             {people.map((s) => (
-                <User name={s.fio} type={type} {...s} key={s.id} />
+                <User
+                    id={'guid_person' in s ? s.guid_person : s.id}
+                    name={s.fio}
+                    type={type}
+                    {...s}
+                    key={'id' in s ? s.id : s.guid_person}
+                    division={
+                        'division' in s
+                            ? s.division
+                            : 'job' in s
+                            ? s.job.find((j) => j.post === s.post)?.subdivision
+                            : ''
+                    }
+                />
             ))}
         </Flex>
     )
@@ -48,24 +72,37 @@ const useSearchConfig = () => {
     const {
         data: { user },
     } = userModel.selectors.useUser()
+    const subdivisions = useUnit(phonebookModel.stores.subdivisions)
     const isStaff = user?.user_status === 'staff'
 
     const mergedPages = useMemo(
         () =>
-            pages.flatMap(({ visible, content }) => {
-                if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
-                    return content
-                return []
-            }),
+            pages
+                .flatMap(({ visible, content }) => {
+                    if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
+                        return content.map((page) => ({
+                            ...page,
+                            links: page.links.filter(
+                                (link) =>
+                                    link.visible === 'all' ||
+                                    (link.visible === 'staff' && isStaff) ||
+                                    (link.visible === 'student' && !isStaff),
+                            ),
+                        }))
+                    return null
+                })
+                .filter((page) => page !== null) as HelpfulPage[],
         [isStaff],
     )
+
     const [groups, setGroups] = useState<string[] | null>(null)
     const [divisions, setDivisions] = useState<string[] | null>(null)
-    const [staff, setStaff] = useState<TTeacher[] | null>(null)
+    const [staff, setStaff] = useState<(TTeacher | Employee)[] | null>(null)
     const [students, setStudents] = useState<TStudent[] | null>(null)
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [foundNotifications, setFoundNotifications] = useState<TNotification[] | null>(null)
     const [foundHelpfullPages, setFoundHelpfullPages] = useState<HelpfulPage[] | null>(null)
+    const [foundSafetyInformation, setFoundSafetyInformation] = useState<HelpfulPage[] | null>(null)
 
     const preconfig: SearchConfig = [
         {
@@ -102,8 +139,14 @@ const useSearchConfig = () => {
                 setStaff(null)
             },
             search: async (value) => {
-                const { data } = await teacherApi.get(value, '', 1, 20)
-                setStaff(data.items)
+                if (isStaff) {
+                    if (!subdivisions) return
+                    const staff = findEmployee(subdivisions, value)
+                    setStaff(staff)
+                } else {
+                    const { data } = await teacherApi.get(value, '', 1, 20)
+                    setStaff(data.items)
+                }
             },
         },
         {
@@ -154,21 +197,34 @@ const useSearchConfig = () => {
             },
             data: foundHelpfullPages,
         },
+        {
+            title: 'Безопасность',
+            content: <BlocksList blocks={foundSafetyInformation} isStaff={isStaff} />,
+            clear: () => {
+                setFoundSafetyInformation(null)
+            },
+            search: (value) => {
+                const found = search(value, safetyPages)
+                setFoundSafetyInformation(found)
+            },
+            data: foundSafetyInformation,
+        },
     ]
 
     const getAllTab = (): SearchConfig[number] => {
         const { content, clear, data } = preconfig.reduce(
-            (acc, el) => {
+            (acc, el, index) => {
+                const isLast = index === preconfig.length - 1
                 if (getDataLength(el.data)) {
                     acc.data.push(el.data)
                     acc.content.push(
-                        <>
+                        <Flex d="column" gap="8px" p={isLast ? '0 0 0.5rem 0' : '0'}>
                             <Title size={4} align="left">
                                 {el.title}
                             </Title>
                             {el.content}
-                            <Divider />
-                        </>,
+                            {!isLast && <Divider />}
+                        </Flex>,
                     )
                 }
                 acc.clear.push(el.clear)
@@ -189,6 +245,7 @@ const useSearchConfig = () => {
                     preconfig[0].search(value)
                     preconfig[5].search(value)
                     preconfig[6].search(value)
+                    preconfig[7].search(value)
                     if (getDataLength(preconfig[0].data) === 0) {
                         // Other Search
                         await preconfig[1].search(value)

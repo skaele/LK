@@ -39,6 +39,7 @@ const AvailableAccounts = ({ padding, size = 'middle' }: Props) => {
             {user?.accounts?.map((account) => {
                 return (
                     <User
+                        id={undefined}
                         key={account.fio}
                         type={account.user_status}
                         size={size}

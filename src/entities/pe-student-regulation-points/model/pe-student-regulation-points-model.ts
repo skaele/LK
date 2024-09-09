@@ -1,16 +1,16 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { pERequest } from '@shared/api/config/pe-config'
 import { createEffect, createEvent, sample } from 'effector'
 import { modalModel } from 'widgets/modal/model'
 import { AddStudentRegulationPoints } from '../types'
 
-import { getAddPEStudentRegulationPoints, getRemovePEStudentRegulationPoints } from '../utils'
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
 
 const addRegulationPoints = createEvent<AddStudentRegulationPoints>()
 const removeRegulationPoints = createEvent<{ id: string }>()
 
 const removeRegulationPointsFx = createEffect(async ({ id }: { id: string }) => {
-    await pERequest(getRemovePEStudentRegulationPoints(id))
+    await peApi.removeRegulationPoints(id)
 })
 
 sample({ clock: removeRegulationPoints, target: removeRegulationPointsFx })
@@ -18,7 +18,7 @@ sample({ clock: removeRegulationPoints, target: removeRegulationPointsFx })
 const $pendingRemoveRegulationPoints = removeRegulationPointsFx.pending
 
 const addRegulationPointsFx = createEffect(async (payload: AddStudentRegulationPoints) => {
-    await pERequest(getAddPEStudentRegulationPoints(payload))
+    await peApi.addRegulationPoints(payload)
 
     return payload
 })
@@ -27,9 +27,19 @@ sample({ clock: addRegulationPoints, target: addRegulationPointsFx })
 sample({ clock: addRegulationPointsFx.doneData, target: modalModel.events.close })
 
 sample({
-    clock: addRegulationPointsFx.failData,
+    clock: addRegulationPointsFx.doneData,
     fn: () => ({
-        message: 'Не удалось добавить норматив',
+        message: 'Норматив добавлен',
+        type: 'success' as const,
+        time: 3000,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: addRegulationPointsFx.failData,
+    fn: (err) => ({
+        message: getPeErrorMsg(err, 'Не удалось добавить норматив'),
         type: 'failure' as const,
         time: 3000,
     }),

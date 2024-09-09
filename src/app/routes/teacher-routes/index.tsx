@@ -54,6 +54,7 @@ import {
     EditPhonebookEmail,
     ContactDetails,
     ContactDetailsForm,
+    IncreaseAntiplagiatLimits,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -72,7 +73,7 @@ import {
 } from 'react-icons/bi'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
-import { RiNotificationBadgeLine } from 'react-icons/ri'
+import { RiNotificationBadgeLine, RiPassValidLine } from 'react-icons/ri'
 import {
     ALL_TEACHERS_ROUTE,
     generalHiddenRoutes,
@@ -95,6 +96,7 @@ import PaymentsPage from '@pages/payments'
 import { BsPeople } from 'react-icons/bs'
 import AllStaff from '@pages/all-staff'
 import AllTeachersPage from '@pages/all-teachers'
+import { IoNewspaperOutline } from 'react-icons/io5'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
@@ -129,6 +131,8 @@ export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const ALL_STAFF_ROUTE = '/all-staff'
+export const OPEN_PUBLICATION = '/open-publication'
+export const EXPORT_CONTROL = '/export-control'
 
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
@@ -146,6 +150,7 @@ export const CERTIFICATE_FROM_PLACE_OF_WORK = APPLICATIONS_ROUTE + '/certificate
 export const VISA_CERTIFICATE = APPLICATIONS_ROUTE + '/visa-certificate'
 export const CERTIFICATE_OF_WORK_EXPERIENCE = APPLICATIONS_ROUTE + '/certificate-of-work-experience'
 export const NUMBER_OF_UNUSED_VACATION_DAYS = APPLICATIONS_ROUTE + '/number-of-unused-vacation-days'
+export const INCREASE_ANTIPLAGIAT_LIMITS = APPLICATIONS_ROUTE + '/increase-antiplagiat-limits'
 
 export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
 export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
@@ -153,6 +158,8 @@ export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid
 export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
 export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
 export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
+
+export const TECHNICAL_MAINTENANCE = APPLICATIONS_ROUTE + '/technical-maintenance'
 
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
@@ -387,7 +394,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: () => PageIsNotReady({ oldVersionUrl: SC_NEWS_ROUTE }),
         color: 'orange',
         isTemplate: false,
-        group: 'OTHER',
+        group: 'SCIENCE',
         show: false,
     },
     orders: {
@@ -399,7 +406,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: () => PageIsNotReady({ oldVersionUrl: ORDERS_ROUTE }),
         color: 'blue',
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         show: false,
     },
     'document-blanks': {
@@ -412,7 +419,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         color: 'blue',
         isTemplate: false,
         show: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
     },
     doclist: {
         id: 'doclist',
@@ -458,6 +465,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         fallbackPrevPage: PHYSICAL_EDUCATION,
         backButtonText: 'Физическая культура',
         isSubPage: true,
+        group: 'LEARNING_ACTIVITIES',
     },
     oop: {
         id: 'oop',
@@ -468,7 +476,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: () => PageIsNotReady({ oldVersionUrl: OOP_ROUTE }),
         color: 'blue',
         isTemplate: false,
-        group: 'OTHER',
+        group: 'GENERAL',
         show: false,
     },
     centers: {
@@ -480,7 +488,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         Component: () => PageIsNotReady({ oldVersionUrl: CENTERS_ROUTE }),
         color: 'blue',
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         show: false,
     },
     info: {
@@ -538,6 +546,40 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         keywords: ['преподаватели', 'преподы'],
         pageSize: 'big',
     },
+    'open-publication': {
+        id: 'open-publication',
+        title: 'Открытое публикование',
+        icon: <IoNewspaperOutline />,
+        path: OPEN_PUBLICATION,
+        isExternalPage: true,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://e.mospolytech.ru/old/index.php?p=exp_concl')
+            }, [])
+
+            return null
+        },
+        color: 'purple',
+        isTemplate: false,
+        group: 'SCIENCE',
+    },
+    'export-control': {
+        id: 'export-control',
+        title: 'Экспортный контроль',
+        icon: <RiPassValidLine />,
+        path: EXPORT_CONTROL,
+        isExternalPage: true,
+        Component: () => {
+            React.useEffect(() => {
+                window.location.replace('https://e.mospolytech.ru/old/index.php?p=export_control')
+            }, [])
+
+            return null
+        },
+        color: 'orange',
+        isTemplate: false,
+        group: 'SCIENCE',
+    },
     // 'generate-schedule': {
     //     id: 'generate-schedule',
     //     title: 'Генерация пересдач',
@@ -576,7 +618,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         Component: () => PageIsNotReady({ oldVersionUrl: PPS_VOTE_ROUTE }),
         color: 'blue',
         isTemplate: false,
-        group: 'OTHER',
+        group: 'GENERAL',
         show: false,
     },
     'issuance-of-licenses-page': {
@@ -691,7 +733,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : PartTimeEmployment,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
         subPageHeaderTitle: '',
@@ -785,7 +827,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         color: 'blue',
         Component: isProduction ? ApplicationRedirect : ExtraHolidayColl,
         isTemplate: false,
-        group: 'OTHER',
+        group: 'FINANCES_DOCS',
     },
     dismissal: {
         id: 'dismissal',
@@ -940,6 +982,25 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'increase-antiplagiat-limits': {
+        id: 'increase-antiplagiat-limits',
+        title: 'Запрос на увеличение лимита проверок в системе «Антиплагиат»',
+        hiddenTitle: true,
+        icon: <FiFileText />,
+        color: 'blue',
+        path: INCREASE_ANTIPLAGIAT_LIMITS,
+
+        Component: isProduction
+            ? () => <PageIsNotReady isRedirectButtonVisible={false} errorText={'Сервис находится в разработке'} />
+            : IncreaseAntiplagiatLimits,
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к цифровым сервисам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: !isProduction,
     },
     'edit-phonebook-subdivision': {
         id: 'edit-phonebook-subdivision',

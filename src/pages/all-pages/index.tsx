@@ -47,8 +47,6 @@ const AllPages = () => {
                                 })
                                 .map((group) => {
                                     const links = groupedPages[group as Groups]
-                                    if (group === 'Кадровая среда') {
-                                    }
                                     return (
                                         <LinksList
                                             title={

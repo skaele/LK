@@ -9,6 +9,7 @@ const styledPropsArray: Array<keyof Props> = ['loading']
 const WrapperBlock = styled.div.withConfig({
     shouldForwardProp: (prop) => !styledPropsArray.includes(prop as keyof Props),
 })<{ loading: boolean }>`
+    position: relative;
     width: 100%;
     padding: 10px;
     height: 100%;

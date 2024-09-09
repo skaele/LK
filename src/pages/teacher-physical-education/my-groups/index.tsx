@@ -4,7 +4,7 @@ import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { pEStudentFilterModel } from '../model'
 import { pageIndexChanged } from '../page-model'
-import { $myGroups, Group, load } from './model'
+import { $myGroups, load } from './model'
 
 export function MyGroups() {
     const [groups] = useUnit([$myGroups])
@@ -29,10 +29,7 @@ export function MyGroups() {
 const columns = [
     { field: 'groupName', title: 'Группа' },
     {
-        field: 'curator',
+        field: 'curatorFullName',
         title: 'Преподаватель',
-        render: (curator: Group['curator']) => {
-            return curator.fullName
-        },
     },
 ]

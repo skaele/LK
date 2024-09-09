@@ -60,6 +60,8 @@ import {
     StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
+    ParentContacts,
+    MedicalCertificates086,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
 import { BsFileMedical } from 'react-icons/bs'
@@ -100,6 +102,8 @@ export const FINANCIAL_ASSISTANCE = APPLICATIONS_ROUTE + '/financial-assistance'
 export const INCREASED_STATE_ACADEMIC_SCHOLARSHIP = APPLICATIONS_ROUTE + '/increased-state-academic-scholarship'
 export const CHANGING_PERSONAL_DATA = APPLICATIONS_ROUTE + '/changing-personal-data'
 export const STUDENT_STATUS = APPLICATIONS_ROUTE + '/student-status'
+export const PARENT_CONTACTS = APPLICATIONS_ROUTE + '/parent-contacts'
+export const MEDICAL_CERTIFICATES_086 = APPLICATIONS_ROUTE + '/medical-certificates-086'
 export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
 export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
 export const HOLIDAYS_AFTER_TRAINING = APPLICATIONS_ROUTE + '/holidays-after-training'
@@ -234,7 +238,7 @@ export const privateRoutes: () => IRoutes = () => ({
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
-        show: new Date() > new Date(EndDateSuperiorRoom) ? false : true,
+        show: isProduction ? (new Date() > new Date(EndDateSuperiorRoom) ? false : true) : true,
     },
     'all-teachers': {
         id: 'all-teachers',
@@ -458,15 +462,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Переселение в другое общежитие',
         icon: <BiIdCard />,
         path: RELOCATION_TO_ANOTHER_HOSTEL,
-        Component:
-            Date.now() > new Date('2024-07-01').getTime()
-                ? () => (
-                      <PageIsNotReady
-                          isRedirectButtonVisible={false}
-                          errorText="Прием заявок на переселение в другое общежитие завершен 30.06.2024"
-                      />
-                  )
-                : RelocationToAnotherHostelPage,
+        Component: RelocationToAnotherHostelPage,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
@@ -477,7 +473,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     'accommodation-for-graduates': {
         id: 'accommodation-for-graduates',
         title: 'Предоставление права проживания в каникулярный период',
-        icon: BiIdCard,
+        icon: <BiIdCard />,
         path: ACCOMMODATION_FOR_GRADUATES,
         Component:
             ['4', '5', '6'].includes(user?.course ?? '') ||
@@ -493,9 +489,11 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
+        hiddenTitle: true,
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        show: true,
     },
     'payment-recipient': {
         id: 'payment-recipient',
@@ -626,6 +624,36 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'parent-contacts': {
+        id: 'parent-contacts',
+        title: 'Контактные данные родителей',
+        icon: <BiIdCard />,
+        path: PARENT_CONTACTS,
+        Component: ParentContacts,
+        color: 'blue',
+        isTemplate: false,
+        isSubPage: true,
+        backButtonText: 'Назад к заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
+        hiddenTitle: true,
+    },
+    'medical-certificates-086': {
+        id: 'medical-certificates-086',
+        title: 'Предоставление медицинских справок по форме № 086/у',
+        icon: <BiIdCard />,
+        path: MEDICAL_CERTIFICATES_086,
+        Component: MedicalCertificates086,
+        color: 'blue',
+        isTemplate: false,
+        isSubPage: true,
+        backButtonText: 'Назад к заявлениям',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
+        hiddenTitle: true,
     },
     'state-accreditation': {
         id: 'state-accreditation',

@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react'
+import { babel } from '@rollup/plugin-babel'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import checker from 'vite-plugin-checker'
 import svgr from 'vite-plugin-svgr'
@@ -9,6 +10,15 @@ export default defineConfig((conf) => {
         server: {
             open: true,
             port: 3000,
+            hmr: false,
+            proxy: {
+                '/api': {
+                    target: 'https://e.mospolytech.ru/old/lk_api.php',
+                    secure: false,
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/api/, ''),
+                },
+            },
         },
         esbuild: {
             // jsxInject: (str: string) => (!str.includes('import React') ? "import React from 'react'" : ''),
@@ -16,6 +26,7 @@ export default defineConfig((conf) => {
         },
         preview: { port: 3000 },
         plugins: [
+            babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled' }),
             react({
                 babel: {
                     plugins: [
@@ -37,6 +48,9 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
+        },
+        optimizeDeps: {
+            include: ['effector'],
         },
     }
 })

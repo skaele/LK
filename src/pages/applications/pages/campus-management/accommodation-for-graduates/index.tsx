@@ -1,4 +1,4 @@
-import { FormBlock, SubmitButton } from '@ui/atoms'
+import { Error, FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
@@ -8,6 +8,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import { applicationsModel } from '@entities/applications'
+import { isProduction } from '@shared/constants'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
@@ -26,10 +27,12 @@ const AccommodationForGraduatesPage = () => {
         }
     }, [dataUserApplication])
 
+    if (isProduction && new Date() > new Date('2024 Aug 08')) return <Error text="Подача заявок закончилась"></Error>
+
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                     <SubmitButton
                         text={'Отправить'}

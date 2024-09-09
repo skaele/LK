@@ -1,62 +1,56 @@
-import React from 'react'
 import { CHAT_ROUTE } from '@app/routes/general-routes'
-import { contextMenuModel } from '@entities/context-menu'
+import { chatModel, chatsModel } from '@entities/chats'
 import { Button } from '@ui/atoms'
-import { LocalSearch } from '@ui/molecules'
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
-import { useRef, useState } from 'react'
-import { FiMoreVertical, FiSearch, FiX } from 'react-icons/fi'
-import { ImAttachment } from 'react-icons/im'
+import { useUnit } from 'effector-react'
+import React, { useRef } from 'react'
+import { FiArrowLeft } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
-import { useModal, User } from 'widgets'
-import { Attachments } from '.'
+import { User } from 'widgets'
+import Flex from '../../../../shared/ui/flex'
+import Subtext from '../../../../shared/ui/subtext'
+import { GroupIcon } from '../atoms/group-icon'
 
-const ChatHeaderWrapper = styled.div`
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    background: var(--block);
-    box-shadow: 5px 0 5px #00000036;
-    position: relative;
-`
+export const ChatHeader = () => {
+    const [chat, loading, isFirstFetched] = useUnit([
+        chatModel.stores.selectedChat,
+        chatsModel.queries.chats.$pending,
+        chatsModel.stores.isFirstFetched,
+    ])
 
-interface Props {
-    avatar?: string
-    name: string
-    loading: boolean
-}
-
-const ChatHeader = ({ avatar, name, loading }: Props) => {
-    const [, setOpenMenu] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
-    const [searchMode, setSearchMode] = useState(false)
-    const { open } = useModal()
     const history = useHistory()
-    useOnClickOutside(menuRef, () => setOpenMenu(false))
 
     const handleClick = () => {
-        if (searchMode) setSearchMode((prev) => !prev)
-        else history.push(CHAT_ROUTE)
+        history.push(CHAT_ROUTE)
     }
+
+    const isEmployee = chat?.opponent?.status === 'сотрудник'
+
+    const isFirstLoading = loading && !isFirstFetched
 
     return (
         <ChatHeaderWrapper ref={menuRef}>
-            <Button icon={<FiX />} onClick={handleClick} background="var(--block)" />
-            {!searchMode ? (
-                <User type="staff" avatar={avatar} name={name} loading={loading} />
-            ) : (
-                <LocalSearch
-                    whereToSearch={[]}
-                    searchEngine={() => []}
-                    setResult={() => null}
-                    placeholder="Поиск сообщений"
+            <Button icon={<FiArrowLeft />} onClick={handleClick} background="transparent" />
+            {(chat?.opponent?.id || isFirstLoading) && (
+                <User
+                    id={chat?.opponent?.id}
+                    type={isEmployee ? 'staff' : 'stud'}
+                    avatar={chat?.opponent?.avatar}
+                    name={chat?.opponent?.name ?? ''}
+                    loading={isFirstLoading}
+                    group={!isEmployee ? chat?.opponent?.data : undefined}
                 />
             )}
-            <Button
+
+            {!isFirstLoading && !!chat?.subject.length && (
+                <Flex gap="8px" w="fit-content">
+                    <GroupIcon />
+                    <Subtext style={{ color: 'var(--text)', whiteSpace: 'nowrap' }}>{chat?.subject}</Subtext>
+                </Flex>
+            )}
+
+            {/* <Button
                 icon={<FiMoreVertical />}
                 onClick={(e) =>
                     contextMenuModel.events.open({
@@ -91,9 +85,18 @@ const ChatHeader = ({ avatar, name, loading }: Props) => {
                     })
                 }
                 background="var(--block)"
-            />
+            /> */}
         </ChatHeaderWrapper>
     )
 }
 
-export default ChatHeader
+const ChatHeaderWrapper = styled.div`
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    position: relative;
+    border-bottom: 1px solid #00000024;
+    background: var(--block-content);
+`

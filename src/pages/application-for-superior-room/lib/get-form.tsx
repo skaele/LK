@@ -1,7 +1,8 @@
 import React from 'react'
 import { SuperiorRoom } from '@api/model'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
+import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { SelectPage } from '@features/select'
+import { superiorRoomAlert } from './get-status'
 
 const mAllocationTypes = [
     { id: 0, title: 'Один в комнате' },
@@ -14,48 +15,49 @@ const bgAllocationTypes = [
 ]
 
 const dormLocations = [
-    { id: 0, title: 'ул. Михалковская, д. 7, корп. 3' },
-    { id: 1, title: 'ул. Бориса Галушкина, д. 9' },
+    { id: 0, title: 'ул. Бориса Галушкина, д. 9' },
+    { id: 1, title: 'ул. Михалковская, д. 7, корп. 3' },
+    { id: 2, title: 'ул. Малая Семеновская, д. 12' },
 ]
 
-// const extracurricularActivities: CheckboxDocs[] = [
-//     {
-//         value: false,
-//         title: 'Общественная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'society',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Научная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'science',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Спортивная',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'sport',
-//         checkboxCondition: 'straight',
-//     },
-//     {
-//         value: false,
-//         title: 'Творческая',
-//         files: [],
-//         maxFiles: 10,
-//         required: false,
-//         fieldName: 'creativity',
-//         checkboxCondition: 'straight',
-//     },
-// ]
+const extracurricularActivities: CheckboxDocs[] = [
+    {
+        value: false,
+        title: 'Общественная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'society',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Научная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'science',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Спортивная',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'sport',
+        checkboxCondition: 'straight',
+    },
+    {
+        value: false,
+        title: 'Творческая',
+        files: [],
+        maxFiles: 10,
+        required: false,
+        fieldName: 'creativity',
+        checkboxCondition: 'straight',
+    },
+]
 
 const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
     const { fio, phone, email } = data
@@ -104,7 +106,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
                 value: null,
                 fieldName: 'allocation',
                 type: 'select',
-                items: dormId === 1 ? bgAllocationTypes : mAllocationTypes,
+                items: dormId === 0 ? bgAllocationTypes : mAllocationTypes,
                 width: '100%',
                 editable: true,
                 required: true,
@@ -114,7 +116,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
                 value: null,
                 fieldName: 'alternative-allocation',
                 type: 'select',
-                items: dormId === 1 ? bgAllocationTypes : mAllocationTypes,
+                items: dormId === 0 ? bgAllocationTypes : mAllocationTypes,
                 width: '100%',
                 editable: true,
                 required: true,
@@ -126,15 +128,15 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
             //     type: 'checkbox',
             //     editable: true,
             // },
-            // {
-            //     title: 'Участие во внеучебной деятельности',
-            //     value: null,
-            //     fieldName: 'extracurricular',
-            //     type: 'checkbox-docs',
-            //     items: extracurricularActivities,
-            //     width: '100%',
-            //     editable: true,
-            // },
+            {
+                title: 'Участие во внеучебной деятельности',
+                value: null,
+                fieldName: 'extracurricular',
+                type: 'checkbox-docs',
+                items: extracurricularActivities,
+                width: '100%',
+                editable: true,
+            },
             // {
             //     title: 'Дополнительная информация',
             //     value: (form?.data[6] as IInputAreaData)?.value ?? '',
@@ -144,7 +146,7 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
             //     placeholder: 'Желание проживать с другом и т.д.',
             // },
         ],
-        alert: <>Подача заявок открыта с 12:00 7 сентября до 12:00 8 сентября!</>,
+        alert: <>{superiorRoomAlert}</>,
         hint: 'Перед отправкой заявки обязательно проверьте указанную в форме контактную информацию (мобильный телефон и адрес электронной почты) и при необходимости внесите изменения.',
         optionalCheckbox: {
             title: `С приказами об изменении размеров платы за дополнительные услуги № 0597-ОД от 08.06.2021 и № 0032-АХД от 09.03.2022 ознакомлен(а)`,
@@ -161,6 +163,11 @@ const getForm = (data: SuperiorRoom, form: IInputArea | null): IInputArea => {
             {
                 title: 'Приказ № 0597-ОД от 08.06.2021 (ул. Малая Семеновская, д. 12)',
                 link: 'https://e.mospolytech.ru/old/storage/files/Prikaz_po_osnovnoj_deyatelnosti_No_0597-OD_ot_08_06_2021_Ob_utverzhdenii_razmerov_platy_za_dopolnitelnye_usl.pdf',
+                type: 'document',
+            },
+            {
+                title: 'Приказ № 15-АХД от 10.10.2023 (ул. Бориса Галушкина, д. 9)',
+                link: 'https://mospolytech.ru/upload/medialibrary/5d3/k1eyzf9xk6x6rgi8hq1l83fcz941ve94/razmer-platy-za-dopuslugu-10102023.PDF',
                 type: 'document',
             },
         ],

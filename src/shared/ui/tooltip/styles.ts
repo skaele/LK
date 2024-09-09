@@ -22,7 +22,7 @@ export const TooltipBox = styled.div<{ width?: string }>`
     border-radius: var(--brLight);
     background: #000000b9;
     color: #fff;
-    font-weight: bold;
+    font-weight: 400;
     position: absolute;
     transform: translate(0, 0);
     transition: 0.2s;

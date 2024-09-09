@@ -27,6 +27,7 @@ import {
     GUESTS_ACCOMODATION_ON_CAMPUS,
     GUESTS_PASSAGE_TO_CAMPUS,
     GUEST_PASS,
+    INCREASE_ANTIPLAGIAT_LIMITS,
     ISSUANCE_OF_LICENSES,
     ISSUANCE_OF_PASS,
     LIVING_IN_RESIDENTIAL_PREMISES,
@@ -40,13 +41,14 @@ import {
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
     RELOCATION,
+    TECHNICAL_MAINTENANCE,
     TERMINATION_OF_AGREEMENT,
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
 import { User } from '@shared/api/model'
 import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
-import { Section } from 'widgets/template-hr-applications'
+import { Section } from '../ui/molecules/create-application-list'
 
 const getTeachersSectionLinks = (user: User): Section[] => {
     return [
@@ -56,6 +58,11 @@ const getTeachersSectionLinks = (user: User): Section[] => {
                 { link: CERTIFICATE_FROM_PLACE_OF_WORK, title: 'Справка с места работы' },
                 { link: VISA_CERTIFICATE, title: 'Справка с места работы для предоставления в визовый центр' },
                 { link: NUMBER_OF_UNUSED_VACATION_DAYS, title: 'Справка о количестве неиспользованных дней отпуска' },
+                {
+                    disabled: isProduction,
+                    link: INCREASE_ANTIPLAGIAT_LIMITS,
+                    title: 'Запрос на увеличение лимита проверок в системе «Антиплагиат»',
+                },
             ],
         },
         {
@@ -73,6 +80,15 @@ const getTeachersSectionLinks = (user: User): Section[] => {
             ],
         },
         ...getInDevelopmentStaffLinks(),
+        {
+            title: 'Прочее',
+            links: [
+                {
+                    link: TECHNICAL_MAINTENANCE,
+                    title: 'Техническая эксплуатация',
+                },
+            ],
+        },
     ]
 }
 

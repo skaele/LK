@@ -1,8 +1,7 @@
-import { PEStudent } from '@entities/pe-student/types'
-import { calcSummaryPoints } from '@entities/pe-student/utils/cals-summary-points'
 import { ColumnProps } from '@shared/ui/table/types'
 import { NameRenderer } from './styled'
 import React from 'react'
+import { HealthGroup, healthGroupToTitle } from '@entities/pe-student/types'
 
 export const peStudentColumns: ColumnProps[] = [
     {
@@ -11,7 +10,7 @@ export const peStudentColumns: ColumnProps[] = [
         priority: 'one',
         showFull: true,
         render: (_, value) => {
-            return <NameRenderer hasDebt={value.hasDebtFromPreviousSemester}>{value.fullName}</NameRenderer>
+            return <NameRenderer hasDebt={value.hasDebt}>{value.fullName}</NameRenderer>
         },
     },
     {
@@ -26,21 +25,29 @@ export const peStudentColumns: ColumnProps[] = [
     },
     {
         title: 'Баллы',
-        field: 'pointsCount',
+        field: 'totalPoints',
         priority: 'one',
-        render: (_, value) => calcSummaryPoints(value as PEStudent),
     },
     {
         title: 'Нормативы',
-        field: 'pointsStandardsCount',
+        field: 'standardPoints',
         priority: 'two',
-        render: (_, value) => (value as PEStudent).pointsForStandards,
     },
     {
         title: 'ЛМС',
-        field: 'pointsLMSCount',
+        field: 'lmsPoints',
         priority: 'two',
-        render: (_, value) => (value as PEStudent).pointsHistory.reduce((sum, d) => sum + d.points, 0),
+    },
+    {
+        title: 'Группа здоровья',
+        showFull: true,
+        field: 'healthGroup',
+        priority: 'two',
+        render: (value) => {
+            const title = healthGroupToTitle[value as HealthGroup]
+
+            return <span>{title}</span>
+        },
     },
 ]
 
@@ -49,31 +56,26 @@ export const examPeStudentColumns: ColumnProps[] = [
         title: 'ФИО',
         field: 'name',
         render: (_, value) => {
-            return <NameRenderer hasDebt={value.hasDebtFromPreviousSemester}>{value.fullName}</NameRenderer>
+            return <NameRenderer hasDebt={value.hasDebt}>{value.fullName}</NameRenderer>
         },
         showFull: true,
         priority: 'one',
     },
     {
         title: 'Группа',
-        field: 'group',
-        render: (_, value) => {
-            return value.groupNumber
-        },
+        field: 'groupNumber',
         priority: 'three',
     },
     {
         title: 'Баллы',
-        field: 'points',
-        render: (_, value) => calcSummaryPoints(value as PEStudent),
+        field: 'totalPoints',
         priority: 'two',
     },
     {
         title: 'Зачтено',
         field: 'isDone',
         render: (_, value) => {
-            const points = calcSummaryPoints(value as PEStudent)
-            return points >= 50 ? 'Зачтено' : 'Не зачтено'
+            return value.totalPoints >= 50 ? 'Зачтено' : 'Не зачтено'
         },
         priority: 'one',
     },

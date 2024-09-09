@@ -2,50 +2,42 @@ import axios from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 import { isProduction } from '@shared/constants'
 
-//https://docker.mospolytech.ru/physedjournal/graphql/
-// export const PE_URL = 'http://45.10.42.218:3333/graphql/'
-export const PE_URL = isProduction
-    ? 'https://api.mospolytech.ru/physedjournal/graphql/'
-    : 'https://api.mospolytech.ru/physedjournal/stage/graphql/'
+import { z } from 'zod'
 
-export const $pEApi = axios.create({ baseURL: PE_URL })
+const peErrorSchema = z.object({
+    type: z.string(),
+    detail: z.string(),
+})
 
-const config = {
-    headers: {
-        'Content-Type': 'application/json',
+export const PE_URL = isProduction ? 'https://api.mospolytech.ru/physedjournal/' : 'http://docker.mospolytech.ru:5200/' // VPN is required
+
+export const $peApi = axios.create({ baseURL: PE_URL })
+
+$peApi.interceptors.request.use(addAuthHeaderToRequests)
+
+$peApi.interceptors.response.use((response) => response, getAuthResponseInterceptor($peApi))
+
+$peApi.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        const parsedError = peErrorSchema.safeParse(error.response?.data)
+
+        return parsedError.success
+            ? Promise.reject(new PeRequestError(parsedError.data.type, parsedError.data.detail))
+            : Promise.reject(error)
     },
+)
+
+export class PeRequestError extends Error {
+    constructor(public type: string, public detail: string) {
+        super('Во время запроса произошла ошибка')
+    }
 }
 
-$pEApi.interceptors.request.use(addAuthHeaderToRequests)
-
-$pEApi.interceptors.response.use(async (response) => {
-    if (response?.data?.errors?.[0]?.extensions?.code === 'AUTH_NOT_AUTHENTICATED') {
-        return await getAuthResponseInterceptor($pEApi)(response)
+export const getPeErrorMsg = (err: Error, fallbackMsg: string) => {
+    if (err instanceof PeRequestError && err.type != 'unknown-error') {
+        return err.detail
     }
 
-    return response
-}, getAuthResponseInterceptor($pEApi))
-
-export const pERequest = async <T>(query: string): Promise<T> => {
-    const response = await $pEApi.post('', { query }, config)
-
-    if (hasErrors(response.data)) {
-        throw new Error('Request error')
-    }
-
-    return response?.data?.data
-}
-
-function hasErrors(obj: Record<any, any>) {
-    if (typeof obj === 'object' && !!obj) {
-        if (obj.hasOwnProperty('errors') && !!obj.errors) {
-            return true
-        }
-        for (const key in obj) {
-            if (hasErrors(obj[key])) {
-                return true
-            }
-        }
-    }
-    return false
+    return fallbackMsg
 }

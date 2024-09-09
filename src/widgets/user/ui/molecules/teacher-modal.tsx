@@ -1,16 +1,17 @@
 import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+import { SendMessage } from '@features/send-first-message'
 import getLettersColors from '@shared/lib/get-letters-colors'
 import { Button } from '@ui/button'
 import React from 'react'
-import { FiClock, FiMessageCircle } from 'react-icons/fi'
+import { FiClock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import useModal from 'widgets/modal'
 import handleChangeAccount from 'widgets/user/lib/handle-change-account'
 import { UserProps } from 'widgets/user/types'
 import { UserModal } from '../atoms'
 
-type Props = Pick<UserProps, 'isMe' | 'token' | 'name' | 'division' | 'avatar'>
+type Props = Pick<UserProps, 'isMe' | 'token' | 'name' | 'division' | 'avatar' | 'id'>
 
 const TeacherModal = (props: Props) => {
     const { close } = useModal()
@@ -40,14 +41,8 @@ const TeacherModal = (props: Props) => {
                             width="100%"
                         />
                     </Link>
-                    <Button
-                        icon={<FiMessageCircle />}
-                        text={'Написать'}
-                        onClick={() => close()}
-                        width="100%"
-                        background="var(--theme-4)"
-                        isActive={false}
-                    />
+
+                    <SendMessage avatar={props.avatar} userId={props.id?.toString() ?? ''} status="staff" fio={name} />
                 </>
             )}
             {token && (

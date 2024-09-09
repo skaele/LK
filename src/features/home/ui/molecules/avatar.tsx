@@ -102,8 +102,14 @@ function Avatar({
                 visible={checked !== undefined}
                 setChecked={() => null}
             />
-            <Notification left="80%" top="90%" outline="4px solid var(--block)" visible={!!notifications}>
-                {notifications}
+            <Notification
+                className="notification"
+                left="80%"
+                top="90%"
+                outline="4px solid var(--block)"
+                visible={!!notifications}
+            >
+                {(notifications || 0) > 1 ? notifications : null}
             </Notification>
         </Container>
     )

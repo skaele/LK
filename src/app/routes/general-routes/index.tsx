@@ -2,8 +2,7 @@ import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
-import PageIsNotReady from '@pages/page-is-not-ready'
-import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -23,12 +22,14 @@ import {
     MemoFreshmenPage,
     MemoTeacherPage,
     ProfilePage,
+    SafetyInformation,
     ScheduleCurrent,
     // ChatPage,
     SchedulePage,
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
+    TechnicalMaintenance,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
@@ -40,10 +41,18 @@ import { ExtSize } from '@shared/ui/types'
 import { AiOutlineReload } from 'react-icons/ai'
 import { BsFileMedical } from 'react-icons/bs'
 import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
-import { HiOutlineCalendar, HiOutlineClipboardCheck, HiOutlineFlag, HiOutlineViewGrid } from 'react-icons/hi'
-import { DOCLIST_ROUTE } from '../teacher-routes'
+import {
+    HiOutlineAcademicCap,
+    HiOutlineCalendar,
+    HiOutlineClipboardCheck,
+    HiOutlineFlag,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
+import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
+import ChatPage from '@pages/chat'
+import { TutorialSettings } from '@pages/settings/pages/tutorial'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
@@ -79,6 +88,7 @@ export const SETTINGS_PERSONAl_ROUTE = SETTINGS_ROUTE + '/settings-personal'
 export const SETTINGS_HOME_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-home-page'
 export const SETTINGS_CUSTOMIZE_MENU_PAGE_ROUTE = SETTINGS_ROUTE + '/settings-customize-menu'
 export const SETTINGS_NOTIFICATIONS = SETTINGS_ROUTE + '/settings-notifications'
+export const SETTINGS_TUTORIAL = SETTINGS_ROUTE + '/settings-tutorial'
 
 export const INSTRUCTIONS_ROUTE = '/instructions'
 export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
@@ -88,6 +98,7 @@ export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
 export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
 
 export const USEFUL_INFO_ROUTE = '/helpful-information'
+export const SAFETY_INFORMATION = '/safety-information'
 
 // hidden
 export const SCHEDULE_FILTER_ROUTE = SCHEDULE_ROUTE + '/:page/:filter'
@@ -97,6 +108,9 @@ export const SCHEDULE_SESSION_ROUTE = SCHEDULE_ROUTE + '/session'
 export const SCHEDULE_RETAKE_ROUTE = SCHEDULE_ROUTE + '/retake'
 export const TEMPLATE_USEFUL_INFO_ROUTE = USEFUL_INFO_ROUTE + '/:infoType'
 
+export const ELECTRONIC_INTERACTION_TYPE = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/:type'
+export const PERSONAL_ELECTRONIC_INTERACTION = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/personal'
+export const THIRD_PARTY_ELECTRONIC_INTERACTION = ELECTRONIC_INTERACTION_AGREEMENT_ROUTE + '/third-party'
 export interface IRoutes {
     [id: string]: IRoute
 }
@@ -107,6 +121,7 @@ export enum Groups {
     LEARNING_ACTIVITIES = 'Учебная деятельность',
     OTHER = 'Находится в разработке',
     COMMUNICATION = 'Коммуникация',
+    SCIENCE = 'Научная деятельность',
 }
 
 export interface IRoute {
@@ -276,26 +291,42 @@ export const generalRoutes: IRoutes = {
         title: 'Соглашение об электронном взаимодействии',
         shortTitle: 'Соглашение об электр...',
         icon: <HiOutlineClipboardCheck />,
-        path: ELECTRONIC_INTERACTION_AGREEMENT_ROUTE,
+        path: ELECTRONIC_INTERACTION_TYPE,
         Component: ElectronicInteractionAgreementPage,
         color: 'blue',
         isTemplate: false,
         group: 'GENERAL',
         pageSize: 'small',
+        menuPath: PERSONAL_ELECTRONIC_INTERACTION,
     },
     chat: {
-        //ChatPage
         id: 'chat',
         title: 'Сообщения',
         icon: <BiMessageRounded />,
         path: CHAT_ROUTE,
-        isOldLkPage: true,
-        Component: () => PageIsNotReady({ oldVersionUrl: OLD_CHAT_ROUTE }),
+        Component: ChatPage,
         color: 'red',
-        isTemplate: true,
-        group: 'OTHER',
-        keywords: ['чат'],
-        planeHeader: true,
+        group: 'COMMUNICATION',
+        keywords: ['чат', 'сообщения', 'написать'],
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+    },
+    'specific-chat': {
+        id: 'specific-chat',
+        title: 'Сообщения',
+        icon: <BiMessageRounded />,
+        path: TEMPLATE_CHAT_ROUTE,
+        Component: ChatPage,
+        color: 'red',
+        pageSize: 'big',
+        isTemplate: false,
+        planeHeader: false,
+        hiddenTitle: true,
+        group: 'COMMUNICATION',
+        isSubPage: true,
+        show: false,
     },
     schedule: {
         id: 'schedule',
@@ -360,6 +391,29 @@ export const generalRoutes: IRoutes = {
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
         show: !isProduction,
+    },
+    'safety-information': {
+        id: 'safety-information',
+        title: 'Безопасность',
+        icon: <BiInfoCircle />,
+        path: SAFETY_INFORMATION,
+        Component: SafetyInformation,
+        color: 'red',
+        isTemplate: true,
+        group: 'GENERAL',
+    },
+    'technical-maintenance': {
+        id: 'technical-maintenance',
+        hiddenTitle: true,
+        title: 'КСУТО',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: TECHNICAL_MAINTENANCE,
+        Component: TechnicalMaintenance,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        isNew: true,
     },
 }
 
@@ -539,6 +593,21 @@ export const generalHiddenRoutes: IRoutes = {
         show: true,
         isSubPage: true,
         subPageHeaderTitle: 'Уведомления',
+        fallbackPrevPage: SETTINGS_ROUTE,
+
+        backButtonText: 'Настройки',
+    },
+    'settings-tutorial': {
+        id: 'settings-tutorial',
+        title: 'Настройки. Обучение',
+        icon: <HiOutlineAcademicCap />,
+        path: SETTINGS_TUTORIAL,
+        Component: TutorialSettings,
+        color: 'green',
+        isTemplate: true,
+        show: true,
+        isSubPage: true,
+        subPageHeaderTitle: 'Обучение',
         fallbackPrevPage: SETTINGS_ROUTE,
 
         backButtonText: 'Настройки',

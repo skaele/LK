@@ -4,9 +4,10 @@ import { LoginData } from '@api/user-api'
 import createFullName from '@features/home/lib/create-full-name'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { clearTokens } from '../lib/clear-tokens'
+import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null
@@ -101,6 +102,10 @@ const logoutFx = createEffect(() => {
         sessionStorage.removeItem(BrowserStorageKey.JWT)
         sessionStorage.removeItem(BrowserStorageKey.JWTRefresh)
     }
+    localStorage.removeItem(TUTORIAL_HASH)
+    localStorage.removeItem(TUTORIAL_PROGRESS)
+    localStorage.removeItem(TUTORIAL_PROGRESS_DATE)
+    localStorage.removeItem(TUTORIAL_PROGRESS_HASH)
 })
 
 const changeSavePasswordFunc = (savePassword?: boolean) => {
@@ -118,9 +123,9 @@ const update = createEvent<{ key: keyof User; value: User[keyof User] }>()
 const updateBulk = createEvent<Partial<User>>()
 const changeSavePassword = createEvent<{ savePassword: boolean }>()
 
-forward({ from: login, to: getUserTokenFx })
+sample({ clock: login, target: getUserTokenFx })
 sample({ clock: getUserTokenFx.doneData, target: getUserFx })
-forward({ from: logout, to: logoutFx })
+sample({ clock: logout, target: logoutFx })
 
 !!tokenInStorage && savePasswordInStorage()
     ? getUserFx({ token: tokenInStorage, jwt: localStorage.getItem(BrowserStorageKey.JWT)! })

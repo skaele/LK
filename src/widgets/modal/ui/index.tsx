@@ -23,6 +23,11 @@ const Modal = () => {
         close()
     })
 
+    // TODO: add soft close
+    if (!isValid) {
+        return null
+    }
+
     return (
         <ModalWrapper isOpen={isValid}>
             <ModalContent isOpen={isValid} ref={ref} hasBack={canBack} hasTitle={!!title}>

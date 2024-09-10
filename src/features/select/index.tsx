@@ -109,7 +109,7 @@ const Select = (props: SelectProps) => {
                 )}
                 {currentItems.map(({ id, icon, title, children, data }) => (
                     <SelectItem
-                        key={title}
+                        key={id ?? title}
                         onClick={(e) => {
                             e.stopPropagation()
                             handleSelect({ id, icon, title, children, data })

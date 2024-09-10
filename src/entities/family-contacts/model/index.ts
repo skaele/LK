@@ -1,11 +1,20 @@
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { createQuery } from '@farfetched/core'
-import { getFamilyContacts } from '@shared/api/family-contacts-api'
-import { createEvent, sample } from 'effector'
+import { FamilyContacts, getFamilyContacts, saveFamilyContacts } from '@shared/api/family-contacts-api'
+import { createEvent, createStore, sample } from 'effector'
 
 const getContacts = createEvent()
+const saveContacts = createEvent<FamilyContacts>()
+const formCompleted = createEvent<boolean>()
+
+const $completed = createStore<boolean>(false).on(formCompleted, (_, completed) => completed)
 
 const getFamilyContactsQuery = createQuery({
     handler: getFamilyContacts,
+})
+
+const saveFamilyContactsMutation = createQuery({
+    handler: saveFamilyContacts,
 })
 
 sample({
@@ -13,10 +22,42 @@ sample({
     target: getFamilyContactsQuery.start,
 })
 
+sample({
+    clock: saveContacts,
+    target: saveFamilyContactsMutation.start,
+})
+
+sample({
+    clock: saveFamilyContactsMutation.$succeeded,
+    fn: () => ({
+        message: 'Данные успешно сохранены',
+        type: 'success' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
+sample({
+    clock: saveFamilyContactsMutation.$succeeded,
+    target: formCompleted,
+})
+
+sample({
+    clock: saveFamilyContactsMutation.$failed,
+    fn: () => ({
+        message: 'Не удалось сохранить данные. Попробуйте еще раз',
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
+})
+
 export const stores = {
     contacts: getFamilyContactsQuery.$data,
+    completed: $completed,
+    loading: getFamilyContactsQuery.$pending,
 }
 
 export const events = {
     getContacts,
+    saveContacts,
+    formCompleted,
 }

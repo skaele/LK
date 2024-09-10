@@ -178,6 +178,10 @@ const getSectionLinks = (): Section[] => {
                     title: 'Предоставление медицинских справок по форме № 086/у',
                 },
                 {
+                    link: FAMILY_CONTACTS,
+                    title: 'Контактные данные родителей',
+                },
+                {
                     link: TECHNICAL_MAINTENANCE,
                     title: 'Техническая эксплуатация',
                 },
@@ -191,10 +195,6 @@ const getSectionLinks = (): Section[] => {
             title: 'Прочее (в разработке)',
             disabled: isProduction,
             links: [
-                {
-                    link: FAMILY_CONTACTS,
-                    title: 'Контактные данные родителей',
-                },
                 {
                     link: STUDENT_EMPLOYMENT_ROUTE,
                     title: 'Трудоустройство студентов',

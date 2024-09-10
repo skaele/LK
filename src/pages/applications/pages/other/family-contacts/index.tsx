@@ -11,23 +11,24 @@ import { applicationsModel } from '@entities/applications'
 import { checkForAtLeastOneField } from './lib/check-for-at-least-one-field'
 import { useUnit } from 'effector-react'
 import { familyContactsModel } from '@entities/family-contacts'
-import { saveFamilyContacts } from '@shared/api/family-contacts-api'
 import { globalPrepareFormData } from '@pages/applications/lib/prepare-form-data'
 
 const MOTHER_STRING_PREFIX = 'm_'
 const FATHER_STRING_PREFIX = 'f_'
 
 const FamilyContacts = () => {
-    const [familyContacts, getContacts] = useUnit([
+    const [familyContacts, getContacts, saveContacts, loading, completed, formCompleted] = useUnit([
         familyContactsModel.stores.contacts,
         familyContactsModel.events.getContacts,
+        familyContactsModel.events.saveContacts,
+        familyContactsModel.stores.loading,
+        familyContactsModel.stores.completed,
+        familyContactsModel.events.formCompleted,
     ])
     const [form, setForm] = useState<IInputArea | null>(null)
     const [mother, setMother] = useState<IInputArea | null>(null)
     const [father, setFather] = useState<IInputArea | null>(null)
     const [relative, setRelative] = useState<IInputArea | null>(null)
-    const [completed, setCompleted] = useState(false)
-    const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
     const {
         data: { dataUserApplication },
@@ -58,25 +59,18 @@ const FamilyContacts = () => {
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={() => {
-                            setLoading(true)
-                            try {
-                                saveFamilyContacts(
-                                    globalPrepareFormData(ApplicationFormCodes.FAMILY_CONTACTS, [
-                                        form,
-                                        mother,
-                                        father,
-                                        relative,
-                                    ]),
-                                )
-                                setLoading(false)
-                                setCompleted(true)
-                            } catch (error) {
-                                setLoading(false)
-                            }
+                            saveContacts(
+                                globalPrepareFormData(ApplicationFormCodes.FAMILY_CONTACTS, [
+                                    form,
+                                    mother,
+                                    father,
+                                    relative,
+                                ]),
+                            )
                         }}
                         isLoading={loading}
                         completed={completed}
-                        setCompleted={setCompleted}
+                        setCompleted={formCompleted}
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}

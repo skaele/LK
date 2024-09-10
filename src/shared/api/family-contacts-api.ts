@@ -16,19 +16,20 @@ export type FamilyContacts = {
     r_job: string
 }
 
-export const saveFamilyContacts = async (data: FamilyContacts) => {
+export const saveFamilyContacts = async (contacts: FamilyContacts) => {
     const formData = new FormData()
 
     formData.set('token', token())
 
-    for (const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(contacts)) {
         formData.set(key, value)
     }
-    return (
-        await $api.post(`?saveFamilyContacts=1&token=${token()}`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        })
-    ).data
+    const { data } = await $api.post(`?saveFamilyContacts=1&token=${token()}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+    })
+
+    if (data.result !== 'ok') throw new Error(data.error_text)
+    return data
 }
 
 export const getFamilyContacts = async () => {

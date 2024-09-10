@@ -1,7 +1,7 @@
 import { SelectPage } from '@features/select'
 import { Size } from '@shared/ui/types'
 import useOnClickOutside from '@utils/hooks/use-on-click-outside'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import findCurrentPage from '../find-current-page'
 
 type SingleSelect = React.Dispatch<React.SetStateAction<SelectPage | null>>
@@ -31,6 +31,7 @@ const useSelect = (props: SelectProps) => {
     const refItems = useRef<HTMLUListElement | null>(null)
     const [route, setRoute] = useState<string[]>([])
     const [currentItems, setCurrentItems] = useState<SelectPage[]>(items)
+    const [debouncedItems, setDebouncedItems] = useState<SelectPage[]>(currentItems)
     const [selectedRoute, setSelectedRoute] = useState<string>('')
 
     useEffect(() => {
@@ -91,10 +92,22 @@ const useSelect = (props: SelectProps) => {
         }
     })
 
-    const filteredItems = useMemo(() => {
-        if (!withSearch) return currentItems
-        return currentItems.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    }, [searchQuery, currentItems, withSearch])
+    useEffect(() => {
+        if (!withSearch || !searchQuery) {
+            setDebouncedItems(currentItems)
+            return
+        }
+
+        const handler = setTimeout(() => {
+            setDebouncedItems(
+                currentItems.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase())),
+            )
+        }, 300)
+
+        return () => {
+            clearTimeout(handler)
+        }
+    }, [currentItems, searchQuery, withSearch])
 
     const clearQuery = useCallback(() => {
         setSelected(null)
@@ -114,7 +127,7 @@ const useSelect = (props: SelectProps) => {
         multiple,
         handleSelect,
         selectedRoute,
-        currentItems: filteredItems,
+        currentItems: debouncedItems,
         route,
         goBack,
         refItems,

@@ -1,5 +1,6 @@
 import { thirdPartyAgreementModel } from '@entities/payments'
 import { Agreement } from '@shared/api/model'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button, Title } from '@shared/ui/atoms'
 import { Grid } from '@shared/ui/grid'
 import Input from '@shared/ui/input'
@@ -7,13 +8,14 @@ import { useUnit } from 'effector-react'
 import React, { useState } from 'react'
 
 export const EnterPasswords = ({ agreement }: { agreement: Agreement }) => {
+    const { isMobile } = useCurrentDevice()
     const [userPass, setUserPass] = useState('')
     const [clientPass, setClientPass] = useState('')
     const [signAgreement] = useUnit([thirdPartyAgreementModel.events.signAgreement])
 
     return (
         <>
-            <Grid columns="1fr 1fr" rows="1fr 1fr" rowGap="8px" columnGap="8px">
+            <Grid columns={isMobile ? '1fr' : '1fr 1fr'} rows="1fr 1fr" rowGap="8px" columnGap="8px">
                 <Title align="left" size={4}>
                     {agreement.user_fio}:
                 </Title>

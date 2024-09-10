@@ -3,7 +3,6 @@ import List from '@ui/list'
 import React from 'react'
 import { FiFolderPlus } from 'react-icons/fi'
 import ElectronicAgreementListItem from '../molecules/electronic-agreement-list-item'
-import TechicalErrorMessage from '../molecules/technical-error-message'
 
 interface Props {
     electronicAgreements: any[]
@@ -16,7 +15,6 @@ const ElectronicAgreementList = ({ electronicAgreements = [], isContractSigned }
             <Title size={4} align="left" icon={<FiFolderPlus />} bottomGap>
                 Доп. соглашения
             </Title>
-            <TechicalErrorMessage />
             {electronicAgreements.map((item, index) => (
                 <ElectronicAgreementListItem key={index} data={item} isContractSigned={isContractSigned} />
             ))}

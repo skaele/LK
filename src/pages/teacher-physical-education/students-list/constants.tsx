@@ -1,6 +1,7 @@
 import { ColumnProps } from '@shared/ui/table/types'
 import { NameRenderer } from './styled'
 import React from 'react'
+import { HealthGroup, healthGroupToTitle } from '@entities/pe-student/types'
 
 export const peStudentColumns: ColumnProps[] = [
     {
@@ -37,6 +38,17 @@ export const peStudentColumns: ColumnProps[] = [
         field: 'lmsPoints',
         priority: 'two',
     },
+    {
+        title: 'Группа здоровья',
+        showFull: true,
+        field: 'healthGroup',
+        priority: 'two',
+        render: (value) => {
+            const title = healthGroupToTitle[value as HealthGroup]
+
+            return <span>{title}</span>
+        },
+    },
 ]
 
 export const examPeStudentColumns: ColumnProps[] = [
@@ -44,7 +56,7 @@ export const examPeStudentColumns: ColumnProps[] = [
         title: 'ФИО',
         field: 'name',
         render: (_, value) => {
-            return <NameRenderer hasDebt={value.hasDebtFromPreviousSemester}>{value.fullName}</NameRenderer>
+            return <NameRenderer hasDebt={value.hasDebt}>{value.fullName}</NameRenderer>
         },
         showFull: true,
         priority: 'one',

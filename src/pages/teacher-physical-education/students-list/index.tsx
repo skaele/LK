@@ -40,7 +40,7 @@ export const StudentsList = () => {
                 <Table
                     loading={loading}
                     data={students}
-                    columns={!isExam ? peStudentColumns : examPeStudentColumns}
+                    columns={isExam ? examPeStudentColumns : peStudentColumns}
                     onRowClick={(student) => {
                         open(<PEStudentModal student={student as PEStudent} />, (student as PEStudent).fullName)
                     }}

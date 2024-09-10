@@ -2,7 +2,7 @@ import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
 
 import LoginPage from '@pages/login'
-import { BiGroup, BiHeadphone, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
 import {
@@ -22,12 +22,14 @@ import {
     MemoFreshmenPage,
     MemoTeacherPage,
     ProfilePage,
+    SafetyInformation,
     ScheduleCurrent,
     // ChatPage,
     SchedulePage,
     ScheduleRetake,
     ScheduleSemestr,
     ScheduleSession,
+    TechnicalMaintenance,
 } from './pages'
 
 import { PETeacher } from '@entities/pe-teacher/types'
@@ -46,7 +48,7 @@ import {
     HiOutlineFlag,
     HiOutlineViewGrid,
 } from 'react-icons/hi'
-import { DOCLIST_ROUTE } from '../teacher-routes'
+import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
 import AppearanceSettings from '@pages/settings/pages/appearance'
 import SettingsPage from '@pages/settings'
 import ChatPage from '@pages/chat'
@@ -96,6 +98,7 @@ export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
 export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
 
 export const USEFUL_INFO_ROUTE = '/helpful-information'
+export const SAFETY_INFORMATION = '/safety-information'
 
 // hidden
 export const SCHEDULE_FILTER_ROUTE = SCHEDULE_ROUTE + '/:page/:filter'
@@ -388,6 +391,29 @@ export const generalRoutes: IRoutes = {
         keywords: ['медицинская', 'справка', 'грипп', 'dfrwbyfwbz'],
         isOldLkPage: true,
         show: !isProduction,
+    },
+    'safety-information': {
+        id: 'safety-information',
+        title: 'Безопасность',
+        icon: <BiInfoCircle />,
+        path: SAFETY_INFORMATION,
+        Component: SafetyInformation,
+        color: 'red',
+        isTemplate: true,
+        group: 'GENERAL',
+    },
+    'technical-maintenance': {
+        id: 'technical-maintenance',
+        hiddenTitle: true,
+        title: 'КСУТО',
+        icon: <FiFileText />,
+        color: 'blue',
+        path: TECHNICAL_MAINTENANCE,
+        Component: TechnicalMaintenance,
+        isTemplate: false,
+        group: 'GENERAL',
+        isSubPage: true,
+        isNew: true,
     },
 }
 

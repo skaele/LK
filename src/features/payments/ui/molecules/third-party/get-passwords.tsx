@@ -1,6 +1,7 @@
 import { thirdPartyAgreementModel } from '@entities/payments'
 import { Agreement } from '@shared/api/model'
 import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { Grid } from '@shared/ui/grid'
@@ -9,6 +10,7 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 
 export const GetPasswords = ({ agreement }: { agreement: Agreement }) => {
+    const { isMobile } = useCurrentDevice()
     const [clientEmail, userEmail, signButtonActive, sendCodes, enterPasses] = useUnit([
         thirdPartyAgreementModel.stores.clientEmail,
         thirdPartyAgreementModel.stores.userEmail,
@@ -18,7 +20,7 @@ export const GetPasswords = ({ agreement }: { agreement: Agreement }) => {
     ])
     return (
         <>
-            <Grid columns="1fr 1fr" rows="1fr 1fr" rowGap="8px" columnGap="8px">
+            <Grid columns={isMobile ? '1fr' : '1fr 1fr'} rows="1fr 1fr" rowGap="8px" columnGap="8px">
                 <Title align="left" size={4}>
                     {agreement.user_fio}:
                 </Title>

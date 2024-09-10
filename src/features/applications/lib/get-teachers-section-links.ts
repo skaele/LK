@@ -40,6 +40,7 @@ import {
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
     RELOCATION,
+    TECHNICAL_MAINTENANCE,
     TERMINATION_OF_AGREEMENT,
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
@@ -78,6 +79,15 @@ const getTeachersSectionLinks = (user: User): Section[] => {
             ],
         },
         ...getInDevelopmentStaffLinks(),
+        {
+            title: 'Прочее',
+            links: [
+                {
+                    link: TECHNICAL_MAINTENANCE,
+                    title: 'Техническая эксплуатация',
+                },
+            ],
+        },
     ]
 }
 

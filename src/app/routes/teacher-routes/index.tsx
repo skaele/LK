@@ -171,6 +171,8 @@ export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-
 export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
 export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
 
+export const TECHNICAL_MAINTENANCE = APPLICATIONS_ROUTE + '/technical-maintenance'
+
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
 export const WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = APPLICATIONS_ROUTE + '/work-on-the-terms-of-external-concurrency'

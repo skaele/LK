@@ -90,6 +90,8 @@ export const ChangingPersonalData = lazy(
 )
 
 export const StudentStatus = lazy(() => import('@pages/applications/pages/multifunctional-center/student-status'))
+export const ParentContacts = lazy(() => import('@pages/applications/pages/other/family-contacts'))
+export const MedicalCertificates086 = lazy(() => import('@pages/applications/pages/other/medical-certifitcates-086'))
 
 export const StateAccreditation = lazy(
     () => import('@pages/applications/pages/multifunctional-center/state-accreditation'),

@@ -10,6 +10,7 @@ import { Title } from '@shared/ui/title'
 import styled from 'styled-components'
 import { Button } from '@shared/ui/atoms'
 import { FiChevronLeft } from 'react-icons/fi'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 const titles = [
     'Проверьте и подтвердите адреса e-mail',
@@ -18,10 +19,11 @@ const titles = [
 ]
 
 export const ThirdPartyModal = ({ agreement }: { agreement: Agreement }) => {
+    const { isMobile } = useCurrentDevice()
     const [step, back] = useUnit([thirdPartyAgreementModel.stores.step, thirdPartyAgreementModel.events.goBack])
     const hasBack = step === 1
     return (
-        <Flex w="600px" d="column">
+        <Flex w={isMobile ? '100%' : '600px'} d="column">
             <Header hasBack={hasBack}>
                 {hasBack && (
                     <Button
@@ -35,12 +37,16 @@ export const ThirdPartyModal = ({ agreement }: { agreement: Agreement }) => {
                         height="fit-content"
                     />
                 )}
-                <Title align="left" size={3} width="530px">
+                <Title align="left" size={3}>
                     {titles[step]}
                 </Title>
             </Header>
 
-            <Flex d="column" gap="24px" m={`${step === 0 ? '8px' : '48px'} 0 0 0`}>
+            <Flex
+                d="column"
+                gap="24px"
+                m={`${step === 0 ? (isMobile ? '2rem' : '0.5rem') : isMobile ? '5rem' : '3rem'} 0 0 0`}
+            >
                 {step === 0 && <CheckEmails agreement={agreement} />}
                 {step === 1 && <GetPasswords agreement={agreement} />}
                 {step === 2 && <EnterPasswords agreement={agreement} />}
@@ -56,4 +62,5 @@ const Header = styled.div<{ hasBack?: boolean }>`
     top: 16px;
     left: ${({ hasBack }) => (hasBack ? '4px' : '20px')};
     gap: 15px;
+    width: 85%;
 `

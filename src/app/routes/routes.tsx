@@ -102,7 +102,7 @@ export const FINANCIAL_ASSISTANCE = APPLICATIONS_ROUTE + '/financial-assistance'
 export const INCREASED_STATE_ACADEMIC_SCHOLARSHIP = APPLICATIONS_ROUTE + '/increased-state-academic-scholarship'
 export const CHANGING_PERSONAL_DATA = APPLICATIONS_ROUTE + '/changing-personal-data'
 export const STUDENT_STATUS = APPLICATIONS_ROUTE + '/student-status'
-export const PARENT_CONTACTS = APPLICATIONS_ROUTE + '/parent-contacts'
+export const FAMILY_CONTACTS = APPLICATIONS_ROUTE + '/family-contacts'
 export const MEDICAL_CERTIFICATES_086 = APPLICATIONS_ROUTE + '/medical-certificates-086'
 export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
 export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
@@ -625,11 +625,11 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'parent-contacts': {
-        id: 'parent-contacts',
+    'family-contacts': {
+        id: 'family-contacts',
         title: 'Контактные данные родителей',
         icon: <BiIdCard />,
-        path: PARENT_CONTACTS,
+        path: FAMILY_CONTACTS,
         Component: ParentContacts,
         color: 'blue',
         isTemplate: false,

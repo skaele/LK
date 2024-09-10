@@ -32,8 +32,8 @@ import {
     MILITARY_REGISTRATION,
     EXIT_ACADEMIC_LEAVE,
     STUDENT_EMPLOYMENT_ROUTE,
-    PARENT_CONTACTS,
     MEDICAL_CERTIFICATES_086,
+    FAMILY_CONTACTS,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
@@ -192,7 +192,7 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 {
-                    link: PARENT_CONTACTS,
+                    link: FAMILY_CONTACTS,
                     title: 'Контактные данные родителей',
                 },
                 {

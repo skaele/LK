@@ -35,7 +35,7 @@ export enum ApplicationFormCodes {
     CRS_ATTESTAT = 'crs_attestat',
     MEDICAL_CERT = 'postRequestMedicalCertificate',
     STUD_EMPLOYMENT = 'stud_employment',
-    PARENT_CONTACTS = 'parent_contacts',
+    FAMILY_CONTACTS = 'parent_contacts',
     MEDICAL_CERT_086 = 'medical_cert_086',
     WORK_TRANSFER = '',
     EXTRA_HOLIDAY_COLL = '',

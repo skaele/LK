@@ -1,5 +1,7 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
+import { FamilyContacts } from '@shared/api/family-contacts-api'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 
 const relatives = [
     { id: 0, title: 'Брат' },
@@ -10,9 +12,7 @@ const relatives = [
     { id: 5, title: 'Дядя' },
     { id: 6, title: 'Другое' },
 ]
-export const getForm = (dataUserApplication: UserApplication): IInputArea => {
-    const { phone, email } = dataUserApplication
-
+export const getForm = (dataUserApplication: UserApplication, { email, phone }: FamilyContacts): IInputArea => {
     return {
         title: 'Контактные данные',
         data: [
@@ -45,13 +45,17 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
         ],
     }
 }
-export const getRelativeForm = (relative: 'Мать' | 'Отец', prefix: string): IInputArea => {
+export const getRelativeForm = (
+    relative: 'Мать' | 'Отец',
+    prefix: string,
+    { m_fio, m_phone, m_job, f_fio, f_phone, f_job }: FamilyContacts,
+): IInputArea => {
     return {
         title: `Контактные данные родителей (${relative})`,
         data: [
             {
                 title: 'Телефон',
-                value: '',
+                value: relative === 'Мать' ? m_phone : f_phone,
                 fieldName: prefix + 'phone',
                 type: 'tel',
                 width: '100%',
@@ -60,14 +64,14 @@ export const getRelativeForm = (relative: 'Мать' | 'Отец', prefix: strin
             },
             {
                 title: 'ФИО',
-                value: '',
+                value: relative === 'Мать' ? m_fio : f_fio,
                 fieldName: prefix + 'fio',
                 width: '100%',
                 editable: true,
             },
             {
                 title: 'Место работы',
-                value: '',
+                value: relative === 'Мать' ? m_job : f_job,
                 fieldName: prefix + 'job',
                 width: '100%',
                 editable: true,
@@ -75,14 +79,14 @@ export const getRelativeForm = (relative: 'Мать' | 'Отец', prefix: strin
         ],
     }
 }
-export const getAbstractRelativeForm = (): IInputArea => {
+export const getAbstractRelativeForm = ({ relative, r_phone, r_fio, r_job }: FamilyContacts): IInputArea => {
     return {
         title: `Контактные данные родственников`,
         data: [
             {
                 title: 'Член семьи',
-                value: null,
-                fieldName: 'address',
+                value: findCurrentInSelect(relatives, relative),
+                fieldName: 'relative',
                 type: 'select',
                 items: relatives,
                 width: '100%',
@@ -90,7 +94,7 @@ export const getAbstractRelativeForm = (): IInputArea => {
             },
             {
                 title: 'Телефон',
-                value: '',
+                value: r_phone,
                 fieldName: 'r_phone',
                 type: 'tel',
                 width: '100%',
@@ -99,14 +103,14 @@ export const getAbstractRelativeForm = (): IInputArea => {
             },
             {
                 title: 'ФИО',
-                value: '',
+                value: r_fio,
                 fieldName: 'r_fio',
                 width: '100%',
                 editable: true,
             },
             {
                 title: 'Место работы',
-                value: '',
+                value: r_job,
                 fieldName: 'r_job',
                 width: '100%',
                 editable: true,

@@ -26,9 +26,14 @@ export const Employee = ({
 
     const statusText =
         employee?.approvalStatus ||
-        (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Approved')
+        (employee?.employeeVerdicts?.every((verdict) => verdict.approvalStatus === 'Approved') &&
+        employee.zkguApprovalStatus === 'Approved' &&
+        employee.selfApprovalStatus === 'Approved' &&
+        employee.orderStatus === 'Ready'
             ? 'Approved'
-            : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Declined')
+            : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Declined') ||
+              employee.zkguApprovalStatus === 'Declined' ||
+              employee.selfApprovalStatus === 'Declined'
             ? 'Declined'
             : 'InProgress')
     return (

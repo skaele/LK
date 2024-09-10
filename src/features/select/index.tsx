@@ -115,7 +115,13 @@ const Select = (props: SelectProps) => {
                                 e.stopPropagation()
                                 handleSelect({ id, icon, title, children, data })
                             }}
-                            isSelected={!multiple && !!selected && (selected as SelectPage).title.includes(title)}
+                            isSelected={
+                                !multiple &&
+                                !!selected &&
+                                ((selected as SelectPage).id
+                                    ? id === (selected as SelectPage).id
+                                    : title === (selected as SelectPage).title)
+                            }
                             leadingToSelected={selectedRoute.includes(id.toString())}
                         >
                             {!!icon && <span className="icon">{icon}</span>}

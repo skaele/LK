@@ -29,7 +29,7 @@ const MilitaryRegistrationDocuments = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}

@@ -2,19 +2,11 @@ import { StructuralSubdivisionOptions } from '@entities/applications/consts'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
-const docTypes = [
-    { id: 0, title: 'Сведения о поступлении в образовательную организацию' },
-    { id: 1, title: 'Сведения об отчислении из образовательной организации' },
-    { id: 2, title: 'Сведения об уходе в академический отпуск' },
-    { id: 3, title: 'Сведения о выходе из академического отпуска' },
-]
-
-const departments = [
-    ...StructuralSubdivisionOptions,
-    {
-        id: 4,
-        title: 'Мобилизационный отдел г. Москва, ул. Б. Семёновская, д. 38, корп. Н, кабинет 517. Тел.: (495) 223-05-23, доб. 1026, 1027, 1113',
-    },
+const education = [
+    { id: 0, title: 'Среднее общее' },
+    { id: 1, title: 'Среднее профессиональное' },
+    { id: 2, title: 'Высшее - бакалавриат' },
+    { id: 3, title: 'Высшее - специалитет, магистратура' },
 ]
 
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
@@ -49,32 +41,32 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 value: null,
                 type: 'select',
                 fieldName: 'stuctural_subdivision',
-                items: departments,
+                items: StructuralSubdivisionOptions,
                 width: '100%',
                 editable: true,
                 required: true,
             },
             {
-                title: 'Запрашиваемые документы',
+                title: 'Образование на момент поступления в университет',
                 value: null,
                 type: 'select',
-                fieldName: 'doc_type',
-                items: docTypes,
+                fieldName: 'stuctural_subdivision',
+                items: education,
                 width: '100%',
                 editable: true,
                 required: true,
             },
             {
-                title: 'Документы предоставляются в военные комиссариаты Российской Федерации, суды',
-                value: false,
-                type: 'checkbox',
-                fieldName: 'to_commissariats_or_courts',
+                title: 'Наименование военного комиссариата, куда направляется справка',
+                value: '',
+                fieldName: 'comissariat_name',
                 width: '100%',
                 editable: true,
                 required: true,
             },
             {
-                title: 'Комментарий',
+                title: 'Комментарий к заявке',
+                placeholder: 'Комментарий',
                 type: 'textarea',
                 fieldName: 'comment',
                 value: '',

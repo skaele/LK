@@ -71,7 +71,6 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 fieldName: 'to_commissariats_or_courts',
                 width: '100%',
                 editable: true,
-                required: true,
             },
             {
                 title: 'Комментарий',

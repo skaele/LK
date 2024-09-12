@@ -69,7 +69,8 @@ const MilitaryRegistration = () => {
         <BaseApplicationWrapper isDone={false}>
             <FormBlock>
                 <Title size={3} align="left">
-                    Воинский учет
+                    Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на
+                    военную службу (форма 10)
                 </Title>
                 <StepByStepForm stagesConfig={stagesConfigs} />
                 <Checkbox
@@ -81,7 +82,7 @@ const MilitaryRegistration = () => {
                     text={!completed ? 'Отправить' : 'Отправлено'}
                     action={() => {
                         return globalAppSendForm(
-                            ApplicationFormCodes.MIL_REG,
+                            ApplicationFormCodes.MILITARY_REG,
                             [
                                 generalData,
                                 maritalStatus,

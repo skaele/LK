@@ -5,6 +5,8 @@ import checkFormFields from '@utils/check-form-fields'
 import { Colors } from '@shared/constants'
 import { Line } from '@ui/timeline/ui'
 import InputArea from '@ui/input-area'
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
 
 type HiddenProps = {
     reached?: boolean
@@ -31,7 +33,7 @@ const StepCircle = styled.div<HiddenProps>`
 
 const ListStepForm = styled.div`
     display: flex;
-    margin-bottom: -20px;
+    margin-bottom: -0.5rem;
 `
 
 const ElementControlStepForm = styled.div<{ lastElement?: boolean }>`
@@ -92,6 +94,24 @@ const StepByStepForm = ({ stagesConfig }: Props) => {
                     <InputArea {...item.dataForm} setData={item.setDataForm} key={key} />
                 ))}
             </>
+            <Flex jc="space-between">
+                <Button
+                    text="Назад"
+                    isActive={indexActiveForm > 0}
+                    onClick={() => {
+                        if (indexActiveForm === 0) return
+                        changeStep(indexActiveForm - 1)
+                    }}
+                />
+                <Button
+                    text="Далее"
+                    isActive={indexActiveForm < stagesConfig.length - 1}
+                    onClick={() => {
+                        if (indexActiveForm === stagesConfig.length - 1) return
+                        changeStep(indexActiveForm + 1)
+                    }}
+                />
+            </Flex>
         </>
     )
 }

@@ -66,6 +66,7 @@ type Props = ISubject & {
     color: IColorPalette
     noPadding?: boolean
     isNextEvent: boolean
+    showIndicators?: boolean
 }
 
 const SubjectModal = (props: Props) => {

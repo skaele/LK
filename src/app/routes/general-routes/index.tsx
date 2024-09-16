@@ -402,19 +402,19 @@ export const generalRoutes: IRoutes = {
         isTemplate: true,
         group: 'GENERAL',
     },
-    'technical-maintenance': {
-        id: 'technical-maintenance',
-        hiddenTitle: true,
-        title: 'КСУТО',
-        icon: <FiFileText />,
-        color: 'blue',
-        path: TECHNICAL_MAINTENANCE,
-        Component: TechnicalMaintenance,
-        isTemplate: false,
-        group: 'GENERAL',
-        isSubPage: true,
-        isNew: true,
-    },
+    // 'technical-maintenance': {
+    //     id: 'technical-maintenance',
+    //     hiddenTitle: true,
+    //     title: 'КСУТО',
+    //     icon: <FiFileText />,
+    //     color: 'blue',
+    //     path: TECHNICAL_MAINTENANCE,
+    //     Component: TechnicalMaintenance,
+    //     isTemplate: false,
+    //     group: 'GENERAL',
+    //     isSubPage: true,
+    //     isNew: true,
+    // },
 }
 
 export const scheduleRoutes: IRoutes = {

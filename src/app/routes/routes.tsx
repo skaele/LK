@@ -574,6 +574,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        hiddenTitle: true,
     },
     'financial-support': {
         id: 'financial-support',

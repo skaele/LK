@@ -1,4 +1,3 @@
-import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationFormCodes } from '@shared/models/application-form-codes'
@@ -10,27 +9,43 @@ import { LoadedState } from 'widgets/template-form'
 import { getAbstractRelativeForm, getForm, getRelativeForm } from './lib/get-form'
 import { applicationsModel } from '@entities/applications'
 import { checkForAtLeastOneField } from './lib/check-for-at-least-one-field'
+import { useUnit } from 'effector-react'
+import { familyContactsModel } from '@entities/family-contacts'
+import { globalPrepareFormData } from '@pages/applications/lib/prepare-form-data'
 
-const ParentContacts = () => {
+const MOTHER_STRING_PREFIX = 'm_'
+const FATHER_STRING_PREFIX = 'f_'
+
+const FamilyContacts = () => {
+    const [familyContacts, getContacts, saveContacts, loading, completed, formCompleted] = useUnit([
+        familyContactsModel.stores.contacts,
+        familyContactsModel.events.getContacts,
+        familyContactsModel.events.saveContacts,
+        familyContactsModel.stores.loading,
+        familyContactsModel.stores.completed,
+        familyContactsModel.events.formCompleted,
+    ])
     const [form, setForm] = useState<IInputArea | null>(null)
     const [mother, setMother] = useState<IInputArea | null>(null)
     const [father, setFather] = useState<IInputArea | null>(null)
     const [relative, setRelative] = useState<IInputArea | null>(null)
-    const [completed, setCompleted] = useState(false)
-    const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
     const {
         data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
 
     useEffect(() => {
-        if (!!dataUserApplication) {
-            setForm(getForm(dataUserApplication))
-            setMother(getRelativeForm('Мать', 'm_'))
-            setFather(getRelativeForm('Отец', 'f_'))
-            setRelative(getAbstractRelativeForm())
+        getContacts()
+    }, [])
+
+    useEffect(() => {
+        if (!!dataUserApplication && !!familyContacts) {
+            setForm(getForm(dataUserApplication, familyContacts))
+            setMother(getRelativeForm('Мать', MOTHER_STRING_PREFIX, familyContacts))
+            setFather(getRelativeForm('Отец', FATHER_STRING_PREFIX, familyContacts))
+            setRelative(getAbstractRelativeForm(familyContacts))
         }
-    }, [dataUserApplication])
+    }, [dataUserApplication, familyContacts])
 
     return (
         <BaseApplicationWrapper isDone={isDone}>
@@ -43,18 +58,19 @@ const ParentContacts = () => {
 
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
-                        action={() =>
-                            globalAppSendForm(
-                                ApplicationFormCodes.PARENT_CONTACTS,
-                                [form, mother, father, relative],
-                                setLoading,
-                                setCompleted,
-                                true,
+                        action={() => {
+                            saveContacts(
+                                globalPrepareFormData(ApplicationFormCodes.FAMILY_CONTACTS, [
+                                    form,
+                                    mother,
+                                    father,
+                                    relative,
+                                ]),
                             )
-                        }
+                        }}
                         isLoading={loading}
                         completed={completed}
-                        setCompleted={setCompleted}
+                        setCompleted={formCompleted}
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}
@@ -74,4 +90,4 @@ const ParentContacts = () => {
     )
 }
 
-export default ParentContacts
+export default FamilyContacts

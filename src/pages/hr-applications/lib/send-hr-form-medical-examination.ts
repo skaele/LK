@@ -1,7 +1,7 @@
 import { IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { bufferMedicalExaminationModel } from '../pages/buffer-medical-examination/model'
 import { IndexedProperties } from '@shared/models/indexed-properties'
-import { createResultElementForm } from '@pages/applications/lib/global-app-send-form'
+import { createResultElementForm } from '@pages/applications/lib/prepare-form-data'
 
 const SendHrFormMedicalExamination = async (
     employeeId: string,

@@ -1,7 +1,7 @@
 import { IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { bufferHolidayPlanningModel } from '../pages/buffer-holiday-planning/model'
-import { createResultElementForm } from '@pages/applications/lib/global-app-send-form'
 import { IndexedProperties } from '@shared/models/indexed-properties'
+import { createResultElementForm } from '@pages/applications/lib/prepare-form-data'
 
 const sendHrFormHolidayPlanning = async (
     employeeId: string,

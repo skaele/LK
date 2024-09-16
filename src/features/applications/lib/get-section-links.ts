@@ -32,12 +32,13 @@ import {
     MILITARY_REGISTRATION,
     EXIT_ACADEMIC_LEAVE,
     STUDENT_EMPLOYMENT_ROUTE,
-    PARENT_CONTACTS,
     MEDICAL_CERTIFICATES_086,
+    FAMILY_CONTACTS,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
 import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
+import { MEDICAL_CERTIFICATE } from '@app/routes/general-routes'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -70,6 +71,10 @@ const getSectionLinks = (): Section[] => {
         {
             title: 'Управление студенческим городком',
             links: [
+                {
+                    link: MEDICAL_CERTIFICATE,
+                    title: 'Предоставление медицинских справок для проживающих в общежитии',
+                },
                 {
                     link: REGULAR_ACCOMMODATION,
                     title: 'Предоставление права проживания (очная форма)',
@@ -178,6 +183,10 @@ const getSectionLinks = (): Section[] => {
                     title: 'Предоставление медицинских справок по форме № 086/у',
                 },
                 {
+                    link: FAMILY_CONTACTS,
+                    title: 'Контактные данные родителей',
+                },
+                {
                     link: TECHNICAL_MAINTENANCE,
                     title: 'Техническая эксплуатация',
                 },
@@ -191,10 +200,6 @@ const getSectionLinks = (): Section[] => {
             title: 'Прочее (в разработке)',
             disabled: isProduction,
             links: [
-                {
-                    link: PARENT_CONTACTS,
-                    title: 'Контактные данные родителей',
-                },
                 {
                     link: STUDENT_EMPLOYMENT_ROUTE,
                     title: 'Трудоустройство студентов',

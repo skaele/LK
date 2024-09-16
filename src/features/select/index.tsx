@@ -107,32 +107,49 @@ const Select = (props: SelectProps) => {
                         </span>
                     </SelectItem>
                 )}
-                {currentItems.map(({ id, icon, title, children, data }) => (
-                    <SelectItem
-                        key={title}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            handleSelect({ id, icon, title, children, data })
-                        }}
-                        isSelected={!multiple && !!selected && (selected as SelectPage).title.includes(title)}
-                        leadingToSelected={selectedRoute.includes(id.toString())}
-                    >
-                        {!!icon && <span className="icon">{icon}</span>}
-                        <span className="select-item-title">{title}</span>
-                        {!!children && (
-                            <span className="right-icon">
-                                <FiChevronRight />
-                            </span>
-                        )}
-                        {multiple &&
-                            !!selected &&
-                            !!(selected as SelectPage[]).find((page) => page.title.includes(title)) && (
+                {currentItems.length ? (
+                    currentItems.map(({ id, icon, title, children, data }) => (
+                        <SelectItem
+                            key={id ?? title}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleSelect({ id, icon, title, children, data })
+                            }}
+                            isSelected={
+                                !multiple &&
+                                !!selected &&
+                                ((selected as SelectPage).id
+                                    ? id === (selected as SelectPage).id
+                                    : title === (selected as SelectPage).title)
+                            }
+                            leadingToSelected={selectedRoute.includes(id.toString())}
+                        >
+                            {!!icon && <span className="icon">{icon}</span>}
+                            <span className="select-item-title">{title}</span>
+                            {!!children && (
                                 <span className="right-icon">
-                                    <FiCheck />
+                                    <FiChevronRight />
                                 </span>
                             )}
+                            {multiple &&
+                                !!selected &&
+                                !!(selected as SelectPage[]).find((page) => page.title.includes(title)) && (
+                                    <span className="right-icon">
+                                        <FiCheck />
+                                    </span>
+                                )}
+                        </SelectItem>
+                    ))
+                ) : (
+                    <SelectItem
+                        onClick={(e) => {
+                            e.stopPropagation()
+                        }}
+                        isSelected={false}
+                    >
+                        <span className="select-item-title">Не найдено</span>
                     </SelectItem>
-                ))}
+                )}
             </SelectItems>
         </SelectWrapper>
     )

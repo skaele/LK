@@ -31,7 +31,7 @@ interface Props {
 }
 
 const DotPages = ({ amount, current, color, direction = 'horizontal' }: Props) => {
-    if (amount <= 1) return null
+    if (isNaN(amount) || amount <= 1) return null
 
     return (
         <List

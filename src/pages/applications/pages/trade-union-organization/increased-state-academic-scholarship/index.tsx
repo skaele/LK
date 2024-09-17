@@ -8,11 +8,13 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { applicationsModel } from '@entities/applications'
 import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+import Checkbox from '@shared/ui/checkbox'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const IncreasedStateAcademicScholarship = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
+    const [confirmed, setConfirmed] = useState(false)
     const [completed, setCompleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
@@ -29,9 +31,9 @@ const IncreasedStateAcademicScholarship = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
-
+                    <Checkbox checked={confirmed} setChecked={setConfirmed} text={'С Порядком подачи ознакомлен'} />
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
                         action={() =>
@@ -43,7 +45,7 @@ const IncreasedStateAcademicScholarship = () => {
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}
-                        isActive={checkFormFields(form)}
+                        isActive={confirmed && checkFormFields(form)}
                         popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
                         popUpSuccessMessage="Данные формы успешно отправлены"
                     />

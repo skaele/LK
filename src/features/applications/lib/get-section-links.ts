@@ -41,6 +41,7 @@ import {
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
 import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
+import { MEDICAL_CERTIFICATE } from '@app/routes/general-routes'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -73,6 +74,10 @@ const getSectionLinks = (): Section[] => {
         {
             title: 'Управление студенческим городком',
             links: [
+                {
+                    link: MEDICAL_CERTIFICATE,
+                    title: 'Предоставление медицинских справок для проживающих в общежитии',
+                },
                 {
                     link: REGULAR_ACCOMMODATION,
                     title: 'Предоставление права проживания (очная форма)',

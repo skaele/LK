@@ -1,9 +1,10 @@
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
+import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
 
 const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFieldsNameConfig) => {
     const isCheckDocument = !form.documents?.required || !!form.documents.files.length
-    const isCheckNewElementForm = !form.addNew || !!form.data.length
+    const expandableVerified = checkExpandable(form)
+
     return (
         !(form.data as IInputAreaData[]).find((el) => {
             if (el.type === 'date' && (el.maxValueInput || el.minValueInput)) {
@@ -36,8 +37,26 @@ const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFiel
                 : el.required && !(el.items as CheckboxDocs[]).find((item) => !!item.files.length)
         }) &&
         isCheckDocument &&
-        isCheckNewElementForm
+        expandableVerified
     )
+}
+
+function checkExpandable(form: IInputArea) {
+    if (!form.addNew) return true
+
+    const isEmpty = !form.data.length
+    const canBeEmpty = (form.default as IComplexInputAreaData)[0].every(
+        (field) => !field.required || form.optionalCheckbox?.value,
+    )
+    if (isEmpty && canBeEmpty) return true
+
+    if (
+        !isEmpty &&
+        (form.data as IComplexInputAreaData).every((row) => row.every((field) => !field.required || field.value))
+    )
+        return true
+
+    return false
 }
 
 export default checkFormFields

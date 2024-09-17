@@ -412,7 +412,6 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'GENERAL',
         isSubPage: true,
-        isNew: true,
     },
 }
 

@@ -9,9 +9,7 @@ import useInputArea from './lib/use-input-area'
 import { IComplexInputAreaData, IInputArea, IInputAreaData } from './model'
 import { AreaTitle, InputAreaWrapper, UniversalInput } from './ui'
 import Buttons from './ui/organisms/buttons'
-type SetData =
-    | React.Dispatch<React.SetStateAction<IInputArea | null>>
-    | React.Dispatch<React.SetStateAction<IInputArea>>
+type SetData = ((data: IInputArea | null) => void) | ((data: IInputArea) => void)
 
 //TODO: Should be rewritten as HOC, inputs should be children props
 const InputArea = ({

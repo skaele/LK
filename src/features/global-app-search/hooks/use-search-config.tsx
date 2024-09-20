@@ -239,10 +239,10 @@ const useSearchConfig = () => {
             clear: () => clear.map((f) => f()),
             search: async (value: string) => {
                 // Group Search
+                preconfig[0].search(value)
                 if (value.length <= 8 && /\d|[-]/g.test(value)) {
                     await preconfig[3].search(value)
                 } else {
-                    preconfig[0].search(value)
                     preconfig[5].search(value)
                     preconfig[6].search(value)
                     preconfig[7].search(value)

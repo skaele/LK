@@ -180,7 +180,7 @@ const getSectionLinks = (): Section[] => {
             links: [
                 {
                     link: MEDICAL_CERTIFICATES_086,
-                    title: 'Предоставление медицинских справок по форме № 086/у',
+                    title: 'Предоставление справок о группе здоровья',
                 },
                 {
                     link: FAMILY_CONTACTS,

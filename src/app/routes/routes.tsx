@@ -645,7 +645,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     },
     'medical-certificates-086': {
         id: 'medical-certificates-086',
-        title: 'Предоставление медицинских справок по форме № 086/у',
+        title: 'Предоставление справок о группе здоровья',
         icon: <BiIdCard />,
         path: MEDICAL_CERTIFICATES_086,
         Component: MedicalCertificates086,
@@ -657,6 +657,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         fallbackPrevPage: APPLICATIONS_ROUTE,
         isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
+        keywords: ['086/у', '086 у'],
     },
     'state-accreditation': {
         id: 'state-accreditation',

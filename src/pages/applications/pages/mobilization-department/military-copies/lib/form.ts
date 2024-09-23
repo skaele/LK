@@ -1,4 +1,3 @@
-import { StructuralSubdivisionOptions } from '@entities/applications/consts'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
@@ -9,16 +8,8 @@ const docTypes = [
     { id: 3, title: 'Сведения о выходе из академического отпуска' },
 ]
 
-const departments = [
-    ...StructuralSubdivisionOptions,
-    {
-        id: 4,
-        title: 'Мобилизационный отдел г. Москва, ул. Б. Семёновская, д. 38, корп. Н, кабинет 517. Тел.: (495) 223-05-23, доб. 1026, 1027, 1113',
-    },
-]
-
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
-    const { surname, name, patronymic, email, phone } = dataUserApplication
+    const { surname, name, patronymic, email, phone, divisions_crs } = dataUserApplication
     return {
         title: 'Заверенные копии документов по воинскому учету из личного дела',
         data: [
@@ -49,10 +40,16 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 value: null,
                 type: 'select',
                 fieldName: 'stuctural_subdivision',
-                items: departments,
+                items: divisions_crs.map((division) => {
+                    return {
+                        id: +division.id,
+                        title: division.name + ' ' + division.contact,
+                    }
+                }),
                 width: '100%',
                 editable: true,
                 required: true,
+                isSpecificSelect: true,
             },
             {
                 title: 'Запрашиваемые документы',

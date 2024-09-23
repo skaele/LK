@@ -1,9 +1,8 @@
-import { StructuralSubdivisionOptions } from '@entities/applications/consts'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
-    const { surname, name, patronymic, email, phone } = dataUserApplication
+    const { surname, name, patronymic, email, phone, divisions_crs } = dataUserApplication
     return {
         title: 'Заверенные копии документов по воинскому учету из личного дела',
         data: [
@@ -34,10 +33,16 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 value: null,
                 type: 'select',
                 fieldName: 'stuctural_subdivision',
-                items: StructuralSubdivisionOptions,
+                items: divisions_crs.map((division) => {
+                    return {
+                        id: +division.id,
+                        title: division.name + ' ' + division.contact,
+                    }
+                }),
                 width: '100%',
                 editable: true,
                 required: true,
+                isSpecificSelect: true,
             },
             {
                 title: 'Наименование военного комиссариата, куда направляется справка',

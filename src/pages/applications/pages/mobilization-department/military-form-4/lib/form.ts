@@ -50,7 +50,7 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 title: 'Образование на момент поступления в университет',
                 value: null,
                 type: 'select',
-                fieldName: 'stuctural_subdivision',
+                fieldName: 'education',
                 items: education,
                 width: '100%',
                 editable: true,

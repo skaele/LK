@@ -149,8 +149,7 @@ const getSectionLinks = (): Section[] => {
             ],
         },
         {
-            title: 'Мобилизационный отдел' + additionalHeaderClosedService,
-            disabled: isProduction,
+            title: 'Мобилизационный отдел',
             links: [
                 { link: MILITARY_REGISTRATION_DOCUMENTS, title: 'Отправить документы воинского учета' },
                 {

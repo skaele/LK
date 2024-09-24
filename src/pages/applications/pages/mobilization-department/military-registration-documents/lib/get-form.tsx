@@ -1,5 +1,7 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
+import React from 'react'
+import styled from 'styled-components'
 
 const getForm = (dataUserApplication: UserApplication): IInputArea => {
     return {
@@ -24,9 +26,21 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 required: true,
             },
         ],
-        documents: { files: [], fieldName: 'docs', maxFiles: 4, required: true },
-        alert: 'Прикрепите сканы документов для воинского учета',
+        documents: { files: [], fieldName: 'docs', maxFiles: 4, required: true, maxFileSizeInMegaBytes: 10 },
+        alert: (
+            <p>
+                Прикрепите сканы документов для воинского учета (все заполненные страницы):
+                <Ul>
+                    <li>удостоверение гражданина, подлежащего призыву; </li>
+                    <li>военный билет;</li>
+                </Ul>
+            </p>
+        ),
     }
 }
+
+const Ul = styled.ul`
+    padding-left: 1rem;
+`
 
 export default getForm

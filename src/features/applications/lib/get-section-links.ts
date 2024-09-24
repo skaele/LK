@@ -34,6 +34,9 @@ import {
     STUDENT_EMPLOYMENT_ROUTE,
     MEDICAL_CERTIFICATES_086,
     FAMILY_CONTACTS,
+    MILITARY_COPIES,
+    MILITARY_FORM_4,
+    MILITARY_FORM_5,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
@@ -150,10 +153,23 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 { link: MILITARY_REGISTRATION_DOCUMENTS, title: 'Отправить документы воинского учета' },
-                { link: MILITARY_REGISTRATION, title: 'Воинский учет' },
                 {
-                    link: '',
-                    title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призывана военную службу',
+                    link: MILITARY_REGISTRATION,
+                    title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на военную службу (форма 10)',
+                },
+                {
+                    link: MILITARY_FORM_4,
+                    title: 'Заказать справку об обучении для студентов в военкомат (форма 4)',
+                    description: 'Доступна после заполнения формы № 10',
+                },
+                {
+                    link: MILITARY_FORM_5,
+                    title: 'Заказать справку об обучении для аспирантов в военкомат (форма 5)',
+                    description: 'Доступна после заполнения формы № 10',
+                },
+                {
+                    link: MILITARY_COPIES,
+                    title: 'Заверенные копии документов по воинскому учету из личного дела',
                 },
             ],
         },

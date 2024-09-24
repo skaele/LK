@@ -1,18 +1,19 @@
-import { FormBlock, SubmitButton } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea } from '@ui/input-area/model'
-import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
-import getForm from './lib/get-form'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import { IInputArea } from '@shared/ui/input-area/model'
+import React, { useEffect, useState } from 'react'
 import { applicationsModel } from '@entities/applications'
+import { globalAppSendForm } from '@pages/applications/lib'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import checkFormFields from '@shared/lib/check-form-fields'
+import { LoadedState } from 'widgets/template-form'
+import { getForm } from './lib/form'
+import InputArea from '@shared/ui/input-area'
 
-type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
-
-const MilitaryRegistrationCard = () => {
+const MilitaryCopies = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
     const [completed, setCompleted] = useState(false)
-    const [loading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const isDone = completed ?? false
     const {
         data: { dataUserApplication },
@@ -27,18 +28,20 @@ const MilitaryRegistrationCard = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea {...form} collapsed={isDone} setData={setForm as LoadedState} />
                     <SubmitButton
                         text={!isDone ? 'Отправить' : 'Отправлено'}
-                        action={() => null}
+                        action={() =>
+                            globalAppSendForm(ApplicationFormCodes.MILITARY_COPIES, [form], setLoading, setCompleted)
+                        }
                         isLoading={loading}
                         completed={completed}
                         setCompleted={setCompleted}
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}
-                        isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
+                        isActive={checkFormFields(form)}
                         popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
                         popUpSuccessMessage="Данные формы успешно отправлены"
                     />
@@ -48,4 +51,4 @@ const MilitaryRegistrationCard = () => {
     )
 }
 
-export default MilitaryRegistrationCard
+export default MilitaryCopies

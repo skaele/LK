@@ -55,6 +55,9 @@ import {
     ContactDetails,
     ContactDetailsForm,
     IncreaseAntiplagiatLimits,
+    Science,
+    ArticleList,
+    Article,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -131,6 +134,10 @@ export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const ALL_STAFF_ROUTE = '/all-staff'
+export const PUBLICATION_ACTIVITY = '/publication-activity'
+export const ARTICLE_LIST = '/article-list'
+export const ARTICLES = '/articles'
+export const ARTICLE = '/articles/:id'
 export const OPEN_PUBLICATION = '/open-publication'
 export const EXPORT_CONTROL = '/export-control'
 
@@ -548,6 +555,43 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         pageSize: 'big',
+    },
+    'publication-activity': {
+        id: 'publication-activity',
+        title: 'Публикационная активность',
+        icon: <FiFileText />,
+        path: PUBLICATION_ACTIVITY,
+        Component: Science,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        isNew: true,
+        pageSize: 'big',
+    },
+    'article-list': {
+        id: 'article-list',
+        title: 'Список публикаций',
+        icon: <FiFileText />,
+        path: ARTICLE_LIST,
+        Component: ArticleList,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        isNew: true,
+        pageSize: 'big',
+    },
+    article: {
+        id: 'article',
+        title: '',
+        icon: <FiFileText />,
+        path: ARTICLE,
+        Component: Article,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        pageSize: 'big',
+        hiddenTitle: true,
+        show: false,
     },
     'open-publication': {
         id: 'open-publication',

@@ -68,11 +68,7 @@ const PEStudent = () => {
                             studentGuid={student.studentGuid}
                             specialization={student.specialization}
                         />
-                        <SetPEStudentHealthGroup
-                            studentGuid={student.studentGuid}
-                            studentGroup={student.groupNumber}
-                            healthGroup={student.healthGroup}
-                        />
+                        <SetPEStudentHealthGroup studentGuid={student.studentGuid} healthGroup={student.healthGroup} />
                     </>
                 )}
 

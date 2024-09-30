@@ -53,7 +53,7 @@ const HolidayPlanning = () => {
                 ),
             )
         }
-    }, [dataUserApplication, loading, startDate, collType, holidayType, jobGuid, jobTitle])
+    }, [dataUserApplication, loading, startDate, endDate, collType, holidayType, jobGuid, jobTitle])
 
     useEffect(() => {
         if (!!form && !!dataUserApplication) {

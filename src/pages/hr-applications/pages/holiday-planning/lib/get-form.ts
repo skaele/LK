@@ -53,10 +53,10 @@ const getForm = (
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const holidayStartDate = startDate ?? new Date().toISOString()
-    const holidayEndDate = endDate ?? null
     const collTypeData = collType ?? ''
     const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
 
+    holidayType?.id === 2 ? undefined : getDelayInDays(collType ? +collType.data : 365, holidayStartDate)
     return {
         title: 'Заявление о предоставлении отпуска',
         data: [
@@ -95,6 +95,13 @@ const getForm = (
                         new Date(startDate).getTime() < new Date(getDelayInDays(value?.id === 2 ? 0 : 5)).getTime()
                     ) {
                         setStartDate(null)
+                    }
+                    if (
+                        !!endDate &&
+                        holidayType?.id !== 2 &&
+                        new Date(endDate).getTime() <
+                            new Date(getDelayInDays(collType ? +collType.data : 365, holidayStartDate)).getTime()
+                    ) {
                     }
                     setHolidayType(value)
                 },
@@ -172,6 +179,9 @@ const getForm = (
                 editable: true,
                 mask: true,
                 onChange: (value) => {
+                    if (!!endDate && new Date(value).getTime() > new Date(endDate).getTime()) {
+                        setEndDate(null)
+                    }
                     setStartDate(value)
                 },
                 required: true,
@@ -188,7 +198,7 @@ const getForm = (
             {
                 title: 'Окончание отпуска:',
                 type: 'date',
-                value: holidayEndDate,
+                value: endDate,
                 fieldName: 'holiday_end',
                 editable: true,
                 mask: true,
@@ -196,7 +206,7 @@ const getForm = (
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: !!endDate ? endDate : getDelayInDays(0, holidayStartDate),
+                minValueInput: !!startDate ? startDate : getDelayInDays(0, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

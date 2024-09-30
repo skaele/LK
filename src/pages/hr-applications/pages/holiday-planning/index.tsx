@@ -13,6 +13,9 @@ import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import { VacationList } from './vacation-list'
 import { Calendars } from '@features/vacation-schedule/ui/templates/calendars'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
+import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { useUnit } from 'effector-react'
 
 const HolidayPlanning = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -61,6 +64,8 @@ const HolidayPlanning = () => {
     const [openArea, setOpenArea] = useState(false)
     const [included, setIncluded] = useState(false)
 
+    const hasAccess = useUnit(hasKEDO)
+    if (!hasAccess) return <KedoError />
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
@@ -84,7 +89,7 @@ const HolidayPlanning = () => {
                     <InputArea
                         {...form}
                         collapsed={isDone}
-                        setData={setForm as any}
+                        setData={setForm}
                         specialFieldsNameConfig={specialFieldsName}
                     />
 

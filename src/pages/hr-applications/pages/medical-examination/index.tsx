@@ -10,6 +10,9 @@ import React, { useEffect, useState } from 'react'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
+import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { useUnit } from 'effector-react'
 
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)
@@ -52,6 +55,8 @@ const MedicalExamination = () => {
         }
     }, [form])
 
+    const hasAccess = useUnit(hasKEDO)
+    if (!hasAccess) return <KedoError />
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
@@ -59,7 +64,7 @@ const MedicalExamination = () => {
                     <InputArea
                         {...form}
                         collapsed={isDone}
-                        setData={setForm as any}
+                        setData={setForm}
                         specialFieldsNameConfig={specialFieldsName}
                     />
                     <SubmitButton

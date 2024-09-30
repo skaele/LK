@@ -3,15 +3,8 @@ import axios, { AxiosError } from 'axios'
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 export const API_BASE_URL = import.meta.env.MODE === 'development' ? '/api' : `${OLD_LK_URL}/lk_api.php`
-export const API_HR_URL = `https://api.mospolytech.ru/serviceforfrontpersonnelorders`
 
 export const $api = axios.create({ baseURL: API_BASE_URL, withCredentials: true })
-export const $hrApi = axios.create({ baseURL: API_HR_URL })
-$hrApi.interceptors.request.use(addAuthHeaderToRequests)
-
-$hrApi.interceptors.response.use((response) => {
-    return response
-}, getAuthResponseInterceptor($hrApi))
 
 export function isAxiosError(error: Error): error is AxiosError {
     return (error as AxiosError).isAxiosError
@@ -27,4 +20,15 @@ export class RequestError extends Error {
             }
         }
     }
+}
+
+export const createSecureApi = (url: string) => {
+    const $api = axios.create({ baseURL: url })
+    $api.interceptors.request.use(addAuthHeaderToRequests)
+
+    $api.interceptors.response.use((response) => {
+        return response
+    }, getAuthResponseInterceptor($api))
+
+    return $api
 }

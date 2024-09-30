@@ -4,9 +4,15 @@ import { useHistory } from 'react-router'
 import { FiCalendar, FiInfo } from 'react-icons/fi'
 import { Button, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
+import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { useUnit } from 'effector-react'
 
 const HolidayPlanningBufferPage = () => {
     const history = useHistory()
+
+    const hasAccess = useUnit(hasKEDO)
+    if (!hasAccess) return <KedoError />
 
     return (
         <Wrapper load={() => {}} error={null} data={!null}>

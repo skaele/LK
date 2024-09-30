@@ -1,5 +1,4 @@
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
@@ -9,6 +8,7 @@ import { BufferMedicalExamination, BufferMedicalExaminationForm, PersonMedicalEx
 import { popUpMessageModel } from '@entities/pop-up-message'
 import axios from 'axios'
 import { userModel } from '@entities/user'
+import { $hrApi } from '@shared/api/config/personnel-orders-config'
 
 interface MedicalExaminationStore {
     listMedicalExamination: PersonMedicalExaminations[] | null

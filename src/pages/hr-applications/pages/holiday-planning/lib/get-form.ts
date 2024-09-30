@@ -90,6 +90,12 @@ const getForm = (
                 editable: true,
                 required: true,
                 onChange: (value) => {
+                    if (
+                        !!startDate &&
+                        new Date(startDate).getTime() < new Date(getDelayInDays(value?.id === 2 ? 0 : 5)).getTime()
+                    ) {
+                        setStartDate(null)
+                    }
                     setHolidayType(value)
                 },
                 width: '100%',
@@ -169,7 +175,7 @@ const getForm = (
                     setStartDate(value)
                 },
                 required: true,
-                minValueInput: getDelayInDays(5),
+                minValueInput: getDelayInDays(holidayType?.id === 2 ? 0 : 5),
                 maxValueInput: '9999-12-31',
             },
             {

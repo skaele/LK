@@ -11,6 +11,8 @@ import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers
 import { User } from '@api/model'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
 import { userModel } from '@entities/user'
+import Subtext from '@shared/ui/subtext'
+import Flex from '@shared/ui/flex'
 
 const CreateApplicationListWrapper = styled.div`
     @media (min-width: 1001px) {
@@ -86,6 +88,7 @@ export interface Section {
         isOpenInNewWindow?: boolean
         disabled?: boolean
         exceptionalFormEducationList?: User['educationForm'][]
+        description?: string
     }[]
 }
 
@@ -149,9 +152,12 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                                     {link.title}
                                                 </a>
                                             ) : (
-                                                <Link to={link.link} key={link.link + index} onClick={close}>
-                                                    {link.title}
-                                                </Link>
+                                                <Flex d="column" ai="flex-start">
+                                                    <Link to={link.link} key={link.link + index} onClick={close}>
+                                                        {link.title}
+                                                    </Link>
+                                                    {link.description && <Subtext>{link.description}</Subtext>}
+                                                </Flex>
                                             )
                                         })}
                                     </div>

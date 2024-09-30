@@ -1,15 +1,16 @@
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { FormBlock, SubmitButton, Title } from '@shared/ui/atoms'
-import Checkbox from '@shared/ui/checkbox'
+import { FormBlock, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
     getDriversLicenseData,
     getFamilyCompositionForm,
-    getGeneralData,
-    getMaritalStatusForm,
-    getMilitaryRegistrationDataForm,
+    getPersonalData,
     getMilitaryRegistrationDocument,
+    getForeignLanguages,
+    getEducation,
+    getContacts,
+    getPassport,
 } from './lib/main-form'
 import { applicationsModel } from '@entities/applications'
 import { SelectPage } from '@features/select'
@@ -20,18 +21,15 @@ import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecu
 import { LoadedState } from 'widgets/template-form'
 
 const MilitaryRegistration = () => {
-    const [generalData, setGeneralData] = useState<IInputArea | null>(null)
-    const [maritalStatus, setMaritalStatus] = useState<IInputArea>(getMaritalStatusForm())
-    const [familyComposition, setFamilyComposition] = useState<IInputArea>(getFamilyCompositionForm())
-    const [militaryRegistrationData, setMilitaryRegistrationData] = useState<IInputArea>(
-        getMilitaryRegistrationDataForm(),
-    )
-    const [militaryRegistrationDocument, setMilitaryRegistrationDocument] = useState<IInputArea>(
-        getMilitaryRegistrationDocument(),
-    )
-    const [driversLicenseData, setDriversLicenseData] = useState<IInputArea>(getDriversLicenseData(null))
+    const [personalData, setPersonalData] = useState<IInputArea | null>(null)
+    const [foreignLanguages, setForeignLanguages] = useState<IInputArea | null>(null)
+    const [education, setEducation] = useState<IInputArea | null>(null)
+    const [familyComposition, setFamilyComposition] = useState<IInputArea | null>(null)
+    const [contacts, setContacts] = useState<IInputArea | null>(null)
+    const [driversLicenseData, setDriversLicenseData] = useState<IInputArea | null>(null)
+    const [passport, setPassport] = useState<IInputArea | null>(null)
+    const [militaryRegistrationDocument, setMilitaryRegistrationDocument] = useState<IInputArea | null>(null)
 
-    const [confirmed, setConfirmed] = useState<boolean>(false)
     const [completed, setCompleted] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -41,7 +39,14 @@ const MilitaryRegistration = () => {
 
     useEffect(() => {
         if (!!dataUserApplication) {
-            setGeneralData(getGeneralData(dataUserApplication))
+            setPersonalData(getPersonalData(dataUserApplication))
+            setForeignLanguages(getForeignLanguages())
+            setEducation(getEducation())
+            setFamilyComposition(getFamilyCompositionForm())
+            setContacts(getContacts())
+            setDriversLicenseData(getDriversLicenseData())
+            setPassport(getPassport())
+            setMilitaryRegistrationDocument(getMilitaryRegistrationDocument())
         }
     }, [dataUserApplication])
 
@@ -50,45 +55,58 @@ const MilitaryRegistration = () => {
     }, [(driversLicenseData?.data[0] as IInputAreaData)?.value])
 
     useEffect(() => {
-        if (driversLicenseData)
-            setDriversLicenseData(getDriversLicenseData(driversLicenseData.data as IInputAreaData[]))
+        if (driversLicenseData) setDriversLicenseData(getDriversLicenseData())
     }, [driversLicenseEmpty])
 
-    if (!generalData) return null
+    if (
+        !personalData ||
+        !foreignLanguages ||
+        !education ||
+        !familyComposition ||
+        !contacts ||
+        !driversLicenseData ||
+        !passport ||
+        !militaryRegistrationDocument
+    )
+        return null
 
     const stagesConfigs: StagesConfigsT = [
-        [{ dataForm: generalData, setDataForm: setGeneralData as LoadedState }],
-        [{ dataForm: maritalStatus, setDataForm: setMaritalStatus as LoadedState }],
+        [{ dataForm: personalData, setDataForm: setPersonalData as LoadedState }],
+        [{ dataForm: foreignLanguages, setDataForm: setForeignLanguages as LoadedState }],
+        [{ dataForm: education, setDataForm: setEducation as LoadedState }],
         [{ dataForm: familyComposition, setDataForm: setFamilyComposition as LoadedState }],
-        [{ dataForm: militaryRegistrationData, setDataForm: setMilitaryRegistrationData as LoadedState }],
-        [{ dataForm: militaryRegistrationDocument, setDataForm: setMilitaryRegistrationDocument as LoadedState }],
+        [{ dataForm: contacts, setDataForm: setContacts as LoadedState }],
         [{ dataForm: driversLicenseData, setDataForm: setDriversLicenseData as LoadedState }],
+        [{ dataForm: passport, setDataForm: setPassport as LoadedState }],
+        [{ dataForm: militaryRegistrationDocument, setDataForm: setMilitaryRegistrationDocument as LoadedState }],
     ]
 
     return (
         <BaseApplicationWrapper isDone={false}>
-            <FormBlock>
+            <FormBlock noHeader>
                 <Title size={3} align="left">
-                    Воинский учет
+                    Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на
+                    военную службу (форма 10)
                 </Title>
+                <Message type="info">
+                    Сервис предназначен для постановки на воинский учет обучающихся - граждан, пребывающих в запасе и
+                    граждан, подлежащих призыву.
+                </Message>
                 <StepByStepForm stagesConfig={stagesConfigs} />
-                <Checkbox
-                    checked={confirmed}
-                    setChecked={setConfirmed}
-                    text={'Я подтверждаю подлинность предоставленных документов'}
-                />
                 <SubmitButton
                     text={!completed ? 'Отправить' : 'Отправлено'}
                     action={() => {
                         return globalAppSendForm(
-                            ApplicationFormCodes.MIL_REG,
+                            ApplicationFormCodes.MILITARY_REG,
                             [
-                                generalData,
-                                maritalStatus,
+                                personalData,
+                                foreignLanguages,
+                                education,
                                 familyComposition,
-                                militaryRegistrationData,
-                                militaryRegistrationDocument,
+                                contacts,
                                 driversLicenseData,
+                                passport,
+                                militaryRegistrationDocument,
                             ] as IInputArea[],
                             setLoading,
                             setCompleted,
@@ -101,19 +119,14 @@ const MilitaryRegistration = () => {
                     buttonSuccessText="Отправлено"
                     isDone={completed}
                     isActive={
-                        !!confirmed &&
-                        !!generalData &&
-                        !!maritalStatus &&
-                        !!militaryRegistrationData &&
-                        !!militaryRegistrationDocument &&
-                        !!driversLicenseData &&
-                        !!familyComposition &&
-                        checkFormFields(generalData) &&
-                        checkFormFields(maritalStatus) &&
-                        checkFormFields(militaryRegistrationData) &&
-                        checkFormFields(militaryRegistrationDocument) &&
+                        checkFormFields(personalData) &&
+                        checkFormFields(foreignLanguages) &&
+                        checkFormFields(education) &&
+                        checkFormFields(familyComposition) &&
+                        checkFormFields(contacts) &&
                         checkFormFields(driversLicenseData) &&
-                        checkFormFields(familyComposition)
+                        checkFormFields(passport) &&
+                        checkFormFields(militaryRegistrationDocument)
                     }
                     popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
                     popUpSuccessMessage="Данные формы успешно отправлены"

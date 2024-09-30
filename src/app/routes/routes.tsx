@@ -1,6 +1,5 @@
 import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
-import MilitaryRegistration from '@pages/applications/pages/mobilization-department/military-registration'
 import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
@@ -46,7 +45,6 @@ import {
     FamilyRoomPage,
     FinancialSupport,
     IncreasedStateAcademicScholarship,
-    MilitaryRegistrationCard,
     MilitaryRegistrationDocuments,
     PaymentRecipient,
     PreferentialAccommodationPage,
@@ -62,6 +60,10 @@ import {
     TerminationOfEmploymentContractPage,
     ParentContacts,
     MedicalCertificates086,
+    MilitaryRegistration,
+    MilitaryForm4,
+    MilitaryCopies,
+    MilitaryForm5,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
 import { BsFileMedical } from 'react-icons/bs'
@@ -97,6 +99,9 @@ export const RESTORING_THE_MAGNETIC_PASS = APPLICATIONS_ROUTE + '/restoring-the-
 export const RETAKE_FOR_DIPLOMA = APPLICATIONS_ROUTE + '/retake-for-diploma'
 export const MILITARY_REGISTRATION_DOCUMENTS = APPLICATIONS_ROUTE + '/military-registration-documents'
 export const MILITARY_REGISTRATION = APPLICATIONS_ROUTE + '/military-registration'
+export const MILITARY_FORM_4 = APPLICATIONS_ROUTE + '/military-form-4'
+export const MILITARY_FORM_5 = APPLICATIONS_ROUTE + '/military-form-5'
+export const MILITARY_COPIES = APPLICATIONS_ROUTE + '/military-copies'
 export const FINANCIAL_SUPPORT = APPLICATIONS_ROUTE + '/financial-support'
 export const FINANCIAL_ASSISTANCE = APPLICATIONS_ROUTE + '/financial-assistance'
 export const INCREASED_STATE_ACADEMIC_SCHOLARSHIP = APPLICATIONS_ROUTE + '/increased-state-academic-scholarship'
@@ -528,26 +533,71 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Отправить документы воинского учета',
         icon: <BiIdCard />,
         path: MILITARY_REGISTRATION_DOCUMENTS,
-        Component: isProduction ? ApplicationRedirect : MilitaryRegistrationDocuments,
+        Component: MilitaryRegistrationDocuments,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
+        hiddenTitle: true,
     },
     'military-registration': {
         id: 'military-registration',
-        title: 'Воинский учет',
+        title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на военную службу (форма 10)',
         icon: <BiStar />,
         path: MILITARY_REGISTRATION,
-        Component: isProduction ? ApplicationRedirect : MilitaryRegistration,
+        Component: MilitaryRegistration,
         color: 'red',
         isTemplate: false,
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
-        subPageHeaderTitle: 'Воинский учет',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
+        hiddenTitle: true,
+    },
+    'military-form-4': {
+        id: 'military-form-4',
+        title: 'Заказать справку об обучении для студентов в военкомат (форма 4)',
+        icon: <BiStar />,
+        path: MILITARY_FORM_4,
+        Component: MilitaryForm4,
+        color: 'red',
+        isTemplate: false,
+        isSubPage: true,
+        backButtonText: 'Назад к заявлениям',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
+        hiddenTitle: true,
+    },
+    'military-form-5': {
+        id: 'military-form-5',
+        title: 'Заказать справку об обучении для аспирантов в военкомат (форма 5)',
+        icon: <BiStar />,
+        path: MILITARY_FORM_5,
+        Component: MilitaryForm5,
+        color: 'red',
+        isTemplate: false,
+        isSubPage: true,
+        backButtonText: 'Назад к заявлениям',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
+        hiddenTitle: true,
+    },
+    'military-copies': {
+        id: 'military-copies',
+        title: 'Заверенные копии документов по воинскому учету из личного дела',
+        icon: <BiStar />,
+        path: MILITARY_COPIES,
+        Component: MilitaryCopies,
+        color: 'red',
+        isTemplate: false,
+        isSubPage: true,
+        backButtonText: 'Назад к заявлениям',
+        fallbackPrevPage: APPLICATIONS_ROUTE,
+        isNew: true,
+        hiddenTitle: true,
     },
     'retake-for-diploma': {
         id: 'retake-for-diploma',
@@ -574,6 +624,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+        hiddenTitle: true,
     },
     'financial-support': {
         id: 'financial-support',
@@ -644,7 +695,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     },
     'medical-certificates-086': {
         id: 'medical-certificates-086',
-        title: 'Предоставление медицинских справок по форме № 086/у',
+        title: 'Предоставление справок о группе здоровья',
         icon: <BiIdCard />,
         path: MEDICAL_CERTIFICATES_086,
         Component: MedicalCertificates086,
@@ -656,6 +707,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         fallbackPrevPage: APPLICATIONS_ROUTE,
         isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
+        keywords: ['086/у', '086 у'],
     },
     'state-accreditation': {
         id: 'state-accreditation',
@@ -737,19 +789,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к цифровым сервисам',
-        subPageHeaderTitle: '',
-        fallbackPrevPage: APPLICATIONS_ROUTE,
-    },
-    'military-registration-card': {
-        id: 'military-registration-card',
-        title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на военную службу',
-        icon: <BiIdCard />,
-        path: MILITARY_REGISTRATION_CARD,
-        Component: isProduction ? ApplicationRedirect : MilitaryRegistrationCard,
-        color: 'blue',
-        isTemplate: false,
-        isSubPage: true,
-        backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },

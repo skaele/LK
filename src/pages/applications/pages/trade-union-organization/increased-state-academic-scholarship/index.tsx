@@ -9,6 +9,8 @@ import Select from '@features/select'
 import TextHeader from '@shared/ui/molecules/text-header'
 import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { parseFilesToFormData } from '@pages/applications/lib/prepare-form-data'
 
 const typesOfActivity = [
     { id: 0, title: 'Учебная деятельность' },
@@ -394,12 +396,55 @@ function Files() {
 
 function Submit() {
     const { value: completed, setValue: setCompleted } = useUnit(increasedScholarshipModel.fields.completed)
-    const [loading, sendForm, tel, typeOfActivity, listOfAchievements, files, criteria] = useUnit([
+    const [
+        loading,
+        sendForm,
+        fio,
+        tel,
+        email,
+        typeOfActivity,
+        listOfAchievements,
+        consecutiveExcellentGradesCheck,
+        projectAwardCheck,
+        academicCompetitionWinnerCheck,
+        consecutiveExcellentAssessmentsCheck,
+        consecutiveExcellentAssessmentsAmount,
+        researchAwardOrGrantCheck,
+        scientificPublicationCheck,
+        participationCheck,
+        infoSupportCheck,
+        culturalCreativeAwardCheck,
+        publicWorkPresentationCheck,
+        publicCulturalActivityCheck,
+        sportsAwardCheck,
+        sportsParticipationCheck,
+        gtoGoldBadgeCheck,
+
+        files,
+        criteria,
+    ] = useUnit([
         increasedScholarshipModel.stores.loading,
         increasedScholarshipModel.events.sendForm,
+        increasedScholarshipModel.fields.fio.value,
         increasedScholarshipModel.fields.tel.value,
+        increasedScholarshipModel.fields.email.value,
         increasedScholarshipModel.fields.typeOfActivity.value,
         increasedScholarshipModel.fields.listOfAchievements.value,
+        increasedScholarshipModel.fields.consecutiveExcellentGradesCheck.value,
+        increasedScholarshipModel.fields.projectAwardCheck.value,
+        increasedScholarshipModel.fields.academicCompetitionWinnerCheck.value,
+        increasedScholarshipModel.fields.consecutiveExcellentAssessmentsCheck.value,
+        increasedScholarshipModel.fields.consecutiveExcellentAssessmentsAmount.value,
+        increasedScholarshipModel.fields.researchAwardOrGrantCheck.value,
+        increasedScholarshipModel.fields.scientificPublicationCheck.value,
+        increasedScholarshipModel.fields.participationCheck.value,
+        increasedScholarshipModel.fields.infoSupportCheck.value,
+        increasedScholarshipModel.fields.culturalCreativeAwardCheck.value,
+        increasedScholarshipModel.fields.publicWorkPresentationCheck.value,
+        increasedScholarshipModel.fields.publicCulturalActivityCheck.value,
+        increasedScholarshipModel.fields.sportsAwardCheck.value,
+        increasedScholarshipModel.fields.sportsParticipationCheck.value,
+        increasedScholarshipModel.fields.gtoGoldBadgeCheck.value,
         increasedScholarshipModel.fields.files.value,
         increasedScholarshipModel.fields.criteria.value,
     ])
@@ -415,12 +460,40 @@ function Submit() {
             <Checkbox checked={confirmed} setChecked={setConfirmed} text={'С Порядком подачи ознакомлен'} />
             <SubmitButton
                 text={!isDone ? 'Отправить' : 'Отправлено'}
-                action={
-                    () => {
-                        sendForm()
-                    }
-                    // globalAppSendForm(ApplicationFormCodes.HIGH_SCHOLARSHIP, [form], setLoading, setCompleted)
-                }
+                action={() => {
+                    sendForm({
+                        formId: ApplicationFormCodes.HIGH_SCHOLARSHIP,
+                        args: {
+                            fio,
+                            tel,
+                            email,
+                            'type-of-activity': typeOfActivity?.title,
+                            'list-of-achievements': listOfAchievements,
+
+                            'consecutive-excellent-grades-check': consecutiveExcellentGradesCheck,
+                            'project-award-check': projectAwardCheck,
+                            'academic-competition-winner-check': academicCompetitionWinnerCheck,
+                            'consecutive-excellent-assessments-check': consecutiveExcellentAssessmentsCheck,
+                            'consecutive-excellent-assessments-amount': consecutiveExcellentAssessmentsAmount,
+
+                            'research-award-or-grant-check': researchAwardOrGrantCheck,
+                            'scientific-publication-check': scientificPublicationCheck,
+
+                            'participation-check': participationCheck,
+                            'info-support-check': infoSupportCheck,
+
+                            'cultural-creative-award-check': culturalCreativeAwardCheck,
+                            'public-work-presentation-check': publicWorkPresentationCheck,
+                            'public-cultural-activity-check': publicCulturalActivityCheck,
+
+                            'sports-award-check': sportsAwardCheck,
+                            'sports-participation-check': sportsParticipationCheck,
+                            'gto-gold-badge-check': gtoGoldBadgeCheck,
+
+                            ...parseFilesToFormData(files),
+                        },
+                    })
+                }}
                 isLoading={loading}
                 completed={completed}
                 setCompleted={setCompleted}

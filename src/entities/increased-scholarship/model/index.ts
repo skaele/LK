@@ -1,5 +1,7 @@
 import { applicationsModel } from '@entities/applications'
+import { ApplicationCreating } from '@entities/applications/model'
 import { createMutation } from '@farfetched/core'
+import { post } from '@shared/api/application-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
@@ -7,13 +9,14 @@ import { createSelectField } from '@shared/effector/form/create-select-field'
 import { createEvent, sample } from 'effector'
 
 const pageMounted = createEvent()
-const sendForm = createEvent()
+const sendForm = createEvent<ApplicationCreating>()
 
 const fio = createInputField()
 const tel = createInputField()
 const email = createInputField()
 const typeOfActivity = createSelectField()
 const listOfAchievements = createInputField({ reset: pageMounted })
+
 const consecutiveExcellentGradesCheck = createCheckboxField({ reset: [pageMounted, typeOfActivity.value] })
 const projectAwardCheck = createCheckboxField({ reset: [pageMounted, typeOfActivity.value] })
 const academicCompetitionWinnerCheck = createCheckboxField({ reset: [pageMounted, typeOfActivity.value] })
@@ -40,7 +43,7 @@ const consecutiveExcellentAssessmentsFilledOut = createCheckboxField({ reset: [p
 const completed = createCheckboxField({ reset: pageMounted })
 
 const sendFormMutation = createMutation({
-    handler: async () => {},
+    handler: post,
 })
 
 sample({

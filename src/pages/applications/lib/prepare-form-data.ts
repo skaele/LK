@@ -89,3 +89,9 @@ const getValueElementForm = (elementForm: IInputAreaData) => {
     const isSimpleField = !elementForm.value || typeof elementForm.value !== 'object'
     return isSimpleField ? elementForm?.value : (elementForm.value as SelectPage).title
 }
+
+export const parseFilesToFormData = (files: File[]) =>
+    files.reduce((filesObj, file, fileIndex) => {
+        filesObj['docs' + `[${fileIndex}]`] = file
+        return filesObj
+    }, {} as IndexedProperties)

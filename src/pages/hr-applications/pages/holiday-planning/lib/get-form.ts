@@ -194,12 +194,6 @@ const getForm = (
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],
-        documents: {
-            files: [],
-            fieldName: 'files',
-            required: false,
-            allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
-        },
     }
 }
 

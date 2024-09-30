@@ -110,12 +110,6 @@ const getForm = (
                 visible: false,
             },
         ],
-        documents: {
-            files: [],
-            fieldName: 'files',
-            required: false,
-            allowedTypes: ['application/pdf', 'image/jpeg', 'image/png'],
-        },
     }
 }
 

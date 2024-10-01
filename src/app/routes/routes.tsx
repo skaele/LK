@@ -567,7 +567,7 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         title: 'Получение повышенной государственной академической стипендии',
         icon: <BiIdCard />,
         path: INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
-        Component: isProduction ? ApplicationRedirect : IncreasedStateAcademicScholarship,
+        Component: IncreasedStateAcademicScholarship,
         color: 'blue',
         isTemplate: false,
         isSubPage: true,

@@ -1,11 +1,13 @@
 import { applicationsModel } from '@entities/applications'
 import { ApplicationCreating } from '@entities/applications/model'
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { createMutation } from '@farfetched/core'
 import { post } from '@shared/api/application-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
 import { createSelectField } from '@shared/effector/form/create-select-field'
+import axios from 'axios'
 import { createEvent, sample } from 'effector'
 
 const pageMounted = createEvent()
@@ -43,7 +45,15 @@ const consecutiveExcellentAssessmentsFilledOut = createCheckboxField({ reset: [p
 const completed = createCheckboxField({ reset: pageMounted })
 
 const sendFormMutation = createMutation({
-    handler: post,
+    handler: async (data: ApplicationCreating) => {
+        const resultAddApplication = await post(data)
+
+        if (resultAddApplication.result === 'ok') {
+            return 'ok'
+        } else {
+            throw new Error(resultAddApplication.error_text)
+        }
+    },
 })
 
 sample({
@@ -125,6 +135,15 @@ sample({
     clock: sendFormMutation.finished.success,
     fn: () => true,
     target: completed.setValue,
+})
+
+sample({
+    clock: sendFormMutation.finished.failure,
+    fn: ({ error }) => ({
+        message: axios.isAxiosError(error) ? 'Не удалось подписать соглашение' : (error as Error).message,
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 export const stores = { loading: sendFormMutation.$pending }

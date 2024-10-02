@@ -30,7 +30,6 @@ const IncreasedStateAcademicScholarship = () => {
     return (
         <BaseApplicationWrapper isDone={completed ?? false}>
             <FormBlock noHeader>
-                <InfoMessage />
                 <Message type="alert">
                     Сервис предназначен:
                     <Ul>
@@ -48,6 +47,7 @@ const IncreasedStateAcademicScholarship = () => {
                 <Tel />
                 <Email />
                 <Divider />
+                <InfoMessage />
                 <TypeOfActivity />
                 <ListOfAchievements />
                 <Сriteria />
@@ -347,7 +347,7 @@ function GtoGoldBadgeCheck() {
 
 function InfoMessage() {
     const { value: typeOfActivity } = useUnit(increasedScholarshipModel.fields.typeOfActivity)
-    if (!typeOfActivity) return null
+    if (!typeOfActivity) return <Message type="info">Выберите тип деятельности:</Message>
     return (
         <Message type="info">
             Присоединить файлы, не более трех:

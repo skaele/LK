@@ -347,7 +347,7 @@ function GtoGoldBadgeCheck() {
 
 function InfoMessage() {
     const { value: typeOfActivity } = useUnit(increasedScholarshipModel.fields.typeOfActivity)
-    if (!typeOfActivity) return <Message type="info">Выберите тип деятельности:</Message>
+    if (!typeOfActivity) return <Message type="info">Выберите вид деятельности:</Message>
     return (
         <Message type="info">
             Присоединить файлы, не более трех:

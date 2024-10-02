@@ -145,6 +145,8 @@ const getSectionLinks = (): Section[] => {
                 {
                     link: INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
                     title: 'Отправка документов на получение стипендии Московского Политеха',
+                    exceptionalFormEducationList: ['Очно-заочная', 'Заочная'],
+                    exceptionalDegreeLevelList: ['Аспирантура'],
                 },
             ],
         },

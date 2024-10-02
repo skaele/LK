@@ -31,6 +31,19 @@ const IncreasedStateAcademicScholarship = () => {
         <BaseApplicationWrapper isDone={completed ?? false}>
             <FormBlock noHeader>
                 <InfoMessage />
+                <Message type="alert">
+                    Сервис предназначен:
+                    <Ul>
+                        <li>
+                            для подачи документов на участие в конкурсе на назначение повышенной государственной
+                            академической стипендии для обучающихся на бюджетной основе обучения;
+                        </li>
+                        <li>
+                            для подачи документов на участие в конкурсе на назначение Стипендии Московского Политеха для
+                            обучающихся на платной основе обучения.
+                        </li>
+                    </Ul>
+                </Message>
                 <Fio />
                 <Tel />
                 <Email />

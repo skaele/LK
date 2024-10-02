@@ -61,6 +61,7 @@ export type PEStudentProfile = {
     groupNumber: string
     hasDebt: boolean
     healthGroup: HealthGroup
+    healthGroupTeacher: { guid: string; fullName: string } | null
     specialization: Specialization
     totalPoints: number
     lmsPoints: number

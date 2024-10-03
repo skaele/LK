@@ -57,7 +57,16 @@ const PEStudent = () => {
                     <UserDataBlock label="Курс" value={student.course.toString()} />
                     <UserDataBlock label="ЛМС" value={student.lmsPoints.toString()} />
                     <UserDataBlock label="Куратор" value={student.curator?.fullName ?? '-'} />
-                    <UserDataBlock label="Группа здоровья" value={healthGroupToTitle[student.healthGroup]} />
+                    <UserDataBlock
+                        label="Группа здоровья"
+                        value={
+                            student.healthGroup === 'None'
+                                ? '-'
+                                : `${healthGroupToTitle[student.healthGroup]} (${
+                                      student.healthGroupTeacher?.fullName ?? ''
+                                  })`
+                        }
+                    />
                     <UserDataBlock label="Специализация" value={specializationToTitle[student.specialization]} />
                     <UserDataBlock label="Долг" value={student.hasDebt ? 'Есть' : 'Нет'} />
                 </UserData>

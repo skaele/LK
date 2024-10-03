@@ -470,7 +470,16 @@ function Submit() {
                 link="https://e.mospolytech.ru/old/storage/files/Poryadok_priema_dokumentov_PGAS.pdf"
                 type="document"
             />
-            <Checkbox checked={confirmed} setChecked={setConfirmed} text={'С Порядком подачи ознакомлен'} />
+            <FileLink
+                title="Положение"
+                link="https://e.mospolytech.ru/old/storage/files/Polozhenie_o_Stipendii_Moskovskogo_Politeha_platnoe.pdf"
+                type="document"
+            />
+            <Checkbox
+                checked={confirmed}
+                setChecked={setConfirmed}
+                text={'С Порядком подачи и Положением ознакомлен'}
+            />
             <SubmitButton
                 text={!isDone ? 'Отправить' : 'Отправлено'}
                 action={() => {

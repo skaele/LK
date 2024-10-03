@@ -60,7 +60,7 @@ const PEStudent = () => {
                     <UserDataBlock
                         label="Группа здоровья"
                         value={
-                            student.healthGroup == 'None'
+                            student.healthGroup === 'None'
                                 ? '-'
                                 : `${healthGroupToTitle[student.healthGroup]} (${
                                       student.healthGroupTeacher?.fullName ?? ''

@@ -6,7 +6,7 @@ services:
       - "80:80"
       - "4000:80"
   feat:
-    image: ghcr.io/skaele/mospolytech-lk-ghcr:feat
+    image: ghcr.io/skaele/mospolytech-lk-ghcr:feat4001
     ports:
       - "4001:80"
   feat4002:

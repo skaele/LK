@@ -1,13 +1,15 @@
 import { WorkType } from '@entities/pe-student-additional-points/types'
 
-export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'Special' | 'HealthLimitations'
+export type HealthGroup = 'None' | 'Basic' | 'Preparatory' | 'SpecialA' | 'SpecialB' | 'HealthLimitations' | 'Disabled'
 
 export const healthGroupToTitle: Record<HealthGroup, string> = {
     None: '-',
     Basic: 'Основная',
-    Special: 'Специальная',
+    SpecialA: 'Специальная А',
+    SpecialB: 'Специальная А',
     Preparatory: 'Подготовительная',
     HealthLimitations: 'ОВЗ',
+    Disabled: 'Инвалид',
 }
 
 export type Specialization =
@@ -59,6 +61,7 @@ export type PEStudentProfile = {
     groupNumber: string
     hasDebt: boolean
     healthGroup: HealthGroup
+    healthGroupTeacher: { guid: string; fullName: string } | null
     specialization: Specialization
     totalPoints: number
     lmsPoints: number

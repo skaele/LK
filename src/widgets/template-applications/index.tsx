@@ -23,7 +23,11 @@ const TeachersHrApplicationsPage = ({ isTeachers }: Props) => {
 
     const handleOpenModal = useCallback(() => {
         open(
-            <CreateApplicationList isTeachers={isTeachers} currentFormEducation={dataUserApplication?.educationForm} />,
+            <CreateApplicationList
+                isTeachers={isTeachers}
+                currentFormEducation={dataUserApplication?.educationForm}
+                currentDegreeLevel={dataUserApplication?.degreeLevel}
+            />,
             'Создать заявку',
         )
     }, [])

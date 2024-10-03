@@ -10,11 +10,12 @@ import React, { useEffect, useState } from 'react'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
-import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
-import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
+import { hasKEDO, workWeeks } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
 
 const MedicalExamination = () => {
+    const workWeeksData = useUnit(workWeeks)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [endDate, setEndDate] = useState<string | null>(null)
@@ -31,7 +32,7 @@ const MedicalExamination = () => {
     const isDone = completed ?? false
 
     useEffect(() => {
-        if (!!dataUserApplication && !loading) {
+        if (!!dataUserApplication && !loading && workWeeksData) {
             setForm(
                 getForm(
                     dataUserApplication,
@@ -45,10 +46,11 @@ const MedicalExamination = () => {
                     setJobTitle,
                     jobGuid,
                     setJobGuid,
+                    workWeeksData,
                 ),
             )
         }
-    }, [dataUserApplication, loading, startDate, medicalExaminationDate, isRetirement])
+    }, [dataUserApplication, loading, startDate, endDate, medicalExaminationDate, isRetirement, workWeeksData, jobGuid])
     useEffect(() => {
         if (!!form && !!dataUserApplication) {
             setSpecialFieldsName(getCompensation(form.data as IInputAreaData[]))

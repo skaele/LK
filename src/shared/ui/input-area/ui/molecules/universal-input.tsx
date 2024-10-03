@@ -68,21 +68,22 @@ const UniversalInput = (props: Props) => {
     const [validDates, setValidDates] = useState(true)
 
     const handleChangeValue = (value: string | boolean, i: number, j?: number) => {
-        onChange?.(value)
-        setData((area) => {
-            if (Array.isArray(area.data[0])) {
-                ;(area.data as IComplexInputAreaData)[i][j ?? 0].value = value
-            } else {
-                if ((area.data[i] as IInputAreaData).type === 'checkbox-docs') {
-                    ;((area.data[i] as IInputAreaData).items as CheckboxDocs[])[j ?? 0].value = !!value
-                    ;(area.data[i] as IInputAreaData).value = true
+        if (!!onChange) onChange?.(value)
+        else
+            setData((area) => {
+                if (Array.isArray(area.data[0])) {
+                    ;(area.data as IComplexInputAreaData)[i][j ?? 0].value = value
                 } else {
-                    ;(area.data[i] as IInputAreaData).value = value
+                    if ((area.data[i] as IInputAreaData).type === 'checkbox-docs') {
+                        ;((area.data[i] as IInputAreaData).items as CheckboxDocs[])[j ?? 0].value = !!value
+                        ;(area.data[i] as IInputAreaData).value = true
+                    } else {
+                        ;(area.data[i] as IInputAreaData).value = value
+                    }
                 }
-            }
 
-            return { ...area }
-        })
+                return { ...area }
+            })
     }
 
     const handleChangeSelect = (page: SelectPage | SelectPage[], i: number, j?: number) => {

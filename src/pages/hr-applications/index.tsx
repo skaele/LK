@@ -2,7 +2,7 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 import { TemplateHrApplications } from 'widgets'
 import { hasKEDO } from './model/divisions'
-import { KedoError } from './ui/kedo-error-wrapper'
+import { KedoError } from './ui/kedo-error'
 
 const HrApplicationsPage = () => {
     const hasAccess = useUnit(hasKEDO)

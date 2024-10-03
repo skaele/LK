@@ -3,7 +3,7 @@ import { Message, Wrapper } from '@ui/atoms'
 import Content from './ui/content'
 import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
-import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
 import { hasKEDO } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
 

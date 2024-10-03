@@ -5,6 +5,7 @@ import token from '@utils/token'
 import { AxiosResponse } from 'axios'
 import { Application, UserApplication } from './model'
 import { $1CCacheApi, $hrApi } from './config/personnel-orders-config'
+import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {
     return $api.get(`?getAppRequests&token=${token()}`)
@@ -36,8 +37,13 @@ export const getDivisions = async () => {
 }
 
 export const getKEDO = async () => {
-    const { data } = await $1CCacheApi.get<{ isKedoAgreed: boolean }>(`/kedo-agreement`)
+    const { data } = await $1CCacheApi.get<{ isKedoAgreed: boolean }>('/kedo-agreement')
     return data?.isKedoAgreed
+}
+
+export const getWorkWeeks = async () => {
+    const { data } = await $1CCacheApi.get<WorkWeeks>('/working-schedule')
+    return data
 }
 
 export const post = async (data: ApplicationCreating) => {

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import { FiCalendar, FiInfo } from 'react-icons/fi'
 import { Button, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
 import { hasKEDO } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
 

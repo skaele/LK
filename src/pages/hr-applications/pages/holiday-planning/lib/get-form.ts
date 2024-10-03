@@ -1,6 +1,10 @@
 import { UserApplication } from '@api/model'
 import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
+import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
+import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
+import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { isProduction } from '@shared/constants'
 import { IInputArea } from '@ui/input-area/model'
@@ -49,12 +53,14 @@ const getForm = (
     jobTitle: string | null,
     setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
+    workWeeks: WorkWeeks,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const holidayStartDate = startDate ?? new Date().toISOString()
     const collTypeData = collType ?? ''
     const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const workWeekDuration = getWorkWeekDuration(workWeeks, jobGuidData) || 6
 
     holidayType?.id === 2 ? undefined : getDelayInDays(collType ? +collType.data : 365, holidayStartDate)
     return {
@@ -80,6 +86,8 @@ const getForm = (
                 onChange: (value) => {
                     setJobTitle(value)
                     setJobGuid(value.id)
+                    setStartDate(null)
+                    setEndDate(null)
                 },
             },
             {
@@ -176,16 +184,16 @@ const getForm = (
                 type: 'date',
                 value: startDate,
                 fieldName: 'holiday_start',
-                editable: true,
+                editable: !!jobGuid,
                 mask: true,
                 onChange: (value) => {
                     if (!!endDate && new Date(value).getTime() > new Date(endDate).getTime()) {
                         setEndDate(null)
                     }
-                    setStartDate(value)
+                    setWorkDate(value, setStartDate, workWeekDuration)
                 },
                 required: true,
-                minValueInput: getDelayInDays(holidayType?.id === 2 ? 0 : 5),
+                minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 6, workWeekDuration),
                 maxValueInput: '9999-12-31',
             },
             {
@@ -200,13 +208,13 @@ const getForm = (
                 type: 'date',
                 value: endDate,
                 fieldName: 'holiday_end',
-                editable: true,
+                editable: !!startDate,
                 mask: true,
                 required: true,
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: !!startDate ? startDate : getDelayInDays(0, holidayStartDate),
+                minValueInput: getDelayInDays(1, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

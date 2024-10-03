@@ -13,11 +13,12 @@ import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import { VacationList } from './vacation-list'
 import { Calendars } from '@features/vacation-schedule/ui/templates/calendars'
-import { KedoError } from '@pages/hr-applications/ui/kedo-error-wrapper'
-import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
+import { hasKEDO, workWeeks } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
 
 const HolidayPlanning = () => {
+    const workWeeksData = useUnit(workWeeks)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
@@ -34,7 +35,7 @@ const HolidayPlanning = () => {
     const isDone = completed ?? false
 
     useEffect(() => {
-        if (!!dataUserApplication && !loading) {
+        if (!!dataUserApplication && !loading && workWeeksData) {
             setForm(
                 getForm(
                     dataUserApplication,
@@ -50,10 +51,11 @@ const HolidayPlanning = () => {
                     jobTitle,
                     setJobTitle,
                     setJobGuid,
+                    workWeeksData,
                 ),
             )
         }
-    }, [dataUserApplication, loading, startDate, endDate, collType, holidayType, jobGuid, jobTitle])
+    }, [dataUserApplication, loading, startDate, endDate, collType, holidayType, jobGuid, jobTitle, workWeeksData])
 
     useEffect(() => {
         if (!!form && !!dataUserApplication) {

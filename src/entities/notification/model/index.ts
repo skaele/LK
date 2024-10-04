@@ -5,7 +5,7 @@ import { Notifications } from '@api/model/notification'
 import { userModel } from '@entities/user'
 
 interface PersonalNotificationsStore {
-    type: 'notifications' | 'docs' | null
+    type: 'notifications' | 'docs' | 'personnel-orders' | null
     personalNotifications: Notifications | null
     error: string | null
     completed: boolean
@@ -33,7 +33,7 @@ const useType = () => {
 
 const changeCompleted = createEvent<{ completed: boolean }>()
 
-const setNotificationsType = createEffect((type: 'notifications' | 'docs') => type)
+const setNotificationsType = createEffect((type: 'notifications' | 'docs' | 'personnel-orders') => type)
 
 const getPersonalNotificationsFx = createEffect(async (): Promise<Notifications> => {
     const { type } = $personalNotificationsStore.getState()

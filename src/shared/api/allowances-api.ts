@@ -9,9 +9,9 @@ import {
     AllowanceFiles,
     ApprovalStatus,
 } from '@entities/allowances/types'
-import { $allowancesApi } from '../config/allowances-config'
+import { $allowancesApi } from './config/allowances-config'
 import { AllAllowances } from '@entities/allowances/model'
-import { PersonalAllowance } from './notification'
+import { PersonalAllowance } from './model/notification'
 
 type AllowanceRequest = {
     initiatorId: string
@@ -108,6 +108,10 @@ export const getAllowancesNotifications = async () => {
 }
 export const viewNotification = async (notificationId: string) => {
     const { data } = await $allowancesApi.patch('/notifications/' + notificationId)
+    return data
+}
+export const viewAllNotifications = async () => {
+    const { data } = await $allowancesApi.patch('/notifications/all')
     return data
 }
 // #end region

@@ -1,7 +1,7 @@
 import { menuModel } from '@entities/menu'
 import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
-import { lkNotificationApi } from '@shared/api'
+import { allowancesApi, lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
@@ -69,6 +69,7 @@ const clearNotificationByIdFx = createEffect(async ({ id, pageId }: { id: string
 
 const clearAllNotificationsFx = createEffect(async () => {
     try {
+        await allowancesApi.viewAllNotifications()
         await lkNotificationApi.clearAllNotifications()
     } catch (error) {
         throw new Error('Не удалось скрыть все уведомления')

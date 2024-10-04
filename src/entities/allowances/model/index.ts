@@ -16,7 +16,7 @@ import {
     removeFile,
     uploadFile,
     viewNotification,
-} from '@shared/api/model/allowances'
+} from '@shared/api/allowances-api'
 import { createMutation, createQuery } from '@farfetched/core'
 import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import { getBufferHolidayPlanningColumns } from '../../buffer-holiday-planning/lib/get-buffer-holiday-planning-columns'
+import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
 
 interface Props {
     //info?: BufferHolidayPlanning
@@ -19,6 +20,7 @@ interface Props {
 
 const JobTitle: React.FC<Props> = ({ info, index, data }) => {
     const { jobTitle, subDivision, rate } = info
+    const jobs = useGetJobs()
     const [opened, setOpened] = useState<boolean>(false)
 
     return (
@@ -74,7 +76,7 @@ const JobTitle: React.FC<Props> = ({ info, index, data }) => {
                             return (
                                 <StyledTable
                                     key={workerInfo.jobTitle}
-                                    columns={getBufferHolidayPlanningColumns()}
+                                    columns={getBufferHolidayPlanningColumns(jobs)}
                                     data={filteredData}
                                     maxOnPage={10}
                                 />

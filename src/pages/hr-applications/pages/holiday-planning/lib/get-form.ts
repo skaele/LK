@@ -1,12 +1,46 @@
-import { UserApplication, WorkerApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+import { UserApplication } from '@api/model'
+import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
+import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
+import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
+import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { isProduction } from '@shared/constants'
 import { IInputArea } from '@ui/input-area/model'
+
+const holidayTypes = isProduction
+    ? [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+      ]
+    : [
+          {
+              id: 0,
+              title: 'Ежегодный (основной) оплачиваемый отпуск',
+          },
+          {
+              id: 1,
+              title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
+          },
+          {
+              id: 2,
+              title: 'Отпуск без сохранения заработной платы',
+          },
+          {
+              id: 3,
+              title: 'Отпуск по коллективному договору',
+          },
+      ]
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
     endDate: string | null,
@@ -15,18 +49,20 @@ const getForm = (
     setCollType: React.Dispatch<React.SetStateAction<string | null>>,
     holidayType: any,
     setHolidayType: React.Dispatch<React.SetStateAction<string | null>>,
+    jobGuid: string | null,
     jobTitle: string | null,
     setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
-    jobGuid: string | null,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
+    workWeeks: WorkWeeks,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
-    const holidayStartDate = !!startDate ? startDate : new Date().toISOString()
-    const holidayEndDate = !!endDate ? endDate : new Date().toISOString()
-    const collTypeData = !!collType ? collType : ''
-    const jobGuidData = !!jobGuid ? jobGuid : ''
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
+    const holidayStartDate = startDate ?? new Date().toISOString()
+    const collTypeData = collType ?? ''
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const workWeekDuration = getWorkWeekDuration(workWeeks, jobGuidData) || 6
 
+    holidayType?.id === 2 ? undefined : getDelayInDays(collType ? +collType.data : 365, holidayStartDate)
     return {
         title: 'Заявление о предоставлении отпуска',
         data: [
@@ -45,11 +81,13 @@ const getForm = (
                 width: '100',
                 required: true,
                 type: 'select',
-                items: getFormattedSubDivisions(subdivisions),
+                items: getFormattedSubDivisionsWithRate(subdivisions),
                 isSpecificSelect: true,
                 onChange: (value) => {
                     setJobTitle(value)
                     setJobGuid(value.id)
+                    setStartDate(null)
+                    setEndDate(null)
                 },
             },
             {
@@ -60,27 +98,23 @@ const getForm = (
                 editable: true,
                 required: true,
                 onChange: (value) => {
+                    if (
+                        !!startDate &&
+                        new Date(startDate).getTime() < new Date(getDelayInDays(value?.id === 2 ? 0 : 5)).getTime()
+                    ) {
+                        setStartDate(null)
+                    }
+                    if (
+                        !!endDate &&
+                        holidayType?.id !== 2 &&
+                        new Date(endDate).getTime() <
+                            new Date(getDelayInDays(collType ? +collType.data : 365, holidayStartDate)).getTime()
+                    ) {
+                    }
                     setHolidayType(value)
                 },
                 width: '100%',
-                items: [
-                    {
-                        id: 0,
-                        title: 'Ежегодный (основной) оплачиваемый отпуск',
-                    },
-                    {
-                        id: 1,
-                        title: 'Ежегодный дополнительный оплачиваемый отпуск (в т.ч. учебный)',
-                    },
-                    {
-                        id: 2,
-                        title: 'Отпуск без сохранения заработной платы',
-                    },
-                    {
-                        id: 3,
-                        title: 'Отпуск по коллективному договору',
-                    },
-                ],
+                items: holidayTypes,
             },
             {
                 title: 'Категория для предоставления отпуска',
@@ -150,14 +184,17 @@ const getForm = (
                 type: 'date',
                 value: startDate,
                 fieldName: 'holiday_start',
-                editable: true,
+                editable: !!jobGuid,
                 mask: true,
                 onChange: (value) => {
-                    setStartDate(value)
-                    setEndDate(value)
+                    if (!!endDate && new Date(value).getTime() > new Date(endDate).getTime()) {
+                        setEndDate(null)
+                    }
+                    setWorkDate(value, setStartDate, workWeekDuration)
                 },
                 required: true,
-                minValueInput: getDelayInDays(5),
+                minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 6, workWeekDuration),
+                maxValueInput: '9999-12-31',
             },
             {
                 title: '',
@@ -169,15 +206,15 @@ const getForm = (
             {
                 title: 'Окончание отпуска:',
                 type: 'date',
-                value: holidayEndDate,
+                value: endDate,
                 fieldName: 'holiday_end',
-                editable: true,
+                editable: !!startDate,
                 mask: true,
                 required: true,
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: !!endDate ? endDate : getDelayInDays(0),
+                minValueInput: getDelayInDays(1, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

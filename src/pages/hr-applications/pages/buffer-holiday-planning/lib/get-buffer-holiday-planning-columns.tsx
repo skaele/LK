@@ -1,37 +1,43 @@
-import downloadFile from '@pages/hr-applications/lib/get-file'
+import { hrOrderRegisterConstants } from '@entities/applications/consts'
+import { SelectPage } from '@features/select'
+import { PersonnelDownloadButton } from '@pages/hr-applications/ui/atoms/personnel-download-button'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { TypesOfVacation } from '@shared/models/types-of-vacation'
-import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
 import { Message } from '@shared/ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 
-export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
+export const getBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
         {
             title: 'Дата',
-            field: 'creationDate',
+            field: 'signedDate',
             type: 'date',
+            width: '120px',
             sort: true,
         },
         {
             title: 'Статус',
-            field: 'vacation',
-            width: '150px',
-            render: (value) => {
+            field: 'orderStatus',
+            width: '175px',
+            catalogs: [
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
+            render: (value, data) => {
+                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении*'
                 return (
                     <Message
                         type={
-                            value.status.orderStatus === 'Согласовано'
+                            title === 'Согласовано'
                                 ? 'success'
-                                : value.status.orderStatus === 'На регистрации'
+                                : title === 'На регистрации'
                                 ? 'info'
-                                : value.status.orderStatus === 'Не утвержден' ||
-                                  value.status.orderStatus === 'Не создано'
+                                : title === 'Не утвержден' || title === 'Не создано' || title === 'На доработку'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value.status.orderStatus || '-'}
+                        title={title}
                         align="center"
                         width="100%"
                         icon={null}
@@ -39,18 +45,19 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                     />
                 )
             },
+            priority: 'one',
         },
         {
             title: 'Должность',
-            field: 'jobTitle',
+            catalogs: jobs,
+            field: 'positionName',
             width: '250px',
-            sort: true,
         },
         {
             title: 'Вид отпуска',
-            field: 'vacation',
-            render: (value) => {
-                return TypesOfVacation[value?.typeOfVacation as keyof typeof TypesOfVacation] || '-'
+            field: 'typeOfVacation',
+            render: (value: keyof typeof TypesOfVacation) => {
+                return TypesOfVacation[value] || '-'
             },
         },
         {
@@ -58,37 +65,40 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
             field: 'vacation',
             align: 'center',
             width: '200px',
-            render: (value) => {
-                return `${localizeDate(value?.period?.startDate, 'numeric')} - ${localizeDate(
-                    value?.period?.endDate,
-                    'numeric',
-                )}`
+            render: (_, data) => {
+                return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
             },
         },
         {
-            title: 'Файл заявления',
+            title: 'Файлы',
             priority: 'one',
             field: 'downloadable',
             type: 'file',
             width: '200px',
             align: 'center',
-            render: (value, data) => {
-                if (data?.status?.downloadApplication)
+            render: (_, data) => {
+                if (data?.downloadApplication || data?.downloadOrder)
                     return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data.documentGuid, '0')
-                            }}
-                        />
+                        <Flex d="column" jc="center">
+                            <div>
+                                {data?.downloadApplication && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="0"
+                                        service="Vacation"
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {data?.downloadOrder && (
+                                    <PersonnelDownloadButton
+                                        documentGuid={data.documentGuid}
+                                        type="1"
+                                        service="Vacation"
+                                    />
+                                )}
+                            </div>
+                        </Flex>
                     )
                 else return '-'
             },

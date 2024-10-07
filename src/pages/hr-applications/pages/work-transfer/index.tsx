@@ -10,7 +10,6 @@ import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
 import { bufferWorkTransferModel } from '../buffer-work-transfer/model'
 import getForm from './lib/get-form'
 import getPostAfterTransfer from './lib/get-post-after-transfer'
@@ -23,7 +22,7 @@ const WorkTransfer = () => {
     const {
         data: { dataUserApplication, dataWorkerApplication },
     } = applicationsModel.selectors.useApplications()
-    const { loading: loading } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
+    const { loading } = bufferWorkTransferModel.selectors.useBufferWorkTransfer()
     const [completed, setCompleted] = useState(false)
     const [partTimeType, setPartTimeType] = useState<any | null>(null)
     const [employment, setEmployment] = useState<any | null>(null)
@@ -33,9 +32,9 @@ const WorkTransfer = () => {
     const [transferDate, setTransferDate] = useState<string | null>(null)
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
     const divisions = useUnit($hrDivisions)
+    const [jobGuid, setJobGuid] = useState<string | null>(null)
+    const [jobTitle, setJobTitle] = useState<string | null>(null)
     const isDone = completed ?? false
-    const { id } = useParams<{ id: string }>()
-    const currentIndex = +id
     useEffect(() => {
         if (!!form && !!dataUserApplication) {
             setSpecialFieldsName(getPostAfterTransfer(form.data as IInputAreaData[]))
@@ -47,8 +46,6 @@ const WorkTransfer = () => {
             setForm(
                 getForm(
                     dataUserApplication,
-                    dataWorkerApplication,
-                    currentIndex,
                     employment,
                     setEmployment,
                     newPost,
@@ -62,12 +59,15 @@ const WorkTransfer = () => {
                     partTimeType,
                     setPartTimeType,
                     suggestions,
+                    jobTitle,
+                    setJobTitle,
+                    jobGuid,
+                    setJobGuid,
                 ),
             )
         }
     }, [
         dataUserApplication,
-        currentIndex,
         loading,
         employment,
         newPost,
@@ -75,6 +75,8 @@ const WorkTransfer = () => {
         newRate,
         transferDate,
         partTimeType,
+        jobTitle,
+        jobGuid,
     ])
     return (
         <BaseApplicationWrapper isDone={isDone}>

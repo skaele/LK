@@ -10,6 +10,7 @@ import Input from '../../shared/ui/input'
 import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
+import { PersonnelOrderList } from './ui/personnel-order-list'
 
 const ElementsControlNotification = styled.div`
     display: flex;
@@ -29,7 +30,7 @@ interface Props {
     docsType?: boolean
 }
 
-type NotificationType = 'notifications' | 'docs'
+type NotificationType = 'notifications' | 'docs' | 'personnel-orders'
 
 const BASE_FILTER_LIST = [
     { id: 'all', title: 'Все' },
@@ -151,12 +152,16 @@ const NotificationsPage = ({ docsType }: Props) => {
                                     ) : undefined,
                                 },
                                 {
+                                    id: 'personnel-orders',
+                                    title: 'Кадровые маршруты',
+                                    content: <PersonnelOrderList searchQuery={searchValue} filter={baseFilter} />,
+                                },
+                                {
                                     title: 'Надбавки',
                                     condition: undefined,
                                     content: undefined,
                                 },
                             ]}
-                            className="slider-list-notification"
                         />
                     )}
                 </PageBlock>

@@ -366,9 +366,17 @@ export const letterColorMatch: LetterColorMatch = {
     Z: 'purple',
 }
 
-export const VALID_FORMATS = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'] as const
+export const VALID_FORMATS = {
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpg',
+    png: 'image/png',
+    pdf: 'application/pdf',
+    doc: 'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+} as const
+export type FileFormat = (typeof VALID_FORMATS)[keyof typeof VALID_FORMATS]
 type ValidFormats = typeof VALID_FORMATS
-export type FileFormats = ValidFormats[number][]
+export type FileFormats = (keyof ValidFormats)[]
 
 export const MAX_FILE_SIZE = 10
 

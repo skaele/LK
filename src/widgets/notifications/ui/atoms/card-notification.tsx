@@ -9,6 +9,7 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 import styled from 'styled-components'
+import { CardTitle, Info } from './styled'
 
 const CardNotificationWrapper = styled.div`
     display: flex;
@@ -27,13 +28,6 @@ const CardNotificationWrapper = styled.div`
     }
 `
 
-const InfoNotification = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-`
-
 const BlockButtons = styled.div`
     display: flex;
     gap: 10px;
@@ -43,13 +37,6 @@ const BlockButtons = styled.div`
         width: 100%;
         gap: 20px;
     }
-`
-
-const TitleCardNotification = styled.div`
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
 `
 
 interface Props {
@@ -64,8 +51,8 @@ const CardNotification = ({ data }: Props) => {
     const [completed, setCompleted] = useState(false)
     return (
         <CardNotificationWrapper>
-            <InfoNotification>
-                <TitleCardNotification>{data.event || data.post}</TitleCardNotification>
+            <Info>
+                <CardTitle>{data.event || data.post}</CardTitle>
                 {data.startDate && data.endDate !== '0000-00-00' ? (
                     <Subtext>
                         Период: {localizeDate(data.startDate, 'numeric')} - {localizeDate(data.endDate, 'numeric')}
@@ -73,7 +60,7 @@ const CardNotification = ({ data }: Props) => {
                 ) : (
                     <Subtext>Дата: {localizeDate(data.startDate, 'numeric')}</Subtext>
                 )}
-            </InfoNotification>
+            </Info>
             <BlockButtons>
                 {data.file && (
                     <LinkButton

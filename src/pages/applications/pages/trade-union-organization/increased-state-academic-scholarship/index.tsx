@@ -404,7 +404,7 @@ function InfoMessage() {
 
 function Files() {
     const { value, setValue } = useUnit(increasedScholarshipModel.fields.files)
-    return <FileInput files={value} setFiles={setValue} isActive maxFiles={3} formats={['application/pdf']} />
+    return <FileInput files={value} setFiles={setValue} isActive maxFiles={3} formats={['pdf']} />
 }
 
 function Submit() {

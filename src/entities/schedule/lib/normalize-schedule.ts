@@ -18,12 +18,9 @@ import { getDateInSomeDays } from '@shared/lib/dates/get-date-in-some-days'
 import { popUpMessageModel } from '@entities/pop-up-message'
 
 export const normalizeSchedule = (
-    rawSchedule: FullRawScheduleResponse | FullRawTeacherScheduleResponse,
+    rawSchedule: FullRawScheduleResponse | FullRawTeacherScheduleResponse | RawSessionScheduleResponse,
     rawSessionSchedule: RawSessionScheduleResponse,
 ): { schedule: IFullSchedule; errorInData?: string } => {
-    let startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-    let endDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
-
     if (typeof rawSchedule === 'object' && 'status' in rawSchedule) {
         const message = `Не удалось загрузить расписание. Причина: ${rawSchedule.message ?? '-'}`
         popUpMessageModel.events.evokePopUpMessage({
@@ -38,13 +35,41 @@ export const normalizeSchedule = (
         }
     }
 
+    const week: IWeekEventSchedule = { ...EMPTY_WEEK }
+    const currentDay = new Date()
+        .toLocaleDateString('en-EN', {
+            weekday: 'long',
+        })
+        .toLocaleLowerCase() as IWeekDayNames
+
+    const today = week[currentDay]
+
+    const semestr = isCorrespondenceSchedule(rawSchedule)
+        ? getCorrespondenceSchedule(rawSchedule)
+        : getSemestrSchedule(rawSchedule, week)
+    const session = normalizeSessionSchedule(rawSessionSchedule)
+    return {
+        schedule: {
+            today,
+            week,
+            semestr,
+            session: { data: session.schedule, startDate: session.startDate, endDate: session.endDate },
+        },
+    }
+}
+
+const getSemestrSchedule = (
+    rawSchedule: FullRawScheduleResponse | FullRawTeacherScheduleResponse,
+    week: IWeekEventSchedule,
+) => {
     const todaysDate = new Date()
     let weekday = getMonday(todaysDate)
     if (todaysDate.getDay() === 0) weekday = getDateInSomeDays(todaysDate, 1)
 
-    const week: IWeekEventSchedule = { ...EMPTY_WEEK }
-    const semestr: IWeekEventSchedule = { ...EMPTY_WEEK }
+    let startDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+    let endDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
 
+    const semestr: IWeekEventSchedule = { ...EMPTY_WEEK }
     for (const key in rawSchedule) {
         if (key !== 'Sunday') {
             // Monday -> monday
@@ -88,22 +113,18 @@ export const normalizeSchedule = (
             weekday.setDate(weekday.getDate() + 1)
         }
     }
-    const currentDay = new Date()
-        .toLocaleDateString('en-EN', {
-            weekday: 'long',
-        })
-        .toLocaleLowerCase() as IWeekDayNames
+    return { data: semestr, startDate, endDate }
+}
 
-    const today = week[currentDay]
+const getCorrespondenceSchedule = (rawSchedule: RawSessionScheduleResponse) => {
+    const sem = normalizeSessionSchedule(rawSchedule)
+    return { data: sem.schedule, startDate: sem.startDate, endDate: sem.endDate }
+}
 
-    const session = normalizeSessionSchedule(rawSessionSchedule)
-
-    return {
-        schedule: {
-            today,
-            week,
-            semestr: { data: semestr, startDate, endDate },
-            session: { data: session.schedule, startDate: session.startDate, endDate: session.endDate },
-        },
-    }
+function isCorrespondenceSchedule(
+    rawSchedule: FullRawScheduleResponse | FullRawTeacherScheduleResponse | RawSessionScheduleResponse,
+): rawSchedule is RawSessionScheduleResponse {
+    const weekDays = [...Object.keys(WEEK_DAYS), 'sunday']
+    if (Object.keys(rawSchedule).every((day) => weekDays.includes(day.toLocaleLowerCase()))) return false
+    return true
 }

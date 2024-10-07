@@ -19,6 +19,7 @@ export interface PaymentsContract {
     balance: string
     balance_currdate: string
     bill: string
+    bill_next: string
     can_sign: boolean
     contragent: string
     dorm_num: string

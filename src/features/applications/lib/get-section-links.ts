@@ -34,10 +34,14 @@ import {
     STUDENT_EMPLOYMENT_ROUTE,
     MEDICAL_CERTIFICATES_086,
     FAMILY_CONTACTS,
+    MILITARY_COPIES,
+    MILITARY_FORM_4,
+    MILITARY_FORM_5,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
 import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
+import { MEDICAL_CERTIFICATE } from '@app/routes/general-routes'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -70,6 +74,10 @@ const getSectionLinks = (): Section[] => {
         {
             title: 'Управление студенческим городком',
             links: [
+                {
+                    link: MEDICAL_CERTIFICATE,
+                    title: 'Предоставление медицинских справок для проживающих в общежитии',
+                },
                 {
                     link: REGULAR_ACCOMMODATION,
                     title: 'Предоставление права проживания (очная форма)',
@@ -136,19 +144,33 @@ const getSectionLinks = (): Section[] => {
                 { link: SOCIAL_SCOLLARSHIP, title: 'Оформить социальную стипендию' },
                 {
                     link: INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
-                    title: 'Отправить характеристику-рекомендацию на получение повышенной государственной академической стипендии',
+                    title: 'Отправка документов на получение стипендии Московского Политеха',
+                    exceptionalFormEducationList: ['Очно-заочная', 'Заочная'],
+                    exceptionalDegreeLevelList: ['Аспирантура'],
                 },
             ],
         },
         {
-            title: 'Мобилизационный отдел' + additionalHeaderClosedService,
-            disabled: isProduction,
+            title: 'Мобилизационный отдел',
             links: [
                 { link: MILITARY_REGISTRATION_DOCUMENTS, title: 'Отправить документы воинского учета' },
-                { link: MILITARY_REGISTRATION, title: 'Воинский учет' },
                 {
-                    link: '',
-                    title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призывана военную службу',
+                    link: MILITARY_REGISTRATION,
+                    title: 'Заполнить личную карточку обучающегося по воинскому учету для получения отсрочки от призыва на военную службу (форма 10)',
+                },
+                {
+                    link: MILITARY_FORM_4,
+                    title: 'Заказать справку об обучении для студентов в военкомат (форма 4)',
+                    description: 'Доступна после заполнения формы № 10',
+                },
+                {
+                    link: MILITARY_FORM_5,
+                    title: 'Заказать справку об обучении для аспирантов в военкомат (форма 5)',
+                    description: 'Доступна после заполнения формы № 10',
+                },
+                {
+                    link: MILITARY_COPIES,
+                    title: 'Заверенные копии документов по воинскому учету из личного дела',
                 },
             ],
         },
@@ -175,7 +197,7 @@ const getSectionLinks = (): Section[] => {
             links: [
                 {
                     link: MEDICAL_CERTIFICATES_086,
-                    title: 'Предоставление медицинских справок по форме № 086/у',
+                    title: 'Предоставление справок о группе здоровья',
                 },
                 {
                     link: FAMILY_CONTACTS,

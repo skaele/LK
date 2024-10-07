@@ -45,10 +45,14 @@ export const post = async (data: ApplicationCreating) => {
         formData.set(key, value)
     }
 
-    const { data: resultRequest } = await $api.post(`?saveAppData=${formId}`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
+    const { data: resultRequest } = await $api.post<{ result: string; error_text: string; request_code: string }>(
+        `?saveAppData=${formId}`,
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
         },
-    })
+    )
     return resultRequest
 }

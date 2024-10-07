@@ -10,6 +10,8 @@ import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tut
 import { useUnit } from 'effector-react'
 import { tutorialModel } from '@entities/tutorial'
 
+const MIN_AGREEMENT_DATE = new Date(2022, 0, 1)
+
 type Props = {
     contracts: PaymentsContract[] | undefined
 }
@@ -30,7 +32,7 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                 const { agreements, number, paygraph, payments, signed_user_date, type } = contract
                 // Временная мера. Потом апи будет раздавать точную информацию о статусе договора.
                 const isSigned = true
-                const electronicAgreements = agreements.filter((item) => new Date(item?.date) > new Date('2022-02-1'))
+                const electronicAgreements = agreements.filter((item) => new Date(item?.date) > MIN_AGREEMENT_DATE)
                 const isDormitory = type === 'Общежитие'
                 return (
                     <React.Fragment key={number}>

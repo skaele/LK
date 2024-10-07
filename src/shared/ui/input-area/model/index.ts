@@ -86,6 +86,7 @@ export interface IInputAreaData {
     diff?: number
     isSpecificSelect?: boolean
     visible?: boolean
+    hint?: string
     onChange?: (value: any) => void
     onKeyPress?: (value: any) => void
     onBlur?: (value: any) => void
@@ -102,6 +103,7 @@ export interface IFormDropdownValue {
 export type IComplexInputAreaData = IInputAreaData[][]
 
 export interface IInputArea {
+    id?: string
     title: string
     id?: string
     hint?: React.ReactNode

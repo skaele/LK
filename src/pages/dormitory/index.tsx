@@ -14,9 +14,7 @@ const DormitoryPage = () => {
                 </Message>
                 <FileLink
                     type={'document'}
-                    link={
-                        'https://vk.com/away.php?to=https%3A%2F%2Fe.mospolytech.ru%2Fold%2Fstorage%2Ffiles%2FDormitory_actual_list.pdf&cc_key='
-                    }
+                    link={'https://e.mospolytech.ru/old//storage/files/11_obschezhitie_Itog.xlsx'}
                     title={'Актуальный список'}
                 />
             </PageBlock>

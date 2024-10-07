@@ -30,7 +30,7 @@ export const globalPrepareFormData = (
                 )
                 const obj = {} as IndexedProperties
 
-                obj[formId] = JSON.stringify(resultNestedElementForm)
+                obj[listElementForm.id ?? formId] = JSON.stringify(resultNestedElementForm)
 
                 return obj
             }
@@ -81,7 +81,11 @@ const createResultElementForm = (elementForm: IInputAreaData) => {
             return obj
         }, {} as { [key: string]: any })
     }
-
+    if (elementForm.type === 'select') {
+        obj[elementForm.fieldName] = !!elementForm.isSpecificSelect
+            ? (elementForm.value as SelectPage).id
+            : (elementForm.value as SelectPage).title || null
+    }
     return obj
 }
 
@@ -89,3 +93,9 @@ const getValueElementForm = (elementForm: IInputAreaData) => {
     const isSimpleField = !elementForm.value || typeof elementForm.value !== 'object'
     return isSimpleField ? elementForm?.value : (elementForm.value as SelectPage).title
 }
+
+export const parseFilesToFormData = (files: File[]) =>
+    files.reduce((filesObj, file, fileIndex) => {
+        filesObj['docs' + `[${fileIndex}]`] = file
+        return filesObj
+    }, {} as IndexedProperties)

@@ -95,7 +95,6 @@ export const PROJECT_ACTIVITIES_ROUTE = '/project-activity'
 export const SOFTSKILLS_ROUTE = '/softskills'
 export const ALERTS_ROUTE = '/alerts'
 export const LK_NOTIFICATIONS_ROUTE = '/lk-notifications'
-export const MILITARY_REGISTRATION_ROUTE = '/military-registration'
 
 export const USEFUL_INFO_ROUTE = '/helpful-information'
 export const SAFETY_INFORMATION = '/safety-information'
@@ -127,6 +126,7 @@ export enum Groups {
 export interface IRoute {
     id: string
     title: string
+    fullTitle?: string
     hiddenTitle?: boolean
     icon: ChildrenType
     menuPath?: string
@@ -413,7 +413,6 @@ export const generalRoutes: IRoutes = {
         isTemplate: false,
         group: 'GENERAL',
         isSubPage: true,
-        isNew: true,
     },
 }
 

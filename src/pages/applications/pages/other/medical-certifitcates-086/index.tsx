@@ -27,7 +27,7 @@ const MedicalCertificates086 = () => {
             setCert(
                 getCertForm({
                     config: {
-                        title: 'Предоставление медицинских справок по форме № 086/у',
+                        title: 'Предоставление справок о группе здоровья',
                         issueDateFieldName: 'date_of_issue',
                         organizationFieldName: 'organization',
                         docsFieldName: 'docs',

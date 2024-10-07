@@ -78,7 +78,7 @@ const MedicalExamination = () => {
                         repeatable={false}
                         buttonSuccessText="Отправлено"
                         isDone={isDone}
-                        isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
+                        isActive={checkFormFields(form)}
                         alerts={false}
                     />
                 </FormBlock>

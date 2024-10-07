@@ -102,7 +102,7 @@ const getForm = (
                 editable: !!startDate,
                 fieldName: 'extra_examination_date_2',
                 mask: true,
-                required: false,
+                required: !!isRetirement,
                 specialType: 'Compensation2',
                 maxValueLength: 1,
                 maxValueInput: '9999-12-31',

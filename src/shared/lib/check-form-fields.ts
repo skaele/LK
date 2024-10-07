@@ -7,7 +7,7 @@ const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFiel
 
     return (
         !(form.data as IInputAreaData[]).find((el) => {
-            if (el.type === 'date' && (el.maxValueInput || el.minValueInput)) {
+            if (el.type === 'date' && (el.maxValueInput || el.minValueInput) && el.required) {
                 const parsedDate = new Date(el.value?.toString() ?? 0)
                 if (el.minValueInput) {
                     const parsedMinDate = new Date(el.minValueInput)

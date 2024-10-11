@@ -1,4 +1,4 @@
-import { Button, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
+import { Button, Input, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import React, { useEffect, useMemo } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useList, useUnit } from 'effector-react'
@@ -50,6 +50,7 @@ const CreateAllowance = () => {
                 <Job />
                 <SourceOfFunding />
                 <PaymentIdentifier />
+                <Dates />
                 <Commentary />
                 <Employees />
                 <Files />
@@ -141,6 +142,25 @@ function PaymentIdentifier() {
             withSearch
             placeholder="Вид набавки"
         />
+    )
+}
+
+function Dates() {
+    const { startDate, setStartDate, endDate, setEndDate } = useUnit(allowancesModel.fields.period)
+
+    return (
+        <Flex jc="space-between">
+            <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="50%" />
+            <Input
+                title="Дата окончания"
+                value={endDate}
+                setValue={setEndDate}
+                type="date"
+                required
+                width="50%"
+                minValue={startDate}
+            />
+        </Flex>
     )
 }
 

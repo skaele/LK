@@ -1,3 +1,4 @@
+import { allowancesModel } from '@entities/allowances'
 import { Employee } from '@entities/allowances/types'
 import Select, { SelectPage } from '@features/select'
 import { Colors } from '@shared/constants'
@@ -5,6 +6,7 @@ import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import { IoCloseCircleOutline } from 'react-icons/io5'
 
@@ -21,6 +23,7 @@ export const EmployeeInput = ({
     index: number
     employees: SelectPage[]
 }) => {
+    const { startDate: periodStart, endDate: periodEnd } = useUnit(allowancesModel.fields.period)
     const [id, setId] = useState<SelectPage | null>(findCurrentInSelect(employees, employee.id))
     const [sum, setSum] = useState(employee.sum)
     const [startDate, setStartDate] = useState(employee.startDate)
@@ -30,6 +33,12 @@ export const EmployeeInput = ({
         setEmployee({ employee: { id: id?.id.toString() || '', sum, startDate, endDate }, index })
     }, [id, sum, startDate, endDate])
 
+    useEffect(() => {
+        setStartDate(periodStart)
+    }, [periodStart])
+    useEffect(() => {
+        setEndDate(periodEnd)
+    }, [periodEnd])
     return (
         <Flex gap="0.5rem" d="column">
             <Flex gap="0.5rem" ai="flex-end">
@@ -64,7 +73,15 @@ export const EmployeeInput = ({
                     placeholder="Сумма выплаты"
                 />
                 <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="33%" />
-                <Input title="Дата окончания" value={endDate} setValue={setEndDate} type="date" required width="33%" />
+                <Input
+                    title="Дата окончания"
+                    value={endDate}
+                    setValue={setEndDate}
+                    type="date"
+                    required
+                    width="33%"
+                    minValue={startDate}
+                />
             </Flex>
             {/* <DateInterval
                 title="Дата окончания"

@@ -79,6 +79,7 @@ const job = createSelectField()
 const sourceOfFunding = createSelectField({ reset: pageMounted })
 const paymentIdentifier = createSelectField({ reset: pageMounted })
 const commentary = createInputField({ reset: pageMounted })
+const period = createDatePeriodField({ reset: pageMounted })
 const employees = createEmployeeField(pageMounted)
 const files = createFilesField(pageMounted)
 
@@ -393,7 +394,15 @@ sample({
     clock: getAllEmployees.doneData,
     target: $subordinates,
 })
-
+sample({
+    clock: [period.setStartDate, period.setEndDate],
+    source: {
+        startDate: period.startDate,
+        endDate: period.endDate,
+    },
+    fn: ({ startDate, endDate }) => ({ startDate, endDate }),
+    target: employees.setDates,
+})
 sample({
     clock: personalAllowancesMounted,
     target: personalAllowancesQuery.start,
@@ -468,6 +477,7 @@ export const fields = {
     job,
     sourceOfFunding,
     paymentIdentifier,
+    period,
     commentary,
     employees,
     files,
@@ -498,18 +508,50 @@ function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage 
 function createEmployeeField(reset: Unit<any>) {
     const addEmployee = createEvent()
     const setEmployee = createEvent<{ employee: Employee; index: number }>()
+    const setDates = createEvent<{ startDate: string; endDate: string }>()
     const removeEmployee = createEvent<number>()
     const $employees = createStore<(Employee | null)[]>([])
-        .on(addEmployee, (employees) => [...employees, { id: '', divisionId: '', startDate: '', endDate: '', sum: '' }])
         .on(removeEmployee, (employees, index) => employees.map((e, i) => (i === index ? null : e)))
         .on(setEmployee, (employees, { employee, index }) => employees.map((e, i) => (i === index ? employee : e)))
+        .on(setDates, (employees, { startDate, endDate }) =>
+            employees.map((e) => (!!e ? { ...e, startDate, endDate } : e)),
+        )
         .reset(reset)
 
+    sample({
+        clock: addEmployee,
+        source: { employees: $employees, startDate: period.startDate, endDate: period.endDate },
+        fn: ({ employees, startDate, endDate }) => [
+            ...employees,
+            { id: '', divisionId: '', startDate, endDate, sum: '' },
+        ],
+        target: $employees,
+    })
     return {
         value: $employees,
         setValue: setEmployee,
         addItem: addEmployee,
         removeItem: removeEmployee,
+        setDates,
+    }
+}
+
+function createDatePeriodField({ reset }: { reset?: Unit<any> }) {
+    const setStartDate = createEvent<string>()
+    const setEndDate = createEvent<string>()
+    const $startDate = createStore<string>('').on(setStartDate, (_, newValue) => newValue)
+    const $endDate = createStore<string>('').on(setEndDate, (_, newValue) => newValue)
+
+    if (reset) {
+        $startDate.reset(reset)
+        $endDate.reset(reset)
+    }
+
+    return {
+        startDate: $startDate,
+        endDate: $endDate,
+        setStartDate,
+        setEndDate,
     }
 }
 

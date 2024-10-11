@@ -6,7 +6,7 @@ import Input from '@shared/ui/input'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 export const EmployeeInput = ({
     subordinate: { employeeId, employeeName, divisionName },
@@ -15,20 +15,8 @@ export const EmployeeInput = ({
 }) => {
     const { addItem, removeItem, setValue, value: employees } = useUnit(allowancesModel.fields.employees)
     const employee = employees.find((employee) => employee.id === employeeId)
-    const [sum, setSum] = useState('')
-    const [startDate, setStartDate] = useState('')
-    const [endDate, setEndDate] = useState('')
     const isActive = !!employee
-    useEffect(() => {
-        setValue({ id: employeeId, sum, startDate, endDate })
-    }, [sum, startDate, endDate])
 
-    useEffect(() => {
-        if (isActive) setStartDate(employee.startDate)
-    }, [employee?.startDate])
-    useEffect(() => {
-        if (isActive) setEndDate(employee.endDate)
-    }, [employee?.endDate])
     return (
         <Flex gap="0.5rem">
             <Checkbox
@@ -43,8 +31,11 @@ export const EmployeeInput = ({
                 <Flex jc="space-between" ai="flex-end" gap="0.5rem">
                     <Input
                         title="Сумма"
-                        value={sum}
-                        setValue={setSum}
+                        value={employee?.sum || ''}
+                        setValue={(value) => {
+                            if (!employee) return
+                            setValue({ ...employee, sum: value })
+                        }}
                         type="number"
                         required
                         width="38%"
@@ -53,8 +44,11 @@ export const EmployeeInput = ({
                     />
                     <Input
                         title="Дата начала"
-                        value={startDate}
-                        setValue={setStartDate}
+                        value={employee?.startDate || ''}
+                        setValue={(value) => {
+                            if (!employee) return
+                            setValue({ ...employee, startDate: value })
+                        }}
                         type="date"
                         required
                         width="30%"
@@ -62,12 +56,15 @@ export const EmployeeInput = ({
                     />
                     <Input
                         title="Дата окончания"
-                        value={endDate}
-                        setValue={setEndDate}
+                        value={employee?.endDate || ''}
+                        setValue={(value) => {
+                            if (!employee) return
+                            setValue({ ...employee, endDate: value })
+                        }}
                         type="date"
                         required
                         width="30%"
-                        minValue={startDate}
+                        minValue={employee?.startDate}
                         isActive={isActive}
                     />
                 </Flex>

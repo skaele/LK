@@ -1,5 +1,5 @@
-import { Input, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
-import React, { useEffect, useMemo } from 'react'
+import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
+import React, { useEffect, useMemo, useState } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
@@ -11,6 +11,8 @@ import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { Forbidden } from '@shared/ui/forbidden'
+import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
+import Search from '@shared/ui/search'
 
 const CreateAllowance = () => {
     const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
@@ -170,19 +172,46 @@ function Commentary() {
 function Employees() {
     const subordinates = useUnit(allowancesModel.stores.employees)
     const { value: job } = useUnit(allowancesModel.fields.job)
+    const [openArea, setOpenArea] = useState(true)
+    const [included, setIncluded] = useState(false)
+    const [searchValue, setSearchValue] = useState('')
+
+    const filteredSubordinates = useMemo(() => {
+        if (!subordinates || !job) return []
+        if (!searchValue) return subordinates[job?.id]
+        const query = searchValue.toLowerCase()
+        return subordinates[job?.id].filter(
+            (subordinate) =>
+                subordinate.employeeName.toLowerCase().includes(query) ||
+                subordinate.divisionName.toLowerCase().includes(query),
+        )
+    }, [subordinates, job, searchValue])
     return (
-        <>
-            <Title size={5} required={false} align="left" bottomGap="5px" visible>
-                Сотрудники
-            </Title>
-            {job && subordinates ? (
-                subordinates[job?.id].map((subordinate) => (
-                    <EmployeeInput key={subordinate.employeeId} subordinate={subordinate} />
-                ))
-            ) : (
-                <Subtext>Выберите должность</Subtext>
-            )}
-        </>
+        <InputAreaWrapper openArea={openArea}>
+            <AreaTitle
+                title="Сотрудники"
+                included={included}
+                optional={false}
+                setOpenArea={setOpenArea}
+                setIncluded={setIncluded}
+                collapsed={false}
+                openArea={openArea}
+            />
+            <div className="inputs">
+                {job && subordinates ? (
+                    <Flex gap="1.5rem" ai="flex-start" d="column">
+                        <Search value={searchValue} setValue={setSearchValue} placeholder="Поиск по сотрудникам" />
+                        <Flex gap="1rem" ai="flex-start" d="column">
+                            {filteredSubordinates.map((subordinate) => (
+                                <EmployeeInput key={subordinate.employeeId} subordinate={subordinate} />
+                            ))}
+                        </Flex>
+                    </Flex>
+                ) : (
+                    <Subtext>Выберите должность</Subtext>
+                )}
+            </div>
+        </InputAreaWrapper>
     )
 }
 

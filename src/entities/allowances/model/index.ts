@@ -511,9 +511,7 @@ function createEmployeeField(reset: Unit<any>) {
     const setDates = createEvent<{ startDate: string; endDate: string }>()
     const removeEmployee = createEvent<string>()
     const $employees = createStore<Employee[]>([])
-        .on(removeEmployee, (employees, id) => {
-            employees.filter((e) => e.id !== id)
-        })
+        .on(removeEmployee, (employees, id) => employees.filter((e) => e.id !== id))
         .on(setEmployee, (employees, employee) => {
             return employees.map((e) => (e.id === employee.id ? employee : e))
         })

@@ -1,14 +1,12 @@
-import { Button, Input, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
+import { Input, Loading, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import React, { useEffect, useMemo } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { useList, useUnit } from 'effector-react'
+import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
-import { FiPlus } from 'react-icons/fi'
 import Select from '@features/select'
 import { EmployeeInput } from '../ui/employee-input'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Subtext from '@shared/ui/subtext'
-import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
 import { popUpMessageModel } from '@entities/pop-up-message'
@@ -149,15 +147,15 @@ function Dates() {
     const { startDate, setStartDate, endDate, setEndDate } = useUnit(allowancesModel.fields.period)
 
     return (
-        <Flex jc="space-between">
-            <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="50%" />
+        <Flex jc="space-between" gap="0.5rem">
+            <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="49%" />
             <Input
                 title="Дата окончания"
                 value={endDate}
                 setValue={setEndDate}
                 type="date"
                 required
-                width="50%"
+                width="49%"
                 minValue={startDate}
             />
         </Flex>
@@ -170,46 +168,17 @@ function Commentary() {
 }
 
 function Employees() {
-    const { addItem, removeItem, setValue, value: employees } = useUnit(allowancesModel.fields.employees)
     const subordinates = useUnit(allowancesModel.stores.employees)
     const { value: job } = useUnit(allowancesModel.fields.job)
-    const em = useList(allowancesModel.fields.employees.value, (employee, index) => {
-        if (employee && subordinates)
-            return (
-                <EmployeeInput
-                    index={index}
-                    employee={employee}
-                    remove={() => removeItem(index)}
-                    setEmployee={setValue}
-                    employees={subordinates[job?.id || ''].map((e) => ({
-                        id: e.employeeId,
-                        title: e.employeeName + ' (' + e.divisionName + ')',
-                    }))}
-                />
-            )
-        return null
-    })
     return (
         <>
             <Title size={5} required={false} align="left" bottomGap="5px" visible>
                 Сотрудники
             </Title>
-            {job ? (
-                <>
-                    {employees.filter((e) => e !== null).length > 0 && (
-                        <Flex gap="3rem" d="column">
-                            {em}
-                        </Flex>
-                    )}
-                    <Button
-                        icon={<FiPlus />}
-                        onClick={() => addItem()}
-                        text="Добавить"
-                        textColor={Colors.blue.main}
-                        background="transparent"
-                        hoverBackground={Colors.blue.transparent3}
-                    />
-                </>
+            {job && subordinates ? (
+                subordinates[job?.id].map((subordinate) => (
+                    <EmployeeInput key={subordinate.employeeId} subordinate={subordinate} />
+                ))
             ) : (
                 <Subtext>Выберите должность</Subtext>
             )}

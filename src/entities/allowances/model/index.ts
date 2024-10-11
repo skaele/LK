@@ -506,25 +506,24 @@ function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage 
 }
 
 function createEmployeeField(reset: Unit<any>) {
-    const addEmployee = createEvent()
-    const setEmployee = createEvent<{ employee: Employee; index: number }>()
+    const addEmployee = createEvent<string>()
+    const setEmployee = createEvent<Employee>()
     const setDates = createEvent<{ startDate: string; endDate: string }>()
-    const removeEmployee = createEvent<number>()
-    const $employees = createStore<(Employee | null)[]>([])
-        .on(removeEmployee, (employees, index) => employees.map((e, i) => (i === index ? null : e)))
-        .on(setEmployee, (employees, { employee, index }) => employees.map((e, i) => (i === index ? employee : e)))
-        .on(setDates, (employees, { startDate, endDate }) =>
-            employees.map((e) => (!!e ? { ...e, startDate, endDate } : e)),
-        )
+    const removeEmployee = createEvent<string>()
+    const $employees = createStore<Employee[]>([])
+        .on(removeEmployee, (employees, id) => {
+            employees.filter((e) => e.id !== id)
+        })
+        .on(setEmployee, (employees, employee) => {
+            return employees.map((e) => (e.id === employee.id ? employee : e))
+        })
+        .on(setDates, (employees, { startDate, endDate }) => employees.map((e) => ({ ...e, startDate, endDate })))
         .reset(reset)
 
     sample({
         clock: addEmployee,
         source: { employees: $employees, startDate: period.startDate, endDate: period.endDate },
-        fn: ({ employees, startDate, endDate }) => [
-            ...employees,
-            { id: '', divisionId: '', startDate, endDate, sum: '' },
-        ],
+        fn: ({ employees, startDate, endDate }, id) => [...employees, { id, startDate, endDate, sum: '' }],
         target: $employees,
     })
     return {

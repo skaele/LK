@@ -97,7 +97,7 @@ const getForm = (
                 type: 'date',
                 value: endDate,
                 onChange: (value) => {
-                    setEndDate(value)
+                    setWorkDate(value, setEndDate, workWeekDuration)
                 },
                 editable: !!startDate,
                 fieldName: 'extra_examination_date_2',

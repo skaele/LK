@@ -107,6 +107,13 @@ const getForm = (
             //     //minValueInput: getDelayInDays(5),
             // },
         ],
+        documents: {
+            files: [],
+            fieldName: 'files',
+            required: true,
+            maxFiles: 10,
+            allowedTypes: ['application/pdf', 'image/png', 'image/jpeg'],
+        },
     }
 }
 

@@ -103,6 +103,14 @@ const getForm = (
                         new Date(startDate).getTime() < new Date(getDelayInDays(value?.id === 2 ? 0 : 5)).getTime()
                     ) {
                         setStartDate(null)
+                        setEndDate(null)
+                    }
+                    if (
+                        !!endDate &&
+                        new Date(endDate).getTime() <
+                            new Date(getDelayInDays(value?.id === 2 ? 0 : 1, holidayStartDate)).getTime()
+                    ) {
+                        setEndDate(null)
                     }
                     if (
                         !!endDate &&
@@ -214,7 +222,7 @@ const getForm = (
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: getDelayInDays(1, holidayStartDate),
+                minValueInput: getDelayInDays(holidayType?.id === 2 ? 0 : 1, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

@@ -25,7 +25,7 @@ export const getBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps
                 ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
             render: (value, data) => {
-                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении*'
+                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении'
                 return (
                     <Message
                         type={

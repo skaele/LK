@@ -100,7 +100,8 @@ const getForm = (
                 onChange: (value) => {
                     if (
                         !!startDate &&
-                        new Date(startDate).getTime() < new Date(getDelayInDays(value?.id === 2 ? 0 : 5)).getTime()
+                        new Date(startDate).getTime() <
+                            new Date(getDelayInWorkDays(value?.id === 2 ? 0 : 5, workWeekDuration)).getTime()
                     ) {
                         setStartDate(null)
                         setEndDate(null)
@@ -201,7 +202,7 @@ const getForm = (
                     setWorkDate(value, setStartDate, workWeekDuration)
                 },
                 required: true,
-                minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 6, workWeekDuration),
+                minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 5, workWeekDuration),
                 maxValueInput: '9999-12-31',
             },
             {

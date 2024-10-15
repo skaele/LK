@@ -122,5 +122,5 @@ export interface WorkerApplication {
 
 export interface ApplicationFileOutput {
     url: string
-    name: string
+    fname: string
 }

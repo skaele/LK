@@ -6,6 +6,7 @@ import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 import Flex from '@shared/ui/flex'
 import { FiDownload } from 'react-icons/fi'
+import { ApplicationFileOutput } from '../../../shared/api/model/applications'
 
 const getApplicationsColumns = (): ColumnProps[] => {
     return [
@@ -20,7 +21,7 @@ const getApplicationsColumns = (): ColumnProps[] => {
                     <Flex jc="space-between">
                         {val}
                         {!!obj?.files_output?.length &&
-                            obj.files_output.map((file: { fname: string; url: string }) => (
+                            obj.files_output.map((file: ApplicationFileOutput) => (
                                 <div key={file.url} onClick={(e) => e.stopPropagation()}>
                                     <Tooltip text={file.fname} direction="left">
                                         <LinkButton icon={<FiDownload />} background="transparent" href={file?.url} />

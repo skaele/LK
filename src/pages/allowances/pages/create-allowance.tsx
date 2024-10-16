@@ -13,6 +13,8 @@ import { popUpMessageModel } from '@entities/pop-up-message'
 import { Forbidden } from '@shared/ui/forbidden'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import Search from '@shared/ui/search'
+import Checkbox from '@shared/ui/checkbox'
+import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
 
 const CreateAllowance = () => {
     const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
@@ -54,6 +56,7 @@ const CreateAllowance = () => {
                 <Commentary />
                 <Employees />
                 <Files />
+                <ComputedInfo />
                 <SubmitButton
                     text={!isDone ? 'Отправить' : 'Отправлено'}
                     action={createSupplement}
@@ -170,22 +173,34 @@ function Commentary() {
 }
 
 function Employees() {
-    const subordinates = useUnit(allowancesModel.stores.employees)
+    const [subordinates, employees, allSelected, selectAll, deselectAll] = useUnit([
+        allowancesModel.stores.employees,
+        allowancesModel.fields.employees.value,
+        allowancesModel.fields.employees.allSelected,
+        allowancesModel.fields.employees.selectAll,
+        allowancesModel.fields.employees.deselectAll,
+    ])
     const { value: job } = useUnit(allowancesModel.fields.job)
     const [openArea, setOpenArea] = useState(true)
     const [included, setIncluded] = useState(false)
     const [searchValue, setSearchValue] = useState('')
+    const [onlyChecked, setOnlyChecked] = useState(false)
 
     const filteredSubordinates = useMemo(() => {
         if (!subordinates || !job) return []
-        if (!searchValue) return subordinates[job?.id]
+        const employeeIds = employees.map((employee) => employee.id)
+        const initialFiltered = onlyChecked
+            ? subordinates[job?.id].filter((subordinate) => employeeIds.includes(subordinate.employeeId))
+            : subordinates[job?.id]
+        if (!searchValue) return initialFiltered
         const query = searchValue.toLowerCase()
-        return subordinates[job?.id].filter(
+        const searched = initialFiltered.filter(
             (subordinate) =>
                 subordinate.employeeName.toLowerCase().includes(query) ||
                 subordinate.divisionName.toLowerCase().includes(query),
         )
-    }, [subordinates, job, searchValue])
+        return searched
+    }, [subordinates, job, searchValue, onlyChecked, employees])
     return (
         <InputAreaWrapper openArea={openArea}>
             <AreaTitle
@@ -201,6 +216,22 @@ function Employees() {
                 {job && subordinates ? (
                     <Flex gap="1.5rem" ai="flex-start" d="column">
                         <Search value={searchValue} setValue={setSearchValue} placeholder="Поиск по сотрудникам" />
+                        <Flex gap="0.5rem" ai="flex-start" d="column">
+                            <Checkbox
+                                checked={onlyChecked}
+                                setChecked={setOnlyChecked}
+                                text="Отобразить только выбранных"
+                            />
+                            <Checkbox
+                                checked={allSelected}
+                                setChecked={(val) => {
+                                    val
+                                        ? selectAll(subordinates[job?.id].map((subordinate) => subordinate.employeeId))
+                                        : deselectAll()
+                                }}
+                                text="Выбрать всех"
+                            />
+                        </Flex>
                         <Flex gap="1rem" ai="flex-start" d="column">
                             {filteredSubordinates.map((subordinate) => (
                                 <EmployeeInput key={subordinate.employeeId} subordinate={subordinate} />
@@ -234,6 +265,28 @@ function Files() {
             }}
             isActive={!loading}
         />
+    )
+}
+
+const EMPLOYEES_RULES: Rules = {
+    fiveToNine: 'сотрудников',
+    one: 'сотрудник',
+    twoToFour: 'сотрудника',
+    zero: 'сотрудников',
+}
+const ADD_RULES: Rules = {
+    fiveToNine: 'Добавлено',
+    one: 'Добавлен',
+    twoToFour: 'Добавлено',
+    zero: 'Добавлено',
+}
+function ComputedInfo() {
+    const employees = useUnit(allowancesModel.fields.employees.value)
+    return (
+        <Subtext>
+            {getCorrectWordForm(Math.trunc(employees?.length), ADD_RULES)} {employees?.length}{' '}
+            {getCorrectWordForm(Math.trunc(employees?.length), EMPLOYEES_RULES)}
+        </Subtext>
     )
 }
 

@@ -509,19 +509,36 @@ function createEmployeeField(reset: Unit<any>) {
     const addEmployee = createEvent<string>()
     const setEmployee = createEvent<Employee>()
     const setDates = createEvent<{ startDate: string; endDate: string }>()
+    const selectAll = createEvent<string[]>()
+    const deselectAll = createEvent()
     const removeEmployee = createEvent<string>()
+    const allSelected = createStore<boolean>(false)
+        .on(selectAll, () => true)
+        .on(deselectAll, () => false)
+        .reset([reset, removeEmployee])
     const $employees = createStore<Employee[]>([])
         .on(removeEmployee, (employees, id) => employees.filter((e) => e.id !== id))
         .on(setEmployee, (employees, employee) => {
             return employees.map((e) => (e.id === employee.id ? employee : e))
         })
         .on(setDates, (employees, { startDate, endDate }) => employees.map((e) => ({ ...e, startDate, endDate })))
-        .reset(reset)
+        .reset([reset, deselectAll])
 
     sample({
         clock: addEmployee,
         source: { employees: $employees, startDate: period.startDate, endDate: period.endDate },
         fn: ({ employees, startDate, endDate }, id) => [...employees, { id, startDate, endDate, sum: '' }],
+        target: $employees,
+    })
+    sample({
+        clock: selectAll,
+        source: { employees: $employees, startDate: period.startDate, endDate: period.endDate },
+        fn: ({ employees, startDate, endDate }, selected) => {
+            const selectedFiltered = selected.filter(
+                (employeeId) => !employees.some((employee) => employee.id === employeeId),
+            )
+            return [...employees, ...selectedFiltered.map((id) => ({ id, startDate, endDate, sum: '' }))]
+        },
         target: $employees,
     })
     return {
@@ -530,6 +547,9 @@ function createEmployeeField(reset: Unit<any>) {
         addItem: addEmployee,
         removeItem: removeEmployee,
         setDates,
+        selectAll,
+        deselectAll,
+        allSelected,
     }
 }
 

@@ -28,46 +28,48 @@ export const EmployeeInput = ({
                     {employeeName}
                 </Title>
                 <Subtext>{divisionName}</Subtext>
-                <Flex jc="space-between" ai="flex-end" gap="0.5rem">
-                    <Input
-                        title="Сумма"
-                        value={employee?.sum || ''}
-                        setValue={(value) => {
-                            if (!employee) return
-                            setValue({ ...employee, sum: value })
-                        }}
-                        type="number"
-                        required
-                        width="38%"
-                        placeholder="Сумма выплаты"
-                        isActive={isActive}
-                    />
-                    <Input
-                        title="Дата начала"
-                        value={employee?.startDate || ''}
-                        setValue={(value) => {
-                            if (!employee) return
-                            setValue({ ...employee, startDate: value })
-                        }}
-                        type="date"
-                        required
-                        width="30%"
-                        isActive={isActive}
-                    />
-                    <Input
-                        title="Дата окончания"
-                        value={employee?.endDate || ''}
-                        setValue={(value) => {
-                            if (!employee) return
-                            setValue({ ...employee, endDate: value })
-                        }}
-                        type="date"
-                        required
-                        width="30%"
-                        minValue={employee?.startDate}
-                        isActive={isActive}
-                    />
-                </Flex>
+                {isActive && (
+                    <Flex jc="space-between" ai="flex-end" gap="0.5rem">
+                        <Input
+                            title="Сумма"
+                            value={employee?.sum || ''}
+                            setValue={(value) => {
+                                if (!employee) return
+                                setValue({ ...employee, sum: value })
+                            }}
+                            type="number"
+                            required
+                            width="38%"
+                            placeholder="Сумма выплаты"
+                            isActive={isActive}
+                        />
+                        <Input
+                            title="Дата начала"
+                            value={employee?.startDate || ''}
+                            setValue={(value) => {
+                                if (!employee) return
+                                setValue({ ...employee, startDate: value })
+                            }}
+                            type="date"
+                            required
+                            width="30%"
+                            isActive={isActive}
+                        />
+                        <Input
+                            title="Дата окончания"
+                            value={employee?.endDate || ''}
+                            setValue={(value) => {
+                                if (!employee) return
+                                setValue({ ...employee, endDate: value })
+                            }}
+                            type="date"
+                            required
+                            width="30%"
+                            minValue={employee?.startDate}
+                            isActive={isActive}
+                        />
+                    </Flex>
+                )}
             </Flex>
         </Flex>
     )

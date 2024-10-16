@@ -96,7 +96,7 @@ const SliderPage = ({
         onChangePage?.(pages[page]?.id)
 
         if (sliderContentRef?.current) {
-            sliderContentRef.current.scrollLeft = sliderContentRef.current.clientWidth * page
+            sliderContentRef.current.scrollLeft = (sliderContentRef.current.clientWidth + 10) * page
         }
     }
 

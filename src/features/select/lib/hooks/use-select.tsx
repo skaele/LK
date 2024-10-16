@@ -119,6 +119,7 @@ const useSelect = (props: SelectProps) => {
         setSearchQuery(value)
         setIsOpen(true)
     }, [])
+
     return {
         handleOpen,
         refElement,

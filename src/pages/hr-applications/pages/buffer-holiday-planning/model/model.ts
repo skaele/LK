@@ -1,11 +1,14 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi, isAxiosError } from '@shared/api/config'
+import { isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { BufferHolidayPlanningForm } from '../types'
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
+import axios from 'axios'
+import { userModel } from '@entities/user'
+import { $hrApi } from '@shared/api/config/personnel-orders-config'
 
 const loadBufferHolidayPlanning = createEvent()
 const sendBufferHolidayPlanning = createEvent<BufferHolidayPlanningForm>()
@@ -20,18 +23,43 @@ const loadBufferHolidayPlanningFx = createEffect(async () => {
 sample({ clock: loadBufferHolidayPlanning, target: loadBufferHolidayPlanningFx })
 
 const sendBufferHolidayPlanningFx = createEffect(async (data: BufferHolidayPlanningForm) => {
-    const result = await $hrApi.post<BufferHoliday>('Vacation.AddVacation', data)
+    try {
+        const { files } = data
+        const formData = new FormData()
 
-    return result.data
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== 'files') formData.set(key, value)
+        }
+        if (!!files[0]) {
+            for (let i = 0; i < files[0].length; i++) {
+                formData.append('files', files[0][i])
+            }
+        }
+
+        const result = await $hrApi.post<BufferHoliday>(`Vacation.AddVacation`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+        return result.data
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data.error)
+        }
+        throw new Error(error as string)
+    }
 })
 
 sample({ clock: sendBufferHolidayPlanning, target: sendBufferHolidayPlanningFx })
 
-const $bufferHolidayPlanning = createStore<BufferHoliday['employeeVacations'] | null>(null)
+const $bufferHolidayPlanning = createStore<BufferHoliday['personVacations'] | null>(null).on(
+    userModel.stores.userGuid,
+    () => null,
+)
 
 sample({
     clock: loadBufferHolidayPlanningFx.doneData,
-    fn: ({ employeeVacations }) => employeeVacations,
+    fn: ({ personVacations }) => personVacations,
     target: $bufferHolidayPlanning,
 })
 
@@ -52,23 +80,26 @@ sample({
 
 sample({
     clock: sendBufferHolidayPlanningFx.failData,
-    fn: ({ message }) => {
+    fn: (error) => {
+        const message = error.message || 'Не удалось отправить форму'
+
         return {
             message,
-            type: 'hrFailure' as MessageType,
+            type: 'failure' as MessageType,
+            time: 7000,
         }
     },
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
-sample({
-    clock: sendBufferHolidayPlanningFx.doneData,
-    source: $bufferHolidayPlanning,
-    fn: (source, { employeeVacations }) => {
-        return [...source!, ...employeeVacations]
-    },
-    target: $bufferHolidayPlanning,
-})
+// sample({
+//     clock: sendBufferHolidayPlanningFx.doneData,
+//     source: $bufferHolidayPlanning,
+//     fn: (source, { personVacations }) => {
+//         return [...source!, ...personVacations]
+//     },
+//     target: $bufferHolidayPlanning,
+// })
 
 sample({
     clock: loadBufferHolidayPlanningFx.failData,

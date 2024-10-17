@@ -1,43 +1,57 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import Flex from '@shared/ui/flex'
 import { bufferMedicalExaminationModel } from '../model'
-import { Loading } from '@shared/ui/loading'
 import Block from '@shared/ui/block'
-import { Button, Wrapper } from '@shared/ui/atoms'
+import { Button } from '@shared/ui/atoms'
 import Table from '@shared/ui/table'
 import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
-import { applicationsModel } from '@entities/applications'
-import { compareDesc } from 'date-fns'
-import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
+import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
+import { MEDICAL_EXAMINATION } from '@app/routes/teacher-routes'
+import { differenceInDays } from 'date-fns'
+import { PersonMedicalExaminations } from '../types'
+import { SliderPage } from 'widgets'
 
 const Content = () => {
     const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
-    const {
-        data: { dataWorkerApplication },
-    } = applicationsModel.selectors.useApplications()
+    const jobs = useGetJobs()
 
-    const jobExaminations =
-        dataWorkerApplication &&
-        data &&
-        data
-            .map((job) => {
-                const currentJob = dataWorkerApplication.find((el) => el.jobGuid === job.employeeGuid)
-                return [...job.notTaken.map((exam) => ({ ...exam, jobTitle: currentJob?.jobTitle }))]
-            })
-            .flat()
-            // .filter((exam) => {
-            //     if (exam.orderStatus != 'false' && exam.orderStatus != '') return true
-            // })
-            .sort((a, b) => compareDesc(new Date(a.startDate), new Date(b.startDate)))
+    useEffect(() => {
+        if (data === null) {
+            bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx()
+        }
+    }, [])
+
+    const [active, archive] = useMemo(() => {
+        const currentDate = new Date()
+        if (!data || data.length === 0) return [[], []]
+        const partitionedData = data.reduce(
+            (acc: { active: PersonMedicalExaminations[]; archive: PersonMedicalExaminations[] }, item) => {
+                if (
+                    item.orderStatus === 'Не утвержден' ||
+                    item.orderStatus === 'На регистрации' ||
+                    differenceInDays(currentDate, new Date(item.signedDate)) < 8
+                ) {
+                    acc.active.push(item)
+                } else {
+                    acc.archive.push(item)
+                }
+                return acc
+            },
+            { active: [], archive: [] },
+        )
+
+        return [partitionedData.active, partitionedData.archive]
+    }, [data])
 
     return (
-        <Wrapper load={bufferMedicalExaminationModel.effects.loadBufferMedicalExaminationFx} error={null} data={data}>
+        <>
             <Flex jc="space-between" m="10px 0">
                 <BlockHeader>История заявлений на диспансеризацию:</BlockHeader>
-                <Link to={`/hr-applications/medical-examination`}>
+                <Link to={MEDICAL_EXAMINATION}>
                     <Button
                         text="Диспансеризация"
                         background="var(--reallyBlue)"
@@ -49,42 +63,55 @@ const Content = () => {
                     />
                 </Link>
             </Flex>
-            {getDataLoading ? (
-                <Flex w="100%" jc="center" ai="center">
-                    <Loading />
-                </Flex>
-            ) : (
-                <Block
-                    orientation={'vertical'}
-                    alignItems={'flex-start'}
-                    justifyContent={'flex-start'}
-                    gap={'10px'}
-                    width="100%"
-                    maxWidth="100%"
-                    height="fit-content"
-                >
-                    <Table
-                        columns={getMedicalExaminationHistoryColumns()}
-                        columnsExtended={getExtendedMedicalExaminationHistoryColumns()}
-                        data={jobExaminations}
-                        maxOnPage={10}
-                    />
-                </Block>
-            )}
-        </Wrapper>
-        // <Wrapper>
-        //     <>
-        //         <Flex jc="space-between" ai="flex-start" gap="10px">
-        //             {dataWorkerApplication.map((jobTitleInfo, index) => {
-        //                 if (jobTitleInfo.isDismissal) {
-        //                     historyIsEmpty && setHistoryIsEmpty(false)
-        //                     return null
-        //                 } else return <JobTitle info={jobTitleInfo} index={index} />
-        //             })}
-        //         </Flex>
-        //         <History />
-        //     </>
-        // </Wrapper>
+            <SliderPage
+                pages={[
+                    {
+                        title: 'Активные заявления',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getMedicalExaminationHistoryColumns(jobs)}
+                                    columnsExtended={getExtendedMedicalExaminationHistoryColumns(jobs)}
+                                    data={active}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                    {
+                        title: 'Архив',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getMedicalExaminationHistoryColumns(jobs)}
+                                    columnsExtended={getExtendedMedicalExaminationHistoryColumns(jobs)}
+                                    data={archive}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                ]}
+            />
+        </>
     )
 }
 

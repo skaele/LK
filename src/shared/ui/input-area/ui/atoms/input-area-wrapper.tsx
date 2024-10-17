@@ -18,6 +18,7 @@ const InputAreaWrapper = styled.div<Args>`
         transition: 0.2s height, 0.2s opacity, 0.2s visibility;
         height: ${({ openArea }) => (openArea ? 'auto' : '0')};
         opacity: ${({ openArea }) => (openArea ? '1' : '0')};
+        pointer-events: ${({ openArea }) => (openArea ? 'auto' : 'none')};
         visibility: ${({ openArea }) => (openArea ? 'visible' : 'hidden')};
 
         .data-line {

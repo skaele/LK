@@ -1,28 +1,35 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication, WorkerApplication } from '@api/model'
+import { UserApplication } from '@api/model'
 import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
+import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
+import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
 
 const getForm = (
     dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
     startDate: string | null,
     setStartDate: React.Dispatch<React.SetStateAction<string | null>>,
+    endDate: string | null,
+    setEndDate: React.Dispatch<React.SetStateAction<string | null>>,
     isRetirement: string | null,
     setIsRetirement: React.Dispatch<React.SetStateAction<string | null>>,
     jobTitle: string | null,
     setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
     jobGuid: string | null,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
+    workWeeks: WorkWeeks,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const firstDayOff = !!startDate ? new Date(startDate) : new Date()
-    const jobGuidData = !!jobGuid ? jobGuid : ''
-    const jobTitleData = !!jobTitle ? jobTitle : getDefaultSubdivision(subdivisions)
+    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const secondDayOff = new Date(firstDayOff.getTime() + 24 * 60 * 60 * 1000)
     const isTutor = getIsTutor(jobGuidData) === 'true' ? true : false
+
+    const workWeekDuration = getWorkWeekDuration(workWeeks, jobGuidData) || 6
 
     if (isTutor && firstDayOff.getDay() === 5) {
         secondDayOff.setDate(firstDayOff.getDate() + 1)
@@ -53,6 +60,8 @@ const getForm = (
                 onChange: (value) => {
                     setJobTitle(value)
                     setJobGuid(value.id)
+                    setStartDate(null)
+                    setEndDate(null)
                 },
             },
             {
@@ -60,14 +69,15 @@ const getForm = (
                 type: 'date',
                 value: startDate,
                 fieldName: 'extra_examination_date',
-                editable: true,
+                editable: !!jobGuidData,
                 onChange: (value) => {
-                    setStartDate(value)
+                    setWorkDate(value, setStartDate, workWeekDuration)
                 },
                 mask: true,
                 required: true,
                 maxValueLength: 1,
-                minValueInput: getDelayInDays(0),
+                maxValueInput: '9999-12-31',
+                minValueInput: getDelayInDays(1),
             },
             {
                 title: 'Я являюсь получателем пенсии по старости или пенсии за выслугу лет или мне осталось менее 5 лет до этого',
@@ -79,18 +89,24 @@ const getForm = (
                 required: false,
                 onChange: (value) => {
                     setIsRetirement(value)
+                    if (!value) setEndDate(null)
                 },
             },
             {
-                title: 'Второй день отдыха',
+                title: 'Второй день диспансеризации',
                 type: 'date',
-                value: secondDayOff.toISOString().substr(0, 10),
+                value: endDate,
+                onChange: (value) => {
+                    setWorkDate(value, setEndDate, workWeekDuration)
+                },
+                editable: !!startDate,
                 fieldName: 'extra_examination_date_2',
-                editable: false,
                 mask: true,
-                required: false,
+                required: !!isRetirement,
                 specialType: 'Compensation2',
                 maxValueLength: 1,
+                maxValueInput: '9999-12-31',
+                minValueInput: startDate ? getDelayInDays(1, startDate) : getDelayInDays(1),
             },
             {
                 title: '',

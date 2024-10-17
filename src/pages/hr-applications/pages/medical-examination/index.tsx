@@ -10,17 +10,21 @@ import React, { useEffect, useState } from 'react'
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
-import PageBlock from '@shared/ui/page-block'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
+import { hasKEDO, workWeeks } from '@pages/hr-applications/model/divisions'
+import { useUnit } from 'effector-react'
 
 const MedicalExamination = () => {
+    const workWeeksData = useUnit(workWeeks)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
+    const [endDate, setEndDate] = useState<string | null>(null)
     const [medicalExaminationDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
     const [jobTitle, setJobTitle] = useState<string | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
     const {
-        data: { dataUserApplication, dataWorkerApplication },
+        data: { dataUserApplication },
     } = applicationsModel.selectors.useApplications()
     const { loading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()
     const [specialFieldsName, setSpecialFieldsName] = useState<SpecialFieldsNameConfig>({})
@@ -28,56 +32,58 @@ const MedicalExamination = () => {
     const isDone = completed ?? false
 
     useEffect(() => {
-        if (!!dataUserApplication && !!dataWorkerApplication && !loading) {
+        if (!!dataUserApplication && !loading && workWeeksData) {
             setForm(
                 getForm(
                     dataUserApplication,
-                    dataWorkerApplication,
                     startDate,
                     setStartDate,
+                    endDate,
+                    setEndDate,
                     isRetirement,
                     setIsRetirement,
                     jobTitle,
                     setJobTitle,
                     jobGuid,
                     setJobGuid,
+                    workWeeksData,
                 ),
             )
         }
-    }, [dataUserApplication, loading, startDate, medicalExaminationDate, isRetirement])
+    }, [dataUserApplication, loading, startDate, endDate, medicalExaminationDate, isRetirement, workWeeksData, jobGuid])
     useEffect(() => {
         if (!!form && !!dataUserApplication) {
             setSpecialFieldsName(getCompensation(form.data as IInputAreaData[]))
         }
     }, [form])
 
+    const hasAccess = useUnit(hasKEDO)
+    if (!hasAccess) return <KedoError />
     return (
-        <PageBlock>
-            <BaseApplicationWrapper isDone={isDone}>
-                {!!form && !!setForm && (
-                    <FormBlock>
-                        <InputArea
-                            {...form}
-                            collapsed={isDone}
-                            setData={setForm as any}
-                            specialFieldsNameConfig={specialFieldsName}
-                        />
-                        <SubmitButton
-                            text={'Отправить'}
-                            action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
-                            isLoading={loading}
-                            completed={completed}
-                            setCompleted={setCompleted}
-                            repeatable={false}
-                            buttonSuccessText="Отправлено"
-                            isDone={isDone}
-                            isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
-                            alerts={false}
-                        />
-                    </FormBlock>
-                )}
-            </BaseApplicationWrapper>
-        </PageBlock>
+        <BaseApplicationWrapper isDone={isDone}>
+            {!!form && !!setForm && (
+                <FormBlock noHeader>
+                    <InputArea
+                        {...form}
+                        collapsed={isDone}
+                        setData={setForm}
+                        specialFieldsNameConfig={specialFieldsName}
+                    />
+                    <SubmitButton
+                        text={'Отправить'}
+                        action={() => SendHrFormMedicalExamination('', [form], setCompleted)}
+                        isLoading={loading}
+                        completed={completed}
+                        setCompleted={setCompleted}
+                        repeatable={false}
+                        buttonSuccessText="Отправлено"
+                        isDone={isDone}
+                        isActive={checkFormFields(form)}
+                        alerts={false}
+                    />
+                </FormBlock>
+            )}
+        </BaseApplicationWrapper>
     )
 }
 

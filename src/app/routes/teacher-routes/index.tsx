@@ -766,6 +766,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         backButtonText: 'Назад',
         subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_MEDICAL_EXAMINATION,
+        hiddenTitle: true,
     },
     'holiday-planning': {
         id: 'holiday-planning',
@@ -779,6 +780,7 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         isSubPage: true,
         backButtonText: 'Назад',
         fallbackPrevPage: BUFFER_HOLIDAY_PLANNING,
+        hiddenTitle: true,
     },
     'holiday-transfer': {
         id: 'holiday-transfer',

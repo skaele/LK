@@ -62,7 +62,7 @@ const MedicalExamination = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputArea
                         {...form}
                         collapsed={isDone}

@@ -71,7 +71,7 @@ const HolidayPlanning = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             {!!form && !!setForm && (
-                <FormBlock>
+                <FormBlock noHeader>
                     <InputAreaWrapper openArea={openArea}>
                         <AreaTitle
                             title={'График отпусков'}

@@ -3,7 +3,6 @@ import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
 import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
-import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
 import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 import { isProduction } from '@shared/constants'
@@ -199,7 +198,7 @@ const getForm = (
                     if (!!endDate && new Date(value).getTime() > new Date(endDate).getTime()) {
                         setEndDate(null)
                     }
-                    setWorkDate(value, setStartDate, workWeekDuration)
+                    setStartDate(value)
                 },
                 required: true,
                 minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 5, workWeekDuration),

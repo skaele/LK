@@ -167,7 +167,7 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
         visibleRoutes: getNewNotifications(
             page,
             typeof notifications === 'number'
-                ? notifications
+                ? (oldData.allRoutes ? oldData.allRoutes[page].notifications || 0 : 0) + notifications
                 : notifications(oldData.visibleRoutes?.[page].notifications ?? 0),
             oldData.visibleRoutes,
         ),

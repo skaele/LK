@@ -395,13 +395,12 @@ sample({
     target: $subordinates,
 })
 sample({
-    clock: [period.setStartDate, period.setEndDate],
-    source: {
-        startDate: period.startDate,
-        endDate: period.endDate,
-    },
-    fn: ({ startDate, endDate }) => ({ startDate, endDate }),
-    target: employees.setDates,
+    clock: period.setStartDate,
+    target: employees.setStartDate,
+})
+sample({
+    clock: period.setEndDate,
+    target: employees.setEndDate,
 })
 sample({
     clock: personalAllowancesMounted,
@@ -508,7 +507,8 @@ function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage 
 function createEmployeeField(reset: Unit<any>) {
     const addEmployee = createEvent<string>()
     const setEmployee = createEvent<Employee>()
-    const setDates = createEvent<{ startDate: string; endDate: string }>()
+    const setStartDate = createEvent<string>()
+    const setEndDate = createEvent<string>()
     const selectAll = createEvent<string[]>()
     const deselectAll = createEvent()
     const removeEmployee = createEvent<string>()
@@ -519,9 +519,13 @@ function createEmployeeField(reset: Unit<any>) {
     const $employees = createStore<Employee[]>([])
         .on(removeEmployee, (employees, id) => employees.filter((e) => e.id !== id))
         .on(setEmployee, (employees, employee) => {
+            if (new Date(employee.startDate) > new Date(employee.endDate)) {
+                return employees.map((e) => (e.id === employee.id ? { ...employee, endDate: '' } : e))
+            }
             return employees.map((e) => (e.id === employee.id ? employee : e))
         })
-        .on(setDates, (employees, { startDate, endDate }) => employees.map((e) => ({ ...e, startDate, endDate })))
+        .on(setStartDate, (employees, startDate) => employees.map((e) => ({ ...e, startDate })))
+        .on(setEndDate, (employees, endDate) => employees.map((e) => ({ ...e, endDate })))
         .reset([reset, deselectAll])
 
     sample({
@@ -546,7 +550,8 @@ function createEmployeeField(reset: Unit<any>) {
         setValue: setEmployee,
         addItem: addEmployee,
         removeItem: removeEmployee,
-        setDates,
+        setStartDate,
+        setEndDate,
         selectAll,
         deselectAll,
         allSelected,
@@ -563,6 +568,14 @@ function createDatePeriodField({ reset }: { reset?: Unit<any> }) {
         $startDate.reset(reset)
         $endDate.reset(reset)
     }
+
+    sample({
+        clock: setStartDate,
+        source: $endDate,
+        filter: (endDate, startDate) => new Date(startDate) > new Date(endDate),
+        fn: () => '',
+        target: $endDate,
+    })
 
     return {
         startDate: $startDate,

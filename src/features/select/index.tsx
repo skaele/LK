@@ -62,6 +62,7 @@ const Select = (props: SelectProps) => {
                     ) : withSearch ? (
                         <Input
                             inputAppearance={false}
+                            isActive={isActive}
                             value={searchQuery}
                             setValue={changeQuery}
                             onClear={clearQuery}

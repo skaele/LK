@@ -48,8 +48,19 @@ const fetchNotifications = createEffect(async ({ settings }: { settings: UserSet
 })
 
 const addNotificationsToPagesFx = createEffect(({ notifications }: { notifications: TNotification[] }) => {
-    notifications.forEach(({ pageId }) => {
-        if (pageId) menuModel.events.changeNotifications({ page: pageId, notifications: 1 })
+    notifications.forEach(({ pageId, text }) => {
+        if (pageId) {
+            if (pageId === 'chat') {
+                menuModel.events.changeNotifications({
+                    page: pageId,
+                    notifications: Number(text.split(' (')[1].split(')')[0]),
+                })
+            } else
+                menuModel.events.changeNotifications({
+                    page: pageId,
+                    notifications: 1,
+                })
+        }
     })
 })
 

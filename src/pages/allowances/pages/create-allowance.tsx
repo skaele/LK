@@ -197,7 +197,8 @@ function Employees() {
         const searched = initialFiltered.filter(
             (subordinate) =>
                 subordinate.employeeName.toLowerCase().includes(query) ||
-                subordinate.divisionName.toLowerCase().includes(query),
+                subordinate.divisionName.toLowerCase().includes(query) ||
+                subordinate.position.toLowerCase().includes(query),
         )
         return searched
     }, [subordinates, job, searchValue, onlyChecked, employees])

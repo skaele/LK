@@ -9,7 +9,7 @@ import { useUnit } from 'effector-react'
 import React from 'react'
 
 export const EmployeeInput = ({
-    subordinate: { employeeId, employeeName, divisionName },
+    subordinate: { employeeId, employeeName, divisionName, position, employmentType, rate },
 }: {
     subordinate: Subordnate
 }) => {
@@ -18,7 +18,14 @@ export const EmployeeInput = ({
     const isActive = !!employee
 
     return (
-        <Flex gap="0.5rem">
+        <Flex
+            gap="0.5rem"
+            onClick={() => (isActive ? removeItem(employeeId) : addItem(employeeId))}
+            cursor="pointer"
+            brad="0.5rem"
+            hoverBackground="var(--theme-5)"
+            p="0.5rem"
+        >
             <Checkbox
                 checked={!!employee}
                 setChecked={(value) => (value ? addItem(employeeId) : removeItem(employeeId))}
@@ -28,8 +35,19 @@ export const EmployeeInput = ({
                     {employeeName}
                 </Title>
                 <Subtext>{divisionName}</Subtext>
+                <Subtext>{position}</Subtext>
+                <Subtext>
+                    {employmentType}
+                    {rate && ` (ставка: ${rate})`}
+                </Subtext>
                 {isActive && (
-                    <Flex jc="space-between" ai="flex-end" gap="0.5rem">
+                    <Flex
+                        jc="space-between"
+                        ai="flex-end"
+                        gap="0.5rem"
+                        onClick={(e) => e.stopPropagation()}
+                        cursor="auto"
+                    >
                         <Input
                             title="Сумма"
                             value={employee?.sum || ''}

@@ -89,9 +89,12 @@ export type Employee = {
 }
 
 export type Subordnate = {
-    divisionName: string
     employeeId: string
+    divisionName: string
     employeeName: string
+    position: string
+    rate: string
+    employmentType: string
 }
 
 export type Role = 'Initiator' | 'Approver'

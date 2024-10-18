@@ -1,5 +1,5 @@
 import { Input, Title } from '@ui/atoms'
-import React, { memo } from 'react'
+import React, { memo, useRef } from 'react'
 import { FiCheck, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import useSelect, { SelectProps } from './lib/hooks/use-select'
 import { SelectArrow, SelectHeader, SelectHeaderWrapper, SelectItem, SelectItems, SelectWrapper } from './ui/atoms'
@@ -30,7 +30,7 @@ const Select = (props: SelectProps) => {
         clearQuery,
     } = useSelect(props)
     const { isActive, width, title, required, selected, placeholder, size = 'middle', withSearch } = props
-
+    const inputRef = useRef<HTMLInputElement>(null)
     return (
         <SelectWrapper
             onClick={handleOpen}
@@ -61,11 +61,15 @@ const Select = (props: SelectProps) => {
                         )
                     ) : withSearch ? (
                         <Input
+                            ref={inputRef}
                             inputAppearance={false}
                             isActive={isActive}
                             value={searchQuery}
                             setValue={changeQuery}
-                            onClear={clearQuery}
+                            onClear={() => {
+                                inputRef.current?.focus()
+                                clearQuery()
+                            }}
                             placeholder={placeholder}
                         />
                     ) : (

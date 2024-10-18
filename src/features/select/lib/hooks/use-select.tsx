@@ -111,7 +111,6 @@ const useSelect = (props: SelectProps) => {
 
     const clearQuery = useCallback(() => {
         setSelected(null)
-        setSearchQuery('')
         setIsOpen(false)
     }, [])
     const changeQuery = useCallback((value: string) => {
@@ -119,6 +118,11 @@ const useSelect = (props: SelectProps) => {
         setSearchQuery(value)
         setIsOpen(true)
     }, [])
+
+    useEffect(() => {
+        if (!multiple) setSearchQuery(!selected ? '' : (selected as SelectPage).title)
+    }, [selected])
+
     return {
         handleOpen,
         refElement,

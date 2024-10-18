@@ -34,6 +34,7 @@ const Checkbox = ({
             fontSize={fontSize}
             isActive={isActive}
             className="checkbox"
+            onClick={(e) => e.stopPropagation()}
         >
             <input className="checkbox" type="checkbox" checked={checked} onChange={handleChange} />
             <CheckboxSquare tabIndex={0} className="checkbox-square">

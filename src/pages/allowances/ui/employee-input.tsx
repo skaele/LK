@@ -25,11 +25,9 @@ export const EmployeeInput = ({
             brad="0.5rem"
             hoverBackground="var(--theme-5)"
             p="0.5rem"
+            ai="flex-start"
         >
-            <Checkbox
-                checked={!!employee}
-                setChecked={(value) => (value ? addItem(employeeId) : removeItem(employeeId))}
-            />
+            <Checkbox checked={isActive} setChecked={() => (isActive ? removeItem(employeeId) : addItem(employeeId))} />
             <Flex gap="0.5rem" d="column" ai="flex-start">
                 <Title align="left" size={4}>
                     {employeeName}

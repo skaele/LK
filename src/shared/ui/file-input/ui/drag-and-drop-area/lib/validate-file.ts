@@ -1,7 +1,11 @@
-import { FileFormats, VALID_FORMATS } from '@shared/constants'
+import { FileFormat, FileFormats, VALID_FORMATS } from '@shared/constants'
 
 const validateFile = (file: File, allowedTypes?: FileFormats) => {
-    return (allowedTypes ?? VALID_FORMATS).indexOf(file.type as FileFormats[number]) !== -1
+    return (
+        (allowedTypes?.map((type) => VALID_FORMATS[type]) ?? Object.values(VALID_FORMATS)).indexOf(
+            file.type as FileFormat,
+        ) !== -1
+    )
 }
 
 export default validateFile

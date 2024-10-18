@@ -10,6 +10,8 @@ import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_C
 import { combine, createEvent, createStore, sample } from 'effector'
 import { useUnit } from 'effector-react'
 import findRoutesByConfig from '../lib/find-routes-by-config'
+import { Role } from '@entities/allowances/types'
+import { allowancesModel } from '@entities/allowances'
 
 export interface Menu {
     allRoutes: IRoutes | null
@@ -62,7 +64,12 @@ const useMenu = () => {
 
 const changeOpen = createEvent<{ isOpen: boolean; currentPage?: string }>()
 const clearStore = createEvent()
-const defineMenu = createEvent<{ user: User | null; adminLinks: AdminLinks | null; homeRoutes?: string[] }>()
+const defineMenu = createEvent<{
+    user: User | null
+    adminLinks: AdminLinks | null
+    homeRoutes?: string[]
+    allowancesRoles: Role[]
+}>()
 const changeNotifications = createEvent<{ page: string; notifications: ((prev: number) => number) | number }>()
 
 const getNewNotifications = (page: string, notifications: number, routes: IRoutes | null) => {
@@ -73,9 +80,9 @@ const getNewNotifications = (page: string, notifications: number, routes: IRoute
     return newRoutes
 }
 
-const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => {
+const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null, allowancesRoles: Role[]): IRoutes => {
     if (!adminLinks) {
-        return teachersPrivateRoutes()
+        return teachersPrivateRoutes({ allowancesRoles })
     }
 
     const { accepts, agreements, checkdata, studLogins } = adminLinks
@@ -83,11 +90,9 @@ const filterTeachersPrivateRoutes = (adminLinks: AdminLinks | null): IRoutes => 
     const hasAdminLinks = !!accepts.length || !!agreements.length || !!checkdata.length || !!studLogins?.length
 
     const adminRoute = 'download-agreements'
-
-    const filteredRoutes = Object.entries(teachersPrivateRoutes()).filter(
+    const filteredRoutes = Object.entries(teachersPrivateRoutes({ allowancesRoles })).filter(
         ([key]) => key !== adminRoute || (key === adminRoute && hasAdminLinks),
     )
-
     return Object.fromEntries(filteredRoutes)
 }
 
@@ -95,13 +100,17 @@ const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    (user, settings, adminLinks) => {
+    allowancesModel.stores.roles,
+    (user, settings, adminLinks, allowancesRoles) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
             getLeftsideBarConfig(user.currentUser, settings!, adminLinks.data),
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? {
+                      ...filterTeachersPrivateRoutes(adminLinks.data, allowancesRoles),
+                      ...teachersHiddenRoutes({ allowancesRoles }),
+                  }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -111,13 +120,17 @@ const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    (user, settings, adminLinks) => {
+    allowancesModel.stores.roles,
+    (user, settings, adminLinks, allowancesRoles) => {
         if (!user || !settings) return null
 
         return findRoutesByConfig(
             settings?.homePage.pages ?? DEFAULT_HOME_CONFIG,
             user.currentUser?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks.data), ...teachersHiddenRoutes() }
+                ? {
+                      ...filterTeachersPrivateRoutes(adminLinks.data, allowancesRoles),
+                      ...teachersHiddenRoutes({ allowancesRoles }),
+                  }
                 : { ...privateRoutes(), ...hiddenRoutes(user.currentUser) },
         )
     },
@@ -128,14 +141,16 @@ sample({
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
+        allowancesRoles: allowancesModel.stores.roles,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore.currentUser)
     },
-    fn: ({ settings, adminLinks, userStore }) => ({
+    fn: ({ settings, adminLinks, userStore, allowancesRoles }) => ({
         homeRoutes: settings!.homePage.pages,
         user: userStore.currentUser!,
         adminLinks: adminLinks.data!,
+        allowancesRoles: allowancesRoles,
     }),
     target: defineMenu,
 })
@@ -150,17 +165,23 @@ const $menu = createStore<Menu>(DEFAULT_STORE)
     .on(clearStore, () => ({
         ...DEFAULT_STORE,
     }))
-    .on(defineMenu, (oldData, { user, adminLinks }) => ({
+    .on(defineMenu, (oldData, { user, adminLinks, allowancesRoles }) => ({
         ...oldData,
         currentPage:
             user?.user_status === 'staff'
-                ? filterTeachersPrivateRoutes(adminLinks)[window.location.hash.slice(2, window.location.hash.length)]
+                ? filterTeachersPrivateRoutes(adminLinks, allowancesRoles)[
+                      window.location.hash.slice(2, window.location.hash.length)
+                  ]
                 : privateRoutes()[window.location.hash.slice(2, window.location.hash.length)],
         allRoutes:
             user?.user_status === 'staff'
-                ? { ...filterTeachersPrivateRoutes(adminLinks), ...teachersHiddenRoutes() }
+                ? {
+                      ...filterTeachersPrivateRoutes(adminLinks, allowancesRoles),
+                      ...teachersHiddenRoutes({ allowancesRoles }),
+                  }
                 : { ...privateRoutes(), ...hiddenRoutes(user) },
-        visibleRoutes: user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks) : privateRoutes(),
+        visibleRoutes:
+            user?.user_status === 'staff' ? filterTeachersPrivateRoutes(adminLinks, allowancesRoles) : privateRoutes(),
     }))
     .on(changeNotifications, (oldData, { page, notifications }) => ({
         ...oldData,

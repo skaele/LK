@@ -8,6 +8,7 @@ const Subtext = styled.span<{
     fontSize?: string
     align?: Align
     lineHeight?: string
+    color?: string
 }>`
     width: ${({ width }) => width ?? 'fit-content'};
     min-width: ${({ width }) => width ?? 'fit-content'};
@@ -16,6 +17,7 @@ const Subtext = styled.span<{
     font-weight: 500;
     opacity: 0.7;
     text-align: ${({ align }) => align ?? 'left'};
+    color: ${({ color }) => color};
     display: ${({ visible }) => !(visible ?? true) && 'none'};
     line-height: ${({ lineHeight }) => lineHeight};
     word-wrap: break-word;

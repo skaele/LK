@@ -2,10 +2,10 @@ import Subtext from '@shared/ui/subtext'
 import { FileInputProps } from '@ui/file-input'
 import React, { useRef, useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
-import getFormatName from './lib/get-format-name'
 import loadFiles from './lib/load-files'
 import DragAndDropAreaWrapper from './style'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import { DEFAULT_FILE_FORMATS } from '../../consts'
 
 type Props = FileInputProps
 
@@ -54,7 +54,14 @@ const DragAndDropArea = ({ files, maxFiles, setFiles, isActive, formats, maxFile
             onDrop={(e) => isActive && handleDrop(e)}
             topPadding={!!maxFiles}
         >
-            <input type="file" name="" id="" ref={fileInputRef} onChange={filesSelectedHandle} />
+            <input
+                type="file"
+                name=""
+                id=""
+                ref={fileInputRef}
+                onChange={filesSelectedHandle}
+                accept={formats?.map((format) => `.${format}`).join(', ')}
+            />
             <div className="message">
                 <FcFolder className="front-icon" />
                 <div className="icons-behind">
@@ -65,7 +72,7 @@ const DragAndDropArea = ({ files, maxFiles, setFiles, isActive, formats, maxFile
                 <Subtext align="center">
                     <DotSeparatedWords
                         words={[
-                            `Форматы: ${!formats ? 'jpg, png, pdf' : formats.map((t) => getFormatName(t)).join(', ')}`,
+                            `Форматы: ${!formats ? DEFAULT_FILE_FORMATS : formats.join(', ')}`,
                             !!maxFiles ? `Макс. файлов: ${maxFiles}` : '',
                         ]}
                     />

@@ -27,7 +27,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
         <CardWrapper>
             <Info>
                 <Title align="left" size={3}>
-                    {allowance.position}, {allowance.paymentIdentifier}
+                    {allowance.paymentIdentifier}, {allowance.position}
                 </Title>
                 {!!allowance.toConfirmDaysLeft && (
                     <Subtext fontSize="1em" color="var(--redMain)">

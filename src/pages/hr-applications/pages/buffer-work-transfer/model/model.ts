@@ -1,32 +1,31 @@
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
 import { BufferWorkTransfer, BufferWorkTransferForm, BufferWorkTransferHistories } from '../types'
+import { $hrApi } from '@shared/api/config/personnel-orders-config'
 
 const loadBufferWorkTransfer = createEvent()
 const sendBufferWorkTransfer = createEvent<BufferWorkTransferForm>()
 
 const loadBufferWorkTransferFx = createEffect(async () => {
     const { data } = await $hrApi.get<BufferWorkTransfer>(
-        `AnotherPlaceWork.GetAllHistory?PersonalGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
+        `AnotherWorkPosition.GetAllHistory?PersonalGuid=${parseJwt(getJwtToken() ?? '').IndividualGuid}`,
     )
     return data.employeeHistories
 })
 sample({ clock: loadBufferWorkTransfer, target: loadBufferWorkTransferFx })
 
 const sendBufferWorkTransferFx = createEffect(async (data: BufferWorkTransferForm) => {
-    const result = await $hrApi.post<BufferWorkTransfer>('AnotherPlaceWork.AddAnotherPlaceOfWork', data)
+    const result = await $hrApi.post<BufferWorkTransfer>('AnotherWorkPosition.AddAnotherPlaceOfWork', data)
 
     return result.data
 })
 
 sample({ clock: sendBufferWorkTransfer, target: sendBufferWorkTransferFx })
 
-const $bufferWorkTransferOrders = createStore<BufferWorkTransferHistories[]>([])
-const $bufferWorkTransferLoading = sendBufferWorkTransferFx.pending
+const $bufferWorkTransferOrders = createStore<BufferWorkTransferHistories[] | null>(null)
 
 sample({ clock: loadBufferWorkTransferFx.doneData, target: $bufferWorkTransferOrders })
 sample({
@@ -70,11 +69,13 @@ export const events = {
 }
 
 export const effects = {
+    loadBufferWorkTransferFx,
     sendBufferWorkTransferFx,
 }
 export const selectors = {
     useBufferWorkTransfer: () => ({
         data: useStore($bufferWorkTransferOrders),
-        loading: useStore($bufferWorkTransferLoading),
+        loading: useStore(sendBufferWorkTransferFx.pending),
+        getDataLoading: useStore(loadBufferWorkTransferFx.pending),
     }),
 }

@@ -62,7 +62,7 @@ export const globalPrepareFormData = (
     return result
 }
 
-const createResultElementForm = (elementForm: IInputAreaData) => {
+export const createResultElementForm = (elementForm: IInputAreaData) => {
     const obj: IndexedProperties = {}
 
     obj[elementForm?.fieldName ?? ''] = getValueElementForm(elementForm)

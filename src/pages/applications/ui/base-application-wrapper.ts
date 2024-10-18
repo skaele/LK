@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
-const BaseApplicationWrapper = styled.div<{ isDone: boolean }>`
+const BaseApplicationWrapper = styled.div<{ isDone: boolean; flexDirection?: 'row' | 'column' }>`
     display: flex;
+    flex-direction: ${({ flexDirection }) => flexDirection};
     align-items: ${({ isDone }) => (isDone ? 'center' : 'flex-start')};
     justify-content: center;
     width: 100%;

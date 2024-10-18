@@ -2,7 +2,6 @@ import { LOGIN_ROUTE, publicRoutes } from '@app/routes/general-routes'
 import { adminLinksModel } from '@entities/admin-links'
 import { applicationsModel } from '@entities/applications'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { loadDivisions } from '@pages/hr-applications/model/divisions'
 import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
@@ -11,6 +10,7 @@ import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
 import { initializeTutorials } from '@entities/tutorial/lib/initialize'
 import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
+import { hrPageMounted } from '@pages/hr-applications/model/divisions'
 
 const Router = () => {
     const {
@@ -35,10 +35,11 @@ const Router = () => {
                 initializeTutorials()
             }
             if (user?.user_status === 'staff') {
+                hrPageMounted()
                 adminLinksModel.effects.getFx()
-                applicationsModel.effects.getWorkerPosts()
+                // applicationsModel.effects.getWorkerPosts()
                 phonebookModel.events.getSubdivisions()
-                loadDivisions()
+                // loadDivisions()
             }
             peTeacherModel.events.load()
         }

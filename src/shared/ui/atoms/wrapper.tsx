@@ -13,6 +13,7 @@ const WrapperBlock = styled.div.withConfig({
     width: 100%;
     padding: 10px;
     height: 100%;
+    position: relative;
 
     .loading {
         width: 100%;

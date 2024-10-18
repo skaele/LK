@@ -16,13 +16,14 @@ import { Calendars } from '@features/vacation-schedule/ui/templates/calendars'
 import { KedoError } from '@pages/hr-applications/ui/kedo-error'
 import { hasKEDO, workWeeks } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
+import { SelectPage } from '@features/select'
 
 const HolidayPlanning = () => {
     const workWeeksData = useUnit(workWeeks)
     const [form, setForm] = useState<IInputArea | null>(null)
     const [startDate, setStartDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
-    const [jobTitle, setJobTitle] = useState<string | null>(null)
+    const [jobTitle, setJobTitle] = useState<SelectPage | null>(null)
     const [endDate, setEndDate] = useState<string | null>(null)
     const [collType, setCollType] = useState<string | null>(null)
     const [holidayType, setHolidayType] = useState<string | null>(null)

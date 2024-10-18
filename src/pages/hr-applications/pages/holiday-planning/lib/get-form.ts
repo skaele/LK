@@ -1,5 +1,6 @@
 import { UserApplication } from '@api/model'
 import { getFormattedSubDivisionsWithRate } from '@features/applications/lib/get-subdivisions'
+import { SelectPage } from '@features/select'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
 import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
@@ -49,8 +50,8 @@ const getForm = (
     holidayType: any,
     setHolidayType: React.Dispatch<React.SetStateAction<string | null>>,
     jobGuid: string | null,
-    jobTitle: string | null,
-    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    jobTitle: SelectPage | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<SelectPage | null>>,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
     workWeeks: WorkWeeks,
 ): IInputArea => {
@@ -58,10 +59,9 @@ const getForm = (
     const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
     const holidayStartDate = startDate ?? new Date().toISOString()
     const collTypeData = collType ?? ''
-    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
+    const jobGuidData = jobGuid ?? ((jobTitleData && jobTitleData.id)?.toString() || '')
     const workWeekDuration = getWorkWeekDuration(workWeeks, jobGuidData) || 6
 
-    holidayType?.id === 2 ? undefined : getDelayInDays(collType ? +collType.data : 365, holidayStartDate)
     return {
         title: 'Заявление о предоставлении отпуска',
         data: [
@@ -76,7 +76,7 @@ const getForm = (
                 title: 'Подразделение/должность',
                 value: jobTitleData,
                 fieldName: 'guid_staff',
-                editable: true,
+                editable: subdivisions && subdivisions.length > 1,
                 width: '100',
                 required: true,
                 type: 'select',
@@ -100,7 +100,7 @@ const getForm = (
                     if (
                         !!startDate &&
                         new Date(startDate).getTime() <
-                            new Date(getDelayInWorkDays(value?.id === 2 ? 0 : 5, workWeekDuration)).getTime()
+                            new Date(getDelayInWorkDays(value?.id === 0 ? 5 : 0, workWeekDuration)).getTime()
                     ) {
                         setStartDate(null)
                         setEndDate(null)
@@ -108,7 +108,7 @@ const getForm = (
                     if (
                         !!endDate &&
                         new Date(endDate).getTime() <
-                            new Date(getDelayInDays(value?.id === 2 ? 0 : 1, holidayStartDate)).getTime()
+                            new Date(getDelayInDays(value?.id === 0 ? 1 : 0, holidayStartDate)).getTime()
                     ) {
                         setEndDate(null)
                     }
@@ -192,7 +192,7 @@ const getForm = (
                 type: 'date',
                 value: startDate,
                 fieldName: 'holiday_start',
-                editable: !!jobGuid,
+                editable: !!jobGuidData,
                 mask: true,
                 onChange: (value) => {
                     if (!!endDate && new Date(value).getTime() > new Date(endDate).getTime()) {
@@ -201,7 +201,7 @@ const getForm = (
                     setStartDate(value)
                 },
                 required: true,
-                minValueInput: getDelayInWorkDays(holidayType?.id === 2 ? 0 : 5, workWeekDuration),
+                minValueInput: getDelayInWorkDays(holidayType?.id === 0 ? 5 : 0, workWeekDuration),
                 maxValueInput: '9999-12-31',
             },
             {
@@ -222,7 +222,7 @@ const getForm = (
                 onChange: (value) => {
                     setEndDate(value)
                 },
-                minValueInput: getDelayInDays(holidayType?.id === 2 ? 0 : 1, holidayStartDate),
+                minValueInput: getDelayInDays(holidayType?.id === 0 ? 1 : 0, holidayStartDate),
                 maxValueInput: getDelayInDays(collType ? +collType.data : 365, holidayStartDate),
             },
         ],

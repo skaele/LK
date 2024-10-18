@@ -13,6 +13,7 @@ import getForm from './lib/get-form'
 import { KedoError } from '@pages/hr-applications/ui/kedo-error'
 import { hasKEDO, workWeeks } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
+import { SelectPage } from '@features/select'
 
 const MedicalExamination = () => {
     const workWeeksData = useUnit(workWeeks)
@@ -21,7 +22,7 @@ const MedicalExamination = () => {
     const [endDate, setEndDate] = useState<string | null>(null)
     const [medicalExaminationDate] = useState<string | null>(null)
     const [jobGuid, setJobGuid] = useState<string | null>(null)
-    const [jobTitle, setJobTitle] = useState<string | null>(null)
+    const [jobTitle, setJobTitle] = useState<SelectPage | null>(null)
     const [isRetirement, setIsRetirement] = useState<string | null>(null)
     const {
         data: { dataUserApplication },

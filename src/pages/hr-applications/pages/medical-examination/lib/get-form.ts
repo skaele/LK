@@ -7,6 +7,7 @@ import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-defa
 import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
 import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
+import { SelectPage } from '@features/select'
 
 const getForm = (
     dataUserApplication: UserApplication,
@@ -16,16 +17,16 @@ const getForm = (
     setEndDate: React.Dispatch<React.SetStateAction<string | null>>,
     isRetirement: string | null,
     setIsRetirement: React.Dispatch<React.SetStateAction<string | null>>,
-    jobTitle: string | null,
-    setJobTitle: React.Dispatch<React.SetStateAction<string | null>>,
+    jobTitle: SelectPage | null,
+    setJobTitle: React.Dispatch<React.SetStateAction<SelectPage | null>>,
     jobGuid: string | null,
     setJobGuid: React.Dispatch<React.SetStateAction<string | null>>,
     workWeeks: WorkWeeks,
 ): IInputArea => {
     const { surname, name, patronymic, subdivisions } = dataUserApplication
     const firstDayOff = !!startDate ? new Date(startDate) : new Date()
-    const jobGuidData = jobGuid ?? (getDefaultSubdivision(subdivisions)?.id || '')
     const jobTitleData = jobTitle ?? getDefaultSubdivision(subdivisions)
+    const jobGuidData = jobGuid ?? ((jobTitleData && jobTitleData.id?.toString()) || '')
     const secondDayOff = new Date(firstDayOff.getTime() + 24 * 60 * 60 * 1000)
     const isTutor = getIsTutor(jobGuidData) === 'true' ? true : false
 
@@ -51,7 +52,7 @@ const getForm = (
                 title: 'Подразделение/должность',
                 value: jobTitleData,
                 fieldName: 'guid_staff',
-                editable: true,
+                editable: subdivisions && subdivisions.length > 1,
                 width: '100',
                 required: true,
                 type: 'select',

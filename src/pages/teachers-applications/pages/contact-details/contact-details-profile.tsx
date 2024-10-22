@@ -10,11 +10,16 @@ import { FiMail, FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
 import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
+import { Message } from '@shared/ui/atoms'
 
 export const ContactDetailsProfile = ({ user }: { user: User }) => {
     const history = useHistory()
     return (
-        <Flex d="column">
+        <Flex d="column" gap="1rem">
+            <Message type="info">
+                Корпоративную электронную почту и внутренний телефон можно изменить, отправив запрос в техническую
+                поддержку.
+            </Message>
             {user.subdivisions?.map((subdiv, index) => (
                 <Flex d="column" gap="8px" key={index} ai="flex-start">
                     <Title align="left" size={3}>

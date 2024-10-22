@@ -16,7 +16,7 @@ const UserInfo = ({ pages, currentPage }: Props) => {
     if (!user) return null
 
     return (
-        <CenterPage>
+        <CenterPage padding="0 0 10px 0">
             <Block height="100%" noAppearanceInMobile maxWidth="750px">
                 {pages[currentPage]}
             </Block>

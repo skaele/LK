@@ -33,6 +33,7 @@ const selectorData = [
     { id: 'SMG', title: 'СМГ' },
     { id: 'TableTennis', title: 'СМГ настольный теннис' },
     { id: 'NordicWalking', title: 'СМГ скандинавская ходьба' },
+    { id: 'InternalTeam', title: 'Сборная' },
 ]
 
 const specializationToSelector: Record<Specialization, (typeof selectorData)[number]> = {
@@ -48,6 +49,7 @@ const specializationToSelector: Record<Specialization, (typeof selectorData)[num
     SMG: selectorData[9],
     TableTennis: selectorData[10],
     NordicWalking: selectorData[11],
+    InternalTeam: selectorData[12],
 }
 
 export const SetPEStudentSpecialization = ({ studentGuid, specialization: currentSpecialization }: Props) => {

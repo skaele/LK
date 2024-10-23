@@ -6,7 +6,7 @@ export const healthGroupToTitle: Record<HealthGroup, string> = {
     None: '-',
     Basic: 'Основная',
     SpecialA: 'Специальная А',
-    SpecialB: 'Специальная А',
+    SpecialB: 'Специальная Б',
     Preparatory: 'Подготовительная',
     HealthLimitations: 'ОВЗ',
     Disabled: 'Инвалид',
@@ -25,6 +25,7 @@ export type Specialization =
     | 'SMG'
     | 'TableTennis'
     | 'NordicWalking'
+    | 'InternalTeam'
 
 export const specializationToTitle: Record<Specialization, string> = {
     None: '-',
@@ -39,6 +40,7 @@ export const specializationToTitle: Record<Specialization, string> = {
     SMG: 'СМГ',
     TableTennis: 'СМГ настольный теннис',
     NordicWalking: 'СМГ скандинавская ходьба',
+    InternalTeam: 'Сборная',
 }
 
 export interface PEStudent {

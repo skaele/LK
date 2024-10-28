@@ -22,4 +22,6 @@ export interface AcadPerformance {
     name: string
     teacher: string
     ticket_num: string
+    year: string
+    semestr: string
 }

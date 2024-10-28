@@ -34,3 +34,18 @@ export function prepareData(data: AcadPerformance[]): PreparedAcadPerformanceDat
 
     return result
 }
+
+export function getAcademicYear(enterYear: number, selectedSemester: number) {
+    const desiredYearStart = enterYear + Math.floor((selectedSemester - 1) / 2)
+    return `${desiredYearStart}/${desiredYearStart + 1}`
+}
+
+export function getCurrentData(data: AcadPerformance[], enterYear: number, semestr: number) {
+    if (semestr === -1) {
+        return data.filter((subject) => {
+            return subject?.year === getAcademicYear(enterYear, Number(subject.semestr))
+        })
+    }
+
+    return data?.filter((subject) => subject?.year === getAcademicYear(enterYear, semestr))
+}

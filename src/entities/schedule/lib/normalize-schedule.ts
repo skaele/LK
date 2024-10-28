@@ -36,18 +36,18 @@ export const normalizeSchedule = (
     }
 
     const week: IWeekEventSchedule = { ...EMPTY_WEEK }
-    const currentDay = new Date()
-        .toLocaleDateString('en-EN', {
-            weekday: 'long',
-        })
-        .toLocaleLowerCase() as IWeekDayNames
-
-    const today = week[currentDay]
 
     const semestr = isCorrespondenceSchedule(rawSchedule)
         ? getCorrespondenceSchedule(rawSchedule)
         : getSemestrSchedule(rawSchedule, week)
     const session = normalizeSessionSchedule(rawSessionSchedule)
+
+    const currentDay = new Date()
+        .toLocaleDateString('en-EN', {
+            weekday: 'long',
+        })
+        .toLocaleLowerCase() as IWeekDayNames
+    const today = week[currentDay]
     return {
         schedule: {
             today,

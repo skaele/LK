@@ -87,17 +87,18 @@ export const changeStaffPhoneApi = async (data: PhoneSettingsType) => {
     })
 }
 
-export const changeStaffAddressApi = async (data: LocationSettingsType) => {
+export const changeStaffAddressApi = async (req: LocationSettingsType) => {
     const formData = new FormData()
     formData.set('token', getToken())
-    formData.set('guid', data.guid_staff)
-    formData.set('room', data.room)
-    formData.set('address', data.address)
-    return $api.post(`?changeStaffAddress=1`, formData, {
+    formData.set('guid', req.guid_staff)
+    formData.set('room', req.room)
+    formData.set('address', req.address)
+    const { data } = await $api.post(`?changeStaffAddress=1`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     })
+    if (data.result !== 'ok') throw new Error()
 }
 
 export const refreshAccessToken = async (refreshToken: string) => {

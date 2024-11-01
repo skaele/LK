@@ -32,10 +32,7 @@ export const getMedicalExaminationHistoryColumns = (jobs: SelectPage[]): ColumnP
                                 ? 'success'
                                 : title === 'На регистрации'
                                 ? 'info'
-                                : title === 'Не утвержден' ||
-                                  title === 'Не создано' ||
-                                  title === 'На доработку' ||
-                                  value === 'Отменён'
+                                : title === 'Не утвержден' || value === 'Отменён'
                                 ? 'failure'
                                 : 'alert'
                         }

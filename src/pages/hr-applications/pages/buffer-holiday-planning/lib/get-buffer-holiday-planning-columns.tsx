@@ -31,7 +31,7 @@ export const getBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps
                                 ? 'success'
                                 : title === 'На регистрации'
                                 ? 'info'
-                                : title === 'Не утвержден' || title === 'Не создано' || title === 'На доработку'
+                                : title === 'Не утвержден' || value === 'Отменён'
                                 ? 'failure'
                                 : 'alert'
                         }

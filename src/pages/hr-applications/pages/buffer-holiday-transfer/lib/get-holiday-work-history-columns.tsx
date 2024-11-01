@@ -27,7 +27,7 @@ const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
                     type={
                         value === 'Согласовано'
                             ? 'success'
-                            : value === 'Не согласовано' || value === 'Не создано'
+                            : value === 'Не согласовано' || value === 'Не создано' || value === 'Отменён'
                             ? 'failure'
                             : 'alert'
                     }

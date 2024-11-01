@@ -33,7 +33,7 @@ const Content = () => {
                 if (
                     item.orderStatus === 'Не утвержден' ||
                     item.orderStatus === 'На регистрации' ||
-                    differenceInDays(currentDate, new Date(item.signedDate)) < 8
+                    differenceInDays(currentDate, new Date(item.signedDate)) < 62
                 ) {
                     acc.active.push(item)
                 } else {

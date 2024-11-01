@@ -1,5 +1,5 @@
 import localizeDate from '@shared/lib/dates/localize-date'
-import { WorkWeek } from '../types/hr-applications'
+import { WorkWeek } from '../types'
 
 const DAYS_IN_WEEK = 7
 

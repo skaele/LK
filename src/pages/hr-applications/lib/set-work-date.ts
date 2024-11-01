@@ -1,5 +1,5 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { WorkWeek } from '../types/hr-applications'
+import { WorkWeek } from '../types'
 
 export const setWorkDate = (date: string, setDate: (date: string) => void, workWeek: WorkWeek) => {
     const dayOfWeek = new Date(date).getDay()

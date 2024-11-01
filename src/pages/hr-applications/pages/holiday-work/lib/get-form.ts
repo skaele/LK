@@ -1,12 +1,8 @@
 import { IInputArea } from '@ui/input-area/model'
-import { UserApplication, WorkerApplication } from '@api/model'
+import { UserApplication } from '@api/model'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 
-const getForm = (
-    dataUserApplication: UserApplication,
-    dataWorkerApplication: WorkerApplication[],
-    currentIndex: number,
-): IInputArea => {
+const getForm = (dataUserApplication: UserApplication): IInputArea => {
     const { surname, name, patronymic } = dataUserApplication
     return {
         title: 'Заявление о привлечении к работе в выходной день',
@@ -18,20 +14,23 @@ const getForm = (
                 fieldName: 'fio',
                 visible: true,
             },
-            {
-                title: 'Должность',
-                type: 'simple-text',
-                fieldName: 'post',
-                value: dataWorkerApplication[currentIndex].jobTitle.toString(),
-                visible: true,
-            },
-            {
-                title: 'Подразделение',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].subDivision.toString(),
-                fieldName: 'subDivision',
-                visible: true,
-            },
+            // {
+            //     title: 'Подразделение/должность',
+            //     value: jobTitleData,
+            //     fieldName: 'guid_staff',
+            //     editable: subdivisions && subdivisions.length > 1,
+            //     width: '100',
+            //     required: true,
+            //     type: 'select',
+            //     items: getFormattedSubDivisions(subdivisions),
+            //     isSpecificSelect: true,
+            //     onChange: (value) => {
+            //         setJobTitle(value)
+            //         setJobGuid(value.id)
+            //         setStartDate(null)
+            //         setEndDate(null)
+            //     },
+            // },
             {
                 title: 'Дата привлечения к работе',
                 type: 'date',
@@ -42,18 +41,6 @@ const getForm = (
                 required: true,
                 minValueInput: getDelayInDays(0),
             },
-            // {
-            //     title: 'Количество часов',
-            //     type: 'number',
-            //     value: null,
-            //     fieldName: 'holiday_work_hours',
-            //     editable: true,
-            //     mask: true,
-            //     required: true,
-            //     minValueInput: 1,
-            //     maxValueInput: 8,
-            //     step: 1,
-            // },
             {
                 title: 'Количество часов',
                 type: 'select',
@@ -134,13 +121,13 @@ const getForm = (
                 required: false,
                 specialType: 'Compensation',
             },
-            {
-                title: '',
-                type: 'simple-text',
-                value: dataWorkerApplication[currentIndex].jobGuid.toString(),
-                fieldName: 'jobGuid',
-                visible: false,
-            },
+            // {
+            //     title: '',
+            //     type: 'simple-text',
+            //     value: jobGuidData,
+            //     fieldName: 'jobGuid',
+            //     visible: false,
+            // },
         ],
     }
 }

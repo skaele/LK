@@ -17,6 +17,9 @@ const Flex = styled.div<{
     p?: string
     m?: string
     position?: string
+    cursor?: string
+    hoverBackground?: string
+    borderRadius?: string
 }>`
     position: ${({ position }) => position};
     width: ${({ w }) => w ?? '100%'};
@@ -31,6 +34,12 @@ const Flex = styled.div<{
     flex-wrap: ${({ $wrap }) => $wrap && 'wrap'};
     padding: ${({ p }) => p};
     margin: ${({ m }) => m};
+    border-radius: ${({ borderRadius }) => borderRadius};
+    cursor: ${({ cursor }) => cursor};
+
+    :hover {
+        background: ${({ hoverBackground }) => hoverBackground};
+    }
 `
 
 export default Flex

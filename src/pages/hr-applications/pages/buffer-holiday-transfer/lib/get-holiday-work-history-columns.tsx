@@ -1,50 +1,54 @@
-import { hrApplicationsConstants } from '@entities/applications/consts'
+import { hrOrderRegisterConstants } from '@entities/applications/consts'
+import { SelectPage } from '@features/select'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 import React from 'react'
 
-const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
+const getHolidayWorkHistoryColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
-        //{ title: 'Название', field: 'title', priority: 'one', search: true, },
-
         {
-            title: 'Должность, Подразделение',
-            field: 'jobDivision',
-            priority: 'one',
-            width: '200px',
-        },
-        {
-            title: 'Статус заявления',
-            field: 'orderRegistrationStatus',
-            priority: 'one',
-            width: '200px',
-            catalogs: [
-                ...(Object.values(hrApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
-            ],
-            render: (value) => (
-                <Message
-                    type={
-                        value === 'Согласовано'
-                            ? 'success'
-                            : value === 'Не согласовано' || value === 'Не создано' || value === 'Отменён'
-                            ? 'failure'
-                            : 'alert'
-                    }
-                    title={value}
-                    align="center"
-                    width="100%"
-                    icon={null}
-                    maxWidth="150px"
-                />
-            ),
-        },
-        {
-            title: 'Дата заявления',
-            field: 'creationDate',
+            title: 'Дата',
+            field: 'signedDate',
             type: 'date',
+            width: '120px',
+            sort: true,
+        },
+        {
+            title: 'Статус',
+            field: 'orderStatus',
+            width: '175px',
+            catalogs: [
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
+            render: (value, data) => {
+                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении'
+                return (
+                    <Message
+                        type={
+                            title === 'Согласовано'
+                                ? 'success'
+                                : title === 'На регистрации'
+                                ? 'info'
+                                : title === 'Не утвержден' || value === 'Отменён'
+                                ? 'failure'
+                                : 'alert'
+                        }
+                        title={title}
+                        align="center"
+                        width="100%"
+                        icon={null}
+                        maxWidth="150px"
+                    />
+                )
+            },
             priority: 'one',
-            align: 'center',
+        },
+        {
+            title: 'Должность',
+            catalogs: jobs,
+            field: 'positionName',
+            width: '250px',
         },
         {
             title: 'Номер приказа',
@@ -69,60 +73,7 @@ const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
             // render: (value) => localizeDate(value.orderDate, 'numeric'),
             render: (value) => value[0].dates[0].hours,
         },
-        // {
-        //     title: 'Статус приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
-        //     width: '220px',
-        //     catalogs: [...(Object.values(hrOrderConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? [])],
-        //     render: (value, data) => {
-        //         if (!value.orderStatus) return null
-        //         const title = value.orderStatus + data.dismissalOrder.registrationStatus
-        //         return (
-        //             <Message
-        //                 type={
-        //                     value.orderStatus === 'Подписан'
-        //                         ? 'success'
-        //                         : value.orderStatus === 'Не создан'
-        //                         ? 'failure'
-        //                         : 'alert'
-        //                 }
-        //                 title={title}
-        //                 align="center"
-        //                 width="100%"
-        //                 icon={null}
-        //                 maxWidth="220px"
-        //             />
-        //         )
-        //     },
-        // },
         { title: 'Файл заявления', priority: 'one', field: 'file', type: 'file' },
-        // {
-        //     title: 'Статус регистрации приказа',
-        //     field: 'dismissalOrder',
-        //     priority: 'one',
-
-        //     catalogs: [
-        //         ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
-        //     ],
-        //     render: (value, elements) =>
-        //         elements.dismissalOrder.orderStatus == 'Подписан' && (
-        //             <Message
-        //                 type={
-        //                     value.registrationStatus === 'Зарегистрирован'
-        //                         ? 'success'
-        //                         : value.registrationStatus === 'Не зарегистрирован'
-        //                         ? 'failure'
-        //                         : 'alert'
-        //                 }
-        //                 title={value.registrationStatus}
-        //                 align="center"
-        //                 width="100%"
-        //                 icon={null}
-        //                 maxWidth="150px"
-        //             />
-        //         ),
-        // },
     ]
 }
 

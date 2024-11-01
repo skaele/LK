@@ -9,13 +9,6 @@ export const ApplicationsConstants = {
     rejected: 'Отклонено',
 } as const
 
-export const hrApplicationsConstants = {
-    agreeding: 'На согласовании',
-    notAgreed: 'Не согласовано',
-    agreed: 'Согласовано',
-    empty: 'Не создано',
-    rejected: 'Отклонено',
-}
 export const hrOrderConstants = {
     signed: 'Подписан',
     agreeding: 'На согласовании',

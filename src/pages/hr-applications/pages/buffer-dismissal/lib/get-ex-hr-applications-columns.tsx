@@ -1,4 +1,4 @@
-import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
+import { hrOrderConstants, hrOrderRegisterConstants } from '@entities/applications/consts'
 //import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
@@ -19,7 +19,7 @@ const getExHrApplicationsColumns = (): ColumnProps[] => {
             priority: 'one',
             width: '200px',
             catalogs: [
-                ...(Object.values(hrApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
             render: (value) => (
                 <Message

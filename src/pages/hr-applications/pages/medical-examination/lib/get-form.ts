@@ -4,11 +4,11 @@ import { getIsTutor } from './is-tutor'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
-import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
 import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
 import { SelectPage } from '@features/select'
 import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
+import { WorkWeeks } from '@pages/hr-applications/types'
 
 const getForm = (
     dataUserApplication: UserApplication,

@@ -1,4 +1,4 @@
-import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
+import { hrOrderConstants, hrOrderRegisterConstants } from '@entities/applications/consts'
 import downloadFile from '@pages/hr-applications/lib/get-file-dismissal'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
@@ -16,7 +16,7 @@ const getHrApplicationsColumns = (): ColumnProps[] => {
             priority: 'one',
             width: '200px',
             catalogs: [
-                ...(Object.values(hrApplicationsConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
             ],
             render: (value) => (
                 <Message

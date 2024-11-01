@@ -8,6 +8,7 @@ import { WorkWeeks } from '@pages/hr-applications/types/hr-applications'
 import { getWorkWeekDuration } from '@pages/hr-applications/lib/get-work-week-duration'
 import { setWorkDate } from '@pages/hr-applications/lib/set-work-date'
 import { SelectPage } from '@features/select'
+import { getDelayInWorkDays } from '@pages/hr-applications/lib/get-delay-in-work-days'
 
 const getForm = (
     dataUserApplication: UserApplication,
@@ -82,8 +83,8 @@ const getForm = (
             },
             {
                 title: 'Я являюсь получателем пенсии по старости или пенсии за выслугу лет или мне осталось менее 5 лет до этого',
-                type: 'hr-checkbox',
-                value: !!isRetirement ? isRetirement : '',
+                type: 'checkbox',
+                value: !!isRetirement,
                 fieldName: 'isRetirement',
                 editable: true,
                 mask: true,
@@ -96,11 +97,8 @@ const getForm = (
             {
                 title: 'Второй день диспансеризации',
                 type: 'date',
-                value: endDate,
-                onChange: (value) => {
-                    setWorkDate(value, setEndDate, workWeekDuration)
-                },
-                editable: !!startDate,
+                value: startDate ? getDelayInWorkDays(1, workWeekDuration, startDate) : '',
+                editable: false,
                 fieldName: 'extra_examination_date_2',
                 mask: true,
                 required: !!isRetirement,

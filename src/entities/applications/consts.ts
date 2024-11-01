@@ -15,6 +15,8 @@ export const hrApplicationsConstants = {
     agreed: 'Согласовано',
     empty: 'Не создано',
     rejected: 'Отклонено',
+    denied: 'Отменён',
+    onRevision: 'На рассмотрении',
 }
 export const hrOrderConstants = {
     signed: 'Подписан',

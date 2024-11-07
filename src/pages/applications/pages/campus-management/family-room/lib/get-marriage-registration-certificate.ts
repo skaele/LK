@@ -9,7 +9,7 @@ const getMarriageRegistrationCertificate = (): IInputArea => {
             fieldName: 'marriageRegistrationCertificate',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

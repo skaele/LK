@@ -84,7 +84,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 <p>Подача заявок будет доступна до 07.08.2024 включительно</p>
             </>
         ),
-        documents: { files: [], fieldName: 'docs', required: false, maxFiles: 3, allowedTypes: ['application/pdf'] },
+        documents: { files: [], fieldName: 'docs', required: false, maxFiles: 3, allowedTypes: ['pdf'] },
     }
 }
 

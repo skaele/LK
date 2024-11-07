@@ -36,7 +36,7 @@ const getDisability = (): IInputArea => {
             checkboxCondition: 'reverse',
             fieldName: 'invalidFiles',
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

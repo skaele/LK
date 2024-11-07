@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { SliderPage } from 'widgets'
 import PaymentsTemplate from './payments-template'
 import { useUnit } from 'effector-react'
+import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
 
 const PaymentsPage = () => {
     const [error, loading, payments] = useUnit([
@@ -42,6 +43,7 @@ const PaymentsPage = () => {
                 <Message type={'alert'} title="Внимание!">
                     Ведутся доработки по информации о долге по оплате и суммам оплат
                 </Message>
+                <PaymentsWidget fullWidth />
                 {paymentType === 'none' && <Error text="Нет данных" />}
                 {paymentType === 'both' && (
                     <SliderPage

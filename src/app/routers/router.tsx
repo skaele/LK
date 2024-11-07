@@ -11,6 +11,7 @@ import { userModel } from '../../entities/user'
 import { phonebookModel } from '@entities/phonebook'
 import { initializeTutorials } from '@entities/tutorial/lib/initialize'
 import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
+import { allowancesModel } from '@entities/allowances'
 
 const Router = () => {
     const {
@@ -38,6 +39,7 @@ const Router = () => {
                 adminLinksModel.effects.getFx()
                 applicationsModel.effects.getWorkerPosts()
                 phonebookModel.events.getSubdivisions()
+                allowancesModel.events.appStarted()
                 loadDivisions()
             }
             peTeacherModel.events.load()

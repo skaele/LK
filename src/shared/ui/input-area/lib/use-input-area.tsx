@@ -176,6 +176,7 @@ const useInputArea = ({
                     items: field.items,
                     width: field.width,
                     required: field.required,
+                    isSpecificSelect: field.isSpecificSelect,
                 }),
             )
 

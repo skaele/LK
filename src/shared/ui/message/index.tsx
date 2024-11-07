@@ -17,6 +17,7 @@ export type MessageProps = {
     visible?: boolean
     align?: Align
     width?: string
+    minWidth?: string
     maxWidth?: string
     onClose?: () => void
     padding?: string
@@ -58,6 +59,7 @@ export function Message({
     children,
     icon,
     width,
+    minWidth,
     maxWidth,
     title,
     onClose,
@@ -81,6 +83,7 @@ export function Message({
             type={type}
             align={align}
             width={width}
+            minWidth={minWidth}
             maxWidth={maxWidth}
             padding={padding}
             fontSize={fontSize}

@@ -68,4 +68,9 @@ export const iconObject = (): Record<NotificationType, ChildrenType> => ({
             <HiOutlineClipboardCheck />
         </IconWrapper>
     ),
+    allowance: (
+        <IconWrapper color="orange">
+            <FiStar />
+        </IconWrapper>
+    ),
 })

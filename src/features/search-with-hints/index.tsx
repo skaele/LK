@@ -20,7 +20,7 @@ type Props<T> = {
     customMask?: (value: string, prevValue?: string) => string
 }
 
-const SeachWithHints = <T,>({
+const SearchWithHints = <T,>({
     value,
     placeholder,
     loading,
@@ -80,4 +80,4 @@ const SeachWithHints = <T,>({
     )
 }
 
-export default SeachWithHints
+export default SearchWithHints

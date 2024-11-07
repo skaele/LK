@@ -1,6 +1,6 @@
 import { Payments, PaymentsContract } from '@api/model'
 import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
-import { IColors, MEDIA_QUERIES } from '@shared/constants'
+import { MEDIA_QUERIES } from '@shared/constants'
 import { paymentsModel } from '@entities/payments'
 import PaymentButton from '@features/payment-button'
 import Debt from '@features/payments/debt'
@@ -16,8 +16,8 @@ import styled from 'styled-components'
 import { useUnit } from 'effector-react'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
-const PaymentsWidgetWrapper = styled.div<{ background?: keyof IColors }>`
-    max-width: 400px;
+const PaymentsWidgetWrapper = styled.div<{ fullWidth?: boolean }>`
+    max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '400px')};
     min-width: calc(100% / 3);
     width: 100%;
     height: 156px;
@@ -100,11 +100,13 @@ const ErrorMessage = () => {
 
 const TopMessage = ({
     data,
-    balance,
+    debt,
+    overpayment,
     section,
 }: {
     data: Payments['dormitory'] | Payments['education']
-    balance: number
+    debt: number
+    overpayment: number
     section: 'Обучение' | 'Общежитие'
 }) => {
     if (!data.length) return null
@@ -115,30 +117,36 @@ const TopMessage = ({
         <div className="payment-info">
             <div className="top-info">
                 <Subtext>{section}</Subtext>
-                <Debt size="middle" debt={balance} />
+                <Debt size="middle" debt={debt || overpayment} />
+                {!!debt && !!overpayment && <Debt debt={overpayment} size="small"></Debt>}
                 <Link to={PAYMENTS_ROUTE}>
                     <Button icon={<FiInfo />} background="transparent" />
                 </Link>
             </div>
-            {balance > 0 && <PaymentButton qr_current={qr_current} qr_total={qr_total} />}
-            {balance <= 0 && (
-                <Message type="success" title={'Оплачено'} width="100%" align="center" icon={<FiCheck />} />
-            )}
+            {debt > 0 && <PaymentButton qr_current={qr_current} qr_total={qr_total} />}
+            {debt <= 0 && <Message type="success" title={'Оплачено'} width="100%" align="center" icon={<FiCheck />} />}
         </div>
     )
 }
 
 const countPayment = (contracts: PaymentsContract[]) => {
-    if (contracts.some((contract) => Number(contract.balance_currdate) > 0)) {
-        return contracts.reduce(
-            (sum, contract) => (Number(contract.balance_currdate) > 0 ? Number(contract.balance_currdate) + sum : sum),
-            0,
-        )
-    }
-    return contracts.reduce((sum, contract) => Number(contract.balance_currdate) + sum, 0)
+    let debt = 0
+    let overpayment = 0
+
+    contracts.forEach((contract) => {
+        const balance = Number(contract.balance_currdate)
+        if (balance > 0) {
+            debt += balance
+        }
+        if (balance < 0) {
+            overpayment += balance
+        }
+    })
+
+    return { debt, overpayment }
 }
 
-const PaymentsWidget = ({ forwardedRef }: TutorialComponent) => {
+const PaymentsWidget = ({ forwardedRef, fullWidth }: { fullWidth?: boolean } & TutorialComponent) => {
     const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
 
     if (error) return <ErrorMessage />
@@ -149,12 +157,20 @@ const PaymentsWidget = ({ forwardedRef }: TutorialComponent) => {
     const dormPayment = countPayment(payments?.dormitory)
     const eduPayment = countPayment(payments?.education)
 
-    const hasToPay = dormPayment > 0 || eduPayment > 0
-
     return (
-        <PaymentsWidgetWrapper ref={forwardedRef} background={hasToPay ? 'red' : 'green'}>
-            <TopMessage data={payments.dormitory} balance={dormPayment} section={'Общежитие'} />
-            <TopMessage data={payments.education} balance={eduPayment} section={'Обучение'} />
+        <PaymentsWidgetWrapper ref={forwardedRef} fullWidth={fullWidth}>
+            <TopMessage
+                data={payments.dormitory}
+                debt={dormPayment.debt}
+                overpayment={dormPayment.overpayment}
+                section={'Общежитие'}
+            />
+            <TopMessage
+                data={payments.education}
+                debt={eduPayment.debt}
+                overpayment={eduPayment.overpayment}
+                section={'Обучение'}
+            />
         </PaymentsWidgetWrapper>
     )
 }

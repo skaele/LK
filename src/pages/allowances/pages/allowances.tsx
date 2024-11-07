@@ -29,10 +29,10 @@ const Allowances = () => {
     const handleCreateApplication = () => {
         history.push(CREATE_ALLOWANCE)
     }
-
+    const isForbidden = !roles.includes('Initiator') || !roles.includes('Approver') || !user?.currentUser?.guid
     useEffect(() => {
-        pageMounted()
-    }, [])
+        if (!isForbidden) pageMounted()
+    }, [isForbidden])
 
     if (loading)
         return (
@@ -43,8 +43,7 @@ const Allowances = () => {
             </PageBlock>
         )
 
-    if (!roles.includes('Initiator') || !roles.includes('Approver') || !user?.currentUser?.guid)
-        return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (isForbidden) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (
         <PageBlock

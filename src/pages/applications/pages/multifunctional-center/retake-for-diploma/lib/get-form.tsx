@@ -1,7 +1,6 @@
 import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import React from 'react'
-import { BoldText } from '@shared/ui/atoms/BoldText'
 
 const typeExamOptions = [
     { id: 0, title: 'Экзамен' },
@@ -132,9 +131,8 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
         alert: (
             <p>
                 В соответствии с положением о проведении текущего контроля успеваемости и промежуточной аттестации
-                обучающихся в Московском политехническом университете в порядке исключения допускается пересдача{' '}
-                <BoldText>только одной дисциплины</BoldText> на последнем году обучения с целью получения диплома с
-                отличием.
+                обучающихся в Московском политехническом университете в порядке исключения допускается пересдача одного
+                зачета или экзамена на последнем году обучения с целью получения диплома с отличием.
             </p>
         ),
     }

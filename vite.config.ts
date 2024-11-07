@@ -4,6 +4,7 @@ import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import checker from 'vite-plugin-checker'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { version } from './package.json'
 
 export default defineConfig((conf) => {
     return {
@@ -51,6 +52,9 @@ export default defineConfig((conf) => {
         },
         optimizeDeps: {
             include: ['effector'],
+        },
+        define: {
+            'import.meta.env.VITE_APP_VERSION': JSON.stringify(version),
         },
     }
 })

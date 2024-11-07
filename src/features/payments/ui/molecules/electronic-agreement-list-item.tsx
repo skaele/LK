@@ -33,7 +33,7 @@ const SignBlock = styled.div`
 
 const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
     const history = useHistory()
-    const { id, signed_user: signedUser, name, can_sign: isActive, date } = data
+    const { id, signed_user: signedUser, name, can_sign: isActive, date, reason } = data
     const [done, completed, loading, signed, TPAgreement] = useUnit([
         paymentsModel.stores.$done,
         paymentsModel.stores.$completed,
@@ -97,11 +97,11 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                             isDone={signedUser || done || signed}
                             width="160px"
                             setCompleted={setCompleted}
-                            isActive={!(signedUser || done || signed) && isActive}
+                            isActive={!(signedUser || done || signed) && !!isActive}
                             popUpFailureMessage={
                                 !isActive
                                     ? isContractSigned
-                                        ? 'Необходимо сначала подписать соглашение об электронном взаимодействии'
+                                        ? reason
                                         : 'Необходимо сначала подписать договор'
                                     : 'Согласие уже подписано'
                             }

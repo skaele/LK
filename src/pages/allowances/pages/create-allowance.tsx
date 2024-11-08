@@ -120,7 +120,6 @@ function SourceOfFunding() {
             selected={value}
             setSelected={setValue}
             isActive={items.length > 1}
-            required
             width="100%"
             withSearch
             placeholder="Источник финансирования"

@@ -242,16 +242,14 @@ const allowanceQuery = createQuery({
 
 const $isActive = createStore<boolean>(false)
 sample({
-    clock: [job.value, sourceOfFunding.value, paymentIdentifier.value, employees.value],
+    clock: [job.value, paymentIdentifier.value, employees.value],
     source: {
         job: job.value,
-        sourceOfFunding: sourceOfFunding.value,
         paymentIdentifier: paymentIdentifier.value,
         allowanceEmployees: employees.value,
     },
-    fn: ({ job, sourceOfFunding, paymentIdentifier, allowanceEmployees }) =>
+    fn: ({ job, paymentIdentifier, allowanceEmployees }) =>
         Boolean(job) &&
-        Boolean(sourceOfFunding) &&
         Boolean(paymentIdentifier) &&
         allowanceEmployees.filter((e) => e !== null && e.id !== '').length > 0,
     target: $isActive,
@@ -267,11 +265,8 @@ sample({
         allowanceEmployees: employees.value,
         files: $fileIds,
     },
-    filter: ({ job, sourceOfFunding, paymentIdentifier, allowanceEmployees }) =>
-        !!job?.id &&
-        !!sourceOfFunding?.id &&
-        !!paymentIdentifier?.id &&
-        allowanceEmployees.filter((e) => e !== null).length > 0,
+    filter: ({ job, paymentIdentifier, allowanceEmployees }) =>
+        !!job?.id && !!paymentIdentifier?.id && allowanceEmployees.filter((e) => e !== null).length > 0,
     fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees, files }) => ({
         initiatorId: job?.id.toString() || '',
         sourceOfFundingId: sourceOfFunding?.id.toString() || '',

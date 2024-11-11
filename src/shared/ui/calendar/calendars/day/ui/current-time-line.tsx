@@ -1,8 +1,8 @@
-import { TIME_IN_MS } from '@shared/constants'
 import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { getCurrentTime } from '../lib/get-time-in-minutes'
 import { CurrentTime, CurrentTimeLineStyled } from './styles'
+import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 
 type Props = {
     isVisible?: boolean
@@ -13,16 +13,10 @@ type Props = {
 }
 
 export const CurrentTimeLine = ({ isVisible = true, shift, scale, interval, showTime = true }: Props) => {
-    const [currentTime, setCurrentTime] = useState(getCurrentTime(new Date(), interval[0] * 60, interval[1] * 60))
-    const intervalRef = useRef<any>(null)
-
-    useEffect(() => {
-        intervalRef.current = setInterval(() => {
-            setCurrentTime(getCurrentTime(new Date(), interval[0] * 60, interval[1] * 60))
-        }, TIME_IN_MS.minute)
-
-        return () => clearInterval(intervalRef.current)
-    }, [isVisible])
+    const currentTime = useCalcTimeLeft(
+        () => getCurrentTime(new Date(), interval[0] * 60, interval[1] * 60),
+        [isVisible],
+    )
 
     return (
         <CurrentTimeLineStyled currentTime={(currentTime - shift) * scale}>

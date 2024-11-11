@@ -22,6 +22,7 @@ import { SubjectIconAndBackground } from '../subject-icon-and-background'
 import { TimeIndicator } from '../time-indicator'
 import { getSubjectName } from '@features/schedule/lib/get-subject-name'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
+import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 
 const SubjectModalWrapper = styled.div`
     position: relative;
@@ -102,6 +103,8 @@ const SubjectModal = (props: Props) => {
 
     const normalizedName = getSubjectName(name)
 
+    const timeLeft = useCalcTimeLeft(() => calcTimeLeft(timeInterval.split(' - ')[0], 'minutes'))
+
     return (
         <SubjectModalWrapper>
             <SubjectIconAndBackground subjectName={name} color={color} noPadding={noPadding} />
@@ -110,7 +113,7 @@ const SubjectModal = (props: Props) => {
                     <Flex gap="8px">
                         <TimeIndicator isCurrentEvent={isCurrentEvent} color={color} timeInterval={timeInterval} />
                         <NextSubject
-                            timeLeft={calcTimeLeft(timeInterval.split(' - ')[0], 'minutes')}
+                            timeLeft={timeLeft}
                             isNext={isNextEvent}
                             color={color}
                             isCurrentEvent={isCurrentEvent}

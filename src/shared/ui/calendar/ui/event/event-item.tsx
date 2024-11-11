@@ -23,6 +23,7 @@ import { UIProps } from './types'
 import { useUnit } from 'effector-react'
 import { userSettingsModel } from '@entities/settings'
 import { ThemeVariant } from '@shared/constants'
+import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
 
@@ -76,6 +77,8 @@ const EventItem = (props: Props) => {
         : title.split(' ').map((el) => el[0].toUpperCase())
     const groupsArray = groups?.split(',') ?? []
 
+    const timeLeft = useCalcTimeLeft(() => calcTimeLeft(startTime, 'minutes'))
+
     return (
         <EventItemStyled
             background={background}
@@ -115,7 +118,7 @@ const EventItem = (props: Props) => {
                                     isCurrentEvent={isCurrentEvent}
                                 />
                                 <NextSubject
-                                    timeLeft={calcTimeLeft(startTime, 'minutes')}
+                                    timeLeft={timeLeft}
                                     isNext={isNextEvent}
                                     color={color}
                                     isCurrentEvent={isCurrentEvent}

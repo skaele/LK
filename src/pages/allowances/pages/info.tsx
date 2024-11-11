@@ -25,10 +25,10 @@ const Info = () => {
         allowancesModel.stores.allowance.error,
         allowancesModel.stores.roles,
     ])
-    const isForbidden = !roles.includes('Initiator') || !roles.includes('Approver')
+    const isAllowed = roles.includes('Initiator') || roles.includes('Approver')
 
     useEffect(() => {
-        if (!isForbidden) infoPageMounted({ id, role, userId: jobId })
+        if (isAllowed) infoPageMounted({ id, role, userId: jobId })
     }, [id, role, jobId])
 
     if (pending)
@@ -39,7 +39,7 @@ const Info = () => {
                 </Flex>
             </PageBlock>
         )
-    if (isForbidden) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (
         <PageBlock>

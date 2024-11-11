@@ -22,6 +22,10 @@ import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { SelectPage } from '@features/select'
 import { allowanceStatus } from '../consts'
+import { createDatePeriodField } from '@shared/effector/form/create-date-period-field'
+import { createFilesField } from '@shared/effector/form/create-file-filed'
+import { createSelectField } from '@shared/effector/form/create-select-field'
+import { createInputField } from '@shared/effector/form/create-input-field'
 
 export type AllAllowancesModified = {
     initiatorAllowances: AllowanceModified[]
@@ -82,7 +86,7 @@ const paymentIdentifier = createSelectField({ reset: pageMounted })
 const commentary = createInputField({ reset: pageMounted })
 const period = createDatePeriodField({ reset: pageMounted })
 const employees = createEmployeeField(pageMounted)
-const files = createFilesField(pageMounted)
+const files = createFilesField({ reset: pageMounted })
 
 const $filesMap = createStore<Record<string, string>>({})
 const $fileIds = $filesMap.map((files) => Object.values(files))
@@ -491,28 +495,6 @@ export const fields = {
     files,
 }
 
-function createInputField({ defaultValue, reset }: { defaultValue?: string; reset?: Unit<any> } = {}) {
-    const setValue = createEvent<string>()
-    const $store = createStore<string>(defaultValue ?? '').on(setValue, (_, newValue) => newValue)
-    if (reset) $store.reset(reset)
-
-    return {
-        value: $store,
-        setValue,
-    }
-}
-
-function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage | null; reset?: Unit<any> } = {}) {
-    const setValue = createEvent<SelectPage | null>()
-    const $store = createStore<SelectPage | null>(defaultValue ?? null).on(setValue, (_, newValue) => newValue)
-    if (reset) $store.reset(reset)
-
-    return {
-        value: $store,
-        setValue,
-    }
-}
-
 function createEmployeeField(reset: Unit<any>) {
     const addEmployee = createEvent<string>()
     const setEmployee = createEvent<Employee>()
@@ -564,44 +546,5 @@ function createEmployeeField(reset: Unit<any>) {
         selectAll,
         deselectAll,
         allSelected,
-    }
-}
-
-function createDatePeriodField({ reset }: { reset?: Unit<any> }) {
-    const setStartDate = createEvent<string>()
-    const setEndDate = createEvent<string>()
-    const $startDate = createStore<string>('').on(setStartDate, (_, newValue) => newValue)
-    const $endDate = createStore<string>('').on(setEndDate, (_, newValue) => newValue)
-
-    if (reset) {
-        $startDate.reset(reset)
-        $endDate.reset(reset)
-    }
-
-    sample({
-        clock: setStartDate,
-        source: $endDate,
-        filter: (endDate, startDate) => new Date(startDate) > new Date(endDate),
-        fn: () => '',
-        target: $endDate,
-    })
-
-    return {
-        startDate: $startDate,
-        endDate: $endDate,
-        setStartDate,
-        setEndDate,
-    }
-}
-
-function createFilesField(reset: Unit<any>) {
-    const setValue = createEvent<File[]>()
-    const $store = createStore<File[]>([])
-        .on(setValue, (_, newValue) => newValue)
-        .reset(reset)
-
-    return {
-        value: $store,
-        setValue,
     }
 }

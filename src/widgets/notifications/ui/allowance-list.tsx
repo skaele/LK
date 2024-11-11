@@ -10,8 +10,8 @@ import { SelectPage } from '@features/select'
 
 export const AllowanceList = ({ searchQuery, filter }: { searchQuery: string; filter: SelectPage | null }) => {
     const [allowances, loading, pageMounted] = useUnit([
-        allowancesModel.queries.personalAllowances.$data,
-        allowancesModel.queries.personalAllowances.$pending,
+        allowancesModel.stores.personalAllowances.data,
+        allowancesModel.stores.personalAllowances.loading,
         allowancesModel.events.personalAllowancesMounted,
     ])
     useEffect(() => {

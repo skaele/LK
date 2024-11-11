@@ -460,29 +460,35 @@ export const events = {
     notificationRead,
 }
 
-export const queries = {
-    role: roleQuery,
-    sourcesOfFunding: sourceOfFundingQuery,
-    paymentIdentifiers: paymentIdentifierQuery,
-    allowance: allowanceQuery,
-    personalAllowances: personalAllowancesQuery,
-    notifications: notificationsQuery,
-}
-
-export const mutations = {
-    createSupplement: createSupplementMutation,
-    confirmPersonalAllowance: confirmPersonalAllowanceMutation,
-    uploadFile: uploadFileMutation,
-}
-
 export const stores = {
+    jobRoles: roleQuery.$data,
+    rolesPending: roleQuery.$pending,
     roles: $roles,
-    allowances: $allowances,
-    employees: $subordinates,
-    completed: $completed,
+
     sourcesOfFunding: $sourcesOfFunding,
     paymentIdentifiers: $paymentIdentifiers,
+    allowances: $allowances,
+    fileUploading: uploadFileMutation.$pending,
+    employees: $subordinates,
+    completed: $completed,
     isActive: $isActive,
+    supplementCreating: createSupplementMutation.$pending,
+
+    allowance: {
+        data: allowanceQuery.$data,
+        loading: allowanceQuery.$pending,
+        error: allowanceQuery.$error,
+    },
+
+    personalAllowances: {
+        data: personalAllowancesQuery.$data,
+        loading: personalAllowancesQuery.$pending,
+    },
+
+    notifications: {
+        data: notificationsQuery.$data,
+        loading: notificationsQuery.$pending,
+    },
 }
 
 export const fields = {

@@ -99,7 +99,7 @@ const clearAll = createEvent()
 const clearAllVisible = createEvent()
 
 const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
-const $allowancesNotifications = allowancesModel.queries.notifications.$data.map((allowances) => {
+const $allowancesNotifications = allowancesModel.stores.notifications.data.map((allowances) => {
     if (!allowances) return []
     return allowances.map((allowance) =>
         createNotification(
@@ -119,7 +119,7 @@ forward({
 })
 
 sample({
-    clock: [fetchNotifications.pending, allowancesModel.queries.notifications.$pending],
+    clock: [fetchNotifications.pending, allowancesModel.stores.notifications.loading],
     source: $lkNotificationsStore,
     fn: (store, clk) => ({ ...store, loading: clk }),
     target: $lkNotificationsStore,

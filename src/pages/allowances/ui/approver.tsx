@@ -10,7 +10,7 @@ import { useHistory } from 'react-router'
 
 export const Approver = () => {
     const history = useHistory()
-    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
+    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.stores.jobRoles])
 
     const [job, setJob] = useState<SelectPage | null>(() => {
         const job = jobs && jobs.find((job) => job.roles.includes('Approver'))

@@ -13,15 +13,16 @@ import { File } from '../ui/file'
 import { Divider } from '@shared/ui/divider'
 import { Forbidden } from '@shared/ui/forbidden'
 import { Loading } from '@shared/ui/loading'
+import { DevModeMessage } from '../ui/dev-mode-message'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
 
     const [infoPageMounted, data, pending, error, roles] = useUnit([
         allowancesModel.events.infoPageMounted,
-        allowancesModel.queries.allowance.$data,
-        allowancesModel.queries.allowance.$pending,
-        allowancesModel.queries.allowance.$error,
+        allowancesModel.stores.allowance.data,
+        allowancesModel.stores.allowance.loading,
+        allowancesModel.stores.allowance.error,
         allowancesModel.stores.roles,
     ])
     const isForbidden = !roles.includes('Initiator') || !roles.includes('Approver')
@@ -44,6 +45,7 @@ const Info = () => {
         <PageBlock>
             <Loader load={() => {}} data={data} loading={pending} error={error ? (error as Error).message : null}>
                 <>
+                    <DevModeMessage />
                     {Boolean(data?.files.application.length) || Boolean(data?.files.other.length) ? (
                         <SliderPage
                             pages={[

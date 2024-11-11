@@ -274,7 +274,7 @@ sample({
         !!job?.id && !!paymentIdentifier?.id && allowanceEmployees.filter((e) => e !== null).length > 0,
     fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees, files }) => ({
         initiatorId: job?.id.toString() || '',
-        sourceOfFundingId: sourceOfFunding?.id.toString() || '',
+        sourceOfFundingId: sourceOfFunding?.id.toString() || null,
         paymentIdentifierId: paymentIdentifier?.id.toString() || '',
         commentary: commentary,
         allowanceEmployees: allowanceEmployees.filter((e) => e !== null) as Employee[],

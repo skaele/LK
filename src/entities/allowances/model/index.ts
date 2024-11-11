@@ -31,6 +31,7 @@ export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowanc
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
+const notificationRead = createEvent<string>()
 const personalAllowancesMounted = createEvent()
 const fileAttached = createEvent<File>()
 const fileRemoved = createEvent<string | undefined>()
@@ -428,6 +429,19 @@ sample({
         notificationsQuery.reset,
     ],
 })
+
+sample({
+    clock: notificationRead,
+    source: notificationsQuery.$data,
+    filter: (notifications, id) => {
+        const notification = notifications?.find((n) => n.notificationId === id)
+
+        return notification?.notificationType !== 'ToConfirm'
+    },
+    fn: (_, id) => id,
+    target: viewNotificationMutation.start,
+})
+
 export const events = {
     pageMounted,
     personalAllowancesMounted,
@@ -439,6 +453,7 @@ export const events = {
     reject,
     allowanceStatusChanged,
     getSubordinates: getSubordinatesEvent,
+    notificationRead,
 }
 
 export const queries = {
@@ -452,7 +467,6 @@ export const queries = {
 
 export const mutations = {
     createSupplement: createSupplementMutation,
-    viewNotification: viewNotificationMutation,
     confirmPersonalAllowance: confirmPersonalAllowanceMutation,
     uploadFile: uploadFileMutation,
 }

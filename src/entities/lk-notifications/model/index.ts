@@ -108,6 +108,7 @@ const $allowancesNotifications = allowancesModel.queries.notifications.$data.map
             NotificationTitles[allowance.notificationType],
             allowance.message,
             createAllowancePath(allowance),
+            allowance.notificationType,
         ),
     )
 })

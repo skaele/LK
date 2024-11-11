@@ -1,8 +1,11 @@
+import getAddressFields from '@features/applications/lib/get-address-fields'
+import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
-    const { surname, name, patronymic, email, phone, divisions_crs } = dataUserApplication
+    const { surname, name, patronymic, email, phone } = dataUserApplication
     return {
         title: 'Заверенные копии документов по воинскому учету из личного дела',
         data: [
@@ -28,22 +31,9 @@ export const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 editable: true,
                 required: true,
             },
-            {
-                title: 'Выберите подразделение',
-                value: null,
-                type: 'select',
-                fieldName: 'stuctural_subdivision',
-                items: divisions_crs.map((division) => {
-                    return {
-                        id: +division.id,
-                        title: division.name + ' ' + division.contact,
-                    }
-                }),
-                width: '100%',
-                editable: true,
-                required: true,
-                isSpecificSelect: true,
-            },
+            ...getMethodObtainingFields(),
+            ...getStudentSubdivisions(dataUserApplication),
+            ...getAddressFields(),
             {
                 title: 'Наименование военного комиссариата, куда направляется справка',
                 value: '',

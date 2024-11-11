@@ -31,7 +31,6 @@ const Router = () => {
     useEffect(() => {
         if (isAuthenticated) {
             applicationsModel.effects.getUserDataApplicationsFx()
-            // chatsModel.events.load()
             if (user?.guid) {
                 initializeTutorials()
             }

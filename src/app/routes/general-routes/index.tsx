@@ -24,7 +24,6 @@ import {
     ProfilePage,
     SafetyInformation,
     ScheduleCurrent,
-    // ChatPage,
     SchedulePage,
     ScheduleRetake,
     ScheduleSemestr,

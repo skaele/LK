@@ -22,6 +22,10 @@ import { userModel } from '@entities/user'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { SelectPage } from '@features/select'
 import { allowanceStatus } from '../consts'
+import { createDatePeriodField } from '@shared/effector/form/create-date-period-field'
+import { createFilesField } from '@shared/effector/form/create-file-filed'
+import { createSelectField } from '@shared/effector/form/create-select-field'
+import { createInputField } from '@shared/effector/form/create-input-field'
 
 export type AllAllowancesModified = {
     initiatorAllowances: AllowanceModified[]
@@ -31,6 +35,7 @@ export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowanc
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
+const notificationRead = createEvent<string>()
 const personalAllowancesMounted = createEvent()
 const fileAttached = createEvent<File>()
 const fileRemoved = createEvent<string | undefined>()
@@ -81,7 +86,7 @@ const paymentIdentifier = createSelectField({ reset: pageMounted })
 const commentary = createInputField({ reset: pageMounted })
 const period = createDatePeriodField({ reset: pageMounted })
 const employees = createEmployeeField(pageMounted)
-const files = createFilesField(pageMounted)
+const files = createFilesField({ reset: pageMounted })
 
 const $filesMap = createStore<Record<string, string>>({})
 const $fileIds = $filesMap.map((files) => Object.values(files))
@@ -269,7 +274,7 @@ sample({
         !!job?.id && !!paymentIdentifier?.id && allowanceEmployees.filter((e) => e !== null).length > 0,
     fn: ({ job, sourceOfFunding, paymentIdentifier, commentary, allowanceEmployees, files }) => ({
         initiatorId: job?.id.toString() || '',
-        sourceOfFundingId: sourceOfFunding?.id.toString() || '',
+        sourceOfFundingId: sourceOfFunding?.id.toString() || null,
         paymentIdentifierId: paymentIdentifier?.id.toString() || '',
         commentary: commentary,
         allowanceEmployees: allowanceEmployees.filter((e) => e !== null) as Employee[],
@@ -428,6 +433,19 @@ sample({
         notificationsQuery.reset,
     ],
 })
+
+sample({
+    clock: notificationRead,
+    source: notificationsQuery.$data,
+    filter: (notifications, id) => {
+        const notification = notifications?.find((n) => n.notificationId === id)
+
+        return notification?.notificationType !== 'ToConfirm'
+    },
+    fn: (_, id) => id,
+    target: viewNotificationMutation.start,
+})
+
 export const events = {
     pageMounted,
     personalAllowancesMounted,
@@ -439,32 +457,38 @@ export const events = {
     reject,
     allowanceStatusChanged,
     getSubordinates: getSubordinatesEvent,
-}
-
-export const queries = {
-    role: roleQuery,
-    sourcesOfFunding: sourceOfFundingQuery,
-    paymentIdentifiers: paymentIdentifierQuery,
-    allowance: allowanceQuery,
-    personalAllowances: personalAllowancesQuery,
-    notifications: notificationsQuery,
-}
-
-export const mutations = {
-    createSupplement: createSupplementMutation,
-    viewNotification: viewNotificationMutation,
-    confirmPersonalAllowance: confirmPersonalAllowanceMutation,
-    uploadFile: uploadFileMutation,
+    notificationRead,
 }
 
 export const stores = {
+    jobRoles: roleQuery.$data,
+    rolesPending: roleQuery.$pending,
     roles: $roles,
-    allowances: $allowances,
-    employees: $subordinates,
-    completed: $completed,
+
     sourcesOfFunding: $sourcesOfFunding,
     paymentIdentifiers: $paymentIdentifiers,
+    allowances: $allowances,
+    fileUploading: uploadFileMutation.$pending,
+    employees: $subordinates,
+    completed: $completed,
     isActive: $isActive,
+    supplementCreating: createSupplementMutation.$pending,
+
+    allowance: {
+        data: allowanceQuery.$data,
+        loading: allowanceQuery.$pending,
+        error: allowanceQuery.$error,
+    },
+
+    personalAllowances: {
+        data: personalAllowancesQuery.$data,
+        loading: personalAllowancesQuery.$pending,
+    },
+
+    notifications: {
+        data: notificationsQuery.$data,
+        loading: notificationsQuery.$pending,
+    },
 }
 
 export const fields = {
@@ -475,28 +499,6 @@ export const fields = {
     commentary,
     employees,
     files,
-}
-
-function createInputField({ defaultValue, reset }: { defaultValue?: string; reset?: Unit<any> } = {}) {
-    const setValue = createEvent<string>()
-    const $store = createStore<string>(defaultValue ?? '').on(setValue, (_, newValue) => newValue)
-    if (reset) $store.reset(reset)
-
-    return {
-        value: $store,
-        setValue,
-    }
-}
-
-function createSelectField({ defaultValue, reset }: { defaultValue?: SelectPage | null; reset?: Unit<any> } = {}) {
-    const setValue = createEvent<SelectPage | null>()
-    const $store = createStore<SelectPage | null>(defaultValue ?? null).on(setValue, (_, newValue) => newValue)
-    if (reset) $store.reset(reset)
-
-    return {
-        value: $store,
-        setValue,
-    }
 }
 
 function createEmployeeField(reset: Unit<any>) {
@@ -550,44 +552,5 @@ function createEmployeeField(reset: Unit<any>) {
         selectAll,
         deselectAll,
         allSelected,
-    }
-}
-
-function createDatePeriodField({ reset }: { reset?: Unit<any> }) {
-    const setStartDate = createEvent<string>()
-    const setEndDate = createEvent<string>()
-    const $startDate = createStore<string>('').on(setStartDate, (_, newValue) => newValue)
-    const $endDate = createStore<string>('').on(setEndDate, (_, newValue) => newValue)
-
-    if (reset) {
-        $startDate.reset(reset)
-        $endDate.reset(reset)
-    }
-
-    sample({
-        clock: setStartDate,
-        source: $endDate,
-        filter: (endDate, startDate) => new Date(startDate) > new Date(endDate),
-        fn: () => '',
-        target: $endDate,
-    })
-
-    return {
-        startDate: $startDate,
-        endDate: $endDate,
-        setStartDate,
-        setEndDate,
-    }
-}
-
-function createFilesField(reset: Unit<any>) {
-    const setValue = createEvent<File[]>()
-    const $store = createStore<File[]>([])
-        .on(setValue, (_, newValue) => newValue)
-        .reset(reset)
-
-    return {
-        value: $store,
-        setValue,
     }
 }

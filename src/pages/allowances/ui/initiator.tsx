@@ -10,7 +10,7 @@ import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
 
 export const Initiator = () => {
     const history = useHistory()
-    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.queries.role.$data])
+    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.stores.jobRoles])
 
     const [job, setJob] = useState<SelectPage | null>(() => {
         const job = jobs && jobs.find((job) => job.roles.includes('Initiator'))

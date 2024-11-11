@@ -15,12 +15,13 @@ import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import Search from '@shared/ui/search'
 import Checkbox from '@shared/ui/checkbox'
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import { DevModeMessage } from '../ui/dev-mode-message'
 
 const CreateAllowance = () => {
     const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
-        allowancesModel.queries.role.$pending,
+        allowancesModel.stores.rolesPending,
         allowancesModel.events.createSupplement,
-        allowancesModel.mutations.createSupplement.$pending,
+        allowancesModel.stores.supplementCreating,
         allowancesModel.events.pageMounted,
         allowancesModel.stores.roles,
         allowancesModel.stores.completed,
@@ -50,6 +51,7 @@ const CreateAllowance = () => {
     return (
         <BaseApplicationWrapper isDone={isDone}>
             <FormBlockWrapper noHeader>
+                <DevModeMessage />
                 <Job />
                 <SourceOfFunding />
                 <PaymentIdentifier />
@@ -78,7 +80,7 @@ const CreateAllowance = () => {
 
 function Job() {
     const { value, setValue } = useUnit(allowancesModel.fields.job)
-    const jobRoles = useUnit(allowancesModel.queries.role.$data)
+    const jobRoles = useUnit(allowancesModel.stores.jobRoles)
 
     if (!jobRoles) return null
 
@@ -249,7 +251,7 @@ function Employees() {
 
 function Files() {
     const { value, setValue } = useUnit(allowancesModel.fields.files)
-    const loading = useUnit(allowancesModel.mutations.uploadFile.$pending)
+    const loading = useUnit(allowancesModel.stores.fileUploading)
     return (
         <FileInput
             files={value}

@@ -12,6 +12,7 @@ import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 import { useHistory, useParams } from 'react-router'
 import { Forbidden } from '@shared/ui/forbidden'
 import Flex from '@shared/ui/flex'
+import { DevModeMessage } from '../ui/dev-mode-message'
 
 const Allowances = () => {
     const history = useHistory()
@@ -21,7 +22,7 @@ const Allowances = () => {
     }
     const [pageMounted, loading, roles, user] = useUnit([
         allowancesModel.events.pageMounted,
-        allowancesModel.queries.role.$pending,
+        allowancesModel.stores.rolesPending,
         allowancesModel.stores.roles,
         userModel.stores.user,
     ])
@@ -62,6 +63,7 @@ const Allowances = () => {
                 )
             }
         >
+            <DevModeMessage />
             {roles.length > 1 ? (
                 <SliderPage
                     pages={[

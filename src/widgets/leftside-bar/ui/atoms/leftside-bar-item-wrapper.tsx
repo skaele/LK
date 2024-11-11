@@ -58,6 +58,10 @@ const LeftsideBarItemWrapper = styled(Link).withConfig({
         outline: none;
     }
 
+    &:hover {
+        padding-right: 2rem;
+    }
+
     &:hover > button {
         opacity: 1;
     }

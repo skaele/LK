@@ -30,11 +30,11 @@ const CreateAllowance = () => {
     ])
 
     const isDone = completed ?? false
-    const isForbidden = !roles.includes('Initiator')
+    const isAllowed = roles.includes('Initiator')
 
     useEffect(() => {
-        if (!isForbidden) pageMounted()
-    }, [])
+        if (isAllowed) pageMounted()
+    }, [isAllowed])
 
     if (initLoading)
         return (
@@ -46,7 +46,7 @@ const CreateAllowance = () => {
                 </FormBlockWrapper>
             </BaseApplicationWrapper>
         )
-    if (isForbidden) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (
         <BaseApplicationWrapper isDone={isDone}>

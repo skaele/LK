@@ -20,7 +20,7 @@ const Allowances = () => {
     const setRole = (role: string | undefined) => {
         history.push(ALLOWANCES + `/${role}`)
     }
-    const [pageMounted, loading, roles, user] = useUnit([
+    const [pageMounted, loading, roles] = useUnit([
         allowancesModel.events.pageMounted,
         allowancesModel.stores.rolesPending,
         allowancesModel.stores.roles,
@@ -30,10 +30,10 @@ const Allowances = () => {
     const handleCreateApplication = () => {
         history.push(CREATE_ALLOWANCE)
     }
-    const isForbidden = !roles.includes('Initiator') || !roles.includes('Approver') || !user?.currentUser?.guid
+    const isAllowed = roles.includes('Initiator') || roles.includes('Approver')
     useEffect(() => {
-        if (!isForbidden) pageMounted()
-    }, [isForbidden])
+        if (isAllowed) pageMounted()
+    }, [isAllowed])
 
     if (loading)
         return (
@@ -44,7 +44,7 @@ const Allowances = () => {
             </PageBlock>
         )
 
-    if (isForbidden) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
 
     return (
         <PageBlock

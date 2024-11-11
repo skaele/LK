@@ -15,7 +15,7 @@ import { PersonalAllowance } from './model/notification'
 
 type AllowanceRequest = {
     initiatorId: string
-    sourceOfFundingId: string
+    sourceOfFundingId: string | null
     paymentIdentifierId: string
     commentary: string
     allowanceEmployees: Employee[]

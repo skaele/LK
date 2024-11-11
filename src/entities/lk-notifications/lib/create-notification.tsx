@@ -10,7 +10,14 @@ import { DOCLIST_ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_R
 import { NotificationType, TNotification } from '../types'
 import { allowancesModel } from '@entities/allowances'
 
-const createNotification = (type: NotificationType, id: string, title?: string, text?: string, goTo?: string) => {
+const createNotification = (
+    type: NotificationType,
+    id: string,
+    title?: string,
+    text?: string,
+    goTo?: string,
+    subType?: string,
+) => {
     const notifs: Record<NotificationType, TNotification> = {
         alert: {
             id,
@@ -114,8 +121,9 @@ const createNotification = (type: NotificationType, id: string, title?: string, 
             text: text ?? '',
             type: 'allowance',
             goTo: goTo ?? DOCLIST_ALLOWANCES,
-            onClick: () => allowancesModel.mutations.viewNotification.start(id),
-            onClose: () => allowancesModel.mutations.viewNotification.start(id),
+            onClick: () => allowancesModel.events.notificationRead(id),
+            onClose: () => allowancesModel.events.notificationRead(id),
+            canClose: subType !== 'ToConfirm',
         },
     }
 

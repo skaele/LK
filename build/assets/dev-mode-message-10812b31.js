@@ -1,0 +1,1 @@
+import{j as s,aa as e,cD as t}from"./vendor-48260ac4.js";import{a2 as a,aR as o,q as n,k as i,M as x}from"./index-d3095a88.js";const j=({text:r})=>s.jsx(a,{text:r,children:s.jsx(e,{to:o,children:s.jsx(n,{text:"На главную",icon:s.jsx(t,{})})})}),u=()=>i?null:s.jsx(x,{type:"alert",children:"Вы работаете с тестовой базой"});export{u as D,j as F};

@@ -72,7 +72,7 @@ const Allowances = () => {
                         rel="noreferrer"
                     >
                         по ссылке
-                    </a>{' '}
+                    </a>
                     .
                 </p>
             </Message>

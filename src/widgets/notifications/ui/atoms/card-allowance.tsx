@@ -97,7 +97,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                         />
                     </BlockButtons>
                     <WarningBlock isLightTheme={settings?.appearance.theme === ThemeVariant.Light}>
-                        <Subtext>Подтвердите надбавку в течение 3 рабочих дней</Subtext>
+                        <Subtext>Подтвердите надбавку в течение 1 рабочего дня</Subtext>
                     </WarningBlock>
                 </>
             )}

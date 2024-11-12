@@ -24,7 +24,12 @@ const PaymentsTemplate = ({ contracts }: Props) => {
         [contracts],
     )
     const contractsWithoutDebt = useMemo(
-        () => contracts?.filter((contarct) => Number(contarct.balance_currdate) <= 0) || [],
+        () =>
+            contracts?.filter(
+                (contract) =>
+                    Number(contract.balance_currdate) <= 0 &&
+                    (!contract.endDateFact || new Date(contract.endDateFact).getTime() > Date.now()),
+            ) || [],
         [contracts],
     )
     if (!contracts) return null

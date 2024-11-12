@@ -3,8 +3,7 @@ import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } f
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import Accordion from '@ui/accordion/accordion'
-import { LinkButton, SubmitButton, Title } from '@ui/atoms'
-import { Message } from '@ui/message'
+import { LinkButton, Message, SubmitButton, Title } from '@ui/atoms'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
@@ -15,6 +14,7 @@ import { ThirdPartyModal } from './third-party'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { useHistory } from 'react-router'
 import { THIRD_PARTY_ELECTRONIC_INTERACTION } from '@app/routes/general-routes'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 interface Props {
     data: Agreement
@@ -33,6 +33,7 @@ const SignBlock = styled.div`
 
 const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
     const history = useHistory()
+    const { isTablet } = useCurrentDevice()
     const { id, signed_user: signedUser, name, can_sign: isActive, date, reason } = data
     const [done, completed, loading, signed, TPAgreement] = useUnit([
         paymentsModel.stores.$done,
@@ -42,7 +43,7 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
         thirdPartyInteractionModel.stores.thirdPartyInteractionAgreement,
     ])
 
-    const height = signedUser || done || signed ? 140 : 100
+    const height = signedUser || done || signed ? 140 : isTablet ? 120 : 100
 
     const { open, close } = useModal()
 
@@ -114,7 +115,7 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                         icon={<FiCheck />}
                         align="center"
                         width="130px"
-                        visible={signedUser || done || signed}
+                        visible={(signedUser || done || signed) && isActive}
                     />
                 </Flex>
             </SignBlock>

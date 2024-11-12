@@ -3,8 +3,7 @@ import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } f
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import Accordion from '@ui/accordion/accordion'
-import { LinkButton, SubmitButton, Title } from '@ui/atoms'
-import { Message } from '@ui/message'
+import { LinkButton, Message, SubmitButton, Title } from '@ui/atoms'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
@@ -116,7 +115,7 @@ const ElectronicAgreementListItem = ({ data, isContractSigned }: Props) => {
                         icon={<FiCheck />}
                         align="center"
                         width="130px"
-                        visible={signedUser || done || signed}
+                        visible={(signedUser || done || signed) && isActive}
                     />
                 </Flex>
             </SignBlock>

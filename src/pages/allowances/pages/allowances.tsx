@@ -6,7 +6,7 @@ import { allowancesModel } from '@entities/allowances'
 import { userModel } from '@entities/user'
 import { SliderPage } from 'widgets'
 import PageBlock from '@shared/ui/page-block'
-import { Button, Loading } from '@shared/ui/atoms'
+import { Button, Loading, Message } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 import { useHistory, useParams } from 'react-router'
@@ -63,6 +63,19 @@ const Allowances = () => {
                 )
             }
         >
+            <Message type="info">
+                <p>
+                    Инструкция для инициаторов доступна{' '}
+                    <a
+                        href="https://e.mospolytech.ru/old/storage/files/Ustanovlenie_nadbavok_(dlya_initsiatorov).pdf"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        по ссылке
+                    </a>{' '}
+                    .
+                </p>
+            </Message>
             <DevModeMessage />
             {roles.length > 1 ? (
                 <SliderPage

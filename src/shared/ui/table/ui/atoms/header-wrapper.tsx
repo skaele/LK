@@ -19,13 +19,13 @@ const HeaderWrapper = styled.div`
         display: none;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 650px) {
         .four {
             display: none;
         }
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 550px) {
         font-size: 0.8em;
         .three {
             display: none;

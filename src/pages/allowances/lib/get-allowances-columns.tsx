@@ -9,7 +9,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
         {
             title: 'Дата',
             field: 'createdAt',
-            priority: 'two',
+            priority: 'one',
             sort: true,
             type: 'date',
             align: 'center',
@@ -18,7 +18,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
         {
             title: 'Тип',
             field: 'paymentIdentifier',
-            priority: 'three',
+            priority: 'one',
             width: '150px',
             showFull: true,
             render: (value) => value || '-',
@@ -26,8 +26,8 @@ export const getAllowancesColumns = (): ColumnProps[] => {
         {
             title: 'Источник финансирования',
             field: 'sourceOfFunding',
+            priority: 'three',
             showFull: true,
-            priority: 'four',
             width: '150px',
             render: (value) => value || '-',
         },
@@ -49,10 +49,11 @@ export const getAllowancesColumns = (): ColumnProps[] => {
                 )
             },
         },
-        { title: 'Комментарий', field: 'commentary', render: (value) => value || '-' },
+        { title: 'Комментарий', field: 'commentary', priority: 'two', render: (value) => value || '-' },
         {
             title: 'Файлы',
             field: 'files',
+            priority: 'two',
             width: '100px',
             align: 'center',
             showFull: true,

@@ -11,21 +11,24 @@ import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
 import { File } from '../ui/file'
 import { Divider } from '@shared/ui/divider'
-import { Forbidden } from '@shared/ui/forbidden'
 import { Loading } from '@shared/ui/loading'
 import { DevModeMessage } from '../ui/dev-mode-message'
+import { AllowancesForbidden } from '../ui/forbidden'
 
 const Info = () => {
     const { id, role, jobId } = useParams<{ id: string; role: Role; jobId: string }>()
 
-    const [infoPageMounted, data, pending, error, roles] = useUnit([
+    const [infoPageMounted, data, pending, error, roles, jobRoles] = useUnit([
         allowancesModel.events.infoPageMounted,
         allowancesModel.stores.allowance.data,
         allowancesModel.stores.allowance.loading,
         allowancesModel.stores.allowance.error,
         allowancesModel.stores.roles,
+        allowancesModel.stores.jobRoles,
     ])
-    const isAllowed = roles.includes('Initiator') || roles.includes('Approver')
+    const initiator = roles.includes('Initiator')
+    const approver = roles.includes('Approver')
+    const isAllowed = initiator || approver
 
     useEffect(() => {
         if (isAllowed) infoPageMounted({ id, role, userId: jobId })
@@ -39,7 +42,7 @@ const Info = () => {
                 </Flex>
             </PageBlock>
         )
-    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <AllowancesForbidden jobRoles={jobRoles} />
 
     return (
         <PageBlock>

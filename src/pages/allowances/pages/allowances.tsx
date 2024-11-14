@@ -3,16 +3,15 @@ import { Initiator } from '../ui/initiator'
 import { Approver } from '../ui/approver'
 import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
-import { userModel } from '@entities/user'
 import { SliderPage } from 'widgets'
 import PageBlock from '@shared/ui/page-block'
 import { Button, Loading, Message } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 import { useHistory, useParams } from 'react-router'
-import { Forbidden } from '@shared/ui/forbidden'
 import Flex from '@shared/ui/flex'
 import { DevModeMessage } from '../ui/dev-mode-message'
+import { AllowancesForbidden } from '../ui/forbidden'
 
 const Allowances = () => {
     const history = useHistory()
@@ -20,11 +19,11 @@ const Allowances = () => {
     const setRole = (role: string | undefined) => {
         history.push(ALLOWANCES + `/${role}`)
     }
-    const [pageMounted, loading, roles] = useUnit([
+    const [pageMounted, loading, roles, jobRoles] = useUnit([
         allowancesModel.events.pageMounted,
         allowancesModel.stores.rolesPending,
         allowancesModel.stores.roles,
-        userModel.stores.user,
+        allowancesModel.stores.jobRoles,
     ])
 
     const handleCreateApplication = () => {
@@ -44,7 +43,7 @@ const Allowances = () => {
             </PageBlock>
         )
 
-    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <AllowancesForbidden jobRoles={jobRoles} />
 
     return (
         <PageBlock

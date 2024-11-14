@@ -1,13 +1,9 @@
 import { createQuery } from '@farfetched/core'
 import { getDivisions, getKEDO, getWorkWeeks } from '@shared/api/application-api'
 import { staffAppStarted } from '@shared/effector'
-import { combine, createEffect, createEvent, createStore, sample } from 'effector'
-
-export const loadDivisions = createEvent()
+import { combine, createEffect, createStore, sample } from 'effector'
 
 const loadDivisionsFx = createEffect(getDivisions)
-
-sample({ clock: loadDivisions, target: loadDivisionsFx })
 
 const hasKEDOQuery = createQuery({ handler: getKEDO })
 const workWeekQuery = createQuery({ handler: getWorkWeeks })
@@ -19,7 +15,7 @@ sample({ clock: loadDivisionsFx.doneData, target: $hrDivisions })
 
 sample({
     clock: staffAppStarted,
-    target: [hasKEDOQuery.start, workWeekQuery.start],
+    target: [hasKEDOQuery.start, workWeekQuery.start, loadDivisionsFx],
 })
 
 export const hasKEDO = hasKEDOQuery.$data

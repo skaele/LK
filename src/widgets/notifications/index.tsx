@@ -11,6 +11,10 @@ import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
 import { PersonnelOrderList } from './ui/personnel-order-list'
+import { NotificationType } from '@entities/notification/model'
+import { AllowanceList } from './ui/allowance-list'
+import { useHistory, useParams } from 'react-router'
+import { DOCLIST_ROUTE } from '@app/routes/teacher-routes'
 
 const ElementsControlNotification = styled.div`
     display: flex;
@@ -19,18 +23,9 @@ const ElementsControlNotification = styled.div`
     width: 100%;
 `
 
-const PageWrapper = styled.div`
-    .slider-list-notification {
-        margin-top: 12px;
-        width: 100%;
-    }
-`
-
 interface Props {
     docsType?: boolean
 }
-
-type NotificationType = 'notifications' | 'docs' | 'personnel-orders'
 
 const BASE_FILTER_LIST = [
     { id: 'all', title: 'Все' },
@@ -45,9 +40,11 @@ const NOTIFICATION_FILTER_LIST = [
 ]
 
 const NotificationsPage = ({ docsType }: Props) => {
+    const history = useHistory()
+    const { type: notificationType } = useParams<{ type: NotificationType }>()
+    const setNotificationType = (type: string) => history.push(DOCLIST_ROUTE + '/' + type)
     const { data: notifications, error } = personalNotificationModel.selectors.usePersonalNotifications()
     const [foundNotification, setFoundNotification] = useState<Notifications>()
-    const [notificationType, setNotificationType] = useState<NotificationType>('docs')
     const [searchValue, setSearchValue] = useState<string>('')
 
     const [baseFilter, setBaseFilter] = useState<SelectPage | null>({ id: 'all', title: 'Все' })
@@ -116,56 +113,57 @@ const NotificationsPage = ({ docsType }: Props) => {
             error={error}
             data={foundNotification}
         >
-            <PageWrapper>
-                <PageBlock>
-                    <ElementsControlNotification>
-                        <Input
-                            value={searchValue}
-                            setValue={setSearchValue}
-                            placeholder={'Поиск'}
-                            leftIcon={<FiSearch />}
-                        />
-                        <Select
-                            items={notificationType === 'notifications' ? NOTIFICATION_FILTER_LIST : BASE_FILTER_LIST}
-                            selected={notificationType === 'notifications' ? notificationsFilter : baseFilter}
-                            setSelected={notificationType === 'notifications' ? setNotificationsFilter : setBaseFilter}
-                        />
-                    </ElementsControlNotification>
-                    {docsType && foundNotification?.docs ? (
-                        <ListNotification listNotification={foundNotification?.docs} />
-                    ) : (
-                        <SliderPage
-                            onChangePage={handleSlideChange}
-                            pages={[
-                                {
-                                    id: 'docs',
-                                    title: 'Приказы',
-                                    content: foundNotification?.docs && (
-                                        <ListNotification listNotification={foundNotification?.docs} />
-                                    ),
-                                },
-                                {
-                                    id: 'notifications',
-                                    title: 'Кадровые уведомления',
-                                    content: filteredNotifications.length ? (
-                                        <ListNotification listNotification={filteredNotifications} />
-                                    ) : undefined,
-                                },
-                                {
-                                    id: 'personnel-orders',
-                                    title: 'Кадровые маршруты',
-                                    content: <PersonnelOrderList searchQuery={searchValue} filter={baseFilter} />,
-                                },
-                                {
-                                    title: 'Надбавки',
-                                    condition: undefined,
-                                    content: undefined,
-                                },
-                            ]}
-                        />
-                    )}
-                </PageBlock>
-            </PageWrapper>
+            <PageBlock>
+                <ElementsControlNotification>
+                    <Input
+                        value={searchValue}
+                        setValue={setSearchValue}
+                        placeholder={'Поиск'}
+                        leftIcon={<FiSearch />}
+                    />
+                    <Select
+                        items={notificationType === 'notifications' ? NOTIFICATION_FILTER_LIST : BASE_FILTER_LIST}
+                        selected={notificationType === 'notifications' ? notificationsFilter : baseFilter}
+                        setSelected={notificationType === 'notifications' ? setNotificationsFilter : setBaseFilter}
+                    />
+                </ElementsControlNotification>
+                {docsType ? (
+                    foundNotification?.docs && <ListNotification listNotification={foundNotification?.docs} />
+                ) : (
+                    <SliderPage
+                        onChangePage={handleSlideChange}
+                        currentPage={
+                            notificationType === 'allowances' ? 2 : notificationType === 'notifications' ? 1 : 0
+                        }
+                        pages={[
+                            {
+                                id: 'docs',
+                                title: 'Приказы',
+                                content: foundNotification?.docs && (
+                                    <ListNotification listNotification={foundNotification?.docs} />
+                                ),
+                            },
+                            {
+                                id: 'notifications',
+                                title: 'Кадровые уведомления',
+                                content: filteredNotifications.length ? (
+                                    <ListNotification listNotification={filteredNotifications} />
+                                ) : undefined,
+                            },
+                            {
+                                id: 'allowances',
+                                title: 'Надбавки',
+                                content: <AllowanceList filter={baseFilter} searchQuery={searchValue} />,
+                            },
+                            {
+                                id: 'personnel-orders',
+                                title: 'Кадровые маршруты',
+                                content: <PersonnelOrderList searchQuery={searchValue} filter={baseFilter} />,
+                            },
+                        ]}
+                    />
+                )}
+            </PageBlock>
         </Wrapper>
     )
 }

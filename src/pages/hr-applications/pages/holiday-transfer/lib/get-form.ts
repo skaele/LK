@@ -112,7 +112,7 @@ const getForm = (
             fieldName: 'files',
             required: true,
             maxFiles: 10,
-            allowedTypes: ['application/pdf', 'image/png', 'image/jpeg'],
+            allowedTypes: ['pdf', 'png', 'jpeg'],
         },
     }
 }

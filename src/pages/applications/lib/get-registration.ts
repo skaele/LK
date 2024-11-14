@@ -10,7 +10,7 @@ const getRegistration = (): IInputArea => {
             required: true,
             fieldName: 'registrationFiles',
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

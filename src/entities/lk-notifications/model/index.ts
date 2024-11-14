@@ -1,12 +1,15 @@
 import { menuModel } from '@entities/menu'
 import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
-import { lkNotificationApi } from '@shared/api'
+import { allowancesApi, lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
+import { allowancesModel } from '@entities/allowances'
+import { NotificationTitles } from '@entities/allowances/consts'
+import { createAllowancePath } from '../lib/create-allowance-path'
 
 type TStore = {
     notifications: TNotification[]
@@ -77,6 +80,7 @@ const clearNotificationByIdFx = createEffect(async ({ id, pageId }: { id: string
 
 const clearAllNotificationsFx = createEffect(async () => {
     try {
+        await allowancesApi.viewAllNotifications()
         await lkNotificationApi.clearAllNotifications()
     } catch (error) {
         throw new Error('Не удалось скрыть все уведомления')
@@ -95,6 +99,19 @@ const clearAll = createEvent()
 const clearAllVisible = createEvent()
 
 const $lkNotificationsStore = createStore<TStore>(DEFAULT_STORE).reset(userModel.stores.userGuid)
+const $allowancesNotifications = allowancesModel.stores.notifications.data.map((allowances) => {
+    if (!allowances) return []
+    return allowances.map((allowance) =>
+        createNotification(
+            'allowance',
+            allowance.notificationId,
+            NotificationTitles[allowance.notificationType],
+            allowance.message,
+            createAllowancePath(allowance),
+            allowance.notificationType,
+        ),
+    )
+})
 
 forward({
     from: initialize,
@@ -102,7 +119,7 @@ forward({
 })
 
 sample({
-    clock: fetchNotifications.pending,
+    clock: [fetchNotifications.pending, allowancesModel.stores.notifications.loading],
     source: $lkNotificationsStore,
     fn: (store, clk) => ({ ...store, loading: clk }),
     target: $lkNotificationsStore,
@@ -116,7 +133,7 @@ sample({
 })
 
 sample({
-    clock: fetchNotifications.doneData,
+    clock: [fetchNotifications.doneData, $allowancesNotifications],
     source: $lkNotificationsStore,
     fn: (store, clk) => ({
         ...store,

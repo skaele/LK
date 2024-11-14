@@ -36,6 +36,11 @@ const AreaTitleWrapper = styled.div`
         }
         /* white-space: nowrap; */
     }
+
+    @media (max-width: 1000px) {
+        background: transparent;
+        position: relative;
+    }
 `
 
 interface Props {

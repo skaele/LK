@@ -304,7 +304,7 @@ export const getContacts = (): IInputArea => {
             fieldName: 'address_doc',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
         alert: (
             <p>
@@ -403,7 +403,7 @@ export const getPassport = (): IInputArea => {
             fieldName: 'passport_doc',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
         alert: (
             <p>
@@ -475,7 +475,7 @@ export const getMilitaryRegistrationDocument = (): IInputArea => {
             fieldName: 'military_doc',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
         alert: (
             <p>

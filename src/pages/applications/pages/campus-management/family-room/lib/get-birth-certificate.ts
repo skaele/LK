@@ -9,7 +9,7 @@ const getBirthCertificate = (): IInputArea => {
             fieldName: 'birthCertificate',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

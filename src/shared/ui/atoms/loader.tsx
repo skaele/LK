@@ -49,6 +49,9 @@ const LoadingBlock = styled.div<StyledProps>`
 `
 
 const ContentBlock = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     transition: 0.2s;
     height: 100%;
 `

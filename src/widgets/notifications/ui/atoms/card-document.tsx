@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import Subtext from '@shared/ui/subtext'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { lkNotificationModel } from '@entities/lk-notifications'
+import { CardTitle, Info } from './styled'
 
 const CardDocumentWrapper = styled.div`
     width: 100%;
@@ -26,13 +27,6 @@ const CardDocumentWrapper = styled.div`
     align-items: flex-end;
 `
 
-const InfoDocument = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-`
-
 const BlockButtons = styled.div`
     display: flex;
     gap: 8px;
@@ -43,13 +37,6 @@ const BlockButtons = styled.div`
         max-width: 100%;
         width: 100%;
     }
-`
-
-const TitleCardDocument = styled.div`
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
 `
 
 interface Props {
@@ -75,10 +62,10 @@ const CardDocument = ({ data }: Props) => {
     }
     return (
         <CardDocumentWrapper>
-            <InfoDocument>
-                <TitleCardDocument>{data.name}</TitleCardDocument>
+            <Info>
+                <CardTitle>{data.name}</CardTitle>
                 {data.date && <Subtext>Дата: {localizeDate(data.date, 'numeric')}</Subtext>}
-            </InfoDocument>
+            </Info>
             <BlockButtons>
                 {data.link && (
                     <LinkButton

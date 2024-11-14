@@ -85,9 +85,6 @@ const DebtAndQr = (props: Props) => {
         : 'У вас нет долга'
     const dateText = currentPage === 0 ? `На ${localizeDate(new Date())}` : `До ${localizeDate(endDatePlan)}`
 
-    // const handleQrTutorial = () => {
-    //     open(<></>, 'Как оплатить с помощью QR')
-    // }
     const showTutorial =
         index === 0 &&
         ((roles.includes('dormitory') && roles.includes('education') && isDormitory) ||

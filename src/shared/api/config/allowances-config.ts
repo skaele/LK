@@ -2,8 +2,8 @@ import axios from 'axios'
 import { addAuthHeaderToRequests } from './utils'
 import { isProduction } from '@shared/constants'
 
-const ALLOWANCES_PROD_URL = 'https://apilin.mospolytech.ru:5031/'
-const ALLOWANCES_DEV_URL = 'https://apilin.mospolytech.ru:5033/'
+const ALLOWANCES_PROD_URL = 'https://api.mospolytech.ru/allowanceservice/'
+const ALLOWANCES_DEV_URL = 'https://api.mospolytech.ru/testallowanceservice/'
 
 export const ALLOWANCES_URL = isProduction ? ALLOWANCES_PROD_URL : ALLOWANCES_DEV_URL
 

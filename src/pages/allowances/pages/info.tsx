@@ -16,9 +16,6 @@ import { DevModeMessage } from '../ui/dev-mode-message'
 import { AllowancesForbidden } from '../ui/forbidden'
 import { Forbidden } from '@shared/ui/forbidden'
 
-// https://e.mospolytech.ru/#/allowances-info/7f9a30ea-e7b3-11ea-9434-b4b52f5f5349/approver/9ccdceab-1ba5-467c-9669-fc740c1c5f69
-// https://e.mospolytech.ru/#/allowances-info/9ccdceab-1ba5-467c-9669-fc740c1c5f69
-
 const Info = () => {
     const { id } = useParams<{ id: string; role: Role; jobId: string }>()
 

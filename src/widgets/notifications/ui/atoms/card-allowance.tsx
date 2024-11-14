@@ -9,15 +9,9 @@ import { Colors, ThemeVariant } from '@shared/constants'
 import { allowancesModel } from '@entities/allowances'
 import { useUnit } from 'effector-react'
 import { approvalStatus, orderStatus } from '@entities/allowances/consts'
-import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
 import { userSettingsModel } from '@entities/settings'
-
-const RULES: Rules = {
-    fiveToNine: 'дней',
-    one: 'день',
-    twoToFour: 'дня',
-    zero: 'дней',
-}
+import { isValidDate } from '@shared/lib/dates/is-valid-date'
+import { timeDiff } from '@shared/lib/dates/time-diff'
 
 export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)
@@ -29,11 +23,6 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 <Title align="left" size={3}>
                     {allowance.paymentIdentifier}, {allowance.position}
                 </Title>
-                {!!allowance.toConfirmDaysLeft && (
-                    <Subtext fontSize="1em" color="var(--redMain)">
-                        Осталось {allowance.toConfirmDaysLeft} {getCorrectWordForm(allowance.toConfirmDaysLeft, RULES)}
-                    </Subtext>
-                )}
                 {allowance.orderStatus && allowance.selfApprovalStatus === 'Approved' && (
                     <Title align="left" size={4}>
                         {orderStatus[allowance.orderStatus]} {allowance.orderTitle && `(${allowance.orderTitle})`}
@@ -97,7 +86,11 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                         />
                     </BlockButtons>
                     <WarningBlock isLightTheme={settings?.appearance.theme === ThemeVariant.Light}>
-                        <Subtext>Подтвердите надбавку в течение 1 рабочего дня</Subtext>
+                        <Subtext>
+                            Подтвердите надбавку в течение 1 дня.{' '}
+                            {isValidDate(allowance.confirmationEndDate) &&
+                                `Осталось ${timeDiff(allowance.confirmationEndDate)}`}
+                        </Subtext>
                     </WarningBlock>
                 </>
             )}

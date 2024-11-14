@@ -63,7 +63,7 @@ export interface PersonalAllowance {
     selfApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
     orderTitle: string
-    toConfirmDaysLeft: number
+    confirmationEndDate: string
 }
 
 export type ItemNotification = baseNotification | businesstripNotification | docsNotification

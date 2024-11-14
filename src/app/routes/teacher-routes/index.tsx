@@ -534,6 +534,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+        isNew: true,
     },
     allowances: {
         id: 'allowances',

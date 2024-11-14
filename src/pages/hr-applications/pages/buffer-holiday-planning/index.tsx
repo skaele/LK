@@ -1,12 +1,13 @@
 import React from 'react'
 import Content from './ui/content'
 import { useHistory } from 'react-router'
-import { FiCalendar, FiInfo } from 'react-icons/fi'
-import { Button, Message, Wrapper } from '@shared/ui/atoms'
+import { FiCalendar } from 'react-icons/fi'
+import { Button, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { KedoError } from '@pages/hr-applications/ui/kedo-error'
 import { hasKEDO } from '@pages/hr-applications/model/divisions'
 import { useUnit } from 'effector-react'
+import { PersonnelOrdersMessage } from '@pages/hr-applications/ui/personnel-orders-message'
 
 const HolidayPlanningBufferPage = () => {
     const history = useHistory()
@@ -32,10 +33,7 @@ const HolidayPlanningBufferPage = () => {
                     />
                 }
             >
-                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    В этом разделе можно посмотреть статус заявлений на отпуск и подать новые. В архив помещаются все
-                    выполненные заявления старше 7 дней.
-                </Message>
+                <PersonnelOrdersMessage />
                 <Content />
             </PageBlock>
         </Wrapper>

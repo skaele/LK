@@ -1,3 +1,4 @@
+import { allowancesModel } from '@entities/allowances'
 import { NotificationLinks } from '@entities/allowances/consts'
 import { AllowanceNotification } from '@entities/allowances/types'
 
@@ -6,17 +7,35 @@ export const createAllowancePath = (allowance: AllowanceNotification) => {
 
     switch (page) {
         case NotificationLinks.RecepientDeclinedByZkgu:
-            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Initiator')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+
+            return `${page}/${allowance.allowanceId}`
         case NotificationLinks.RecepientDeclinedByAppover:
-            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Initiator')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+            return `${page}/${allowance.allowanceId}`
+
         case NotificationLinks.RecepientSelfDeclined:
-            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Initiator')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+            return `${page}/${allowance.allowanceId}`
+
         case NotificationLinks.RecepientSelfConfirmed:
-            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Initiator')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+            return `${page}/${allowance.allowanceId}`
+
         case NotificationLinks.FullyCompleted:
-            return `${page}/${allowance.employeeId}/initiator/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Initiator')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+            return `${page}/${allowance.allowanceId}`
+
         case NotificationLinks.ToApprove:
-            return `${page}/${allowance.employeeId}/approver/${allowance.allowanceId}`
+            allowancesModel.events.setCurrentRole('Approver')
+            allowancesModel.events.setCurrentJobId(allowance.employeeId)
+            return `${page}/${allowance.allowanceId}`
+
         case NotificationLinks.ToConfirm:
             return page
         case NotificationLinks.AllowanceOrderCompleted:

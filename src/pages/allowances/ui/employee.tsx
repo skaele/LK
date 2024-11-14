@@ -55,7 +55,7 @@ export const Employee = ({
                 align="left"
                 icon={null}
             />
-            {role === 'Initiator'.toLowerCase() && (
+            {role === 'Initiator' && (
                 <>
                     {employee.employeeVerdicts?.map((verdict) => (
                         <Flex w="100%" jc="space-between" ai="center" key={verdict.approverEmployeeId}>
@@ -113,7 +113,7 @@ export const Employee = ({
                     )}
                 </>
             )}
-            {role === 'Approver'.toLowerCase() && statusText !== 'Approved' && statusText !== 'Declined' && (
+            {role === 'Approver' && statusText !== 'Approved' && statusText !== 'Declined' && (
                 <Flex jc="space-between">
                     <Button
                         text="Отказать"

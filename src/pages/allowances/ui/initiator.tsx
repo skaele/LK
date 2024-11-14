@@ -10,7 +10,12 @@ import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
 
 export const Initiator = () => {
     const history = useHistory()
-    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.stores.jobRoles])
+    const [allowances, jobs, setRole, setJobId] = useUnit([
+        allowancesModel.stores.allowances,
+        allowancesModel.stores.jobRoles,
+        allowancesModel.events.setCurrentRole,
+        allowancesModel.events.setCurrentJobId,
+    ])
 
     const [job, setJob] = useState<SelectPage | null>(() => {
         const job = jobs && jobs.find((job) => job.roles.includes('Initiator'))
@@ -50,7 +55,9 @@ export const Initiator = () => {
                 data={job && allowances ? allowances[job.id].initiatorAllowances : null}
                 maxOnPage={7}
                 onRowClick={(allowance) => {
-                    history.push(ALLOWANCE_INFO_CUT + `/${job?.id}/initiator/${allowance.id}`)
+                    setRole('Initiator')
+                    setJobId(job?.id.toString() || '')
+                    history.push(ALLOWANCE_INFO_CUT + `/${allowance.id}`)
                 }}
             />
         </Flex>

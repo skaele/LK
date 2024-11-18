@@ -37,7 +37,7 @@ const $filesUploaded = createStore<boolean>(false)
 sample({
     clock: pageMounted,
     fn: () => ({
-        limit: 10,
+        limit: 7,
         offset: 0,
         sorts: null,
     }),

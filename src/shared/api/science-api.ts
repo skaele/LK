@@ -24,17 +24,17 @@ export const getAllArticles = async ({
     limit: number
     offset: number
     sorts: Sort[] | null
-}): Promise<Article[]> => {
-    const { data } = await $scienceApi.post<Article[]>(`/data/all`, {
+}) => {
+    const { data } = await $scienceApi.post<{ data: Article[] }>(`/article/all`, {
         limit: limit,
         offset: offset,
         sorts: sorts,
     })
-    return data
+    return data.data
 }
 
 export const getArticle = async (id: string): Promise<Article> => {
-    const { data } = await $scienceApi.get<Article>(`/data/${id}`)
+    const { data } = await $scienceApi.get<Article>(`/article/${id}`)
 
     return data
 }

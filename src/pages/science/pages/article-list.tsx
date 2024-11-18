@@ -63,16 +63,18 @@ const Header = () => {
                     onClick={() => {
                         if (allSelected) {
                             articles?.data?.map((_, index) => {
+                                if (selected.has(index)) {
+                                    select(index)
+                                }
+                            })
+                            setAllSelected(false)
+                        } else {
+                            articles?.data?.map((_, index) => {
                                 if (!selected.has(index)) {
                                     select(index)
                                 }
                             })
                             setAllSelected(true)
-                        } else {
-                            articles?.data?.map((_, index) => {
-                                select(index)
-                            })
-                            setAllSelected(false)
                         }
                     }}
                     text="Выбрать все"

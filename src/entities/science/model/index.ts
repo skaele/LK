@@ -2,6 +2,8 @@ import { getAllArticles, uploadArticle, UploadReq } from '@shared/api/science-ap
 import { createEvent, createStore, sample } from 'effector'
 import { createMutation, createQuery } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
+import { ColumnProps } from '@shared/ui/table/types'
 
 const pageMounted = createEvent()
 const modalOpened = createEvent()
@@ -9,6 +11,7 @@ const setScopusFile = createEvent<File[]>()
 const setWosFile = createEvent<File[]>()
 const uploadFiles = createEvent<UploadReq>()
 const selectArticle = createEvent<number>()
+const setColumns = createEvent<ColumnProps[]>()
 
 export const uploadArticleMutation = createMutation({ handler: uploadArticle })
 const getAllArticlesQuery = createQuery({ handler: getAllArticles })
@@ -33,6 +36,9 @@ const $wosFile = createStore<File[]>([])
 const $filesUploaded = createStore<boolean>(false)
     .on(uploadArticleMutation.finished.success, () => true)
     .reset(modalOpened)
+const $columns = createStore<ColumnProps[]>(getDefaultColumns())
+    .on(setColumns, (_, value) => value)
+    .reset(pageMounted)
 
 sample({
     clock: pageMounted,
@@ -74,6 +80,7 @@ export const stores = {
     scopusFile: $scopusFile,
     wosFile: $wosFile,
     uploadLoading: uploadArticleMutation.$pending,
+    columns: $columns,
 }
 
-export const events = { pageMounted, selectArticle, uploadFiles, modalOpened, setScopusFile, setWosFile }
+export const events = { pageMounted, selectArticle, uploadFiles, modalOpened, setScopusFile, setWosFile, setColumns }

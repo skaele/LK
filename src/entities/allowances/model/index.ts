@@ -47,6 +47,8 @@ const createSupplement = createEvent()
 const setCompleted = createEvent<boolean>()
 const approve = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
 const reject = createEvent<{ employeeId: string; allowanceId: string; approverEmployeeId: string }>()
+const setCurrentRole = createEvent<Role>()
+const setCurrentJobId = createEvent<string>()
 
 const removeAllFilesFx = createEffect(async (files: string[]) => {
     await Promise.all(files.map((fileId) => removeFileMutation.start(fileId)))
@@ -90,6 +92,12 @@ const files = createFilesField({ reset: pageMounted })
 
 const $filesMap = createStore<Record<string, string>>({})
 const $fileIds = $filesMap.map((files) => Object.values(files))
+const $currentRole = createStore<Role | null>(null)
+    .on(setCurrentRole, (_, role) => role)
+    .reset(userModel.events.logout)
+const $currentJobId = createStore<string | null>(null)
+    .on(setCurrentJobId, (_, jobId) => jobId)
+    .reset(userModel.events.logout)
 
 const $completed = createStore(false).reset(pageMounted)
 const $allowances = createStore<{
@@ -458,6 +466,8 @@ export const events = {
     allowanceStatusChanged,
     getSubordinates: getSubordinatesEvent,
     notificationRead,
+    setCurrentRole,
+    setCurrentJobId,
 }
 
 export const stores = {
@@ -478,6 +488,8 @@ export const stores = {
         data: allowanceQuery.$data,
         loading: allowanceQuery.$pending,
         error: allowanceQuery.$error,
+        role: $currentRole,
+        jobId: $currentJobId,
     },
 
     personalAllowances: {

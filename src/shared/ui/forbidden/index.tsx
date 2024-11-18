@@ -31,7 +31,7 @@ export const Forbidden = ({ text, errorCodes }: { text: string; errorCodes?: str
                     >
                         <Message type="failure" fontSize="0.95rem" title={''} icon={''}>
                             {errorCodes.map((code) => (
-                                <div key={code}>{code}</div>
+                                <div key={code}>Error: {code}</div>
                             ))}
                         </Message>
                     </AutoAccordion>

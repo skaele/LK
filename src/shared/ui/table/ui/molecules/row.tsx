@@ -25,7 +25,8 @@ const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected
         <RowWrapper even={index % 2 === 0} onClick={() => (onRowClick ? onRowClick(el) : defaultOnClick())}>
             {select && (
                 <Column
-                    width="20px"
+                    padding="10px"
+                    width="36px"
                     className={'one'}
                     align="center"
                     onClick={(e) => {

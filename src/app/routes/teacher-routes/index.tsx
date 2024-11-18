@@ -591,7 +591,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         isTemplate: false,
         group: 'SCIENCE',
         isNew: true,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     'article-list': {
         id: 'article-list',
@@ -617,6 +617,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         pageSize: 'big',
         hiddenTitle: true,
         show: false,
+        isSubPage: true,
     },
     'open-publication': {
         id: 'open-publication',

@@ -6,16 +6,17 @@ export const getDefaultColumns = (): ColumnProps[] => [
         priority: 'one',
         field: 'articleTitle',
         width: '220px',
+        showFull: true,
     },
     {
         title: 'Авторы',
         field: 'authors',
-        width: '100px',
+        width: '180px',
         showFull: true,
     },
     {
         title: 'Год',
-        field: 'doi',
+        field: 'publicationYear',
         width: '120px',
         align: 'center',
         catalogs: [
@@ -28,7 +29,7 @@ export const getDefaultColumns = (): ColumnProps[] => [
     },
     {
         title: 'Издательство',
-        field: 'sourceTitle',
+        field: 'publisher',
         width: '150px',
         showFull: true,
     },

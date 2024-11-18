@@ -42,7 +42,7 @@ const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, 
 
     return (
         <HeaderWrapper>
-            {tableHasSelect && <Column width="20px" align="center" className={'one'}></Column>}
+            {tableHasSelect && <Column width="36px" align="center" className={'one'}></Column>}
             {columns.map((column) => {
                 return (
                     <Column

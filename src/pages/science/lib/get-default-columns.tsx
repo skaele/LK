@@ -1,4 +1,6 @@
 import { ColumnProps } from '@shared/ui/table/types'
+import React from 'react'
+import { FaCheck } from 'react-icons/fa6'
 
 export const getDefaultColumns = (): ColumnProps[] => [
     {
@@ -33,4 +35,28 @@ export const getDefaultColumns = (): ColumnProps[] => [
         width: '150px',
         showFull: true,
     },
+    {
+        title: 'Номер страницы',
+        field: 'pageNumber',
+        width: '150px',
+        render: (value) => (value ? value : '-'),
+    },
+    {
+        title: 'Scopus',
+        field: 'isScopus',
+        width: '100px',
+        align: 'center',
+        render: (value) => value && <FaCheck />,
+    },
+    {
+        title: 'WoS',
+        field: 'isWoS',
+        width: '100px',
+        align: 'center',
+        render: (value) => value && <FaCheck />,
+    },
+    { title: 'Тип', showFull: true, field: 'publicationType' },
+    { title: 'Количество цитирований', field: 'quotesCount' },
+    { title: 'DOI', field: 'doi' },
+    { title: 'Источник финансирования', field: 'fundingSource' },
 ]

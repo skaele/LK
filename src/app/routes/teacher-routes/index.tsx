@@ -603,7 +603,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         isTemplate: false,
         group: 'SCIENCE',
         isNew: true,
-        pageSize: 'big',
+        pageSize: 'large',
     },
     article: {
         id: 'article',
@@ -614,7 +614,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         color: 'blue',
         isTemplate: false,
         group: 'SCIENCE',
-        pageSize: 'big',
+        pageSize: 'large',
         hiddenTitle: true,
         show: false,
         isSubPage: true,

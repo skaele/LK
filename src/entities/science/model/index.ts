@@ -2,7 +2,7 @@ import { getAllArticles, uploadArticle, UploadReq } from '@shared/api/science-ap
 import { createEvent, createStore, sample } from 'effector'
 import { createMutation, createQuery } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
+import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
 import { ColumnProps } from '@shared/ui/table/types'
 import { TABLE_SIZE } from './consts'
 

@@ -1,5 +1,5 @@
 import { articleModel } from '@entities/science'
-import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
+import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
@@ -19,13 +19,7 @@ const Article = () => {
         articleModel.stores.loading,
         articleModel.events.pageMounted,
     ])
-    const [articleColumns, setArticleColumns] = useState<ColumnProps[]>([
-        ...getDefaultColumns(),
-        {
-            title: 'Статус',
-            field: '',
-        },
-    ])
+    const [articleColumns, setArticleColumns] = useState<ColumnProps[]>(getDefaultColumns())
 
     useEffect(() => {
         pageMounted(id)

@@ -6,10 +6,10 @@ import { scienceModel } from '@entities/science'
 import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 import Flex from '@shared/ui/flex'
-import { getScienceColumns } from '../lib/get-columns'
 import { useModal } from 'widgets'
 import { UploadModal } from '../widgets/upload-modal'
 import { TABLE_SIZE } from '@entities/science/model/consts'
+import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
 
 const Science = () => {
     const { open } = useModal()
@@ -48,7 +48,7 @@ const Science = () => {
         >
             <Table
                 loading={loading}
-                columns={getScienceColumns()}
+                columns={getDefaultColumns()}
                 data={articles?.data}
                 maxOnPage={TABLE_SIZE}
                 select={select}

@@ -5,6 +5,8 @@ import checkFormFields from '@utils/check-form-fields'
 import { Colors } from '@shared/constants'
 import { Line } from '@ui/timeline/ui'
 import InputArea from '@ui/input-area'
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
 
 type HiddenProps = {
     reached?: boolean
@@ -31,7 +33,8 @@ const StepCircle = styled.div<HiddenProps>`
 
 const ListStepForm = styled.div`
     display: flex;
-    margin-bottom: -20px;
+    margin-bottom: -0.5rem;
+    overflow-x: auto;
 `
 
 const ElementControlStepForm = styled.div<{ lastElement?: boolean }>`
@@ -46,7 +49,7 @@ type ReachedT = {
 
 type DataForStepByStep = {
     dataForm: IInputArea
-    setDataForm: React.Dispatch<React.SetStateAction<IInputArea>>
+    setDataForm: (data: IInputArea) => void
 }
 
 export type StagesConfigsT = DataForStepByStep[][]
@@ -69,10 +72,18 @@ const StepByStepForm = ({ stagesConfig }: Props) => {
         }))
         setIndexActiveForm(indexAnotherStep)
     }
+
+    useEffect(() => {
+        setListReached((prevState) => ({
+            ...prevState,
+            [indexActiveForm]: checkFormFields(stagesConfig[indexActiveForm][0].dataForm),
+        }))
+    }, [indexActiveForm])
+
     return (
         <>
             <ListStepForm>
-                {stagesConfig.map((item, key: number) => (
+                {stagesConfig.map((_, key: number) => (
                     <ElementControlStepForm lastElement={key === stagesConfig.length - 1} key={key}>
                         <StepCircle
                             current={key === indexActiveForm}
@@ -89,9 +100,38 @@ const StepByStepForm = ({ stagesConfig }: Props) => {
             </ListStepForm>
             <>
                 {stagesConfig[indexActiveForm].map((item, key) => (
-                    <InputArea {...item.dataForm} setData={item.setDataForm} key={key} />
+                    <InputArea
+                        {...item.dataForm}
+                        setData={(data: IInputArea) => {
+                            item.setDataForm(data)
+
+                            setListReached((prevState) => ({
+                                ...prevState,
+                                [indexActiveForm]: checkFormFields(stagesConfig[indexActiveForm][0].dataForm),
+                            }))
+                        }}
+                        key={key}
+                    />
                 ))}
             </>
+            <Flex jc="space-between">
+                <Button
+                    text="Назад"
+                    isActive={indexActiveForm > 0}
+                    onClick={() => {
+                        if (indexActiveForm === 0) return
+                        changeStep(indexActiveForm - 1)
+                    }}
+                />
+                <Button
+                    text="Далее"
+                    isActive={indexActiveForm < stagesConfig.length - 1}
+                    onClick={() => {
+                        if (indexActiveForm === stagesConfig.length - 1) return
+                        changeStep(indexActiveForm + 1)
+                    }}
+                />
+            </Flex>
         </>
     )
 }

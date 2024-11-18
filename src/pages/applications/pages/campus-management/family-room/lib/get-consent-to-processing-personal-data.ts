@@ -9,7 +9,7 @@ const getConsentToProcessingPersonalData = (): IInputArea => {
             fieldName: 'consentToProcessingPersonalData',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

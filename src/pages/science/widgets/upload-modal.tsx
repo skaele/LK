@@ -29,13 +29,7 @@ const ScopusFileInput = () => {
             <Title size={4} align="left">
                 Scopus
             </Title>
-            <FileInput
-                files={scopusFiles}
-                isActive={true}
-                setFiles={setScopusFiles}
-                maxFiles={1}
-                formats={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
-            />
+            <FileInput files={scopusFiles} isActive={true} setFiles={setScopusFiles} maxFiles={1} formats={['csv']} />
         </Flex>
     )
 }
@@ -48,13 +42,7 @@ const WosFileInput = () => {
             <Title size={4} align="left">
                 WoS
             </Title>
-            <FileInput
-                files={wosFiles}
-                isActive={true}
-                setFiles={setWosFiles}
-                maxFiles={1}
-                formats={['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']}
-            />
+            <FileInput files={wosFiles} isActive={true} setFiles={setWosFiles} maxFiles={1} formats={['csv']} />
         </Flex>
     )
 }

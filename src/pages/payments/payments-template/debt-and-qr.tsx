@@ -47,7 +47,7 @@ const DebtAndQrContentStyled = styled.div`
 const ButtonsList = styled.div`
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 1.1rem;
     height: 35px;
 
     @media (max-width: 768px) {
@@ -70,7 +70,7 @@ type Props = {
 
 const DebtAndQr = (props: Props) => {
     const { data, index, isDormitory } = props
-    const { balance_currdate, balance, endDatePlan, can_sign, bill, qr_current, qr_total } = data
+    const { balance_currdate, balance, endDatePlan, can_sign, bill, bill_next, qr_current, qr_total } = data
     const roles = useUnit(tutorialModel.stores.roles)
     const { open } = useModal()
     const [currentPage, setCurrentPage] = useState(0)
@@ -85,9 +85,6 @@ const DebtAndQr = (props: Props) => {
         : 'У вас нет долга'
     const dateText = currentPage === 0 ? `На ${localizeDate(new Date())}` : `До ${localizeDate(endDatePlan)}`
 
-    // const handleQrTutorial = () => {
-    //     open(<></>, 'Как оплатить с помощью QR')
-    // }
     const showTutorial =
         index === 0 &&
         ((roles.includes('dormitory') && roles.includes('education') && isDormitory) ||
@@ -148,6 +145,17 @@ const DebtAndQr = (props: Props) => {
                             align="left"
                             width="fit-content"
                             href={bill}
+                            padding="0"
+                        />
+                    )}
+                    {bill_next && (
+                        <LinkButton
+                            text="Квитанция на оплату следующего периода"
+                            background="transparent"
+                            textColor={Colors.grey.main}
+                            align="left"
+                            width="fit-content"
+                            href={bill_next}
                             padding="0"
                         />
                     )}

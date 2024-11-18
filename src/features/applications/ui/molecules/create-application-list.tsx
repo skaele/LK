@@ -11,6 +11,9 @@ import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers
 import { User } from '@api/model'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
 import { userModel } from '@entities/user'
+import Subtext from '@shared/ui/subtext'
+import Flex from '@shared/ui/flex'
+import isEnabledForDegreeLevel from '../lib/isEnabledForDegreeLevel'
 
 const CreateApplicationListWrapper = styled.div`
     @media (min-width: 1001px) {
@@ -86,15 +89,18 @@ export interface Section {
         isOpenInNewWindow?: boolean
         disabled?: boolean
         exceptionalFormEducationList?: User['educationForm'][]
+        exceptionalDegreeLevelList?: User['degreeLevel'][]
+        description?: string
     }[]
 }
 
 interface Props {
     isTeachers?: boolean
     currentFormEducation?: User['educationForm']
+    currentDegreeLevel?: User['degreeLevel']
 }
 
-const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Props) => {
+const CreateApplicationList = ({ isTeachers = false, currentFormEducation, currentDegreeLevel }: Props) => {
     const { close } = useModal()
     const {
         data: { user },
@@ -135,6 +141,10 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                                 !isEnabledForEducationForm(
                                                     currentFormEducation,
                                                     link.exceptionalFormEducationList,
+                                                ) ||
+                                                !isEnabledForDegreeLevel(
+                                                    currentDegreeLevel,
+                                                    link.exceptionalDegreeLevelList,
                                                 )
                                             )
                                                 return
@@ -149,9 +159,12 @@ const CreateApplicationList = ({ isTeachers = false, currentFormEducation }: Pro
                                                     {link.title}
                                                 </a>
                                             ) : (
-                                                <Link to={link.link} key={link.link + index} onClick={close}>
-                                                    {link.title}
-                                                </Link>
+                                                <Flex d="column" ai="flex-start">
+                                                    <Link to={link.link} key={link.link + index} onClick={close}>
+                                                        {link.title}
+                                                    </Link>
+                                                    {link.description && <Subtext>{link.description}</Subtext>}
+                                                </Flex>
                                             )
                                         })}
                                     </div>

@@ -55,6 +55,9 @@ import {
     ContactDetails,
     ContactDetailsForm,
     IncreaseAntiplagiatLimits,
+    Allowances,
+    CreateAllowance,
+    AllowanceInfo,
     Science,
     ArticleList,
     Article,
@@ -100,15 +103,25 @@ import { BsPeople } from 'react-icons/bs'
 import AllStaff from '@pages/all-staff'
 import AllTeachersPage from '@pages/all-teachers'
 import { IoNewspaperOutline } from 'react-icons/io5'
+import { Role } from '@entities/allowances/types'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
+export const ALLOWANCES = '/allowances'
+export const ALLOWANCES_ROLE = ALLOWANCES + '/:role'
+export const ALLOWANCES_INITIATOR = ALLOWANCES + '/initiator'
+export const ALLOWANCES_APPROVER = ALLOWANCES + '/approver'
+export const CREATE_ALLOWANCE = '/allowances-create'
+export const ALLOWANCE_INFO_CUT = '/allowances-info'
+export const ALLOWANCE_INFO = ALLOWANCE_INFO_CUT + '/:id'
 export const JOB_ROUTE = '/job'
 export const ORDERS_ROUTE = '/staff_orders'
 export const DOCUMENT_BLANKS_ROUTE = '/staff_blanks'
 export const STUDENTS_LOGINS_ROUTE = '/ad_logins'
 export const VAX_ROUTE = '/vaccination'
 export const DOCLIST_ROUTE = '/doclist'
+export const DOCLIST_TYPE = '/doclist/:type'
+export const DOCLIST_ALLOWANCES = '/doclist/allowances'
 export const PPS_VOTE_ROUTE = '/pps_vote2020'
 export const CHILDREN_ROUTE = '/children'
 export const PPS_CONTEST_ROUTE = '/pps_contest'
@@ -144,7 +157,6 @@ export const EXPORT_CONTROL = '/export-control'
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
 export const CONTACT_INFO_ACTUALIZATION = APPLICATIONS_ROUTE + '/contact-info-actualization'
-export const CONTACT_INFO_ACTUALIZATION_TEST = APPLICATIONS_ROUTE + '/contact-info-actualization-test'
 export const DATA_VERIFICATION_ROUTE = APPLICATIONS_ROUTE + '/data-verification'
 export const ISSUANCE_OF_LICENSES = APPLICATIONS_ROUTE + '/issuance-of-licenses'
 export const GETTING_COMPUTER_EQUIPMENT = APPLICATIONS_ROUTE + '/getting-computer-equipment'
@@ -165,6 +177,8 @@ export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid
 export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
 export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
 export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
+
+export const TECHNICAL_MAINTENANCE = APPLICATIONS_ROUTE + '/technical-maintenance'
 
 export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
 export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
@@ -214,7 +228,7 @@ export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certifie
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
-export const teachersPrivateRoutes: () => IRoutes = () => ({
+export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
@@ -531,6 +545,19 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'FINANCES_DOCS',
     },
+    allowances: {
+        id: 'allowances',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: ALLOWANCES,
+        Component: Allowances,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        pageSize: 'big',
+        isNew: true,
+        show: allowancesRoles.includes('Approver') || allowancesRoles.includes('Initiator'),
+    },
     'data-verification': {
         id: 'data-verification',
         title: 'Анкета для сверки данных',
@@ -638,7 +665,7 @@ export const teachersPrivateRoutes: () => IRoutes = () => ({
     // },
 })
 
-export const teachersHiddenRoutes: () => IRoutes = () => ({
+export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     ...generalHiddenRoutes,
     // remove after mobile version is ready
     // #ASM
@@ -653,6 +680,55 @@ export const teachersHiddenRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         show: false,
+    },
+    'doclist-type': {
+        id: 'doclist-type',
+        title: 'Ознакомление с документами',
+        icon: <FiFileText />,
+        path: DOCLIST_TYPE,
+        Component: PersonalNotificationsPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+    },
+    'allowances-role': {
+        id: 'allowances-role',
+        title: 'Установление надбавок',
+        icon: <FiFileText />,
+        path: ALLOWANCES_ROLE,
+        Component: Allowances,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        pageSize: 'big',
+        show: false,
+    },
+    'allowance-info': {
+        id: 'allowance-info',
+        title: 'Информация о надбавке',
+        icon: <FiFileText />,
+        path: ALLOWANCE_INFO,
+        Component: AllowanceInfo,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        fallbackPrevPage: ALLOWANCES,
+        isSubPage: true,
+        show: false,
+    },
+    'create-allowances': {
+        id: 'create-allowances',
+        title: 'Запросить надбавку',
+        icon: <FiFileText />,
+        path: CREATE_ALLOWANCE,
+        Component: CreateAllowance,
+        color: 'orange',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        fallbackPrevPage: ALLOWANCES,
+        hiddenTitle: true,
+        isSubPage: true,
+        show: !isProduction || allowancesRoles.includes('Initiator'),
     },
     'pps-vote': {
         id: 'pps-vote',

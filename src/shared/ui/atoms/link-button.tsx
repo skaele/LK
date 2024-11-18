@@ -7,6 +7,8 @@ const LinkButtonWrapper = styled.a<{
     width?: string
     background?: string
     textColor?: string
+    hoverBackground?: string
+    hoverTextColor?: string
     align?: 'left' | 'center' | 'right'
     isActive: boolean
     height?: string
@@ -46,6 +48,13 @@ const LinkButtonWrapper = styled.a<{
 
     &:active {
         transform: scale(0.95);
+    }
+
+    &:hover {
+        background: ${({ hoverBackground, isChosen, background }) =>
+            hoverBackground ?? (isChosen ? 'var(--blue)' : background ?? 'var(--search)')};
+        filter: brightness(0.9);
+        color: ${({ hoverTextColor }) => hoverTextColor};
     }
 
     svg {

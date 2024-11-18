@@ -15,7 +15,6 @@ import {
     CERTIFIED_COPIES_OF_MILITARY_DOCS,
     CONNECTING_COMPUTER,
     CONTACT_INFO_ACTUALIZATION,
-    CONTACT_INFO_ACTUALIZATION_TEST,
     COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE,
     COPY_OF_EMPLOYMENT_RECORD,
     COURIER,
@@ -41,6 +40,7 @@ import {
     QUESTION_PERSONAL_ACCOUNT,
     QUESTION_SED,
     RELOCATION,
+    TECHNICAL_MAINTENANCE,
     TERMINATION_OF_AGREEMENT,
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
@@ -79,6 +79,15 @@ const getTeachersSectionLinks = (user: User): Section[] => {
             ],
         },
         ...getInDevelopmentStaffLinks(),
+        {
+            title: 'Прочее',
+            links: [
+                {
+                    link: TECHNICAL_MAINTENANCE,
+                    title: 'Техническая эксплуатация',
+                },
+            ],
+        },
     ]
 }
 
@@ -100,11 +109,6 @@ const getInDevelopmentStaffLinks = () => [
         disabled: isProduction,
         title: 'Общее',
         links: [{ link: CONTACT_INFO_ACTUALIZATION, title: 'Актуализация контактных данных' }],
-    },
-    {
-        title: 'Общее (в разработке)',
-        disabled: isProduction,
-        links: [{ link: CONTACT_INFO_ACTUALIZATION_TEST, title: 'Актуализация контактных данных (тест)' }],
     },
     {
         title: 'ИТ-обслуживание',

@@ -9,7 +9,7 @@ type MultipleSelect = React.Dispatch<React.SetStateAction<SelectPage[] | null>>
 
 export interface SelectProps {
     items: SelectPage[]
-    setSelected: SingleSelect | MultipleSelect
+    setSelected: SingleSelect | MultipleSelect | ((val: SelectPage | null) => void)
     selected: SelectPage | SelectPage[] | null
     isActive?: boolean
     title?: string
@@ -20,15 +20,18 @@ export interface SelectProps {
     placeholder?: string
     appearance?: boolean
     size?: Size
+    withSearch?: boolean
 }
 
 const useSelect = (props: SelectProps) => {
-    const { items, setSelected, onClick, selected, appearance = true, multiple = false } = props
+    const { items, setSelected, onClick, selected, appearance = true, multiple = false, withSearch } = props
+    const [searchQuery, setSearchQuery] = useState<string>('')
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const refElement = useRef<HTMLDivElement | null>(null)
     const refItems = useRef<HTMLUListElement | null>(null)
     const [route, setRoute] = useState<string[]>([])
     const [currentItems, setCurrentItems] = useState<SelectPage[]>(items)
+    const [debouncedItems, setDebouncedItems] = useState<SelectPage[]>(currentItems)
     const [selectedRoute, setSelectedRoute] = useState<string>('')
 
     useEffect(() => {
@@ -57,6 +60,7 @@ const useSelect = (props: SelectProps) => {
                     }
                 } else {
                     ;(setSelected as SingleSelect)(page)
+                    if (withSearch) setSearchQuery(page.title)
                 }
 
                 !multiple && handleOpen()
@@ -88,6 +92,37 @@ const useSelect = (props: SelectProps) => {
         }
     })
 
+    useEffect(() => {
+        if (!withSearch || !searchQuery) {
+            setDebouncedItems(currentItems)
+            return
+        }
+
+        const handler = setTimeout(() => {
+            setDebouncedItems(
+                currentItems.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase())),
+            )
+        }, 300)
+
+        return () => {
+            clearTimeout(handler)
+        }
+    }, [currentItems, searchQuery, withSearch])
+
+    const clearQuery = useCallback(() => {
+        setSelected(null)
+        setIsOpen(false)
+    }, [])
+    const changeQuery = useCallback((value: string) => {
+        setSelected(null)
+        setSearchQuery(value)
+        setIsOpen(true)
+    }, [])
+
+    useEffect(() => {
+        if (!multiple) setSearchQuery(!selected ? '' : (selected as SelectPage).title)
+    }, [selected])
+
     return {
         handleOpen,
         refElement,
@@ -95,11 +130,14 @@ const useSelect = (props: SelectProps) => {
         multiple,
         handleSelect,
         selectedRoute,
-        currentItems,
+        currentItems: debouncedItems,
         route,
         goBack,
         refItems,
         appearance,
+        searchQuery,
+        changeQuery,
+        clearQuery,
     }
 }
 

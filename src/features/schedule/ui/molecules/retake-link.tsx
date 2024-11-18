@@ -17,14 +17,14 @@ const LinkWrapper = styled.a<{ width: number | string }>`
 export type RetakeLinkProps = Omit<PageLinkProps, 'restricted' | 'mode'>
 
 const RetakeLink = (props: RetakeLinkProps) => {
-    const { path, Component: RetakeModal } = props
+    const { path, Component: RetakeModal, fullTitle } = props
     const { open } = useModal()
     const hasModal = !!RetakeModal({})
 
     return (
         <>
             {!hasModal && (
-                <LinkWrapper href={path} width={1}>
+                <LinkWrapper title={fullTitle} href={path} width={1}>
                     <RetakeLinkContent {...props} />
                 </LinkWrapper>
             )}

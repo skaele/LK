@@ -25,6 +25,7 @@ import { phonebookModel } from '@entities/phonebook'
 import { useUnit } from 'effector-react'
 import { findEmployee } from '@pages/all-staff/lib/find-employee'
 import { Employee } from '@shared/api/model/phonebook'
+import { safetyPages } from '@pages/safety-information'
 
 type SearchConfig = {
     title: string
@@ -76,13 +77,24 @@ const useSearchConfig = () => {
 
     const mergedPages = useMemo(
         () =>
-            pages.flatMap(({ visible, content }) => {
-                if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
-                    return content
-                return []
-            }),
+            pages
+                .flatMap(({ visible, content }) => {
+                    if ((visible === 'staff' && isStaff) || (visible === 'student' && !isStaff) || visible === 'all')
+                        return content.map((page) => ({
+                            ...page,
+                            links: page.links.filter(
+                                (link) =>
+                                    link.visible === 'all' ||
+                                    (link.visible === 'staff' && isStaff) ||
+                                    (link.visible === 'student' && !isStaff),
+                            ),
+                        }))
+                    return null
+                })
+                .filter((page) => page !== null) as HelpfulPage[],
         [isStaff],
     )
+
     const [groups, setGroups] = useState<string[] | null>(null)
     const [divisions, setDivisions] = useState<string[] | null>(null)
     const [staff, setStaff] = useState<(TTeacher | Employee)[] | null>(null)
@@ -90,6 +102,7 @@ const useSearchConfig = () => {
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [foundNotifications, setFoundNotifications] = useState<TNotification[] | null>(null)
     const [foundHelpfullPages, setFoundHelpfullPages] = useState<HelpfulPage[] | null>(null)
+    const [foundSafetyInformation, setFoundSafetyInformation] = useState<HelpfulPage[] | null>(null)
 
     const preconfig: SearchConfig = [
         {
@@ -184,21 +197,34 @@ const useSearchConfig = () => {
             },
             data: foundHelpfullPages,
         },
+        {
+            title: 'Безопасность',
+            content: <BlocksList blocks={foundSafetyInformation} isStaff={isStaff} />,
+            clear: () => {
+                setFoundSafetyInformation(null)
+            },
+            search: (value) => {
+                const found = search(value, safetyPages)
+                setFoundSafetyInformation(found)
+            },
+            data: foundSafetyInformation,
+        },
     ]
 
     const getAllTab = (): SearchConfig[number] => {
         const { content, clear, data } = preconfig.reduce(
-            (acc, el) => {
+            (acc, el, index) => {
+                const isLast = index === preconfig.length - 1
                 if (getDataLength(el.data)) {
                     acc.data.push(el.data)
                     acc.content.push(
-                        <>
+                        <Flex d="column" gap="8px" p={isLast ? '0 0 0.5rem 0' : '0'}>
                             <Title size={4} align="left">
                                 {el.title}
                             </Title>
                             {el.content}
-                            <Divider />
-                        </>,
+                            {!isLast && <Divider />}
+                        </Flex>,
                     )
                 }
                 acc.clear.push(el.clear)
@@ -213,12 +239,13 @@ const useSearchConfig = () => {
             clear: () => clear.map((f) => f()),
             search: async (value: string) => {
                 // Group Search
+                preconfig[0].search(value)
                 if (value.length <= 8 && /\d|[-]/g.test(value)) {
                     await preconfig[3].search(value)
                 } else {
-                    preconfig[0].search(value)
                     preconfig[5].search(value)
                     preconfig[6].search(value)
+                    preconfig[7].search(value)
                     if (getDataLength(preconfig[0].data) === 0) {
                         // Other Search
                         await preconfig[1].search(value)

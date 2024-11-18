@@ -1,6 +1,7 @@
 import { SelectPage } from '@features/select'
 import { RadioButton } from '@ui/organisms/radio-button-list'
 import { SpecialFieldsNameConfig, SpecialFieldsName } from '@entities/applications/consts'
+import { FileFormats } from '@shared/constants'
 
 export interface IInputAreaCheckbox {
     fieldName: string
@@ -40,7 +41,7 @@ export interface IInputAreaFiles {
     checkboxCondition?: 'straight' | 'reverse'
     fieldName: string
     maxFiles?: number
-    allowedTypes?: string[]
+    allowedTypes?: FileFormats
     maxFileSizeInMegaBytes?: number
     visible?: boolean
 }
@@ -86,6 +87,7 @@ export interface IInputAreaData {
     diff?: number
     isSpecificSelect?: boolean
     visible?: boolean
+    hint?: string
     onChange?: (value: any) => void
     onKeyPress?: (value: any) => void
     onBlur?: (value: any) => void
@@ -102,6 +104,7 @@ export interface IFormDropdownValue {
 export type IComplexInputAreaData = IInputAreaData[][]
 
 export interface IInputArea {
+    id?: string
     title: string
     hint?: React.ReactNode
     alert?: React.ReactNode

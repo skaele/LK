@@ -72,10 +72,12 @@ export const RetakeForDiploma = lazy(
 export const MilitaryRegistrationDocuments = lazy(
     () => import('@pages/applications/pages/mobilization-department/military-registration-documents'),
 )
-
 export const MilitaryRegistration = lazy(
     () => import('@pages/applications/pages/mobilization-department/military-registration'),
 )
+export const MilitaryForm4 = lazy(() => import('@pages/applications/pages/mobilization-department/military-form-4'))
+export const MilitaryForm5 = lazy(() => import('@pages/applications/pages/mobilization-department/military-form-5'))
+export const MilitaryCopies = lazy(() => import('@pages/applications/pages/mobilization-department/military-copies'))
 
 export const FinancialSupport = lazy(
     () => import('@pages/applications/pages/trade-union-organization/financial-support'),
@@ -90,6 +92,8 @@ export const ChangingPersonalData = lazy(
 )
 
 export const StudentStatus = lazy(() => import('@pages/applications/pages/multifunctional-center/student-status'))
+export const ParentContacts = lazy(() => import('@pages/applications/pages/other/family-contacts'))
+export const MedicalCertificates086 = lazy(() => import('@pages/applications/pages/other/medical-certifitcates-086'))
 
 export const StateAccreditation = lazy(
     () => import('@pages/applications/pages/multifunctional-center/state-accreditation'),
@@ -113,10 +117,6 @@ export const ApplicationIndependentlyDeduction = lazy(
 
 export const ApplicationExtensionAttestation = lazy(
     () => import('@pages/applications/pages/multifunctional-center/extension-attestation'),
-)
-
-export const MilitaryRegistrationCard = lazy(
-    () => import('@pages/applications/pages/mobilization-department/military-registration-card'),
 )
 
 export const AccommodationCorrespondenceFormPage = lazy(

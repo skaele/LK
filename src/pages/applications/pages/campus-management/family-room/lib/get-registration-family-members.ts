@@ -9,7 +9,7 @@ const getRegistrationFamilyMembers = (): IInputArea => {
             fieldName: 'registrationFamilyMembers',
             required: true,
             maxFiles: 1,
-            allowedTypes: ['application/pdf'],
+            allowedTypes: ['pdf'],
         },
     }
 }

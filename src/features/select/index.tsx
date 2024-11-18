@@ -1,5 +1,5 @@
-import { Title } from '@ui/atoms'
-import React, { memo } from 'react'
+import { Input, Title } from '@ui/atoms'
+import React, { memo, useRef } from 'react'
 import { FiCheck, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import useSelect, { SelectProps } from './lib/hooks/use-select'
 import { SelectArrow, SelectHeader, SelectHeaderWrapper, SelectItem, SelectItems, SelectWrapper } from './ui/atoms'
@@ -25,9 +25,12 @@ const Select = (props: SelectProps) => {
         goBack,
         refItems,
         appearance,
+        searchQuery,
+        changeQuery,
+        clearQuery,
     } = useSelect(props)
-    const { isActive, width, title, required, selected, placeholder, size = 'middle' } = props
-
+    const { isActive, width, title, required, selected, placeholder, size = 'middle', withSearch } = props
+    const inputRef = useRef<HTMLInputElement>(null)
     return (
         <SelectWrapper
             onClick={handleOpen}
@@ -43,12 +46,38 @@ const Select = (props: SelectProps) => {
             </Title>
             <SelectHeaderWrapper multiple={multiple} appearance={appearance} size={size}>
                 <SelectHeader appearance={appearance}>
-                    {!multiple ? (
+                    {multiple ? (
+                        !!selected ? (
+                            (selected as SelectPage[]).map((page) => {
+                                return (
+                                    <div className="header-item" key={page.id}>
+                                        {!!page.icon && <span className="icon">{page.icon}</span>}
+                                        <span className="header-title">{page.title}</span>
+                                    </div>
+                                )
+                            })
+                        ) : (
+                            <span className="not-chosen multi">{placeholder ?? 'Не выбрано'}</span>
+                        )
+                    ) : withSearch ? (
+                        <Input
+                            ref={inputRef}
+                            inputAppearance={false}
+                            isActive={isActive}
+                            value={searchQuery}
+                            setValue={changeQuery}
+                            onClear={() => {
+                                inputRef.current?.focus()
+                                clearQuery()
+                            }}
+                            placeholder={placeholder}
+                        />
+                    ) : (
                         <div className="single-header">
                             {!!selected ? (
                                 <>
                                     {!!(selected as SelectPage).icon && (
-                                        <span className="icon">{(selected as SelectPage).icon}</span>
+                                        <span className="select-icon">{(selected as SelectPage).icon}</span>
                                     )}
                                     <span className="header-title">{(selected as SelectPage).title}</span>
                                 </>
@@ -56,17 +85,6 @@ const Select = (props: SelectProps) => {
                                 <span className="not-chosen">{placeholder ?? 'Не выбрано'}</span>
                             )}
                         </div>
-                    ) : !!selected ? (
-                        (selected as SelectPage[]).map((page) => {
-                            return (
-                                <div className="header-item" key={page.id}>
-                                    {!!page.icon && <span className="icon">{page.icon}</span>}
-                                    <span className="header-title">{page.title}</span>
-                                </div>
-                            )
-                        })
-                    ) : (
-                        <span className="not-chosen multi">{placeholder ?? 'Не выбрано'}</span>
                     )}
                 </SelectHeader>
                 <SelectArrow isOpen={isOpen} />
@@ -94,32 +112,49 @@ const Select = (props: SelectProps) => {
                         </span>
                     </SelectItem>
                 )}
-                {currentItems.map(({ id, icon, title, children, data }) => (
-                    <SelectItem
-                        key={title}
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            handleSelect({ id, icon, title, children, data })
-                        }}
-                        isSelected={!multiple && !!selected && (selected as SelectPage).title.includes(title)}
-                        leadingToSelected={selectedRoute.includes(id.toString())}
-                    >
-                        {!!icon && <span className="icon">{icon}</span>}
-                        <span className="select-item-title">{title}</span>
-                        {!!children && (
-                            <span className="right-icon">
-                                <FiChevronRight />
-                            </span>
-                        )}
-                        {multiple &&
-                            !!selected &&
-                            !!(selected as SelectPage[]).find((page) => page.title.includes(title)) && (
+                {currentItems.length ? (
+                    currentItems.map(({ id, icon, title, children, data }) => (
+                        <SelectItem
+                            key={id ?? title}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleSelect({ id, icon, title, children, data })
+                            }}
+                            isSelected={
+                                !multiple &&
+                                !!selected &&
+                                ((selected as SelectPage).id
+                                    ? id === (selected as SelectPage).id
+                                    : title === (selected as SelectPage).title)
+                            }
+                            leadingToSelected={selectedRoute.includes(id.toString())}
+                        >
+                            {!!icon && <span className="icon">{icon}</span>}
+                            <span className="select-item-title">{title}</span>
+                            {!!children && (
                                 <span className="right-icon">
-                                    <FiCheck />
+                                    <FiChevronRight />
                                 </span>
                             )}
+                            {multiple &&
+                                !!selected &&
+                                !!(selected as SelectPage[]).find((page) => page.title.includes(title)) && (
+                                    <span className="right-icon">
+                                        <FiCheck />
+                                    </span>
+                                )}
+                        </SelectItem>
+                    ))
+                ) : (
+                    <SelectItem
+                        onClick={(e) => {
+                            e.stopPropagation()
+                        }}
+                        isSelected={false}
+                    >
+                        <span className="select-item-title">Не найдено</span>
                     </SelectItem>
-                ))}
+                )}
             </SelectItems>
         </SelectWrapper>
     )

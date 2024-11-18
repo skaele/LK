@@ -366,17 +366,20 @@ export const letterColorMatch: LetterColorMatch = {
     Z: 'purple',
 }
 
-export const VALID_FORMATS = [
-    'image/jpeg',
-    'image/jpg',
-    'image/png',
-    'application/pdf',
-    'application/vnd.ms-excel',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'text/csv',
-] as const
+export const VALID_FORMATS = {
+    jpeg: 'image/jpeg',
+    jpg: 'image/jpg',
+    png: 'image/png',
+    pdf: 'application/pdf',
+    doc: 'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    csv: 'text/csv',
+} as const
+export type FileFormat = (typeof VALID_FORMATS)[keyof typeof VALID_FORMATS]
 type ValidFormats = typeof VALID_FORMATS
-export type FileFormats = ValidFormats[number][]
+export type FileFormats = (keyof ValidFormats)[]
 
 export const MAX_FILE_SIZE = 10
 
@@ -413,11 +416,7 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction =
-    !window.location.port ||
-    window.location.port === '80' ||
-    window.location.port === '4001' ||
-    window.location.port === '4002'
+export const isProduction = !window.location.port || window.location.port === '80' || window.location.port === '4001'
 
 export const runsLocally = false
 export const TUTORIAL_HASH = 'tHash'

@@ -2,6 +2,7 @@ export type PETeacher = {
     id: string
     permissions: PeTeacherPermission[]
     fullName: string
+    groups: string[]
 }
 
 export enum PeTeacherPermission {

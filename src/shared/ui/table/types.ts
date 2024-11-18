@@ -37,4 +37,8 @@ export interface TableProps {
     maxOnPage?: number
     onRowClick?: (obj: IndexedProperties) => void
     loading?: boolean
+    pagination?: {
+        pages: number
+        setPage: (offset: number) => void
+    }
 }

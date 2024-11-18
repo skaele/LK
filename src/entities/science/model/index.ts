@@ -4,6 +4,7 @@ import { createMutation, createQuery } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
 import { ColumnProps } from '@shared/ui/table/types'
+import { TABLE_SIZE } from './consts'
 
 const pageMounted = createEvent()
 const modalOpened = createEvent()
@@ -12,6 +13,8 @@ const setWosFile = createEvent<File[]>()
 const uploadFiles = createEvent<UploadReq>()
 const selectArticle = createEvent<number>()
 const setColumns = createEvent<ColumnProps[]>()
+const getArticles = createEvent<{ offset: number }>()
+const setPage = createEvent<number>()
 
 export const uploadArticleMutation = createMutation({ handler: uploadArticle })
 const getAllArticlesQuery = createQuery({ handler: getAllArticles })
@@ -39,12 +42,24 @@ const $filesUploaded = createStore<boolean>(false)
 const $columns = createStore<ColumnProps[]>(getDefaultColumns())
     .on(setColumns, (_, value) => value)
     .reset(pageMounted)
+const $page = createStore(0)
+    .on(setPage, (_, value) => value)
+    .reset(pageMounted)
 
 sample({
     clock: pageMounted,
     fn: () => ({
-        limit: 7,
+        limit: TABLE_SIZE,
         offset: 0,
+        sorts: null,
+    }),
+    target: getAllArticlesQuery.start,
+})
+sample({
+    clock: $page,
+    fn: (page) => ({
+        limit: TABLE_SIZE,
+        offset: page * TABLE_SIZE,
         sorts: null,
     }),
     target: getAllArticlesQuery.start,
@@ -81,6 +96,17 @@ export const stores = {
     wosFile: $wosFile,
     uploadLoading: uploadArticleMutation.$pending,
     columns: $columns,
+    page: $page,
 }
 
-export const events = { pageMounted, selectArticle, uploadFiles, modalOpened, setScopusFile, setWosFile, setColumns }
+export const events = {
+    pageMounted,
+    selectArticle,
+    uploadFiles,
+    modalOpened,
+    setScopusFile,
+    setWosFile,
+    setColumns,
+    getArticles,
+    setPage,
+}

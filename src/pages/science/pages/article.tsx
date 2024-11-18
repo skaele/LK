@@ -1,7 +1,9 @@
 import { articleModel } from '@entities/science'
+import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
+import Subtext from '@shared/ui/subtext'
 import Table from '@shared/ui/table'
 import { ColumnProps } from '@shared/ui/table/types'
 import { Title } from '@shared/ui/title'
@@ -18,30 +20,7 @@ const Article = () => {
         articleModel.events.pageMounted,
     ])
     const [articleColumns, setArticleColumns] = useState<ColumnProps[]>([
-        {
-            title: 'Авторы',
-            field: 'authors',
-            width: '100px',
-            showFull: true,
-        },
-        {
-            title: 'Название пуликации',
-            priority: 'one',
-            field: 'articleTitle',
-            width: '220px',
-        },
-        {
-            title: 'Издательство',
-            field: 'sourceTitle',
-            width: '150px',
-            showFull: true,
-        },
-        {
-            title: 'Год',
-            field: 'doi',
-            width: '120px',
-            align: 'center',
-        },
+        ...getDefaultColumns(),
         {
             title: 'Статус',
             field: '',
@@ -61,13 +40,8 @@ const Article = () => {
             <Title align="left" size={2}>
                 {article?.articleTitle}
             </Title>
-            <Title align="left" size={2}>
-                ID публикации
-            </Title>
-            <Flex jc="space-between">
-                <Title align="left" size={2}>
-                    {article?.id}
-                </Title>
+            <Flex jc="space-between" ai="flex-start">
+                <Subtext align="left">ID публикации: {article?.id}</Subtext>
                 <Button
                     onClick={() => {
                         setArticleColumns((cols) => [
@@ -100,6 +74,7 @@ const Article = () => {
                 icon={<FiPlus />}
                 minWidth="35px"
                 height="36px"
+                isActive={false}
             />
             <Flex w="100%" jc="center">
                 <Button

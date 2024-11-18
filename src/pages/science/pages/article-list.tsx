@@ -8,16 +8,18 @@ import { scienceModel } from '@entities/science'
 import { useUnit } from 'effector-react'
 import { useHistory } from 'react-router'
 import { ARTICLES } from '@app/routes/teacher-routes'
+import { TABLE_SIZE } from '@entities/science/model/consts'
 
 const PublicationList = () => {
     const history = useHistory()
-    const [pageMounted, select, selected, articles, loading, columns] = useUnit([
+    const [pageMounted, select, selected, articles, loading, columns, setPage] = useUnit([
         scienceModel.events.pageMounted,
         scienceModel.events.selectArticle,
         scienceModel.stores.selectedArticles,
         scienceModel.stores.articles,
         scienceModel.stores.articlesLoading,
         scienceModel.stores.columns,
+        scienceModel.events.setPage,
     ])
     useEffect(() => {
         pageMounted()
@@ -29,12 +31,16 @@ const PublicationList = () => {
             <Table
                 loading={loading}
                 columns={columns}
-                data={articles}
-                maxOnPage={7}
+                data={articles?.data}
+                maxOnPage={TABLE_SIZE}
                 select={select}
                 selected={selected}
                 onRowClick={(row) => {
                     history.push(ARTICLES + `/${row.id}`)
+                }}
+                pagination={{
+                    pages: articles?.totalCount || 0,
+                    setPage: setPage,
                 }}
             />
         </PageBlock>
@@ -56,14 +62,14 @@ const Header = () => {
                 <Button
                     onClick={() => {
                         if (allSelected) {
-                            articles?.map((_, index) => {
+                            articles?.data?.map((_, index) => {
                                 if (!selected.has(index)) {
                                     select(index)
                                 }
                             })
                             setAllSelected(true)
                         } else {
-                            articles?.map((_, index) => {
+                            articles?.data?.map((_, index) => {
                                 select(index)
                             })
                             setAllSelected(false)

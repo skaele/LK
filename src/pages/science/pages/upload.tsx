@@ -9,16 +9,18 @@ import Flex from '@shared/ui/flex'
 import { getScienceColumns } from '../lib/get-columns'
 import { useModal } from 'widgets'
 import { UploadModal } from '../widgets/upload-modal'
+import { TABLE_SIZE } from '@entities/science/model/consts'
 
 const Science = () => {
     const { open } = useModal()
-    const [pageMounted, select, selected, articles, loading, modalOpened] = useUnit([
+    const [pageMounted, select, selected, articles, loading, modalOpened, setPage] = useUnit([
         scienceModel.events.pageMounted,
         scienceModel.events.selectArticle,
         scienceModel.stores.selectedArticles,
         scienceModel.stores.articles,
         scienceModel.stores.articlesLoading,
         scienceModel.events.modalOpened,
+        scienceModel.events.setPage,
     ])
 
     useEffect(() => {
@@ -47,10 +49,14 @@ const Science = () => {
             <Table
                 loading={loading}
                 columns={getScienceColumns()}
-                data={articles}
-                maxOnPage={7}
+                data={articles?.data}
+                maxOnPage={TABLE_SIZE}
                 select={select}
                 selected={selected}
+                pagination={{
+                    pages: articles?.totalCount || 0,
+                    setPage: setPage,
+                }}
             />
             <Flex jc="flex-end" w="100%">
                 <Button

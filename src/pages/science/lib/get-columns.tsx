@@ -10,14 +10,14 @@ export const getScienceColumns = (): ColumnProps[] => [
         field: 'isScopus',
         width: '100px',
         align: 'center',
-        render: (value) => !!value && <FaCheck />,
+        render: (value) => value && <FaCheck />,
     },
     {
         title: 'WoS',
-        field: 'isWos',
+        field: 'isWoS',
         width: '100px',
         align: 'center',
-        render: (value) => !!value && <FaCheck />,
+        render: (value) => value && <FaCheck />,
     },
     { title: 'Тип', showFull: true, field: 'publicationType' },
 ]

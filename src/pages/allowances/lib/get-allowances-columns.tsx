@@ -28,7 +28,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             field: 'sourceOfFunding',
             priority: 'three',
             showFull: true,
-            width: '150px',
+            width: '175px',
             render: (value) => value || '-',
         },
         {
@@ -49,7 +49,7 @@ export const getAllowancesColumns = (): ColumnProps[] => {
                 )
             },
         },
-        { title: 'Комментарий', field: 'commentary', priority: 'two', render: (value) => value || '-' },
+        { title: 'Комментарий', width: '160px', field: 'commentary', priority: 'two', render: (value) => value || '-' },
         {
             title: 'Файлы',
             field: 'files',

@@ -10,24 +10,26 @@ import Subtext from '@shared/ui/subtext'
 import Flex from '@shared/ui/flex'
 import FileInput from '@shared/ui/file-input'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { Forbidden } from '@shared/ui/forbidden'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import Search from '@shared/ui/search'
 import Checkbox from '@shared/ui/checkbox'
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
 import { DevModeMessage } from '../ui/dev-mode-message'
+import { AllowancesForbidden } from '../ui/forbidden'
 
 const CreateAllowance = () => {
-    const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive] = useUnit([
-        allowancesModel.stores.rolesPending,
-        allowancesModel.events.createSupplement,
-        allowancesModel.stores.supplementCreating,
-        allowancesModel.events.pageMounted,
-        allowancesModel.stores.roles,
-        allowancesModel.stores.completed,
-        allowancesModel.events.setCompleted,
-        allowancesModel.stores.isActive,
-    ])
+    const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive, jobRoles] =
+        useUnit([
+            allowancesModel.stores.rolesPending,
+            allowancesModel.events.createSupplement,
+            allowancesModel.stores.supplementCreating,
+            allowancesModel.events.pageMounted,
+            allowancesModel.stores.roles,
+            allowancesModel.stores.completed,
+            allowancesModel.events.setCompleted,
+            allowancesModel.stores.isActive,
+            allowancesModel.stores.jobRoles,
+        ])
 
     const isDone = completed ?? false
     const isAllowed = roles.includes('Initiator')
@@ -46,7 +48,7 @@ const CreateAllowance = () => {
                 </FormBlockWrapper>
             </BaseApplicationWrapper>
         )
-    if (!isAllowed) return <Forbidden text={'У вас нет доступа к этому разделу'} />
+    if (!isAllowed) return <AllowancesForbidden jobRoles={jobRoles} />
 
     return (
         <BaseApplicationWrapper isDone={isDone}>

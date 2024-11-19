@@ -10,7 +10,12 @@ import { useHistory } from 'react-router'
 
 export const Approver = () => {
     const history = useHistory()
-    const [allowances, jobs] = useUnit([allowancesModel.stores.allowances, allowancesModel.stores.jobRoles])
+    const [allowances, jobs, setRole, setJobId] = useUnit([
+        allowancesModel.stores.allowances,
+        allowancesModel.stores.jobRoles,
+        allowancesModel.events.setCurrentRole,
+        allowancesModel.events.setCurrentJobId,
+    ])
 
     const [job, setJob] = useState<SelectPage | null>(() => {
         const job = jobs && jobs.find((job) => job.roles.includes('Approver'))
@@ -41,7 +46,9 @@ export const Approver = () => {
                 data={job && allowances ? allowances[job.id].approverAllowances : null}
                 maxOnPage={7}
                 onRowClick={(allowance) => {
-                    history.push(ALLOWANCE_INFO_CUT + `/${job?.id}/approver/${allowance.id}`)
+                    setRole('Approver')
+                    setJobId(job?.id.toString() || '')
+                    history.push(ALLOWANCE_INFO_CUT + `/${allowance.id}`)
                 }}
             />
         </Flex>

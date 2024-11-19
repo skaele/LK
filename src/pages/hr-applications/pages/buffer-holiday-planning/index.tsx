@@ -1,21 +1,22 @@
 import React from 'react'
 import Content from './ui/content'
 import { useHistory } from 'react-router'
-import { FiCalendar, FiInfo } from 'react-icons/fi'
-import { Button, Message, Wrapper } from '@shared/ui/atoms'
+import { FiCalendar } from 'react-icons/fi'
+import { Button, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import { applicationsModel } from '@entities/applications'
+import { KedoError } from '@pages/hr-applications/ui/kedo-error'
+import { hasKEDO } from '@pages/hr-applications/model/divisions'
+import { useUnit } from 'effector-react'
+import { PersonnelOrdersMessage } from '@pages/hr-applications/ui/personnel-orders-message'
 
 const HolidayPlanningBufferPage = () => {
-    const {
-        data: { dataWorkerApplication },
-        error,
-    } = applicationsModel.selectors.useApplications()
-
     const history = useHistory()
 
+    const hasAccess = useUnit(hasKEDO)
+    if (!hasAccess) return <KedoError />
+
     return (
-        <Wrapper load={applicationsModel.effects.getWorkerPosts} error={error} data={dataWorkerApplication}>
+        <Wrapper load={() => {}} error={null} data={true}>
             <PageBlock
                 topRightCornerElement={
                     <Button
@@ -32,10 +33,7 @@ const HolidayPlanningBufferPage = () => {
                     />
                 }
             >
-                <Message type="info" title="Информация" icon={<FiInfo />} lineHeight="1.4rem" fontSize="0.85rem">
-                    Тут можно посмотреть свои заявления на отпуск и согласовать их.
-                </Message>
-
+                <PersonnelOrdersMessage />
                 <Content />
             </PageBlock>
         </Wrapper>

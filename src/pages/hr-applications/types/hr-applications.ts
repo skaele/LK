@@ -28,8 +28,27 @@ export interface BufferHoliday {
             documentGuid: string
         }[]
     }[]
+    personVacations: PersonVacation[]
 }
 
+export type PersonVacation = {
+    startDate: string
+    totalDays: 0
+    endDate: string
+    creationDate: string
+    signedDate: string
+    hasApplication: boolean
+    hasOrder: boolean
+    orderNumber: string
+    displayApplication: boolean
+    displayOrder: boolean
+    orderStatus: string
+    applicationApporvalStatus: string
+    orderApprovalStatus: string
+    downloadApplication: boolean
+    downloadOrder: boolean
+    commentary: string
+}
 export interface Vacation {
     period: {
         startDate: string

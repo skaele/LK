@@ -22,7 +22,7 @@ export const EmployeeInput = ({
             gap="0.5rem"
             onClick={() => (isActive ? removeItem(employeeId) : addItem(employeeId))}
             cursor="pointer"
-            brad="0.5rem"
+            borderRadius="0.5rem"
             hoverBackground="var(--theme-5)"
             p="0.5rem"
             ai="flex-start"

@@ -43,15 +43,15 @@ const useHeader = ({ headerVisible, currentPage }: Props) => {
     const backButton = React.useMemo(
         () =>
             currentPage?.withoutBackButton ? null : currentPage?.isSubPage ? (
-                historyStack.length > 1 ? (
-                    <GoBackButton text={isHeaderVisible ? '' : currentPage?.backButtonText} fullWidth={false} />
-                ) : currentPage.fallbackPrevPage ? (
+                currentPage.fallbackPrevPage ? (
                     <Button
                         direction="vertical"
                         icon={<HiOutlineChevronLeft />}
                         onClick={onClickBackButton(currentPage.fallbackPrevPage)}
                         background="transparent"
                     />
+                ) : historyStack.length > 1 ? (
+                    <GoBackButton text={isHeaderVisible ? '' : currentPage?.backButtonText} fullWidth={false} />
                 ) : (
                     <Button
                         direction="vertical"

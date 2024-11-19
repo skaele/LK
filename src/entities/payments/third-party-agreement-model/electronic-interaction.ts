@@ -11,7 +11,7 @@ import { createEvent, createStore, sample } from 'effector'
 const sendCodes = createEvent<SendElectronicInteractionCodes>()
 const signAgreement = createEvent<SignThirdPartyElectronicInteraction>()
 const $agreement = electronicInteractionModel.stores.$electronicInteractionStore.map((data) =>
-    data?.clients.length ? data.clients[0].status : null,
+    data?.clients.length ? data.clients[0]?.status : null,
 )
 const $step = createStore<number>(0)
 

@@ -2,35 +2,41 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@shared/ui/message'
 import React from 'react'
 import { ColumnProps } from '@ui/table/types'
-import { Button } from '@shared/ui/button'
-import downloadFile from '@pages/hr-applications/lib/get-file'
+import { hrOrderRegisterConstants } from '@entities/applications/consts'
+import { SelectPage } from '@features/select'
 
-export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
+export const getMedicalExaminationHistoryColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
         {
             title: 'Дата',
-            field: 'creationDate',
-            width: '100px',
+            field: 'signedDate',
+            align: 'center',
+            width: '120px',
             sort: true,
             type: 'date',
+            priority: 'two',
         },
         {
             title: 'Статус',
             field: 'orderStatus',
-            width: '150px',
-            render: (value) => {
+            width: '175px',
+            catalogs: [
+                ...(Object.values(hrOrderRegisterConstants).map((val, i) => ({ id: i.toString(), title: val })) ?? []),
+            ],
+            render: (value, data) => {
+                const title = value === 'Зарегистрирован' ? data.applicationApporvalStatus : value || 'На рассмотрении'
                 return (
                     <Message
                         type={
-                            value === 'Согласовано'
+                            title === 'Согласовано'
                                 ? 'success'
-                                : value === 'На регистрации'
+                                : title === 'На регистрации'
                                 ? 'info'
-                                : value === 'Не утвержден' || value === 'Не создано'
+                                : title === 'Не утвержден' || value === 'Отменён'
                                 ? 'failure'
                                 : 'alert'
                         }
-                        title={value || '-'}
+                        title={title}
                         align="center"
                         width="100%"
                         icon={null}
@@ -38,48 +44,57 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                     />
                 )
             },
+            priority: 'one',
         },
         {
             title: 'Должность',
-            field: 'jobTitle',
-            sort: true,
+            field: 'positionName',
+            catalogs: jobs,
         },
         {
-            title: 'Период',
+            title: 'Дни',
             field: 'medicalExamination',
             align: 'center',
-            width: '200px',
+            width: '130px',
             render: (_, data) => {
-                return `${localizeDate(data?.startDate, 'numeric')} - ${localizeDate(data?.endDate, 'numeric')}`
+                if (data?.startDate === data?.endDate) return localizeDate(data?.startDate, 'numeric')
+                return `${localizeDate(data?.startDate, 'numeric')}, ${localizeDate(data?.endDate, 'numeric')}`
             },
+            priority: 'four',
         },
-        {
-            title: 'Файл заявления',
-            priority: 'one',
-            field: 'downloadable',
-            type: 'file',
-            width: '200px',
-            align: 'center',
-            render: (_, data) => {
-                if (data?.downloadApplication)
-                    return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data?.documentGuid, '0')
-                            }}
-                        />
-                    )
-                else return '-'
-            },
-        },
+        // {
+        //     title: 'Файлы',
+        //     priority: 'four',
+        //     field: 'downloadable',
+        //     type: 'file',
+        //     width: '150px',
+        //     align: 'center',
+        //     render: (_, data) => {
+        //         if (data?.downloadApplication || data?.downloadOrder)
+        //             return (
+        //                 <Flex d="column" jc="center">
+        //                     <div>
+        //                         {data?.downloadApplication && (
+        //                             <PersonnelDownloadButton
+        //                                 documentGuid={data.documentGuid}
+        //                                 type="0"
+        //                                 service="MedicalExamination"
+        //                             />
+        //                         )}
+        //                     </div>
+        //                     <div>
+        //                         {data?.downloadOrder && (
+        //                             <PersonnelDownloadButton
+        //                                 documentGuid={data.documentGuid}
+        //                                 type="1"
+        //                                 service="MedicalExamination"
+        //                             />
+        //                         )}
+        //                     </div>
+        //                 </Flex>
+        //             )
+        //         else return '-'
+        //     },
+        // },
     ]
 }

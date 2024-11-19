@@ -19,7 +19,7 @@ const Flex = styled.div<{
     position?: string
     cursor?: string
     hoverBackground?: string
-    brad?: string
+    borderRadius?: string
 }>`
     position: ${({ position }) => position};
     width: ${({ w }) => w ?? '100%'};
@@ -34,7 +34,7 @@ const Flex = styled.div<{
     flex-wrap: ${({ $wrap }) => $wrap && 'wrap'};
     padding: ${({ p }) => p};
     margin: ${({ m }) => m};
-    border-radius: ${({ brad }) => brad};
+    border-radius: ${({ borderRadius }) => borderRadius};
     cursor: ${({ cursor }) => cursor};
 
     :hover {

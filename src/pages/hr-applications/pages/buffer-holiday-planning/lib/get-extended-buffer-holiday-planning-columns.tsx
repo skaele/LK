@@ -1,79 +1,52 @@
-import React from 'react'
-
-import localizeDate from '@shared/lib/dates/localize-date'
+import { SelectPage } from '@features/select'
 import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
 import { ColumnProps } from '@shared/ui/table/types'
-import { Button } from '@shared/ui/button'
-import downloadFile from '@pages/hr-applications/lib/get-file'
 
-export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
+export const getExtendedBufferHolidayPlanningColumns = (jobs: SelectPage[]): ColumnProps[] => {
     return [
-        ...getBufferHolidayPlanningColumns(),
+        ...getBufferHolidayPlanningColumns(jobs),
         {
             title: 'Дней',
-            field: 'vacation',
+            field: 'totalDays',
             align: 'center',
-            render: (value) => value?.period?.totalDays,
+            render: (value) => value,
+        },
+        {
+            title: 'Статус',
+            field: 'orderStatus',
+            align: 'center',
+            render: (value) => value || '-',
         },
         {
             title: 'Статус приказа',
-            field: 'vacation',
+            field: 'orderApprovalStatus',
             align: 'center',
-            render: (value) => value?.status?.orderApprovalStatus || '-',
+            render: (value) => value || '-',
         },
         {
             title: 'Статус заявления',
-            field: 'vacation',
+            field: 'applicationApporvalStatus',
             align: 'center',
-            render: (value) => value?.status?.applicationApporvalStatus || '-',
+            render: (value) => value || '-',
         },
         {
-            title: 'Категория',
-            field: 'vacation',
+            title: 'Комментарий',
+            field: 'commentary',
             align: 'center',
-            render: () => 'Тут должна быть категория',
+            render: (value) => value || '-',
         },
-        {
-            title: 'Перенесен',
-            field: 'vacation',
-            align: 'center',
-            render: (_, data) => {
-                if (data?.isCarriedOver)
-                    return `Перенесен с ${localizeDate(
-                        data?.carriedOver?.period?.startDate,
-                        'numeric',
-                    )} - ${localizeDate(data?.carriedOver?.period?.endDate, 'numeric')}`
-                else return '-'
-            },
-        },
-
-        {
-            title: 'Файл приказа',
-            priority: 'one',
-            field: 'downloadable',
-            type: 'file',
-            width: '200px',
-            align: 'center',
-            render: (value, data) => {
-                if (data?.status?.downloadApplication)
-                    return (
-                        <Button
-                            text="Скачать файл"
-                            background="rgb(60,210,136)"
-                            textColor="#fff"
-                            id="downloadButton"
-                            width={'150px'}
-                            align="center"
-                            minWidth={'150px'}
-                            height="30px"
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                downloadFile(data.documentGuid, '1')
-                            }}
-                        />
-                    )
-                else return '-'
-            },
-        },
+        // {
+        //     title: 'Перенесен',
+        //     field: 'vacation',
+        //     align: 'center',
+        //     render: (_, data) => {
+        //         if (data?.vacation?.isCarriedOver)
+        //             return `Перенесен с ${localizeDate(
+        //                 data?.carriedOver?.period?.startDate,
+        //                 'numeric',
+        //             )} - ${localizeDate(data?.vacation?.carriedOver?.period?.endDate, 'numeric')}`
+        //         else return '-'
+        //     },
+        // },
     ]
 }

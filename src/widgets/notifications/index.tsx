@@ -10,6 +10,7 @@ import Input from '../../shared/ui/input'
 import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
 import { ListNotification } from './ui/atoms'
+import { PersonnelOrderList } from './ui/personnel-order-list'
 import { NotificationType } from '@entities/notification/model'
 import { AllowanceList } from './ui/allowance-list'
 import { useHistory, useParams } from 'react-router'
@@ -153,6 +154,11 @@ const NotificationsPage = ({ docsType }: Props) => {
                                 id: 'allowances',
                                 title: 'Надбавки',
                                 content: <AllowanceList filter={baseFilter} searchQuery={searchValue} />,
+                            },
+                            {
+                                id: 'personnel-orders',
+                                title: 'Кадровые маршруты',
+                                content: <PersonnelOrderList searchQuery={searchValue} filter={baseFilter} />,
                             },
                         ]}
                     />

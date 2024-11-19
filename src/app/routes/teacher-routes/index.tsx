@@ -86,7 +86,7 @@ import {
     PROJECT_ACTIVITIES_ROUTE,
 } from '../general-routes'
 import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
-import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
+import HolidayWorkBufferPage from '@pages/hr-applications/pages/holiday-work'
 import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
 import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
 import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
@@ -185,11 +185,11 @@ export const PAYMENT_FOR_CHILD_CARE = APPLICATIONS_ROUTE + '/payment-for-child-c
 export const PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/part-time-employment/'
 export const HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/holiday-postponed'
 export const DISMISSAL = HR_APPLICATIONS_ROUTE + '/dismissal/:id'
-export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer/:id'
+export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer'
 export const EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/extra-holiday-coll'
 export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning'
 export const HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/holiday-transfer/:id'
-export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
+export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work'
 export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
 export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
 export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
@@ -530,13 +530,11 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         title: 'Кадровые заявления',
         icon: <FiFileText />,
         path: HR_APPLICATIONS_ROUTE,
-        Component: isProduction
-            ? () =>
-                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
-            : HrApplicationsPage,
+        Component: HrApplicationsPage,
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+        isNew: true,
     },
     allowances: {
         id: 'allowances',
@@ -738,7 +736,6 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад к кадровым заявлениям',
-        subPageHeaderTitle: '',
         fallbackPrevPage: HR_APPLICATIONS_ROUTE,
         pageSize: 'large',
     },
@@ -748,7 +745,7 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         path: BUFFER_MEDICAL_EXAMINATION,
         icon: <FiFileText />,
         color: 'blue',
-        Component: isProduction ? ApplicationRedirect : MedicalExaminationBufferPage,
+        Component: MedicalExaminationBufferPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -762,7 +759,7 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         path: BUFFER_HOLIDAY_PLANNING,
         icon: <FiFileText />,
         color: 'blue',
-        Component: isProduction ? ApplicationRedirect : HolidayPlanningBufferPage,
+        Component: HolidayPlanningBufferPage,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
@@ -829,6 +826,7 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         backButtonText: 'Назад',
         subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_HOLIDAY_WORK,
+        hiddenTitle: true,
     },
     'medical-examination': {
         id: 'medical-examination',
@@ -836,13 +834,14 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         path: MEDICAL_EXAMINATION,
         icon: <FiFileText />,
         color: 'blue',
-        Component: isProduction ? ApplicationRedirect : MedicalExamination,
+        Component: MedicalExamination,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
         subPageHeaderTitle: '',
         fallbackPrevPage: BUFFER_MEDICAL_EXAMINATION,
+        hiddenTitle: true,
     },
     'holiday-planning': {
         id: 'holiday-planning',
@@ -850,12 +849,13 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         path: HOLIDAY_PLANNING,
         icon: <FiFileText />,
         color: 'blue',
-        Component: isProduction ? ApplicationRedirect : HolidayPlanning,
+        Component: HolidayPlanning,
         isTemplate: false,
         group: 'FINANCES_DOCS',
         isSubPage: true,
         backButtonText: 'Назад',
         fallbackPrevPage: BUFFER_HOLIDAY_PLANNING,
+        hiddenTitle: true,
     },
     'holiday-transfer': {
         id: 'holiday-transfer',

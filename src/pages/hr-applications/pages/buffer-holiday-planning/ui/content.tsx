@@ -1,90 +1,117 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { bufferHolidayPlanningModel } from '../model'
-import { Button, Loading, Wrapper } from '@shared/ui/atoms'
+import { Button } from '@shared/ui/atoms'
 import styled from 'styled-components'
 import Block from '@shared/ui/block'
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import Table from '@shared/ui/table'
-import { compareDesc } from 'date-fns'
 import Flex from '@shared/ui/flex'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
 import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { useGetJobs } from '@pages/hr-applications/hooks/useGetJobs'
+import { HOLIDAY_PLANNING } from '@app/routes/teacher-routes'
+import { SliderPage } from 'widgets'
+import { differenceInDays } from 'date-fns'
+import { PersonVacation } from '@pages/hr-applications/types/hr-applications'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()
-    const load = () => bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
+    const jobs = useGetJobs()
 
-    const jobVacations =
-        data &&
-        data
-            .map((job) => {
-                return [
-                    ...job.notTaken.map((vac) => ({
-                        ...vac,
-                        jobTitle: job.jobTitle,
-                        creationDate: vac.vacation.status.creationDate,
-                    })),
-                ]
-            })
-            .flat()
-            // .filter((item) => {
-            //     if (item.vacation.status.orderStatus != 'false' && item.vacation.status.orderStatus != '')
-            //         return item.vacation.status.orderStatus
-            // })
-            .sort((a, b) => compareDesc(new Date(a.vacation.period.startDate), new Date(b.vacation.period.startDate)))
+    useEffect(() => {
+        if (data === null) {
+            bufferHolidayPlanningModel.events.loadBufferHolidayPlanning()
+        }
+    }, [])
+
+    const [active, archive] = useMemo(() => {
+        const currentDate = new Date()
+        if (!data || data.length === 0) return [[], []]
+        const partitionedData: { active: PersonVacation[]; archive: PersonVacation[] } = data.reduce(
+            (acc: { active: PersonVacation[]; archive: PersonVacation[] }, item) => {
+                if (
+                    item.orderStatus === 'Не утвержден' ||
+                    item.orderStatus === 'На регистрации' ||
+                    differenceInDays(currentDate, new Date(item.signedDate)) < 62
+                ) {
+                    acc.active.push(item)
+                } else {
+                    acc.archive.push(item)
+                }
+                return acc
+            },
+            { active: [], archive: [] },
+        )
+
+        return [partitionedData.active, partitionedData.archive]
+    }, [data])
 
     return (
-        <Wrapper load={load} error={null} data={data}>
-            {/* <>
-                {dataWorkerApplication &&
-                    dataWorkerApplication.map((jobTitleInfo, index) => {
-                        if (jobTitleInfo.isDismissal) {
-                            historyIsEmpty && setHistoryIsEmpty(false)
-                            return null
-                        } else
-                            return <JobTitle key={jobTitleInfo.jobGuid} info={jobTitleInfo} index={index} data={data} />
-                    })}
-            </> */}
-            <>
-                <Flex jc="space-between" m="10px 0">
-                    <BlockHeader>История заявлений на отпуск:</BlockHeader>
-                    <Link to={`/hr-applications/holiday-planning`}>
-                        <Button
-                            text="Отпуск"
-                            background="var(--reallyBlue)"
-                            textColor="#fff"
-                            icon={<FiPlus />}
-                            minWidth={'35px'}
-                            height="36px"
-                            shrinkTextInMobile
-                        />
-                    </Link>
-                </Flex>
-                {getDataLoading ? (
-                    <Flex w="100%" jc="center" ai="center">
-                        <Loading />
-                    </Flex>
-                ) : (
-                    <Block
-                        orientation={'vertical'}
-                        alignItems={'flex-start'}
-                        justifyContent={'flex-start'}
-                        gap={'10px'}
-                        width="100%"
-                        maxWidth="100%"
-                        height="fit-content"
-                    >
-                        <Table
-                            columns={getBufferHolidayPlanningColumns()}
-                            columnsExtended={getExtendedBufferHolidayPlanningColumns()}
-                            data={jobVacations}
-                            maxOnPage={10}
-                        />
-                    </Block>
-                )}
-            </>
-        </Wrapper>
+        <>
+            <Flex jc="space-between" m="10px 0">
+                <BlockHeader>История заявлений на отпуск:</BlockHeader>
+                <Link to={HOLIDAY_PLANNING}>
+                    <Button
+                        text="Отпуск"
+                        background="var(--reallyBlue)"
+                        textColor="#fff"
+                        icon={<FiPlus />}
+                        minWidth={'35px'}
+                        height="36px"
+                        shrinkTextInMobile
+                    />
+                </Link>
+            </Flex>
+            <SliderPage
+                pages={[
+                    {
+                        title: 'Активные заявления',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getBufferHolidayPlanningColumns(jobs)}
+                                    columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
+                                    data={active}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                    {
+                        title: 'Архив',
+                        content: (
+                            <Block
+                                orientation={'vertical'}
+                                alignItems={'flex-start'}
+                                justifyContent={'flex-start'}
+                                gap={'10px'}
+                                width="100%"
+                                maxWidth="100%"
+                                height="fit-content"
+                            >
+                                <Table
+                                    loading={getDataLoading || data === null}
+                                    columns={getBufferHolidayPlanningColumns(jobs)}
+                                    columnsExtended={getExtendedBufferHolidayPlanningColumns(jobs)}
+                                    data={archive}
+                                    maxOnPage={10}
+                                />
+                            </Block>
+                        ),
+                    },
+                ]}
+            />
+        </>
     )
 }
 

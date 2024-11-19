@@ -1,9 +1,11 @@
-import { $api, $hrApi } from '@api/config'
+import { $api } from '@api/config'
 import { ApplicationCreating } from '@entities/applications/model'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import token from '@utils/token'
 import { AxiosResponse } from 'axios'
 import { Application, UserApplication } from './model'
+import { $1CCacheApi, $hrApi } from './config/personnel-orders-config'
+import { WorkWeeks } from '@pages/hr-applications/types'
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {
     return $api.get(`?getAppRequests&token=${token()}`)
@@ -23,15 +25,20 @@ export const getWorkerData = async (): Promise<AxiosResponse> => {
     return response
 }
 
-export const postWorkerStatuses = (): Promise<AxiosResponse> => {
-    //907afd9b-d9c5-11e7-940a-b4b52f5f5349
-    return $hrApi.post('Dismissal.AllHistory')
-}
-
 export const getDivisions = async () => {
-    const { data } = await $hrApi.get(`/AnotherPlaceWork.GetDivisions`)
+    const { data } = await $hrApi.get(`/AnotherWorkPosition.GetDivisions`)
 
     return data.divisions
+}
+
+export const getKEDO = async () => {
+    const { data } = await $1CCacheApi.get<{ isKedoAgreed: boolean }>('/kedo-agreement')
+    return data?.isKedoAgreed
+}
+
+export const getWorkWeeks = async () => {
+    const { data } = await $1CCacheApi.get<WorkWeeks>('/working-schedule')
+    return data
 }
 
 export const post = async (data: ApplicationCreating) => {

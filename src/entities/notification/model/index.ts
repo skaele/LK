@@ -4,7 +4,7 @@ import { createEffect, createEvent, createStore } from 'effector'
 import { Notifications } from '@api/model/notification'
 import { userModel } from '@entities/user'
 
-export type NotificationType = 'notifications' | 'docs' | 'allowances'
+export type NotificationType = 'notifications' | 'docs' | 'allowances' | 'personnel-orders'
 interface PersonalNotificationsStore {
     type: NotificationType | null
     personalNotifications: Notifications | null

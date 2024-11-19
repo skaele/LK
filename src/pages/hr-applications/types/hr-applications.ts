@@ -47,6 +47,7 @@ export type PersonVacation = {
     orderApprovalStatus: string
     downloadApplication: boolean
     downloadOrder: boolean
+    commentary: string
 }
 export interface Vacation {
     period: {

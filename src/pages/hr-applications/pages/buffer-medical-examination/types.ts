@@ -24,6 +24,7 @@ export type PersonMedicalExaminations = {
     startDate: string
     endDate: string
     tutor: boolean
+    commentary: string
 }
 export interface BufferMedicalExaminationOrder {
     tutor: boolean

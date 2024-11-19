@@ -23,5 +23,11 @@ export const getExtendedMedicalExaminationHistoryColumns = (jobs: SelectPage[]):
             align: 'center',
             render: (value) => value || '-',
         },
+        {
+            title: 'Комментарий',
+            field: 'commentary',
+            align: 'center',
+            render: (value) => value || '-',
+        },
     ]
 }

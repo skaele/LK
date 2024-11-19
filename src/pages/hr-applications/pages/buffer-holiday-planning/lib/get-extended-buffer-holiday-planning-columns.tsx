@@ -29,6 +29,12 @@ export const getExtendedBufferHolidayPlanningColumns = (jobs: SelectPage[]): Col
             align: 'center',
             render: (value) => value || '-',
         },
+        {
+            title: 'Комментарий',
+            field: 'commentary',
+            align: 'center',
+            render: (value) => value || '-',
+        },
         // {
         //     title: 'Перенесен',
         //     field: 'vacation',

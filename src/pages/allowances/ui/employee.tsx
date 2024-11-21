@@ -54,7 +54,9 @@ export const Employee = ({
                 title={approvalStatus[statusText] || '—'}
                 align="left"
                 icon={null}
-            />
+            >
+                {employee.commentary}
+            </Message>
             {role === 'Initiator' && (
                 <>
                     {employee.employeeVerdicts?.map((verdict) => (

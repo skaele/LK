@@ -79,6 +79,7 @@ export type AllowanceEmployee = {
     zkguApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
     orderTitle?: string
+    commentary?: string
 }
 
 export type Employee = {

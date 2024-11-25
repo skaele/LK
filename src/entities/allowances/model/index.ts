@@ -86,7 +86,7 @@ const job = createSelectField()
 const sourceOfFunding = createSelectField({ reset: pageMounted })
 const paymentIdentifier = createSelectField({ reset: pageMounted })
 const commentary = createInputField({ reset: pageMounted })
-const period = createDatePeriodField({ reset: pageMounted })
+const period = createAllowancesPeriod()
 const employees = createEmployeeField(pageMounted)
 const files = createFilesField({ reset: pageMounted })
 
@@ -565,5 +565,18 @@ function createEmployeeField(reset: Unit<any>) {
         selectAll,
         deselectAll,
         allSelected,
+    }
+}
+
+function createAllowancesPeriod() {
+    const now = new Date()
+    const firstDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)).toISOString().split('T')[0]
+    const fifteenthDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 15, 0)).toISOString().split('T')[0]
+    const period = createDatePeriodField({ reset: pageMounted })
+    const $minDate = createStore(new Date().getDate() > 13 ? fifteenthDayOfMonth : firstDayOfMonth)
+
+    return {
+        ...period,
+        minDate: $minDate,
     }
 }

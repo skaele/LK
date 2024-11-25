@@ -143,11 +143,19 @@ function PaymentIdentifier() {
 }
 
 function Dates() {
-    const { startDate, setStartDate, endDate, setEndDate } = useUnit(allowancesModel.fields.period)
+    const { startDate, setStartDate, endDate, setEndDate, minDate } = useUnit(allowancesModel.fields.period)
 
     return (
         <Flex jc="space-between" gap="0.5rem">
-            <Input title="Дата начала" value={startDate} setValue={setStartDate} type="date" required width="49%" />
+            <Input
+                title="Дата начала"
+                value={startDate}
+                setValue={setStartDate}
+                type="date"
+                required
+                width="49%"
+                minValue={minDate}
+            />
             <Input
                 title="Дата окончания"
                 value={endDate}

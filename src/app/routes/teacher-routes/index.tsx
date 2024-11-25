@@ -674,7 +674,7 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
     },
     'create-allowances': {
         id: 'create-allowances',
-        title: 'Запросить надбавку',
+        title: 'Служебная записка об установлении ежемесячной надбавки',
         icon: <FiFileText />,
         path: CREATE_ALLOWANCE,
         Component: CreateAllowance,
@@ -685,6 +685,7 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         hiddenTitle: true,
         isSubPage: true,
         show: !isProduction || allowancesRoles.includes('Initiator'),
+        keywords: ['запросить', 'установить', 'надбавку'],
     },
     'pps-vote': {
         id: 'pps-vote',

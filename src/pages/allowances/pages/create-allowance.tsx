@@ -66,7 +66,6 @@ const CreateAllowance = () => {
             <FormBlockWrapper noHeader>
                 <DevModeMessage />
                 <Job />
-                <SourceOfFunding />
                 <PaymentIdentifier />
                 <Dates />
                 <Commentary />
@@ -120,27 +119,7 @@ function Job() {
         />
     )
 }
-function SourceOfFunding() {
-    const items = useUnit(allowancesModel.stores.sourcesOfFunding)
-    const { value, setValue } = useUnit(allowancesModel.fields.sourceOfFunding)
 
-    useEffect(() => {
-        if (items.length === 1) setValue(items[0])
-    }, [items])
-
-    return (
-        <Select
-            title="Источник финансирования"
-            items={items}
-            selected={value}
-            setSelected={setValue}
-            isActive={items.length > 1}
-            width="100%"
-            withSearch
-            placeholder="Источник финансирования"
-        />
-    )
-}
 function PaymentIdentifier() {
     const items = useUnit(allowancesModel.stores.paymentIdentifiers)
     const { value, setValue } = useUnit(allowancesModel.fields.paymentIdentifier)
@@ -184,7 +163,14 @@ function Dates() {
 
 function Commentary() {
     const { value, setValue } = useUnit(allowancesModel.fields.commentary)
-    return <TextArea title="Комментарий" placeholder="Комментарий" value={value} setValue={setValue} />
+    return (
+        <TextArea
+            title="Комментарий (предполагаемый источник финансирования)"
+            placeholder="Комментарий (предполагаемый источник финансирования, например, проект)"
+            value={value}
+            setValue={setValue}
+        />
+    )
 }
 
 function Employees() {

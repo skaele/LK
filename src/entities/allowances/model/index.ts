@@ -237,13 +237,6 @@ const paymentIdentifierQuery = createQuery({
 const sourceOfFundingQuery = createQuery({
     handler: getHandbook,
 })
-const $sourcesOfFunding = sourceOfFundingQuery.$data.map<SelectPage[]>((data) => {
-    if (!data) return []
-    return data.map((item) => ({
-        id: item.id,
-        title: item.name,
-    }))
-})
 const $paymentIdentifiers = paymentIdentifierQuery.$data.map<SelectPage[]>((data) => {
     if (!data) return []
     return data.map((item) => ({
@@ -483,7 +476,6 @@ export const stores = {
     rolesPending: roleQuery.$pending,
     roles: $roles,
 
-    sourcesOfFunding: $sourcesOfFunding,
     paymentIdentifiers: $paymentIdentifiers,
     allowances: $allowances,
     fileUploading: uploadFileMutation.$pending,

@@ -24,14 +24,6 @@ export const getAllowancesColumns = (): ColumnProps[] => {
             render: (value) => value || '-',
         },
         {
-            title: 'Источник финансирования',
-            field: 'sourceOfFunding',
-            priority: 'three',
-            showFull: true,
-            width: '175px',
-            render: (value) => value || '-',
-        },
-        {
             title: 'Статус',
             field: 'allowanceStatus',
             priority: 'one',

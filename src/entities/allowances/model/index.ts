@@ -98,6 +98,9 @@ const $currentRole = createStore<Role | null>(null)
 const $currentJobId = createStore<string | null>(null)
     .on(setCurrentJobId, (_, jobId) => jobId)
     .reset(userModel.events.logout)
+const isPaymentForLaborIntensity = paymentIdentifier.value.map((item) =>
+    item?.title.toLowerCase().includes('интенсивность труда'),
+)
 
 const $completed = createStore(false).reset(pageMounted)
 const $allowances = createStore<{
@@ -253,19 +256,27 @@ const allowanceQuery = createQuery({
     handler: inspectAllowance,
 })
 
-const $isActive = createStore<boolean>(false)
+const $errorMessage = createStore<string>('')
 sample({
     clock: [job.value, paymentIdentifier.value, employees.value],
     source: {
         job: job.value,
         paymentIdentifier: paymentIdentifier.value,
         allowanceEmployees: employees.value,
+        files: files.value,
+        isPaymentForLaborIntensity,
     },
-    fn: ({ job, paymentIdentifier, allowanceEmployees }) =>
-        Boolean(job) &&
-        Boolean(paymentIdentifier) &&
-        allowanceEmployees.filter((e) => e !== null && e.id !== '').length > 0,
-    target: $isActive,
+    fn: ({ job, paymentIdentifier, allowanceEmployees, isPaymentForLaborIntensity, files }) => {
+        if (isPaymentForLaborIntensity && files.length === 0) return 'Приложите файл'
+        if (
+            Boolean(job) &&
+            Boolean(paymentIdentifier) &&
+            allowanceEmployees.filter((e) => e !== null && e.id !== '').length > 0
+        )
+            return ''
+        return 'Для отправки формы необходимо, чтобы все поля были заполнены'
+    },
+    target: $errorMessage,
 })
 
 sample({
@@ -481,7 +492,8 @@ export const stores = {
     fileUploading: uploadFileMutation.$pending,
     employees: $subordinates,
     completed: $completed,
-    isActive: $isActive,
+    errorMessage: $errorMessage,
+    isActive: $errorMessage.map((errorMessage) => !errorMessage),
     supplementCreating: createSupplementMutation.$pending,
 
     allowance: {

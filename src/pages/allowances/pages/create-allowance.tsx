@@ -18,18 +18,29 @@ import { DevModeMessage } from '../ui/dev-mode-message'
 import { AllowancesForbidden } from '../ui/forbidden'
 
 const CreateAllowance = () => {
-    const [initLoading, createSupplement, loading, pageMounted, roles, completed, setCompleted, isActive, jobRoles] =
-        useUnit([
-            allowancesModel.stores.rolesPending,
-            allowancesModel.events.createSupplement,
-            allowancesModel.stores.supplementCreating,
-            allowancesModel.events.pageMounted,
-            allowancesModel.stores.roles,
-            allowancesModel.stores.completed,
-            allowancesModel.events.setCompleted,
-            allowancesModel.stores.isActive,
-            allowancesModel.stores.jobRoles,
-        ])
+    const [
+        initLoading,
+        createSupplement,
+        loading,
+        pageMounted,
+        roles,
+        completed,
+        setCompleted,
+        isActive,
+        jobRoles,
+        errorMessage,
+    ] = useUnit([
+        allowancesModel.stores.rolesPending,
+        allowancesModel.events.createSupplement,
+        allowancesModel.stores.supplementCreating,
+        allowancesModel.events.pageMounted,
+        allowancesModel.stores.roles,
+        allowancesModel.stores.completed,
+        allowancesModel.events.setCompleted,
+        allowancesModel.stores.isActive,
+        allowancesModel.stores.jobRoles,
+        allowancesModel.stores.errorMessage,
+    ])
 
     const isDone = completed ?? false
     const isAllowed = roles.includes('Initiator')
@@ -72,7 +83,7 @@ const CreateAllowance = () => {
                     buttonSuccessText="Отправлено"
                     isDone={isDone}
                     isActive={isActive}
-                    popUpFailureMessage={'Для отправки формы необходимо, чтобы все поля были заполнены'}
+                    popUpFailureMessage={errorMessage}
                     popUpSuccessMessage="Данные формы успешно отправлены"
                 />
             </FormBlockWrapper>
@@ -139,7 +150,7 @@ function PaymentIdentifier() {
     }, [items])
     return (
         <Select
-            title="Вид набавки"
+            title="Вид надбавки"
             items={items}
             selected={value}
             setSelected={setValue}
@@ -147,7 +158,7 @@ function PaymentIdentifier() {
             required
             width="100%"
             withSearch
-            placeholder="Вид набавки"
+            placeholder="Вид надбавки"
         />
     )
 }

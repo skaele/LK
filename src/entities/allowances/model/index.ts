@@ -86,7 +86,7 @@ const job = createSelectField()
 const sourceOfFunding = createSelectField({ reset: pageMounted })
 const paymentIdentifier = createSelectField({ reset: pageMounted })
 const commentary = createInputField({ reset: pageMounted })
-const period = createDatePeriodField({ reset: pageMounted })
+const period = createAllowancesPeriod()
 const employees = createEmployeeField(pageMounted)
 const files = createFilesField({ reset: pageMounted })
 
@@ -98,6 +98,9 @@ const $currentRole = createStore<Role | null>(null)
 const $currentJobId = createStore<string | null>(null)
     .on(setCurrentJobId, (_, jobId) => jobId)
     .reset(userModel.events.logout)
+const isPaymentForLaborIntensity = paymentIdentifier.value.map((item) =>
+    item?.title.toLowerCase().includes('интенсивность труда'),
+)
 
 const $completed = createStore(false).reset(pageMounted)
 const $allowances = createStore<{
@@ -234,13 +237,6 @@ const paymentIdentifierQuery = createQuery({
 const sourceOfFundingQuery = createQuery({
     handler: getHandbook,
 })
-const $sourcesOfFunding = sourceOfFundingQuery.$data.map<SelectPage[]>((data) => {
-    if (!data) return []
-    return data.map((item) => ({
-        id: item.id,
-        title: item.name,
-    }))
-})
 const $paymentIdentifiers = paymentIdentifierQuery.$data.map<SelectPage[]>((data) => {
     if (!data) return []
     return data.map((item) => ({
@@ -253,19 +249,24 @@ const allowanceQuery = createQuery({
     handler: inspectAllowance,
 })
 
-const $isActive = createStore<boolean>(false)
+const $errorMessage = createStore<string>('')
 sample({
     clock: [job.value, paymentIdentifier.value, employees.value],
     source: {
         job: job.value,
         paymentIdentifier: paymentIdentifier.value,
         allowanceEmployees: employees.value,
+        files: files.value,
+        isPaymentForLaborIntensity,
     },
-    fn: ({ job, paymentIdentifier, allowanceEmployees }) =>
-        Boolean(job) &&
-        Boolean(paymentIdentifier) &&
-        allowanceEmployees.filter((e) => e !== null && e.id !== '').length > 0,
-    target: $isActive,
+    fn: ({ job, paymentIdentifier, allowanceEmployees, isPaymentForLaborIntensity, files }) => {
+        if (!job) return 'Выберите должность'
+        if (!paymentIdentifier) return 'Выберите вид надбавки'
+        if (isPaymentForLaborIntensity && files.length === 0) return 'Приложите файл'
+        if (allowanceEmployees.filter((e) => e !== null && e.id !== '').length <= 0) return 'Выберите сотрудников'
+        return 'Для отправки формы необходимо, чтобы все поля были заполнены'
+    },
+    target: $errorMessage,
 })
 
 sample({
@@ -475,13 +476,13 @@ export const stores = {
     rolesPending: roleQuery.$pending,
     roles: $roles,
 
-    sourcesOfFunding: $sourcesOfFunding,
     paymentIdentifiers: $paymentIdentifiers,
     allowances: $allowances,
     fileUploading: uploadFileMutation.$pending,
     employees: $subordinates,
     completed: $completed,
-    isActive: $isActive,
+    errorMessage: $errorMessage,
+    isActive: $errorMessage.map((errorMessage) => !errorMessage),
     supplementCreating: createSupplementMutation.$pending,
 
     allowance: {
@@ -564,5 +565,18 @@ function createEmployeeField(reset: Unit<any>) {
         selectAll,
         deselectAll,
         allSelected,
+    }
+}
+
+function createAllowancesPeriod() {
+    const now = new Date()
+    const firstDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)).toISOString().split('T')[0]
+    const fifteenthDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 15, 0)).toISOString().split('T')[0]
+    const period = createDatePeriodField({ reset: pageMounted })
+    const $minDate = createStore(new Date().getDate() > 13 ? fifteenthDayOfMonth : firstDayOfMonth)
+
+    return {
+        ...period,
+        minDate: $minDate,
     }
 }

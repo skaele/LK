@@ -76,7 +76,7 @@ export const Employee = ({
                         </Flex>
                     ))}
                     <Flex w="100%" jc="space-between" ai="center">
-                        <Subtext fontSize="0.9rem">1С:ЗКГУ</Subtext>
+                        <Subtext fontSize="0.9rem">Должностное лицо УЭФ</Subtext>
                         <Message
                             width="180px"
                             type={getStatusType(employee.zkguApprovalStatus)}
@@ -87,7 +87,7 @@ export const Employee = ({
                     </Flex>
                     <Flex w="100%" jc="space-between" ai="center">
                         <Flex d="column" ai="flex-start">
-                            <Subtext fontSize="0.9rem">Получатель надбавки</Subtext>
+                            <Subtext fontSize="0.9rem">Работник (получатель надбавки)</Subtext>
                             <Subtext>{employee.initials}</Subtext>
                         </Flex>
                         <Message
@@ -103,7 +103,6 @@ export const Employee = ({
                         <Flex w="100%" jc="space-between" ai="center">
                             <Flex d="column" ai="flex-start">
                                 <Subtext fontSize="0.9rem">Статус приказа</Subtext>
-                                {employee.orderTitle && <Subtext>{employee.orderTitle}</Subtext>}
                             </Flex>
                             <Message
                                 minWidth="180px"

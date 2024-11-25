@@ -25,7 +25,7 @@ export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) =
                 </Title>
                 {allowance.orderStatus && allowance.selfApprovalStatus === 'Approved' && (
                     <Title align="left" size={4}>
-                        {orderStatus[allowance.orderStatus]} {allowance.orderTitle && `(${allowance.orderTitle})`}
+                        {orderStatus[allowance.orderStatus]}
                     </Title>
                 )}
                 {allowance.selfApprovalStatus === 'Approved' && (

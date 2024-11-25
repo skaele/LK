@@ -24,14 +24,14 @@ export const orderStatus = {
 } as const
 
 export const NotificationTitles: Record<AllowanceNotificationType, string> = {
-    RecepientDeclinedByZkgu: 'Заявка отклонена в 1С',
-    RecepientDeclinedByAppover: 'Заявка отклонена согласующим',
-    RecepientSelfDeclined: 'Заявка отклонена сотрудником',
-    RecepientSelfConfirmed: 'Заявка согласована сотрудником',
-    FullyCompleted: 'Заявка полностью согласована',
-    ToApprove: 'Появились новые заявки для согласования',
-    ToConfirm: 'Рассмотрите заявку о надбавках',
-    AllowanceOrderCompleted: 'Заявка полностью согласована',
+    RecepientDeclinedByZkgu: 'Служебная записка отклонена в 1С',
+    RecepientDeclinedByAppover: 'Служебная записка отклонена согласующим',
+    RecepientSelfDeclined: 'Служебная записка отклонена сотрудником',
+    RecepientSelfConfirmed: 'Служебная записка согласована сотрудником',
+    FullyCompleted: 'Служебная записка полностью согласована',
+    ToApprove: 'Появились новые служебные записки для согласования',
+    ToConfirm: 'Рассмотрите служебные записки о надбавках',
+    AllowanceOrderCompleted: 'Служебная записка полностью согласована',
 } as const
 
 export const NotificationLinks: Record<AllowanceNotificationType, string> = {

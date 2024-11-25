@@ -62,7 +62,6 @@ export interface PersonalAllowance {
     sourceOfFunding: string
     selfApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
-    orderTitle: string
     confirmationEndDate: string
 }
 

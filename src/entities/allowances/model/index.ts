@@ -262,7 +262,7 @@ sample({
     fn: ({ job, paymentIdentifier, allowanceEmployees, isPaymentForLaborIntensity, files }) => {
         if (!job) return 'Выберите должность'
         if (!paymentIdentifier) return 'Выберите вид надбавки'
-        if (isPaymentForLaborIntensity && files.length === 0) return 'Приложите файл'
+        if (!isPaymentForLaborIntensity && files.length === 0) return 'Приложите файл'
         if (allowanceEmployees.filter((e) => e !== null && e.id !== '').length <= 0) return 'Выберите сотрудников'
         return 'Для отправки формы необходимо, чтобы все поля были заполнены'
     },

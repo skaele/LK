@@ -251,7 +251,7 @@ const allowanceQuery = createQuery({
 
 const $errorMessage = createStore<string>('')
 sample({
-    clock: [job.value, paymentIdentifier.value, employees.value],
+    clock: [job.value, paymentIdentifier.value, employees.value, employees.value, files.value],
     source: {
         job: job.value,
         paymentIdentifier: paymentIdentifier.value,
@@ -264,7 +264,9 @@ sample({
         if (!paymentIdentifier) return 'Выберите вид надбавки'
         if (!isPaymentForLaborIntensity && files.length === 0) return 'Приложите файл'
         if (allowanceEmployees.filter((e) => e !== null && e.id !== '').length <= 0) return 'Выберите сотрудников'
-        return 'Для отправки формы необходимо, чтобы все поля были заполнены'
+        if (allowanceEmployees.some((e) => !e.startDate || !e.endDate)) return 'Выберите даты'
+        if (allowanceEmployees.some((e) => !e.sum)) return 'Укажите сумму'
+        return ''
     },
     target: $errorMessage,
 })

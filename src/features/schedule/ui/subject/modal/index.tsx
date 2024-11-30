@@ -27,7 +27,6 @@ import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 const SubjectModalWrapper = styled.div`
     position: relative;
     height: 100%;
-    max-width: 400px;
 
     @media (min-width: 1001px) {
         min-width: 320px;

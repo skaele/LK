@@ -12,6 +12,7 @@ import Slider from 'widgets/slider'
 import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 import { userModel } from '@entities/user'
+import { Colors } from '@shared/constants'
 
 import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
 import { SetPEStudentSpecialization } from '@features/physical-education/student/pe-student-specialization/ui'
@@ -32,7 +33,6 @@ const PEStudent = () => {
 
     useEffect(() => {
         selectedPEStudentModel.events.setCurrentStudentId(studentId)
-
         peTeacherModel.events.load()
 
         return () => selectedPEStudentModel.events.resetStudentId()
@@ -47,7 +47,7 @@ const PEStudent = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
-                <Title size={3} align="left">
+                <Title size={3} align="left" style={{ color: student.hasDebt ? Colors.red.main : 'inherit' }}>
                     {student.fullName}
                 </Title>
 

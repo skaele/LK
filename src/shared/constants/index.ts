@@ -373,6 +373,9 @@ export const VALID_FORMATS = {
     pdf: 'application/pdf',
     doc: 'application/msword',
     docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    csv: 'text/csv',
 } as const
 export type FileFormat = (typeof VALID_FORMATS)[keyof typeof VALID_FORMATS]
 type ValidFormats = typeof VALID_FORMATS

@@ -6,6 +6,7 @@ import { useModal } from 'widgets'
 import { RowWrapper } from '../atoms'
 import Column from '../atoms/column'
 import RowModal from './row-modal'
+import Checkbox from '@shared/ui/checkbox'
 
 interface Props {
     el: { [key: string]: any }
@@ -13,13 +14,33 @@ interface Props {
     columns: ColumnProps[]
     columnsExtended?: ColumnProps[]
     onRowClick?: (obj: IndexedProperties) => void
+    select?: (rowIndex: number) => void
+    selected?: boolean
 }
 
-const Row = ({ columns, columnsExtended, el, index, onRowClick }: Props) => {
+const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected }: Props) => {
     const { open } = useModal()
     const defaultOnClick = () => open(<RowModal obj={el} columns={columnsExtended || columns} />, 'Информация')
     return (
         <RowWrapper even={index % 2 === 0} onClick={() => (onRowClick ? onRowClick(el) : defaultOnClick())}>
+            {select && (
+                <Column
+                    padding="10px"
+                    width="36px"
+                    className={'one'}
+                    align="center"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                    }}
+                >
+                    <Checkbox
+                        setChecked={() => {
+                            select(index)
+                        }}
+                        checked={Boolean(selected)}
+                    />
+                </Column>
+            )}
             {columns.map((column) => {
                 return (
                     <Column

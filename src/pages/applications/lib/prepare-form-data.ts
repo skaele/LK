@@ -29,7 +29,6 @@ export const globalPrepareFormData = (
                     },
                 )
                 const obj = {} as IndexedProperties
-
                 obj[listElementForm.id ?? formId] = JSON.stringify(resultNestedElementForm)
 
                 return obj

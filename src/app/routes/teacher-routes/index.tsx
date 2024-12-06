@@ -58,6 +58,8 @@ import {
     Allowances,
     CreateAllowance,
     AllowanceInfo,
+    Onboarding,
+    Children,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -93,7 +95,6 @@ import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-me
 //import PartTimeEmploymentBufferPage from '@pages/hr-applications/pages/buffer-part-time-employment'
 import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import DownloadAdminFilesPage from '@pages/download-admin-files'
-import { Onboarding } from '../general-routes/pages'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import PaymentsPage from '@pages/payments'
 import { BsPeople } from 'react-icons/bs'
@@ -286,20 +287,11 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         title: 'Дети и внуки',
         icon: <BsPeople />,
         path: CHILDREN_ROUTE,
-        Component: () => {
-            React.useEffect(() => {
-                window.location.replace('https://e.mospolytech.ru/old/index.php?p=children')
-            }, [])
-
-            return null
-        },
+        Component: Children,
         color: 'green',
         isTemplate: false,
         group: 'GENERAL',
-        pageSize: 'big',
-        isOldLkPage: true,
-        keywords: ['Ltnb b dyerb'],
-        show: !isProduction,
+        hiddenTitle: true,
     },
     'electronic-statements': {
         id: 'electronic-statements',

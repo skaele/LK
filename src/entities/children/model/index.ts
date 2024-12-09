@@ -4,6 +4,7 @@ import { createEvent, createStore, sample } from 'effector'
 import { Children } from '../types'
 import { isNumber } from '@shared/lib/is-number'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 
 const getChildrensQuery = createQuery({
     handler: getChildrens,
@@ -30,6 +31,10 @@ const $newChildrens = createStore<Children[]>([
 const $isActive = createStore(false).reset(pageMounted)
 
 const $allChildrens = createStore<Children[]>([]).reset(pageMounted)
+const $minDate = createStore(getMinBirthdateForUnderAge(14)).reset(pageMounted)
+const $maxDate = createStore(getMaxBirthdateForAge(2)).reset(pageMounted)
+const confirmed = createCheckboxField({ reset: pageMounted })
+
 sample({
     clock: pageMounted,
     target: getChildrensQuery.start,
@@ -79,8 +84,16 @@ sample({
 })
 
 sample({
-    clock: $newChildrens,
-    fn: (newChildrens) => newChildrens.every((child) => child.birthdate && child.fio),
+    clock: [$newChildrens, confirmed.value],
+    source: { newChildrens: $newChildrens, confirmed: confirmed.value, minDate: $minDate, maxDate: $maxDate },
+    fn: ({ newChildrens, confirmed, minDate, maxDate }) =>
+        newChildrens.every(
+            (child) =>
+                child.birthdate &&
+                new Date(child.birthdate) >= new Date(minDate) &&
+                new Date(child.birthdate) <= new Date(maxDate) &&
+                child.fio,
+        ) && confirmed,
     target: $isActive,
 })
 
@@ -108,9 +121,12 @@ sample({
 
 export const stores = {
     childrens: $allChildrens,
+    confirmed: confirmed.value,
     loading: getChildrensQuery.$pending,
     saving: saveChildrensMutation.$pending,
     isActive: $isActive,
+    minDate: $minDate,
+    maxDate: $maxDate,
 }
 
 export const events = {
@@ -119,4 +135,17 @@ export const events = {
     saveChildrens: childrensSaved,
     deleteChildren: childrenDeleted,
     editChildren,
+    confirm: confirmed.setValue,
+}
+
+function getMaxBirthdateForAge(age: number) {
+    const today = new Date()
+    const maxBirthdate = new Date(today.getFullYear() - age, today.getMonth(), today.getDate() + 1)
+    return maxBirthdate.toISOString().split('T')[0]
+}
+
+function getMinBirthdateForUnderAge(age: number) {
+    const today = new Date()
+    const minBirthdate = new Date(today.getFullYear() - age, today.getMonth(), today.getDate() + 2)
+    return minBirthdate.toISOString().split('T')[0]
 }

@@ -51,7 +51,7 @@ const Allowances = () => {
                 roles.includes('Initiator') && (
                     <Button
                         onClick={handleCreateApplication}
-                        text="Подать заявку"
+                        text="Подать служебную записку"
                         background="var(--reallyBlue)"
                         textColor="#fff"
                         icon={<FiPlus />}

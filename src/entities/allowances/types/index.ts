@@ -73,12 +73,11 @@ export type AllowanceEmployee = {
         approverPosition: string
         approverName: string
         approvalStatus: ApprovalStatus
-        approverOrderNumber: number
     }[]
     selfApprovalStatus: ApprovalStatus
     zkguApprovalStatus: ApprovalStatus
     orderStatus: OrderStatus
-    orderTitle?: string
+    commentary?: string
 }
 
 export type Employee = {

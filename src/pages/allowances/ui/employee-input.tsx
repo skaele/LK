@@ -14,6 +14,7 @@ export const EmployeeInput = ({
     subordinate: Subordnate
 }) => {
     const { addItem, removeItem, setValue, value: employees } = useUnit(allowancesModel.fields.employees)
+    const { minDate } = useUnit(allowancesModel.fields.period)
     const employee = employees.find((employee) => employee.id === employeeId)
     const isActive = !!employee
 
@@ -70,6 +71,7 @@ export const EmployeeInput = ({
                             required
                             width="30%"
                             isActive={isActive}
+                            minValue={minDate}
                         />
                         <Input
                             title="Дата окончания"

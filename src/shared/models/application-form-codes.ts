@@ -89,4 +89,6 @@ export enum ApplicationTeachersFormCodes {
 
     DEFERMENT_FROM_CONSCRIPTION = 'deferment-from-conscription',
     CERTIFIED_COPIES_OF_MILITARY_DOCS = 'certified-copies-of-military-docs',
+
+    CHILDREN = 'children',
 }

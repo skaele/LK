@@ -1,3 +1,3 @@
 export function isNumber(value: unknown) {
-    return !Number.isNaN(value)
+    return !Number.isNaN(Number(value))
 }

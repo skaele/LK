@@ -10,17 +10,22 @@ import { Colors } from '@shared/constants'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import { isNumber } from '@shared/lib/is-number'
 import Flex from '@shared/ui/flex'
+import Checkbox from '@shared/ui/checkbox'
 
 const Children = () => {
-    const [pageMounted, loading, childrens, addChildren, saveChildrens, saving, isActive] = useUnit([
-        childrensModel.events.pageMounted,
-        childrensModel.stores.loading,
-        childrensModel.stores.childrens,
-        childrensModel.events.addChildren,
-        childrensModel.events.saveChildrens,
-        childrensModel.stores.saving,
-        childrensModel.stores.isActive,
-    ])
+    const [pageMounted, loading, childrens, addChildren, saveChildrens, saving, isActive, confirmed, confirm] = useUnit(
+        [
+            childrensModel.events.pageMounted,
+            childrensModel.stores.loading,
+            childrensModel.stores.childrens,
+            childrensModel.events.addChildren,
+            childrensModel.events.saveChildrens,
+            childrensModel.stores.saving,
+            childrensModel.stores.isActive,
+            childrensModel.stores.confirmed,
+            childrensModel.events.confirm,
+        ],
+    )
     const [completed, setCompleted] = useState(false)
     const isDone = completed ?? false
 
@@ -57,6 +62,7 @@ const Children = () => {
                     onClick={() => addChildren()}
                     background="transparent"
                 />
+                <Checkbox checked={confirmed} setChecked={confirm} text="Подтверждаю достоверность внесенных данных" />
                 <SubmitButton
                     text={!isDone ? 'Отправить' : 'Отправлено'}
                     action={() => {
@@ -78,10 +84,12 @@ const Children = () => {
 }
 
 const ChildrenRow = ({ id, fio, birthdate }: { id: string; fio: string; birthdate: string }) => {
-    const [loading, deleteChildren, editChildren] = useUnit([
+    const [loading, deleteChildren, editChildren, minDate, maxDate] = useUnit([
         childrensModel.stores.saving,
         childrensModel.events.deleteChildren,
         childrensModel.events.editChildren,
+        childrensModel.stores.minDate,
+        childrensModel.stores.maxDate,
     ])
 
     const editable = !isNumber(id)
@@ -107,6 +115,8 @@ const ChildrenRow = ({ id, fio, birthdate }: { id: string; fio: string; birthdat
                 width="30%"
                 minWidth="150px"
                 isActive={editable}
+                minValue={minDate}
+                maxValue={maxDate}
             />
             <Button
                 icon={<FiMinusCircle />}

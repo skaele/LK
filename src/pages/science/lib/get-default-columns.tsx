@@ -4,22 +4,23 @@ import { FaCheck } from 'react-icons/fa6'
 
 export const getDefaultColumns = (): ColumnProps[] => [
     {
-        title: 'Название пуликации',
-        priority: 'one',
+        title: 'Название публикации',
         field: 'articleTitle',
-        width: '220px',
+        width: '200px',
         showFull: true,
+        align: 'center',
     },
     {
         title: 'Авторы',
         field: 'authors',
-        width: '180px',
+        width: '150px',
         showFull: true,
+        align: 'center',
     },
     {
         title: 'Год',
         field: 'publicationYear',
-        width: '120px',
+        width: '100px',
         align: 'center',
         catalogs: [
             { id: '2020', title: '2020' },
@@ -32,14 +33,16 @@ export const getDefaultColumns = (): ColumnProps[] => [
     {
         title: 'Издательство',
         field: 'publisher',
-        width: '150px',
         showFull: true,
+        align: 'center',
     },
     {
         title: 'Номер страницы',
         field: 'pageNumber',
-        width: '150px',
+        width: '120px',
         render: (value) => (value ? value : '-'),
+        showFull: true,
+        align: 'center',
     },
     {
         title: 'Scopus',
@@ -55,8 +58,8 @@ export const getDefaultColumns = (): ColumnProps[] => [
         align: 'center',
         render: (value) => value && <FaCheck />,
     },
-    { title: 'Тип', showFull: true, field: 'publicationType' },
-    { title: 'Количество цитирований', field: 'quotesCount' },
-    { title: 'DOI', field: 'doi' },
-    { title: 'Источник финансирования', field: 'fundingSource' },
+    { title: 'Тип', showFull: true, field: 'publicationType', align: 'center' },
+    { title: 'Количество цитирований', field: 'quotesCount', showFull: true, width: '130px', align: 'center' },
+    { title: 'DOI', field: 'doi', showFull: true, align: 'center' },
+    { title: 'Источник финансирования', field: 'fundingSource', showFull: true, width: '170px', align: 'center' },
 ]

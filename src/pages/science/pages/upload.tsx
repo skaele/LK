@@ -57,6 +57,7 @@ const Science = () => {
                     pages: articles?.totalCount || 0,
                     setPage: setPage,
                 }}
+                innerPadding="10px"
             />
             <Flex jc="flex-end" w="100%">
                 <Button

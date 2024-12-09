@@ -16,9 +16,10 @@ interface Props {
     onRowClick?: (obj: IndexedProperties) => void
     select?: (rowIndex: number) => void
     selected?: boolean
+    padding?: string
 }
 
-const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected }: Props) => {
+const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected, padding }: Props) => {
     const { open } = useModal()
     const defaultOnClick = () => open(<RowModal obj={el} columns={columnsExtended || columns} />, 'Информация')
     return (
@@ -44,6 +45,7 @@ const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected
             {columns.map((column) => {
                 return (
                     <Column
+                        padding={padding}
                         showFull={column.showFull}
                         width={column.width}
                         className={column.priority?.toString() ?? 'one'}

@@ -16,6 +16,7 @@ interface Props {
     setFilter: React.Dispatch<React.SetStateAction<TableCatalogType>>
     setSearch: React.Dispatch<React.SetStateAction<TableSearchType>>
     tableHasSelect?: boolean
+    padding?: string
 }
 
 const FilterWrapper = styled.div`
@@ -23,7 +24,7 @@ const FilterWrapper = styled.div`
     align-items: center;
 `
 
-const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, tableHasSelect }: Props) => {
+const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, tableHasSelect, padding }: Props) => {
     const columnClick = (column: ColumnProps) => {
         return () => {
             if (column.search) {
@@ -46,6 +47,7 @@ const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, 
             {columns.map((column) => {
                 return (
                     <Column
+                        padding={padding}
                         overflow={!!column.catalogs ? 'visible' : 'hidden'}
                         width={column.width}
                         title={column.title}

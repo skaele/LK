@@ -27,6 +27,7 @@ const Table = ({
     loading = false,
     forwardedRef,
     pagination,
+    innerPadding,
 }: TableProps & TutorialComponent) => {
     const {
         sort,
@@ -54,6 +55,7 @@ const Table = ({
             />
             <Search search={search} setSearch={setSearch} />
             <Header
+                padding={innerPadding}
                 sort={sort}
                 setSort={setSort}
                 columns={columns}
@@ -64,6 +66,7 @@ const Table = ({
                 tableHasSelect={Boolean(select)}
             />
             <Body
+                innerPadding={innerPadding}
                 loading={loading}
                 onRowClick={onRowClick}
                 filter={filter}

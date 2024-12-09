@@ -41,4 +41,5 @@ export interface TableProps {
         pages: number
         setPage: (offset: number) => void
     }
+    innerPadding?: string
 }

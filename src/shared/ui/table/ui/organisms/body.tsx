@@ -58,6 +58,7 @@ const Body = ({
     selected,
     select,
     pagination,
+    innerPadding,
 }: TableProps & { filter: TableCatalogType }) => {
     const [currentPage, setCurrentPage] = useState<number>(0)
     const pages = pagination ? pagination.pages : Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
@@ -76,6 +77,7 @@ const Body = ({
             {result?.map((el, i) => {
                 return (
                     <Row
+                        padding={innerPadding}
                         onRowClick={onRowClick}
                         columns={columns}
                         columnsExtended={columnsExtended}

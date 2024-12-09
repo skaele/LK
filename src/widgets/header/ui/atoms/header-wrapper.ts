@@ -55,7 +55,9 @@ export const HeaderTitle = styled.div<{
     noButton: boolean | undefined
     maxWidth: string
 }>`
-    max-width: ${({ maxWidth }) => `calc(${maxWidth} - ${maxWidth === '100%' ? '55' : '40'}px)`};
+    // Особенные стиили для large страницы с шириной calc(100% - 35px)
+    // TODO: Переписать полностью систему хедеров 😭
+    max-width: ${({ maxWidth }) => `calc(${maxWidth} - ${maxWidth === 'calc(100% - 35px)' ? '70' : '40'}px)`};
     width: 100%;
     font-size: ${({ headerVisible }) => (headerVisible ? '1.1rem' : '1.4rem')};
     font-weight: 600;

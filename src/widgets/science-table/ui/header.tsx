@@ -37,7 +37,7 @@ export const Header = ({ columns, tableHasSelect, padding }: Props) => {
                     >
                         {column.search && (
                             <FiSearch
-                                // onClick={() => filterPressed(column.field)}
+                                onClick={() => filterPressed(column.field)}
                                 className="icon"
                                 style={{
                                     color:

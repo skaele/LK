@@ -16,21 +16,13 @@ export const uploadArticle = async ({ scopusFile, wosFile }: UploadReq) => {
     return data
 }
 
-export const getAllArticles = async ({
-    limit,
-    offset,
-    sorts,
-}: {
+export const getAllArticles = async (params: {
     limit: number
     offset: number
     sorts: Sort[] | null
     filters: Filter[] | null
 }) => {
-    const { data } = await $scienceApi.post<{ data: Article[]; totalCount: number }>(`/article/all`, {
-        limit: limit,
-        offset: offset,
-        sorts: sorts,
-    })
+    const { data } = await $scienceApi.post<{ data: Article[]; totalCount: number }>(`/article/all`, params)
     return data
 }
 

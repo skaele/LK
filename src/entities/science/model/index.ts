@@ -18,12 +18,14 @@ const setColumns = createEvent<ColumnProps[]>()
 const getArticles = createEvent<{ offset: number }>()
 const fetchArticles = createEvent<IndexRange>()
 const setSearch = createEvent<TableSearchType>()
-const filterPressed = createEvent<Filter>()
+const filterPressed = createEvent<string>()
 const sortPressed = createEvent<string>()
 
-const fetchArticlesFx = createEffect(async ({ offset, sorts }: { offset: number; sorts: Sort[] | null }) => {
-    return await getAllArticles({ limit: TABLE_SIZE, offset, sorts, filters: null })
-})
+const fetchArticlesFx = createEffect(
+    async ({ offset, sorts, filters }: { offset: number; sorts: Sort[] | null; filters: Filter[] | null }) => {
+        return await getAllArticles({ limit: TABLE_SIZE, offset, sorts, filters })
+    },
+)
 export const uploadArticleMutation = createMutation({ handler: uploadArticle })
 const $sorts = createStore<Sort[] | null>(null)
     .on(sortPressed, (sorts, field) => {
@@ -41,9 +43,20 @@ const $sorts = createStore<Sort[] | null>(null)
         return [...sorts, { field, order: 'ASC' }]
     })
     .reset(pageMounted)
+const $filters = createStore<Filter[] | null>(null)
+    .on(filterPressed, (filters, field) => {
+        if (!filters) return [{ field, operation: 'Eq', value: '' }]
+        const existingField = filters.find((filter) => filter.field === field)
+        const filteredSorts = filters.filter((filter) => filter.field !== field)
+
+        if (existingField) return filteredSorts.length ? filteredSorts : null
+
+        return [...filters, { field, operation: 'Eq', value: '' }]
+    })
+    .reset(pageMounted)
 const $articles = createStore<Article[]>([])
     .on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
-    .reset($sorts)
+    .reset([$sorts, $filters])
 const $totalCount = createStore<number>(50).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
 sample({
     clock: fetchArticlesFx.doneData,
@@ -81,22 +94,20 @@ const $columns = createStore<ColumnProps[]>(getDefaultColumns())
 const searchField = createStore<TableSearchType>(null)
     .on(setSearch, (_, query) => query)
     .reset(pageMounted)
-const $filters = createStore<Filter[] | null>(null).reset(pageMounted)
 
 sample({
     clock: fetchArticles,
-    source: { pending: fetchArticlesFx.inFlight, sorts: $sorts },
+    source: { pending: fetchArticlesFx.inFlight, sorts: $sorts, filters: $filters },
     filter: ({ pending }) => !pending,
-    fn: ({ sorts }, { startIndex }) => ({ offset: startIndex, sorts }),
+    fn: ({ sorts, filters }, { startIndex }) => ({ offset: startIndex, sorts, filters }),
     target: fetchArticlesFx,
 })
 sample({
-    clock: $sorts,
-    source: { sorts: $sorts },
-    fn: ({ sorts }) => ({ offset: 0, sorts }),
+    clock: [$sorts, $filters],
+    source: { sorts: $sorts, filters: $filters },
+    fn: ({ sorts, filters }) => ({ offset: 0, sorts, filters }),
     target: fetchArticlesFx,
 })
-
 sample({
     clock: uploadFiles,
     target: uploadArticleMutation.start,

@@ -45,7 +45,9 @@ export const ScienceTable = ({
                         height="100px"
                     />
                 ) : (
-                    <p>Загрузка...</p>
+                    <Flex h="100px" p="0.5rem 1rem" jc="flex-start" ai="center">
+                        Загрузка...
+                    </Flex>
                 )}
             </div>
         )

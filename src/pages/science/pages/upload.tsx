@@ -12,19 +12,11 @@ import { getDefaultColumns } from '../lib/get-default-columns'
 
 const Science = () => {
     const { open } = useModal()
-    const [pageMounted, totalCount, modalOpened] = useUnit([
-        scienceModel.events.pageMounted,
-        scienceModel.stores.totalCount,
-        scienceModel.events.modalOpened,
-    ])
+    const [pageMounted, modalOpened] = useUnit([scienceModel.events.pageMounted, scienceModel.events.modalOpened])
 
     useEffect(() => {
         pageMounted()
     }, [])
-
-    if (!totalCount) {
-        return null
-    }
     return (
         <PageBlock
             outerPadding="10px"

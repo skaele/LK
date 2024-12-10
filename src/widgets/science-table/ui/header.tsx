@@ -3,7 +3,6 @@ import { ColumnProps } from '@shared/ui/table/types'
 import { FaSort } from 'react-icons/fa6'
 import styled from 'styled-components'
 import { Align } from '@shared/ui/types'
-import { FiSearch } from 'react-icons/fi'
 import { useUnit } from 'effector-react'
 import { scienceModel } from '@entities/science'
 
@@ -13,12 +12,7 @@ interface Props {
     padding?: string
 }
 export const Header = ({ columns, tableHasSelect, padding }: Props) => {
-    const [filters, sorts, filterPressed, sortPressed] = useUnit([
-        scienceModel.stores.filters,
-        scienceModel.stores.sorts,
-        scienceModel.events.filterPressed,
-        scienceModel.events.sortPressed,
-    ])
+    const [sorts, sortPressed] = useUnit([scienceModel.stores.sorts, scienceModel.events.sortPressed])
     return (
         <HeaderWrapper>
             {tableHasSelect && <Column width="36px" align="center" className={'one'}></Column>}
@@ -34,23 +28,11 @@ export const Header = ({ columns, tableHasSelect, padding }: Props) => {
                         key={column.field}
                         showFull={column.showFull}
                         className={column.priority?.toString() ?? 'one'}
+                        onClick={() => sortPressed(column.field)}
                     >
-                        {column.search && (
-                            <FiSearch
-                                onClick={() => filterPressed(column.field)}
-                                className="icon"
-                                style={{
-                                    color:
-                                        filters?.length && filters.find((filter) => column.field === filter.field)
-                                            ? 'var(--reallyBlue)'
-                                            : 'var(--text)',
-                                }}
-                            />
-                        )}
                         <div>{column.title}</div>
                         {column.sort && (
                             <FaSort
-                                onClick={() => sortPressed(column.field)}
                                 className="icon"
                                 style={{
                                     color:

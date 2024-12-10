@@ -7,6 +7,7 @@ import { ColumnProps, TableSearchType } from '@shared/ui/table/types'
 import { TABLE_SIZE } from './consts'
 import { Article, Filter, Sort } from '../types'
 import { IndexRange } from 'react-virtualized'
+import { scienceNameMap } from '../lib/nameMap'
 
 const pageMounted = createEvent()
 const modalOpened = createEvent()
@@ -23,7 +24,12 @@ const sortPressed = createEvent<string>()
 
 const fetchArticlesFx = createEffect(
     async ({ offset, sorts, filters }: { offset: number; sorts: Sort[] | null; filters: Filter[] | null }) => {
-        return await getAllArticles({ limit: TABLE_SIZE, offset, sorts, filters })
+        return await getAllArticles({
+            limit: TABLE_SIZE,
+            offset,
+            sorts: sorts ? sorts.map(({ field, order }) => ({ field: scienceNameMap[field], order })) : null,
+            filters,
+        })
     },
 )
 export const uploadArticleMutation = createMutation({ handler: uploadArticle })
@@ -57,7 +63,7 @@ const $filters = createStore<Filter[] | null>(null)
 const $articles = createStore<Article[]>([])
     .on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
     .reset([$sorts, $filters])
-const $totalCount = createStore<number>(50).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
+const $totalCount = createStore<number>(1).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
 sample({
     clock: fetchArticlesFx.doneData,
     source: $totalCount,

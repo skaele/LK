@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Flex from '@shared/ui/flex'
 import { Header } from './ui/header'
 import { AutoSizer, InfiniteLoader, List, ListRowProps } from 'react-virtualized'
@@ -52,6 +52,12 @@ export const ScienceTable = ({
             </div>
         )
     }
+
+    const scrollRef = useRef<List | null>(null)
+    useEffect(() => {
+        if (articles.length === 0) scrollRef.current?.scrollToPosition(0)
+    }, [articles])
+
     return (
         <Wrapper d="column" jc="flex-start" ai="flex-start" position="relative" h="100%" w="100%">
             <Header columns={columns} padding="10px" tableHasSelect />
@@ -68,7 +74,10 @@ export const ScienceTable = ({
                         <AutoSizer>
                             {({ height, width }) => (
                                 <List
-                                    ref={registerChild}
+                                    ref={(list) => {
+                                        scrollRef.current = list
+                                        registerChild(list) // Register with InfiniteLoader
+                                    }}
                                     onRowsRendered={onRowsRendered}
                                     height={height}
                                     rowCount={totalCount}

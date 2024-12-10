@@ -22,19 +22,14 @@ export const getDefaultColumns = (): ColumnProps[] => [
         field: 'publicationYear',
         width: '100px',
         align: 'center',
-        catalogs: [
-            { id: '2020', title: '2020' },
-            { id: '2021', title: '2021' },
-            { id: '2022', title: '2022' },
-            { id: '2023', title: '2023' },
-            { id: '2024', title: '2024' },
-        ],
+        sort: true,
     },
     {
         title: 'Издательство',
         field: 'publisher',
         showFull: true,
         align: 'center',
+        sort: true,
     },
     {
         title: 'Номер страницы',
@@ -50,6 +45,7 @@ export const getDefaultColumns = (): ColumnProps[] => [
         width: '100px',
         align: 'center',
         render: (value) => value && <FaCheck />,
+        sort: true,
     },
     {
         title: 'WoS',
@@ -57,9 +53,17 @@ export const getDefaultColumns = (): ColumnProps[] => [
         width: '100px',
         align: 'center',
         render: (value) => value && <FaCheck />,
+        sort: true,
     },
     { title: 'Тип', showFull: true, field: 'publicationType', align: 'center' },
-    { title: 'Количество цитирований', field: 'quotesCount', showFull: true, width: '130px', align: 'center' },
+    {
+        title: 'Количество цитирований',
+        field: 'quotesCount',
+        showFull: true,
+        width: '140px',
+        align: 'center',
+        sort: true,
+    },
     { title: 'DOI', field: 'doi', showFull: true, align: 'center' },
     { title: 'Источник финансирования', field: 'fundingSource', showFull: true, width: '170px', align: 'center' },
 ]

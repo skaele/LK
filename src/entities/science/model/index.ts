@@ -3,9 +3,9 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 import { createMutation } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
-import { ColumnProps } from '@shared/ui/table/types'
+import { ColumnProps, TableSearchType } from '@shared/ui/table/types'
 import { TABLE_SIZE } from './consts'
-import { Article } from '../types'
+import { Article, Filter, Sort } from '../types'
 import { IndexRange } from 'react-virtualized'
 
 const pageMounted = createEvent()
@@ -17,12 +17,33 @@ const selectArticle = createEvent<number>()
 const setColumns = createEvent<ColumnProps[]>()
 const getArticles = createEvent<{ offset: number }>()
 const fetchArticles = createEvent<IndexRange>()
+const setSearch = createEvent<TableSearchType>()
+const filterPressed = createEvent<Filter>()
+const sortPressed = createEvent<string>()
 
-const fetchArticlesFx = createEffect(async ({ offset }: { offset: number }) => {
-    return await getAllArticles({ limit: TABLE_SIZE, offset, sorts: null })
+const fetchArticlesFx = createEffect(async ({ offset, sorts }: { offset: number; sorts: Sort[] | null }) => {
+    return await getAllArticles({ limit: TABLE_SIZE, offset, sorts, filters: null })
 })
 export const uploadArticleMutation = createMutation({ handler: uploadArticle })
-const $articles = createStore<Article[]>([]).on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
+const $sorts = createStore<Sort[] | null>(null)
+    .on(sortPressed, (sorts, field) => {
+        if (!sorts) return [{ field, order: 'ASC' }]
+
+        const existingField = sorts.find((sort) => sort.field === field)
+        const filteredSorts = sorts.filter((sort) => sort.field !== field)
+        if (existingField)
+            return existingField.order === 'ASC'
+                ? [...filteredSorts, { field, order: 'DESC' }]
+                : filteredSorts.length
+                ? filteredSorts
+                : null
+
+        return [...sorts, { field, order: 'ASC' }]
+    })
+    .reset(pageMounted)
+const $articles = createStore<Article[]>([])
+    .on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
+    .reset($sorts)
 const $totalCount = createStore<number>(50).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
 sample({
     clock: fetchArticlesFx.doneData,
@@ -57,11 +78,22 @@ const $columns = createStore<ColumnProps[]>(getDefaultColumns())
     .on(setColumns, (_, value) => value)
     .reset(pageMounted)
 
+const searchField = createStore<TableSearchType>(null)
+    .on(setSearch, (_, query) => query)
+    .reset(pageMounted)
+const $filters = createStore<Filter[] | null>(null).reset(pageMounted)
+
 sample({
     clock: fetchArticles,
-    source: fetchArticlesFx.inFlight,
-    filter: (pending) => !pending,
-    fn: (_, { startIndex }) => ({ offset: startIndex }),
+    source: { pending: fetchArticlesFx.inFlight, sorts: $sorts },
+    filter: ({ pending }) => !pending,
+    fn: ({ sorts }, { startIndex }) => ({ offset: startIndex, sorts }),
+    target: fetchArticlesFx,
+})
+sample({
+    clock: $sorts,
+    source: { sorts: $sorts },
+    fn: ({ sorts }) => ({ offset: 0, sorts }),
     target: fetchArticlesFx,
 })
 
@@ -97,6 +129,10 @@ export const stores = {
     wosFile: $wosFile,
     uploadLoading: uploadArticleMutation.$pending,
     columns: $columns,
+
+    search: searchField,
+    filters: $filters,
+    sorts: $sorts,
 }
 
 export const events = {
@@ -109,4 +145,8 @@ export const events = {
     setColumns,
     getArticles,
     fetchArticles,
+
+    setSearch: setSearch,
+    filterPressed,
+    sortPressed,
 }

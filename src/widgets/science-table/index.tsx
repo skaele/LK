@@ -17,12 +17,14 @@ export const ScienceTable = ({
     columns: ColumnProps[]
     onRowClick?: (obj: IndexedProperties) => void
 }) => {
-    const [select, selected, articles, totalCount, fetchArticles] = useUnit([
+    const [select, selected, articles, totalCount, fetchArticles, search, setSearch] = useUnit([
         scienceModel.events.selectArticle,
         scienceModel.stores.selectedArticles,
         scienceModel.stores.articles,
         scienceModel.stores.totalCount,
         scienceModel.events.fetchArticles,
+        scienceModel.stores.search,
+        scienceModel.events.setSearch,
     ])
     function isRowLoaded({ index }: { index: number }) {
         return index < articles.length
@@ -49,7 +51,7 @@ export const ScienceTable = ({
         )
     }
     return (
-        <Flex d="column" jc="flex-start" ai="flex-start" position="relative" h="100%" w="100%">
+        <Wrapper d="column" jc="flex-start" ai="flex-start" position="relative" h="100%" w="100%">
             <Header columns={columns} padding="10px" tableHasSelect />
             <Container>
                 <InfiniteLoader
@@ -77,9 +79,18 @@ export const ScienceTable = ({
                     )}
                 </InfiniteLoader>
             </Container>
-        </Flex>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled(Flex)`
+    width: 100%;
+    box-shadow: var(--block-shadow);
+    border-radius: var(--brLight);
+    color: var(--text);
+    background: var(--block-content);
+    overflow: hidden;
+`
 
 const Container = styled.div`
     height: 100%;

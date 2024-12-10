@@ -24,5 +24,11 @@ export type Article = {
 }
 export type Sort = {
     field: string
-    order?: 'asc' | 'desc'
+    order: 'ASC' | 'DESC'
+}
+
+export type Filter = {
+    field: string
+    value: string
+    operation: 'Eq' | 'Like'
 }

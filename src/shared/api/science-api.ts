@@ -1,4 +1,4 @@
-import { Article, Changes, Sort } from '@entities/science/types'
+import { Article, Changes, Filter, Sort } from '@entities/science/types'
 import { $scienceApi } from './config/science-config'
 
 export type UploadReq = { scopusFile: File; wosFile: File }
@@ -24,6 +24,7 @@ export const getAllArticles = async ({
     limit: number
     offset: number
     sorts: Sort[] | null
+    filters: Filter[] | null
 }) => {
     const { data } = await $scienceApi.post<{ data: Article[]; totalCount: number }>(`/article/all`, {
         limit: limit,

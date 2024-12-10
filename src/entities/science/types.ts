@@ -29,6 +29,6 @@ export type Sort = {
 
 export type Filter = {
     field: string
-    value: string
+    value: string | boolean | number
     operation: 'Eq' | 'Like'
 }

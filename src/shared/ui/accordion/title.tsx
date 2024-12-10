@@ -47,17 +47,19 @@ interface Props {
     title: string
     confirmed: boolean
     setOpenArea: React.Dispatch<React.SetStateAction<boolean>>
+    noIcon?: boolean
 }
 
-const AccordionTitle = ({ title, confirmed, setOpenArea }: Props) => {
+const AccordionTitle = ({ title, confirmed, setOpenArea, noIcon }: Props) => {
     return (
         <AreaTitleWrapper onClick={() => setOpenArea((prev) => !prev)}>
             <div className="title-and-icon">
-                {confirmed ? (
-                    <HiOutlineCheckCircle style={{ color: 'var(--green)' }} />
-                ) : (
-                    <HiOutlineExclamationCircle style={{ color: 'var(--red)' }} />
-                )}
+                {!noIcon &&
+                    (confirmed ? (
+                        <HiOutlineCheckCircle style={{ color: 'var(--green)' }} />
+                    ) : (
+                        <HiOutlineExclamationCircle style={{ color: 'var(--red)' }} />
+                    ))}
                 <b>{title}</b>
             </div>
             <Button icon={<HiChevronDown />} onClick={() => null} background="transparent" />

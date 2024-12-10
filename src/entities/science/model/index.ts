@@ -3,11 +3,13 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 import { createMutation } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
-import { ColumnProps, TableSearchType } from '@shared/ui/table/types'
+import { ColumnProps } from '@shared/ui/table/types'
 import { TABLE_SIZE } from './consts'
 import { Article, Filter, Sort } from '../types'
 import { IndexRange } from 'react-virtualized'
 import { scienceNameMap } from '../lib/nameMap'
+import { createInputField } from '@shared/effector/form/create-input-field'
+import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 
 const pageMounted = createEvent()
 const modalOpened = createEvent()
@@ -18,9 +20,13 @@ const selectArticle = createEvent<number>()
 const setColumns = createEvent<ColumnProps[]>()
 const getArticles = createEvent<{ offset: number }>()
 const fetchArticles = createEvent<IndexRange>()
-const setSearch = createEvent<TableSearchType>()
-const filterPressed = createEvent<string>()
 const sortPressed = createEvent<string>()
+const filtersApplied = createEvent()
+const filtersReset = createEvent()
+const $filtersApplied = createStore(false)
+    .on(filtersApplied, () => true)
+    .on(filtersReset, () => false)
+    .reset([pageMounted])
 
 const fetchArticlesFx = createEffect(
     async ({ offset, sorts, filters }: { offset: number; sorts: Sort[] | null; filters: Filter[] | null }) => {
@@ -32,7 +38,13 @@ const fetchArticlesFx = createEffect(
         })
     },
 )
-export const uploadArticleMutation = createMutation({ handler: uploadArticle })
+
+const publicationYearField = createInputField({ reset: pageMounted })
+const publisherField = createInputField({ reset: pageMounted })
+const quotesCountField = createInputField({ reset: pageMounted })
+const isScopusCheck = createCheckboxField({ reset: pageMounted })
+const isWoSCheck = createCheckboxField({ reset: pageMounted })
+const uploadArticleMutation = createMutation({ handler: uploadArticle })
 const $sorts = createStore<Sort[] | null>(null)
     .on(sortPressed, (sorts, field) => {
         if (!sorts) return [{ field, order: 'ASC' }]
@@ -49,20 +61,10 @@ const $sorts = createStore<Sort[] | null>(null)
         return [...sorts, { field, order: 'ASC' }]
     })
     .reset(pageMounted)
-const $filters = createStore<Filter[] | null>(null)
-    .on(filterPressed, (filters, field) => {
-        if (!filters) return [{ field, operation: 'Eq', value: '' }]
-        const existingField = filters.find((filter) => filter.field === field)
-        const filteredSorts = filters.filter((filter) => filter.field !== field)
-
-        if (existingField) return filteredSorts.length ? filteredSorts : null
-
-        return [...filters, { field, operation: 'Eq', value: '' }]
-    })
-    .reset(pageMounted)
 const $articles = createStore<Article[]>([])
     .on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
-    .reset([$sorts, $filters])
+    .reset([$sorts, filtersApplied, filtersReset])
+
 const $totalCount = createStore<number>(1).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
 sample({
     clock: fetchArticlesFx.doneData,
@@ -97,21 +99,143 @@ const $columns = createStore<ColumnProps[]>(getDefaultColumns())
     .on(setColumns, (_, value) => value)
     .reset(pageMounted)
 
-const searchField = createStore<TableSearchType>(null)
-    .on(setSearch, (_, query) => query)
-    .reset(pageMounted)
-
 sample({
     clock: fetchArticles,
-    source: { pending: fetchArticlesFx.inFlight, sorts: $sorts, filters: $filters },
+    source: {
+        pending: fetchArticlesFx.inFlight,
+        filtersApplied: $filtersApplied,
+        sorts: $sorts,
+        isWoSCheck: isWoSCheck.value,
+        isScopusCheck: isScopusCheck.value,
+        publicationYear: publicationYearField.value,
+        publisher: publisherField.value,
+        quotesCount: quotesCountField.value,
+    },
     filter: ({ pending }) => !pending,
-    fn: ({ sorts, filters }, { startIndex }) => ({ offset: startIndex, sorts, filters }),
+    fn: (
+        { sorts, filtersApplied, isWoSCheck, isScopusCheck, publicationYear, publisher, quotesCount },
+        { startIndex },
+    ) => {
+        return {
+            offset: startIndex,
+            sorts,
+            filters: filtersApplied
+                ? [
+                      ...(isWoSCheck
+                          ? [
+                                {
+                                    field: 'IsWoS',
+                                    operation: 'Eq' as const,
+                                    value: isWoSCheck,
+                                },
+                            ]
+                          : []),
+                      ...(isScopusCheck
+                          ? [
+                                {
+                                    field: 'IsScopus',
+                                    operation: 'Eq' as const,
+                                    value: isScopusCheck,
+                                },
+                            ]
+                          : []),
+                      ...(publicationYear
+                          ? [
+                                {
+                                    field: 'PublicationYear',
+                                    operation: 'Eq' as const,
+                                    value: Number(publicationYear),
+                                },
+                            ]
+                          : []),
+                      ...(publisher
+                          ? [
+                                {
+                                    field: 'SourceTitle',
+                                    operation: 'Like' as const,
+                                    value: publisher,
+                                },
+                            ]
+                          : []),
+                      ...(quotesCount
+                          ? [
+                                {
+                                    field: 'QuotesCount',
+                                    operation: 'Eq' as const,
+                                    value: Number(quotesCount),
+                                },
+                            ]
+                          : []),
+                  ]
+                : null,
+        }
+    },
     target: fetchArticlesFx,
 })
 sample({
-    clock: [$sorts, $filters],
-    source: { sorts: $sorts, filters: $filters },
-    fn: ({ sorts, filters }) => ({ offset: 0, sorts, filters }),
+    clock: [$sorts, filtersApplied, filtersReset],
+    source: {
+        sorts: $sorts,
+        filtersApplied: $filtersApplied,
+        isWoSCheck: isWoSCheck.value,
+        isScopusCheck: isScopusCheck.value,
+        publicationYear: publicationYearField.value,
+        publisher: publisherField.value,
+        quotesCount: quotesCountField.value,
+    },
+    fn: ({ sorts, filtersApplied, isWoSCheck, isScopusCheck, publicationYear, publisher, quotesCount }) => ({
+        offset: 0,
+        sorts,
+        filters: filtersApplied
+            ? [
+                  ...(isWoSCheck
+                      ? [
+                            {
+                                field: 'IsWoS',
+                                operation: 'Eq' as const,
+                                value: isWoSCheck,
+                            },
+                        ]
+                      : []),
+                  ...(isScopusCheck
+                      ? [
+                            {
+                                field: 'IsScopus',
+                                operation: 'Eq' as const,
+                                value: isScopusCheck,
+                            },
+                        ]
+                      : []),
+                  ...(publicationYear
+                      ? [
+                            {
+                                field: 'PublicationYear',
+                                operation: 'Eq' as const,
+                                value: Number(publicationYear),
+                            },
+                        ]
+                      : []),
+                  ...(publisher
+                      ? [
+                            {
+                                field: 'SourceTitle',
+                                operation: 'Like' as const,
+                                value: publisher,
+                            },
+                        ]
+                      : []),
+                  ...(quotesCount
+                      ? [
+                            {
+                                field: 'QuotesCount',
+                                operation: 'Eq' as const,
+                                value: Number(quotesCount),
+                            },
+                        ]
+                      : []),
+              ]
+            : null,
+    }),
     target: fetchArticlesFx,
 })
 sample({
@@ -147,9 +271,14 @@ export const stores = {
     uploadLoading: uploadArticleMutation.$pending,
     columns: $columns,
 
-    search: searchField,
-    filters: $filters,
     sorts: $sorts,
+    filtersApplied: $filtersApplied,
+
+    publicationYear: publicationYearField.value,
+    publisher: publisherField.value,
+    quotesCount: quotesCountField.value,
+    isScopusCheck: isScopusCheck.value,
+    isWoSCheck: isWoSCheck.value,
 }
 
 export const events = {
@@ -163,7 +292,14 @@ export const events = {
     getArticles,
     fetchArticles,
 
-    setSearch: setSearch,
-    filterPressed,
     sortPressed,
+
+    setPublicationYear: publicationYearField.setValue,
+    setPublisher: publisherField.setValue,
+    setQuotesCount: quotesCountField.setValue,
+    setIsScopusCheck: isScopusCheck.setValue,
+    setIsWoSCheck: isWoSCheck.setValue,
+
+    filtersApplied,
+    filtersReset,
 }

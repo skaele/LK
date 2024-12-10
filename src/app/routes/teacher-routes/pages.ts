@@ -116,4 +116,7 @@ export const WorkTransfer = lazy(() => import('@pages/hr-applications/pages/work
 export const WorkTransferChangeRate = lazy(() => import('@pages/hr-applications/pages/work-transfer-change-rate'))
 export const DismissalBufferPage = lazy(() => import('@pages/hr-applications/pages/buffer-dismissal'))
 export const Onboarding = lazy(() => import('@pages/onboarding'))
+export const Science = lazy(() => import('@pages/science/pages/upload'))
+export const ArticleList = lazy(() => import('@pages/science/pages/article-list'))
+export const Article = lazy(() => import('@pages/science/pages/article'))
 export const Children = lazy(() => import('@pages/children'))

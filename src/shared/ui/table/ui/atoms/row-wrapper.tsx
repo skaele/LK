@@ -1,14 +1,14 @@
 import { Colors } from '@shared/constants'
 import styled from 'styled-components'
 
-const RowWrapper = styled.div<{ even?: boolean }>`
+const RowWrapper = styled.div<{ even?: boolean; height?: string }>`
     display: flex;
     align-items: center;
     width: 100%;
     font-size: 0.9em;
     cursor: pointer;
     background: ${({ even }) => (!even ? 'var(--theme)' : `${Colors.blue.transparent3}`)};
-
+    height: ${({ height }) => height};
     &:hover {
         filter: brightness(0.98);
     }

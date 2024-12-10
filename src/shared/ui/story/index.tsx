@@ -57,8 +57,8 @@ const ClickField = styled.div<{ right?: string; left?: string }>`
     }
 
     @media (max-width: 1000px) {
-        left: ${({ left }) => `calc(${left} - 15px)` ?? 'auto'};
-        right: ${({ right }) => `calc(${right} - 15px)` ?? 'auto'};
+        left: ${({ left }) => (left ? `calc(${left} - 15px)` : 'auto')};
+        right: ${({ right }) => (right ? `calc(${right} - 15px)` : 'auto')};
         &:active {
             opacity: 1;
             background: ${({ left }) =>

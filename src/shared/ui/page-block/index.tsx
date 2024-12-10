@@ -50,15 +50,20 @@ type Props = {
     topRightCornerElement?: ChildrenType
     topCenterElement?: ChildrenType
     padding?: string
+    outerPadding?: string
+    height?: string
 }
 
 const PageBlock = forwardRef(
-    ({ children, topRightCornerElement, topCenterElement, padding }: Props, ref: ForwardedRef<HTMLDivElement>) => {
+    (
+        { children, topRightCornerElement, topCenterElement, padding, outerPadding, height }: Props,
+        ref: ForwardedRef<HTMLDivElement>,
+    ) => {
         const currentPage = useCurrentExactPage()
         const maxWidth = getPageWidth(currentPage)
 
         return (
-            <CenterPage padding="0 0 10px 0">
+            <CenterPage padding={outerPadding ?? '0 0 10px 0'} height={height}>
                 <PageBlockStyled
                     hasCenterEl={!!topCenterElement}
                     titleLen={currentPage?.subPageHeaderTitle?.length ?? currentPage?.title.length ?? 0}

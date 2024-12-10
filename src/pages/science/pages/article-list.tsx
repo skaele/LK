@@ -1,46 +1,28 @@
 import PageBlock from '@shared/ui/page-block'
 import React, { useEffect, useState } from 'react'
-import Table from '@shared/ui/table'
 import Flex from '@shared/ui/flex'
 import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
 import { scienceModel } from '@entities/science'
 import { useUnit } from 'effector-react'
-import { useHistory } from 'react-router'
+import { ScienceTable } from 'widgets/science-table'
 import { ARTICLES } from '@app/routes/teacher-routes'
-import { TABLE_SIZE } from '@entities/science/model/consts'
+import { useHistory } from 'react-router'
 
 const PublicationList = () => {
     const history = useHistory()
-    const [pageMounted, select, selected, articles, loading, columns, setPage] = useUnit([
-        scienceModel.events.pageMounted,
-        scienceModel.events.selectArticle,
-        scienceModel.stores.selectedArticles,
-        scienceModel.stores.articles,
-        scienceModel.stores.articlesLoading,
-        scienceModel.stores.columns,
-        scienceModel.events.setPage,
-    ])
+    const [pageMounted, columns] = useUnit([scienceModel.events.pageMounted, scienceModel.stores.columns])
     useEffect(() => {
         pageMounted()
     }, [])
 
     return (
-        <PageBlock outerPadding="10px">
+        <PageBlock outerPadding="10px" height="100%">
             <Header />
-            <Table
-                loading={loading}
+            <ScienceTable
                 columns={columns}
-                data={articles?.data}
-                maxOnPage={TABLE_SIZE}
-                select={select}
-                selected={selected}
                 onRowClick={(row) => {
                     history.push(ARTICLES + `/${row.id}`)
-                }}
-                pagination={{
-                    pages: articles?.totalCount || 0,
-                    setPage: setPage,
                 }}
             />
         </PageBlock>
@@ -62,14 +44,14 @@ const Header = () => {
                 <Button
                     onClick={() => {
                         if (allSelected) {
-                            articles?.data?.map((_, index) => {
+                            articles.map((_, index) => {
                                 if (selected.has(index)) {
                                     select(index)
                                 }
                             })
                             setAllSelected(false)
                         } else {
-                            articles?.data?.map((_, index) => {
+                            articles.map((_, index) => {
                                 if (!selected.has(index)) {
                                     select(index)
                                 }

@@ -17,13 +17,18 @@ interface Props {
     select?: (rowIndex: number) => void
     selected?: boolean
     padding?: string
+    height?: string
 }
 
-const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected, padding }: Props) => {
+const Row = ({ columns, columnsExtended, el, index, onRowClick, select, selected, padding, height }: Props) => {
     const { open } = useModal()
     const defaultOnClick = () => open(<RowModal obj={el} columns={columnsExtended || columns} />, 'Информация')
     return (
-        <RowWrapper even={index % 2 === 0} onClick={() => (onRowClick ? onRowClick(el) : defaultOnClick())}>
+        <RowWrapper
+            even={index % 2 === 0}
+            onClick={() => (onRowClick ? onRowClick(el) : defaultOnClick())}
+            height={height}
+        >
             {select && (
                 <Column
                     padding="10px"

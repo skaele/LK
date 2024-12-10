@@ -13,10 +13,14 @@ export type Article = {
     doi: string
     authors: string
     articleTitle: string
-    sourceTitle: string
-    documentType: string
-    isWos: boolean
+    isWoS: boolean
     isScopus: boolean
+    publisher: string
+    pageNumber: string
+    publicationType: string
+    fundingSource: string
+    publicationYear: string
+    quotesCount: string
 }
 export type Sort = {
     field: string

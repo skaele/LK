@@ -1,5 +1,4 @@
 import PageBlock from '@shared/ui/page-block'
-import Table from '@shared/ui/table'
 import React, { useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { scienceModel } from '@entities/science'
@@ -8,28 +7,28 @@ import { FiPlus } from 'react-icons/fi'
 import Flex from '@shared/ui/flex'
 import { useModal } from 'widgets'
 import { UploadModal } from '../widgets/upload-modal'
-import { TABLE_SIZE } from '@entities/science/model/consts'
-import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
+import { ScienceTable } from 'widgets/science-table'
+import { getDefaultColumns } from '../lib/get-default-columns'
 
 const Science = () => {
     const { open } = useModal()
-    const [pageMounted, select, selected, articles, loading, modalOpened, setPage] = useUnit([
+    const [pageMounted, totalCount, modalOpened] = useUnit([
         scienceModel.events.pageMounted,
-        scienceModel.events.selectArticle,
-        scienceModel.stores.selectedArticles,
-        scienceModel.stores.articles,
-        scienceModel.stores.articlesLoading,
+        scienceModel.stores.totalCount,
         scienceModel.events.modalOpened,
-        scienceModel.events.setPage,
     ])
 
     useEffect(() => {
         pageMounted()
     }, [])
 
+    if (!totalCount) {
+        return null
+    }
     return (
         <PageBlock
             outerPadding="10px"
+            height="100%"
             topRightCornerElement={
                 <Button
                     onClick={() => {
@@ -46,19 +45,7 @@ const Science = () => {
                 />
             }
         >
-            <Table
-                loading={loading}
-                columns={getDefaultColumns()}
-                data={articles?.data}
-                maxOnPage={TABLE_SIZE}
-                select={select}
-                selected={selected}
-                pagination={{
-                    pages: articles?.totalCount || 0,
-                    setPage: setPage,
-                }}
-                innerPadding="10px"
-            />
+            <ScienceTable columns={getDefaultColumns()} />
             <Flex jc="flex-end" w="100%">
                 <Button
                     onClick={() => {}}

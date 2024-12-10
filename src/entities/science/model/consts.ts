@@ -1,1 +1,1 @@
-export const TABLE_SIZE = 7
+export const TABLE_SIZE = 30

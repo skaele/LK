@@ -1,10 +1,12 @@
 import { getAllArticles, uploadArticle, UploadReq } from '@shared/api/science-api'
-import { createEvent, createStore, sample } from 'effector'
-import { createMutation, createQuery } from '@farfetched/core'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+import { createMutation } from '@farfetched/core'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
 import { ColumnProps } from '@shared/ui/table/types'
 import { TABLE_SIZE } from './consts'
+import { Article } from '../types'
+import { IndexRange } from 'react-virtualized'
 
 const pageMounted = createEvent()
 const modalOpened = createEvent()
@@ -14,22 +16,34 @@ const uploadFiles = createEvent<UploadReq>()
 const selectArticle = createEvent<number>()
 const setColumns = createEvent<ColumnProps[]>()
 const getArticles = createEvent<{ offset: number }>()
-const setPage = createEvent<number>()
+const fetchArticles = createEvent<IndexRange>()
 
-export const uploadArticleMutation = createMutation({ handler: uploadArticle })
-const getAllArticlesQuery = createQuery({ handler: getAllArticles })
-
-const $selectedArticles = createStore<Set<number>>(new Set()).on(selectArticle, (state, id) => {
-    const newState = new Set(state)
-
-    if (newState.has(id)) {
-        newState.delete(id)
-    } else {
-        newState.add(id)
-    }
-
-    return newState
+const fetchArticlesFx = createEffect(async ({ offset }: { offset: number }) => {
+    return await getAllArticles({ limit: TABLE_SIZE, offset, sorts: null })
 })
+export const uploadArticleMutation = createMutation({ handler: uploadArticle })
+const $articles = createStore<Article[]>([]).on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
+const $totalCount = createStore<number>(50).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
+sample({
+    clock: fetchArticlesFx.doneData,
+    source: $totalCount,
+    filter: (store, { totalCount }) => store !== totalCount,
+    fn: (_, { totalCount }) => totalCount,
+    target: $totalCount,
+})
+const $selectedArticles = createStore<Set<number>>(new Set())
+    .on(selectArticle, (state, id) => {
+        const newState = new Set(state)
+
+        if (newState.has(id)) {
+            newState.delete(id)
+        } else {
+            newState.add(id)
+        }
+
+        return newState
+    })
+    .reset(pageMounted)
 const $scopusFile = createStore<File[]>([])
     .on(setScopusFile, (_, value) => value)
     .reset([uploadArticleMutation.finished.success, modalOpened])
@@ -42,27 +56,13 @@ const $filesUploaded = createStore<boolean>(false)
 const $columns = createStore<ColumnProps[]>(getDefaultColumns())
     .on(setColumns, (_, value) => value)
     .reset(pageMounted)
-const $page = createStore(0)
-    .on(setPage, (_, value) => value)
-    .reset(pageMounted)
 
 sample({
-    clock: pageMounted,
-    fn: () => ({
-        limit: TABLE_SIZE,
-        offset: 0,
-        sorts: null,
-    }),
-    target: getAllArticlesQuery.start,
-})
-sample({
-    clock: $page,
-    fn: (page) => ({
-        limit: TABLE_SIZE,
-        offset: page * TABLE_SIZE,
-        sorts: null,
-    }),
-    target: getAllArticlesQuery.start,
+    clock: fetchArticles,
+    source: fetchArticlesFx.inFlight,
+    filter: (pending) => !pending,
+    fn: (_, { startIndex }) => ({ offset: startIndex }),
+    target: fetchArticlesFx,
 })
 
 sample({
@@ -88,15 +88,15 @@ sample({
 })
 
 export const stores = {
-    articles: getAllArticlesQuery.$data,
-    articlesLoading: getAllArticlesQuery.$pending,
+    articles: $articles,
+    articlesLoading: fetchArticlesFx.inFlight,
+    totalCount: $totalCount,
     selectedArticles: $selectedArticles,
     filesUploaded: $filesUploaded,
     scopusFile: $scopusFile,
     wosFile: $wosFile,
     uploadLoading: uploadArticleMutation.$pending,
     columns: $columns,
-    page: $page,
 }
 
 export const events = {
@@ -108,5 +108,5 @@ export const events = {
     setWosFile,
     setColumns,
     getArticles,
-    setPage,
+    fetchArticles,
 }

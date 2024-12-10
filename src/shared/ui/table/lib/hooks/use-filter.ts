@@ -61,7 +61,7 @@ const useFilter = (data: FilterDataType) => {
             if (!filterList) {
                 setFilterList((prev) => {
                     const el = Object.values(filter)[0].column
-                    prev = { [el?.field ?? '']: { id: el?.field ?? '', title: 'Фильтр: ' + el?.title ?? '' } }
+                    prev = { [el?.field ?? '']: { id: el?.field ?? '', title: 'Фильтр: ' + el?.title } }
 
                     return { ...prev }
                 })
@@ -70,7 +70,7 @@ const useFilter = (data: FilterDataType) => {
                 if (newEl) {
                     setFilterList((prev) => {
                         const id = newEl.column?.field ?? ''
-                        const title = 'Фильтр: ' + newEl.column?.title ?? ''
+                        const title = 'Фильтр: ' + newEl.column?.title
                         if (prev) prev[id] = { id, title }
                         return { ...prev }
                     })

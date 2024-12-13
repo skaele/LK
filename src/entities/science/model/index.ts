@@ -39,6 +39,7 @@ const fetchArticlesFx = createEffect(
     },
 )
 
+const articleTitleField = createInputField({ reset: pageMounted })
 const publicationYearField = createInputField({ reset: pageMounted })
 const publisherField = createInputField({ reset: pageMounted })
 const quotesCountField = createInputField({ reset: pageMounted })
@@ -107,13 +108,14 @@ sample({
         sorts: $sorts,
         isWoSCheck: isWoSCheck.value,
         isScopusCheck: isScopusCheck.value,
+        articleTitle: articleTitleField.value,
         publicationYear: publicationYearField.value,
         publisher: publisherField.value,
         quotesCount: quotesCountField.value,
     },
     filter: ({ pending }) => !pending,
     fn: (
-        { sorts, filtersApplied, isWoSCheck, isScopusCheck, publicationYear, publisher, quotesCount },
+        { sorts, filtersApplied, isWoSCheck, isScopusCheck, articleTitle, publicationYear, publisher, quotesCount },
         { startIndex },
     ) => {
         return {
@@ -121,6 +123,15 @@ sample({
             sorts,
             filters: filtersApplied
                 ? [
+                      ...(articleTitle
+                          ? [
+                                {
+                                    field: 'ArticleTitle',
+                                    operation: 'Like' as const,
+                                    value: articleTitle,
+                                },
+                            ]
+                          : []),
                       ...(isWoSCheck
                           ? [
                                 {
@@ -179,15 +190,34 @@ sample({
         filtersApplied: $filtersApplied,
         isWoSCheck: isWoSCheck.value,
         isScopusCheck: isScopusCheck.value,
+        articleTitle: articleTitleField.value,
         publicationYear: publicationYearField.value,
         publisher: publisherField.value,
         quotesCount: quotesCountField.value,
     },
-    fn: ({ sorts, filtersApplied, isWoSCheck, isScopusCheck, publicationYear, publisher, quotesCount }) => ({
+    fn: ({
+        sorts,
+        filtersApplied,
+        isWoSCheck,
+        isScopusCheck,
+        publicationYear,
+        publisher,
+        quotesCount,
+        articleTitle,
+    }) => ({
         offset: 0,
         sorts,
         filters: filtersApplied
             ? [
+                  ...(articleTitle
+                      ? [
+                            {
+                                field: 'ArticleTitle',
+                                operation: 'Like' as const,
+                                value: articleTitle,
+                            },
+                        ]
+                      : []),
                   ...(isWoSCheck
                       ? [
                             {
@@ -274,6 +304,7 @@ export const stores = {
     sorts: $sorts,
     filtersApplied: $filtersApplied,
 
+    articleTitle: articleTitleField.value,
     publicationYear: publicationYearField.value,
     publisher: publisherField.value,
     quotesCount: quotesCountField.value,
@@ -294,6 +325,7 @@ export const events = {
 
     sortPressed,
 
+    setArticleTitle: articleTitleField.setValue,
     setPublicationYear: publicationYearField.setValue,
     setPublisher: publisherField.setValue,
     setQuotesCount: quotesCountField.setValue,

@@ -100,11 +100,13 @@ export const ScienceTable = ({
 
 const SearchBar = () => {
     const [
+        articleTitle,
         publicationYear,
         publisher,
         quotesCount,
         isScopusCheck,
         isWoSCheck,
+        setArticleTitle,
         setPublicationYear,
         setPublisher,
         setQuotesCount,
@@ -115,11 +117,13 @@ const SearchBar = () => {
         filtersApplied,
         filtersReset,
     ] = useUnit([
+        scienceModel.stores.articleTitle,
         scienceModel.stores.publicationYear,
         scienceModel.stores.publisher,
         scienceModel.stores.quotesCount,
         scienceModel.stores.isScopusCheck,
         scienceModel.stores.isWoSCheck,
+        scienceModel.events.setArticleTitle,
         scienceModel.events.setPublicationYear,
         scienceModel.events.setPublisher,
         scienceModel.events.setQuotesCount,
@@ -134,6 +138,7 @@ const SearchBar = () => {
         <Flex ai="center" jc="space-between" gap="1rem" p="0.5rem 10px">
             <Accordion title="Поиск" height={areFiltersApplied ? 120 : 80} noIcon>
                 <Flex ai="flex-end" jc="space-between" gap="1rem" p="0 0.25rem">
+                    <Input value={articleTitle} setValue={setArticleTitle} placeholder="Название" title="Название" />
                     <Input value={publicationYear} setValue={setPublicationYear} placeholder="Год" title="Год" />
                     <Input value={publisher} setValue={setPublisher} placeholder="Издательство" title="Издательство" />
                     <Input

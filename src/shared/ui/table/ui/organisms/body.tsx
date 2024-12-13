@@ -55,10 +55,18 @@ const Body = ({
     maxOnPage,
     onRowClick,
     filter,
+    selected,
+    select,
+    pagination,
+    innerPadding,
 }: TableProps & { filter: TableCatalogType }) => {
     const [currentPage, setCurrentPage] = useState<number>(0)
-    const pages = Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
-    const result = maxOnPage ? data?.slice(currentPage * maxOnPage, (currentPage + 1) * maxOnPage) : data
+    const pages = pagination ? pagination.pages : Math.ceil((data?.length ?? 0) / (maxOnPage ?? 1)) - 1
+    const result = pagination
+        ? data
+        : maxOnPage
+        ? data?.slice(currentPage * maxOnPage, (currentPage + 1) * maxOnPage)
+        : data
 
     useEffect(() => {
         setCurrentPage(0)
@@ -69,12 +77,15 @@ const Body = ({
             {result?.map((el, i) => {
                 return (
                     <Row
+                        padding={innerPadding}
                         onRowClick={onRowClick}
                         columns={columns}
                         columnsExtended={columnsExtended}
                         el={el}
                         key={i}
                         index={i}
+                        selected={selected?.has(i)}
+                        select={select}
                     />
                 )
             })}
@@ -85,7 +96,10 @@ const Body = ({
                     pages={pages}
                     condition={!!maxOnPage && !!result?.length}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
+                    setCurrentPage={(value) => {
+                        setCurrentPage(value)
+                        pagination?.setPage(value)
+                    }}
                 />
             </PaginationWrapper>
         </BodyWrapper>

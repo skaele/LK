@@ -1,11 +1,11 @@
 import { Align, Direction } from '@ui/types'
-import React, { HtmlHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import { ButtonWrapper } from './styles'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 import { ButtonLoading } from '../loading/button-loading'
 
-type BaseProps = HtmlHTMLAttributes<HTMLButtonElement>
+type BaseProps = ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = BaseProps & {
     icon?: JSX.Element

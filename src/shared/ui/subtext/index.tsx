@@ -9,6 +9,7 @@ const Subtext = styled.span<{
     align?: Align
     lineHeight?: string
     color?: string
+    padding?: string
 }>`
     width: ${({ width }) => width ?? 'fit-content'};
     min-width: ${({ width }) => width ?? 'fit-content'};
@@ -22,6 +23,7 @@ const Subtext = styled.span<{
     line-height: ${({ lineHeight }) => lineHeight};
     word-wrap: break-word;
     overflow-wrap: normal;
+    padding: ${({ padding }) => padding};
 `
 
 export default Subtext

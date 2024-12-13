@@ -144,7 +144,7 @@ type Props = StyledProps & {
     action: () => void
     background?: string
     completed: boolean
-    setCompleted: (completed: boolean) => void
+    setCompleted?: (completed: boolean) => void
     buttonSuccessText?: string
     popUpSuccessMessage?: string
     popUpFailureMessage?: string
@@ -177,7 +177,7 @@ const SubmitButton = ({
                 type: 'success',
             })
 
-            if (repeatable) {
+            if (repeatable && setCompleted) {
                 setTimeout(() => {
                     setCompleted(false)
                 }, 2000)

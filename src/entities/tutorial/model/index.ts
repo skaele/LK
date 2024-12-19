@@ -25,6 +25,7 @@ import { projectActivitesModel } from '@entities/project-activites'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
+const setTutorialState = createEvent()
 const increasedInteractions = createEvent()
 const moduleCompleted = createEvent<TutorialId>()
 const moduleRestarted = createEvent<TutorialId>()
@@ -41,7 +42,9 @@ const saveProgressLocally = createEffect(({ tutorials, hash }: { tutorials: Tuto
     if (hash) localStorage.setItem(TUTORIAL_PROGRESS_HASH, hash.toString())
 })
 
-const $tutorialState = createStore<boolean | null>(null).reset(userModel.events.logout)
+const $tutorialState = createStore<boolean | null>(false)
+    .on(setTutorialState, (_, value) => value)
+    .reset(userModel.events.logout)
 const $heroVisited = createStore<boolean>(false)
     .on(setHeroVisited, (_, value) => {
         localStorage.setItem('heroVisited', String(value))
@@ -194,26 +197,6 @@ sample({
     }),
     target: popUpMessageModel.events.evokePopUpMessage,
 })
-// sample({
-//     clock: moduleRestarted,
-//     source: {
-//         tutorials: $tutorials,
-//         tutorialState: $tutorialState,
-//     },
-//     fn: ({ tutorials, tutorialState }, id) => {
-//         if (!tutorials) return null
-//         if (!tutorialState) return tutorials
-//         const newTutorials = {
-//             ...tutorials,
-//             [id]: {
-//                 ...tutorials[id],
-//                 completed: false,
-//             },
-//         }
-//         return newTutorials
-//     },
-//     target: $tutorials,
-// })
 
 const getTutorialDataQuery = createQuery({
     handler: getUserTutorials,
@@ -243,8 +226,7 @@ sample({
 })
 sample({
     clock: getTutorialDataQuery.finished.failure,
-    fn: () => false,
-    target: $tutorialState,
+    target: [setTutorialState.prepend(() => false), setHeroVisited.prepend(() => true)],
 })
 
 sample({

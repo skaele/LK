@@ -147,7 +147,21 @@ const countPayment = (contracts: PaymentsContract[]) => {
 }
 
 const PaymentsWidget = ({ forwardedRef, fullWidth }: { fullWidth?: boolean } & TutorialComponent) => {
-    const [payments, error] = useUnit([paymentsModel.stores.$paymentsStore, paymentsModel.stores.$error])
+    const [
+        payments,
+        contractsWithDebtDorm,
+        contractsWithoutDebtDorm,
+        contractsWithDebtEdu,
+        contractsWithoutDebtEdu,
+        error,
+    ] = useUnit([
+        paymentsModel.stores.$paymentsStore,
+        paymentsModel.stores.contractsWithDebtDorm,
+        paymentsModel.stores.contractsWithoutDebtDorm,
+        paymentsModel.stores.contractsWithDebtEdu,
+        paymentsModel.stores.contractsWithoutDebtEdu,
+        paymentsModel.stores.$error,
+    ])
 
     if (error) return <ErrorMessage />
 
@@ -160,13 +174,13 @@ const PaymentsWidget = ({ forwardedRef, fullWidth }: { fullWidth?: boolean } & T
     return (
         <PaymentsWidgetWrapper ref={forwardedRef} fullWidth={fullWidth}>
             <TopMessage
-                data={payments.dormitory}
+                data={[...contractsWithDebtDorm, ...contractsWithoutDebtDorm]}
                 debt={dormPayment.debt}
                 overpayment={dormPayment.overpayment}
                 section={'Общежитие'}
             />
             <TopMessage
-                data={payments.education}
+                data={[...contractsWithDebtEdu, ...contractsWithoutDebtEdu]}
                 debt={eduPayment.debt}
                 overpayment={eduPayment.overpayment}
                 section={'Обучение'}

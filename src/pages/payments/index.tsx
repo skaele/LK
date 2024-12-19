@@ -9,19 +9,25 @@ import { useUnit } from 'effector-react'
 import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
 
 const PaymentsPage = () => {
-    const [error, loading, payments] = useUnit([
+    const [
+        error,
+        loading,
+        payments,
+        paymentType,
+        contractsWithDebtDorm,
+        contractsWithoutDebtDorm,
+        contractsWithDebtEdu,
+        contractsWithoutDebtEdu,
+    ] = useUnit([
         paymentsModel.stores.$error,
         paymentsModel.stores.$loading,
         paymentsModel.stores.$paymentsStore,
+        paymentsModel.stores.paymentType,
+        paymentsModel.stores.contractsWithDebtDorm,
+        paymentsModel.stores.contractsWithoutDebtDorm,
+        paymentsModel.stores.contractsWithDebtEdu,
+        paymentsModel.stores.contractsWithoutDebtEdu,
     ])
-    const paymentType =
-        !!payments?.dormitory.length && !!payments?.education.length
-            ? 'both'
-            : !!payments?.dormitory.length
-            ? 'dormitory'
-            : !!payments?.education.length
-            ? 'education'
-            : 'none'
 
     useEffect(() => {
         popUpMessageModel.events.evokePopUpMessage({
@@ -50,18 +56,38 @@ const PaymentsPage = () => {
                         pages={[
                             {
                                 title: 'Общежитие',
-                                content: <PaymentsTemplate contracts={payments?.dormitory} />,
+                                content: (
+                                    <PaymentsTemplate
+                                        contractsWithDebt={contractsWithDebtDorm}
+                                        contractsWithoutDebt={contractsWithoutDebtDorm}
+                                    />
+                                ),
                             },
                             {
                                 title: 'Обучение',
-                                content: <PaymentsTemplate contracts={payments?.education} />,
+                                content: (
+                                    <PaymentsTemplate
+                                        contractsWithDebt={contractsWithDebtEdu}
+                                        contractsWithoutDebt={contractsWithoutDebtEdu}
+                                    />
+                                ),
                             },
                         ]}
                         appearance={false}
                     />
                 )}
-                {paymentType === 'dormitory' && <PaymentsTemplate contracts={payments?.dormitory} />}
-                {paymentType === 'education' && <PaymentsTemplate contracts={payments?.education} />}
+                {paymentType === 'dormitory' && (
+                    <PaymentsTemplate
+                        contractsWithDebt={contractsWithDebtDorm}
+                        contractsWithoutDebt={contractsWithoutDebtDorm}
+                    />
+                )}
+                {paymentType === 'education' && (
+                    <PaymentsTemplate
+                        contractsWithDebt={contractsWithDebtEdu}
+                        contractsWithoutDebt={contractsWithoutDebtEdu}
+                    />
+                )}
             </PageBlock>
         </Wrapper>
     )

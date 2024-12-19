@@ -1,11 +1,21 @@
 import { paymentApi } from '@api'
-import { Payments } from '@api/model'
+import { Payments, PaymentsContract } from '@api/model'
 import { createEffect, createStore, combine, createEvent, sample } from 'effector'
 import changeCanSign from '../lib/change-can-sign'
 import { agreementSubmit } from '@shared/api/payment-api'
 import { MessageType } from '@shared/ui/types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
+
+const filterContractsWithDebt = (contracts: PaymentsContract[]) =>
+    contracts.filter((contarct) => Number(contarct.balance_currdate) > 0)
+
+const filterContractsWithoutDebt = (contracts: PaymentsContract[]) =>
+    contracts.filter(
+        (contract) =>
+            Number(contract.balance_currdate) <= 0 &&
+            (!contract.endDateFact || new Date(contract.endDateFact).getTime() > Date.now()),
+    )
 
 const signAgreement = createEvent<string>()
 const setCompleted = createEvent<boolean>()
@@ -63,12 +73,38 @@ const $paymentsStore = createStore<Payments | null>(null)
     .on(signContractFx.doneData, (oldData, contractId) => changeCanSign(oldData, contractId, false))
     .on(userModel.stores.userGuid, () => null)
 
+const $contractsWithDebtDorm = $paymentsStore.map((payments) => filterContractsWithDebt(payments?.dormitory || []))
+const $contractsWithoutDebtDorm = $paymentsStore.map((payments) =>
+    filterContractsWithoutDebt(payments?.dormitory || []),
+)
+const $contractsWithDebtEdu = $paymentsStore.map((payments) => filterContractsWithDebt(payments?.education || []))
+const $contractsWithoutDebtEdu = $paymentsStore.map((payments) => filterContractsWithoutDebt(payments?.education || []))
+const $combinedDormLength = combine($contractsWithDebtDorm, $contractsWithoutDebtDorm, (a, b) => a.length + b.length)
+const $combinedEduLength = combine($contractsWithDebtEdu, $contractsWithoutDebtEdu, (a, b) => a.length + b.length)
+
+const $paymentType = combine($combinedDormLength, $combinedEduLength, (combinedDormLength, combinedEduLength) =>
+    !!combinedDormLength && !!combinedEduLength
+        ? 'both'
+        : !!combinedDormLength
+        ? 'dormitory'
+        : !!combinedEduLength
+        ? 'education'
+        : 'none',
+)
+
 export const stores = {
     $loading,
     $completed,
     $done,
     $error,
     $paymentsStore,
+    contractsWithDebtDorm: $contractsWithDebtDorm,
+    contractsWithoutDebtDorm: $contractsWithoutDebtDorm,
+    contractsWithDebtEdu: $contractsWithDebtEdu,
+    contractsWithoutDebtEdu: $contractsWithoutDebtEdu,
+    combinedDormLength: $combinedDormLength,
+    combinedEduLength: $combinedEduLength,
+    paymentType: $paymentType,
 }
 
 sample({

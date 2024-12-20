@@ -123,6 +123,7 @@ const Contract = ({ contract }: Props) => {
                         isActive
                         pulsing
                     />
+                    {file && <LinkButton onClick={() => null} href={file ?? ''} icon={<FiDownload />} width="45px" />}
                     <Button
                         onClick={handleOpenCantSign}
                         text="Не получается подписать?"

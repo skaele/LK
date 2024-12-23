@@ -27,7 +27,7 @@ export default defineConfig((conf) => {
         },
         preview: { port: 3000 },
         plugins: [
-            babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled' }),
+            babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled', targets: '> 0.25%, not dead' }),
             react({
                 babel: {
                     plugins: [
@@ -49,8 +49,6 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
-            target: 'esnext',
-            modulePreload: true,
         },
         optimizeDeps: {
             include: ['effector'],

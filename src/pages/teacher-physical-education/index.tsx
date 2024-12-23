@@ -1,6 +1,6 @@
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
-import { CenterPage } from '@shared/ui/atoms'
+import { CenterPage, Error } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import { useUnit } from 'effector-react'
@@ -13,11 +13,16 @@ import { StudentsList } from './students-list'
 import { StudentsExam } from './students-exam'
 
 const TeacherPhysicalEducation = () => {
-    const [peTeacher, currentPageIndex] = useUnit([peTeacherModel.stores.peTeacher, $page])
+    const [peTeacher, currentPageIndex, serviceUnavailable] = useUnit([
+        peTeacherModel.stores.peTeacher,
+        $page,
+        peTeacherModel.stores.unavailable,
+    ])
 
     useEffect(() => {
         pageLoaded()
     }, [])
+    if (serviceUnavailable) return <Error text="Сервис временно недоступен. Попробуйте позже" />
 
     const pages = [PeTeacherPermission.AdminAccess, PeTeacherPermission.SuperUser].some((permission) =>
         peTeacher?.permissions?.includes(permission),

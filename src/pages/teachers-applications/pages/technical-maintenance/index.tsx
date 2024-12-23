@@ -13,9 +13,13 @@ const TechnicalMaintenance = () => {
         technicalMaintenanceModel.stores.done,
         technicalMaintenanceModel.stores.applicationNumber,
     ])
+
     useEffect(() => {
         pageMounted()
     }, [])
+
+    window.location.href = 'https://mospolytech.ksuto.ru/'
+
     return (
         <BaseApplicationWrapper isDone={done}>
             <FormBlockWrapper noHeader>

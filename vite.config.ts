@@ -49,7 +49,8 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
-            target: 'es2015',
+            target: ['es2015', 'safari14'],
+            polyfillModulePreload: true,
         },
         optimizeDeps: {
             include: ['effector'],

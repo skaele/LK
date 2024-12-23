@@ -102,10 +102,13 @@ export const changeStaffAddressApi = async (req: LocationSettingsType) => {
 }
 
 export const refreshAccessToken = async (refreshToken: string) => {
-    const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(
-        'https://api.mospolytech.ru/frontendtokenservice/Token/Refresh',
-        { refreshToken },
+    const { data } = await axios.post<{ access_token: string; refresh_token: string }>(
+        'https://api.mospolytech.ru/auth/token/reissue',
+        { refresh_token: refreshToken },
     )
 
-    return data
+    return {
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+    }
 }

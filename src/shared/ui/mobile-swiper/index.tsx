@@ -11,8 +11,11 @@ export const MobileSwiper = ({
     const wrapperRef = useRef<HTMLDivElement | null>(null)
     const [startX, setStartX] = useState(0)
     const [startY, setStartY] = useState(0)
-    const handleTouchStart = useCallback((e) => {
+    const handleTouchStart = useCallback((e: TouchEvent) => {
         if (!wrapperRef.current) return
+        if (!(e.target instanceof HTMLElement)) {
+            return
+        }
         if (!wrapperRef.current.contains(e.target)) {
             return
         }
@@ -23,8 +26,11 @@ export const MobileSwiper = ({
         setStartY(e.touches[0].clientY)
     }, [])
     const handleTouchEnd = useCallback(
-        (e) => {
+        (e: TouchEvent) => {
             if (!wrapperRef.current) return
+            if (!(e.target instanceof HTMLElement)) {
+                return
+            }
             if (!wrapperRef.current.contains(e.target)) {
                 return
             }

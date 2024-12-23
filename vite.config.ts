@@ -49,6 +49,7 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
+            target: 'es2015',
         },
         optimizeDeps: {
             include: ['effector'],

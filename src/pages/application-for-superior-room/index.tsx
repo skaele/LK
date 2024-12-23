@@ -72,7 +72,7 @@ const ApplicationForSuperiorRoom = () => {
                         <Message title="Информация по заявке" type="info" icon={<FiInfo />} visible={isDone}>
                             Ваша заявка направлена на рассмотрение жилищной комиссии. Итоги рассмотрения будут
                             направлены Вам 11 сентября 2023 года на указанную в заявке почту:{' '}
-                            {(form.data?.[2] as IInputAreaData).value}
+                            {(form.data?.[2] as IInputAreaData).value?.toString()}
                         </Message>
                         <SubmitButton
                             text={data?.is_avaliable ? 'Отправить' : 'Отправлено'}

@@ -1,6 +1,6 @@
 import { userModel } from '@entities/user'
 
-import { attach, createEvent, restore, sample } from 'effector'
+import { attach, createEvent, createStore, restore, sample } from 'effector'
 
 import { peApi } from '@shared/api'
 
@@ -16,6 +16,9 @@ const loadFx = attach({
 })
 
 const $peTeacher = restore(loadFx, null)
+const $unavailable = createStore(false)
+    .on(loadFx.fail, () => true)
+    .reset(loadFx.done)
 
 sample({ clock: load, target: loadFx })
 
@@ -28,4 +31,5 @@ export const events = {
 export const stores = {
     peTeacher: $peTeacher,
     isLoading: $isLoading,
+    unavailable: $unavailable,
 }

@@ -27,10 +27,7 @@ export default defineConfig((conf) => {
         },
         preview: { port: 3000 },
         plugins: [
-            babel({
-                extensions: ['.ts', '.tsx'],
-                babelHelpers: 'bundled',
-            }),
+            babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled' }),
             react({
                 babel: {
                     plugins: [
@@ -52,7 +49,7 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
-            target: 'ios13',
+            target: 'es2019',
         },
         optimizeDeps: {
             include: ['effector'],

@@ -49,7 +49,7 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
-            target: 'safari11',
+            target: 'esnext',
             modulePreload: true,
         },
         optimizeDeps: {

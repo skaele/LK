@@ -148,7 +148,7 @@ export const privateRoutes: () => IRoutes = () => ({
     },
     dormitory: {
         id: 'dormitory',
-        title: 'График заселения в общежитие 11',
+        title: 'Список ожидания на заселение в общежитие',
         icon: <MdOutlineBedroomChild />,
         path: DORMITORY,
         Component: DormitoryPage,

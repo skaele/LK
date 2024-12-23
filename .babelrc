@@ -1,10 +1,4 @@
 {
-    "presets": [
-      "@babel/typescript",
-      "@babel/react",
-      "patronum/babel-preset"
-    ],
-    "plugins": [
-      ["effector/babel-plugin", {"factories": []}]
-    ]
-  }
+    "presets": ["@babel/typescript", "@babel/react", "patronum/babel-preset"],
+    "plugins": [["effector/babel-plugin", { "factories": [] }]]
+}

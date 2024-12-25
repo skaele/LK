@@ -44,7 +44,7 @@ export const Employee = ({
             <Title align="left" size={5}>
                 {employee.divisionName}, {employee.position}
             </Title>
-            {employee.paymentIdentifier && <Subtext>{employee.paymentIdentifier}</Subtext>}
+            {employee.paymentIdentifier && <Subtext>{employee.paymentIdentifier.name}</Subtext>}
             <Subtext>Сумма: {employee.sum} руб.</Subtext>
             <Subtext>
                 Период: {localizeDate(employee.startDate)} - {localizeDate(employee.endDate)}

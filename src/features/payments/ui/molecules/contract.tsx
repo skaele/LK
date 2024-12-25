@@ -18,7 +18,7 @@ const ContractWrapper = styled.div`
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
-    height: 300px;
+    height: 330px;
     justify-content: space-between;
 
     .contract-info {
@@ -110,19 +110,24 @@ const Contract = ({ contract }: Props) => {
             </div>
             {can_sign && (
                 <Flex d="column" gap="8px">
-                    <SubmitButton
-                        text="Подписать договор"
-                        buttonSuccessText="Подписан"
-                        action={handleSign}
-                        isLoading={loading}
-                        completed={completed}
-                        repeatable={false}
-                        popUpFailureMessage={error ?? 'Не удалось подписать договор'}
-                        setCompleted={setCompleted}
-                        popUpSuccessMessage="Договор подписан"
-                        isActive
-                        pulsing
-                    />
+                    <Flex gap="8px">
+                        <SubmitButton
+                            text="Подписать договор"
+                            buttonSuccessText="Подписан"
+                            action={handleSign}
+                            isLoading={loading}
+                            completed={completed}
+                            repeatable={false}
+                            popUpFailureMessage={error ?? 'Не удалось подписать договор'}
+                            setCompleted={setCompleted}
+                            popUpSuccessMessage="Договор подписан"
+                            isActive
+                            pulsing
+                        />
+                        {file && (
+                            <LinkButton onClick={() => null} href={file ?? ''} icon={<FiDownload />} width="45px" />
+                        )}
+                    </Flex>
                     <Button
                         onClick={handleOpenCantSign}
                         text="Не получается подписать?"

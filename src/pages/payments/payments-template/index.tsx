@@ -1,7 +1,7 @@
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
 import Flex from '@shared/ui/flex'
 import { Divider, Title } from '@ui/atoms'
-import React, { useMemo } from 'react'
+import React from 'react'
 import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'
 import { PaymentsContract } from '@shared/api/model'
@@ -13,26 +13,14 @@ import { tutorialModel } from '@entities/tutorial'
 const MIN_AGREEMENT_DATE = new Date(2022, 0, 1)
 
 type Props = {
-    contracts: PaymentsContract[] | undefined
+    contractsWithDebt: PaymentsContract[]
+    contractsWithoutDebt: PaymentsContract[]
 }
 
-const PaymentsTemplate = ({ contracts }: Props) => {
+const PaymentsTemplate = ({ contractsWithDebt, contractsWithoutDebt }: Props) => {
     const roles = useUnit(tutorialModel.stores.roles)
-
-    const contractsWithDebt = useMemo(
-        () => contracts?.filter((contarct) => Number(contarct.balance_currdate) > 0) || [],
-        [contracts],
-    )
-    const contractsWithoutDebt = useMemo(
-        () =>
-            contracts?.filter(
-                (contract) =>
-                    Number(contract.balance_currdate) <= 0 &&
-                    (!contract.endDateFact || new Date(contract.endDateFact).getTime() > Date.now()),
-            ) || [],
-        [contracts],
-    )
-    if (!contracts) return null
+    const length = contractsWithDebt?.length + contractsWithoutDebt?.length
+    if (!contractsWithDebt && !contractsWithoutDebt) return null
 
     return (
         <PageWrapperTutorial
@@ -42,16 +30,16 @@ const PaymentsTemplate = ({ contracts }: Props) => {
                 params: { position: 'top', noScroll: true },
             }}
         >
-            {contractsWithDebt.map((contract, i) => (
+            {contractsWithDebt?.map((contract, i) => (
                 <>
                     <Contract contract={contract} index={i} />
-                    {i !== contracts.length - 1 && <Divider margin="0" width="100%" />}
+                    {i !== length - 1 && <Divider margin="0" width="100%" />}
                 </>
             ))}
-            {contractsWithoutDebt.map((contract, i) => (
+            {contractsWithoutDebt?.map((contract, i) => (
                 <>
                     <Contract contract={contract} index={i} />
-                    {contractsWithDebt.length + i !== contracts.length - 1 && <Divider margin="0" width="100%" />}
+                    {contractsWithDebt.length + i !== length - 1 && <Divider margin="0" width="100%" />}
                 </>
             ))}
         </PageWrapperTutorial>

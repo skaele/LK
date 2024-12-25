@@ -13,9 +13,14 @@ const DormitoryPage = () => {
                     </p>
                 </Message>
                 <FileLink
-                    type={'document'}
-                    link={'https://e.mospolytech.ru/old//storage/files/11_obschezhitie_Itog.xlsx'}
-                    title={'Актуальный список'}
+                    type="document"
+                    link="https://e.mospolytech.ru/old//storage/files/Ochered_na_zaselenie_obuchjuschihsya_po_napravleniju_bakalavriat_i_spetsialitet.docx"
+                    title="Очередь на заселение обучающихся по направлению бакалавриат и специалитет"
+                />
+                <FileLink
+                    type="document"
+                    link="https://e.mospolytech.ru/old//storage/files/Ochered_na_zaselenie_obuchjuschihsya_po_napravleniju_magistratura_i_aspirantura_.docx"
+                    title="Очередь на заселение обучающихся по направлению магистратуры и аспирантуры"
                 />
             </PageBlock>
         </CenterPage>

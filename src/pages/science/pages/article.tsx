@@ -11,19 +11,28 @@ import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { useParams } from 'react-router'
+import useModal from 'widgets/modal'
+import { DetailsModal } from '../ui/details-modal'
 
 const Article = () => {
+    const { open } = useModal()
     const { id } = useParams<{ id: string }>()
-    const [article, loading, pageMounted] = useUnit([
+    const [article, loading, pageMounted, getDetailsClicked] = useUnit([
         articleModel.stores.article,
         articleModel.stores.loading,
         articleModel.events.pageMounted,
+        articleModel.events.getDetailsClicked,
     ])
     const [articleColumns, setArticleColumns] = useState<ColumnProps[]>(getDefaultColumns())
 
     useEffect(() => {
         pageMounted(id)
     }, [])
+
+    const handleClick = () => {
+        getDetailsClicked(id)
+        open(<DetailsModal />, 'Полная информация о статье')
+    }
 
     if (!article) {
         return null
@@ -72,12 +81,11 @@ const Article = () => {
             />
             <Flex w="100%" jc="center">
                 <Button
-                    onClick={() => {}}
+                    onClick={handleClick}
                     text="Отобразить все поля данных"
                     background="var(--reallyBlue)"
                     textColor="#fff"
                     minWidth="35px"
-                    isActive={false}
                     height="36px"
                 />
             </Flex>

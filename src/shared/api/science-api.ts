@@ -31,3 +31,24 @@ export const getArticle = async (id: string) => {
 
     return data.data
 }
+
+export const getArticleDetails = async (id: string) => {
+    const { data } = await $scienceApi.get(`/article/${id}/details`)
+
+    return {
+        titles: {
+            scopus: convertKeysToLowerCase(data.titles.scopus),
+            wos: convertKeysToLowerCase(data.titles.wos),
+        },
+        data: {
+            scopus: convertKeysToLowerCase(data.data.scopus),
+            wos: convertKeysToLowerCase(data.data.wos),
+        },
+    }
+}
+function convertKeysToLowerCase(obj: Record<string, any>): Record<string, any> {
+    return Object.keys(obj).reduce((acc, key) => {
+        acc[key.toLowerCase()] = obj[key]
+        return acc
+    }, {} as Record<string, any>)
+}

@@ -175,7 +175,6 @@ export const privateRoutes: () => IRoutes = () => ({
         group: 'LEARNING_ACTIVITIES',
         isExternalPage: true,
         keywords: ['рсв', 'россия страна возможностей', 'софтскиллс', 'навыки'],
-        isNew: true,
     },
     'acad-performance': {
         id: 'acad-performance',
@@ -197,7 +196,6 @@ export const privateRoutes: () => IRoutes = () => ({
         pageSize: 'big',
         Component: PhysicalEducationStudent,
         isTemplate: false,
-        isNew: true,
         group: 'LEARNING_ACTIVITIES',
         keywords: ['физра', 'физическая культура'],
     },
@@ -540,7 +538,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
         hiddenTitle: true,
     },
     'military-registration': {
@@ -554,7 +551,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
         hiddenTitle: true,
     },
     'military-form-4': {
@@ -568,7 +564,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
         hiddenTitle: true,
     },
     'military-form-5': {
@@ -582,7 +577,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
         hiddenTitle: true,
     },
     'military-copies': {
@@ -596,7 +590,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         isSubPage: true,
         backButtonText: 'Назад к заявлениям',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: true,
         hiddenTitle: true,
     },
     'retake-for-diploma': {
@@ -690,7 +683,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
     },
     'medical-certificates-086': {
@@ -705,7 +697,6 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к заявлениям',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
-        isNew: new Date() > new Date('2024-09-08T00:00:00.000Z'),
         hiddenTitle: true,
         keywords: ['086/у', '086 у'],
     },

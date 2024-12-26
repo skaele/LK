@@ -18,7 +18,7 @@ const SearchWrapper = styled.div<{ closed: boolean }>`
 
 interface Props {
     search: TableSearchType
-    setSearch: React.Dispatch<React.SetStateAction<TableSearchType>>
+    setSearch: React.Dispatch<React.SetStateAction<TableSearchType>> | ((query: TableSearchType) => void)
 }
 
 const getType = (type?: ColumnType) => {
@@ -33,25 +33,15 @@ const getType = (type?: ColumnType) => {
 }
 
 const Search = ({ search, setSearch }: Props) => {
-    // const handleCloseSearch = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    //     e.stopPropagation()
-    //     e.preventDefault()
-    //     setSearch(null)
-    // }
-
     return (
         <SearchWrapper closed={!search?.column}>
             <Input
                 value={search?.value ?? ''}
-                setValue={(value: string) =>
-                    setSearch((prev) => {
-                        if (prev) {
-                            prev.value = value
-                            return { ...prev }
-                        }
-                        return null
-                    })
-                }
+                setValue={(value: string) => {
+                    if (search) {
+                        setSearch({ ...search, value })
+                    } else setSearch(null)
+                }}
                 width="100%"
                 type={getType(search?.column?.type)}
                 placeholder={search?.column?.title}

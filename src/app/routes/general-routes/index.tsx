@@ -152,6 +152,7 @@ export interface IRoute {
     isExternalPage?: boolean
     isOldLkPage?: boolean
     getIsVisibleForCurrentUser?: (peTeacher: PETeacher | null) => boolean
+    guidsAllowed?: string[]
 }
 
 export const publicRoutes = [

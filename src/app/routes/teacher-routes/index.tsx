@@ -58,6 +58,9 @@ import {
     Allowances,
     CreateAllowance,
     AllowanceInfo,
+    Science,
+    ArticleList,
+    Article,
     Onboarding,
     Children,
 } from './pages'
@@ -145,6 +148,10 @@ export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
 export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
 export const PHYSICAL_EDUCATION = '/physical-education/main'
 export const ALL_STAFF_ROUTE = '/all-staff'
+export const PUBLICATION_ACTIVITY = '/publication-activity'
+export const ARTICLE_LIST = '/article-list'
+export const ARTICLES = '/articles'
+export const ARTICLE = '/articles/:id'
 export const OPEN_PUBLICATION = '/open-publication'
 export const EXPORT_CONTROL = '/export-control'
 
@@ -565,6 +572,36 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
         pageSize: 'big',
+    },
+    'publication-activity': {
+        id: 'publication-activity',
+        title: 'Публикационная активность',
+        icon: <FiFileText />,
+        path: PUBLICATION_ACTIVITY,
+        Component: Science,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        isNew: true,
+        pageSize: 'large',
+        guidsAllowed: [
+            '907afd9b-d9c5-11e7-940a-b4b52f5f5349',
+            '4e2ee194-82a3-11ec-bba0-f3424449f339',
+            'd1c2ab74-f460-11eb-bba0-f3424449f339',
+            '0209cb39-9cd3-11e9-9426-b4b52f5f5348',
+        ],
+    },
+    'article-list': {
+        id: 'article-list',
+        title: 'Список публикаций',
+        icon: <FiFileText />,
+        path: ARTICLE_LIST,
+        Component: ArticleList,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        isNew: true,
+        pageSize: 'large',
     },
     'open-publication': {
         id: 'open-publication',
@@ -1542,5 +1579,20 @@ export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRou
         isSubPage: true,
         fallbackPrevPage: ONBOARDING,
         isExternalPage: true,
+    },
+    article: {
+        id: 'article',
+        title: '',
+        icon: <FiFileText />,
+        path: ARTICLE,
+        Component: Article,
+        color: 'blue',
+        isTemplate: false,
+        group: 'SCIENCE',
+        pageSize: 'large',
+        show: false,
+        isSubPage: true,
+        fallbackPrevPage: ARTICLE_LIST,
+        backButtonText: 'Список публикаций',
     },
 })

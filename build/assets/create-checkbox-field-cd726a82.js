@@ -1,1 +1,0 @@
-import{p as n,h as c}from"./vendor-249420f4.js";const p=({defaultValue:o,reset:s}={})=>{const e=n({name:"setValue",sid:"-gzj7gd"}),r=c(o!=null?o:!1,{name:"$store",sid:"-dvoezu"}).on(e,(t,i)=>i);return s&&(Array.isArray(s),r.reset(s)),{value:r,setValue:e}};export{p as c};

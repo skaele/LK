@@ -18,8 +18,6 @@ const TechnicalMaintenance = () => {
         pageMounted()
     }, [])
 
-    window.location.href = 'https://mospolytech.ksuto.ru/'
-
     return (
         <BaseApplicationWrapper isDone={done}>
             <FormBlockWrapper noHeader>

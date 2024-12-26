@@ -20,10 +20,10 @@ export const postTechnicalMaintenance = async (req: TechnicalMaintenance) => {
     formData.append('locationId', req.location.id as string)
     formData.append('stackId', req.stack.id as string)
     formData.append('file', req.files[0])
-    const { data } = await $technicalMaintenanceApi.post<{ applicationNumber: string }>(`/robot`, formData, {
+    const { data } = await $technicalMaintenanceApi.post<{ data: { applicationNumber: string } }>(`/ksuto`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
     })
-    return data
+    return data.data
 }

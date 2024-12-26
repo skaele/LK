@@ -1,6 +1,6 @@
 import { articleModel } from '@entities/science'
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
-import { Button } from '@shared/ui/atoms'
+import { Button, Error } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import Subtext from '@shared/ui/subtext'
@@ -9,7 +9,7 @@ import { ColumnProps } from '@shared/ui/table/types'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
 import React, { useEffect, useState } from 'react'
-import { FiPlus } from 'react-icons/fi'
+import { FiEyeOff, FiPlus } from 'react-icons/fi'
 import { useParams } from 'react-router'
 import useModal from 'widgets/modal'
 import { DetailsModal } from '../ui/details-modal'
@@ -34,8 +34,10 @@ const Article = () => {
         open(<DetailsModal />, 'Полная информация о статье')
     }
 
+    if (loading) return null
+
     if (!article) {
-        return null
+        return <Error size="60px" text="Ничего не было найдено" image={<FiEyeOff />} />
     }
 
     return (

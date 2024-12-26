@@ -12,7 +12,7 @@ import styled from 'styled-components'
 import Accordion from '@shared/ui/accordion/accordion'
 import Input from '@shared/ui/input'
 import Checkbox from '@shared/ui/checkbox'
-import { Button } from '@shared/ui/atoms'
+import { Button, Error } from '@shared/ui/atoms'
 import Subtext from '@shared/ui/subtext'
 
 export const ScienceTable = ({
@@ -22,13 +22,19 @@ export const ScienceTable = ({
     columns: ColumnProps[]
     onRowClick?: (obj: IndexedProperties) => void
 }) => {
-    const [select, selected, articles, totalCount, fetchArticles] = useUnit([
+    const [select, selected, articles, totalCount, fetchArticles, tableOpened] = useUnit([
         scienceModel.events.selectArticle,
         scienceModel.stores.selectedArticles,
         scienceModel.stores.articles,
         scienceModel.stores.totalCount,
         scienceModel.events.fetchArticles,
+        scienceModel.events.tableOpened,
     ])
+
+    useEffect(() => {
+        tableOpened()
+    }, [])
+
     function isRowLoaded({ index }: { index: number }) {
         return index < articles.length
     }
@@ -65,35 +71,39 @@ export const ScienceTable = ({
         <Wrapper d="column" jc="flex-start" ai="flex-start" position="relative" h="100%" w="100%">
             <SearchBar />
             <Header columns={columns} padding="10px" tableHasSelect />
-            <Container>
-                <InfiniteLoader
-                    minimumBatchSize={TABLE_SIZE}
-                    isRowLoaded={isRowLoaded}
-                    loadMoreRows={async ({ startIndex, stopIndex }) => {
-                        fetchArticles({ startIndex, stopIndex })
-                    }}
-                    rowCount={totalCount}
-                >
-                    {({ onRowsRendered, registerChild }) => (
-                        <AutoSizer>
-                            {({ height, width }) => (
-                                <List
-                                    ref={(list) => {
-                                        scrollRef.current = list
-                                        registerChild(list) // Register with InfiniteLoader
-                                    }}
-                                    onRowsRendered={onRowsRendered}
-                                    height={height}
-                                    rowCount={totalCount}
-                                    rowHeight={100}
-                                    rowRenderer={rowRenderer}
-                                    width={width}
-                                />
-                            )}
-                        </AutoSizer>
-                    )}
-                </InfiniteLoader>
-            </Container>
+            {!totalCount ? (
+                <Error text="Нет данных" />
+            ) : (
+                <Container>
+                    <InfiniteLoader
+                        minimumBatchSize={TABLE_SIZE}
+                        isRowLoaded={isRowLoaded}
+                        loadMoreRows={async ({ startIndex, stopIndex }) => {
+                            fetchArticles({ startIndex, stopIndex })
+                        }}
+                        rowCount={totalCount}
+                    >
+                        {({ onRowsRendered, registerChild }) => (
+                            <AutoSizer>
+                                {({ height, width }) => (
+                                    <List
+                                        ref={(list) => {
+                                            scrollRef.current = list
+                                            registerChild(list) // Register with InfiniteLoader
+                                        }}
+                                        onRowsRendered={onRowsRendered}
+                                        height={height}
+                                        rowCount={totalCount}
+                                        rowHeight={100}
+                                        rowRenderer={rowRenderer}
+                                        width={width}
+                                    />
+                                )}
+                            </AutoSizer>
+                        )}
+                    </InfiniteLoader>
+                </Container>
+            )}
         </Wrapper>
     )
 }

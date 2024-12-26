@@ -12,6 +12,7 @@ import { createInputField } from '@shared/effector/form/create-input-field'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 
 const pageMounted = createEvent()
+const tableOpened = createEvent()
 const modalOpened = createEvent()
 const setScopusFile = createEvent<File[]>()
 const setWosFile = createEvent<File[]>()
@@ -66,7 +67,7 @@ const $articles = createStore<Article[]>([])
     .on(fetchArticlesFx.doneData, (store, { data }) => [...store, ...data])
     .reset([$sorts, filtersApplied, filtersReset])
 
-const $totalCount = createStore<number>(1).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
+const $totalCount = createStore<number>(0).on(fetchArticlesFx.doneData, (_, { totalCount }) => totalCount)
 sample({
     clock: fetchArticlesFx.doneData,
     source: $totalCount,
@@ -99,6 +100,15 @@ const $filesUploaded = createStore<boolean>(false)
 const $columns = createStore<ColumnProps[]>(getDefaultColumns())
     .on(setColumns, (_, value) => value)
     .reset(pageMounted)
+sample({
+    clock: tableOpened,
+    fn: () => ({
+        offset: 0,
+        sorts: null,
+        filters: null,
+    }),
+    target: fetchArticlesFx,
+})
 
 sample({
     clock: fetchArticles,
@@ -313,6 +323,7 @@ export const stores = {
 }
 
 export const events = {
+    tableOpened,
     pageMounted,
     selectArticle,
     uploadFiles,

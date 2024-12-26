@@ -19,13 +19,12 @@ import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
-    const [student, { currentUser }, isTeacherLoading, isStudentLoading, peTeacher, serviceUnavailable] = useUnit([
+    const [student, { currentUser }, isTeacherLoading, isStudentLoading, peTeacher] = useUnit([
         selectedPEStudentModel.stores.$selectedStudent,
         userModel.stores.user,
         peTeacherModel.stores.isLoading,
         selectedPEStudentModel.stores.$loading,
         peTeacherModel.stores.peTeacher,
-        peTeacherModel.stores.unavailable,
     ])
 
     const studentId = currentUser?.user_status === 'staff' ? studentIdFromParams : currentUser?.guid ?? ''
@@ -38,8 +37,6 @@ const PEStudent = () => {
 
         return () => selectedPEStudentModel.events.resetStudentId()
     }, [studentId])
-
-    if (serviceUnavailable) return <Error text="Сервис временно недоступен. Попробуйте позже" />
 
     if (!student && studentId && !isTeacherLoading && !isStudentLoading) {
         return <Error text="Нет данных" />

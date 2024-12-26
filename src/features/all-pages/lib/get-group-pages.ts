@@ -12,12 +12,14 @@ export const routesOrder: RoutesOrder = {
     'Находится в разработке': 5,
 }
 
-const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null) => {
+const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null, userGuid: string | null) => {
     if (!routes) return {} as Record<Groups, IRoutes>
 
     const tabs = Object.values(routes)
-        .filter(({ getIsVisibleForCurrentUser }) =>
-            getIsVisibleForCurrentUser && peTeacher ? getIsVisibleForCurrentUser(peTeacher) : true,
+        .filter(({ getIsVisibleForCurrentUser, guidsAllowed }) =>
+            (getIsVisibleForCurrentUser && peTeacher ? getIsVisibleForCurrentUser(peTeacher) : true) && guidsAllowed
+                ? guidsAllowed.includes(userGuid || '')
+                : true,
         )
         .reduce((acc, route) => {
             const group = route?.group ? Groups[route.group] : Groups.OTHER

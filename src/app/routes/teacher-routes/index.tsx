@@ -584,6 +584,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         group: 'SCIENCE',
         isNew: true,
         pageSize: 'large',
+        guidsAllowed: ['907afd9b-d9c5-11e7-940a-b4b52f5f5349'],
     },
     'article-list': {
         id: 'article-list',

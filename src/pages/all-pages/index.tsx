@@ -18,7 +18,8 @@ const AllPages = () => {
     const [foundPages, setFoundPages] = useState<IRoutes | null>(null)
     const [searchValue, setSearchValue] = useState<string>('')
     const peTeacher = useUnit(peTeacherModel.stores.peTeacher)
-    const groupedPages = useMemo(() => getGroupPages(visibleRoutes, peTeacher), [visibleRoutes, peTeacher])
+    const userGuid = useUnit(userModel.stores.userGuid)
+    const groupedPages = useMemo(() => getGroupPages(visibleRoutes, peTeacher, userGuid), [visibleRoutes, peTeacher])
 
     const {
         data: { user },

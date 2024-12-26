@@ -29,7 +29,27 @@ export default defineConfig((conf) => {
         },
         preview: { port: 3000 },
         plugins: [
-            babel({ extensions: ['.ts', '.tsx'], babelHelpers: 'bundled' }),
+            babel({
+                presets: [
+                    '@babel/typescript',
+                    '@babel/react',
+                    'patronum/babel-preset',
+                    [
+                        '@babel/preset-env',
+                        {
+                            targets: {
+                                node: 14,
+                            },
+                            useBuiltIns: 'usage',
+                            corejs: 3,
+                        },
+                    ],
+                ],
+                plugins: [['effector/babel-plugin', { factories: [] }]],
+                extensions: ['.ts', '.tsx'],
+                babelHelpers: 'bundled',
+                targets: '>0.25%, iOS>= 13, last 2 versions, not dead',
+            }),
             react({
                 babel: {
                     plugins: [
@@ -52,6 +72,7 @@ export default defineConfig((conf) => {
         build: {
             outDir: 'build',
             manifest: true,
+            target: 'es2015',
         },
         optimizeDeps: {
             include: ['effector'],

@@ -2,7 +2,7 @@ import { selectedPEStudentModel } from '@entities/pe-student/model'
 
 import { peTeacherModel } from '@entities/pe-teacher'
 import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
-import { CenterPage, Error } from '@shared/ui/atoms'
+import { CenterPage, Error, Message } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
@@ -47,6 +47,15 @@ const PEStudent = () => {
     return (
         <CenterPage padding="10px">
             <PageBlock>
+                {currentUser?.user_status === 'stud' && (
+                    <Message type="info">
+                        <p>
+                            Баллы, выставленные за посещаемость занятий по физической культуре в течение семестра,
+                            находятся у преподавателей кафедры «Физическое воспитание».
+                        </p>
+                        <p>В случае возникновения вопросов можно обратиться к ведущему преподавателю.</p>
+                    </Message>
+                )}
                 <Title size={3} align="left">
                     {student.fullName}
                 </Title>

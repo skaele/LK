@@ -28,7 +28,7 @@ export const Header = ({ columns, tableHasSelect, padding }: Props) => {
                         key={column.field}
                         showFull={column.showFull}
                         className={column.priority?.toString() ?? 'one'}
-                        onClick={() => sortPressed(column.field)}
+                        onClick={() => column.sort && sortPressed(column.field)}
                     >
                         <div>{column.title}</div>
                         {column.sort && (

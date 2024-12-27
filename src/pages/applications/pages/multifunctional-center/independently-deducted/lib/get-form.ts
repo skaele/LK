@@ -42,6 +42,23 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 items: ReasonDeductionOptions,
             },
             {
+                title: 'Перевод в',
+                fieldName: 'toVuz',
+                value: '',
+                editable: true,
+                required: true,
+                specialType: 'universityTransfer',
+            },
+            {
+                title: 'Количество листов документов, подтверждающих возможность перевода:',
+                type: 'text',
+                fieldName: 'num_sheets',
+                value: null,
+                specialType: 'universityTransfer',
+                editable: true,
+                required: true,
+            },
+            {
                 title: 'Дата отчисления c:',
                 type: 'date',
                 fieldName: 'time-before',

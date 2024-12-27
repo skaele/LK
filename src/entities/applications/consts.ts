@@ -84,6 +84,7 @@ export type SpecialFieldsName =
     | 'medicalReport'
     | 'employed'
     | 'unemployed'
+    | 'universityTransfer'
     | null
 
 export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }

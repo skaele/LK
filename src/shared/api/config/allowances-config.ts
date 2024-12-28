@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { addAuthHeaderToRequests } from './utils'
+import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 import { isProduction } from '@shared/constants'
 
 const ALLOWANCES_PROD_URL = 'https://api.mospolytech.ru/allowanceservice/'
@@ -10,3 +10,4 @@ export const ALLOWANCES_URL = isProduction ? ALLOWANCES_PROD_URL : ALLOWANCES_DE
 export const $allowancesApi = axios.create({ baseURL: ALLOWANCES_URL })
 
 $allowancesApi.interceptors.request.use(addAuthHeaderToRequests)
+$allowancesApi.interceptors.response.use((response) => response, getAuthResponseInterceptor($allowancesApi))

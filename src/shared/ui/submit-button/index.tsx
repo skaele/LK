@@ -209,6 +209,7 @@ const SubmitButton = ({
             repeatable={repeatable}
             tabIndex={!(isActive && !isDone) ? -1 : 0}
             pulsing={pulsing && !isDone}
+            disabled={completed}
         >
             <div className="inner-button">
                 {completed ? (

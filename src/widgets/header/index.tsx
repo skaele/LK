@@ -10,9 +10,10 @@ import { IRoute } from '@app/routes/general-routes'
 type Props = {
     currentPage: IRoute | null
     headerVisible?: boolean
+    noTitle?: boolean
 }
 
-const Header: React.FC<Props> = ({ currentPage, headerVisible = false }) => {
+const Header: React.FC<Props> = ({ currentPage, headerVisible = false, noTitle = false }) => {
     const { isMobile, isTablet } = useCurrentDevice()
 
     const { headerTitle, backButton, isHeaderVisible, maxWidth } = useHeader({
@@ -25,7 +26,7 @@ const Header: React.FC<Props> = ({ currentPage, headerVisible = false }) => {
     return (
         <HeaderWrapper headerVisible={isHeaderVisible} hidden={(currentPage ?? currentPage)?.withoutHeader}>
             <HeaderTitle maxWidth={maxWidth} noButton={currentPage?.withoutBackButton} headerVisible={isHeaderVisible}>
-                {headerTitle}
+                {!noTitle && headerTitle}
             </HeaderTitle>
             <Flex jc="space-between" mw={maxWidth}>
                 <div className="back-button-wrapper">{backButton ?? <div />}</div>

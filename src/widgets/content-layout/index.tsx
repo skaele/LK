@@ -54,7 +54,7 @@ const ContentLayout = () => {
             />
 
             <ContentWrapper>
-                <Header headerVisible={currentPage?.hiddenTitle || headerVisible} currentPage={currentPage} />
+                <Header noTitle={currentPage?.hiddenTitle} headerVisible={headerVisible} currentPage={currentPage} />
                 <PageContent
                     ref={pageContentRef}
                     onScroll={handleContentScroll}

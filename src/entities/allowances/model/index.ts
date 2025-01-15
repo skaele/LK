@@ -575,7 +575,7 @@ function createAllowancesPeriod() {
     const firstDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)).toISOString().split('T')[0]
     const fifteenthDayOfMonth = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 15, 0)).toISOString().split('T')[0]
     const period = createDatePeriodField({ reset: pageMounted })
-    const $minDate = createStore(new Date().getDate() > 13 ? fifteenthDayOfMonth : firstDayOfMonth)
+    const $minDate = createStore(new Date().getDate() > 17 ? fifteenthDayOfMonth : firstDayOfMonth)
 
     return {
         ...period,

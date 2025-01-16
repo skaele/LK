@@ -2,7 +2,7 @@ import { userModel } from '@entities/user'
 import { getJwtToken } from '@entities/user/lib/jwt-token'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import { InternalAxiosRequestConfig } from 'axios'
-import { refreshAccessToken } from '../user-api'
+import { authServiceHealthCheck, refreshAccessToken } from '../user-api'
 
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')
 
@@ -26,7 +26,8 @@ export const getAuthResponseInterceptor = (apiInstance: any) => async (error: an
                 }
                 return apiInstance(originalRequest)
             } catch (error) {
-                userModel.events.logout()
+                const isServiceAvailable = await authServiceHealthCheck()
+                if (isServiceAvailable.status === 200) userModel.events.logout()
             }
         } else {
             userModel.events.logout()

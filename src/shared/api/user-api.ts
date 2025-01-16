@@ -1,4 +1,4 @@
-import { $api } from '@api/config'
+import { $api, $authApi } from '@api/config'
 import getToken from '@shared/lib/token'
 import axios from 'axios'
 import { ADName, User, UserToken } from './model'
@@ -111,4 +111,8 @@ export const refreshAccessToken = async (refreshToken: string) => {
         accessToken: data.access_token,
         refreshToken: data.refresh_token,
     }
+}
+
+export const authServiceHealthCheck = async () => {
+    return $authApi.get('/health')
 }

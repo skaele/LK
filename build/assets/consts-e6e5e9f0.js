@@ -1,0 +1,1 @@
+const e={ready:"Готово",completed:"Выполнена",issued:"Выдано",recieved:"Получено",inProgress:"В работе",pending:"На рассмотрении",accepted:"Принято в работу",rejected:"Отклонено"},t=[{id:1,title:"1"},{id:2,title:"2"},{id:3,title:"3"}],i=[{id:0,title:"На электронную почту"},{id:1,title:"Лично"}];export{e as A,t as N,i as T};

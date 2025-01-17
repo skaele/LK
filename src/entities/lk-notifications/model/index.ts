@@ -109,6 +109,7 @@ const $allowancesNotifications = allowancesModel.stores.notifications.data.map((
             allowance.message,
             createAllowancePath(allowance),
             allowance.notificationType,
+            allowance,
         ),
     )
 })

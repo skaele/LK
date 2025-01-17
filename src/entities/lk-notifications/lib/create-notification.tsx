@@ -9,6 +9,8 @@ import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 import { DOCLIST_ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
 import { NotificationType, TNotification } from '../types'
 import { allowancesModel } from '@entities/allowances'
+import { NotificationLinks } from '@entities/allowances/consts'
+import { AllowanceNotification } from '@entities/allowances/types'
 
 const createNotification = (
     type: NotificationType,
@@ -17,6 +19,7 @@ const createNotification = (
     text?: string,
     goTo?: string,
     subType?: string,
+    notification?: any,
 ) => {
     const notifs: Record<NotificationType, TNotification> = {
         alert: {
@@ -121,7 +124,16 @@ const createNotification = (
             text: text ?? '',
             type: 'allowance',
             goTo: goTo ?? DOCLIST_ALLOWANCES,
-            onClick: () => allowancesModel.events.notificationRead(id),
+            onClick: () => {
+                if (
+                    NotificationLinks[(notification as AllowanceNotification).notificationType] ===
+                    NotificationLinks.RecepientDeclinedByZkgu
+                ) {
+                    allowancesModel.events.setCurrentRole('Initiator')
+                    allowancesModel.events.setCurrentJobId(notification.employeeId)
+                }
+                allowancesModel.events.notificationRead(id)
+            },
             onClose: () => allowancesModel.events.notificationRead(id),
             canClose: subType !== 'ToConfirm',
         },

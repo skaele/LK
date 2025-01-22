@@ -65,10 +65,17 @@ import {
     MilitaryCopies,
     MilitaryForm5,
 } from './other-routes/pages'
-import { HelpfulInformation } from './teacher-routes/pages'
+import {
+    AdminCompetenceCenter,
+    CompetenceCenterForm,
+    CompetenceCenterList,
+    HelpfulInformation,
+} from './teacher-routes/pages'
 import { BsFileMedical } from 'react-icons/bs'
 import MedicalCertificate from '@pages/medical-certificate'
 import AllTeachersPage from '@pages/all-teachers'
+import { RiPassValidLine } from 'react-icons/ri'
+import { COMPETENCE_CENTER, COMPETENCE_CENTER_FORM, COMPETENCE_CENTER_LIST } from './teacher-routes'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
@@ -172,9 +179,31 @@ export const privateRoutes: () => IRoutes = () => ({
         color: 'orange',
         isTemplate: true,
         show: true,
-        group: 'LEARNING_ACTIVITIES',
+        group: 'COMPETENCE_CENTER',
         isExternalPage: true,
         keywords: ['рсв', 'россия страна возможностей', 'софтскиллс', 'навыки'],
+    },
+    'competence-center-list': {
+        id: 'competence-center-list',
+        title: 'Заявки Центру компетенций',
+        icon: <RiPassValidLine />,
+        path: COMPETENCE_CENTER_LIST,
+        Component: CompetenceCenterList,
+        color: 'orange',
+        isTemplate: false,
+        pageSize: 'big',
+        group: 'COMPETENCE_CENTER',
+    },
+    'competence-center': {
+        id: 'competence-center',
+        title: 'Новые заявки',
+        icon: <RiPassValidLine />,
+        path: COMPETENCE_CENTER,
+        Component: AdminCompetenceCenter,
+        color: 'orange',
+        isTemplate: false,
+        pageSize: 'big',
+        group: 'COMPETENCE_CENTER',
     },
     'acad-performance': {
         id: 'acad-performance',
@@ -247,6 +276,20 @@ export const privateRoutes: () => IRoutes = () => ({
 
 export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     ...generalHiddenRoutes,
+    'competence-center-form': {
+        id: 'competence-center-form',
+        title: 'Мои заявления',
+        icon: <RiPassValidLine />,
+        path: COMPETENCE_CENTER_FORM,
+        Component: CompetenceCenterForm,
+        color: 'orange',
+        isTemplate: false,
+        isSubPage: true,
+        hiddenTitle: true,
+        subPageHeaderTitle: 'Назад к заявкам',
+        fallbackPrevPage: COMPETENCE_CENTER_LIST,
+        group: 'COMPETENCE_CENTER',
+    },
     'clarification-of-passport-data': {
         id: 'clarification-of-passport-data',
         title: 'Уточнение паспортных данных',

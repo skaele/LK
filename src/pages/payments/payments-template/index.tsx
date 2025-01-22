@@ -57,7 +57,7 @@ function Contract({ contract, index }: { contract: PaymentsContract; index: numb
             <Flex gap="8px">
                 <Flex w="fit-content">
                     <Title size={3} align="left">
-                        Договор № {number} от {localizeDate(signed_user_date, 'numeric')}
+                        Договор {contract.name}
                     </Title>
                 </Flex>
             </Flex>

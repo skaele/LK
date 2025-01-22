@@ -49,7 +49,7 @@ const PaymentsPage = () => {
                 <Message type={'alert'} title="Внимание!">
                     Ведутся доработки по информации о долге по оплате и суммам оплат
                 </Message>
-                <PaymentsWidget fullWidth />
+                {paymentType !== 'none' && <PaymentsWidget fullWidth />}
                 {paymentType === 'none' && <Error text="Нет данных" />}
                 {paymentType === 'both' && (
                     <SliderPage

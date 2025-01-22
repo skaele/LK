@@ -5,7 +5,6 @@ import React from 'react'
 import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'
 import { PaymentsContract } from '@shared/api/model'
-import localizeDate from '@shared/lib/dates/localize-date'
 import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
 import { useUnit } from 'effector-react'
 import { tutorialModel } from '@entities/tutorial'
@@ -47,7 +46,7 @@ const PaymentsTemplate = ({ contractsWithDebt, contractsWithoutDebt }: Props) =>
 }
 
 function Contract({ contract, index }: { contract: PaymentsContract; index: number }) {
-    const { agreements, number, paygraph, payments, signed_user_date, type } = contract
+    const { agreements, number, paygraph, payments, type } = contract
     // Временная мера. Потом апи будет раздавать точную информацию о статусе договора.
     const isSigned = true
     const electronicAgreements = agreements.filter((item) => new Date(item?.date) > MIN_AGREEMENT_DATE)
@@ -57,7 +56,7 @@ function Contract({ contract, index }: { contract: PaymentsContract; index: numb
             <Flex gap="8px">
                 <Flex w="fit-content">
                     <Title size={3} align="left">
-                        Договор № {number} от {localizeDate(signed_user_date, 'numeric')}
+                        {contract.name}
                     </Title>
                 </Flex>
             </Flex>

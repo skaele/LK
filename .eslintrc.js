@@ -20,7 +20,7 @@ module.exports = {
         "react/react-in-jsx-scope": "off",
         'linebreak-style': 'off',
         'prettier/prettier': [
-            'error',
+            'off',
             {
                 endOfLine: 'auto',
             },

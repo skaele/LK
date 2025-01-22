@@ -31,12 +31,12 @@ import {
     ACCOMMODATION_FOR_GRADUATES,
     MILITARY_REGISTRATION,
     EXIT_ACADEMIC_LEAVE,
-    STUDENT_EMPLOYMENT_ROUTE,
     MEDICAL_CERTIFICATES_086,
     FAMILY_CONTACTS,
     MILITARY_COPIES,
     MILITARY_FORM_4,
     MILITARY_FORM_5,
+    STUDENT_EMPLOYMENT_APP_ROUTE,
 } from '@app/routes/routes'
 import { isProduction, RECEPTION_COMMISSION, UNION_ORGANIZATION } from '@shared/constants'
 import { Section } from '@features/applications/ui/molecules/create-application-list'
@@ -218,7 +218,7 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 {
-                    link: STUDENT_EMPLOYMENT_ROUTE,
+                    link: STUDENT_EMPLOYMENT_APP_ROUTE,
                     title: 'Трудоустройство студентов',
                 },
             ],

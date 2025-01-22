@@ -1,30 +1,34 @@
+import React from 'react'
+import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BsFileMedical } from 'react-icons/bs'
+import { FaRegLightbulb } from 'react-icons/fa'
+import { FiBriefcase, FiFileText } from 'react-icons/fi'
+import { MdOutlineBedroomChild } from 'react-icons/md'
+
+import AllTeachersPage from '@pages/all-teachers'
 import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
 import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
 import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
+import MedicalCertificate from '@pages/medical-certificate'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
-import React from 'react'
-import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
-import { FaRegLightbulb } from 'react-icons/fa'
-import { FiBriefcase, FiFileText } from 'react-icons/fi'
-import { MdOutlineBedroomChild } from 'react-icons/md'
+
 import {
     ALL_TEACHERS_ROUTE,
-    generalHiddenRoutes,
-    generalRoutes,
     IRoutes,
     MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     SOFTSKILLS_ROUTE,
     USEFUL_INFO_ROUTE,
+    generalHiddenRoutes,
+    generalRoutes,
 } from './general-routes'
 import {
-    PhysicalEducationStudent,
-    AcademicLeaveAccommodationPage,
     AcadPerformance,
+    AcademicLeaveAccommodationPage,
     AccommodationCorrespondenceFormPage,
     AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
@@ -45,8 +49,15 @@ import {
     FamilyRoomPage,
     FinancialSupport,
     IncreasedStateAcademicScholarship,
+    MedicalCertificates086,
+    MilitaryCopies,
+    MilitaryForm4,
+    MilitaryForm5,
+    MilitaryRegistration,
     MilitaryRegistrationDocuments,
+    ParentContacts,
     PaymentRecipient,
+    PhysicalEducationStudent,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
@@ -55,31 +66,28 @@ import {
     RestoringTheMagneticPass,
     RetakeForDiploma,
     StateAccreditation,
+    StudentEmploymentApplicationPage,
     StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
-    ParentContacts,
-    MedicalCertificates086,
-    MilitaryRegistration,
-    MilitaryForm4,
-    MilitaryCopies,
-    MilitaryForm5,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
-import { BsFileMedical } from 'react-icons/bs'
-import MedicalCertificate from '@pages/medical-certificate'
-import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'
 export const APPLICATION_FOR_SUPERIOR_ROOM_ROUTE = '/application-for-superior-room'
 export const ACAD_PERFORMANCE_ROUTE = '/acad-performance'
 export const DORMITORY = '/dormitory'
+export const STUDENT_EMPLOYMENT_ROUTE = '/student-employment'
+
+export const STUDENT_EMPLOYMENT_TYPE = STUDENT_EMPLOYMENT_ROUTE + '/:type'
+export const STUDENT_INTERNSHIP = STUDENT_EMPLOYMENT_ROUTE + '/internship'
+export const STUDENT_EMPLOYMENT = STUDENT_EMPLOYMENT_ROUTE + '/employment'
 
 //hidden routes
 export const CLARIFICATION_OF_PASSPORT_DATA_ROUTE = APPLICATIONS_ROUTE + '/clarification-of-passport-data'
 export const ARBITRARY_REQUEST_ROUTE = APPLICATIONS_ROUTE + '/arbitrary-request'
-export const STUDENT_EMPLOYMENT_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
+export const STUDENT_EMPLOYMENT_APP_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
 export const SOCIAL_SCOLLARSHIP = APPLICATIONS_ROUTE + '/social-scollarship'
 export const CERTIFICATE_OF_ATTENDANCE = APPLICATIONS_ROUTE + '/certificate-of-attendance'
 export const SOCIAL_AGENCIES = APPLICATIONS_ROUTE + '/social-agencies'
@@ -243,6 +251,17 @@ export const privateRoutes: () => IRoutes = () => ({
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
     },
+    'student-employment': {
+        id: 'student-employment',
+        title: 'Практика и трудоустройство',
+        icon: <BiInfoCircle />,
+        path: STUDENT_EMPLOYMENT_TYPE,
+        Component: StudentEmploymentPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['работа'],
+    },
 })
 
 export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
@@ -275,12 +294,12 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'student-employment': {
-        id: 'student-employment',
+    'student-employment-app': {
+        id: 'student-employment-app',
         title: 'Трудоустройство студентов',
         icon: <FiBriefcase />,
-        path: STUDENT_EMPLOYMENT_ROUTE,
-        Component: isProduction ? ApplicationRedirect : StudentEmploymentPage,
+        path: STUDENT_EMPLOYMENT_APP_ROUTE,
+        Component: StudentEmploymentApplicationPage,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

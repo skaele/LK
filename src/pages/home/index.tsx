@@ -1,8 +1,10 @@
+import React from 'react'
+
 import { userModel } from '@entities/user'
 import { Wrapper } from '@ui/atoms'
-import React from 'react'
-import HomeTopPlate from './ui/home-top-plate'
 import { HomePageTutorial } from 'widgets/tutorial/tutorials/home-page-tutorial'
+
+import HomeTopPlate from './ui/home-top-plate'
 
 const Home = () => {
     const {

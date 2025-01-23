@@ -1,4 +1,5 @@
 import React from 'react'
+
 import LogoPicture from '../../images/logo.png'
 import LogoShort from '../../images/mospolytech-logo-white.png'
 import { LogoWrapper } from './styles'

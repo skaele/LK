@@ -3,6 +3,7 @@ import { ApplicationCreating } from '@entities/applications/model'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import token from '@utils/token'
 import { AxiosResponse } from 'axios'
+
 import { Application, UserApplication } from './model'
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {

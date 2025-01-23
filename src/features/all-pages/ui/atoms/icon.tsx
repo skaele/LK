@@ -1,5 +1,6 @@
-import { Colors, IColors } from '@shared/constants'
 import React from 'react'
+
+import { Colors, IColors } from '@shared/constants'
 import Notification from '@ui/notification'
 import styled from 'styled-components'
 

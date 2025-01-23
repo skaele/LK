@@ -1,7 +1,9 @@
 import React from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 import { HiOutlineExclamation } from 'react-icons/hi'
+
 import styled from 'styled-components'
+
 import AutoAccordion from '../auto-accordion'
 import { Divider } from '../divider'
 import { Error } from '../error'

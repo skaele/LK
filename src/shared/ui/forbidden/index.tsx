@@ -1,10 +1,12 @@
-import { HOME_ROUTE } from '@app/routes/general-routes'
-import { Button, Error as ErrorUI, Message } from '@shared/ui/atoms'
 import React from 'react'
 import { FiChevronDown, FiHome } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import Flex from '../flex'
+
+import { HOME_ROUTE } from '@app/routes/general-routes'
+import { Button, Error as ErrorUI, Message } from '@shared/ui/atoms'
+
 import AutoAccordion from '../auto-accordion'
+import Flex from '../flex'
 
 export const Forbidden = ({ text, errorCodes }: { text: string; errorCodes?: string[] }) => {
     return (

@@ -1,15 +1,16 @@
+import React, { useEffect, useState } from 'react'
+import { FiInfo } from 'react-icons/fi'
+
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
+import localizeDate from '@shared/lib/dates/localize-date'
 import { Loading, SubmitButton, Title } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { Message } from '@ui/message'
 import checkFormFields from '@utils/check-form-fields'
-import localizeDate from '@shared/lib/dates/localize-date'
 import sendForm from '@utils/send-form'
-import React, { useEffect, useState } from 'react'
-import { FiInfo } from 'react-icons/fi'
 import { TemplateFormStoreOutput } from 'shared/effector/create-form-store'
-import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 export type TemplateFormProps<T extends { last_update?: string }> = {
     model: TemplateFormStoreOutput<T, T>

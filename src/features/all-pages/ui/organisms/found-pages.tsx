@@ -1,7 +1,9 @@
+import React from 'react'
+
 import { IRoutes } from '@app/routes/general-routes'
 import { Error } from '@ui/error'
-import React from 'react'
 import styled from 'styled-components'
+
 import { PageLink } from '../molecules'
 
 const FoundPagesWrapper = styled.div`

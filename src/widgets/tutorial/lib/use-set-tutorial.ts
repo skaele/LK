@@ -1,7 +1,8 @@
-import { tutorialModel } from '@entities/tutorial'
-import { useUnit } from 'effector-react'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
+
+import { tutorialModel } from '@entities/tutorial'
+import { useUnit } from 'effector-react'
 
 export const useSetTutorial = () => {
     const location = useLocation()

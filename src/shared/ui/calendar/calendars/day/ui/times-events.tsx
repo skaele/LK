@@ -1,10 +1,11 @@
+import React from 'react'
+
 import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
 import { DayCalendarEvent } from '@shared/ui/calendar/types'
 import { CalendarWrapper } from '@shared/ui/calendar/ui/calendar-wrapper'
 import Events from '@shared/ui/calendar/ui/event/events'
 import { getEventTopPosition } from '@shared/ui/calendar/ui/event/lib/get-event-top-position'
 import Times from '@shared/ui/calendar/ui/times'
-import React from 'react'
 
 type Props = {
     scale: number

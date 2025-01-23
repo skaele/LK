@@ -1,8 +1,6 @@
-import { attach, createEvent, createStore, sample } from 'effector'
-
 import { userModel } from '@entities/user'
-
 import { peApi } from '@shared/api'
+import { attach, createEvent, createStore, sample } from 'effector'
 
 export type Group = {
     groupName: string

@@ -1,4 +1,5 @@
 import { FiChevronUp } from 'react-icons/fi'
+
 import styled from 'styled-components'
 
 const styledPropsArray = ['isOpen']

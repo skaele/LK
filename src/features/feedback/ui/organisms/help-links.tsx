@@ -1,8 +1,9 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
 import { ARBITRARY_REQUEST_ROUTE } from '@app/routes/routes'
 import { Message } from '@ui/message'
-import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Ul = styled.div`

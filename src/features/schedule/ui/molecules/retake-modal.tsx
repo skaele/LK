@@ -1,7 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import { RetakeLink } from '@features/schedule/types/retake-types'
 import { Title } from '@ui/title'
+import styled from 'styled-components'
 
 const Container = styled.div`
     width: 600px;

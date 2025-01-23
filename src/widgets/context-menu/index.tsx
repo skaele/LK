@@ -1,7 +1,9 @@
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import React, { useRef } from 'react'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+
 import { contextMenuModel } from '../../entities/context-menu'
 
 const ContextMenuWrapper = styled.div<{
@@ -20,7 +22,10 @@ const ContextMenuWrapper = styled.div<{
     background: var(--block);
     border-radius: var(--brLight);
     box-shadow: var(--very-mild-shadow);
-    transition: 0.2s transform, 0.2s opacity, 0.2s visibility;
+    transition:
+        0.2s transform,
+        0.2s opacity,
+        0.2s visibility;
     z-index: 4;
     padding: 8px;
     color: var(--text);

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { thirdPartyAgreementModel } from '@entities/payments'
 import { Agreement } from '@shared/api/model'
 import { Colors } from '@shared/constants'
@@ -7,7 +9,6 @@ import Flex from '@shared/ui/flex'
 import { Grid } from '@shared/ui/grid'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React from 'react'
 
 export const GetPasswords = ({ agreement }: { agreement: Agreement }) => {
     const { isMobile } = useCurrentDevice()

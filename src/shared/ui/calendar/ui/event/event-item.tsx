@@ -1,9 +1,3 @@
-import { getSubjectName } from '@features/schedule/lib/get-subject-name'
-import { NextSubject } from '@features/schedule/ui'
-import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
-import calcTimeLeft from '@shared/lib/dates/calc-time-left'
-import getShortString from '@shared/lib/get-short-string'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import React, { memo, useMemo } from 'react'
 import {
     HiOutlineCalendar,
@@ -12,18 +6,26 @@ import {
     HiOutlineUserCircle,
     HiOutlineUserGroup,
 } from 'react-icons/hi'
-import DotSeparatedWords from '@shared/ui/dot-separated-words'
-import Flex from '@shared/ui/flex'
+
+import { userSettingsModel } from '@entities/settings'
+import { getSubjectName } from '@features/schedule/lib/get-subject-name'
+import { NextSubject } from '@features/schedule/ui'
+import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
+import { ThemeVariant } from '@shared/constants'
+import calcTimeLeft from '@shared/lib/dates/calc-time-left'
+import getShortString from '@shared/lib/get-short-string'
+import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { type DayCalendarEvent } from '@shared/ui/calendar'
 import IconText from '@shared/ui/calendar/calendars/day/ui/icon-text'
 import { getTimeInterval } from '@shared/ui/calendar/lib/get-time-interval'
-import { type DayCalendarEvent } from '@shared/ui/calendar'
+import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import Flex from '@shared/ui/flex'
+import { useUnit } from 'effector-react'
+
 import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'
 import { UIProps } from './types'
-import { useUnit } from 'effector-react'
-import { userSettingsModel } from '@entities/settings'
-import { ThemeVariant } from '@shared/constants'
-import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 
 type Props = DayCalendarEvent & UIProps & { isNextEvent?: boolean; isCurrentEvent?: boolean }
 

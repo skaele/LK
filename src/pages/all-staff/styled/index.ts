@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import Flex from '@shared/ui/flex'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Header = styled.div<{ isEmployee: boolean }>`

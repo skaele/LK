@@ -1,4 +1,5 @@
 import { Colors, IColorPalette, letterColorMatch } from '@shared/constants'
+
 import getNameFirstLetters from './get-name-first-letters'
 
 const getLettersColors = (fullName: string, theme?: keyof typeof color) => {

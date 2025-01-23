@@ -1,8 +1,6 @@
 import { userModel } from '@entities/user'
-
-import { attach, createEvent, restore, sample } from 'effector'
-
 import { peApi } from '@shared/api'
+import { attach, createEvent, restore, sample } from 'effector'
 
 const load = createEvent()
 

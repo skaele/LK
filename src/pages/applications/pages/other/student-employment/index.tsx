@@ -1,16 +1,18 @@
-import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import React, { useEffect, useState } from 'react'
-import { getForm } from './lib/get-form'
+
+import { applicationsModel } from '@entities/applications'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import checkFormFields from '@shared/lib/check-form-fields'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
-import { globalAppSendForm } from '@pages/applications/lib'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import { LoadedState } from 'widgets/template-form'
-import { applicationsModel } from '@entities/applications'
-import checkFormFields from '@shared/lib/check-form-fields'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import getEmployment from './lib/get-employment'
+import { getForm } from './lib/get-form'
 
 const StudentEmployment = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

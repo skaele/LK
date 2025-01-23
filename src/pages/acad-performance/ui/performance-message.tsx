@@ -1,9 +1,10 @@
+import React from 'react'
+
 import { AcadPerformance } from '@shared/api/model/acad-performance'
 import Flex from '@shared/ui/flex'
 import { Image } from '@shared/ui/image'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
-import React from 'react'
 import styled from 'styled-components'
 
 const AStudentBackground = styled.div`

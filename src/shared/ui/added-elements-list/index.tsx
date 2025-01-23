@@ -1,7 +1,9 @@
-import { Colors } from '@shared/constants'
 import React from 'react'
 import { FiPlus, FiX } from 'react-icons/fi'
+
+import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
 import useFilterList from './lib/hooks/use-filter-list'
 
 const Element = styled.div<{ color?: string; background?: string; remove?: boolean }>`

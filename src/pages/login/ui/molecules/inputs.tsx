@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { userModel } from '@entities/user'
 import useLogin from '@pages/login/hooks/use-login'
 import Flex from '@shared/ui/flex'
@@ -7,7 +9,6 @@ import List from '@ui/list'
 import { Message } from '@ui/message'
 import Subtext from '@ui/subtext'
 import { Title } from '@ui/title'
-import React from 'react'
 
 const Inputs = () => {
     const { loading, error, data } = userModel.selectors.useUser()

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { TutorialComponent, withTutorial } from '../lib/with-tutorial'
 
 export const DivTutorial = withTutorial(

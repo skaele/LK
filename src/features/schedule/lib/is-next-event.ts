@@ -1,6 +1,7 @@
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
-import calcNextSubjectTime from './calc-next-subject-time'
 import { DayCalendarEvent } from '@shared/ui/calendar'
+
+import calcNextSubjectTime from './calc-next-subject-time'
 
 export const isNextEvent = (
     allEvents: DayCalendarEvent[] | null | undefined,

@@ -1,18 +1,20 @@
-import { Colors } from '@shared/constants'
+import React from 'react'
+
+import { contextMenuModel } from '@entities/context-menu'
 import Avatar from '@features/home/ui/molecules/avatar'
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
+import { Colors } from '@shared/constants'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import { Direction, Size } from '@ui/types'
-import React from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
 import getFontSize from './lib/get-font-size'
 import getImageSize from './lib/get-image-size'
 import getStatus from './lib/get-status'
 import getWidth from './lib/get-width'
 import { UserProps } from './types'
 import { SkeletonLoading, StudentModal } from './ui'
-import { contextMenuModel } from '@entities/context-menu'
-import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 
 const UserWrapper = styled.div<{ orientation: Direction; size: Size }>`
     display: flex;

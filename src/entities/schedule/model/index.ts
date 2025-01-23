@@ -1,10 +1,11 @@
 import { IFullSchedule, ISchedule, User } from '@api/model'
+import { userModel } from '@entities/user'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
+
 import { EMPTY_WEEK, View } from '../consts'
 import { getGroupSchedule } from '../lib/get-group-schedule'
 import { getTeacherSchedule } from '../lib/get-teacher-schedule'
-import { userModel } from '@entities/user'
 
 const DEFAULT_STORE: ISchedule = {
     data: {

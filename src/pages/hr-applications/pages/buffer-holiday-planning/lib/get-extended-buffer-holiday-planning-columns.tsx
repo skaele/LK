@@ -1,10 +1,11 @@
 import React from 'react'
 
-import localizeDate from '@shared/lib/dates/localize-date'
-import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
-import { ColumnProps } from '@shared/ui/table/types'
-import { Button } from '@shared/ui/button'
 import downloadFile from '@pages/hr-applications/lib/get-file'
+import localizeDate from '@shared/lib/dates/localize-date'
+import { Button } from '@shared/ui/button'
+import { ColumnProps } from '@shared/ui/table/types'
+
+import { getBufferHolidayPlanningColumns } from './get-buffer-holiday-planning-columns'
 
 export const getExtendedBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [

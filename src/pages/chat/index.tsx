@@ -1,11 +1,13 @@
+import React, { useEffect } from 'react'
+import { Route, Switch, useRouteMatch } from 'react-router'
+
 import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
 import { chatModel, chatsModel } from '@entities/chats'
 import { ChatWindow, ListOfChats } from '@features/chat'
 import EmptyHere from '@features/chat/ui/atoms/empty-here'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
-import { Route, Switch, useRouteMatch } from 'react-router'
 import styled from 'styled-components'
+
 import { MEDIA_QUERIES } from '../../shared/constants'
 
 const ChatPage = () => {

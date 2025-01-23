@@ -1,5 +1,7 @@
-import { OLD_LK_URL } from '@shared/constants'
 import { HiOutlineDocumentText } from 'react-icons/hi'
+
+import { OLD_LK_URL } from '@shared/constants'
+
 import { InstructionsType } from './student-data'
 
 const instructionsTeacherData: InstructionsType[] = [

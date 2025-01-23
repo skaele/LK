@@ -1,7 +1,9 @@
 import React from 'react'
 import { BsCheckCircleFill } from 'react-icons/bs'
 import { FiCircle } from 'react-icons/fi'
+
 import styled from 'styled-components'
+
 import { Button } from '.'
 
 const HrCheckboxWrapper = styled.div<{

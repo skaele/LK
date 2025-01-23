@@ -1,12 +1,14 @@
-import { useUnit } from 'effector-react'
 import React, { useMemo, useState } from 'react'
-import Table from '@shared/ui/table'
-import { getAllowancesColumns } from '../lib/get-allowances-columns'
-import Flex from '@shared/ui/flex'
+import { useHistory } from 'react-router'
+
+import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
 import { allowancesModel } from '@entities/allowances'
 import Select, { SelectPage } from '@features/select'
-import { useHistory } from 'react-router'
-import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
+import Flex from '@shared/ui/flex'
+import Table from '@shared/ui/table'
+import { useUnit } from 'effector-react'
+
+import { getAllowancesColumns } from '../lib/get-allowances-columns'
 
 export const Initiator = () => {
     const history = useHistory()

@@ -1,3 +1,7 @@
+import React from 'react'
+import { FiMoreVertical } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
 import { PROFILE_ROUTE } from '@app/routes/general-routes'
 import { contextMenuModel } from '@entities/context-menu'
 import Avatar from '@features/home/ui/molecules/avatar'
@@ -5,9 +9,6 @@ import UserContextMenu from '@features/user-context-menu'
 import { Button } from '@ui/button'
 import { SkeletonShape } from '@ui/skeleton-shape'
 import { Title } from '@ui/title'
-import React from 'react'
-import { FiMoreVertical } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 

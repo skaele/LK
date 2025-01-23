@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import { Loading } from '../loading'
-import { Error } from '../error'
-import { Button } from '../button'
 import { AiOutlineReload } from 'react-icons/ai'
+
+import styled from 'styled-components'
+
+import { Button } from '../button'
+import { Error } from '../error'
+import { Loading } from '../loading'
 
 interface Props {
     children?: React.ReactElement | React.ReactElement[] | string | null

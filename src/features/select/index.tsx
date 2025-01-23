@@ -1,6 +1,8 @@
-import { Input, Title } from '@ui/atoms'
 import React, { memo, useRef } from 'react'
 import { FiCheck, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
+import { Input, Title } from '@ui/atoms'
+
 import useSelect, { SelectProps } from './lib/hooks/use-select'
 import { SelectArrow, SelectHeader, SelectHeaderWrapper, SelectItem, SelectItems, SelectWrapper } from './ui/atoms'
 

@@ -1,11 +1,13 @@
+import React from 'react'
+import { HiOutlineQrcode } from 'react-icons/hi'
+
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/button'
-import React from 'react'
-import { useModal } from 'widgets'
-import PayQRModal from './pay-qr-modal'
-import { HiOutlineQrcode } from 'react-icons/hi'
 import { Direction } from '@shared/ui/types'
+import { useModal } from 'widgets'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import PayQRModal from './pay-qr-modal'
 
 type Props = {
     qr_current: string

@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from 'react'
+
 import { applicationsModel } from '@entities/applications'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-
+import { SendHrFormPartTimeEmployment } from '@pages/hr-applications/lib/send-hr-form-part-time'
 import { $hrDivisionsSuggestions } from '@pages/hr-applications/model/divisions'
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
@@ -8,10 +10,9 @@ import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
+
 import { bufferPartTimeEmploymentModel } from '../buffer-part-time-employment/model'
 import getForm from './lib/get-form'
-import { SendHrFormPartTimeEmployment } from '@pages/hr-applications/lib/send-hr-form-part-time'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 

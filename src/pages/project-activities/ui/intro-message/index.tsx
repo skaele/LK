@@ -1,7 +1,9 @@
-import { Message } from '@shared/ui/message'
 import React from 'react'
-import { GeneralPAMessage } from './general'
+
 import { BoldText } from '@shared/ui/atoms/BoldText'
+import { Message } from '@shared/ui/message'
+
+import { GeneralPAMessage } from './general'
 
 export const ProjectActivityIntroMessage = () => {
     return (

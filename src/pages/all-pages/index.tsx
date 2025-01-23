@@ -1,3 +1,5 @@
+import React, { useMemo, useState } from 'react'
+
 import { Groups, IRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
 import { peTeacherModel } from '@entities/pe-teacher'
@@ -11,7 +13,6 @@ import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import { LocalSearch } from '@ui/molecules'
 import { useUnit } from 'effector-react'
-import React, { useMemo, useState } from 'react'
 
 const AllPages = () => {
     const { visibleRoutes, allRoutes } = menuModel.selectors.useMenu()

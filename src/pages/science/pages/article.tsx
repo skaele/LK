@@ -1,3 +1,7 @@
+import React, { useEffect, useState } from 'react'
+import { FiEyeOff, FiPlus } from 'react-icons/fi'
+import { useParams } from 'react-router'
+
 import { articleModel } from '@entities/science'
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
 import { Button, Error } from '@shared/ui/atoms'
@@ -8,10 +12,8 @@ import Table from '@shared/ui/table'
 import { ColumnProps } from '@shared/ui/table/types'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import { FiEyeOff, FiPlus } from 'react-icons/fi'
-import { useParams } from 'react-router'
 import useModal from 'widgets/modal'
+
 import { DetailsModal } from '../ui/details-modal'
 
 const Article = () => {

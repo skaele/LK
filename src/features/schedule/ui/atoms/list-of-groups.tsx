@@ -1,9 +1,10 @@
-import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import React from 'react'
 import { BiGroup } from 'react-icons/bi'
 import { FiChevronRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+
+import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
+import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 

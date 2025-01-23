@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { AcadPerformance } from '@api/model/acad-performance'
 import { SubjectIconAndBackground } from '@features/schedule/ui/subject/subject-icon-and-background'
 import { IColorPalette } from '@shared/constants'
@@ -5,7 +7,6 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import { Title } from '@shared/ui/title'
 import KeyValue from '@ui/atoms/key-value'
 import findSemestr from '@utils/find-semestr'
-import React from 'react'
 import styled from 'styled-components'
 import { User } from 'widgets'
 

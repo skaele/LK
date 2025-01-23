@@ -1,4 +1,5 @@
 import { combine, createEvent, createStore } from 'effector'
+
 import { chatsModel } from '.'
 
 const set = createEvent<string>()

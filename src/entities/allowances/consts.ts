@@ -1,4 +1,5 @@
 import { ALLOWANCE_INFO_CUT, DOCLIST_ALLOWANCES } from '@app/routes/teacher-routes'
+
 import { AllowanceNotificationType } from './types'
 
 export const approvalStatus = {

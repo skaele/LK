@@ -1,10 +1,12 @@
+import React, { useState } from 'react'
+
 import { userModel } from '@entities/user'
 import { CenterPage, Input, Message, SubmitButton, Title } from '@ui/atoms'
 import Block from '@ui/block'
 import GoBackButton from '@ui/go-back-button'
 import { useStore } from 'effector-react'
-import React, { useState } from 'react'
 import styled from 'styled-components'
+
 import { USER_NOT_FOUND } from './config/ad-result-status'
 
 const ADNameElement = styled.span`

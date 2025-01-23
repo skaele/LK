@@ -1,11 +1,13 @@
-import Subtext from '@shared/ui/subtext'
-import { FileInputProps } from '@ui/file-input'
 import React, { useRef, useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
+
+import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import Subtext from '@shared/ui/subtext'
+import { FileInputProps } from '@ui/file-input'
+
+import { DEFAULT_FILE_FORMATS } from '../../consts'
 import loadFiles from './lib/load-files'
 import DragAndDropAreaWrapper from './style'
-import DotSeparatedWords from '@shared/ui/dot-separated-words'
-import { DEFAULT_FILE_FORMATS } from '../../consts'
 
 type Props = FileInputProps
 

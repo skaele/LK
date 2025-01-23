@@ -1,7 +1,7 @@
 import { UserApplication } from '@api/model'
-import { IInputAreaData } from '@ui/input-area/model'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { IInputAreaData } from '@ui/input-area/model'
 
 const getBasicFieldsApplicationTeacher = (dataForm: UserApplication): IInputAreaData[] => {
     const { surname, name, patronymic, email, phone, subdivisions } = dataForm

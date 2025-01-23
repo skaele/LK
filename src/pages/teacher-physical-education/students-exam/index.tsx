@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react'
+import { FiUsers } from 'react-icons/fi'
+
 import { confirmModel } from '@entities/confirm'
 import { EndSemester } from '@features/physical-education/end-semester'
 import SearchWithHints from '@features/search-with-hints'
@@ -8,13 +11,12 @@ import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
 import Table from '@shared/ui/table'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
-import { FiUsers } from 'react-icons/fi'
 import { useModal } from 'widgets'
+
+import { examPeStudentColumns } from './constants'
 import { pageLoaded } from './model'
 import { peExamStudentModel } from './pe-exam-student-model'
 import { TableHeader, TableWrapper, Wrapper } from './styled'
-import { examPeStudentColumns } from './constants'
 
 export const StudentsExam = () => {
     const { open, close } = useModal()

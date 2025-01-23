@@ -1,9 +1,11 @@
+import React from 'react'
+import { HiOutlineOfficeBuilding } from 'react-icons/hi'
+
 import { userModel } from '@entities/user'
 import TextFieldItem from '@shared/ui/text-field/text-field-item'
 import { useUnit } from 'effector-react'
-import React from 'react'
-import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { useModal } from 'widgets'
+
 import { WorkPlaceAddressModal } from './work-place-address-modal'
 
 type WorkPlaceAddressProps = {

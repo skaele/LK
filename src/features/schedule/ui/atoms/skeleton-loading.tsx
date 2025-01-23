@@ -1,5 +1,6 @@
-import { SkeletonShape } from '@ui/atoms'
 import React from 'react'
+
+import { SkeletonShape } from '@ui/atoms'
 import styled from 'styled-components'
 
 const SkeletonLoadingWrapper = styled.div`

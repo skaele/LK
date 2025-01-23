@@ -1,10 +1,11 @@
+import React from 'react'
+import { FiEyeOff } from 'react-icons/fi'
+
 import Avatar from '@features/home/ui/molecules/avatar'
 import { Employee, Subdivision } from '@shared/api/model/phonebook'
 import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
-import { FiEyeOff } from 'react-icons/fi'
 import styled from 'styled-components'
 import getImageSize from 'widgets/user/lib/get-image-size'
 

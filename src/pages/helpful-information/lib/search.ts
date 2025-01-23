@@ -1,4 +1,5 @@
 import normalizeString from '@utils/normalize-string'
+
 import { HelpfulPage } from '../types/helpful-pages'
 
 const search = (value: string, pages: HelpfulPage[]) => {

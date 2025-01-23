@@ -21,10 +21,10 @@ export const useScheduleWidget = () => {
         getScrollTopValue: (element) =>
             element.clientHeight *
             (isEnded
-                ? schedule?.today?.length ?? 0
-                : schedule?.today?.findIndex(
+                ? (schedule?.today?.length ?? 0)
+                : (schedule?.today?.findIndex(
                       (event) => checkIfEventIsCurrent(event, true) || isNextEvent(schedule.today, event, true),
-                  ) ?? 0),
+                  ) ?? 0)),
     })
 
     const handleErrorClick = () =>

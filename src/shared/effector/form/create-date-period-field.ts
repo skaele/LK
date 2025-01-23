@@ -1,4 +1,4 @@
-import { createEvent, createStore, sample, Unit } from 'effector'
+import { Unit, createEvent, createStore, sample } from 'effector'
 
 export function createDatePeriodField({ reset }: { reset?: Unit<any> }) {
     const setStartDate = createEvent<string>()

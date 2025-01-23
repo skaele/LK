@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { IconTextStyled, SmallIcon, SubtextStyled } from './styles'
 
 type Props = {

@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from 'react'
+
 import { FieldProps } from '@pages/settings/types'
 import useFormValidation, { TRules } from '@shared/lib/hooks/use-form-validation'
 import { Button, Divider, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 

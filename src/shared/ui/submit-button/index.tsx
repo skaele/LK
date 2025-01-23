@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { ImCheckmark } from 'react-icons/im'
-import styled from 'styled-components'
+
 import { popUpMessageModel } from '@entities/pop-up-message'
+import styled from 'styled-components'
+
 import { Loading } from '../loading'
 
 type StyledProps = {
@@ -39,7 +41,7 @@ const SubmitButtonWrapper = styled.button<StyledProps>`
             ? isActive
                 ? 'var(--green)'
                 : 'var(--greenTransparent)'
-            : background ?? (isActive ? 'var(--blue)' : 'var(--blueTransparent)')};
+            : (background ?? (isActive ? 'var(--blue)' : 'var(--blueTransparent)'))};
     animation: ${({ pulsing }) => pulsing && '1s pulsing infinite'};
 
     @keyframes pulsing {

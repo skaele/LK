@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
 import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
@@ -5,13 +7,13 @@ import CustomizeMenu from '@features/customize-menu'
 import AddedElementsList, { FilterElementList } from '@shared/ui/added-elements-list'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import { useModal } from 'widgets'
-import { TITLE_CONFIG } from '../constants'
-import { setHomePageWidgetView } from './model'
-import { Wrapper } from '../styled'
 import { createStore } from 'effector'
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
+import { TITLE_CONFIG } from '../constants'
+import { Wrapper } from '../styled'
+import { setHomePageWidgetView } from './model'
 
 const MainPageSettings = () => {
     const [settings, menu] = useUnit([userSettingsModel.stores.userSettings, menuModel.stores.menu])

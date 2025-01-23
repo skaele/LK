@@ -1,6 +1,7 @@
-import { OLD_LK_URL } from '@shared/constants'
 import { IconType } from 'react-icons'
 import { HiOutlineDocumentText } from 'react-icons/hi'
+
+import { OLD_LK_URL } from '@shared/constants'
 
 type LinksType = {
     link: string

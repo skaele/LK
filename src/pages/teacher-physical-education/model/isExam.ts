@@ -1,4 +1,4 @@
-import { createStore, createEvent } from 'effector'
+import { createEvent, createStore } from 'effector'
 
 const setIsExam = createEvent<boolean>()
 

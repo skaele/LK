@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from 'react'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
 import { Button, Input } from '@ui/atoms'
 import { Align } from '@ui/types'
 import limitNumber from '@utils/limit-number'
-import React, { useEffect, useState } from 'react'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
 import Flex from '../flex'
 import Subtext from '../subtext'
 

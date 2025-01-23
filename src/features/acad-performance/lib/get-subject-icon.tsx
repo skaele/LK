@@ -1,4 +1,3 @@
-import normalizeString from '@shared/lib/normalize-string'
 import React from 'react'
 import { BiDice6, BiRuble } from 'react-icons/bi'
 import {
@@ -15,7 +14,6 @@ import {
     FiLifeBuoy,
     FiPrinter,
 } from 'react-icons/fi'
-import { LuGamepad } from 'react-icons/lu'
 import {
     HiOutlineAcademicCap,
     HiOutlineArrowNarrowRight,
@@ -50,6 +48,9 @@ import {
     HiOutlineUserGroup,
     HiOutlineVariable,
 } from 'react-icons/hi'
+import { LuGamepad } from 'react-icons/lu'
+
+import normalizeString from '@shared/lib/normalize-string'
 
 export const getSubjectIcon = (name: string) => {
     const normalizedName = normalizeString(name)

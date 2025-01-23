@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+
 import styled from 'styled-components'
 
 const LinkButtonWrapper = styled.a<{
@@ -20,7 +21,7 @@ const LinkButtonWrapper = styled.a<{
     justify-content: ${({ align }) => align ?? 'center'};
     border: none;
     color: ${({ textColor }) => (textColor ? textColor : 'var(--text)')};
-    background: ${({ isChosen, background }) => (isChosen ? 'var(--blue)' : background ?? 'var(--search)')};
+    background: ${({ isChosen, background }) => (isChosen ? 'var(--blue)' : (background ?? 'var(--search)'))};
     padding: ${({ padding }) => padding ?? '10px'};
     border-radius: 10px;
     cursor: pointer;
@@ -52,7 +53,7 @@ const LinkButtonWrapper = styled.a<{
 
     &:hover {
         background: ${({ hoverBackground, isChosen, background }) =>
-            hoverBackground ?? (isChosen ? 'var(--blue)' : background ?? 'var(--search)')};
+            hoverBackground ?? (isChosen ? 'var(--blue)' : (background ?? 'var(--search)'))};
         filter: brightness(0.9);
         color: ${({ hoverTextColor }) => hoverTextColor};
     }

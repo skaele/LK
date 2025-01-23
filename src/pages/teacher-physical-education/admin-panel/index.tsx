@@ -1,12 +1,13 @@
+import React, { useEffect } from 'react'
+
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
 import { AddCompetition } from '@features/physical-education/admin-panel/add-competition/ui'
-
 import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
 import { useModal } from 'widgets'
+
 import { columns } from './constants'
 import { CompWrapper, Wrapper } from './styled'
 

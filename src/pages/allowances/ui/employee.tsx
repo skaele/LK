@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { allowancesModel } from '@entities/allowances'
 import { approvalStatus, orderStatus } from '@entities/allowances/consts'
 import { getStatusType } from '@entities/allowances/lib/get-status'
@@ -8,7 +10,6 @@ import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React from 'react'
 import styled from 'styled-components'
 
 export const Employee = ({
@@ -32,10 +33,10 @@ export const Employee = ({
         employee.orderStatus === 'Ready'
             ? 'Approved'
             : employee?.employeeVerdicts?.some((verdict) => verdict.approvalStatus === 'Declined') ||
-              employee.zkguApprovalStatus === 'Declined' ||
-              employee.selfApprovalStatus === 'Declined'
-            ? 'Declined'
-            : 'InProgress')
+                employee.zkguApprovalStatus === 'Declined' ||
+                employee.selfApprovalStatus === 'Declined'
+              ? 'Declined'
+              : 'InProgress')
     return (
         <Layout>
             <Title align="left" size={4}>

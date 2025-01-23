@@ -15,7 +15,10 @@ const InputAreaWrapper = styled.div<Args>`
         display: flex;
         flex-direction: column;
         row-gap: 15px;
-        transition: 0.2s height, 0.2s opacity, 0.2s visibility;
+        transition:
+            0.2s height,
+            0.2s opacity,
+            0.2s visibility;
         height: ${({ openArea }) => (openArea ? 'auto' : '0')};
         opacity: ${({ openArea }) => (openArea ? '1' : '0')};
         visibility: ${({ openArea }) => (openArea ? 'visible' : 'hidden')};

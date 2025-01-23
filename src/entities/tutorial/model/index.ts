@@ -1,5 +1,8 @@
-import { createEffect, createEvent, createStore, sample } from 'effector'
-import { Module, Modules, TutorialId, TutorialRoles } from '../types'
+import { paymentsModel } from '@entities/payments'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { projectActivitesModel } from '@entities/project-activites'
+import { userSettingsModel } from '@entities/settings'
+import { userModel } from '@entities/user'
 import { createMutation, createQuery } from '@farfetched/core'
 import {
     TutorialData,
@@ -13,15 +16,13 @@ import {
     resetTutorial,
     syncModules,
 } from '@shared/api/tutorial-api'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { ModuleData, createTutorials } from '../lib/tutorials'
-import { stringToHash } from '@shared/lib/stringToHash'
-import { userModel } from '@entities/user'
-import { paymentsModel } from '@entities/payments'
 import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
+import { stringToHash } from '@shared/lib/stringToHash'
 import { getKeys } from '@shared/lib/typescript/getKeys'
-import { userSettingsModel } from '@entities/settings'
-import { projectActivitesModel } from '@entities/project-activites'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+
+import { ModuleData, createTutorials } from '../lib/tutorials'
+import { Module, Modules, TutorialId, TutorialRoles } from '../types'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()
@@ -52,7 +53,7 @@ const $heroVisited = createStore<boolean>(false)
     })
     .reset(userModel.events.logout)
 const $currentModule = createStore<Module | null>(null)
-    .on(moduleCompleted, (module) => ({ ...module, completed: true } as Module))
+    .on(moduleCompleted, (module) => ({ ...module, completed: true }) as Module)
     .reset(userModel.events.logout)
 
 const $currentStep = createStore<number>(0).reset(resetStep).reset(userModel.events.logout)

@@ -1,11 +1,12 @@
-import { NotificationType } from '@entities/lk-notifications'
-import { Icon } from '@features/all-pages'
-import { IColors } from '@shared/constants'
-import NewVersionMessage from '@shared/ui/new-version-message'
 import React from 'react'
 import { BiNews, BiRuble } from 'react-icons/bi'
 import { FiClock, FiFileText, FiInfo, FiMessageCircle, FiStar } from 'react-icons/fi'
 import { HiOutlineClipboardCheck } from 'react-icons/hi'
+
+import { NotificationType } from '@entities/lk-notifications'
+import { Icon } from '@features/all-pages'
+import { IColors } from '@shared/constants'
+import NewVersionMessage from '@shared/ui/new-version-message'
 
 const IconWrapper = ({ color, children }: { color: keyof IColors; children: JSX.Element }) => {
     return <Icon color={color}>{children}</Icon>

@@ -1,7 +1,8 @@
-import { messageType } from '@shared/constants'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { Message } from '@ui/atoms'
 import React, { useCallback, useEffect } from 'react'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { messageType } from '@shared/constants'
+import { Message } from '@ui/atoms'
 import styled from 'styled-components'
 
 const PopUpMessageWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }>`
@@ -12,7 +13,10 @@ const PopUpMessageWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }
     background: var(--theme);
     border-radius: var(--brLight);
     z-index: 100;
-    transition: 0.2s transform, 0.2s opacity, 0.2s visibility;
+    transition:
+        0.2s transform,
+        0.2s opacity,
+        0.2s visibility;
     transform: translateY(${({ isOpen }) => (isOpen ? '0px' : '-20px')});
     opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
     visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};

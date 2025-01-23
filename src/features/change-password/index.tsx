@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { changePassword } from '@shared/api/user-api'
 import useFormValidation from '@shared/lib/hooks/use-form-validation'
 import { AnimatedCheck, Button, Input, SubmitButton, Title } from '@shared/ui/atoms'
@@ -6,12 +8,12 @@ import List from '@shared/ui/list'
 import { Message } from '@shared/ui/message'
 import ProgressBar from '@shared/ui/progress-bar'
 import Subtext from '@shared/ui/subtext'
-import React, { useState } from 'react'
+import { useModal } from 'widgets'
+
 import { MANDATORY_RULES, OPTIONAL_RULES } from './const'
 import generatePassword from './lib/generate-password'
 import getPasswordStrength from './lib/get-password-strength'
 import { Buttons, ChangePasswordStyled, CheckStyled, FormStyled, InputsStyled, LeftSide, TopLeftSide } from './styles'
-import { useModal } from 'widgets'
 
 const ChangePassword = () => {
     const [old, setOld] = useState('')

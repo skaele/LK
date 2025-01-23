@@ -1,4 +1,5 @@
 import React from 'react'
+
 import styled from 'styled-components'
 
 const GroupsWrapper = styled.div<{ isCurrent: boolean; inModal: boolean; color: string }>`

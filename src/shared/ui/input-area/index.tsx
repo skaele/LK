@@ -1,14 +1,17 @@
+import React from 'react'
+import { FiAlertCircle, FiInfo, FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
+
 import { Colors, FileFormats } from '@shared/constants'
 import { Button, Divider, FileLink, Message } from '@ui/atoms'
 import Checkbox from '@ui/checkbox'
 import FileInput from '@ui/file-input'
-import React from 'react'
-import { FiAlertCircle, FiInfo, FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
 import { LoadedState } from 'widgets/template-form'
+
 import useInputArea from './lib/use-input-area'
 import { IComplexInputAreaData, IInputArea, IInputAreaData } from './model'
 import { AreaTitle, InputAreaWrapper, UniversalInput } from './ui'
 import Buttons from './ui/organisms/buttons'
+
 type SetData = ((data: IInputArea | null) => void) | ((data: IInputArea) => void)
 
 //TODO: Should be rewritten as HOC, inputs should be children props

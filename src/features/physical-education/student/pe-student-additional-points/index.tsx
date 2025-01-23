@@ -1,13 +1,15 @@
+import React from 'react'
+
 import { selectedPEStudentModel } from '@entities/pe-student/model'
+import { peTeacherModel } from '@entities/pe-teacher'
+import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/button'
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
-import { $additionalPointsColumns } from './model'
+
 import { AddPEStudentAdditionalPoints } from './features/add-pe-student-additional-points'
+import { $additionalPointsColumns } from './model'
 import { StyledTable, Wrapper } from './styled'
-import React from 'react'
-import { Colors } from '@shared/constants'
-import { peTeacherModel } from '@entities/pe-teacher'
 
 export const PEStudentAdditionalPoints = () => {
     const [student, additionalPointsColumns, peTeacher] = useUnit([

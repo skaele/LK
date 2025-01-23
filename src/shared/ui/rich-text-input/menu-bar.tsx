@@ -1,10 +1,12 @@
-import { Editor } from '@tiptap/react'
 import React from 'react'
 import { FaBold, FaItalic, FaListOl, FaListUl, FaStrikethrough } from 'react-icons/fa'
-import { Button } from '../atoms'
-import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Editor } from '@tiptap/react'
+import styled from 'styled-components'
+
+import { Button } from '../atoms'
 
 type MenuBarProps = {
     editor: Editor

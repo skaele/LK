@@ -1,10 +1,31 @@
-import { IColors, isProduction } from '@shared/constants'
 import React, { LazyExoticComponent } from 'react'
-
-import LoginPage from '@pages/login'
+import { AiOutlineReload } from 'react-icons/ai'
 import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
+import { BsFileMedical } from 'react-icons/bs'
+import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
+import {
+    HiOutlineAcademicCap,
+    HiOutlineCalendar,
+    HiOutlineClipboardCheck,
+    HiOutlineFlag,
+    HiOutlineViewGrid,
+} from 'react-icons/hi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
+import { PETeacher } from '@entities/pe-teacher/types'
+import ChatPage from '@pages/chat'
+import LoginPage from '@pages/login'
+import SettingsPage from '@pages/settings'
+import AppearanceSettings from '@pages/settings/pages/appearance'
+import MainPageSettings from '@pages/settings/pages/main-page'
+import MenuSettings from '@pages/settings/pages/menu'
+import NotificationsSettings from '@pages/settings/pages/notifications'
+import PersonalSettings from '@pages/settings/pages/personal'
+import { TutorialSettings } from '@pages/settings/pages/tutorial'
+import { IColors, isProduction } from '@shared/constants'
+import { ExtSize } from '@shared/ui/types'
+
+import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
 import {
     AlertsPage,
     AllPages,
@@ -31,28 +52,6 @@ import {
     ScheduleSession,
     TechnicalMaintenance,
 } from './pages'
-
-import { PETeacher } from '@entities/pe-teacher/types'
-import MainPageSettings from '@pages/settings/pages/main-page'
-import MenuSettings from '@pages/settings/pages/menu'
-import NotificationsSettings from '@pages/settings/pages/notifications'
-import PersonalSettings from '@pages/settings/pages/personal'
-import { ExtSize } from '@shared/ui/types'
-import { AiOutlineReload } from 'react-icons/ai'
-import { BsFileMedical } from 'react-icons/bs'
-import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
-import {
-    HiOutlineAcademicCap,
-    HiOutlineCalendar,
-    HiOutlineClipboardCheck,
-    HiOutlineFlag,
-    HiOutlineViewGrid,
-} from 'react-icons/hi'
-import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
-import AppearanceSettings from '@pages/settings/pages/appearance'
-import SettingsPage from '@pages/settings'
-import ChatPage from '@pages/chat'
-import { TutorialSettings } from '@pages/settings/pages/tutorial'
 
 export const LOGIN_ROUTE = '/login'
 export const FORGOT_PASSWORD_ROUTE = '/forgot-password'

@@ -1,9 +1,11 @@
+import React from 'react'
+import { FiPause, FiPlay, FiX } from 'react-icons/fi'
+
 import { storyModel } from '@entities/story'
 import { Button } from '@ui/button'
 import { ListWrapper } from '@ui/list/styles'
-import React from 'react'
-import { FiPause, FiPlay, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
+
 import Indicator from '../indicator'
 
 const PagesIndicatorWrapper = styled(ListWrapper)`

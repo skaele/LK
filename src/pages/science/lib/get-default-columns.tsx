@@ -1,6 +1,7 @@
-import { ColumnProps } from '@shared/ui/table/types'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa6'
+
+import { ColumnProps } from '@shared/ui/table/types'
 
 export const getDefaultColumns = (): ColumnProps[] => [
     {

@@ -1,8 +1,9 @@
+import React from 'react'
+
 import KeyValue from '@ui/atoms/key-value'
 import displayWithType from '@ui/table/lib/display-with-type'
 import { ColumnProps } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
-import React from 'react'
 import styled from 'styled-components'
 
 const RowModalWrapper = styled.div`

@@ -1,7 +1,8 @@
+import React from 'react'
+
 import { userSettingsModel } from '@entities/settings'
 import { IColorPalette, ThemeVariant } from '@shared/constants'
 import { useUnit } from 'effector-react'
-import React from 'react'
 import styled from 'styled-components'
 
 const NextSubjectWrapper = styled.div<{ background: string }>`

@@ -1,3 +1,7 @@
+import React from 'react'
+import { FiMail, FiPhone } from 'react-icons/fi'
+import { MdOutlinePassword } from 'react-icons/md'
+
 import { confirmModel } from '@entities/confirm'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
@@ -11,9 +15,7 @@ import { changeEmail, changePhone } from '@shared/api/user-api'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
-import React from 'react'
-import { FiMail, FiPhone } from 'react-icons/fi'
-import { MdOutlinePassword } from 'react-icons/md'
+
 import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'
 

@@ -1,5 +1,6 @@
-import { Colors } from '@shared/constants'
 import { Link } from 'react-router-dom'
+
+import { Colors } from '@shared/constants'
 import styled from 'styled-components'
 
 const ChatItemWrapper = styled(Link)<{ isChosen: boolean; isOpen: boolean }>`

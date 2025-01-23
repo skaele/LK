@@ -1,3 +1,6 @@
+import React, { useState } from 'react'
+import { BiWallet } from 'react-icons/bi'
+
 import { tutorialModel } from '@entities/tutorial'
 import { Contract } from '@features/payments'
 import { PaymentsContract } from '@shared/api/model'
@@ -9,8 +12,6 @@ import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
-import { BiWallet } from 'react-icons/bi'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import Slider from 'widgets/slider'
@@ -81,8 +82,8 @@ const DebtAndQr = (props: Props) => {
             ? `Долг по договору`
             : `Остаток по договору`
         : chosenDebt < 0
-        ? `Переплата по договору`
-        : 'У вас нет долга'
+          ? `Переплата по договору`
+          : 'У вас нет долга'
     const dateText = currentPage === 0 ? `На ${localizeDate(new Date())}` : `До ${localizeDate(endDatePlan)}`
 
     const showTutorial =

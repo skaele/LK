@@ -1,12 +1,14 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { IRoute } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
 import { Direction } from '@ui/types'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import PageLinkContent from './page-link-content'
-import React from 'react'
 import { useModal } from 'widgets'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import PageLinkContent from './page-link-content'
 
 const LinkWrapper = styled(Link)<{ width: number | string }>`
     width: ${({ width }) =>

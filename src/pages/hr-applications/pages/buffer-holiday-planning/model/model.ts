@@ -1,11 +1,12 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
+import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import { $hrApi, isAxiosError } from '@shared/api/config'
 import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
+
 import { BufferHolidayPlanningForm } from '../types'
-import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
 const loadBufferHolidayPlanning = createEvent()
 const sendBufferHolidayPlanning = createEvent<BufferHolidayPlanningForm>()

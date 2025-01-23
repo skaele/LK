@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
-import { Initiator } from '../ui/initiator'
-import { Approver } from '../ui/approver'
-import { useUnit } from 'effector-react'
-import { allowancesModel } from '@entities/allowances'
-import { SliderPage } from 'widgets'
-import PageBlock from '@shared/ui/page-block'
-import { Button, Loading, Message } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
-import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
 import { useHistory, useParams } from 'react-router'
+
+import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
+import { allowancesModel } from '@entities/allowances'
+import { Button, Loading, Message } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
+import { useUnit } from 'effector-react'
+import { SliderPage } from 'widgets'
+
+import { Approver } from '../ui/approver'
 import { DevModeMessage } from '../ui/dev-mode-message'
 import { AllowancesForbidden } from '../ui/forbidden'
+import { Initiator } from '../ui/initiator'
 
 const Allowances = () => {
     const history = useHistory()

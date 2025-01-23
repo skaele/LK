@@ -1,7 +1,9 @@
+import React from 'react'
+
 import { scheduleModel } from '@entities/schedule'
 import { SCHEDULE_NO_RESULT } from '@entities/schedule/consts'
+
 import { Template } from '../template'
-import React from 'react'
 
 const CurrentSchedule = () => {
     const {
@@ -11,7 +13,7 @@ const CurrentSchedule = () => {
 
     const resultSchedule = loading
         ? SCHEDULE_NO_RESULT.schedule
-        : externalSchedule ?? schedule ?? SCHEDULE_NO_RESULT.schedule
+        : (externalSchedule ?? schedule ?? SCHEDULE_NO_RESULT.schedule)
 
     return (
         <Template

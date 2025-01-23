@@ -1,16 +1,17 @@
+import { AllAllowances } from '@entities/allowances/model'
 import {
+    AllowanceEmployee,
+    AllowanceFiles,
+    AllowanceNotification,
+    ApprovalStatus,
     Employee,
     HandbookItem,
     HandbookType,
     Role,
     Subordnate,
-    AllowanceEmployee,
-    AllowanceNotification,
-    AllowanceFiles,
-    ApprovalStatus,
 } from '@entities/allowances/types'
+
 import { $allowancesApi } from './config/allowances-config'
-import { AllAllowances } from '@entities/allowances/model'
 import { PersonalAllowance } from './model/notification'
 
 type AllowanceRequest = {

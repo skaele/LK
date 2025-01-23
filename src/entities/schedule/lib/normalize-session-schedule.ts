@@ -2,6 +2,7 @@ import { RawSessionScheduleResponse } from '@shared/api/model'
 import { WEEK_DAYS } from '@shared/constants'
 import { getWeekDayFromDate } from '@shared/lib/dates/get-weekday-from-date'
 import { isValidDate } from '@shared/lib/dates/is-valid-date'
+
 import { EMPTY_WEEK } from '../consts'
 import { getCalendarSchedule } from './get-calendar-schedule'
 

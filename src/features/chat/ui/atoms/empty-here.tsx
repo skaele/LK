@@ -1,5 +1,6 @@
 import React from 'react'
 import { HiOutlineChatAlt2 } from 'react-icons/hi'
+
 import styled from 'styled-components'
 
 const EmptyHereWrapper = styled.div`

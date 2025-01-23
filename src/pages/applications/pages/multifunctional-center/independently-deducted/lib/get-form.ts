@@ -1,6 +1,6 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+import { IInputArea } from '@ui/input-area/model'
 
 const ReasonDeductionOptions = [
     { id: 0, title: 'по собственному желанию' },

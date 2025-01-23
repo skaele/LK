@@ -1,3 +1,7 @@
+import React from 'react'
+import { FiMenu, FiSidebar } from 'react-icons/fi'
+import { Redirect, Route, Switch } from 'react-router'
+
 import { SCHEDULE_CURRENT_ROUTE, scheduleRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
 import { scheduleModel } from '@entities/schedule'
@@ -6,10 +10,8 @@ import { ErrorIconIndicator } from '@shared/ui/error-icon-indicator'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import { Button, Wrapper } from '@ui/atoms'
-import React from 'react'
-import { FiMenu, FiSidebar } from 'react-icons/fi'
-import { Redirect, Route, Switch } from 'react-router'
 import { Slider } from 'widgets'
+
 import useSchedule from './hooks/use-schedule'
 import { SideMenu } from './ui/side-menu'
 

@@ -1,10 +1,12 @@
-import AddedElementsList from '@ui/added-elements-list'
 import React from 'react'
+
+import AddedElementsList from '@ui/added-elements-list'
 import styled from 'styled-components'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
 import useFilter from './lib/hooks/use-filter'
 import { TableProps } from './types'
-import { Body, Header, Search, Footer } from './ui'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+import { Body, Footer, Header, Search } from './ui'
 
 const TableWrapper = styled.div`
     width: 100%;

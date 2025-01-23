@@ -1,4 +1,5 @@
 import normalizeString from '@utils/normalize-string'
+
 import { InstructionsType } from '../data/student-data'
 
 const search = (value: string, instructions: InstructionsType[]) => {

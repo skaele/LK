@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { TemplateApplications } from 'widgets'
 
 const TeachersHrApplicationsPage = () => {

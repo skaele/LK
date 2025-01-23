@@ -1,8 +1,9 @@
+import React from 'react'
+import { IoMdClose } from 'react-icons/io'
+
 import { tutorialModel } from '@entities/tutorial'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { useUnit } from 'effector-react'
-import React from 'react'
-import { IoMdClose } from 'react-icons/io'
 import styled from 'styled-components'
 
 export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out' | 'removed') => void }) => {

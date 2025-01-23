@@ -14,7 +14,9 @@ export const SliderItemWrapper = styled.div<{ elementsVisible: number; condition
     justify-content: center;
     text-align: center;
     opacity: ${({ condition }) => (condition ? 0.7 : 0.3)};
-    transition: 0.2s opacity, 0.2s transform;
+    transition:
+        0.2s opacity,
+        0.2s transform;
     z-index: 1;
     cursor: pointer;
     user-select: none;

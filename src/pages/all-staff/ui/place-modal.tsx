@@ -1,6 +1,7 @@
+import React from 'react'
+
 import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
 import { MEDIA_QUERIES } from '@shared/constants'
-import React from 'react'
 import styled from 'styled-components'
 
 export const PlaceModal = ({ place }: { place: SiteName }) => {

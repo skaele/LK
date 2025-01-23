@@ -1,4 +1,5 @@
 import { createEvent, sample } from 'effector'
+
 import { peExamStudentModel } from './pe-exam-student-model'
 
 export const pageLoaded = createEvent()

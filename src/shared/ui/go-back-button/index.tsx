@@ -1,7 +1,8 @@
-import { Button } from '@ui/button'
 import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useHistory } from 'react-router-dom'
+
+import { Button } from '@ui/button'
 
 interface Props {
     visible?: boolean

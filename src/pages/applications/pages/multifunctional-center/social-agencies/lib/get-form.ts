@@ -1,9 +1,9 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import { NumberOfCopiesOptions } from '@entities/applications/consts'
 import getAddressFields from '@features/applications/lib/get-address-fields'
-import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+import { IInputArea } from '@ui/input-area/model'
 
 const SocialPlaceOfReferenceOptions = [
     { id: 0, title: 'в Фонд пенсионного и социального страхования Российской Федерации (СФР)' },

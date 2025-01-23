@@ -1,4 +1,5 @@
 import { createEvent, createStore } from 'effector'
+
 import { SearchType } from '../type'
 
 const setSearchMode = createEvent<SearchType | null>()

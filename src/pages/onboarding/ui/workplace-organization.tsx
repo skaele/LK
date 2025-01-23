@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { BoldText } from '@shared/ui/atoms/BoldText'
+
 import { Contacts } from './contacts'
 
 export const WorkplaceOrganization = () => (

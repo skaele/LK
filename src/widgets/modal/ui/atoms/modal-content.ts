@@ -7,7 +7,9 @@ const ModalContent = styled.div<{ isOpen: boolean; hasBack: boolean; hasTitle: b
     min-height: 150px;
     max-height: 90vh;
     border-radius: var(--brLight);
-    transition: 0.2s opacity, 0.2s transform;
+    transition:
+        0.2s opacity,
+        0.2s transform;
     overflow: auto;
 
     & > .title-wrapper {

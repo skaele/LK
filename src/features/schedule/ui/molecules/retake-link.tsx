@@ -1,7 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+
 import { PageLinkProps } from '@features/all-pages/ui/molecules/page-link'
+import styled from 'styled-components'
 import { useModal } from 'widgets'
+
 import RetakeLinkContent from './retake-link-content'
 
 const LinkWrapper = styled.a<{ width: number | string }>`

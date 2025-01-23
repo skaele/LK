@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react'
+
 import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
 import { pEStudentModel } from '@entities/pe-student/model'
 import { PEStudent } from '@entities/pe-student/types'
@@ -7,8 +9,8 @@ import Pagination from '@shared/ui/pagination'
 import Search from '@shared/ui/search'
 import Table from '@shared/ui/table'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
 import { useModal } from 'widgets'
+
 import { pEStudentIsExamModel, pEStudentSearchModel } from '../model'
 import { examPeStudentColumns, peStudentColumns } from './constants'
 import { pageLoaded } from './model'

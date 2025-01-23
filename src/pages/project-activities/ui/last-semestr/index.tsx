@@ -1,7 +1,9 @@
+import React from 'react'
+
 import { Project } from '@shared/api/model/project-activites'
 import { Title } from '@shared/ui/title'
-import React from 'react'
 import styled from 'styled-components'
+
 import { ScoreItem } from '../score-item'
 
 const LastSemestrStyled = styled.div``

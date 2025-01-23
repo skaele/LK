@@ -1,6 +1,8 @@
 import React from 'react'
-import { DayCalendarEvent } from '../../types'
+
 import styled from 'styled-components'
+
+import { DayCalendarEvent } from '../../types'
 
 const SubjectsIndicatorStyled = styled.div`
     display: flex;

@@ -1,6 +1,8 @@
-import styled from 'styled-components'
-import LoadingImage from '../../images/loading.gif'
 import React, { HtmlHTMLAttributes } from 'react'
+
+import styled from 'styled-components'
+
+import LoadingImage from '../../images/loading.gif'
 
 type BaseProps = HtmlHTMLAttributes<HTMLImageElement>
 

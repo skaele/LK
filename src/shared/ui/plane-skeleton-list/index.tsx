@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Flex from '../flex'
 import { SkeletonShape } from '../skeleton-shape'
 import { Shape } from '../types'

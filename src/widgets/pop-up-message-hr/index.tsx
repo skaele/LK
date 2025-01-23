@@ -1,7 +1,8 @@
 //import { messageType } from '@consts'
+import React, { useCallback, useEffect } from 'react'
+
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 import { Message } from '@ui/atoms'
-import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
 

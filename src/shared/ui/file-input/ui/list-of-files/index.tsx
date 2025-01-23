@@ -1,8 +1,10 @@
+import React from 'react'
+
+import { confirmModel } from '@entities/confirm'
 import { FileInputProps } from '@ui/file-input'
 import List from '@ui/list'
+
 import File from './ui/file'
-import React from 'react'
-import { confirmModel } from '@entities/confirm'
 
 type Props = Pick<FileInputProps, 'files' | 'setFiles'> & { hideHeader?: boolean; className?: string }
 

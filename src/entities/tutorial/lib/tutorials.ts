@@ -254,36 +254,36 @@ const initPaymentsSteps = (roles: TutorialRoles): TutorialStep[] => {
                   },
               ]
             : roles.includes('education')
-            ? [
-                  {
-                      title: 'Договоры и оплаты',
-                      description: 'В этом разделе можно посмотреть задолженность и другую информацию по договору',
-                  },
-                  {
-                      title: 'Задолженность',
-                      description: step2,
-                  },
-                  {
-                      title: 'Оплата',
-                      description: step3,
-                  },
-              ]
-            : roles.includes('dormitory')
-            ? [
-                  {
-                      title: 'Договоры и оплаты',
-                      description: 'В этом разделе можно посмотреть задолженность и другую информацию по договору',
-                  },
-                  {
-                      title: 'Задолженность',
-                      description: step2,
-                  },
-                  {
-                      title: 'Оплата',
-                      description: step3,
-                  },
-              ]
-            : []),
+              ? [
+                    {
+                        title: 'Договоры и оплаты',
+                        description: 'В этом разделе можно посмотреть задолженность и другую информацию по договору',
+                    },
+                    {
+                        title: 'Задолженность',
+                        description: step2,
+                    },
+                    {
+                        title: 'Оплата',
+                        description: step3,
+                    },
+                ]
+              : roles.includes('dormitory')
+                ? [
+                      {
+                          title: 'Договоры и оплаты',
+                          description: 'В этом разделе можно посмотреть задолженность и другую информацию по договору',
+                      },
+                      {
+                          title: 'Задолженность',
+                          description: step2,
+                      },
+                      {
+                          title: 'Оплата',
+                          description: step3,
+                      },
+                  ]
+                : []),
     ]
 }
 const initPaymentsRoles = (roles: TutorialRoles) => {

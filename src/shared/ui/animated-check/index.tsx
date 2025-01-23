@@ -1,7 +1,9 @@
 import React from 'react'
-import { AnimatedCheckWrapper } from './styles'
+
 import { Colors, IColors } from '@shared/constants'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { AnimatedCheckWrapper } from './styles'
 
 export type AnimatedCheckProps = {
     size: string

@@ -1,8 +1,9 @@
-import styled from 'styled-components'
-import { getValueFromSize } from './lib/get-value-from-size'
-import { RADIUSES, HEIGHTS } from './consts'
-import { Size } from '@shared/ui/types'
 import { MEDIA_QUERIES } from '@shared/constants'
+import { Size } from '@shared/ui/types'
+import styled from 'styled-components'
+
+import { HEIGHTS, RADIUSES } from './consts'
+import { getValueFromSize } from './lib/get-value-from-size'
 
 export const SliderWrapper = styled.div<{
     elementsVisible: number

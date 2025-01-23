@@ -1,14 +1,16 @@
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { FormBlock, SubmitButton } from '@shared/ui/atoms'
-import { IInputArea } from '@shared/ui/input-area/model'
 import React, { useEffect, useState } from 'react'
+
 import { applicationsModel } from '@entities/applications'
 import { globalAppSendForm } from '@pages/applications/lib'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import checkFormFields from '@shared/lib/check-form-fields'
-import { LoadedState } from 'widgets/template-form'
-import { getForm } from './lib/form'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
+import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from 'widgets/template-form'
+
+import { getForm } from './lib/form'
 
 const MilitaryCopies = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

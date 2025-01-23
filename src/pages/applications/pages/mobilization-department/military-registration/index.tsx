@@ -1,24 +1,26 @@
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { FormBlock, Message, SubmitButton, Title } from '@shared/ui/atoms'
-import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import React, { useEffect, useMemo, useState } from 'react'
-import {
-    getDriversLicenseData,
-    getFamilyCompositionForm,
-    getPersonalData,
-    getMilitaryRegistrationDocument,
-    getForeignLanguages,
-    getEducation,
-    getContacts,
-    getPassport,
-} from './lib/main-form'
+
 import { applicationsModel } from '@entities/applications'
+import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
 import { SelectPage } from '@features/select'
 import { globalAppSendForm } from '@pages/applications/lib'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import checkFormFields from '@shared/lib/check-form-fields'
-import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { FormBlock, Message, SubmitButton, Title } from '@shared/ui/atoms'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import { LoadedState } from 'widgets/template-form'
+
+import {
+    getContacts,
+    getDriversLicenseData,
+    getEducation,
+    getFamilyCompositionForm,
+    getForeignLanguages,
+    getMilitaryRegistrationDocument,
+    getPassport,
+    getPersonalData,
+} from './lib/main-form'
 
 const MilitaryRegistration = () => {
     const [personalData, setPersonalData] = useState<IInputArea | null>(null)

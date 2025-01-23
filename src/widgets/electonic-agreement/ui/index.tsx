@@ -1,16 +1,18 @@
-import { Button, Divider, LinkButton, SubmitButton } from '@ui/atoms'
-import { Message } from '@ui/message'
-import localizeDate from '@shared/lib/dates/localize-date'
 import React from 'react'
 import { FiCheck, FiDownload } from 'react-icons/fi'
-import { useModal } from 'widgets'
-import { MistakeModal } from './atoms'
-import Flex from '@shared/ui/flex'
-import styled from 'styled-components'
-import Subtext from '@shared/ui/subtext'
-import { Colors } from '@shared/constants'
+
 import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { ElectronicInteractionTemplate } from '@shared/api/model'
+import { Colors } from '@shared/constants'
+import localizeDate from '@shared/lib/dates/localize-date'
+import Flex from '@shared/ui/flex'
+import Subtext from '@shared/ui/subtext'
+import { Button, Divider, LinkButton, SubmitButton } from '@ui/atoms'
+import { Message } from '@ui/message'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
+import { MistakeModal } from './atoms'
 
 export const ElectornicAgreementStyled = styled.div`
     .info-text {

@@ -1,6 +1,8 @@
+import React, { useState } from 'react'
+
 import { Button } from '@shared/ui/button'
 import Input from '@shared/ui/input'
-import React, { useState } from 'react'
+
 import { addCompetition } from './model'
 import { Wrapper } from './styled'
 

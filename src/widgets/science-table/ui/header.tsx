@@ -1,10 +1,11 @@
 import React from 'react'
-import { ColumnProps } from '@shared/ui/table/types'
 import { FaSort } from 'react-icons/fa6'
-import styled from 'styled-components'
+
+import { scienceModel } from '@entities/science'
+import { ColumnProps } from '@shared/ui/table/types'
 import { Align } from '@shared/ui/types'
 import { useUnit } from 'effector-react'
-import { scienceModel } from '@entities/science'
+import styled from 'styled-components'
 
 interface Props {
     columns: ColumnProps[]

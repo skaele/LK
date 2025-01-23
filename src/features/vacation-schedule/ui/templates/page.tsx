@@ -1,3 +1,6 @@
+import React, { useEffect, useMemo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
+
 import { userModel } from '@entities/user'
 import { vacationScheduleModel } from '@entities/vacation-schedule'
 import Select, { SelectPage } from '@features/select'
@@ -6,9 +9,8 @@ import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/ato
 import Card from '@ui/card'
 import List from '@ui/list'
 import Subtext from '@ui/subtext'
-import React, { useEffect, useMemo, useState } from 'react'
+
 import { Vacation } from '../organism'
-import { FiPlus } from 'react-icons/fi'
 
 const calendarUrls = {
     fiveWorkDays:

@@ -1,5 +1,6 @@
-import QrCode from '@features/payments/ui/atoms/qr-code'
 import React from 'react'
+
+import QrCode from '@features/payments/ui/atoms/qr-code'
 import styled from 'styled-components'
 import { SliderPage } from 'widgets'
 

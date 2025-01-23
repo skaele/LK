@@ -1,14 +1,16 @@
+import React from 'react'
+import { useHistory } from 'react-router'
+
 import { PHYSICAL_EDUCATION_STUDENT } from '@app/routes/teacher-routes'
-import { healthGroupToTitle, PEStudent, specializationToTitle } from '@entities/pe-student/types'
+import { PEStudent, healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 import { buildRealLink } from '@shared/lib/buildRealLink'
 import KeyValue from '@shared/ui/atoms/key-value'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import React from 'react'
-import { useHistory } from 'react-router'
 import { useModal } from 'widgets'
+
 import { AddPeStudentVisits } from '../../pe-student-visits/features/add-pe-student-visits/ui'
 import { PEStudentModalWrapper } from './styled'
 

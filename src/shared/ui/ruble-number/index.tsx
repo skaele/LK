@@ -1,8 +1,10 @@
 import React from 'react'
 import { BiRuble } from 'react-icons/bi'
+
 import styled from 'styled-components'
-import { Size } from '../types'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { Size } from '../types'
 
 const RubleNumberStyled = styled.div<{ fontSize: string; iconSize: string; fontWeight?: string }>`
     display: flex;

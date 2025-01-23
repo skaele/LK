@@ -1,10 +1,12 @@
+import React, { useState } from 'react'
+
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import React, { useState } from 'react'
 import { useModal } from 'widgets'
-import { Email } from './steps/email'
+
 import { Code } from './steps/code'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Email } from './steps/email'
 
 export const Modal = ({ guid, email }: { guid: string; email: string }) => {
     const [step, setStep] = useState(0)

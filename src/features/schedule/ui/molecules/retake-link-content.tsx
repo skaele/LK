@@ -1,6 +1,8 @@
 import React from 'react'
-import { PageLinkWrapper as ContentWrapper } from '@features/all-pages/ui/molecules/page-link-content'
+
 import { Icon } from '@features/all-pages'
+import { PageLinkWrapper as ContentWrapper } from '@features/all-pages/ui/molecules/page-link-content'
+
 import { RetakeLinkProps } from './retake-link'
 
 const RetakeLinkContent = ({ title, icon, color }: RetakeLinkProps) => {

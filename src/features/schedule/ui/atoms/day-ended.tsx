@@ -1,6 +1,8 @@
-import { AnimatedCheck, Title } from '@ui/atoms'
 import React from 'react'
+
+import { AnimatedCheck, Title } from '@ui/atoms'
 import styled from 'styled-components'
+
 import { ShowNextDayEventsButton } from '../show-next-day-events-button'
 
 const DayEndedWrapper = styled.div`

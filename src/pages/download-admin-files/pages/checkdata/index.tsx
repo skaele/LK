@@ -1,5 +1,6 @@
-import { adminLinksModel } from '@entities/admin-links'
 import React from 'react'
+
+import { adminLinksModel } from '@entities/admin-links'
 import AdminLinksTemplate from 'widgets/admin-links-template'
 
 const DownloadCheckdata = () => {

@@ -1,16 +1,18 @@
+import React, { useEffect, useState } from 'react'
+
 import { applicationsModel } from '@entities/applications'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import sendHrFormHolidayPlanning from '@pages/hr-applications/lib/send-hr-form-holiday-planning'
+import PageBlock from '@shared/ui/page-block'
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
+
 import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'
 import getCollDog from './lib/get-coll-dog'
 import getForm from './lib/get-form'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import PageBlock from '@shared/ui/page-block'
 
 const HolidayPlanning = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

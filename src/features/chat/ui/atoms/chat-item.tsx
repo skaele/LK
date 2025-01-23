@@ -1,11 +1,13 @@
+import React from 'react'
+import { useRouteMatch } from 'react-router'
+
 import { CHAT_ROUTE, TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
 import { chatMessagesModel } from '@entities/chat-messages'
 import { Chat } from '@entities/chats'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { useUnit } from 'effector-react'
-import React from 'react'
-import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
+
 import Badge from '../../../../shared/ui/badge'
 import Flex from '../../../../shared/ui/flex'
 import Subtext from '../../../../shared/ui/subtext'

@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react'
+
 import { CodeError } from '../code-error'
 
 const hmrErrorMessage = /Cannot access 'get' before initialization/

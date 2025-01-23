@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import { ChipItemStyled, ChipsStyled } from './styles'
 
 type Props = {

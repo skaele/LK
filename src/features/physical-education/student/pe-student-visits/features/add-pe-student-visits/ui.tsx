@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 import { pEStudentVisitModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
@@ -8,7 +10,6 @@ import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
 import { isWithinInterval, subWeeks } from 'date-fns'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
 
 interface Props {
     studentGuid: string

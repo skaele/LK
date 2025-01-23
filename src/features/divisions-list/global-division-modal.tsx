@@ -1,11 +1,13 @@
+import React from 'react'
+
 import { phonebookModel } from '@entities/phonebook'
 import { userModel } from '@entities/user'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import DivisionModal from './division-modal'
-import { PhonebookModal } from '@pages/all-staff/ui/phonebook-modal'
-import { getSubdivisionPath } from '@pages/all-staff/lib/get-subdivision-path'
 import { getSubdivisionInfo } from '@pages/all-staff/lib/get-subdivision-info'
+import { getSubdivisionPath } from '@pages/all-staff/lib/get-subdivision-path'
+import { PhonebookModal } from '@pages/all-staff/ui/phonebook-modal'
+import { useUnit } from 'effector-react'
+
+import DivisionModal from './division-modal'
 
 export const GlobalDivisionModal = ({ division }: { division: string }) => {
     const {

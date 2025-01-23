@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { allowancesModel } from '@entities/allowances'
 import { Subordnate } from '@entities/allowances/types'
 import Checkbox from '@shared/ui/checkbox'
@@ -6,7 +8,6 @@ import Input from '@shared/ui/input'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React from 'react'
 
 export const EmployeeInput = ({
     subordinate: { employeeId, employeeName, divisionName, position, employmentType, rate },

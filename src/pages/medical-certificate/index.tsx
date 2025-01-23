@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 import { applicationsModel } from '@entities/applications'
 import { medicalCertificateModel } from '@entities/medical-certificate'
 import { globalAppSendForm } from '@pages/applications/lib'
@@ -8,7 +10,7 @@ import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import Checkbox from '@shared/ui/checkbox'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
-import React, { useEffect, useState } from 'react'
+
 import { getCertForm } from './lib/cert-form'
 import { getForm } from './lib/main-form'
 

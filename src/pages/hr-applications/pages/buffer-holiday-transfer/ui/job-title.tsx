@@ -1,12 +1,14 @@
+import React, { useState } from 'react'
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
+
+import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 import { WorkerApplication } from '@shared/api/model'
 import Block from '@shared/ui/block'
 import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
-import React, { useState } from 'react'
-import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
+
 import { getBufferHolidayPlanningColumns } from '../../buffer-holiday-planning/lib/get-buffer-holiday-planning-columns'
 
 interface Props {

@@ -1,6 +1,8 @@
+import React from 'react'
+
 import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
 import Flex from '@shared/ui/flex'
-import React from 'react'
+
 import NotificationItem from './notification-item'
 
 type Props = {

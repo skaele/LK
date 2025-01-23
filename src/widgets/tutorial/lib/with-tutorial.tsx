@@ -1,17 +1,19 @@
 import React, { ComponentType, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
+
+import { tutorialModel } from '@entities/tutorial'
+import { TutorialId } from '@entities/tutorial/types'
+import { useIntersectionObserver } from '@shared/lib/hooks/use-intersection-observer'
+import useResize from '@shared/lib/hooks/use-resize'
+import Flex from '@shared/ui/flex'
+import { MobileSwiper } from '@shared/ui/mobile-swiper'
+import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
-import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
-import { Title } from '@shared/ui/title'
-import Flex from '@shared/ui/flex'
-import { tutorialModel } from '@entities/tutorial'
+
 import { SkipButton } from '../ui/skip-button'
-import useResize from '@shared/lib/hooks/use-resize'
-import { TutorialId } from '@entities/tutorial/types'
-import { MobileSwiper } from '@shared/ui/mobile-swiper'
 import { usePosition } from './use-position'
-import { useIntersectionObserver } from '@shared/lib/hooks/use-intersection-observer'
 
 type HintPosition = 'right' | 'bottom' | 'top' | 'left'
 export type Dimensions = { width: number; height: number }

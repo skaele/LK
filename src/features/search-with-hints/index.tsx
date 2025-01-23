@@ -1,7 +1,8 @@
+import React, { useEffect, useState } from 'react'
+
 import Search, { Hint } from '@shared/ui/search'
 import { Size } from '@shared/ui/types'
 import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
 
 type Props<T> = {
     placeholder: string

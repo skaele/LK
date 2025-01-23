@@ -1,8 +1,9 @@
+import React from 'react'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import get2DigitDumber from '@shared/lib/get-2-digit-number'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
 import styled from 'styled-components'
 
 const TimeWrapper = styled(Flex)<{ scale: number; timesLen: number }>`

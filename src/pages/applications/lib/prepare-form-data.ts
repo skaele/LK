@@ -73,12 +73,15 @@ const createResultElementForm = (elementForm: IInputAreaData) => {
     }
 
     if (elementForm.type === 'checkbox-docs') {
-        return (elementForm.items as CheckboxDocs[])?.reduce((obj, element) => {
-            for (let fileIndex = 0; fileIndex < element.files.length; fileIndex++) {
-                obj[element?.fieldName + `[${fileIndex}]`] = element.files[fileIndex]
-            }
-            return obj
-        }, {} as { [key: string]: any })
+        return (elementForm.items as CheckboxDocs[])?.reduce(
+            (obj, element) => {
+                for (let fileIndex = 0; fileIndex < element.files.length; fileIndex++) {
+                    obj[element?.fieldName + `[${fileIndex}]`] = element.files[fileIndex]
+                }
+                return obj
+            },
+            {} as { [key: string]: any },
+        )
     }
     if (elementForm.type === 'select') {
         obj[elementForm.fieldName] = !!elementForm.isSpecificSelect

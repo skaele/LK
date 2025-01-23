@@ -1,5 +1,6 @@
-import Subtext from '@shared/ui/subtext'
 import React, { memo } from 'react'
+
+import Subtext from '@shared/ui/subtext'
 import styled from 'styled-components'
 
 const OrderList = styled.div`
@@ -18,9 +19,7 @@ const Orders = ({ orders }: Props) => {
     return (
         <OrderList>
             {!orders?.length && <Subtext>Нет приказов</Subtext>}
-            {orders?.map((order) => (
-                <OrderItem key={order}>{order}</OrderItem>
-            ))}
+            {orders?.map((order) => <OrderItem key={order}>{order}</OrderItem>)}
         </OrderList>
     )
 }

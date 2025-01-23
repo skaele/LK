@@ -1,7 +1,8 @@
-import { HOME_ROUTE } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
+
+import { HOME_ROUTE } from '@app/routes/general-routes'
+import { menuModel } from '@entities/menu'
 
 const PrivateRouter = () => {
     const { allRoutes } = menuModel.selectors.useMenu()

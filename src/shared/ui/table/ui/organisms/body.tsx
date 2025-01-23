@@ -1,11 +1,13 @@
+import React, { useEffect, useState } from 'react'
+
+import { Divider } from '@shared/ui/divider'
 import { Error } from '@ui/error'
 import { Loading } from '@ui/loading'
 import Pagination from '@ui/pagination'
 import { TableCatalogType, TableProps } from '@ui/table/types'
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 import { Row } from '../molecules'
-import { Divider } from '@shared/ui/divider'
 
 const BodyWrapper = styled.div`
     display: flex;
@@ -65,8 +67,8 @@ const Body = ({
     const result = pagination
         ? data
         : maxOnPage
-        ? data?.slice(currentPage * maxOnPage, (currentPage + 1) * maxOnPage)
-        : data
+          ? data?.slice(currentPage * maxOnPage, (currentPage + 1) * maxOnPage)
+          : data
 
     useEffect(() => {
         setCurrentPage(0)

@@ -1,13 +1,15 @@
+import React from 'react'
+import { FiX } from 'react-icons/fi'
+
+import { userSettingsModel } from '@entities/settings'
 import { ThemeVariant, messageType } from '@shared/constants'
 import { Button } from '@ui/button'
 import SkeletonList from '@ui/skeleton-list'
 import { Align, MessageType } from '@ui/types'
-import React from 'react'
-import { FiX } from 'react-icons/fi'
+import { useUnit } from 'effector-react'
+
 import { Title } from '../title'
 import { MessageWrapper } from './styles'
-import { userSettingsModel } from '@entities/settings'
-import { useUnit } from 'effector-react'
 
 export type MessageProps = {
     type: MessageType
@@ -91,7 +93,7 @@ export function Message({
             lineHeight={lineHeight}
             solidBackground={solidBackground}
         >
-            <Title size={4} align={align} icon={icon === null ? null : icon ?? messageType[type].icon({})}>
+            <Title size={4} align={align} icon={icon === null ? null : (icon ?? messageType[type].icon({}))}>
                 {title ?? messageType[type].title}
             </Title>
             {onClose && <Button onClick={onClose} icon={<FiX />} className="close-button" />}

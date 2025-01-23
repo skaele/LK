@@ -1,8 +1,10 @@
+import React from 'react'
+
 import { userModel } from '@entities/user'
 import GoBackButton from '@shared/ui/go-back-button'
-import React from 'react'
-import { HelpLinks, OtherContacts } from '../organisms'
 import PageBlock from '@shared/ui/page-block'
+
+import { HelpLinks, OtherContacts } from '../organisms'
 
 export function ContentPage() {
     const {

@@ -1,6 +1,7 @@
+import React from 'react'
+
 import { Title } from '@shared/ui/title'
 import styled from 'styled-components'
-import React from 'react'
 
 interface Props {
     label: string

@@ -1,8 +1,10 @@
+import React from 'react'
+
 import { PageLinkProps } from '@features/all-pages/ui/molecules/page-link'
 import PageLinkContent from '@features/all-pages/ui/molecules/page-link-content'
-import React from 'react'
-import { LeftsideBarItemWrapper } from './customize-leftside-bar-wrapper'
+
 import AddToMenuButton from './add-to-menu-buttom'
+import { LeftsideBarItemWrapper } from './customize-leftside-bar-wrapper'
 
 type Props = PageLinkProps & {
     chosen: boolean

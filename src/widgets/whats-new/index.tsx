@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
 import { TimeIntervalColor } from '@shared/api/model'
 import { Colors } from '@shared/constants'
@@ -5,9 +7,9 @@ import { TimesEvents } from '@shared/ui/calendar/calendars/day/ui/times-events'
 import { Button } from '@ui/atoms'
 import { DotPages } from '@ui/molecules'
 import limitNumber from '@utils/limit-number'
-import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
 import { WhatsNewTemplate } from './ui'
 
 const WhatsNewWrapper = styled.div`

@@ -1,6 +1,8 @@
-import { Colors, IColors } from '@shared/constants'
 import React from 'react'
+
+import { Colors, IColors } from '@shared/constants'
 import styled from 'styled-components'
+
 import { Title } from '../title'
 import { ExtSize, Size } from '../types'
 

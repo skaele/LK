@@ -1,16 +1,16 @@
-import { Button } from '@ui/atoms'
 import React from 'react'
 import { IoMdSend } from 'react-icons/io'
-import styled from 'styled-components'
 
 import { chatModel } from '@entities/chats'
 import { chatsMessageModel } from '@features/chat/model'
+import { MEDIA_QUERIES } from '@shared/constants'
 import ListOfFiles from '@shared/ui/file-input/ui/list-of-files'
 import { RichTextInput } from '@shared/ui/rich-text-input'
 import { UploadFileButton } from '@shared/ui/upload-file-button'
+import { Button } from '@ui/atoms'
 import { useUnit } from 'effector-react'
-import { MEDIA_QUERIES } from '@shared/constants'
 import sanitize from 'sanitize-html'
+import styled from 'styled-components'
 
 export const ChatInput = () => {
     const [message, selectedChat] = useUnit([chatsMessageModel.stores.currentMessage, chatModel.stores.selectedChat])

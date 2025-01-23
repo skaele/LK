@@ -1,13 +1,15 @@
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+
 import { TimeIntervals } from '@shared/api/model'
+import { IWeekDayNames } from '@shared/constants'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { DayCalendarEvent } from '@shared/ui/calendar'
 import { useCalendarGeneral } from '@shared/ui/calendar/hooks/use-calendar-general'
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
+
 import { getCurrentDay } from '../lib/get-current-day'
 import { getEndTime } from '../lib/get-end-time'
 import { DayCalendarProps } from '../types'
-import { IWeekDayNames } from '@shared/constants'
-import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
 
 type Props = DayCalendarProps
 

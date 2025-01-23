@@ -1,7 +1,9 @@
+import React, { useEffect } from 'react'
+
 import Search, { Hint } from '@shared/ui/search'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
+
 import { $search, $teachers, onSearch, resetTeachers } from './model'
 
 type TeacherSelectProps = {

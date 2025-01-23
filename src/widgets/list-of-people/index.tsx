@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import SearchWithHints from '@features/search-with-hints'
 import { SelectPage } from '@features/select'
 import GlobalSearch from '@shared/ui/global-search'
@@ -6,8 +8,8 @@ import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 import { AxiosResponse } from 'axios'
 import { EventCallable, Store } from 'effector'
-import React, { useState } from 'react'
 import styled from 'styled-components'
+
 import PeoplePaginationList from './people-pagination-list'
 
 const ListWrapper = styled.div`

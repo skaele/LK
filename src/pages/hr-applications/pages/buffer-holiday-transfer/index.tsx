@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { Title, Wrapper } from '@ui/atoms'
-import styled from 'styled-components'
-import Content from './ui/content'
-import { bufferHolidayTransferModel } from './model'
+
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+import { Title, Wrapper } from '@ui/atoms'
+import styled from 'styled-components'
+
+import { bufferHolidayTransferModel } from './model'
+import Content from './ui/content'
 
 const HolidayTransferBufferPage = () => {
     const { data, loading } = bufferHolidayTransferModel.selectors.useBufferHolidayTransfer()

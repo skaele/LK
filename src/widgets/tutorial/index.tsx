@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 
-import TrainingPic from '../../shared/images/tutorial-picture.jpg'
-import { Button } from '@shared/ui/button'
-import { Colors } from '@shared/constants'
-import { useUnit } from 'effector-react'
 import { tutorialModel } from '@entities/tutorial'
-import { Buttons, Text, Title, Hero, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import styled from 'styled-components'
 import { userModel } from '@entities/user'
+import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Button } from '@shared/ui/button'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
+import TrainingPic from '../../shared/images/tutorial-picture.jpg'
+import { Buttons, Hero, Text, Title, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'
 
 export const TutorialHero = () => {
     const [isDeleted, setIsDeleted] = useState(false)

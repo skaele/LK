@@ -15,7 +15,7 @@ const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<Rea
                     if (!!l?.fieldName)
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : l.value?.title ?? null
+                        obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : (l.value?.title ?? null)
                     return obj
                 })
             } else {

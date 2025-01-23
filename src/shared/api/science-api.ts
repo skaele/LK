@@ -1,4 +1,5 @@
 import { Article, Changes, Filter, Sort } from '@entities/science/types'
+
 import { $scienceApi } from './config/science-config'
 
 export type UploadReq = { scopusFile: File; wosFile: File }
@@ -47,8 +48,11 @@ export const getArticleDetails = async (id: string) => {
     }
 }
 function convertKeysToLowerCase(obj: Record<string, any>): Record<string, any> {
-    return Object.keys(obj).reduce((acc, key) => {
-        acc[key.toLowerCase()] = obj[key]
-        return acc
-    }, {} as Record<string, any>)
+    return Object.keys(obj).reduce(
+        (acc, key) => {
+            acc[key.toLowerCase()] = obj[key]
+            return acc
+        },
+        {} as Record<string, any>,
+    )
 }

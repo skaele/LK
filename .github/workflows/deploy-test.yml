@@ -48,9 +48,6 @@ jobs:
 
             - name: Setup VPN config
               run: |
-                  echo "${{ secrets.CA_CRT }}" > ca.crt
-                  echo "${{ secrets.USER_CRT }}" > user.crt
-                  echo "${{ secrets.USER_KEY }}" > user.key
                   echo "${{ secrets.SECRET_USERNAME_PASSWORD }}" > secret.txt
                   echo "${{ secrets.CONFIG }}" > config.ovpn
 

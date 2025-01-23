@@ -59,8 +59,8 @@ jobs:
               run: |
                   port="${{ env.PORT }}"
                   echo ${{ secrets.GH_PAT }} | docker login ghcr.io -u awqsomee --password-stdin
-                  docker build . --tag ghcr.io/awqsomee/mospolytech-lk-ghcr:latest
-                  docker push ghcr.io/awqsomee/mospolytech-lk-ghcr:latest
+                  docker build . --tag ghcr.io/awqsomee/mospolytech-lk-ghcr:feat$port
+                  docker push ghcr.io/awqsomee/mospolytech-lk-ghcr:feat$port
 
     update-server-containers:
         runs-on: ubuntu-latest
@@ -77,9 +77,6 @@ jobs:
 
             - name: Setup VPN config
               run: |
-                  echo "${{ secrets.CA_CRT }}" > ca.crt
-                  echo "${{ secrets.USER_CRT }}" > user.crt
-                  echo "${{ secrets.USER_KEY }}" > user.key
                   echo "${{ secrets.SECRET_USERNAME_PASSWORD }}" > secret.txt
                   echo "${{ secrets.CONFIG }}" > config.ovpn
 

@@ -1,8 +1,9 @@
-import { IGrade } from '@api/model/acad-performance'
-import { MessageType } from '@ui/types'
 import { IconType } from 'react-icons'
 import { FiAlertCircle, FiCheck, FiInfo, FiXCircle } from 'react-icons/fi'
 import { HiOutlineLightBulb } from 'react-icons/hi'
+
+import { IGrade } from '@api/model/acad-performance'
+import { MessageType } from '@ui/types'
 
 export type MenuType = string[]
 export type ShortCutLinksType = number[]
@@ -416,8 +417,7 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction =
-    true || !window.location.port || window.location.port === '80' || window.location.port === '4001'
+export const isProduction = !window.location.port || window.location.port === '80'
 
 export const runsLocally = false
 export const TUTORIAL_HASH = 'tHash'

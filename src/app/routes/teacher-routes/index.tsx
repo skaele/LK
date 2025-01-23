@@ -63,6 +63,7 @@ import {
     Article,
     Onboarding,
     Children,
+    AdminCompetenceCenter,
 } from './pages'
 
 import { isProduction, OLD_LK_URL } from '@shared/constants'
@@ -154,6 +155,9 @@ export const ARTICLES = '/articles'
 export const ARTICLE = '/articles/:id'
 export const OPEN_PUBLICATION = '/open-publication'
 export const EXPORT_CONTROL = '/export-control'
+export const COMPETENCE_CENTER = '/competence-center'
+export const COMPETENCE_CENTER_LIST = '/competence-center-list'
+export const COMPETENCE_CENTER_FORM = '/competence-center-form'
 
 //hidden routes
 export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student/:studentId'
@@ -636,6 +640,16 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         color: 'orange',
         isTemplate: false,
         group: 'SCIENCE',
+    },
+    'competence-center': {
+        id: 'competence-center',
+        title: 'Заявки студентов',
+        icon: <RiPassValidLine />,
+        path: EXPORT_CONTROL,
+        Component: AdminCompetenceCenter,
+        color: 'orange',
+        isTemplate: false,
+        group: 'COMPETENCE_CENTER',
     },
     // 'generate-schedule': {
     //     id: 'generate-schedule',

@@ -30,7 +30,7 @@ jobs:
 
             - name: Build and publish
               run: |
-                  echo ${{ secrets.GH_PAT }} | docker login ghcr.io -u awqsomeeZ --password-stdin
+                  echo ${{ secrets.GH_PAT }} | docker login ghcr.io -u awqsomee --password-stdin
                   docker build . --tag ghcr.io/awqsomee/mospolytech-lk-ghcr:latest
                   docker push ghcr.io/awqsomee/mospolytech-lk-ghcr:latest
 

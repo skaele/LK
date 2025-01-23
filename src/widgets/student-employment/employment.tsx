@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 
 import Flex from '@shared/ui/flex'
 import List from '@shared/ui/list'
@@ -9,6 +9,7 @@ const HH_SCRIPT =
 
 export const Employment = () => {
     const containerRef = useRef<HTMLDivElement | null>(null)
+    const [scriptError, setScriptError] = useState(false)
 
     useEffect(() => {
         const hhDiv = containerRef.current
@@ -18,6 +19,9 @@ export const Employment = () => {
             script.src = HH_SCRIPT
             script.async = true
 
+            script.onerror = () => {
+                setScriptError(true)
+            }
             hhDiv.appendChild(script)
 
             return () => {
@@ -52,7 +56,9 @@ export const Employment = () => {
                 </List>
             </Block>
             <Block title="Вакансии и стажировки на HH.ru">
-                <div ref={containerRef}></div>
+                <div ref={containerRef}>
+                    {scriptError && 'Виджет недоступен. Попробуйте выключить блокировщик рекламы'}
+                </div>
             </Block>
         </Flex>
     )

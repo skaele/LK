@@ -1,9 +1,12 @@
 import React from 'react'
+
 import styled from 'styled-components'
-import { Size } from '../types'
+
 import { Colors, IColors } from '@shared/constants'
+
 import { SkeletonShape } from '../skeleton-shape'
 import { Title } from '../title'
+import { Size } from '../types'
 
 const FACTOR = 2.7
 

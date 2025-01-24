@@ -1,6 +1,7 @@
-import { Colors, messageType } from '@shared/constants'
 import { Align, MessageType } from '@ui/types'
 import styled from 'styled-components'
+
+import { Colors, messageType } from '@shared/constants'
 
 // const getBackground = (isLightTheme: boolean, type: MessageType, solidBackground: boolean) =>
 //     isLightTheme
@@ -11,8 +12,8 @@ const getColor = (isLightTheme: boolean, type: MessageType, solidBackground: boo
     solidBackground
         ? '#fff'
         : isLightTheme
-        ? Colors[messageType[type].color].dark3
-        : Colors[messageType[type].color].light3
+          ? Colors[messageType[type].color].dark3
+          : Colors[messageType[type].color].light3
 
 export const MessageWrapper = styled.div<{
     type: MessageType

@@ -1,7 +1,8 @@
-import { ViewType } from '@api/model'
-import { Button } from '@ui/atoms'
 import React from 'react'
 import { FiColumns, FiSidebar } from 'react-icons/fi'
+
+import { ViewType } from '@api/model'
+import { Button } from '@ui/atoms'
 import styled from 'styled-components'
 
 const ScheduleViewButtonsListWrapper = styled.div`

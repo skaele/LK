@@ -1,4 +1,5 @@
 import { User } from '@api/model/user'
+
 import { divisionT } from '@features/applications/lib/get-divisions'
 
 export interface Application {

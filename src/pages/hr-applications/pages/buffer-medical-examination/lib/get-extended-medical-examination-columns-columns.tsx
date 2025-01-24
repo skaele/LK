@@ -1,8 +1,12 @@
 import React from 'react'
+
 import { ColumnProps } from '@ui/table/types'
-import { getMedicalExaminationHistoryColumns } from './get-medical-examination-columns'
-import { Button } from '@shared/ui/button'
+
 import downloadFile from '@pages/hr-applications/lib/get-file'
+
+import { Button } from '@shared/ui/button'
+
+import { getMedicalExaminationHistoryColumns } from './get-medical-examination-columns'
 
 export const getExtendedMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [

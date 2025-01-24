@@ -1,13 +1,17 @@
-import { userModel } from '@entities/user'
-import useLogin from '@pages/login/hooks/use-login'
-import Flex from '@shared/ui/flex'
+import React from 'react'
+
 import { Input, Logo, SubmitButton } from '@ui/atoms'
 import Checkbox from '@ui/checkbox'
 import List from '@ui/list'
 import { Message } from '@ui/message'
 import Subtext from '@ui/subtext'
 import { Title } from '@ui/title'
-import React from 'react'
+
+import useLogin from '@pages/login/hooks/use-login'
+
+import { userModel } from '@entities/user'
+
+import Flex from '@shared/ui/flex'
 
 const Inputs = () => {
     const { loading, error, data } = userModel.selectors.useUser()

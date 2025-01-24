@@ -1,16 +1,20 @@
-import Select, { SelectPage } from '@features/select'
+import React, { useState } from 'react'
+
 import { Input, TextArea } from '@ui/atoms'
 import Checkbox from '@ui/checkbox'
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData, IInputAreaFiles } from '@ui/input-area/model'
 import { DateInterval } from '@ui/molecules'
+import SimpleText from '@ui/molecules/simple-text'
 import { CheckboxDocumentList, RadioButtonList } from '@ui/organisms'
 import { RadioButton } from '@ui/organisms/radio-button-list'
-import React, { useState } from 'react'
+
+import Select, { SelectPage } from '@features/select'
+
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import SimpleText from '@ui/molecules/simple-text'
+
+import AutocompleteInput from '@shared/ui/atoms/auto-complete-input'
 import HrCheckbox from '@shared/ui/atoms/hr-checkbox'
 import TextHeader from '@shared/ui/molecules/text-header'
-import AutocompleteInput from '@shared/ui/atoms/auto-complete-input'
 import TextWarning from '@shared/ui/molecules/text-warning'
 
 type Props = IInputAreaData & {

@@ -1,6 +1,9 @@
-import { lkNotificationModel } from '@entities/lk-notifications'
 import React from 'react'
+
 import NotificationItem from 'widgets/lk-notification-list/ui/notification-item'
+
+import { lkNotificationModel } from '@entities/lk-notifications'
+
 import usePopUpNotifications from './hooks/use-pop-up-notifications'
 import { PopUpNotificationsItem, PopUpNotificationsStyled } from './styles'
 

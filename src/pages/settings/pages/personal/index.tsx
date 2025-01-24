@@ -1,19 +1,25 @@
-import { confirmModel } from '@entities/confirm'
-import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
-import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
-import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
-import Avatar from '@features/home/ui/molecules/avatar'
-import { getValueView } from '@pages/settings/lib'
-import { PhotoField, TextField } from '@pages/settings/ui'
-import PasswordField from '@pages/settings/ui/password-field'
-import { changeEmail, changePhone } from '@shared/api/user-api'
-import { Title } from '@shared/ui/title'
-import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
 import React from 'react'
 import { FiMail, FiPhone } from 'react-icons/fi'
 import { MdOutlinePassword } from 'react-icons/md'
+
+import { useUnit } from 'effector-react'
+
+import { getValueView } from '@pages/settings/lib'
+import { PhotoField, TextField } from '@pages/settings/ui'
+import PasswordField from '@pages/settings/ui/password-field'
+
+import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
+import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
+import Avatar from '@features/home/ui/molecules/avatar'
+
+import { confirmModel } from '@entities/confirm'
+import { userSettingsModel } from '@entities/settings'
+import { userModel } from '@entities/user'
+
+import { changeEmail, changePhone } from '@shared/api/user-api'
+import { Title } from '@shared/ui/title'
+import ToggleItem from '@shared/ui/toggle-item'
+
 import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'
 

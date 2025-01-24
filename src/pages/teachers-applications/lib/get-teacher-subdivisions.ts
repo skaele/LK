@@ -41,10 +41,10 @@ const getTeacherSubdivisions = (type?: RequestType): IInputAreaData[] => {
                 type === 'kadr'
                     ? [...listTeacherMfc, hrDepartment]
                     : type === 'buhg'
-                    ? [...listTeacherMfc, bookkeeping]
-                    : type === 'mob'
-                    ? [...listTeacherMfc, mobilizationDepartment]
-                    : listTeacherMfc,
+                      ? [...listTeacherMfc, bookkeeping]
+                      : type === 'mob'
+                        ? [...listTeacherMfc, mobilizationDepartment]
+                        : listTeacherMfc,
             specialType: 'personalMethod',
         },
     ]

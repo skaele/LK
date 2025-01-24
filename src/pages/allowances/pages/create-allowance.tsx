@@ -1,20 +1,26 @@
-import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
 import React, { useEffect, useMemo, useState } from 'react'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
 import { useUnit } from 'effector-react'
-import { allowancesModel } from '@entities/allowances'
+
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
 import Select from '@features/select'
-import { EmployeeInput } from '../ui/employee-input'
-import FormBlockWrapper from '@shared/ui/atoms/form-block'
-import Subtext from '@shared/ui/subtext'
-import Flex from '@shared/ui/flex'
-import FileInput from '@shared/ui/file-input'
+
+import { allowancesModel } from '@entities/allowances'
 import { popUpMessageModel } from '@entities/pop-up-message'
+
+import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
+import FormBlockWrapper from '@shared/ui/atoms/form-block'
+import Checkbox from '@shared/ui/checkbox'
+import FileInput from '@shared/ui/file-input'
+import Flex from '@shared/ui/flex'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 import Search from '@shared/ui/search'
-import Checkbox from '@shared/ui/checkbox'
-import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import Subtext from '@shared/ui/subtext'
+
 import { DevModeMessage } from '../ui/dev-mode-message'
+import { EmployeeInput } from '../ui/employee-input'
 import { AllowancesForbidden } from '../ui/forbidden'
 
 const CreateAllowance = () => {

@@ -1,8 +1,11 @@
+import React from 'react'
+
+import styled from 'styled-components'
+
 import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
+
 import List from '@shared/ui/list'
 import { Title } from '@shared/ui/title'
-import React from 'react'
-import styled from 'styled-components'
 
 const CustomBlock = styled.div`
     width: calc(100% - 2px);

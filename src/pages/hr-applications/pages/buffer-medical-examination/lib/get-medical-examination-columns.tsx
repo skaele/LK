@@ -1,9 +1,12 @@
-import localizeDate from '@shared/lib/dates/localize-date'
-import { Message } from '@shared/ui/message'
 import React from 'react'
+
 import { ColumnProps } from '@ui/table/types'
-import { Button } from '@shared/ui/button'
+
 import downloadFile from '@pages/hr-applications/lib/get-file'
+
+import localizeDate from '@shared/lib/dates/localize-date'
+import { Button } from '@shared/ui/button'
+import { Message } from '@shared/ui/message'
 
 export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [
@@ -25,10 +28,10 @@ export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
                             value === 'Согласовано'
                                 ? 'success'
                                 : value === 'На регистрации'
-                                ? 'info'
-                                : value === 'Не утвержден' || value === 'Не создано'
-                                ? 'failure'
-                                : 'alert'
+                                  ? 'info'
+                                  : value === 'Не утвержден' || value === 'Не создано'
+                                    ? 'failure'
+                                    : 'alert'
                         }
                         title={value || '-'}
                         align="center"

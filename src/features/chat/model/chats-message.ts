@@ -1,6 +1,8 @@
+import { combine, createEvent, createStore, sample } from 'effector'
+
 import { chatMessagesModel } from '@entities/chat-messages'
 import { chatModel } from '@entities/chats'
-import { combine, createEvent, createStore, sample } from 'effector'
+
 // TODO: add sync to local storage
 
 const changed = createEvent<{ text: string; files: File[] }>()

@@ -1,6 +1,8 @@
+import React from 'react'
+
 import { Project } from '@shared/api/model/project-activites'
 import { Title } from '@shared/ui/title'
-import React from 'react'
+
 import { ScoreItem } from '../score-item'
 
 type Props = {

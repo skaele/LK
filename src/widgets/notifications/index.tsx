@@ -1,19 +1,25 @@
-import { ItemNotification, Notifications } from '@api/model/notification'
-import { personalNotificationModel } from '@entities/notification'
-import Select, { SelectPage } from '@features/select'
-import PageBlock from '@shared/ui/page-block'
-import { Wrapper } from '@ui/atoms'
 import React, { useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
+import { useHistory, useParams } from 'react-router'
+
+import { ItemNotification, Notifications } from '@api/model/notification'
+import { Wrapper } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { DOCLIST_ROUTE } from '@app/routes/teacher-routes'
+
+import Select, { SelectPage } from '@features/select'
+
+import { personalNotificationModel } from '@entities/notification'
+import { NotificationType } from '@entities/notification/model'
+
+import PageBlock from '@shared/ui/page-block'
+
 import Input from '../../shared/ui/input'
 import SliderPage from '../slider-page'
 import checkNotifications from './lib/filter-notification'
-import { ListNotification } from './ui/atoms'
-import { NotificationType } from '@entities/notification/model'
 import { AllowanceList } from './ui/allowance-list'
-import { useHistory, useParams } from 'react-router'
-import { DOCLIST_ROUTE } from '@app/routes/teacher-routes'
+import { ListNotification } from './ui/atoms'
 
 const ElementsControlNotification = styled.div`
     display: flex;

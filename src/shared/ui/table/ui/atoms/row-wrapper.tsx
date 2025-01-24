@@ -1,5 +1,6 @@
-import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
 
 const RowWrapper = styled.div<{ even?: boolean; height?: string }>`
     display: flex;

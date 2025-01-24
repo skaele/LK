@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react'
-import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
-import { menuModel } from '@entities/menu'
-import ScheduleAndNotification from '@features/home/ui/organisms/schedule-and-notification'
-import UserInfo from '@features/user-info'
-import Block from '@shared/ui/block'
-import Flex from '@shared/ui/flex'
+
+import { CenterPage, Title } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import AlertsWidget from 'widgets/alerts-widget'
-import { CenterPage, Title } from '@ui/atoms'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-import { useUnit } from 'effector-react'
-import { userSettingsModel } from '@entities/settings'
-import { paymentsModel } from '@entities/payments'
-import { scheduleModel } from '@entities/schedule'
-import { userModel } from '@entities/user'
 import { GlobalAppSearchTutorial } from 'widgets/tutorial/tutorials/global-app-search-tutorial'
 import { LinksTutorial } from 'widgets/tutorial/tutorials/links-tutorial'
+import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
+
+import ScheduleAndNotification from '@features/home/ui/organisms/schedule-and-notification'
+import UserInfo from '@features/user-info'
+
+import { menuModel } from '@entities/menu'
+import { paymentsModel } from '@entities/payments'
+import { scheduleModel } from '@entities/schedule'
+import { userSettingsModel } from '@entities/settings'
+import { userModel } from '@entities/user'
+
+import Block from '@shared/ui/block'
+import Flex from '@shared/ui/flex'
 
 const HomePageStyled = styled.div`
     width: 100%;

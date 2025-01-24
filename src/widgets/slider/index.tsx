@@ -1,9 +1,12 @@
-import { Size } from '@shared/ui/types'
-import useResize from '@utils/hooks/use-resize'
 import React, { memo, useEffect, useRef, useState } from 'react'
+
+import useResize from '@utils/hooks/use-resize'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { Size } from '@shared/ui/types'
+
 import { SliderWrapper } from './styles'
 import { CurrentPage, SliderItem } from './ui'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 interface ISlider {
     pages: { title: string; condition?: boolean }[]

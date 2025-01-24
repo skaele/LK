@@ -1,17 +1,23 @@
-import { LOGIN_ROUTE, publicRoutes } from '@app/routes/general-routes'
-import { adminLinksModel } from '@entities/admin-links'
-import { applicationsModel } from '@entities/applications'
-import { peTeacherModel } from '@entities/pe-teacher'
-import { loadDivisions } from '@pages/hr-applications/model/divisions'
-import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
 import React, { Suspense, useEffect } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+
 import ContentLayout from 'widgets/content-layout'
-import { userModel } from '../../entities/user'
+import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
+
+import { LOGIN_ROUTE, publicRoutes } from '@app/routes/general-routes'
+
+import { loadDivisions } from '@pages/hr-applications/model/divisions'
+
+import { adminLinksModel } from '@entities/admin-links'
+import { allowancesModel } from '@entities/allowances'
+import { applicationsModel } from '@entities/applications'
+import { peTeacherModel } from '@entities/pe-teacher'
 import { phonebookModel } from '@entities/phonebook'
 import { initializeTutorials } from '@entities/tutorial/lib/initialize'
-import { useSetTutorial } from 'widgets/tutorial/lib/use-set-tutorial'
-import { allowancesModel } from '@entities/allowances'
+
+import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
+
+import { userModel } from '../../entities/user'
 
 const Router = () => {
     const {

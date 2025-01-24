@@ -1,12 +1,15 @@
-import { Colors } from '@shared/constants'
-import { INPUT_HEIGHT } from '@shared/constants/input-size'
+import React, { ForwardedRef, HTMLInputTypeAttribute, forwardRef } from 'react'
+import { FiAlertTriangle, FiEye, FiEyeOff, FiX } from 'react-icons/fi'
+
 import { Button } from '@ui/button'
 import { Title } from '@ui/title'
 import { format } from 'date-fns'
-import React, { ForwardedRef, forwardRef, HTMLInputTypeAttribute } from 'react'
-import { FiAlertTriangle, FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { Colors } from '@shared/constants'
+import { INPUT_HEIGHT } from '@shared/constants/input-size'
+
 import { Loading, Message } from '../atoms'
 import { Size } from '../types'
 import useInput from './hooks/use-input'
@@ -170,7 +173,7 @@ const Input = forwardRef(function Input(props: Props, ref: ForwardedRef<HTMLInpu
         mask,
     )
 
-    const formattedValue = value && type === 'date' ? format(new Date(value), 'yyyy-MM-dd') : value ?? ''
+    const formattedValue = value && type === 'date' ? format(new Date(value), 'yyyy-MM-dd') : (value ?? '')
 
     return (
         <InputWrapper

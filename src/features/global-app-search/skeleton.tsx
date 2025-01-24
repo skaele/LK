@@ -1,6 +1,7 @@
+import React from 'react'
+
 import Flex from '@shared/ui/flex'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
-import React from 'react'
 
 const SearchSkeleton = () => {
     return (

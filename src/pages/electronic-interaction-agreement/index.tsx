@@ -1,15 +1,20 @@
-import { electronicInteractionModel } from '@entities/electronic-interaction'
-import PageBlock from '@shared/ui/page-block'
-import { Wrapper } from '@ui/atoms'
-import localizeDate from '@shared/lib/dates/localize-date'
-import { useUnit } from 'effector-react'
 import React from 'react'
-import { ElectornicAgreement } from 'widgets/electonic-agreement'
 import { useHistory, useParams } from 'react-router'
+
+import { Wrapper } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import { SliderPage, useModal } from 'widgets'
+import { ElectornicAgreement } from 'widgets/electonic-agreement'
+
 import { ELECTRONIC_INTERACTION_AGREEMENT_ROUTE } from '@app/routes/general-routes'
-import { Modal } from './modal'
+
+import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { thirdPartyInteractionModel } from '@entities/payments'
+
+import localizeDate from '@shared/lib/dates/localize-date'
+import PageBlock from '@shared/ui/page-block'
+
+import { Modal } from './modal'
 
 const ElectronicInteractionAgreementPage = () => {
     const history = useHistory()

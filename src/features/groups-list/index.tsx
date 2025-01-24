@@ -1,5 +1,7 @@
-import Flex from '@shared/ui/flex'
 import React from 'react'
+
+import Flex from '@shared/ui/flex'
+
 import GroupItem from './group-item'
 
 type Props = {

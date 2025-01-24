@@ -1,8 +1,11 @@
-import { Colors } from '@shared/constants'
-import { hintModel } from '@entities/hint'
-import { Message } from '@ui/message'
 import React from 'react'
+
+import { Message } from '@ui/message'
 import styled from 'styled-components'
+
+import { hintModel } from '@entities/hint'
+
+import { Colors } from '@shared/constants'
 
 const HintModalWrapper = styled.div<{ open: boolean; left: number; top: number }>`
     left: ${({ left }) => left + 'px'};

@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 export const SCIENCE_URL = 'https://api.mospolytech.ru/lk/science/'

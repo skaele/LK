@@ -1,16 +1,21 @@
+import React from 'react'
+import { useHistory, useRouteMatch } from 'react-router'
+
+import { Wrapper } from '@ui/atoms'
+import { useStore } from 'effector-react'
+import styled from 'styled-components'
+import ListOfPeople from 'widgets/list-of-people'
+
 import { ALL_STAFF_ROUTE } from '@app/routes/teacher-routes'
+
+import { SelectPage } from '@features/select'
+
 import { paginationList } from '@entities/all-teachers'
 import { userModel } from '@entities/user'
-import { SelectPage } from '@features/select'
+
 import { getDivisions } from '@shared/api/teacher-api'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
-import { Wrapper } from '@ui/atoms'
-import { useStore } from 'effector-react'
-import React from 'react'
-import { useHistory, useRouteMatch } from 'react-router'
-import styled from 'styled-components'
-import ListOfPeople from 'widgets/list-of-people'
 
 const PageWrapper = styled.div`
     width: 100%;

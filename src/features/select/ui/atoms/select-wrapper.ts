@@ -1,7 +1,8 @@
-import { INPUT_HEIGHT } from '@shared/constants/input-size'
-import { Size } from '@shared/ui/types'
 import styled from 'styled-components'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { INPUT_HEIGHT } from '@shared/constants/input-size'
+import { Size } from '@shared/ui/types'
 
 const SelectWrapper = styled.div<{
     isOpen: boolean

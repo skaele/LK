@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
+
 import { runsLocally } from '@shared/constants'
+
+import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 export const TUTORIAL_URL = runsLocally
     ? 'http://localhost:8080/tutorial/api'

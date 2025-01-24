@@ -1,9 +1,12 @@
+import React, { useEffect, useState } from 'react'
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
+
+import styled from 'styled-components'
+
 import Block from '@shared/ui/block'
 import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
-import React, { useState, useEffect } from 'react'
-import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
-import styled from 'styled-components'
+
 import getHolidayWorkHistoryColumns from '../../buffer-holiday-transfer/lib/get-holiday-work-history-columns'
 import { bufferHolidayWorkModel } from '../model'
 

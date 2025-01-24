@@ -1,9 +1,11 @@
 //import { messageType } from '@consts'
-import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
-import { Message } from '@ui/atoms'
 import React, { useCallback, useEffect } from 'react'
+
+import { Message } from '@ui/atoms'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+
+import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 
 const PopUpMessageHrWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }>`
     display: block;

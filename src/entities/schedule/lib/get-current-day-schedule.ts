@@ -1,7 +1,9 @@
 import { ISubject } from '@api/model'
+
+import getDateWithoutTime from '@shared/lib/dates/get-date-without-time'
+
 import { getFullEndDate } from './get-full-end-date'
 import { getFullStartDate } from './get-full-start-date'
-import getDateWithoutTime from '@shared/lib/dates/get-date-without-time'
 
 const getCurrentDaySubjects = (daySubjects: ISubject[] | null, fullWeekDay: Date): ISubject[] =>
     (daySubjects ?? []).filter((subject) => {

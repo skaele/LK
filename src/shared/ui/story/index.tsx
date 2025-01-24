@@ -1,9 +1,12 @@
-import { storyModel } from '@entities/story'
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import React, { useRef, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+
+import { storyModel } from '@entities/story'
+
 import PagesIndicator from './ui/pages-indicator'
 import StoryPage from './ui/story-page'
 

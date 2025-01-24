@@ -1,13 +1,18 @@
-import { IRoute } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
-import Flex from '@shared/ui/flex'
-import { SkeletonShape } from '@ui/skeleton-shape'
 import React from 'react'
 import { useLocation } from 'react-router'
+
+import { SkeletonShape } from '@ui/skeleton-shape'
+import { useUnit } from 'effector-react'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { IRoute } from '@app/routes/general-routes'
+
+import { menuModel } from '@entities/menu'
+
+import Flex from '@shared/ui/flex'
+
 import LeftsideBarListWrapper from '../atoms/leftside-bar-list-wrapper'
 import LeftsideBarItem from '../molecules/leftside-bar-item'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-import { useUnit } from 'effector-react'
 
 const LeftsideBarList = ({ forwardedRef }: TutorialComponent) => {
     const leftsideBarRoutes = useUnit(menuModel.stores.leftSidebar)

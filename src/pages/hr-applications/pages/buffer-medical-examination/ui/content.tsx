@@ -1,17 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
-import Flex from '@shared/ui/flex'
-import { bufferMedicalExaminationModel } from '../model'
-import { Loading } from '@shared/ui/loading'
-import Block from '@shared/ui/block'
-import { Button, Wrapper } from '@shared/ui/atoms'
-import Table from '@shared/ui/table'
-import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
-import { applicationsModel } from '@entities/applications'
-import { compareDesc } from 'date-fns'
-import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
-import { Link } from 'react-router-dom'
 import { FiPlus } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
+import { compareDesc } from 'date-fns'
+import styled from 'styled-components'
+
+import { applicationsModel } from '@entities/applications'
+
+import { Button, Wrapper } from '@shared/ui/atoms'
+import Block from '@shared/ui/block'
+import Flex from '@shared/ui/flex'
+import { Loading } from '@shared/ui/loading'
+import Table from '@shared/ui/table'
+
+import { getExtendedMedicalExaminationHistoryColumns } from '../lib/get-extended-medical-examination-columns-columns'
+import { getMedicalExaminationHistoryColumns } from '../lib/get-medical-examination-columns'
+import { bufferMedicalExaminationModel } from '../model'
 
 const Content = () => {
     const { data, getDataLoading } = bufferMedicalExaminationModel.selectors.useBufferMedicalExamination()

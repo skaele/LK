@@ -1,10 +1,14 @@
-import { userModel } from '@entities/user'
-import TextFieldItem from '@shared/ui/text-field/text-field-item'
-import { useUnit } from 'effector-react'
 import React from 'react'
-import { useModal } from 'widgets'
-import { BusinessMobilePhoneModal } from './business-mobile-phone-modal'
 import { FiPhone } from 'react-icons/fi'
+
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
+import { userModel } from '@entities/user'
+
+import TextFieldItem from '@shared/ui/text-field/text-field-item'
+
+import { BusinessMobilePhoneModal } from './business-mobile-phone-modal'
 
 export const BusinessMobilePhone = () => {
     const {

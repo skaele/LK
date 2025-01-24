@@ -1,7 +1,9 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
-import getAddressFields from '@features/applications/lib/get-address-fields'
+import { IInputArea } from '@ui/input-area/model'
+
 import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+
+import getAddressFields from '@features/applications/lib/get-address-fields'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
 
 const PlaceOfReferenceOptions = [

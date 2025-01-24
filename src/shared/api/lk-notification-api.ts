@@ -1,6 +1,8 @@
-import getToken from '@shared/lib/token'
-import { $api } from './config'
 import { NotificationType } from '@entities/lk-notifications'
+
+import getToken from '@shared/lib/token'
+
+import { $api } from './config'
 
 export type NotificationsResponse = {
     id: NotificationType

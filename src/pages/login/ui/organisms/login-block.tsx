@@ -1,7 +1,10 @@
 import React from 'react'
-import { userModel } from '@entities/user'
+
 import BlockWrapper from '@ui/block/styles'
 import styled from 'styled-components'
+
+import { userModel } from '@entities/user'
+
 import Information from '../molecules/information'
 import Inputs from '../molecules/inputs'
 
@@ -27,7 +30,9 @@ const LoginBlockStyled = styled(BlockWrapper)<{ isAuthenticated: boolean }>`
     .left {
         min-width: 320px;
         width: 320px;
-        transition: 0.2s background, 0.2s opacity;
+        transition:
+            0.2s background,
+            0.2s opacity;
         background: ${({ isAuthenticated }) => (isAuthenticated ? 'var(--theme)' : 'var(--theme-1t)')};
         padding-top: ${({ isAuthenticated }) => (isAuthenticated ? '60px' : '22px')};
 

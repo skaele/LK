@@ -1,73 +1,4 @@
-import PageIsNotReady from '@pages/page-is-not-ready'
-
-import {
-    HelpfulInformation,
-    HrApplicationsPage,
-    PartTimeEmployment,
-    Dismissal,
-    ExtraHolidayColl,
-    HolidayWork,
-    HolidayPlanning,
-    IssuanceOfLicensesPage,
-    GettingComputerEquipmentPage,
-    ConnectingComputerPage,
-    OtherItServicesPage,
-    CertificateFromPlaceOfWorkPage,
-    CertificateOfWorkExperiencePage,
-    NumberOfUnusedVacationDaysPage,
-    CopyOfEmploymentRecordPage,
-    CopiesOfDocumentsFromPersonalFilePage,
-    CertificateTimeParentalLeavePage,
-    ArbitraryRequestPage,
-    CourierPage,
-    PaymentForChildCarePage,
-    PaymentOfChildBirthAllowancePage,
-    PersonaIncomeTaxReferencePage,
-    ContactInfoActualizationPage,
-    HolidayTransfer,
-    DataVerificationPage,
-    TeacherPhysicalEducation,
-    PhysicalEducationStudent,
-    MedicalExamination,
-    WorkTransferChangeRate,
-    PersonalNotificationsPage,
-    PrinterMaintenancePage,
-    QuestionPersonalAccountPage,
-    QuestionSedPage,
-    TeachersApplicationsPage,
-    VacationSchedule,
-    VisaCertificatePage,
-    WorkOnTermsOfExternalConcurrencyPage,
-    WorkTransfer,
-    LivingInResidentialPremises,
-    GuestsAccomodationOnCampus,
-    GuestsPassageToCampus,
-    Relocation,
-    TerminationOfAgreement,
-    IssuanceOfPass,
-    GuestPass,
-    CertificationAndIssuanceOfDocs,
-    CertifiedCopiesOfMilitaryDocs,
-    DefermentFromConscription,
-    EditPhonebookSubdivision,
-    EditPhonebookInnerPhone,
-    EditPhonebookEmail,
-    ContactDetails,
-    ContactDetailsForm,
-    IncreaseAntiplagiatLimits,
-    Allowances,
-    CreateAllowance,
-    AllowanceInfo,
-    Science,
-    ArticleList,
-    Article,
-    Onboarding,
-    Children,
-} from './pages'
-
-import { isProduction, OLD_LK_URL } from '@shared/constants'
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import {
     BiBookOpen,
     BiBookReader,
@@ -79,32 +10,103 @@ import {
     BiRuble,
     BiWifi,
 } from 'react-icons/bi'
+import { BsPeople } from 'react-icons/bs'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
+import { IoNewspaperOutline } from 'react-icons/io5'
+import { MdGroups, MdPsychology } from 'react-icons/md'
 import { RiNotificationBadgeLine, RiPassValidLine } from 'react-icons/ri'
-import {
-    ALL_TEACHERS_ROUTE,
-    generalHiddenRoutes,
-    generalRoutes,
-    IRoutes,
-    PAYMENTS_ROUTE,
-    PROJECT_ACTIVITIES_ROUTE,
-} from '../general-routes'
+import { Redirect } from 'react-router-dom'
+
+import AllStaff from '@pages/all-staff'
+import AllTeachersPage from '@pages/all-teachers'
+import DownloadAdminFilesPage from '@pages/download-admin-files'
 import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
-import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
 import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
 import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
+import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
 import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
 //import PartTimeEmploymentBufferPage from '@pages/hr-applications/pages/buffer-part-time-employment'
 import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
-import DownloadAdminFilesPage from '@pages/download-admin-files'
-import { MdGroups, MdPsychology } from 'react-icons/md'
+import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
-import { BsPeople } from 'react-icons/bs'
-import AllStaff from '@pages/all-staff'
-import AllTeachersPage from '@pages/all-teachers'
-import { IoNewspaperOutline } from 'react-icons/io5'
+
 import { Role } from '@entities/allowances/types'
+
+import { OLD_LK_URL, isProduction } from '@shared/constants'
+
+import {
+    ALL_TEACHERS_ROUTE,
+    IRoutes,
+    PAYMENTS_ROUTE,
+    PROJECT_ACTIVITIES_ROUTE,
+    generalHiddenRoutes,
+    generalRoutes,
+} from '../general-routes'
+import {
+    AllowanceInfo,
+    Allowances,
+    ArbitraryRequestPage,
+    Article,
+    ArticleList,
+    CertificateFromPlaceOfWorkPage,
+    CertificateOfWorkExperiencePage,
+    CertificateTimeParentalLeavePage,
+    CertificationAndIssuanceOfDocs,
+    CertifiedCopiesOfMilitaryDocs,
+    Children,
+    ConnectingComputerPage,
+    ContactDetails,
+    ContactDetailsForm,
+    ContactInfoActualizationPage,
+    CopiesOfDocumentsFromPersonalFilePage,
+    CopyOfEmploymentRecordPage,
+    CourierPage,
+    CreateAllowance,
+    DataVerificationPage,
+    DefermentFromConscription,
+    Dismissal,
+    EditPhonebookEmail,
+    EditPhonebookInnerPhone,
+    EditPhonebookSubdivision,
+    ExtraHolidayColl,
+    GettingComputerEquipmentPage,
+    GuestPass,
+    GuestsAccomodationOnCampus,
+    GuestsPassageToCampus,
+    HelpfulInformation,
+    HolidayPlanning,
+    HolidayTransfer,
+    HolidayWork,
+    HrApplicationsPage,
+    IncreaseAntiplagiatLimits,
+    IssuanceOfLicensesPage,
+    IssuanceOfPass,
+    LivingInResidentialPremises,
+    MedicalExamination,
+    NumberOfUnusedVacationDaysPage,
+    Onboarding,
+    OtherItServicesPage,
+    PartTimeEmployment,
+    PaymentForChildCarePage,
+    PaymentOfChildBirthAllowancePage,
+    PersonaIncomeTaxReferencePage,
+    PersonalNotificationsPage,
+    PhysicalEducationStudent,
+    PrinterMaintenancePage,
+    QuestionPersonalAccountPage,
+    QuestionSedPage,
+    Relocation,
+    Science,
+    TeacherPhysicalEducation,
+    TeachersApplicationsPage,
+    TerminationOfAgreement,
+    VacationSchedule,
+    VisaCertificatePage,
+    WorkOnTermsOfExternalConcurrencyPage,
+    WorkTransfer,
+    WorkTransferChangeRate,
+} from './pages'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'

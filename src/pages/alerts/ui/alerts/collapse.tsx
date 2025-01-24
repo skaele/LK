@@ -1,9 +1,11 @@
+import React, { useEffect, useState } from 'react'
+import { FiChevronDown } from 'react-icons/fi'
+
+import styled from 'styled-components'
+
 import { Divider } from '@shared/ui/divider'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
-import React, { useEffect, useState } from 'react'
-import { FiChevronDown } from 'react-icons/fi'
-import styled from 'styled-components'
 
 const CollapseStyled = styled.div<{ collapsed: boolean; noChildren: boolean }>`
     width: 100%;

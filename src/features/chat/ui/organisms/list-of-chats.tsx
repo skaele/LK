@@ -1,15 +1,20 @@
-import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-import { chatSidebarModel } from '@features/chat/model'
-import Search from '@shared/ui/search'
-import { Divider, Title } from '@ui/atoms'
-import { useUnit } from 'effector-react'
 import React from 'react'
 import { useRouteMatch } from 'react-router'
+
+import { Divider, Title } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { MEDIA_QUERIES } from '../../../../shared/constants'
-import { AddNewChatTutorial } from 'widgets/tutorial/tutorials/new-chat'
 import { ChatItemsTutorial } from 'widgets/tutorial/tutorials/chat-items-tutorial'
 import { FlexTutorial } from 'widgets/tutorial/tutorials/flex-tutorial'
+import { AddNewChatTutorial } from 'widgets/tutorial/tutorials/new-chat'
+
+import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
+
+import { chatSidebarModel } from '@features/chat/model'
+
+import Search from '@shared/ui/search'
+
+import { MEDIA_QUERIES } from '../../../../shared/constants'
 
 export const ListOfChats = () => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }
@@ -36,7 +41,11 @@ export const ListOfChats = () => {
 const ListOfChatsWrapper = styled.div<{ isOpen: boolean; chatId?: string }>`
     min-width: ${({ isOpen }) => (isOpen ? '350px' : '115px')};
     width: ${({ isOpen }) => (isOpen ? '350px' : '115px')};
-    transition: 0.2s width, 0.2s min-width, 0.2s padding, 0.2s opacity;
+    transition:
+        0.2s width,
+        0.2s min-width,
+        0.2s padding,
+        0.2s opacity;
     height: 100%;
     color: var(--text);
     border-radius: 20px 0 0 20px;

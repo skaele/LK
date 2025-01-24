@@ -1,7 +1,9 @@
 import React from 'react'
 import { FiX } from 'react-icons/fi'
-import { menuModel } from '@entities/menu'
+
 import { Button } from '@ui/atoms'
+
+import { menuModel } from '@entities/menu'
 
 const CloseMenuButton = () => {
     const { isOpen } = menuModel.selectors.useMenu()

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { useHistory } from 'react-router'
+import { useLocation } from 'react-router-dom'
 
 // Watches history stack locally, always has at least one path on stack
 const useHistoryStack = () => {

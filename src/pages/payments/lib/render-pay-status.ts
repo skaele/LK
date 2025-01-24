@@ -1,5 +1,5 @@
-import { ColumnProps } from '@ui/table/types'
 import displayWithType from '@ui/table/lib/display-with-type'
+import { ColumnProps } from '@ui/table/types'
 
 const renderPayStatus: ColumnProps['render'] = (_, row) => {
     const toPay = Number(row?.sum) || Number(row?.sum_price)

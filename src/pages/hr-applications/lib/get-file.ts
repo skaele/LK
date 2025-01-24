@@ -1,5 +1,6 @@
-import { getJwtToken } from '@entities/user/lib/jwt-token'
 import axios from 'axios'
+
+import { getJwtToken } from '@entities/user/lib/jwt-token'
 
 const downloadFile = async (guid: string, type: string) => {
     const url = `https://api.mospolytech.ru/serviceforfrontpersonnelorders/Vacation.DownloadFile?DocumentGuid=${guid}&Type=${type}`

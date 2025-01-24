@@ -1,16 +1,20 @@
-import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import sendHrFormWorkTransfer from '@pages/hr-applications/lib/send-hr-form-work-transfer'
-import { $hrDivisions } from '@pages/hr-applications/model/divisions'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import sendHrFormWorkTransfer from '@pages/hr-applications/lib/send-hr-form-work-transfer'
+import { $hrDivisions } from '@pages/hr-applications/model/divisions'
+
+import { applicationsModel } from '@entities/applications'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import { bufferWorkTransferModel } from '../buffer-work-transfer/model'
 import getForm from './lib/get-form'
 import getPostAfterTransfer from './lib/get-post-after-transfer'

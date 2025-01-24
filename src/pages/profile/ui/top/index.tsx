@@ -1,19 +1,24 @@
+import React from 'react'
+import { FiEdit2, FiLogOut, FiSettings } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
+import Slider from 'widgets/slider'
+
 import { SETTINGS_PERSONAl_ROUTE, SETTINGS_ROUTE } from '@app/routes/general-routes'
+
+import Avatar from '@features/home/ui/molecules/avatar'
+import ThemeToggle from '@features/theme-toggle'
+
 import { confirmModel } from '@entities/confirm'
 import { userModel } from '@entities/user'
-import Avatar from '@features/home/ui/molecules/avatar'
+
 import { User } from '@shared/api/model'
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/button'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Subtext from '@shared/ui/subtext'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
-import React from 'react'
-import { FiEdit2, FiLogOut, FiSettings } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
-import Slider from 'widgets/slider'
 
-import ThemeToggle from '@features/theme-toggle'
 import { AvatarWrapper, BlocksList, Buttons, IconWrapper, Info, InfoWrapper, TopInfoBlock, TopStyled } from './styles'
 
 type Props = {

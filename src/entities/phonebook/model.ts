@@ -1,6 +1,7 @@
+import { createEffect, createEvent, createStore, sample } from 'effector'
+
 import { phonebookApi } from '@shared/api'
 import { Subdivision } from '@shared/api/model/phonebook'
-import { createEffect, createEvent, createStore, sample } from 'effector'
 
 const setSubdivisionPath = createEvent<Subdivision[] | null>()
 

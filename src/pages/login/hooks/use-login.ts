@@ -1,6 +1,8 @@
-import { userModel } from '@entities/user'
-import useQueryParams from '@utils/hooks/use-query-params'
 import { useEffect, useState } from 'react'
+
+import useQueryParams from '@utils/hooks/use-query-params'
+
+import { userModel } from '@entities/user'
 
 const useLogin = () => {
     const queryParams = useQueryParams()

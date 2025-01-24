@@ -1,6 +1,8 @@
-import { ColumnProps } from '@shared/ui/table/types'
-import { NameRenderer } from '../students-list/styled'
 import React from 'react'
+
+import { ColumnProps } from '@shared/ui/table/types'
+
+import { NameRenderer } from '../students-list/styled'
 
 export const examPeStudentColumns: ColumnProps[] = [
     {

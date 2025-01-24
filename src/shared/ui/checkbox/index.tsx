@@ -1,6 +1,7 @@
 import React from 'react'
-import { CheckboxSquare, CheckboxWrapper } from './styles'
 import { FiCheck } from 'react-icons/fi'
+
+import { CheckboxSquare, CheckboxWrapper } from './styles'
 
 export interface CheckboxProps {
     checked: boolean

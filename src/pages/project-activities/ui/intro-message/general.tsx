@@ -1,5 +1,6 @@
-import { BoldText } from '@shared/ui/atoms/BoldText'
 import React from 'react'
+
+import { BoldText } from '@shared/ui/atoms/BoldText'
 
 export const GeneralPAMessage = () => {
     return (

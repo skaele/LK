@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Message } from '../message'
 
 const VERSION = import.meta.env.VITE_APP_VERSION

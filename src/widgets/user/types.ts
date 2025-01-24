@@ -1,5 +1,6 @@
-import { StudentAccount, UserStatus } from '@shared/api/model'
 import { Direction, Size } from '@ui/types'
+
+import { StudentAccount, UserStatus } from '@shared/api/model'
 
 export type UserProps = StudentAccount & {
     id: number | string | undefined

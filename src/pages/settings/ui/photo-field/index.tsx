@@ -1,8 +1,11 @@
 import React from 'react'
+
 import { useModal } from 'widgets'
-import TextFieldItem from '../../../../shared/ui/text-field/text-field-item'
-import ChangeAvatar from '../../../../features/change-avatar'
+
 import { FieldProps } from '@pages/settings/types'
+
+import ChangeAvatar from '../../../../features/change-avatar'
+import TextFieldItem from '../../../../shared/ui/text-field/text-field-item'
 
 const PhotoField = (props: Omit<FieldProps, 'type'>) => {
     const { open } = useModal()

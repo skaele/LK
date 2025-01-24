@@ -1,15 +1,18 @@
+import { cache, concurrency, createMutation, createQuery, onAbort, sessionStorageCache, update } from '@farfetched/core'
+import { formatISO } from 'date-fns'
+import { attach, combine, createEvent, createStore, sample } from 'effector'
+import { interval } from 'patronum'
+import sanitize from 'sanitize-html'
+
 import { Chat, LastMessage, chatModel, chatsModel } from '@entities/chats'
 import { userModel } from '@entities/user'
 import { getFullUserName } from '@entities/user/lib/get-full-user-name'
-import { cache, concurrency, createMutation, createQuery, onAbort, sessionStorageCache, update } from '@farfetched/core'
+
 import { User } from '@shared/api/model'
-import { formatISO } from 'date-fns'
-import { attach, combine, createEvent, createStore, sample } from 'effector'
+import { pageVisibility } from '@shared/models/window-focus'
+
 import { addMessage, getChatMessages } from './api'
 import { AddChatMessage, ChatMessage, LocalChatMessage } from './type'
-import sanitize from 'sanitize-html'
-import { interval } from 'patronum'
-import { pageVisibility } from '@shared/models/window-focus'
 
 const resendErrorMessage = createEvent<Pick<LocalChatMessage, 'msg_id'>>()
 

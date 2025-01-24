@@ -1,9 +1,11 @@
-import { applicationsModel } from '@entities/applications'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { MessageType } from '@shared/ui/types'
 import { AxiosResponse } from 'axios'
 import { Effect, EventCallable, createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
+
+import { applicationsModel } from '@entities/applications'
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { MessageType } from '@shared/ui/types'
 
 export interface TemplateFormStore<DataType> {
     data: DataType | null

@@ -1,13 +1,15 @@
+import React, { useState } from 'react'
+
+import { User as UserType } from '@api/model'
+import { SubmitButton } from '@ui/atoms'
 import { LocalSearch } from '@ui/molecules'
 import PagintaionList from '@ui/pagination-list'
 import { Title } from '@ui/title'
-import React, { useState } from 'react'
+import getCorrectWordForm from '@utils/get-correct-word-form'
 import styled from 'styled-components'
 import User from 'widgets/user'
-import { User as UserType } from '@api/model'
+
 import { userModel } from '@entities/user'
-import { SubmitButton } from '@ui/atoms'
-import getCorrectWordForm from '@utils/get-correct-word-form'
 
 const UserListWrapper = styled.div`
     display: flex;

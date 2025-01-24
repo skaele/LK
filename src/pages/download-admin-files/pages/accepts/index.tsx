@@ -1,6 +1,8 @@
-import { adminLinksModel } from '@entities/admin-links'
 import React from 'react'
+
 import AdminLinksTemplate from 'widgets/admin-links-template'
+
+import { adminLinksModel } from '@entities/admin-links'
 
 const DownloadAccepts = () => {
     const { data } = adminLinksModel.selectors.useData()

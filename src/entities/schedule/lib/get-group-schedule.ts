@@ -1,4 +1,5 @@
 import { scheduleApi } from '@shared/api'
+
 import { normalizeSchedule } from './normalize-schedule'
 
 export const getGroupSchedule = async (group: string) => {

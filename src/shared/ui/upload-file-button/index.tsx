@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler, useRef } from 'react'
-import { Button } from '../atoms'
 import { GrAttachment } from 'react-icons/gr'
+
+import { Button } from '../atoms'
 import { ButtonProps } from '../button'
 
 type UploadFileButtonProps = {

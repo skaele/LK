@@ -1,8 +1,10 @@
-import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
 import React from 'react'
+
+import getTimeFromMinutes from '@shared/lib/dates/get-time-from-minutes'
+import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
+
 import { getCurrentTime } from '../lib/get-time-in-minutes'
 import { CurrentTime, CurrentTimeLineStyled } from './styles'
-import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 
 type Props = {
     isVisible?: boolean

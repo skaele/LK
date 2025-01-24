@@ -1,7 +1,9 @@
-import { Colors, IColors } from '@shared/constants'
 import React from 'react'
+
 import Notification from '@ui/notification'
 import styled from 'styled-components'
+
+import { Colors, IColors } from '@shared/constants'
 
 type ColorType = keyof IColors | Omit<string, keyof IColors>
 

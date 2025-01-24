@@ -1,6 +1,8 @@
-import PageBlock from '@shared/ui/page-block'
-import { CenterPage, FileLink, Message } from '@ui/atoms'
 import React from 'react'
+
+import { CenterPage, FileLink, Message } from '@ui/atoms'
+
+import PageBlock from '@shared/ui/page-block'
 
 const DormitoryPage = () => {
     return (

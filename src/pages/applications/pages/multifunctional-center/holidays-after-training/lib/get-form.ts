@@ -1,5 +1,5 @@
-import { IInputArea } from '@ui/input-area/model'
 import { User, UserApplication } from '@api/model'
+import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (dataUserApplication: UserApplication, user: User): IInputArea => {
     return {

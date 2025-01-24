@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Divider } from '@ui/divider'
 import { ColumnProps, Footer as IFooter } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
+
 import { Row } from '../molecules'
 
 type Props = {
@@ -39,10 +41,13 @@ const aggregateColumns = (data: Nullable<IndexedProperties[]>, columns: ColumnPr
 
     // K + N * 2K
 
-    const fields = columns.reduce((acc, { field }) => {
-        acc[field] = []
-        return acc
-    }, {} as { [key: string]: any[] })
+    const fields = columns.reduce(
+        (acc, { field }) => {
+            acc[field] = []
+            return acc
+        },
+        {} as { [key: string]: any[] },
+    )
 
     data?.forEach((value) => {
         Object.entries(value).forEach(([key, value]) => {

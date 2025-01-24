@@ -1,6 +1,7 @@
+import * as z from 'zod'
+
 import { ThemeVariant } from '@shared/constants'
 
-import * as z from 'zod'
 import { UserSettingsSchema } from './constants'
 
 export type UserSettings = z.infer<typeof UserSettingsSchema>

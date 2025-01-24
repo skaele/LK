@@ -1,14 +1,16 @@
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
 // import Highlight from "@tiptap/extension-highlight";
 import React, { useEffect, useRef } from 'react'
-import { MenuBar } from './menu-bar'
-import OrderedList from '@tiptap/extension-ordered-list'
+
 import BulletList from '@tiptap/extension-bullet-list'
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Placeholder from '@tiptap/extension-placeholder'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import sanitize from 'sanitize-html'
 import styled from 'styled-components'
-import Placeholder from '@tiptap/extension-placeholder'
-import ListItem from '@tiptap/extension-list-item'
+
+import { MenuBar } from './menu-bar'
 
 type RichTextInputProps = {
     value: string

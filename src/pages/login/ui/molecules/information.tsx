@@ -1,3 +1,15 @@
+import React from 'react'
+import { BiHeadphone } from 'react-icons/bi'
+import { BsAsterisk } from 'react-icons/bs'
+import { FiAlertCircle, FiArrowLeftCircle, FiMeh } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
+import { LinkButton } from '@ui/atoms'
+import { Button } from '@ui/button'
+import { Divider } from '@ui/divider'
+import List from '@ui/list'
+import { Logo } from '@ui/logo'
+
 import {
     CANT_ACCESS_ROUTE,
     FEEDBACK_ROUTE,
@@ -5,17 +17,8 @@ import {
     MEMO_FRESHMEN_ROUTE,
     MEMO_TEACHER_ROUTE,
 } from '@app/routes/general-routes'
+
 import { OLD_LK_URL } from '@shared/constants'
-import { LinkButton } from '@ui/atoms'
-import { Button } from '@ui/button'
-import { Divider } from '@ui/divider'
-import List from '@ui/list'
-import { Logo } from '@ui/logo'
-import React from 'react'
-import { BiHeadphone } from 'react-icons/bi'
-import { BsAsterisk } from 'react-icons/bs'
-import { FiAlertCircle, FiArrowLeftCircle, FiMeh } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 
 const Information = () => {
     return (

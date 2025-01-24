@@ -1,7 +1,10 @@
 import React from 'react'
-import { ExpandableItem } from './expandable-item'
+
 import { useUnit } from 'effector-react'
+
 import { phonebookModel } from '@entities/phonebook'
+
+import { ExpandableItem } from './expandable-item'
 import { ScrollWrapper } from './styled'
 
 export const Subdivisions = () => {

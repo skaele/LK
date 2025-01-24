@@ -1,6 +1,7 @@
 import { Feedback } from '@api/model/feedback'
-import { SelectPage } from '@features/select'
 import { IInputArea } from '@ui/input-area/model'
+
+import { SelectPage } from '@features/select'
 
 const SELECT_OPTIONS: SelectPage[] = [
     { id: '1', title: 'Проблема с дистанционным обучением (LMS)' },

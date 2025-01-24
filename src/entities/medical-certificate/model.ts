@@ -1,6 +1,7 @@
-import { getMedicalCertForm } from '@shared/api/medical-cert-api'
 import { createEffect, createEvent, restore, sample } from 'effector'
 import { useStore } from 'effector-react'
+
+import { getMedicalCertForm } from '@shared/api/medical-cert-api'
 
 const load = createEvent()
 

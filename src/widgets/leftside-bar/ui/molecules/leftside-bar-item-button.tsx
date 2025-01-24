@@ -1,5 +1,6 @@
 import React from 'react'
 import { IconType } from 'react-icons/lib'
+
 import LeftsideBarItemButtonWrapper from '../atoms/leftside-bar-item-button-wrapper'
 
 interface Props {

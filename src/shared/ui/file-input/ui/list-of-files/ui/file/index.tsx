@@ -1,13 +1,16 @@
-import { confirmModel } from '@entities/confirm'
+import React from 'react'
+import { FcFile, FcLandscape } from 'react-icons/fc'
+import { FiX } from 'react-icons/fi'
+
 import { Button } from '@ui/button'
 import { FileInputProps } from '@ui/file-input'
 import { Image } from '@ui/image'
 import Subtext from '@ui/subtext'
 import getFileSize from '@utils/get-file-size'
-import React from 'react'
-import { FcFile, FcLandscape } from 'react-icons/fc'
-import { FiX } from 'react-icons/fi'
 import { useModal } from 'widgets'
+
+import { confirmModel } from '@entities/confirm'
+
 import removeFile from '../../lib/remove-file'
 import FileWrapper from './style'
 

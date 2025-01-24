@@ -1,15 +1,18 @@
+import { createEffect, createEvent, createStore, forward, sample } from 'effector'
+import { useStore } from 'effector-react'
+
+import { allowancesModel } from '@entities/allowances'
+import { NotificationTitles } from '@entities/allowances/consts'
 import { menuModel } from '@entities/menu'
 import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
+
 import { allowancesApi, lkNotificationApi } from '@shared/api'
-import { createEffect, createEvent, createStore, forward, sample } from 'effector'
-import { useStore } from 'effector-react'
+
+import { createAllowancePath } from '../lib/create-allowance-path'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
 import { TNotification } from '../types'
-import { allowancesModel } from '@entities/allowances'
-import { NotificationTitles } from '@entities/allowances/consts'
-import { createAllowancePath } from '../lib/create-allowance-path'
 
 type TStore = {
     notifications: TNotification[]

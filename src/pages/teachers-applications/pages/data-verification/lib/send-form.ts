@@ -1,6 +1,7 @@
+import { IInputArea } from '@ui/input-area/model'
+
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { teacherDateVerificationModel } from '@entities/teacher-data-verification'
-import { IInputArea } from '@ui/input-area/model'
 
 const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<React.SetStateAction<boolean>>): void => {
     setSubmitLoading(true)
@@ -15,7 +16,7 @@ const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<Rea
                     if (!!l?.fieldName)
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : l.value?.title ?? null
+                        obj[l?.fieldName ?? ''] = typeof l.value !== 'object' ? l?.value : (l.value?.title ?? null)
                     return obj
                 })
             } else {

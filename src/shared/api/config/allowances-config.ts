@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
+
 import { isProduction } from '@shared/constants'
+
+import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 const ALLOWANCES_PROD_URL = 'https://api.mospolytech.ru/allowanceservice/'
 const ALLOWANCES_DEV_URL = 'https://api.mospolytech.ru/testallowanceservice/'

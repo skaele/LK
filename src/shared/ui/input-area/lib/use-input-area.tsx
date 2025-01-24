@@ -1,6 +1,9 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { SelectPage } from '@features/select'
 import React, { useEffect, useState } from 'react'
+
+import { SelectPage } from '@features/select'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { IComplexInputAreaData, IInputArea, IInputAreaCheckbox, IInputAreaData, IInputAreaFiles } from '../model'
 
 interface Props {

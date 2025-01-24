@@ -1,9 +1,16 @@
-import { createEffect, createEvent, createStore, sample, Unit } from 'effector'
-import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'
+import { createMutation, createQuery } from '@farfetched/core'
+import { Unit, createEffect, createEvent, createStore, sample } from 'effector'
+
+import { SelectPage } from '@features/select'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { userModel } from '@entities/user'
+
 import {
+    ConfirmRequest,
+    JobRoles,
     approveAllowance,
     confirmPersonalAllowance,
-    ConfirmRequest,
     createAllowance,
     getAllowances,
     getAllowancesNotifications,
@@ -12,20 +19,17 @@ import {
     getRoles,
     getSubordinates,
     inspectAllowance,
-    JobRoles,
     removeFile,
     uploadFile,
     viewNotification,
 } from '@shared/api/allowances-api'
-import { createMutation, createQuery } from '@farfetched/core'
-import { userModel } from '@entities/user'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { SelectPage } from '@features/select'
-import { allowanceStatus } from '../consts'
 import { createDatePeriodField } from '@shared/effector/form/create-date-period-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
-import { createSelectField } from '@shared/effector/form/create-select-field'
 import { createInputField } from '@shared/effector/form/create-input-field'
+import { createSelectField } from '@shared/effector/form/create-select-field'
+
+import { allowanceStatus } from '../consts'
+import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'
 
 export type AllAllowancesModified = {
     initiatorAllowances: AllowanceModified[]
@@ -354,10 +358,13 @@ const getAllAllowances = createEffect(async (jobs: JobRoles) => {
             return modifiedData
         }),
     )
-    return jobs.reduce((acc, job, index) => {
-        acc[job.employeeId] = allowances[index]
-        return acc
-    }, {} as { [key: string]: AllAllowancesModified })
+    return jobs.reduce(
+        (acc, job, index) => {
+            acc[job.employeeId] = allowances[index]
+            return acc
+        },
+        {} as { [key: string]: AllAllowancesModified },
+    )
 })
 
 const getAllEmployees = createEffect(async (jobs: JobRoles) => {
@@ -366,10 +373,13 @@ const getAllEmployees = createEffect(async (jobs: JobRoles) => {
             return await getSubordinatesFx(job.employeeId)
         }),
     )
-    return jobs.reduce((acc, job, index) => {
-        acc[job.employeeId] = employees[index]
-        return acc
-    }, {} as { [key: string]: Subordnate[] })
+    return jobs.reduce(
+        (acc, job, index) => {
+            acc[job.employeeId] = employees[index]
+            return acc
+        },
+        {} as { [key: string]: Subordnate[] },
+    )
 })
 
 sample({

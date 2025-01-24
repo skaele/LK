@@ -12,15 +12,14 @@ module.exports = {
     importOrder: [
       "^react",
       "<THIRD_PARTY_MODULES>",
-      "^@bigmotion/",
       "^@(.*).css$",
-      "^~/app(.*)$",
-      "^~/pages(.*)$",
-      "^~/layouts(.*)$",
-      "^~/widgets(.*)$",
-      "^~/features(.*)$",
-      "^~/entities(.*)$",
-      "^~/shared(.*)$",
+      "^@app(.*)$",
+      "^@pages(.*)$",
+      "^@layouts(.*)$",
+      "^@widgets(.*)$",
+      "^@features(.*)$",
+      "^@entities(.*)$",
+      "^@shared(.*)$",
       "^[./]"
     ]
 }

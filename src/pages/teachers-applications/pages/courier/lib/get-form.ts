@@ -1,6 +1,7 @@
-import { IInputArea } from '@ui/input-area/model'
-import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 import { UserApplication } from '@api/model'
+import { IInputArea } from '@ui/input-area/model'
+
+import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 
 const getForm = (data: UserApplication): IInputArea => {
     return {

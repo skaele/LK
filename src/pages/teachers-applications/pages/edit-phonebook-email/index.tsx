@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import getForm from './lib/get-form'
-import { IInputArea } from '@shared/ui/input-area/model'
-import { applicationsModel } from '@entities/applications'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { FormBlock, SubmitButton } from '@shared/ui/atoms'
-import InputArea from '@shared/ui/input-area'
+
 import { LoadedState } from 'widgets/template-form'
+
 import { globalAppSendForm } from '@pages/applications/lib'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import { applicationsModel } from '@entities/applications'
+
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea } from '@shared/ui/input-area/model'
+
+import getForm from './lib/get-form'
 
 const EditPhonebookEmail = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

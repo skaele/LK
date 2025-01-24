@@ -1,10 +1,12 @@
-import { IWeekDayNames, WEEK_DAYS } from '@shared/constants'
 import React from 'react'
+
+import { IWeekDayNames, WEEK_DAYS } from '@shared/constants'
+
+import { useCalendarGeneral } from '../../hooks/use-calendar-general'
 import { CalendarWrapper } from '../../ui/calendar-wrapper'
 import Events from '../../ui/event/events'
 import Times from '../../ui/times'
 import { WeekDays } from '../../ui/week-days'
-import { useCalendarGeneral } from '../../hooks/use-calendar-general'
 import { WeekCalendarWrapper } from './styles'
 import { CalendarWeekProps } from './types'
 

@@ -1,20 +1,25 @@
-import { Agreement } from '@api/model'
-import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } from '@entities/payments'
-import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
-import Accordion from '@ui/accordion/accordion'
-import { LinkButton, Message, SubmitButton, Title } from '@ui/atoms'
-import localizeDate from '@shared/lib/dates/localize-date'
-import { useUnit } from 'effector-react'
 import React, { useEffect } from 'react'
 import { FiCheck, FiDownload } from 'react-icons/fi'
+import { useHistory } from 'react-router'
+
+import { Agreement } from '@api/model'
+import Accordion from '@ui/accordion/accordion'
+import { LinkButton, Message, SubmitButton, Title } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
-import { ThirdPartyModal } from './third-party'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { useHistory } from 'react-router'
+
 import { THIRD_PARTY_ELECTRONIC_INTERACTION } from '@app/routes/general-routes'
+
+import { paymentsModel, thirdPartyAgreementModel, thirdPartyInteractionModel } from '@entities/payments'
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import localizeDate from '@shared/lib/dates/localize-date'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import Flex from '@shared/ui/flex'
+import Subtext from '@shared/ui/subtext'
+
+import { ThirdPartyModal } from './third-party'
 
 interface Props {
     data: Agreement

@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
+import { z } from 'zod'
+
 import { isProduction } from '@shared/constants'
 
-import { z } from 'zod'
+import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 const peErrorSchema = z.object({
     type: z.string(),
@@ -29,7 +30,10 @@ $peApi.interceptors.response.use(
 )
 
 export class PeRequestError extends Error {
-    constructor(public type: string, public detail: string) {
+    constructor(
+        public type: string,
+        public detail: string,
+    ) {
         super('Во время запроса произошла ошибка')
     }
 }

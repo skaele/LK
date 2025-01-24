@@ -1,6 +1,8 @@
+import React, { memo } from 'react'
+
 import { AcadPerformance } from '@api/model/acad-performance'
 import { Divider } from '@ui/atoms'
-import React, { memo } from 'react'
+
 import { SubjectItem } from '.'
 
 interface Props {

@@ -1,8 +1,10 @@
-import { SkeletonShape } from '@ui/skeleton-shape'
 import React from 'react'
+
+import { SkeletonShape } from '@ui/skeleton-shape'
 import styled from 'styled-components'
-import BlockWrapper, { StyledProps } from './styles'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import BlockWrapper, { StyledProps } from './styles'
 
 type Props = StyledProps &
     React.HTMLAttributes<HTMLDivElement> & {

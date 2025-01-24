@@ -1,7 +1,8 @@
-import { Button, Title } from '@ui/atoms'
-import Checkbox from '@ui/checkbox'
 import React from 'react'
 import { HiChevronDown, HiOutlineCheckCircle, HiOutlineExclamationCircle } from 'react-icons/hi'
+
+import { Button, Title } from '@ui/atoms'
+import Checkbox from '@ui/checkbox'
 import styled from 'styled-components'
 
 const AreaTitleWrapper = styled.div`

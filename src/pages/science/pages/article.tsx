@@ -1,5 +1,14 @@
-import { articleModel } from '@entities/science'
+import React, { useEffect, useState } from 'react'
+import { FiEyeOff, FiPlus } from 'react-icons/fi'
+import { useParams } from 'react-router'
+
+import { useUnit } from 'effector-react'
+import useModal from 'widgets/modal'
+
 import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
+
+import { articleModel } from '@entities/science'
+
 import { Button, Error } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
@@ -7,11 +16,7 @@ import Subtext from '@shared/ui/subtext'
 import Table from '@shared/ui/table'
 import { ColumnProps } from '@shared/ui/table/types'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import { FiEyeOff, FiPlus } from 'react-icons/fi'
-import { useParams } from 'react-router'
-import useModal from 'widgets/modal'
+
 import { DetailsModal } from '../ui/details-modal'
 
 const Article = () => {

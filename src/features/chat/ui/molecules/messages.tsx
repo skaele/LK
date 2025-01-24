@@ -1,11 +1,15 @@
-import { chatMessagesModel } from '@entities/chat-messages'
-import scrollToBottom from '@features/chat/lib/scroll-to-bottom'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
+
 import { Loading } from '@ui/atoms'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { MessageList } from '.'
+
+import scrollToBottom from '@features/chat/lib/scroll-to-bottom'
+
+import { chatMessagesModel } from '@entities/chat-messages'
 import { chatModel } from '@entities/chats'
+
+import { MessageList } from '.'
 
 export const Messages = () => {
     const listRef = useRef<HTMLDivElement>(null)

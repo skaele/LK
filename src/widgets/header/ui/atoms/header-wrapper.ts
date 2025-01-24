@@ -1,5 +1,6 @@
-import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
+
+import { MEDIA_QUERIES } from '@shared/constants'
 
 const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }>`
     width: calc(100% - 15px);
@@ -61,7 +62,9 @@ export const HeaderTitle = styled.div<{
     width: 100%;
     font-size: ${({ headerVisible }) => (headerVisible ? '1.1rem' : '1.4rem')};
     font-weight: 600;
-    transition: 0.2s transform, 0.2s font-size;
+    transition:
+        0.2s transform,
+        0.2s font-size;
     position: absolute;
     white-space: ${({ headerVisible }) => (headerVisible ? 'nowrap' : 'normal')};
     overflow: hidden;

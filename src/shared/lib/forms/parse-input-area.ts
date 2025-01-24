@@ -1,7 +1,9 @@
-import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
-import prepareFormData from '../prepare-form-data'
-import { IndexedProperties } from '@shared/models/indexed-properties'
 import { SelectPage } from '@features/select'
+
+import { IndexedProperties } from '@shared/models/indexed-properties'
+import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+
+import prepareFormData from '../prepare-form-data'
 
 export const parseInputArea = (inputAreas: IInputArea[], isAttachedFiles = false) => {
     const inputs = inputAreas
@@ -74,12 +76,15 @@ const createResultElementForm = (elementForm: IInputAreaData) => {
     }
 
     if (elementForm.type === 'checkbox-docs') {
-        return (elementForm.items as CheckboxDocs[])?.reduce((obj, element) => {
-            for (let fileIndex = 0; fileIndex < element.files.length; fileIndex++) {
-                obj[element?.fieldName + `[${fileIndex}]`] = element.files[fileIndex]
-            }
-            return obj
-        }, {} as { [key: string]: any })
+        return (elementForm.items as CheckboxDocs[])?.reduce(
+            (obj, element) => {
+                for (let fileIndex = 0; fileIndex < element.files.length; fileIndex++) {
+                    obj[element?.fieldName + `[${fileIndex}]`] = element.files[fileIndex]
+                }
+                return obj
+            },
+            {} as { [key: string]: any },
+        )
     }
 
     return obj

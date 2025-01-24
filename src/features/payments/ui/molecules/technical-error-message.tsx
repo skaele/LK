@@ -1,5 +1,6 @@
-import { Message } from '@shared/ui/message'
 import React from 'react'
+
+import { Message } from '@shared/ui/message'
 
 const TechicalErrorMessage = () => {
     return (

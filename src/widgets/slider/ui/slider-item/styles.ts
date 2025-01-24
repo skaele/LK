@@ -1,8 +1,9 @@
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Size } from '@shared/ui/types'
 import styled from 'styled-components'
 import { FONT_SIZES, MOBILE_FONT_SIZES } from 'widgets/slider/consts'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import { Size } from '@shared/ui/types'
 
 export const SliderItemWrapper = styled.div<{ elementsVisible: number; condition: boolean; size: Size }>`
     width: 100%;
@@ -14,7 +15,9 @@ export const SliderItemWrapper = styled.div<{ elementsVisible: number; condition
     justify-content: center;
     text-align: center;
     opacity: ${({ condition }) => (condition ? 0.7 : 0.3)};
-    transition: 0.2s opacity, 0.2s transform;
+    transition:
+        0.2s opacity,
+        0.2s transform;
     z-index: 1;
     cursor: pointer;
     user-select: none;

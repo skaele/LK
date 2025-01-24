@@ -1,12 +1,14 @@
 import { applicationApi } from '@api'
 import { Application, UserApplication, WorkerApplication } from '@api/model'
-import { applicationsModel } from '@entities/hr-applications'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
-import { MessageType } from '@shared/ui/types'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
 import { combine, createEffect, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
+
+import { applicationsModel } from '@entities/hr-applications'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { userModel } from '@entities/user'
+
+import { MessageType } from '@shared/ui/types'
 
 interface ApplicationsStore {
     listApplication: Application[] | null

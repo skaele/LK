@@ -1,10 +1,13 @@
 import React, { ForwardedRef, forwardRef } from 'react'
-import BlockWrapper from '../block/styles'
+
 import styled from 'styled-components'
-import { CenterPage } from '../atoms'
-import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
-import { getPageWidth } from './lib/get-page-width'
+
 import { MEDIA_QUERIES } from '@shared/constants'
+import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
+
+import { CenterPage } from '../atoms'
+import BlockWrapper from '../block/styles'
+import { getPageWidth } from './lib/get-page-width'
 
 const PageBlockStyled = styled(BlockWrapper)<{ titleLen: number; hasCenterEl: boolean }>`
     position: relative;

@@ -1,15 +1,17 @@
-import { SubjectModal } from '@features/schedule/ui'
 import React from 'react'
 import { FiInbox } from 'react-icons/fi'
+
+import { isNextEvent } from '@features/schedule/lib/is-next-event'
+import { SubjectModal } from '@features/schedule/ui'
+
 import { Error } from '../../../error'
 import Flex from '../../../flex'
+import { checkIfEventIsCurrent } from '../../ui/event/lib/check-if-event-is-current'
 import { WeekDays } from '../../ui/week-days'
 import { useCalendarDay } from './hooks/use-calendar-day'
 import { DayCalendarWrapper, EventInfo, EventsCarousel } from './styles'
 import { DayCalendarProps } from './types'
 import { TimesEvents } from './ui/times-events'
-import { checkIfEventIsCurrent } from '../../ui/event/lib/check-if-event-is-current'
-import { isNextEvent } from '@features/schedule/lib/is-next-event'
 
 export const DayCalendar = (props: DayCalendarProps) => {
     const {

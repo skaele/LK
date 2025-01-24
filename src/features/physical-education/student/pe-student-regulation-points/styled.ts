@@ -1,5 +1,6 @@
-import Table from '@shared/ui/table'
 import styled from 'styled-components'
+
+import Table from '@shared/ui/table'
 
 export const StyledTable = styled(Table)`
     flex: 1;

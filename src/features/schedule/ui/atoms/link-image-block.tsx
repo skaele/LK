@@ -1,7 +1,9 @@
-import { Colors } from '@shared/constants'
-import { Title } from '@ui/atoms'
 import React from 'react'
+
+import { Title } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
 
 const LinkImageBlockWrapper = styled.a`
     position: relative;

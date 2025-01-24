@@ -1,12 +1,16 @@
-import { CHAT_ROUTE } from '@app/routes/general-routes'
-import { chatModel, chatsModel } from '@entities/chats'
-import { Button } from '@ui/atoms'
-import { useUnit } from 'effector-react'
 import React, { useRef } from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 import { useHistory } from 'react-router'
+
+import { Button } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { User } from 'widgets'
+
+import { CHAT_ROUTE } from '@app/routes/general-routes'
+
+import { chatModel, chatsModel } from '@entities/chats'
+
 import Flex from '../../../../shared/ui/flex'
 import Subtext from '../../../../shared/ui/subtext'
 import { GroupIcon } from '../atoms/group-icon'

@@ -1,5 +1,6 @@
 import { $api } from '@api/config'
 import token from '@utils/token'
+
 import { LoadPayments } from './model'
 
 export type SendAgreementCodesReq = {

@@ -1,5 +1,6 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
+import { IInputArea } from '@ui/input-area/model'
+
 import { FamilyContacts } from '@shared/api/family-contacts-api'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 

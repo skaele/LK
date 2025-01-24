@@ -1,13 +1,18 @@
-import { applicationsModel } from '@entities/applications'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import sendHrFormHolidayTransfer from '@pages/hr-applications/lib/send-hr-form-holiday-transfer'
-import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import sendHrFormHolidayTransfer from '@pages/hr-applications/lib/send-hr-form-holiday-transfer'
+
+import { applicationsModel } from '@entities/applications'
+
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+
 import { bufferHolidayTransferModel } from '../buffer-holiday-transfer/model'
 import getForm from './lib/get-form'
 

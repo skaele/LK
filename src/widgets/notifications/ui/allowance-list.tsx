@@ -1,13 +1,19 @@
-import { PersonalAllowance } from '@shared/api/model/notification'
-import Flex from '@shared/ui/flex'
 import React, { useEffect, useMemo } from 'react'
-import { CardAllowance } from './atoms/card-allowance'
+
 import { useUnit } from 'effector-react'
-import { allowancesModel } from '@entities/allowances'
-import { Loading } from '@shared/ui/loading'
-import { Error } from '@shared/ui/error'
-import { SelectPage } from '@features/select'
+
 import { DevModeMessage } from '@pages/allowances/ui/dev-mode-message'
+
+import { SelectPage } from '@features/select'
+
+import { allowancesModel } from '@entities/allowances'
+
+import { PersonalAllowance } from '@shared/api/model/notification'
+import { Error } from '@shared/ui/error'
+import Flex from '@shared/ui/flex'
+import { Loading } from '@shared/ui/loading'
+
+import { CardAllowance } from './atoms/card-allowance'
 
 export const AllowanceList = ({ searchQuery, filter }: { searchQuery: string; filter: SelectPage | null }) => {
     const [allowances, loading, pageMounted] = useUnit([

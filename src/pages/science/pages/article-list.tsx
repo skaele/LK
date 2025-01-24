@@ -1,13 +1,17 @@
-import PageBlock from '@shared/ui/page-block'
 import React, { useEffect, useState } from 'react'
-import Flex from '@shared/ui/flex'
-import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
-import { scienceModel } from '@entities/science'
+import { useHistory } from 'react-router'
+
 import { useUnit } from 'effector-react'
 import { ScienceTable } from 'widgets/science-table'
+
 import { ARTICLES } from '@app/routes/teacher-routes'
-import { useHistory } from 'react-router'
+
+import { scienceModel } from '@entities/science'
+
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
 
 const PublicationList = () => {
     const history = useHistory()

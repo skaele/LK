@@ -1,13 +1,13 @@
 import { createEffect, createEvent, sample } from 'effector'
 import { modalModel } from 'widgets/modal/model'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { AddCompetition } from './types'
-
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
+
+import { AddCompetition } from './types'
 
 export const addCompetition = createEvent<AddCompetition>()
 

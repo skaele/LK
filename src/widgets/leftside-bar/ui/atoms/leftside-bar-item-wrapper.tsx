@@ -1,6 +1,8 @@
-import { Colors, IColors, MEDIA_QUERIES } from '@shared/constants'
 import { Link } from 'react-router-dom'
+
 import styled from 'styled-components'
+
+import { Colors, IColors, MEDIA_QUERIES } from '@shared/constants'
 
 const styledPropsArray = ['isCurrent', 'color']
 

@@ -1,11 +1,15 @@
-import { userSettingsModel } from '@entities/settings'
+import React from 'react'
+
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
 import { Icon } from '@features/all-pages'
+
+import { userSettingsModel } from '@entities/settings'
+
 import { IColorPalette, ThemeVariant } from '@shared/constants'
 import EventBackground from '@shared/ui/calendar/calendars/day/ui/event-background'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import styled from 'styled-components'
 
 type Props = {
     subjectName: string

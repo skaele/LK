@@ -1,8 +1,10 @@
+import React from 'react'
+
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
 import { Colors } from '@shared/constants'
 import RubleNumber from '@shared/ui/ruble-number'
 import { Size } from '@shared/ui/types'
-import React from 'react'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 type Props = {
     debt: number

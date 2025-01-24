@@ -1,7 +1,9 @@
-import { scheduleModel } from '@entities/schedule'
-import { Template } from '../template'
 import React from 'react'
+
+import { scheduleModel } from '@entities/schedule'
 import { SCHEDULE_NO_RESULT } from '@entities/schedule/consts'
+
+import { Template } from '../template'
 
 const SemestrSchedule = () => {
     const {
@@ -11,7 +13,7 @@ const SemestrSchedule = () => {
 
     const resultSchedule = loading
         ? SCHEDULE_NO_RESULT.schedule
-        : externalSchedule ?? schedule ?? SCHEDULE_NO_RESULT.schedule
+        : (externalSchedule ?? schedule ?? SCHEDULE_NO_RESULT.schedule)
 
     const resultStartDate = resultSchedule.semestr.startDate
     const resultEndDate = resultSchedule.semestr.endDate

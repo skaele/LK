@@ -1,11 +1,16 @@
-import { CHAT_ROUTE } from '@app/routes/general-routes'
-import { chatsModel } from '@entities/chats'
-import { Button } from '@shared/ui/atoms'
-import { useUnit } from 'effector-react'
 import React from 'react'
 import { FiMessageCircle } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+
+import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
+
+import { CHAT_ROUTE } from '@app/routes/general-routes'
+
+import { chatsModel } from '@entities/chats'
+
+import { Button } from '@shared/ui/atoms'
+
 import { SendFirstMessageProps } from './type'
 import { SendMessageModal } from './ui/send-first-message-modal'
 
@@ -21,12 +26,12 @@ export const SendMessage = (props: SendFirstMessageProps) => {
         'userId' in props
             ? chats?.find((chat) => chat.opponent?.id === props.userId && !chat.subject)
             : 'group' in props
-            ? chats?.find((chat) => {
-                  const [prefix, chatGroup] = chat.subject.split(' ')
+              ? chats?.find((chat) => {
+                    const [prefix, chatGroup] = chat.subject.split(' ')
 
-                  if (prefix === 'Группе' && chatGroup === props.group && chat.lastmessage.from === 'you') return true
-              })
-            : null
+                    if (prefix === 'Группе' && chatGroup === props.group && chat.lastmessage.from === 'you') return true
+                })
+              : null
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

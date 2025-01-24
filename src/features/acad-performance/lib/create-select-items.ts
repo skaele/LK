@@ -1,5 +1,6 @@
-import { SelectPage } from '@features/select'
 import findSemestr from '@utils/find-semestr'
+
+import { SelectPage } from '@features/select'
 
 const createSelectItems = (course: number | string) => {
     const count = findSemestr(new Date().toISOString(), course)

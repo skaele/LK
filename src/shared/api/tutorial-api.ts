@@ -1,5 +1,7 @@
-import { $tutorialApi } from './config/tutorial-config'
 import { Module, TutorialId, Tutorials } from '@entities/tutorial/types'
+
+import { $tutorialApi } from './config/tutorial-config'
+
 export type TutorialData = Pick<Module, 'id' | 'completed'>[]
 export const initializeTutorials = async (tutorials: TutorialId[]) => {
     const { data } = await $tutorialApi.post<Tutorials>('/tutorials/init', {

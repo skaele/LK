@@ -1,7 +1,9 @@
-import { PEStudent } from '@entities/pe-student/types'
+import { attach, combine, createEvent, createStore, sample } from 'effector'
+
 import { peStudentEndSemesterModel } from '@features/physical-education/student/pe-student-end-semester'
 import { Status } from '@features/physical-education/student/pe-student-end-semester/model'
-import { attach, combine, createEvent, createStore, sample } from 'effector'
+
+import { PEStudent } from '@entities/pe-student/types'
 
 import { peApi } from '@shared/api'
 

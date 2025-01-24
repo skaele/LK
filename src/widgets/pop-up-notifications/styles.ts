@@ -1,5 +1,7 @@
-import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
+
 import { OPEN_CLOSE_ANIMATION_DURATION } from './consts'
 
 export const PopUpNotificationsStyled = styled.div`

@@ -1,7 +1,8 @@
-import { notificationApi, docsApi } from '@api'
-import { useStore } from 'effector-react/compat'
-import { createEffect, createEvent, createStore } from 'effector'
+import { docsApi, notificationApi } from '@api'
 import { Notifications } from '@api/model/notification'
+import { createEffect, createEvent, createStore } from 'effector'
+import { useStore } from 'effector-react/compat'
+
 import { userModel } from '@entities/user'
 
 export type NotificationType = 'notifications' | 'docs' | 'allowances'

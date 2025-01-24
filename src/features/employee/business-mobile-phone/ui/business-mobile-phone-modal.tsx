@@ -1,11 +1,15 @@
+import React, { useEffect, useState } from 'react'
+
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import { Button, Divider, Input } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
+
 import { changeStaffPhone, changeStaffPhoneParamsMutation } from '../model'
 
 const TextFieldModalStyled = styled.div`

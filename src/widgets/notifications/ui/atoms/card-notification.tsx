@@ -1,14 +1,18 @@
-import { baseNotification, businesstripNotification } from '@api/model/notification'
-import { Colors } from '@shared/constants'
-import { personalNotificationModel } from '@entities/notification'
-import { userModel } from '@entities/user'
-import Subtext from '@shared/ui/subtext'
-import { LinkButton, SubmitButton } from '@ui/atoms'
-import getRightGenderWord from '@utils/get-right-gender-word'
-import localizeDate from '@shared/lib/dates/localize-date'
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
+
+import { baseNotification, businesstripNotification } from '@api/model/notification'
+import { LinkButton, SubmitButton } from '@ui/atoms'
+import getRightGenderWord from '@utils/get-right-gender-word'
 import styled from 'styled-components'
+
+import { personalNotificationModel } from '@entities/notification'
+import { userModel } from '@entities/user'
+
+import { Colors } from '@shared/constants'
+import localizeDate from '@shared/lib/dates/localize-date'
+import Subtext from '@shared/ui/subtext'
+
 import { CardTitle, Info } from './styled'
 
 const CardNotificationWrapper = styled.div`

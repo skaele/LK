@@ -1,14 +1,18 @@
-import PageBlock from '@shared/ui/page-block'
 import React, { useEffect } from 'react'
-import { useUnit } from 'effector-react'
-import { scienceModel } from '@entities/science'
-import { Button } from '@shared/ui/atoms'
 import { FiPlus } from 'react-icons/fi'
-import Flex from '@shared/ui/flex'
+
+import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
-import { UploadModal } from '../widgets/upload-modal'
 import { ScienceTable } from 'widgets/science-table'
+
+import { scienceModel } from '@entities/science'
+
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
+
 import { getDefaultColumns } from '../lib/get-default-columns'
+import { UploadModal } from '../widgets/upload-modal'
 
 const Science = () => {
     const { open } = useModal()

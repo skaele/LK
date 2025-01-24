@@ -1,7 +1,9 @@
+import React from 'react'
+
+import styled from 'styled-components'
+
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
-import React from 'react'
-import styled from 'styled-components'
 
 const maritalStatus = [
     { id: 0, title: 'Холост' },

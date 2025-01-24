@@ -1,12 +1,15 @@
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi } from '@shared/api/config'
-import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
+
+import { $hrApi } from '@shared/api/config'
+import { MessageType } from '@shared/ui/types'
+
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'
 import { BufferMedicalExamination, BufferMedicalExaminationForm, BufferMedicalExaminationOrder } from '../types'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 interface MedicalExaminationStore {
     listMedicalExamination: BufferMedicalExaminationOrder[] | null

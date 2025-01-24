@@ -1,12 +1,17 @@
-import { menuModel } from '@entities/menu'
-import { userSettingsModel } from '@entities/settings'
+import React from 'react'
+
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
 import { $requiredSidebarItems, addPageToSidebar, deletePageFromSidebar } from '@features/all-pages/model'
 import CustomizeMenu from '@features/customize-menu'
+
+import { menuModel } from '@entities/menu'
+import { userSettingsModel } from '@entities/settings'
+
 import AddedElementsList, { FilterElementList } from '@shared/ui/added-elements-list'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import { useModal } from 'widgets'
+
 import { TITLE_CONFIG } from '../constants'
 
 const MenuSettings = () => {

@@ -1,4 +1,5 @@
 import { IInputArea } from '@ui/input-area/model'
+
 import { bufferWorkTransferModel } from '../pages/buffer-work-transfer/model'
 
 const sendHrFormWorkTransfer = async (

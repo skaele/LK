@@ -1,8 +1,11 @@
-import { hrApplicationsConstants } from '@entities/applications/consts'
-import localizeDate from '@shared/lib/dates/localize-date'
+import React from 'react'
+
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
-import React from 'react'
+
+import { hrApplicationsConstants } from '@entities/applications/consts'
+
+import localizeDate from '@shared/lib/dates/localize-date'
 
 const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
     return [
@@ -28,8 +31,8 @@ const getHolidayWorkHistoryColumns = (): ColumnProps[] => {
                         value === 'Согласовано'
                             ? 'success'
                             : value === 'Не согласовано' || value === 'Не создано'
-                            ? 'failure'
-                            : 'alert'
+                              ? 'failure'
+                              : 'alert'
                     }
                     title={value}
                     align="center"

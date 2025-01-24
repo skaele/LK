@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Page } from '@features/vacation-schedule'
 
 const VacationSchedule = () => {

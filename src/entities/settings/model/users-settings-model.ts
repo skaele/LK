@@ -1,11 +1,14 @@
-import { userModel } from '@entities/user'
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
-import { getDefaultNewSettings } from '../lib/get-default-settings'
-import { SettingsOldType, UserSettings } from '../types'
-import { getSettingsKey } from '../lib/get-settings-key'
-import { ThemeVariant } from '@shared/constants'
+
+import { userModel } from '@entities/user'
+
 import { setServerSettings } from '@shared/api/settings'
+import { ThemeVariant } from '@shared/constants'
+import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+
+import { getDefaultNewSettings } from '../lib/get-default-settings'
+import { getSettingsKey } from '../lib/get-settings-key'
+import { SettingsOldType, UserSettings } from '../types'
 import { serverSettingsQuery } from './server-settings'
 
 const update = createEvent<RequireOnlyOne<UserSettings>>()

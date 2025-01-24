@@ -1,9 +1,10 @@
 import { superiorRoomApi } from '@api'
 import { SuperiorRoom } from '@api/model'
-import { userModel } from '@entities/user'
-import { createEffect, createStore, createEvent } from 'effector'
+import { createEffect, createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { forward } from 'effector/effector.mjs'
+
+import { userModel } from '@entities/user'
 
 interface SuperiorRoomStore {
     superiorRoom: SuperiorRoom | null

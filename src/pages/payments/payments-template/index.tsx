@@ -1,13 +1,18 @@
-import { ElectronicAgreementList, PaymentList } from '@features/payments'
-import Flex from '@shared/ui/flex'
-import { Divider, Title } from '@ui/atoms'
 import React from 'react'
+
+import { Divider, Title } from '@ui/atoms'
+import { useUnit } from 'effector-react'
+import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
+
+import { ElectronicAgreementList, PaymentList } from '@features/payments'
+
+import { tutorialModel } from '@entities/tutorial'
+
+import { PaymentsContract } from '@shared/api/model'
+import Flex from '@shared/ui/flex'
+
 import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'
-import { PaymentsContract } from '@shared/api/model'
-import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
-import { useUnit } from 'effector-react'
-import { tutorialModel } from '@entities/tutorial'
 
 const MIN_AGREEMENT_DATE = new Date(2022, 0, 1)
 

@@ -1,8 +1,11 @@
-import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
+import React from 'react'
+
 //import localizeDate from '@shared/lib/dates/localize-date'
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
-import React from 'react'
+
+import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
+
 const getExHrApplicationsColumns = (): ColumnProps[] => {
     return [
         //{ title: 'Название', field: 'title', priority: 'one', search: true, },
@@ -27,8 +30,8 @@ const getExHrApplicationsColumns = (): ColumnProps[] => {
                         value === 'Согласовано'
                             ? 'success'
                             : value === 'Не согласовано' || value === 'Не создано'
-                            ? 'failure'
-                            : 'alert'
+                              ? 'failure'
+                              : 'alert'
                     }
                     title={value}
                     align="center"
@@ -75,8 +78,8 @@ const getExHrApplicationsColumns = (): ColumnProps[] => {
                             value.orderStatus === 'Подписан'
                                 ? 'success'
                                 : value.orderStatus === 'Не создан'
-                                ? 'failure'
-                                : 'alert'
+                                  ? 'failure'
+                                  : 'alert'
                         }
                         title={title}
                         align="center"

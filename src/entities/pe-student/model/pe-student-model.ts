@@ -1,11 +1,13 @@
-import { PEStudent } from '@entities/pe-student/types'
-import { pEStudentFilterModel } from '@pages/teacher-physical-education/model'
-
 import { attach, combine, createEvent, createStore, sample } from 'effector'
 import { debounce } from 'patronum'
-import { pEStudentVisitModel } from '.'
+
+import { pEStudentFilterModel } from '@pages/teacher-physical-education/model'
+
+import { PEStudent } from '@entities/pe-student/types'
 
 import { peApi } from '@shared/api'
+
+import { pEStudentVisitModel } from '.'
 
 const load = createEvent()
 const setPage = createEvent<number>()

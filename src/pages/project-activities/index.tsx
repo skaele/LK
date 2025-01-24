@@ -1,22 +1,26 @@
+import React from 'react'
+import { FiInfo } from 'react-icons/fi'
+
+import { Button, Divider, Title, Wrapper } from '@ui/atoms'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
+import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
+
 import { projectActivitesModel } from '@entities/project-activites'
+import { tutorialModel } from '@entities/tutorial'
+
 import { Colors } from '@shared/constants'
 import PageBlock from '@shared/ui/page-block'
 import Subtext from '@shared/ui/subtext'
-import { Button, Divider, Title, Wrapper } from '@ui/atoms'
-import React from 'react'
-import { FiInfo } from 'react-icons/fi'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
+
 import CurrentSemestr from './ui/current-semestr'
+import { ProjectActivityIntroMessage } from './ui/intro-message'
 import LastSemestr from './ui/last-semestr'
 import InfoModal from './ui/project-info/info-modal'
 import Result from './ui/result'
-import { ProjectActivityIntroMessage } from './ui/intro-message'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
-import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
-import { tutorialModel } from '@entities/tutorial'
-import { useUnit } from 'effector-react'
-import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
 
 const ProjectActivitiesPage = () => {
     const { data, loading, error } = projectActivitesModel.selectors.useData()

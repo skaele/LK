@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { allowanceStatus } from '@entities/allowances/consts'
+import { AllowanceFiles, AllowanceStatus } from '@entities/allowances/types'
+
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
-import { AllowanceFiles, AllowanceStatus } from '@entities/allowances/types'
 
 export const getAllowancesColumns = (): ColumnProps[] => {
     return [

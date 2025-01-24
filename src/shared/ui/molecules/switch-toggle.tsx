@@ -1,4 +1,5 @@
 import React from 'react'
+
 import SwitchToggleWrapper from '../atoms/switch-toggle-wrapper'
 
 interface ISwitchToggle {

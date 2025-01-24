@@ -1,5 +1,7 @@
-import { OLD_LK_URL, isProduction } from '@shared/constants'
 import axios, { AxiosError } from 'axios'
+
+import { OLD_LK_URL, isProduction } from '@shared/constants'
+
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 
 export const API_BASE_URL = import.meta.env.MODE === 'development' ? '/api' : `${OLD_LK_URL}/lk_api.php`

@@ -1,9 +1,11 @@
+import React from 'react'
+
+import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import englishToRussianKeyboard from '@shared/ui/search/lib/english-to-russian-keyboard'
 import isValidEnglishText from '@shared/ui/search/lib/is-valid-english-text'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
-import styled from 'styled-components'
 
 const NewText = styled.span`
     color: var(--blue);

@@ -1,5 +1,13 @@
+import React from 'react'
+import { FiPlus, FiXCircle } from 'react-icons/fi'
+
+import { Button } from '@ui/button'
+import { Divider } from '@ui/divider'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { IRoute } from '@app/routes/general-routes'
-import { contextMenuModel } from '@entities/context-menu'
+
 import {
     $homePages,
     $requiredSidebarItems,
@@ -9,13 +17,11 @@ import {
     deletePageFromHome,
     deletePageFromSidebar,
 } from '@features/all-pages/model'
+
+import { contextMenuModel } from '@entities/context-menu'
+
 import { REQUIRED_HOME_PAGES_CONFIG } from '@shared/constants'
-import { Button } from '@ui/button'
-import { Divider } from '@ui/divider'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import { FiPlus, FiXCircle } from 'react-icons/fi'
-import styled from 'styled-components'
+
 import Icon from '../all-pages/ui/atoms/icon'
 
 const ContextContent = (props: IRoute) => {

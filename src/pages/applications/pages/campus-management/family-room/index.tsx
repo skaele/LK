@@ -1,21 +1,26 @@
+import React, { useEffect, useState } from 'react'
+
 import { FormBlock, SubmitButton, Title } from '@ui/atoms'
 import { IInputArea } from '@ui/input-area/model'
-import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
-import getForm from './lib/get-form'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import getFamily from './lib/get-family'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-import { applicationsModel } from '@entities/applications'
+import checkFormFields from '@utils/check-form-fields'
+
 import { getAdditionally, globalAppSendForm } from '@pages/applications/lib'
 import getBirthCertificate from '@pages/applications/pages/campus-management/family-room/lib/get-birth-certificate'
 import getConsentToProcessingPersonalData from '@pages/applications/pages/campus-management/family-room/lib/get-consent-to-processing-personal-data'
 import getMarriageRegistrationCertificate from '@pages/applications/pages/campus-management/family-room/lib/get-marriage-registration-certificate'
 import getRegistrationDoc from '@pages/applications/pages/campus-management/family-room/lib/get-registration-doc'
 import getRegistrationFamilyMembers from '@pages/applications/pages/campus-management/family-room/lib/get-registration-family-members'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
+
+import { applicationsModel } from '@entities/applications'
+
 import { CampusError } from '../ui/error'
+import getFamily from './lib/get-family'
+import getForm from './lib/get-form'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 

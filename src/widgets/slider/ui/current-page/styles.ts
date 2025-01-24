@@ -1,7 +1,8 @@
-import { Size } from '@shared/ui/types'
 import styled from 'styled-components'
 import { RADIUSES } from 'widgets/slider/consts'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { Size } from '@shared/ui/types'
 
 export const CurrentPageWrapper = styled.span<{
     pages: { title: string; condition?: boolean }[]
@@ -15,7 +16,9 @@ export const CurrentPageWrapper = styled.span<{
     background: ${({ appearance }) => (appearance ? 'var(--theme)' : 'var(--theme-1)')};
     display: block;
     position: absolute;
-    transition: 0.3s left, 0.2s transform;
+    transition:
+        0.3s left,
+        0.2s transform;
     z-index: 0;
     border-radius: calc(${getValueFromSize(RADIUSES)} - 3px);
     scroll-snap-align: center;

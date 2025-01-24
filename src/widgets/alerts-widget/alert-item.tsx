@@ -1,15 +1,19 @@
+import React from 'react'
+import { BiNews } from 'react-icons/bi'
+
+import { useModal } from 'widgets/modal/lib'
+
 import AlertModal from '@pages/alerts/ui/alert-modal'
+
 import { Alert } from '@shared/api/model/alert'
 import localizeDate from '@shared/lib/dates/localize-date'
+import getShortStirng from '@shared/lib/get-short-string'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Subtext from '@shared/ui/subtext'
 import { Direction } from '@shared/ui/types'
-import React from 'react'
-import { BiNews } from 'react-icons/bi'
-import { useModal } from 'widgets/modal/lib'
+
 import getImageURLFromContent from './lib/get-image-url-from-content'
 import { AlertContent, AlertItemBadge, AlertItemStyled, AlertTitle, Image } from './styles'
-import getShortStirng from '@shared/lib/get-short-string'
 
 type Props = {
     news: Alert

@@ -1,12 +1,17 @@
-import { IRoute, IRoutes } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
-import search from '@features/all-pages/lib/search'
-import { CustomizeLeftsideBarItem } from '@features/customize-menu/ui/customize-leftside-bar-item'
-import { LocalSearch } from '@shared/ui/molecules'
+import React, { useState } from 'react'
+
 import { Store } from 'effector'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
 import styled from 'styled-components'
+
+import { IRoute, IRoutes } from '@app/routes/general-routes'
+
+import search from '@features/all-pages/lib/search'
+import { CustomizeLeftsideBarItem } from '@features/customize-menu/ui/customize-leftside-bar-item'
+
+import { menuModel } from '@entities/menu'
+
+import { LocalSearch } from '@shared/ui/molecules'
 
 const CustomizeMenuStyled = styled.div`
     display: flex;

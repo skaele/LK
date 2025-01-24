@@ -1,17 +1,22 @@
+import React, { useMemo, useState } from 'react'
+
+import { LocalSearch } from '@ui/molecules'
+import { useUnit } from 'effector-react'
+
 import { Groups, IRoutes } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
-import { peTeacherModel } from '@entities/pe-teacher'
-import { userModel } from '@entities/user'
+
 import { FoundPages } from '@features/all-pages'
 import getGroupPages, { routesOrder } from '@features/all-pages/lib/get-group-pages'
 import search from '@features/all-pages/lib/search'
 import LinksList from '@features/home/ui/organisms/links-list'
+
+import { menuModel } from '@entities/menu'
+import { peTeacherModel } from '@entities/pe-teacher'
+import { userModel } from '@entities/user'
+
 import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import { LocalSearch } from '@ui/molecules'
-import { useUnit } from 'effector-react'
-import React, { useMemo, useState } from 'react'
 
 const AllPages = () => {
     const { visibleRoutes, allRoutes } = menuModel.selectors.useMenu()

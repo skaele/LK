@@ -1,4 +1,5 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { SortType } from '../types'
 
 const sortPopUp = (sort: SortType) => {

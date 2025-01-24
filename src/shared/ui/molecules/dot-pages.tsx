@@ -1,8 +1,10 @@
-import { Colors, IColors } from '@shared/constants'
+import React from 'react'
+
 import List from '@ui/list'
 import { Direction } from '@ui/types'
-import React from 'react'
 import styled from 'styled-components'
+
+import { Colors, IColors } from '@shared/constants'
 
 const Dot = styled.div`
     width: 8px;

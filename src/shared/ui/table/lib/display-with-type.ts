@@ -1,4 +1,5 @@
 import localizeDate from '@shared/lib/dates/localize-date'
+
 import { ColumnType } from '../types'
 
 const displayWithType = (value?: string, type?: ColumnType) => {

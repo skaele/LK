@@ -1,5 +1,6 @@
-import { ThemeVariant } from '@shared/constants'
 import * as z from 'zod'
+
+import { ThemeVariant } from '@shared/constants'
 
 export const UserSettingsSchema = z.object({
     appearance: z.object({

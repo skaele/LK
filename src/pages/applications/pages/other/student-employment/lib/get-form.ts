@@ -1,4 +1,5 @@
 import { SelectPage } from '@features/select'
+
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 

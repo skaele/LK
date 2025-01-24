@@ -1,9 +1,12 @@
-import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { FiBriefcase, FiChevronRight } from 'react-icons/fi'
+
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import Flex from '@shared/ui/flex'
+import Subtext from '@shared/ui/subtext'
+
 import { GlobalDivisionModal } from './global-division-modal'
 
 const DivisionItemStyled = styled.div`

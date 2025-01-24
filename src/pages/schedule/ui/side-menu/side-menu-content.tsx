@@ -1,16 +1,21 @@
+import React from 'react'
+import { HiOutlineChevronLeft } from 'react-icons/hi'
+import { useLocation } from 'react-router'
+
 import { scheduleRoutes } from '@app/routes/general-routes'
-import { scheduleModel } from '@entities/schedule'
+
 import { TeacherGroupSearch } from '@features/teacher-group-search'
+
+import { scheduleModel } from '@entities/schedule'
+import { userModel } from '@entities/user'
+
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
-import { HiOutlineChevronLeft } from 'react-icons/hi'
-import { useLocation } from 'react-router'
+
 import { NewPageLink } from './new-page-link'
 import { SideMenuProps } from './types'
-import { userModel } from '@entities/user'
 
 export const SideMenuContent = ({
     handleReturnToMySchedule,

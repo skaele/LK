@@ -1,13 +1,17 @@
-import { Title } from '@shared/ui/title'
 import React from 'react'
-import { TITLE_CONFIG } from '../constants'
-import { useUnit } from 'effector-react'
-import { tutorialModel } from '@entities/tutorial'
 import { useHistory } from 'react-router'
-import { CompletableLinkField } from './ui/completable-link-field'
+
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { getEntries } from '@shared/lib/typescript/getEntries'
+
+import { tutorialModel } from '@entities/tutorial'
 import { userModel } from '@entities/user'
+
+import { getEntries } from '@shared/lib/typescript/getEntries'
+import { Title } from '@shared/ui/title'
+
+import { TITLE_CONFIG } from '../constants'
+import { CompletableLinkField } from './ui/completable-link-field'
 
 export const StartTutorialLinks = () => {
     const history = useHistory()

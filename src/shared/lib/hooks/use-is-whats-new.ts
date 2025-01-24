@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
-import { userModel } from '@entities/user'
-import { LastUpdateWhatsNew } from '@shared/constants'
+
 import { useUnit } from 'effector-react'
+
 import { tutorialModel } from '@entities/tutorial'
+import { userModel } from '@entities/user'
+
+import { LastUpdateWhatsNew } from '@shared/constants'
 
 const useIsShowWhatsNew = () => {
     const {

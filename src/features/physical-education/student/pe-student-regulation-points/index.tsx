@@ -1,14 +1,18 @@
-import { selectedPEStudentModel } from '@entities/pe-student/model'
-import { Button } from '@shared/ui/button'
+import React from 'react'
+
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
-import { AddPEStudentRegulationPoints } from './features/add-pe-student-regulation-points'
-import { StyledTable, Wrapper } from './styled'
-import React from 'react'
-import { Colors } from '@shared/constants'
-import { $regularPointsColumns } from './model'
-import { Message } from '@shared/ui/message'
+
+import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
+
+import { Colors } from '@shared/constants'
+import { Button } from '@shared/ui/button'
+import { Message } from '@shared/ui/message'
+
+import { AddPEStudentRegulationPoints } from './features/add-pe-student-regulation-points'
+import { $regularPointsColumns } from './model'
+import { StyledTable, Wrapper } from './styled'
 
 export const PEStudentRegulationPoints = () => {
     const [student, regularPointsColumns, peTeacher] = useUnit([

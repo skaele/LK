@@ -1,14 +1,19 @@
-import { userModel } from '@entities/user'
-import { vacationScheduleModel } from '@entities/vacation-schedule'
-import Select, { SelectPage } from '@features/select'
-import PageBlock from '@shared/ui/page-block'
+import React, { useEffect, useMemo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
+
 import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/atoms'
 import Card from '@ui/card'
 import List from '@ui/list'
 import Subtext from '@ui/subtext'
-import React, { useEffect, useMemo, useState } from 'react'
+
+import Select, { SelectPage } from '@features/select'
+
+import { userModel } from '@entities/user'
+import { vacationScheduleModel } from '@entities/vacation-schedule'
+
+import PageBlock from '@shared/ui/page-block'
+
 import { Vacation } from '../organism'
-import { FiPlus } from 'react-icons/fi'
 
 const calendarUrls = {
     fiveWorkDays:

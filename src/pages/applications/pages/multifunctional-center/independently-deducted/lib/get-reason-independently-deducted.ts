@@ -1,6 +1,8 @@
 import { IInputAreaData } from '@ui/input-area/model'
-import { SpecialFieldsNameConfig, SpecialFieldsName } from '@entities/applications/consts'
+
 import { SelectPage } from '@features/select'
+
+import { SpecialFieldsName, SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 export const getReasonIndepedentlyDeducted = (data: IInputAreaData[]): SpecialFieldsNameConfig => {
     const reasonField = data.find((item: IInputAreaData) => item.fieldName === 'reason')

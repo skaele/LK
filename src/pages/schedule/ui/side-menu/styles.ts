@@ -1,5 +1,6 @@
-import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
+
+import { MEDIA_QUERIES } from '@shared/constants'
 
 export const SideMenuStyled = styled.div<{ isSideMenuOpen: boolean }>`
     min-width: ${({ isSideMenuOpen }) => (isSideMenuOpen ? '210px' : '60px')};

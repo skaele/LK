@@ -1,6 +1,8 @@
 import React, { memo, useMemo } from 'react'
-import { CurrentPageWrapper } from './styles'
+
 import { Size } from '@shared/ui/types'
+
+import { CurrentPageWrapper } from './styles'
 
 interface Props {
     pages: { title: string; condition?: boolean }[]

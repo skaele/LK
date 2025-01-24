@@ -1,10 +1,14 @@
-import { IRoute } from '@app/routes/general-routes'
-import { Icon } from '@features/all-pages'
-import { Colors, MEDIA_QUERIES } from '@shared/constants'
-import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import styled from 'styled-components'
+
+import { IRoute } from '@app/routes/general-routes'
+
+import { Icon } from '@features/all-pages'
+
+import { Colors, MEDIA_QUERIES } from '@shared/constants'
+import Subtext from '@shared/ui/subtext'
 
 const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
     width: 100%;

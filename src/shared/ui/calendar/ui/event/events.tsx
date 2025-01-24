@@ -1,5 +1,7 @@
-import { isNextEvent } from '@features/schedule/lib/is-next-event'
 import React from 'react'
+
+import { isNextEvent } from '@features/schedule/lib/is-next-event'
+
 import { CurrentTimeLine } from '../../calendars/day/ui/current-time-line'
 import { DayCalendarEvent } from '../../types'
 import EventItem from './event-item'

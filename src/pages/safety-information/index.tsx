@@ -1,8 +1,10 @@
+import React from 'react'
+
 import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
 import LinksList from '@pages/helpful-information/ui/molecules/links-list'
+
 import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import React from 'react'
 
 const SafetyInformation = () => {
     return (

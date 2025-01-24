@@ -1,5 +1,6 @@
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
+
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFieldsNameConfig) => {
     const isCheckDocument = !form.documents?.required || !!form.documents.files.length

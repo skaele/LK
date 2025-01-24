@@ -1,4 +1,5 @@
 import getToken from '@shared/lib/token'
+
 import { $api } from './config'
 import { Alert } from './model/alert'
 

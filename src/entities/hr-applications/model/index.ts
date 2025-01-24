@@ -1,9 +1,11 @@
 import { hrApplicationApi } from '@api'
 import { HrApplication, HrUserApplication } from '@api/model'
 import { createEvent, forward, sample } from 'effector'
-import { useStore } from 'effector-react/compat'
 import { createEffect, createStore } from 'effector'
+import { useStore } from 'effector-react/compat'
+
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
+
 import { MessageType } from '@shared/ui/types'
 
 interface ApplicationsStore {

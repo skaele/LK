@@ -1,30 +1,35 @@
-import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
-import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
-import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
-import PageIsNotReady from '@pages/page-is-not-ready'
-import PaymentsPage from '@pages/payments'
-import { User } from '@shared/api/model'
-import { isProduction } from '@shared/constants'
 import React from 'react'
 import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BsFileMedical } from 'react-icons/bs'
 import { FaRegLightbulb } from 'react-icons/fa'
 import { FiBriefcase, FiFileText } from 'react-icons/fi'
 import { MdOutlineBedroomChild } from 'react-icons/md'
+
+import AllTeachersPage from '@pages/all-teachers'
+import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
+import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
+import MedicalCertificate from '@pages/medical-certificate'
+import PageIsNotReady from '@pages/page-is-not-ready'
+import PaymentsPage from '@pages/payments'
+
+import { User } from '@shared/api/model'
+import { isProduction } from '@shared/constants'
+
 import {
     ALL_TEACHERS_ROUTE,
-    generalHiddenRoutes,
-    generalRoutes,
     IRoutes,
     MEDICAL_CERTIFICATE,
     PAYMENTS_ROUTE,
     PROJECT_ACTIVITIES_ROUTE,
     SOFTSKILLS_ROUTE,
     USEFUL_INFO_ROUTE,
+    generalHiddenRoutes,
+    generalRoutes,
 } from './general-routes'
 import {
-    PhysicalEducationStudent,
-    AcademicLeaveAccommodationPage,
     AcadPerformance,
+    AcademicLeaveAccommodationPage,
     AccommodationCorrespondenceFormPage,
     AccommodationForGraduatesPage,
     ApplicationExtensionAttestation,
@@ -45,8 +50,15 @@ import {
     FamilyRoomPage,
     FinancialSupport,
     IncreasedStateAcademicScholarship,
+    MedicalCertificates086,
+    MilitaryCopies,
+    MilitaryForm4,
+    MilitaryForm5,
+    MilitaryRegistration,
     MilitaryRegistrationDocuments,
+    ParentContacts,
     PaymentRecipient,
+    PhysicalEducationStudent,
     PreferentialAccommodationPage,
     ProjectActivitiesPage,
     RegularAccommodationPage,
@@ -58,17 +70,8 @@ import {
     StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
-    ParentContacts,
-    MedicalCertificates086,
-    MilitaryRegistration,
-    MilitaryForm4,
-    MilitaryCopies,
-    MilitaryForm5,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
-import { BsFileMedical } from 'react-icons/bs'
-import MedicalCertificate from '@pages/medical-certificate'
-import AllTeachersPage from '@pages/all-teachers'
 
 export const APPLICATIONS_ROUTE = '/applications'
 export const JOB_ROUTE = '/job'

@@ -1,6 +1,8 @@
 import * as z from 'zod'
-import { ModuleSchema, TutorialIdSchema, TutorialStepSchema } from './constants'
+
 import { TutorialData } from '@shared/api/tutorial-api'
+
+import { ModuleSchema, TutorialIdSchema, TutorialStepSchema } from './constants'
 
 export type TutorialId = z.infer<typeof TutorialIdSchema>
 export type TutorialStep = z.infer<typeof TutorialStepSchema>

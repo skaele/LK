@@ -1,6 +1,7 @@
-import { UserSettings } from '@entities/settings/types'
-import { $settingsApi } from './config/settings-config'
 import { UserSettingsSchema } from '@entities/settings/constants'
+import { UserSettings } from '@entities/settings/types'
+
+import { $settingsApi } from './config/settings-config'
 
 export const getServerSettings = async () => {
     const { data } = await $settingsApi.get<UserSettings>('', { signal: AbortSignal.timeout(5000) })

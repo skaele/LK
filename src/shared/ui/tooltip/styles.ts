@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { findPosition } from './lib/find-position'
 import { Direction } from './types'
 

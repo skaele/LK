@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { UIProps } from './types'
+
 import { Colors } from '@shared/constants'
+
+import { UIProps } from './types'
 
 export const ErrorIconIndicatorStyled = styled.div<UIProps>`
     position: ${({ topRightConrer }) => (topRightConrer ? 'absolute' : 'relative')};

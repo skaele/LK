@@ -1,5 +1,7 @@
-import { Title } from '@ui/title'
 import React from 'react'
+
+import { Title } from '@ui/title'
+
 import { TextAreaWrapper } from './styles'
 
 export type TextAreaProps = {

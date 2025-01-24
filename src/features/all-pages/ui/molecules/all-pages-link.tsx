@@ -1,9 +1,13 @@
-import { ALL_ROUTE } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
 import React from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+
 import styled from 'styled-components'
+
+import { ALL_ROUTE } from '@app/routes/general-routes'
+
+import { menuModel } from '@entities/menu'
+
 import Icon from '../atoms/icon'
 import { PageLinkWrapper } from './page-link-content'
 

@@ -1,6 +1,8 @@
 import { IInputArea } from '@ui/input-area/model'
-import { applicationsModel } from '@entities/applications'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
+
+import { applicationsModel } from '@entities/applications'
+
 import { globalPrepareFormData } from './prepare-form-data'
 
 const globalAppSendForm = async (

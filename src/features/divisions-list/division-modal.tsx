@@ -1,13 +1,17 @@
-import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
-import { Icon } from '@features/all-pages'
-import { Button } from '@shared/ui/button'
-import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
 import React from 'react'
 import { FiBriefcase, FiList } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
+
+import { Icon } from '@features/all-pages'
+
+import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
+import Subtext from '@shared/ui/subtext'
 
 const DivisionModalStyled = styled.div`
     display: flex;

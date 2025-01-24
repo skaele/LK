@@ -1,5 +1,6 @@
-import Table from '@shared/ui/table'
 import styled from 'styled-components'
+
+import Table from '@shared/ui/table'
 
 export const Wrapper = styled.div`
     display: flex;

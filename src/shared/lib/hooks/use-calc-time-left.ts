@@ -1,5 +1,6 @@
-import { TIME_IN_MS } from '@shared/constants'
 import { useEffect, useRef, useState } from 'react'
+
+import { TIME_IN_MS } from '@shared/constants'
 
 export const useCalcTimeLeft = (callback: () => number, deps: any[] = []) => {
     const [timeLeft, setTimeLeft] = useState(callback)

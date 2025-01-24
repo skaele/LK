@@ -1,8 +1,11 @@
+import React from 'react'
+
+import styled from 'styled-components'
+
 import { Project } from '@shared/api/model/project-activites'
 import { Message } from '@shared/ui/message'
 import { Title } from '@shared/ui/title'
-import React from 'react'
-import styled from 'styled-components'
+
 import { ScoreItem } from '../score-item'
 
 const CurrentSemestrStyled = styled.div``

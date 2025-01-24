@@ -1,16 +1,21 @@
-import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import SendHrFormMedicalExamination from '@pages/hr-applications/lib/send-hr-form-medical-examination'
+import React, { useEffect, useState } from 'react'
+
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
+
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import SendHrFormMedicalExamination from '@pages/hr-applications/lib/send-hr-form-medical-examination'
+
+import { applicationsModel } from '@entities/applications'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
+import PageBlock from '@shared/ui/page-block'
+
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'
 import getForm from './lib/get-form'
-import PageBlock from '@shared/ui/page-block'
 
 const MedicalExamination = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

@@ -1,8 +1,10 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { scheduleModel } from '@entities/schedule'
 import isDayEnded from '@features/schedule/lib/is-day-ended'
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
 import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { scheduleModel } from '@entities/schedule'
+
 import { TIME_IN_MS } from '@shared/constants'
 import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
 import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
@@ -21,10 +23,10 @@ export const useScheduleWidget = () => {
         getScrollTopValue: (element) =>
             element.clientHeight *
             (isEnded
-                ? schedule?.today?.length ?? 0
-                : schedule?.today?.findIndex(
+                ? (schedule?.today?.length ?? 0)
+                : (schedule?.today?.findIndex(
                       (event) => checkIfEventIsCurrent(event, true) || isNextEvent(schedule.today, event, true),
-                  ) ?? 0),
+                  ) ?? 0)),
     })
 
     const handleErrorClick = () =>

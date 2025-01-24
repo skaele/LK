@@ -1,27 +1,34 @@
+import React from 'react'
+import { FiClock, FiList } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
 import { ALL_TEACHERS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+
+import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
+
 import Avatar from '@features/home/ui/molecules/avatar'
 import { SendMessage } from '@features/send-first-message'
+
+import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+import { phonebookModel } from '@entities/phonebook'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import List from '@shared/ui/list'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
-import React from 'react'
-import { FiClock, FiList } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
-import { useModal } from 'widgets'
+
 import { InfoItem } from '../info-item'
-import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
-import { getSubdivisionInfo } from '../lib/get-subdivision-info'
-import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
-import { useUnit } from 'effector-react'
-import { phonebookModel } from '@entities/phonebook'
 import { findEmployeeByFio } from '../lib/find-employee-by-fio'
+import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
 import { getEmployeeInfo } from '../lib/get-employee-info'
-import styled from 'styled-components'
+import { getSubdivisionInfo } from '../lib/get-subdivision-info'
+import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
 import { PlaceModal } from './place-modal'
-import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
 
 export type PhonebookInfo = {
     subdivision?: string

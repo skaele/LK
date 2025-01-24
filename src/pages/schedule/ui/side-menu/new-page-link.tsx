@@ -1,10 +1,13 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+import styled from 'styled-components'
+
 import { IRoute } from '@app/routes/general-routes'
+
 import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 type StyleProps = {
     isCurrent: boolean

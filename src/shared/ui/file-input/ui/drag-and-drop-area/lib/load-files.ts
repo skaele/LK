@@ -1,8 +1,10 @@
-import { FileFormats, MAX_FILE_SIZE } from '@shared/constants'
 import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { FileFormats, MAX_FILE_SIZE } from '@shared/constants'
+import { DEFAULT_FILE_FORMATS } from '@shared/ui/file-input/consts'
+
 import { getFileSize } from './get-file-size'
 import validateFile from './validate-file'
-import { DEFAULT_FILE_FORMATS } from '@shared/ui/file-input/consts'
 
 const loadFiles = (
     loadedFiles: FileList,

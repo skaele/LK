@@ -1,5 +1,7 @@
 import { User } from '@api/model/user'
+
 import { divisionT } from '@features/applications/lib/get-divisions'
+
 import { Subdivision } from './applications'
 
 export interface HrApplication {

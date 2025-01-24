@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { userModel } from '@entities/user'
-import Block from '@shared/ui/block'
+
 import { CenterPage } from '@shared/ui/atoms'
+import Block from '@shared/ui/block'
 
 type Props = {
     pages: ChildrenType[]

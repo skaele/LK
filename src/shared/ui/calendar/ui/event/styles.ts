@@ -1,6 +1,8 @@
+import styled from 'styled-components'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import Flex from '@shared/ui/flex'
-import styled from 'styled-components'
+
 import { StyledProps } from './types'
 
 export const EventItemStyled = styled.div<StyledProps>`

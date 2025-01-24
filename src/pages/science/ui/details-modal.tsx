@@ -1,11 +1,14 @@
+import React from 'react'
+
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { articleModel } from '@entities/science'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 import { Loading } from '@shared/ui/loading'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import React from 'react'
-import styled from 'styled-components'
 
 export const DetailsModal = () => {
     const details = useUnit(articleModel.stores.details)

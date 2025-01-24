@@ -1,14 +1,19 @@
+import React, { useEffect } from 'react'
+
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
+import { PEStudentsFilter } from '@features/pe-students-filter'
+import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
+
 import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
 import { pEStudentModel } from '@entities/pe-student/model'
 import { PEStudent } from '@entities/pe-student/types'
-import { PEStudentsFilter } from '@features/pe-students-filter'
-import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
+
 import Pagination from '@shared/ui/pagination'
 import Search from '@shared/ui/search'
 import Table from '@shared/ui/table'
-import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
-import { useModal } from 'widgets'
+
 import { pEStudentIsExamModel, pEStudentSearchModel } from '../model'
 import { examPeStudentColumns, peStudentColumns } from './constants'
 import { pageLoaded } from './model'

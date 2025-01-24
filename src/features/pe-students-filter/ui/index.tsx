@@ -1,13 +1,18 @@
+import React, { useState } from 'react'
+import { FiUsers } from 'react-icons/fi'
+
+import { useUnit } from 'effector-react'
+
+import { pEStudentFilterModel, pEStudentIsExamModel } from '@pages/teacher-physical-education/model'
+
 import SearchWithHints from '@features/search-with-hints'
 import Select, { SelectPage } from '@features/select'
-import { pEStudentFilterModel, pEStudentIsExamModel } from '@pages/teacher-physical-education/model'
+
 import { studentApi } from '@shared/api'
-import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
-import { Wrapper } from './styled'
 import Masks from '@shared/lib/masks'
-import { FiUsers } from 'react-icons/fi'
+import ToggleItem from '@shared/ui/toggle-item'
+
+import { Wrapper } from './styled'
 
 export enum FiltersSelect {
     Group = 'group.groupName',

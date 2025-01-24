@@ -1,7 +1,8 @@
+import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import Badge from '@shared/ui/badge'
 import { Direction } from '@shared/ui/types'
-import styled from 'styled-components'
 
 export const AlertItemStyled = styled.div<{ orientation: Direction }>`
     width: 100%;

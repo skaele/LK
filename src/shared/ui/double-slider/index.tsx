@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
+
 import styled from 'styled-components'
 
 const getPercent = (value: number, max: number) => {

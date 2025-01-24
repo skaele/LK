@@ -1,6 +1,9 @@
-import { Colors } from '@shared/constants'
 import React, { useEffect, useState } from 'react'
+
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
+
 import { Title } from '../title'
 
 interface Props {
@@ -123,7 +126,11 @@ const AutoCompleteInputItems = styled.ul<{ isOpen: boolean; itemsAmount: number;
     overflow-x: hidden;
     opacity: 0;
 
-    transition: 0.2s opacity, 0.2s visibility, 0.2s top, height 0.3s;
+    transition:
+        0.2s opacity,
+        0.2s visibility,
+        0.2s top,
+        height 0.3s;
 
     &.open {
         opacity: 1;

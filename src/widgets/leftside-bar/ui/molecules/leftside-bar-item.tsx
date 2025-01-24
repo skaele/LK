@@ -1,7 +1,11 @@
-import { IRoute } from '@app/routes/general-routes'
-import LinkMoreButton from '@features/link-more-button'
-import Notification from '@ui/notification'
 import React from 'react'
+
+import Notification from '@ui/notification'
+
+import { IRoute } from '@app/routes/general-routes'
+
+import LinkMoreButton from '@features/link-more-button'
+
 import LeftsideBarItemWrapper from '../atoms/leftside-bar-item-wrapper'
 
 type Props = IRoute & { isCurrent: boolean }

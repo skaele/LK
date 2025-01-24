@@ -1,10 +1,14 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
+
 import { Title, Wrapper } from '@ui/atoms'
 import styled from 'styled-components'
-import Content from './ui/content'
+
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+
+import { applicationsModel } from '@entities/applications'
+
+import Content from './ui/content'
 
 const HolidayWorkBufferPage = () => {
     const {

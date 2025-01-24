@@ -1,19 +1,23 @@
 import React from 'react'
-import styled from 'styled-components'
-import { menuModel } from '@entities/menu'
-import {
-    DEFAULT_STUDENT_MOBILE_CONFIG,
-    DEFAULT_STAFF_MOBILE_CONFIG,
-    DEFAULT_PPS_MOBILE_CONFIG,
-} from '@entities/menu/model'
+import { useLocation } from 'react-router'
+
 import { ListWrapper } from '@ui/list/styles'
 import { SkeletonShape } from '@ui/skeleton-shape'
+import styled from 'styled-components'
 import { LeftsideBarItem } from 'widgets/leftside-bar/ui'
-import Flex from '@shared/ui/flex'
-import { MEDIA_QUERIES } from '@shared/constants'
-import { userModel } from '@entities/user'
+
 import { useScheduleWidget } from '@features/home/ui/schedule-widget/hooks/use-schedule-widget'
-import { useLocation } from 'react-router'
+
+import { menuModel } from '@entities/menu'
+import {
+    DEFAULT_PPS_MOBILE_CONFIG,
+    DEFAULT_STAFF_MOBILE_CONFIG,
+    DEFAULT_STUDENT_MOBILE_CONFIG,
+} from '@entities/menu/model'
+import { userModel } from '@entities/user'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import Flex from '@shared/ui/flex'
 
 const MobileBottomMenuWrapper = styled(ListWrapper)`
     position: fixed;
@@ -70,8 +74,8 @@ const MobileBottomMenu = () => {
         user?.user_status === 'stud'
             ? DEFAULT_STUDENT_MOBILE_CONFIG
             : hasNoSchedule
-            ? DEFAULT_STAFF_MOBILE_CONFIG
-            : DEFAULT_PPS_MOBILE_CONFIG
+              ? DEFAULT_STAFF_MOBILE_CONFIG
+              : DEFAULT_PPS_MOBILE_CONFIG
 
     return (
         <MobileBottomMenuWrapper direction="horizontal" horizontalAlign="evenly">

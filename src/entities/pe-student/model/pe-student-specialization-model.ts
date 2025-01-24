@@ -1,9 +1,10 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
-
 import { createEffect, createEvent, sample } from 'effector'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
 
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
+
 import { Specialization } from '../types'
 import { SetSpecialization } from '../types/set-specialization'
 

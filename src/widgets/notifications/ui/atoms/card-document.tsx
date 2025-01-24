@@ -1,17 +1,21 @@
 import React from 'react'
-import { docsNotification } from '@api/model/notification'
-import { Colors } from '@shared/constants'
-import { personalNotificationModel } from '@entities/notification'
-import { userModel } from '@entities/user'
-import { LinkButton, SubmitButton } from '@ui/atoms'
-import getRightGenderWord from '@utils/get-right-gender-word'
-import localizeDate from '@shared/lib/dates/localize-date'
 import { useState } from 'react'
 import { FiLink } from 'react-icons/fi'
+
+import { docsNotification } from '@api/model/notification'
+import { LinkButton, SubmitButton } from '@ui/atoms'
+import getRightGenderWord from '@utils/get-right-gender-word'
 import styled from 'styled-components'
-import Subtext from '@shared/ui/subtext'
-import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { lkNotificationModel } from '@entities/lk-notifications'
+import { personalNotificationModel } from '@entities/notification'
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { userModel } from '@entities/user'
+
+import { Colors } from '@shared/constants'
+import localizeDate from '@shared/lib/dates/localize-date'
+import Subtext from '@shared/ui/subtext'
+
 import { CardTitle, Info } from './styled'
 
 const CardDocumentWrapper = styled.div`

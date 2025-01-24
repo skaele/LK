@@ -1,5 +1,6 @@
-import BlockWrapper from '@shared/ui/block/styles'
 import styled from 'styled-components'
+
+import BlockWrapper from '@shared/ui/block/styles'
 
 export const TopStyled = styled.header`
     width: 100%;

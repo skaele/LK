@@ -1,7 +1,10 @@
-import { Title } from '@shared/ui/title'
-import List from '@ui/list'
 import React from 'react'
 import { FiFolderPlus } from 'react-icons/fi'
+
+import List from '@ui/list'
+
+import { Title } from '@shared/ui/title'
+
 import ElectronicAgreementListItem from '../molecules/electronic-agreement-list-item'
 
 interface Props {

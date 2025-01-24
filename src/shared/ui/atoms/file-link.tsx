@@ -1,6 +1,7 @@
-import { IInputAreaLink } from '@ui/input-area/model'
 import React from 'react'
 import { FiFileText, FiLink } from 'react-icons/fi'
+
+import { IInputAreaLink } from '@ui/input-area/model'
 import styled from 'styled-components'
 
 const FileLinkWrapper = styled.a`

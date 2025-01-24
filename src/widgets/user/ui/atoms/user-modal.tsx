@@ -1,8 +1,10 @@
-import { MEDIA_QUERIES } from '@shared/constants'
-import UserHeader from '@shared/ui/user-header'
 import React from 'react'
+
 import styled from 'styled-components'
 import { UserProps } from 'widgets/user/types'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import UserHeader from '@shared/ui/user-header'
 
 const UserModalWrapper = styled.div`
     @media (min-width: 1001px) {

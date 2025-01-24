@@ -1,7 +1,10 @@
+import { InternalAxiosRequestConfig } from 'axios'
+
 import { userModel } from '@entities/user'
 import { getJwtToken } from '@entities/user/lib/jwt-token'
+
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
-import { InternalAxiosRequestConfig } from 'axios'
+
 import { authServiceHealthCheck, refreshAccessToken } from '../user-api'
 
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')

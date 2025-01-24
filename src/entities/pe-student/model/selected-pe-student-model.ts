@@ -1,13 +1,14 @@
+import { combine, createEffect, createEvent, createStore, sample } from 'effector'
+
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
-import * as peStudentSpecializationModel from './pe-student-specialization-model'
-import * as peStudentHealthGroupModel from './pe-student-health-group-model'
-
-import { combine, createEffect, createEvent, createStore, sample } from 'effector'
-import { pEStudentVisitModel } from '.'
-import { PEStudentProfile } from '../types'
 
 import { peApi } from '@shared/api'
+
+import * as peStudentHealthGroupModel from './pe-student-health-group-model'
+import * as peStudentSpecializationModel from './pe-student-specialization-model'
+import { pEStudentVisitModel } from '.'
+import { PEStudentProfile } from '../types'
 
 const setCurrentStudentId = createEvent<string>()
 const resetStudentId = createEvent()

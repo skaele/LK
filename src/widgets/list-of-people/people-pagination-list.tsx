@@ -1,10 +1,13 @@
-import { SelectPage } from '@features/select'
-import PagintaionList from '@shared/ui/pagination-list'
-import { Hint } from '@shared/ui/search'
+import React from 'react'
+
 import { EventCallable, Store } from 'effector'
 import { useStore } from 'effector-react'
-import React from 'react'
 import User from 'widgets/user'
+
+import { SelectPage } from '@features/select'
+
+import PagintaionList from '@shared/ui/pagination-list'
+import { Hint } from '@shared/ui/search'
 
 type TUser = {
     id: string

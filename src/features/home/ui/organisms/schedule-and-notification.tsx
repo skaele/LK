@@ -1,9 +1,12 @@
 import React from 'react'
-import { ScheduleWidget } from '../schedule-widget'
+
 import { useUnit } from 'effector-react'
-import { userSettingsModel } from '@entities/settings'
 import { ListTutorial } from 'widgets/tutorial/tutorials/list-tutorial'
+
+import { userSettingsModel } from '@entities/settings'
+
 import PaymentsWidget from '../molecules/payments-widget'
+import { ScheduleWidget } from '../schedule-widget'
 
 const ScheduleAndNotification = () => {
     const settings = useUnit(userSettingsModel.stores.userSettings)

@@ -1,8 +1,11 @@
-import { teacherStatementModel } from '@entities/teachers-statement'
-import TemplateFormPage from 'widgets/template-form-page'
-import getForm from './lib/get-form'
 import React from 'react'
+
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+import TemplateFormPage from 'widgets/template-form-page'
+
+import { teacherStatementModel } from '@entities/teachers-statement'
+
+import getForm from './lib/get-form'
 
 const ArbitraryRequestPage = () => {
     return (

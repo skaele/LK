@@ -1,6 +1,8 @@
-import { storyModel } from '@entities/story'
 import React from 'react'
+
 import styled from 'styled-components'
+
+import { storyModel } from '@entities/story'
 
 interface StyledProps {
     filled?: number

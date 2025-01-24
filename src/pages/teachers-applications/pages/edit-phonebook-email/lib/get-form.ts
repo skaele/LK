@@ -1,7 +1,9 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+import { IInputArea } from '@ui/input-area/model'
+
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+
+import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 
 const getForm = (data: UserApplication): IInputArea => {
     const { surname, name, patronymic, subdivisions } = data

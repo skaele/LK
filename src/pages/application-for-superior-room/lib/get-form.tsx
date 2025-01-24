@@ -1,7 +1,10 @@
 import React from 'react'
+
 import { SuperiorRoom } from '@api/model'
 import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
+
 import { SelectPage } from '@features/select'
+
 import { superiorRoomAlert } from './get-status'
 
 const mAllocationTypes = [

@@ -1,5 +1,6 @@
-import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
 
 const DragAndDropAreaWrapper = styled.label<{ showPulse: boolean; isActive: boolean; topPadding: boolean }>`
     width: 100%;

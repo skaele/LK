@@ -1,7 +1,8 @@
+import React from 'react'
+
 import { Coordinates } from '@ui/types'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
-import React from 'react'
 import calcPosition from 'widgets/context-menu/lib/calc-position'
 
 type ClickType = 'left-click' | 'right-click' | 'both'

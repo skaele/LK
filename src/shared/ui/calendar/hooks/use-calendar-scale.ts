@@ -1,5 +1,7 @@
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { useEffect, useState } from 'react'
+
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+
 import { SCALE_VALUES } from '../consts'
 
 export const useCalendarScale = () => {

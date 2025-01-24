@@ -1,11 +1,15 @@
-import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
-import downloadFile from '@pages/hr-applications/lib/get-file-dismissal'
-import localizeDate from '@shared/lib/dates/localize-date'
-import { Button } from '@shared/ui/button'
+import React from 'react'
 
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
-import React from 'react'
+
+import downloadFile from '@pages/hr-applications/lib/get-file-dismissal'
+
+import { hrApplicationsConstants, hrOrderConstants } from '@entities/applications/consts'
+
+import localizeDate from '@shared/lib/dates/localize-date'
+import { Button } from '@shared/ui/button'
+
 const getHrApplicationsColumns = (): ColumnProps[] => {
     return [
         //{ title: 'Название', field: 'title', priority: 'one', search: true, },
@@ -24,8 +28,8 @@ const getHrApplicationsColumns = (): ColumnProps[] => {
                         value === 'Согласовано'
                             ? 'success'
                             : value === 'Не согласовано' || value === 'Не создано'
-                            ? 'failure'
-                            : 'alert'
+                              ? 'failure'
+                              : 'alert'
                     }
                     title={value}
                     align="center"
@@ -72,8 +76,8 @@ const getHrApplicationsColumns = (): ColumnProps[] => {
                             value.orderStatus === 'Подписан'
                                 ? 'success'
                                 : value.orderStatus === 'Не создан'
-                                ? 'failure'
-                                : 'alert'
+                                  ? 'failure'
+                                  : 'alert'
                         }
                         title={title}
                         align="center"

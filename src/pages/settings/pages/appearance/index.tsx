@@ -1,10 +1,15 @@
-import { userSettingsModel } from '@entities/settings'
+import React from 'react'
+
+import { useUnit } from 'effector-react'
+
 import { switchTheme } from '@features/theme-toggle/model'
+
+import { userSettingsModel } from '@entities/settings'
+
 import { ThemeVariant } from '@shared/constants'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
-import React from 'react'
+
 import { TITLE_CONFIG } from '../constants'
 
 const AppearanceSettings = () => {

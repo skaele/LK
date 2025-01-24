@@ -1,8 +1,11 @@
-import { userSettingsModel } from '@entities/settings'
-import { IColorPalette, ThemeVariant } from '@shared/constants'
-import { useUnit } from 'effector-react'
 import React from 'react'
+
+import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+
+import { userSettingsModel } from '@entities/settings'
+
+import { IColorPalette, ThemeVariant } from '@shared/constants'
 
 const NextSubjectWrapper = styled.div<{ background: string }>`
     border-radius: var(--brSemi);

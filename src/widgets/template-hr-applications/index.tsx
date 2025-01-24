@@ -1,15 +1,19 @@
-import { applicationsModel } from '@entities/applications'
-import createApplicationSearch from '@features/applications/lib/create-application-search'
-import { getTeachersHRSectionLinks } from '@features/applications/lib/get-teachers-section-links'
-import PageBlock from '@shared/ui/page-block'
-import { Message, Title, Wrapper } from '@ui/atoms'
-import { Error } from '@ui/error'
-import { LocalSearch } from '@ui/molecules'
 import React, { useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+
+import { Message, Title, Wrapper } from '@ui/atoms'
+import { Error } from '@ui/error'
+import { LocalSearch } from '@ui/molecules'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import createApplicationSearch from '@features/applications/lib/create-application-search'
+import { getTeachersHRSectionLinks } from '@features/applications/lib/get-teachers-section-links'
+
+import { applicationsModel } from '@entities/applications'
+
+import PageBlock from '@shared/ui/page-block'
 
 const CreateApplicationListWrapper = styled.div`
     display: flex;

@@ -1,7 +1,10 @@
-import { ColumnProps } from '@shared/ui/table/types'
-import { NameRenderer } from './styled'
 import React from 'react'
+
 import { HealthGroup, healthGroupToTitle } from '@entities/pe-student/types'
+
+import { ColumnProps } from '@shared/ui/table/types'
+
+import { NameRenderer } from './styled'
 
 export const peStudentColumns: ColumnProps[] = [
     {

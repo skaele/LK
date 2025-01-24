@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { SkeletonShape } from '../skeleton-shape'
 import { ImageWrapper } from './styles'
 

@@ -1,8 +1,10 @@
 import { $api, $hrApi } from '@api/config'
-import { ApplicationCreating } from '@entities/applications/model'
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 import token from '@utils/token'
 import { AxiosResponse } from 'axios'
+
+import { ApplicationCreating } from '@entities/applications/model'
+import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
+
 import { Application, UserApplication } from './model'
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {

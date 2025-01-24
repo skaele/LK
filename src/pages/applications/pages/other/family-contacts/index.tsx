@@ -1,17 +1,22 @@
+import React, { useEffect, useState } from 'react'
+
+import { useUnit } from 'effector-react'
+import { LoadedState } from 'widgets/template-form'
+
+import { globalPrepareFormData } from '@pages/applications/lib/prepare-form-data'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import { applicationsModel } from '@entities/applications'
+import { familyContactsModel } from '@entities/family-contacts'
+
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
-import React, { useEffect, useState } from 'react'
-import { LoadedState } from 'widgets/template-form'
-import { getAbstractRelativeForm, getForm, getRelativeForm } from './lib/get-form'
-import { applicationsModel } from '@entities/applications'
+
 import { checkForAtLeastOneField } from './lib/check-for-at-least-one-field'
-import { useUnit } from 'effector-react'
-import { familyContactsModel } from '@entities/family-contacts'
-import { globalPrepareFormData } from '@pages/applications/lib/prepare-form-data'
+import { getAbstractRelativeForm, getForm, getRelativeForm } from './lib/get-form'
 
 const MOTHER_STRING_PREFIX = 'm_'
 const FATHER_STRING_PREFIX = 'f_'

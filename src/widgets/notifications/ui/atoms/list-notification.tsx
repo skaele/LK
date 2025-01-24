@@ -1,8 +1,12 @@
-import { baseNotification, businesstripNotification, docsNotification, ItemNotification } from '@api/model/notification'
-import { personalNotificationModel } from '@entities/notification'
-import Flex from '@shared/ui/flex'
-import { Error } from '@ui/error'
 import React from 'react'
+
+import { ItemNotification, baseNotification, businesstripNotification, docsNotification } from '@api/model/notification'
+import { Error } from '@ui/error'
+
+import { personalNotificationModel } from '@entities/notification'
+
+import Flex from '@shared/ui/flex'
+
 import { CardDocument, CardNotification } from './index'
 
 interface Props {

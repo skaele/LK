@@ -1,20 +1,25 @@
+import React, { useEffect, useMemo, useState } from 'react'
+import { HiOutlineEmojiSad } from 'react-icons/hi'
+
 import { AcadPerformance as IAcadPerformance } from '@api/model/acad-performance'
-import { acadPerformanceModel } from '@entities/acad-performance'
-import { getCurrentData, PreparedAcadPerformanceData, prepareData } from '@entities/acad-performance/lib/prepare'
-import { userModel } from '@entities/user'
+import { Error, Wrapper } from '@ui/atoms'
+import { LocalSearch } from '@ui/molecules'
+import findSemestr from '@utils/find-semestr'
+
 import createSelectItems from '@features/acad-performance/lib/create-select-items'
 import search from '@features/acad-performance/lib/search'
 import { SubjectList } from '@features/acad-performance/ui/organisms'
 import Select, { SelectPage } from '@features/select'
+
+import { acadPerformanceModel } from '@entities/acad-performance'
+import { PreparedAcadPerformanceData, getCurrentData, prepareData } from '@entities/acad-performance/lib/prepare'
+import { userModel } from '@entities/user'
+
+import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import { Error, Wrapper } from '@ui/atoms'
-import { LocalSearch } from '@ui/molecules'
-import findSemestr from '@utils/find-semestr'
-import React, { useEffect, useMemo, useState } from 'react'
-import { HiOutlineEmojiSad } from 'react-icons/hi'
+
 import GradeGraph from './ui/grade-graph'
 import PerformanceMessage from './ui/performance-message'
-import Flex from '@shared/ui/flex'
 
 const AcadPerformance = () => {
     const { data, loading, error } = acadPerformanceModel.selectors.useData()

@@ -1,6 +1,7 @@
-import { userModel } from '@entities/user'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
+
+import { userModel } from '@entities/user'
 
 export interface Confirm {
     isOpen: boolean

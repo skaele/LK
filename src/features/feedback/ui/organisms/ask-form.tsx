@@ -1,12 +1,14 @@
+import React, { useEffect, useState } from 'react'
+
 import { FormFeedback } from '@api/model/feedback'
-import { feedbackModel } from '@features/feedback'
-import getForm from '@features/feedback/lib/get-form'
 import { SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
 import sendForm from '@utils/send-form'
-import React, { useEffect, useState } from 'react'
+
+import { feedbackModel } from '@features/feedback'
+import getForm from '@features/feedback/lib/get-form'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 

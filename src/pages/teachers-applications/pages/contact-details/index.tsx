@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { FiInfo } from 'react-icons/fi'
+import { useHistory } from 'react-router'
+
+import { CONTACT_DETAILS } from '@app/routes/teacher-routes'
+
+import { LinkField } from '@pages/settings/ui'
+
+import { applicationsModel } from '@entities/applications'
+
 import { Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import { FiInfo } from 'react-icons/fi'
-import { applicationsModel } from '@entities/applications'
-import { useHistory } from 'react-router'
-import { CONTACT_DETAILS } from '@app/routes/teacher-routes'
+
 import ContactDetailsForm from './form'
-import { LinkField } from '@pages/settings/ui'
 
 const ContactDetails = () => {
     const [hasPartTime, setHasPartTime] = useState(false)

@@ -1,12 +1,15 @@
+import React from 'react'
+
+import { differenceInDays } from 'date-fns'
+import { combine } from 'effector'
+
 import { pEStudentVisitModel } from '@entities/pe-student/model'
 import { PEStudentProfile } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
+
 import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'
-import { differenceInDays } from 'date-fns'
-import { combine } from 'effector'
-import React from 'react'
 
 export const $peStudentVisitsColumns = combine(
     peTeacherModel.stores.peTeacher,

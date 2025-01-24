@@ -1,9 +1,12 @@
-import { userModel } from '@entities/user'
-import { CenterPage, Divider, Message, Title, Error } from '@ui/atoms'
+import React, { useState } from 'react'
+
+import { CenterPage, Divider, Error, Message, Title } from '@ui/atoms'
 import BlockWrapper from '@ui/block/styles'
 import { LocalSearch } from '@ui/molecules'
-import React, { useState } from 'react'
 import styled from 'styled-components'
+
+import { userModel } from '@entities/user'
+
 import instructionsStudentData, { InstructionsType } from './data/student-data'
 import instructionsTeacherData from './data/teacher-data'
 import search from './lib/search'

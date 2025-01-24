@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
 
 type ITextWrapper = { title: string; collapsed?: boolean; children: React.ReactNode }

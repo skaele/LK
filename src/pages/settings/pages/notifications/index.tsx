@@ -1,11 +1,15 @@
-import { userSettingsModel } from '@entities/settings'
-import { useUnit } from 'effector-react'
 import React from 'react'
-import { Wrapper } from '../styled'
-import ToggleItem from '@shared/ui/toggle-item'
-import { turnOffAllNotifications, turnOnAllNotifications } from './model'
+
+import { useUnit } from 'effector-react'
+
+import { userSettingsModel } from '@entities/settings'
+
 import { Title } from '@shared/ui/title'
+import ToggleItem from '@shared/ui/toggle-item'
+
 import { TITLE_CONFIG } from '../constants'
+import { Wrapper } from '../styled'
+import { turnOffAllNotifications, turnOnAllNotifications } from './model'
 import { TogglesWrapper } from './styled'
 
 const NotificationsSettings = () => {

@@ -1,22 +1,29 @@
-import { Wrapper } from '@pages/pe-student/styled'
-import { getDivisions } from '@shared/api/teacher-api'
-import { Loader } from '@shared/ui/atoms/loader'
-import PageBlock from '@shared/ui/page-block'
 import React, { useEffect, useState } from 'react'
-import { Subdivisions } from './subdivisions'
-import { Staff } from './staff'
-import { Grid } from '../../shared/ui/grid'
-import SearchWithHints from '@features/search-with-hints'
-import Flex from '@shared/ui/flex'
-import Search, { Hint } from '@shared/ui/search'
-import { useUnit } from 'effector-react'
-import { phonebookModel } from '@entities/phonebook'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useHistory } from 'react-router'
-import useDebounce from '@shared/lib/hooks/use-debounce'
-import { setSubdivisionPath } from './lib/set-subdivision-path'
+
+import { useUnit } from 'effector-react'
+
 import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
+
+import { Wrapper } from '@pages/pe-student/styled'
+
+import SearchWithHints from '@features/search-with-hints'
+
+import { phonebookModel } from '@entities/phonebook'
+
+import { getDivisions } from '@shared/api/teacher-api'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import useDebounce from '@shared/lib/hooks/use-debounce'
+import useQueryParams from '@shared/lib/hooks/use-query-params'
+import { Loader } from '@shared/ui/atoms/loader'
+import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
+import Search, { Hint } from '@shared/ui/search'
+
+import { Grid } from '../../shared/ui/grid'
+import { setSubdivisionPath } from './lib/set-subdivision-path'
+import { Staff } from './staff'
+import { Subdivisions } from './subdivisions'
 
 const AllStaff = () => {
     const query = useQueryParams()

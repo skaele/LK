@@ -1,9 +1,12 @@
+import { createMutation } from '@farfetched/core'
+import { createEvent, sample } from 'effector'
+
+import { LocationSettingsType } from '@pages/settings/types'
+
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
-import { createMutation } from '@farfetched/core'
-import { LocationSettingsType } from '@pages/settings/types'
+
 import { changeStaffAddressApi } from '@shared/api/user-api'
-import { createEvent, sample } from 'effector'
 
 export const changeStaffAddress = createEvent<LocationSettingsType>()
 

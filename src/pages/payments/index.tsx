@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
+import { TAX_CERTIFICATE_ROUTE } from '@app/routes/routes'
 import { paymentsModel } from '@entities/payments'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
 import PageBlock from '@shared/ui/page-block'
 import { Error, Message, Wrapper } from '@ui/atoms'
 import { useUnit } from 'effector-react'
+import styled from 'styled-components'
 import { SliderPage } from 'widgets'
 
 import PaymentsTemplate from './payments-template'
@@ -51,7 +54,14 @@ const PaymentsPage = () => {
                 <Message type={'alert'} title="Внимание!">
                     Ведутся доработки по информации о долге по оплате и суммам оплат
                 </Message>
-                {paymentType !== 'none' && <PaymentsWidget fullWidth />}
+                {paymentType !== 'none' && (
+                    <>
+                        <PaymentsWidget fullWidth />
+                        <Link to={TAX_CERTIFICATE_ROUTE}>
+                            Заказать справку по оплате образовательных услуг для представления в налоговый орган
+                        </Link>
+                    </>
+                )}
                 {paymentType === 'none' && <Error text="Нет данных" />}
                 {paymentType === 'both' && (
                     <SliderPage
@@ -94,5 +104,9 @@ const PaymentsPage = () => {
         </Wrapper>
     )
 }
+
+const Link = styled(RouterLink)`
+    font-size: clamp(0.75rem, 0.688rem + 0.313vw, 1rem);
+`
 
 export default PaymentsPage

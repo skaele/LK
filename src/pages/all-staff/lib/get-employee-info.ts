@@ -1,4 +1,5 @@
 import { Employee } from '@shared/api/model/phonebook'
+
 import { PhonebookInfo } from '../ui/phonebook-modal'
 
 export const getEmployeeInfo = (employee: Employee): PhonebookInfo[] =>

@@ -1,4 +1,5 @@
 import { IInputArea } from '@ui/input-area/model'
+
 import { bufferHolidayPlanningModel } from '../pages/buffer-holiday-planning/model'
 
 const sendHrFormHolidayPlanning = async (

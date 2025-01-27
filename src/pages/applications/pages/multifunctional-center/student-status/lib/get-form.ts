@@ -1,8 +1,8 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import getAddressFields from '@features/applications/lib/get-address-fields'
-import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+import { IInputArea } from '@ui/input-area/model'
 
 const PlaceOfReferenceOptions = [
     { id: 0, title: 'по месту требования' },

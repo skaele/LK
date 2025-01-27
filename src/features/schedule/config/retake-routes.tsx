@@ -1,7 +1,7 @@
 import React from 'react'
-import { IRoute, IRoutes } from '@app/routes/general-routes'
-import RETAKE_LINKS from './retake-links'
-import RetakeModal from '../ui/molecules/retake-modal'
+import { BiBookBookmark } from 'react-icons/bi'
+import { FaRegCalendar, FaRegLightbulb } from 'react-icons/fa'
+import { FiTruck } from 'react-icons/fi'
 import {
     HiOutlineDesktopComputer,
     HiOutlineDocumentSearch,
@@ -9,12 +9,14 @@ import {
     HiOutlinePencilAlt,
     HiOutlinePrinter,
 } from 'react-icons/hi'
-import { FaRegCalendar, FaRegLightbulb } from 'react-icons/fa'
-import { RiBarChartFill, RiFlaskLine } from 'react-icons/ri'
-import { BiBookBookmark } from 'react-icons/bi'
-import { FiTruck } from 'react-icons/fi'
-import { TiBrush } from 'react-icons/ti'
 import { MdCarRepair, MdEvStation } from 'react-icons/md'
+import { RiBarChartFill, RiFlaskLine } from 'react-icons/ri'
+import { TiBrush } from 'react-icons/ti'
+
+import { IRoute, IRoutes } from '@app/routes/general-routes'
+
+import RetakeModal from '../ui/molecules/retake-modal'
+import RETAKE_LINKS from './retake-links'
 
 type RetakeRouteRaw = Pick<IRoute, 'id' | 'title' | 'icon' | 'color' | 'fullTitle'>
 

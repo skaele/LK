@@ -1,9 +1,10 @@
 import { userModel } from '@entities/user'
 import { cache, concurrency, createQuery, onAbort, sessionStorageCache } from '@farfetched/core'
+import { pageVisibility } from '@shared/models/window-focus'
 import { createEvent, createStore, sample } from 'effector'
 import { interval } from 'patronum'
+
 import { getAllChats } from '../api'
-import { pageVisibility } from '@shared/models/window-focus'
 
 const load = createEvent()
 

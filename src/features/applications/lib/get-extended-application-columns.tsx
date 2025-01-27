@@ -1,11 +1,13 @@
-import { Button } from '@shared/ui/atoms'
-import { ColumnProps } from '@ui/table/types'
 import React from 'react'
-import { Colors } from '@shared/constants'
+
 import { ApplicationFileOutput } from '@shared/api/model'
-import { getCommonApplicationsColumns } from './get-applications-columns'
+import { Colors } from '@shared/constants'
+import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
+import { ColumnProps } from '@ui/table/types'
+
+import { getCommonApplicationsColumns } from './get-applications-columns'
 
 export const getExtendedApplicationsColumns = (): ColumnProps[] => {
     return [

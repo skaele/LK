@@ -1,16 +1,17 @@
-import { Divider, FileLink, FormBlock, Input, Message, SubmitButton, TextArea } from '@ui/atoms'
 import React, { useEffect, useState } from 'react'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import Checkbox from '@shared/ui/checkbox'
-import { useUnit } from 'effector-react'
+
 import { increasedScholarshipModel } from '@entities/increased-scholarship'
-import styled from 'styled-components'
 import Select from '@features/select'
-import TextHeader from '@shared/ui/molecules/text-header'
-import Flex from '@shared/ui/flex'
-import FileInput from '@shared/ui/file-input'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { parseFilesToFormData } from '@pages/applications/lib/prepare-form-data'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import Checkbox from '@shared/ui/checkbox'
+import FileInput from '@shared/ui/file-input'
+import Flex from '@shared/ui/flex'
+import TextHeader from '@shared/ui/molecules/text-header'
+import { Divider, FileLink, FormBlock, Input, Message, SubmitButton, TextArea } from '@ui/atoms'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
 
 const typesOfActivity = [
     { id: 0, title: 'Учебная деятельность' },

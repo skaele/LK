@@ -1,10 +1,12 @@
-import { IRoutes } from '@app/routes/general-routes'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import LinkItem from './link-item'
-import { Divider } from '@shared/ui/divider'
+
+import { IRoutes } from '@app/routes/general-routes'
 import { menuModel } from '@entities/menu'
+import { Divider } from '@shared/ui/divider'
+import styled from 'styled-components'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import LinkItem from './link-item'
 
 const LinksStyled = styled.div<{ componentHeight?: number }>`
     width: 100%;
@@ -19,16 +21,16 @@ const LinksStyled = styled.div<{ componentHeight?: number }>`
         !!componentHeight && componentHeight > 33
             ? '120px'
             : !!componentHeight && componentHeight > 10
-            ? '110px'
-            : '100px'};
+              ? '110px'
+              : '100px'};
 
     @media (max-width: 1000px) {
         height: ${({ componentHeight }) =>
             !!componentHeight && componentHeight > 33
                 ? '100px'
                 : !!componentHeight && componentHeight > 10
-                ? '90px'
-                : '75px'};
+                  ? '90px'
+                  : '75px'};
     }
 `
 

@@ -1,6 +1,7 @@
+import React from 'react'
+
 import { Colors } from '@shared/constants'
 import { Title } from '@ui/atoms'
-import React from 'react'
 import styled from 'styled-components'
 
 const LinkImageBlockWrapper = styled.a`

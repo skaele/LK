@@ -1,5 +1,7 @@
 import React from 'react'
+
 import styled from 'styled-components'
+
 import { SwitchToggle } from '../molecules'
 
 const ToggleItemBlock = styled.div<{ disabled?: boolean }>`

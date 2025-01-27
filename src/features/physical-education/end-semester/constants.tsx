@@ -1,8 +1,10 @@
-import { Loading } from '@shared/ui/loading'
-import { Status } from '../student/pe-student-end-semester/model'
 import React from 'react'
 import { FiAlertOctagon, FiCheck } from 'react-icons/fi'
+
 import { Colors } from '@shared/constants'
+import { Loading } from '@shared/ui/loading'
+
+import { Status } from '../student/pe-student-end-semester/model'
 
 export const STATUSES_TEXT = {
     [Status.LOADING]: 'Загрузка',

@@ -1,3 +1,7 @@
+import React from 'react'
+
+import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
+import { RegulationType } from '@entities/pe-student-regulation-points/types'
 import { PEStudentProfile } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
@@ -5,10 +9,8 @@ import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'
 import { differenceInDays } from 'date-fns'
 import { combine } from 'effector'
+
 import { SelectorData } from './constants'
-import React from 'react'
-import { RegulationType } from '@entities/pe-student-regulation-points/types'
-import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
 
 export const $regularPointsColumns = combine(
     peTeacherModel.stores.peTeacher,

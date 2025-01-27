@@ -1,11 +1,13 @@
+import React, { memo } from 'react'
+
 import { PreparedAcadPerformanceData } from '@entities/acad-performance/lib/prepare'
 import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
-import { Title } from '@shared/ui/title'
-import React, { memo } from 'react'
-import SubjectItems from '../molecules/subject-items'
 import PlaneSkeletonList from '@shared/ui/plane-skeleton-list'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
+import Subtext from '@shared/ui/subtext'
+import { Title } from '@shared/ui/title'
+
+import SubjectItems from '../molecules/subject-items'
 
 type Props = {
     loading?: boolean

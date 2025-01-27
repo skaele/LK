@@ -1,5 +1,7 @@
 import React from 'react'
+
 import Flex from '@shared/ui/flex'
+
 import { ColumnDivider } from './column-divider'
 
 type Props = {

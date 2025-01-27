@@ -1,12 +1,14 @@
+import React, { useEffect } from 'react'
+
 import { paymentsModel } from '@entities/payments'
 import { popUpMessageModel } from '@entities/pop-up-message'
+import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
 import PageBlock from '@shared/ui/page-block'
 import { Error, Message, Wrapper } from '@ui/atoms'
-import React, { useEffect } from 'react'
-import { SliderPage } from 'widgets'
-import PaymentsTemplate from './payments-template'
 import { useUnit } from 'effector-react'
-import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
+import { SliderPage } from 'widgets'
+
+import PaymentsTemplate from './payments-template'
 
 const PaymentsPage = () => {
     const [

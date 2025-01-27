@@ -1,5 +1,6 @@
-import { Ul } from '@features/feedback/ui/organisms/help-links'
 import React from 'react'
+
+import { Ul } from '@features/feedback/ui/organisms/help-links'
 
 export const Nutrition = () => {
     return (

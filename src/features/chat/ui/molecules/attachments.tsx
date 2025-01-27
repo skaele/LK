@@ -1,5 +1,6 @@
-import { Title } from '@ui/atoms'
 import React from 'react'
+
+import { Title } from '@ui/atoms'
 import styled from 'styled-components'
 
 const AttachmentsWrapper = styled.div`

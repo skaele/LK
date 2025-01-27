@@ -1,10 +1,12 @@
-import Select, { SelectPage } from '@features/select'
-import sortPopUp from '@ui/table/lib/sort-pop-up'
-import { ColumnProps, TableCatalogType, TableSearchType, TableSortType } from '@ui/table/types'
 import React, { memo } from 'react'
 import { FaSort } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
+
+import Select, { SelectPage } from '@features/select'
+import sortPopUp from '@ui/table/lib/sort-pop-up'
+import { ColumnProps, TableCatalogType, TableSearchType, TableSortType } from '@ui/table/types'
 import styled from 'styled-components'
+
 import { Column, HeaderWrapper } from '../atoms'
 
 interface Props {

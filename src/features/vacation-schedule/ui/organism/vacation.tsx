@@ -1,12 +1,13 @@
-import { Vacation as VacationType, VacationSchedule } from '@api/model/vacation-schedule'
-import { ColumnProps } from '@ui/table/types'
+import React from 'react'
+
+import { VacationSchedule, Vacation as VacationType } from '@api/model/vacation-schedule'
+import localizeDate from '@shared/lib/dates/localize-date'
 import KeyValue from '@ui/atoms/key-value'
 import List from '@ui/list'
 import Table from '@ui/table'
+import { ColumnProps } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
 import getCorrectWordForm, { Rules } from '@utils/get-correct-word-form'
-import React from 'react'
-import localizeDate from '@shared/lib/dates/localize-date'
 
 const RULES: Rules = {
     fiveToNine: 'дней',

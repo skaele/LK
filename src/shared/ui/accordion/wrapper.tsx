@@ -16,7 +16,11 @@ const AccordionWrapper = styled.div<{
         display: flex;
         flex-direction: column;
         row-gap: 15px;
-        transition: 0.2s height, 0.2s opacity, 0.2s visibility, 0.2s padding;
+        transition:
+            0.2s height,
+            0.2s opacity,
+            0.2s visibility,
+            0.2s padding;
         height: ${({ height, open }) => (open ? height + 'px' : '0')};
         opacity: ${({ open }) => (open ? '1' : '0')};
         visibility: ${({ open }) => (open ? 'visible' : 'hidden')};

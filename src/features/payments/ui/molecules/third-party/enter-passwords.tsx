@@ -1,3 +1,5 @@
+import React, { useState } from 'react'
+
 import { thirdPartyAgreementModel } from '@entities/payments'
 import { Agreement } from '@shared/api/model'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
@@ -5,7 +7,6 @@ import { Button, Title } from '@shared/ui/atoms'
 import { Grid } from '@shared/ui/grid'
 import Input from '@shared/ui/input'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
 
 export const EnterPasswords = ({ agreement }: { agreement: Agreement }) => {
     const { isMobile } = useCurrentDevice()

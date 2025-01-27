@@ -1,10 +1,11 @@
+import React from 'react'
+
 import downloadFile from '@pages/hr-applications/lib/get-file'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { TypesOfVacation } from '@shared/models/types-of-vacation'
 import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
 import { ColumnProps } from '@ui/table/types'
-import React from 'react'
 
 export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [
@@ -25,11 +26,11 @@ export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
                             value.status.orderStatus === 'Согласовано'
                                 ? 'success'
                                 : value.status.orderStatus === 'На регистрации'
-                                ? 'info'
-                                : value.status.orderStatus === 'Не утвержден' ||
-                                  value.status.orderStatus === 'Не создано'
-                                ? 'failure'
-                                : 'alert'
+                                  ? 'info'
+                                  : value.status.orderStatus === 'Не утвержден' ||
+                                      value.status.orderStatus === 'Не создано'
+                                    ? 'failure'
+                                    : 'alert'
                         }
                         title={value.status.orderStatus || '-'}
                         align="center"

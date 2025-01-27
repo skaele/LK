@@ -1,7 +1,8 @@
+import React from 'react'
+
 import { Colors, IColors } from '@shared/constants'
 import List from '@ui/list'
 import { Direction } from '@ui/types'
-import React from 'react'
 import styled from 'styled-components'
 
 const Dot = styled.div`

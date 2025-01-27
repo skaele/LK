@@ -21,13 +21,16 @@ const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null, user
                 ? guidsAllowed.includes(userGuid || '')
                 : true,
         )
-        .reduce((acc, route) => {
-            const group = route?.group ? Groups[route.group] : Groups.OTHER
+        .reduce(
+            (acc, route) => {
+                const group = route?.group ? Groups[route.group] : Groups.OTHER
 
-            if (!acc[group]) acc[group] = {}
-            acc[group][route.id] = route
-            return acc
-        }, {} as Record<Groups, IRoutes>)
+                if (!acc[group]) acc[group] = {}
+                acc[group][route.id] = route
+                return acc
+            },
+            {} as Record<Groups, IRoutes>,
+        )
 
     return tabs
 }

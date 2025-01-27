@@ -1,6 +1,8 @@
-import styled from 'styled-components'
-import LoadingImage from '../../images/loading.gif'
 import React from 'react'
+
+import styled from 'styled-components'
+
+import LoadingImage from '../../images/loading.gif'
 
 export const ButtonLoading = () => {
     return <LoadingStyled src={LoadingImage} alt="loading" className="loading-circle" />

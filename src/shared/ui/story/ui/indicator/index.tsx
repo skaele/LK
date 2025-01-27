@@ -1,5 +1,6 @@
-import { storyModel } from '@entities/story'
 import React from 'react'
+
+import { storyModel } from '@entities/story'
 import styled from 'styled-components'
 
 interface StyledProps {

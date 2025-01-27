@@ -1,16 +1,17 @@
-import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
-import TextFieldItem from '@shared/ui/text-field/text-field-item'
-import { User } from '@shared/api/model'
-import { Divider } from '@shared/ui/divider'
-import Flex from '@shared/ui/flex'
-import { Title } from '@shared/ui/title'
 import React from 'react'
 import { FaRegEdit } from 'react-icons/fa'
 import { FiMail, FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
+
+import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
 import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
 import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
+import { User } from '@shared/api/model'
 import { Message } from '@shared/ui/atoms'
+import { Divider } from '@shared/ui/divider'
+import Flex from '@shared/ui/flex'
+import TextFieldItem from '@shared/ui/text-field/text-field-item'
+import { Title } from '@shared/ui/title'
 
 export const ContactDetailsProfile = ({ user }: { user: User }) => {
     const history = useHistory()

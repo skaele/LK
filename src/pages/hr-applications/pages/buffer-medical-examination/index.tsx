@@ -1,9 +1,11 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
-import { Message, Wrapper } from '@ui/atoms'
-import Content from './ui/content'
-import PageBlock from '@shared/ui/page-block'
 import { FiInfo } from 'react-icons/fi'
+
+import { applicationsModel } from '@entities/applications'
+import PageBlock from '@shared/ui/page-block'
+import { Message, Wrapper } from '@ui/atoms'
+
+import Content from './ui/content'
 
 const MedicalExaminationBufferPage = () => {
     const {

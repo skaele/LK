@@ -1,11 +1,12 @@
 import { paymentApi } from '@api'
 import { Payments, PaymentsContract } from '@api/model'
-import { createEffect, createStore, combine, createEvent, sample } from 'effector'
-import changeCanSign from '../lib/change-can-sign'
-import { agreementSubmit } from '@shared/api/payment-api'
-import { MessageType } from '@shared/ui/types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
+import { agreementSubmit } from '@shared/api/payment-api'
+import { MessageType } from '@shared/ui/types'
+import { combine, createEffect, createEvent, createStore, sample } from 'effector'
+
+import changeCanSign from '../lib/change-can-sign'
 
 const filterContractsWithDebt = (contracts: PaymentsContract[]) =>
     contracts.filter((contarct) => Number(contarct.balance_currdate) > 0)
@@ -86,10 +87,10 @@ const $paymentType = combine($combinedDormLength, $combinedEduLength, (combinedD
     !!combinedDormLength && !!combinedEduLength
         ? 'both'
         : !!combinedDormLength
-        ? 'dormitory'
-        : !!combinedEduLength
-        ? 'education'
-        : 'none',
+          ? 'dormitory'
+          : !!combinedEduLength
+            ? 'education'
+            : 'none',
 )
 
 export const stores = {

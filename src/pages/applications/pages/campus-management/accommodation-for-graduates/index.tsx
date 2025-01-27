@@ -1,14 +1,16 @@
+import React, { useEffect, useState } from 'react'
+
+import { applicationsModel } from '@entities/applications'
+import { globalAppSendForm } from '@pages/applications/lib'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import { isProduction } from '@shared/constants'
 import { Error, FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
-import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
-import getForm from './lib/get-form'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { globalAppSendForm } from '@pages/applications/lib'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-import { applicationsModel } from '@entities/applications'
-import { isProduction } from '@shared/constants'
+import checkFormFields from '@utils/check-form-fields'
+
+import getForm from './lib/get-form'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 

@@ -1,15 +1,17 @@
-import { getAllArticles, uploadArticle, UploadReq } from '@shared/api/science-api'
-import { createEffect, createEvent, createStore, sample } from 'effector'
-import { createMutation } from '@farfetched/core'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
-import { ColumnProps } from '@shared/ui/table/types'
-import { TABLE_SIZE } from './consts'
-import { Article, Filter, Sort } from '../types'
 import { IndexRange } from 'react-virtualized'
-import { scienceNameMap } from '../lib/nameMap'
-import { createInputField } from '@shared/effector/form/create-input-field'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+import { createMutation } from '@farfetched/core'
+import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
+import { UploadReq, getAllArticles, uploadArticle } from '@shared/api/science-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
+import { createInputField } from '@shared/effector/form/create-input-field'
+import { ColumnProps } from '@shared/ui/table/types'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+
+import { scienceNameMap } from '../lib/nameMap'
+import { Article, Filter, Sort } from '../types'
+import { TABLE_SIZE } from './consts'
 
 const pageMounted = createEvent()
 const tableOpened = createEvent()
@@ -57,8 +59,8 @@ const $sorts = createStore<Sort[] | null>(null)
             return existingField.order === 'ASC'
                 ? [...filteredSorts, { field, order: 'DESC' }]
                 : filteredSorts.length
-                ? filteredSorts
-                : null
+                  ? filteredSorts
+                  : null
 
         return [...sorts, { field, order: 'ASC' }]
     })

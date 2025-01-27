@@ -1,13 +1,14 @@
-import { AddStudentVisits } from '@entities/pe-student/types/add-student-visits'
-import { $peApi } from './config/pe-config'
-import { PETeacher } from '@entities/pe-teacher/types'
 import { AddStudentAdditionalPoints } from '@entities/pe-student-additional-points/types'
 import { AddStudentRegulationPoints } from '@entities/pe-student-regulation-points/types'
-import { PEStudent, PEStudentProfile } from '@entities/pe-student/types'
 import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
-import { Group } from '@pages/teacher-physical-education/my-groups/model'
+import { PEStudent, PEStudentProfile } from '@entities/pe-student/types'
+import { AddStudentVisits } from '@entities/pe-student/types/add-student-visits'
 import { SetHealthGroup } from '@entities/pe-student/types/set-health-group'
 import { SetSpecialization } from '@entities/pe-student/types/set-specialization'
+import { PETeacher } from '@entities/pe-teacher/types'
+import { Group } from '@pages/teacher-physical-education/my-groups/model'
+
+import { $peApi } from './config/pe-config'
 
 const extractStudentFilters = (filters: Record<string, { value: string | number }>) => {
     const studentFilters: Record<string, string | number> = {}

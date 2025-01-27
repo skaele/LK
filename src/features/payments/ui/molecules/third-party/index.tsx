@@ -1,16 +1,18 @@
 import React from 'react'
-import { Agreement } from '@shared/api/model'
-import { useUnit } from 'effector-react'
-import { thirdPartyAgreementModel } from '@entities/payments'
-import Flex from '@shared/ui/flex'
-import { CheckEmails } from './check-emails'
-import { GetPasswords } from './get-passwords'
-import { EnterPasswords } from './enter-passwords'
-import { Title } from '@shared/ui/title'
-import styled from 'styled-components'
-import { Button } from '@shared/ui/atoms'
 import { FiChevronLeft } from 'react-icons/fi'
+
+import { thirdPartyAgreementModel } from '@entities/payments'
+import { Agreement } from '@shared/api/model'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
+import { Title } from '@shared/ui/title'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
+import { CheckEmails } from './check-emails'
+import { EnterPasswords } from './enter-passwords'
+import { GetPasswords } from './get-passwords'
 
 const titles = [
     'Проверьте и подтвердите адреса e-mail',

@@ -1,6 +1,6 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import { getFormattedDivisions } from '@features/applications/lib/get-divisions'
+import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (dataUserApplication: UserApplication): IInputArea => {
     return {

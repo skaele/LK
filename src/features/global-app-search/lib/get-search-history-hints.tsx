@@ -1,6 +1,7 @@
-import normalizeString from '@shared/lib/normalize-string'
 import React from 'react'
 import { RiHistoryLine } from 'react-icons/ri'
+
+import normalizeString from '@shared/lib/normalize-string'
 
 const getSearchHistoryHints = (loading: boolean, searchValue: string, searchHistory: string[]) => {
     if (searchValue.length === 0) {

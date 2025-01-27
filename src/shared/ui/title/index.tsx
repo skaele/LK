@@ -1,5 +1,7 @@
-import { Align, HeaderSize } from '@ui/types'
 import React from 'react'
+
+import { Align, HeaderSize } from '@ui/types'
+
 import { CreateHeader } from './create-header'
 import { ChildrenWrapper, RedStar, TitleWrapper } from './styles'
 

@@ -1,6 +1,7 @@
-import { Message } from '@shared/ui/message'
 import React from 'react'
 import { FiInfo } from 'react-icons/fi'
+
+import { Message } from '@shared/ui/message'
 
 export const HRInfoMessage = () => {
     return (

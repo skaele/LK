@@ -1,9 +1,10 @@
+import React from 'react'
+
 import { Alert } from '@shared/api/model/alert'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Divider } from '@shared/ui/divider'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
 import styled from 'styled-components'
 
 interface Props {

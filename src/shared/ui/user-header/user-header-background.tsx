@@ -1,5 +1,6 @@
-import getLettersColors from '@shared/lib/get-letters-colors'
 import React from 'react'
+
+import getLettersColors from '@shared/lib/get-letters-colors'
 import styled from 'styled-components'
 
 export const BackgroundPlate = styled.div<{

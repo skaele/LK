@@ -1,3 +1,8 @@
+import React, { useState } from 'react'
+import { FiMessageCircle } from 'react-icons/fi'
+import { IoMdSend } from 'react-icons/io'
+import { Link } from 'react-router-dom'
+
 import { CHAT_ROUTE } from '@app/routes/general-routes'
 import { Colors, MEDIA_QUERIES } from '@shared/constants'
 import { Button, Divider, Title } from '@shared/ui/atoms'
@@ -6,15 +11,12 @@ import { RichTextInput } from '@shared/ui/rich-text-input'
 import { UploadFileButton } from '@shared/ui/upload-file-button'
 import UserHeader from '@shared/ui/user-header'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
-import { FiMessageCircle } from 'react-icons/fi'
-import { IoMdSend } from 'react-icons/io'
-import { Link } from 'react-router-dom'
+import sanitize from 'sanitize-html'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
 import { sendFirstMessageModel } from '../model'
 import { SendFirstMessageProps as SendMessageProps } from '../type'
-import sanitize from 'sanitize-html'
 
 export const SendMessageModal = (props: SendMessageProps) => {
     const { close } = useModal()

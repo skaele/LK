@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react'
-import { SubdivisionItem } from './subdivision-item'
-import { useUnit } from 'effector-react'
+
 import { phonebookModel } from '@entities/phonebook'
-import { useModal } from 'widgets'
-import { PhonebookModal } from './ui/phonebook-modal'
-import { ScrollWrapper } from './styled'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
 import { getEmployeeInfo } from './lib/get-employee-info'
 import { getSubdivisionInfo } from './lib/get-subdivision-info'
+import { ScrollWrapper } from './styled'
+import { SubdivisionItem } from './subdivision-item'
+import { PhonebookModal } from './ui/phonebook-modal'
 
 export const Staff = () => {
     const query = useQueryParams()

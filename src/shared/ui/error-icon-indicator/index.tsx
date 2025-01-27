@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiAlertTriangle } from 'react-icons/fi'
+
 import { ErrorIconIndicatorStyled } from './styles'
 import { ErrorIconIndicatorProps } from './types'
 

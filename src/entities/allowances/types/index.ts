@@ -1,4 +1,4 @@
-import { approvalStatus, allowanceStatus, orderStatus } from '../consts'
+import { allowanceStatus, approvalStatus, orderStatus } from '../consts'
 
 export type ApprovalStatus = keyof typeof approvalStatus
 export type AllowanceStatus = keyof typeof allowanceStatus

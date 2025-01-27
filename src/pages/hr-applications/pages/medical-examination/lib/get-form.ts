@@ -1,9 +1,10 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication, WorkerApplication } from '@api/model'
-import { getIsTutor } from './is-tutor'
-import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+import { IInputArea } from '@ui/input-area/model'
+
+import { getIsTutor } from './is-tutor'
 
 const getForm = (
     dataUserApplication: UserApplication,

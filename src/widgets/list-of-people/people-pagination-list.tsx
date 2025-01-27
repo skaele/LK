@@ -1,9 +1,10 @@
+import React from 'react'
+
 import { SelectPage } from '@features/select'
 import PagintaionList from '@shared/ui/pagination-list'
 import { Hint } from '@shared/ui/search'
 import { EventCallable, Store } from 'effector'
 import { useStore } from 'effector-react'
-import React from 'react'
 import User from 'widgets/user'
 
 type TUser = {

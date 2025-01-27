@@ -1,17 +1,19 @@
+import React, { useEffect, useState } from 'react'
+import { FiInfo } from 'react-icons/fi'
+
 import { superiorRoomModel } from '@entities/superior-room'
 import { userModel } from '@entities/user'
+import { SelectPage } from '@features/select'
+import { isProduction } from '@shared/constants'
 import { Error, FormBlock, Message, SubmitButton, Wrapper } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
-import { FiInfo } from 'react-icons/fi'
 import styled from 'styled-components'
+
 import getForm from './lib/get-form'
-import sendForm from './lib/send-form'
-import { SelectPage } from '@features/select'
 import { getStatusFormSuperiorRoom } from './lib/get-status'
-import { isProduction } from '@shared/constants'
+import sendForm from './lib/send-form'
 
 const ApplicationForSuperiorRoomWrapper = styled.div<{ isDone: boolean }>`
     display: flex;
@@ -88,7 +90,7 @@ const ApplicationForSuperiorRoom = () => {
                             isActive={checkFormFields(form) && (form.optionalCheckbox?.value ?? true)}
                             popUpFailureMessage={
                                 isDone
-                                    ? data?.error_text ?? 'Форма отправлена'
+                                    ? (data?.error_text ?? 'Форма отправлена')
                                     : 'Для отправки формы необходимо, чтобы все поля были заполнены'
                             }
                             popUpSuccessMessage="Данные формы успешно отправлены"

@@ -1,9 +1,9 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import getAddressFields from '@features/applications/lib/get-address-fields'
-import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
-import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
+import { IInputArea } from '@ui/input-area/model'
 
 const academic_form = [
     { id: 0, title: 'Очная' },

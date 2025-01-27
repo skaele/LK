@@ -1,4 +1,5 @@
 import * as z from 'zod'
+
 import { commonTutorialIds } from './lib/tutorials'
 
 export const TutorialIdSchema = z.enum(commonTutorialIds)

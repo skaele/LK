@@ -1,7 +1,8 @@
-import { IInputArea } from '@ui/input-area/model'
+import React from 'react'
+
 import { UserApplication } from '@api/model'
 import listHostelsOptions from '@features/applications/lib/get-list-hostels'
-import React from 'react'
+import { IInputArea } from '@ui/input-area/model'
 
 const statusesStudentForHostelOptions = [
     {

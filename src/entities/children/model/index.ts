@@ -1,10 +1,11 @@
+import { popUpMessageModel } from '@entities/pop-up-message'
 import { createMutation, createQuery } from '@farfetched/core'
 import { deleteChildren, getChildrens, saveChildrens } from '@shared/api/childrens-api'
-import { createEvent, createStore, sample } from 'effector'
-import { Children } from '../types'
-import { isNumber } from '@shared/lib/is-number'
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
+import { isNumber } from '@shared/lib/is-number'
+import { createEvent, createStore, sample } from 'effector'
+
+import { Children } from '../types'
 
 const getChildrensQuery = createQuery({
     handler: getChildrens,

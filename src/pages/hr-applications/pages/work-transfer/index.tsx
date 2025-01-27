@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
+
 import { applicationsModel } from '@entities/applications'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
@@ -9,8 +12,7 @@ import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+
 import { bufferWorkTransferModel } from '../buffer-work-transfer/model'
 import getForm from './lib/get-form'
 import getPostAfterTransfer from './lib/get-post-after-transfer'

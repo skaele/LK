@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { lkNotificationModel } from '@entities/lk-notifications'
 import { useEffect, useRef, useState } from 'react'
+
+import { lkNotificationModel } from '@entities/lk-notifications'
+
 import { DEFAULT_STATE_DURATION, OPEN_CLOSE_ANIMATION_DURATION } from '../consts'
 
 const usePopUpNotifications = () => {

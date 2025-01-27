@@ -1,15 +1,17 @@
 import React from 'react'
-import { bufferHolidayPlanningModel } from '../model'
+import { FiPlus } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
 import { Button, Loading, Wrapper } from '@shared/ui/atoms'
-import styled from 'styled-components'
 import Block from '@shared/ui/block'
-import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
+import Flex from '@shared/ui/flex'
 import Table from '@shared/ui/table'
 import { compareDesc } from 'date-fns'
-import Flex from '@shared/ui/flex'
+import styled from 'styled-components'
+
+import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'
-import { Link } from 'react-router-dom'
-import { FiPlus } from 'react-icons/fi'
+import { bufferHolidayPlanningModel } from '../model'
 
 const Content = () => {
     const { data, getDataLoading } = bufferHolidayPlanningModel.selectors.useBufferHolidayPlanning()

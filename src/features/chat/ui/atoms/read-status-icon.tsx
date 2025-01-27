@@ -1,10 +1,12 @@
-import { useUnit } from 'effector-react'
 import React from 'react'
 import { HiOutlineClock, HiOutlineExclamationCircle } from 'react-icons/hi'
 import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
+
+import { useUnit } from 'effector-react'
+
 import { userModel } from '../../../../entities/user'
-import { RawChatMessage } from '../../type'
 import { Tooltip } from '../../../../shared/ui/tooltip'
+import { RawChatMessage } from '../../type'
 
 type Props = {
     message: RawChatMessage

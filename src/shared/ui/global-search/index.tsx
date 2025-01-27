@@ -1,5 +1,7 @@
-import useDebounce from '@shared/lib/hooks/use-debounce'
 import React from 'react'
+
+import useDebounce from '@shared/lib/hooks/use-debounce'
+
 import Search, { Hint } from '../search'
 
 type GlobalSearchProps = {

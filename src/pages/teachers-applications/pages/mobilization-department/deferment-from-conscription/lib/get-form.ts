@@ -1,6 +1,6 @@
-import { IInputArea } from '@ui/input-area/model'
 import { UserApplication } from '@api/model'
 import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
+import { IInputArea } from '@ui/input-area/model'
 
 // const languageItems = [
 //     { id: '0', title: 'начальный' },

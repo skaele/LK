@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { AcadPerformance } from '@api/model/acad-performance'
 import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
 import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
@@ -8,9 +10,9 @@ import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import getShortName from '@utils/get-short-name'
-import React from 'react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
 import { SubjectModal } from '.'
 import { SubjectCheker } from '../atoms'
 

@@ -1,6 +1,8 @@
 import React, { memo } from 'react'
-import { SliderItemWrapper } from './styles'
+
 import { Size } from '@shared/ui/types'
+
+import { SliderItemWrapper } from './styles'
 
 interface Props {
     id: number

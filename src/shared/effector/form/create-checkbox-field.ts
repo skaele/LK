@@ -1,4 +1,4 @@
-import { createEvent, createStore, Unit } from 'effector'
+import { Unit, createEvent, createStore } from 'effector'
 
 export const createCheckboxField = ({
     defaultValue,

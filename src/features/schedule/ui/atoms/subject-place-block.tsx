@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from 'react'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import { Loading } from '@ui/atoms'
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 import LinkImageBlock from './link-image-block'
 
 const SubjectPlaceBlockWrapper = styled.div`

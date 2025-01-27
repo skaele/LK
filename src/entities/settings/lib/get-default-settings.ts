@@ -1,4 +1,5 @@
-import { ThemeVariant, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
+import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG, ThemeVariant } from '@shared/constants'
+
 import { UserSettings } from '../types'
 
 export const getDefaultNewSettings = (isEmployee: boolean): UserSettings => {

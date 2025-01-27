@@ -1,10 +1,12 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { FiSearch } from 'react-icons/fi'
+
 import PerhapsYouMeant from '@features/perhaps-you-meant'
 import { Colors } from '@shared/constants'
 import useOnClickOutside from '@shared/lib/hooks/use-on-click-outside'
 import limitNumber from '@shared/lib/limit-number'
-import React, { useEffect, useRef, useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
 import styled from 'styled-components'
+
 import { Input } from '../atoms'
 import BlockWrapper from '../block/styles'
 import { Size } from '../types'

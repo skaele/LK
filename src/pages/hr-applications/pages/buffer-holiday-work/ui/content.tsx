@@ -1,9 +1,12 @@
 import React from 'react'
-import { applicationsModel } from '@entities/applications'
 import { useState } from 'react'
+
+import { applicationsModel } from '@entities/applications'
+import styled from 'styled-components'
+
 import History from './history'
 import JobTitle from './job-title'
-import styled from 'styled-components'
+
 //import HWAssesment from './holiday-work-affirmation'
 
 const Content = () => {

@@ -1,12 +1,14 @@
-import { menuModel } from '@entities/menu'
 import React from 'react'
-import styled from 'styled-components'
-import { SETTINGS_PAGES } from '../contants'
 import { useRouteMatch } from 'react-router'
+
 import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
+import { menuModel } from '@entities/menu'
 import { MEDIA_QUERIES } from '@shared/constants'
-import { PageLinkTutorial } from 'widgets/tutorial/tutorials/page-link-tutorial'
+import styled from 'styled-components'
 import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
+import { PageLinkTutorial } from 'widgets/tutorial/tutorials/page-link-tutorial'
+
+import { SETTINGS_PAGES } from '../contants'
 
 export const SettingsList = () => {
     const { allRoutes } = menuModel.selectors.useMenu()

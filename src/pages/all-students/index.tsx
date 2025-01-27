@@ -1,3 +1,6 @@
+import React from 'react'
+import { useRouteMatch } from 'react-router'
+
 import { paginationList } from '@entities/all-students'
 import { userModel } from '@entities/user'
 import { SelectPage } from '@features/select'
@@ -6,8 +9,6 @@ import Masks from '@shared/lib/masks'
 import PageBlock from '@shared/ui/page-block'
 import { Wrapper } from '@ui/atoms'
 import { useStore } from 'effector-react'
-import React from 'react'
-import { useRouteMatch } from 'react-router'
 import styled from 'styled-components'
 import ListOfPeople from 'widgets/list-of-people'
 

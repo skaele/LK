@@ -1,12 +1,13 @@
+import React from 'react'
+import { FiSearch, FiUsers } from 'react-icons/fi'
+import { HiOutlineUserCircle } from 'react-icons/hi'
+
 import { userModel } from '@entities/user'
 import SearchWithHints from '@features/search-with-hints'
 import { studentApi, teacherApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
 import { Hint } from '@shared/ui/search'
 import { AxiosResponse } from 'axios'
-import React from 'react'
-import { FiSearch, FiUsers } from 'react-icons/fi'
-import { HiOutlineUserCircle } from 'react-icons/hi'
 
 type Props = {
     value: string

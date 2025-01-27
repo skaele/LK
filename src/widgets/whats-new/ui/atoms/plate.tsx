@@ -1,7 +1,8 @@
-import { Colors, IColors } from '@shared/constants'
-import { Button } from '@ui/button'
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+import { Colors, IColors } from '@shared/constants'
+import { Button } from '@ui/button'
 import styled from 'styled-components'
 import useModal from 'widgets/modal'
 

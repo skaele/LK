@@ -1,12 +1,14 @@
 import React from 'react'
-import { DayCalendarEvent } from '../../types'
+
+import { userSettingsModel } from '@entities/settings'
 import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
+import { ThemeVariant } from '@shared/constants'
 import Flex from '@shared/ui/flex'
-import styled from 'styled-components'
 import Subtext from '@shared/ui/subtext'
 import { useUnit } from 'effector-react'
-import { userSettingsModel } from '@entities/settings'
-import { ThemeVariant } from '@shared/constants'
+import styled from 'styled-components'
+
+import { DayCalendarEvent } from '../../types'
 
 const MonthEventItemStyled = styled(Flex)<{ textColor: string; background: string }>`
     padding: 4px;

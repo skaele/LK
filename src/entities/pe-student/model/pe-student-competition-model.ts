@@ -1,8 +1,7 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-
-import { createEffect, createEvent, createStore, sample } from 'effector'
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 
 const load = createEvent()
 const remove = createEvent<string>()

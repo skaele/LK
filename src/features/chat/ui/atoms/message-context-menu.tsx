@@ -1,12 +1,13 @@
+import React from 'react'
+import { FiCopy } from 'react-icons/fi'
+import { IoReload } from 'react-icons/io5'
+
 import { chatMessagesModel } from '@entities/chat-messages'
 import { contextMenuModel } from '@entities/context-menu'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { RawChatMessage } from '@features/chat/type'
 import Flex from '@shared/ui/flex'
 import { Button } from '@ui/button'
-import React from 'react'
-import { FiCopy } from 'react-icons/fi'
-import { IoReload } from 'react-icons/io5'
 import sanitize from 'sanitize-html'
 
 interface Props {

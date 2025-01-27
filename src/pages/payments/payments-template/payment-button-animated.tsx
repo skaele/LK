@@ -1,7 +1,8 @@
+import React from 'react'
+
 import PaymentButton from '@features/payment-button'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { AnimatedCheck } from '@shared/ui/animated-check'
-import React from 'react'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 export const PaymentButtonAnimated = ({

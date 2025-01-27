@@ -1,8 +1,9 @@
+import React from 'react'
+
 import { ModifiedAlign } from '@ui/list'
 import { ListWrapper } from '@ui/list/styles'
 import { SkeletonShape, SkieletonShapeProps } from '@ui/skeleton-shape'
 import { Direction, VerticalAlign } from '@ui/types'
-import React from 'react'
 import styled from 'styled-components'
 
 const SkeletonListWrapper = styled(ListWrapper)`

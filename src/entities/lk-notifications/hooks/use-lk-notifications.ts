@@ -1,10 +1,12 @@
+import { useEffect } from 'react'
+
 import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
 import { NotificationsResponse } from '@shared/api/lk-notification-api'
 import { useUnit } from 'effector-react'
-import { useEffect } from 'react'
+
 import { lkNotificationModel } from '..'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'

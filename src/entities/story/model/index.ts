@@ -1,6 +1,6 @@
+import { StoryProps } from '@ui/story/ui/story-page'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
-import { StoryProps } from '@ui/story/ui/story-page'
 
 export interface IStory {
     isOpen: boolean

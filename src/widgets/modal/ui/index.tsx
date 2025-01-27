@@ -1,9 +1,11 @@
+import React, { useMemo, useRef } from 'react'
+import { FiChevronLeft, FiX } from 'react-icons/fi'
+
 import useShortCutKeys from '@shared/lib/hooks/use-short-cut-keys'
 import { Button, Title } from '@ui/atoms'
 import useOnClickOutside from '@utils/hooks/use-on-click-outside'
-import React, { useMemo, useRef } from 'react'
-import { FiChevronLeft, FiX } from 'react-icons/fi'
 import styled from 'styled-components'
+
 import useCoreModal from '../lib/hooks/use-core-modal'
 import ModalContent from './atoms/modal-content'
 import ModalWrapper from './atoms/modal-wrapper'

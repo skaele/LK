@@ -1,10 +1,12 @@
+import React from 'react'
+
 import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
 import { Sleep } from '@shared/images'
 import { DayCalendarEvent } from '@shared/ui/calendar'
 import { TimesEvents } from '@shared/ui/calendar/calendars/day/ui/times-events'
 import { useCalendarScale } from '@shared/ui/calendar/hooks/use-calendar-scale'
 import { Error } from '@shared/ui/error'
-import React from 'react'
+
 import { NextDayScheduleStyled } from './styles'
 
 type Props = {

@@ -1,5 +1,6 @@
-import useResize from '@shared/lib/hooks/use-resize'
 import { useEffect, useRef, useState } from 'react'
+
+import useResize from '@shared/lib/hooks/use-resize'
 
 const useList = (gap?: number, children?: ChildrenType) => {
     const { width } = useResize()

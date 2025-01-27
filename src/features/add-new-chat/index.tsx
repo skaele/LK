@@ -1,9 +1,11 @@
 import React from 'react'
 import { HiOutlinePencilAlt } from 'react-icons/hi'
+
 import styled from 'styled-components'
 import { useModal } from 'widgets'
-import { Modal } from './ui/modal'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { Modal } from './ui/modal'
 
 const AddButtonStyled = styled.button`
     width: fit-content;

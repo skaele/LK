@@ -1,10 +1,11 @@
+import React from 'react'
+import { FiCheckCircle, FiEdit3, FiSave, FiXCircle } from 'react-icons/fi'
+
 import { Colors } from '@shared/constants'
 import { Button } from '@ui/button'
 import useInputArea from '@ui/input-area/lib/use-input-area'
 import { IInputArea } from '@ui/input-area/model'
 import List from '@ui/list'
-import React from 'react'
-import { FiCheckCircle, FiEdit3, FiSave, FiXCircle } from 'react-icons/fi'
 
 type Props = Pick<IInputArea, 'confirmed'> &
     Pick<ReturnType<typeof useInputArea>, 'changeInputArea' | 'setChangeInputArea' | 'handleConfirm'> & {

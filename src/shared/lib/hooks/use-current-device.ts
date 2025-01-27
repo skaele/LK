@@ -1,5 +1,6 @@
-import { JS_QUERIES } from '@shared/constants'
 import { useLayoutEffect, useState } from 'react'
+
+import { JS_QUERIES } from '@shared/constants'
 
 type QueryType = typeof JS_QUERIES
 
@@ -9,10 +10,13 @@ const getValues = (
         title: QueryType[number]['title']
     }[],
 ) => {
-    return mediaQueryList.reduce((acc, value) => {
-        acc[value.title] = value.mql.matches
-        return acc
-    }, {} as Record<QueryType[number]['title'], boolean>)
+    return mediaQueryList.reduce(
+        (acc, value) => {
+            acc[value.title] = value.mql.matches
+            return acc
+        },
+        {} as Record<QueryType[number]['title'], boolean>,
+    )
 }
 
 const useCurrentDevice = () => {

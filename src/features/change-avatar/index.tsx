@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 import { confirmModel } from '@entities/confirm'
 import { userModel } from '@entities/user'
 import { changeAvatar } from '@shared/api/user-api'
@@ -7,7 +9,6 @@ import FileInput from '@shared/ui/file-input'
 import List from '@shared/ui/list'
 import useSubmitButton from '@shared/ui/submit-button/use-submit-button'
 import UserHeader from '@shared/ui/user-header'
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const ChangeAvatarStyled = styled.div`

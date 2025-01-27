@@ -1,9 +1,9 @@
-import { IInputArea } from '@ui/input-area/model'
-import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 import { UserApplication } from '@api/model'
 import getAddressFields from '@features/applications/lib/get-address-fields'
-import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher-subdivisions'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
+import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher-subdivisions'
+import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (data: UserApplication): IInputArea => {
     return {

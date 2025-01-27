@@ -1,8 +1,9 @@
+import React from 'react'
+
 import { tutorialModel } from '@entities/tutorial'
 import { userModel } from '@entities/user'
 import ProgressBar from '@shared/ui/progress-bar'
 import { useUnit } from 'effector-react'
-import React from 'react'
 
 export const TutorialProgressBar = () => {
     const [tutorials, user] = useUnit([tutorialModel.stores.tutorials, userModel.stores.user])

@@ -1,5 +1,6 @@
-import { useUnit } from 'effector-react'
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+
+import { useUnit } from 'effector-react'
 import { modalModel } from 'widgets/modal/model'
 
 export const Context = createContext<ModalContext>({

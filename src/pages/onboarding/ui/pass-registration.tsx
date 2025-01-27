@@ -1,6 +1,7 @@
 import React from 'react'
-import { ScheduleTable } from './schedule-table'
+
 import { Contacts } from './contacts'
+import { ScheduleTable } from './schedule-table'
 
 export const PassRegistration = () => (
     <>

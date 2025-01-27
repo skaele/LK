@@ -1,3 +1,7 @@
+import React from 'react'
+import { FiClock, FiList, FiUsers } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+
 import { ALL_STUDENTS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { Icon } from '@features/all-pages'
@@ -5,9 +9,6 @@ import { SendMessage } from '@features/send-first-message'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import React from 'react'
-import { FiClock, FiList, FiUsers } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { EventBackgroundStyled, Icons } from './styles'
 
 type Props = {

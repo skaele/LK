@@ -1,7 +1,8 @@
+import React, { useState } from 'react'
+
 import { CenterPage, Input, Message, SubmitButton, Title } from '@ui/atoms'
 import Block from '@ui/block'
 import GoBackButton from '@ui/go-back-button'
-import React, { useState } from 'react'
 
 const ForgotPasswordPage = () => {
     const [email, setEmail] = useState('')

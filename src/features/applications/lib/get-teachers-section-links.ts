@@ -47,6 +47,7 @@ import {
 } from '@app/routes/teacher-routes'
 import { User } from '@shared/api/model'
 import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
+
 import { Section } from '../ui/molecules/create-application-list'
 
 const getTeachersSectionLinks = (user: User): Section[] => {

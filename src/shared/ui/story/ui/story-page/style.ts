@@ -1,6 +1,7 @@
 import BlockWrapper from '@ui/block/styles'
 import { Align, VerticalAlign } from '@ui/types'
 import styled from 'styled-components'
+
 import getTranslate from './lib/get-translate'
 
 export type StyledProps = {

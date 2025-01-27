@@ -1,10 +1,11 @@
+import React from 'react'
+import { FiInfo } from 'react-icons/fi'
+
 import { CenterPage, Message, Title } from '@ui/atoms'
 import KeyValue from '@ui/atoms/key-value'
 import Block from '@ui/block'
 import GoBackButton from '@ui/go-back-button'
 import List from '@ui/list'
-import React from 'react'
-import { FiInfo } from 'react-icons/fi'
 
 const CantAccessPage = () => {
     return (

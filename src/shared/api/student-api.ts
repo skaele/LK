@@ -1,5 +1,6 @@
-import { $api } from './config'
 import token from '@utils/token'
+
+import { $api } from './config'
 import { TStudent } from './model'
 
 type StudentResponse = {

@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 import { applicationsModel } from '@entities/applications'
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm from '@features/applications/ui/molecules/step-by-step-form'
@@ -7,7 +9,7 @@ import { FormBlock, SubmitButton, Title } from '@ui/atoms'
 import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
 import checkFormFields from '@utils/check-form-fields'
-import React, { useEffect, useState } from 'react'
+
 import getForm from './lib/get-form'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>

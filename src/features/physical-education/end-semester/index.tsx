@@ -1,11 +1,13 @@
-import { useUnit } from 'effector-react'
-import { peStudentEndSemesterModel } from '../student/pe-student-end-semester'
 import React from 'react'
+
 import { peExamStudentModel } from '@pages/teacher-physical-education/students-exam/pe-exam-student-model'
-import { STATUSES_TEXT, STATUS_ICON } from './constants'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
+import { useUnit } from 'effector-react'
+
+import { peStudentEndSemesterModel } from '../student/pe-student-end-semester'
 import { Status } from '../student/pe-student-end-semester/model'
+import { STATUSES_TEXT, STATUS_ICON } from './constants'
 import { Title } from './styled'
 
 export const EndSemester = () => {

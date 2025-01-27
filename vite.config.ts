@@ -1,9 +1,10 @@
-import react from '@vitejs/plugin-react'
 import { babel } from '@rollup/plugin-babel'
+import react from '@vitejs/plugin-react'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import checker from 'vite-plugin-checker'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
+
 import { version } from './package.json'
 
 export default defineConfig((conf) => {

@@ -1,6 +1,6 @@
 import { $api } from '@api/config'
-import token from '@utils/token'
 import { TeacherDataVerification } from '@api/model'
+import token from '@utils/token'
 
 export const get = () => {
     return $api.get(`?getCheckData&token=${token()}`)

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import styled from 'styled-components'
+
 import { ChatHeader, Messages } from '../molecules'
 import { ChatInput } from '../molecules/chat-input'
 

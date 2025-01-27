@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { AddStudentAdditionalPoints, WorkType } from '@entities/pe-student-additional-points/types'
 import { peStudentCompetitionModel, selectedPEStudentModel } from '@entities/pe-student/model'
@@ -8,7 +10,7 @@ import { Button } from '@shared/ui/button'
 import Input from '@shared/ui/input'
 import { TextArea } from '@shared/ui/textarea'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
+
 import { SelectorData } from '../../constants'
 import { Wrapper } from './styled'
 
@@ -25,7 +27,7 @@ export const AddPEStudentAdditionalPoints = () => {
 
     const handleClick = () => {
         peStudentAdditionalPointsModel.events.addAdditionPoints({
-            comment: type?.id === WorkType.Competition ? competition?.title ?? '' : comment,
+            comment: type?.id === WorkType.Competition ? (competition?.title ?? '') : comment,
             date: localizeDate(date, 'numeric'),
             points: Number(pointsAmount),
             studentGuid: student?.studentGuid,

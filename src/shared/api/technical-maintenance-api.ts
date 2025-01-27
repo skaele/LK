@@ -1,4 +1,5 @@
 import { SelectPage } from '@features/select'
+
 import { $technicalMaintenanceApi } from './config/technical-maintenance-config'
 
 export type TechnicalMaintenance = {

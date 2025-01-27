@@ -1,16 +1,18 @@
-import getForm from './lib/get-form'
-import React, { useState, useEffect } from 'react'
-import { IInputArea } from '@shared/ui/input-area/model'
-import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
-import { FormBlock, SubmitButton, Wrapper } from '@shared/ui/atoms'
-import InputArea from '@shared/ui/input-area'
-import { LoadedState } from 'widgets/template-form'
-import sendForm from '@shared/lib/send-form'
-import checkFormFields from '@shared/lib/check-form-fields'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+
 import { applicationsModel } from '@entities/applications'
 import { contactDetailsModel } from '@entities/contact-details'
+import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import { ContactDetails } from '@shared/api/model'
+import checkFormFields from '@shared/lib/check-form-fields'
+import sendForm from '@shared/lib/send-form'
+import { FormBlock, SubmitButton, Wrapper } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from 'widgets/template-form'
+
+import getForm from './lib/get-form'
 
 const ContactDetailsForm = () => {
     const [form, setForm] = useState<IInputArea | null>(null)

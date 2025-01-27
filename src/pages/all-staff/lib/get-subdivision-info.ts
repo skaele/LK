@@ -1,4 +1,5 @@
 import { Subdivision } from '@shared/api/model/phonebook'
+
 import { PhonebookInfo } from '../ui/phonebook-modal'
 
 export const getSubdivisionInfo = (subdivision: Subdivision): PhonebookInfo[] => {

@@ -1,13 +1,15 @@
+import React from 'react'
+
 import { STUDENTS_LOGINS_ROUTE } from '@app/routes/teacher-routes'
 import { adminLinksModel } from '@entities/admin-links'
 import PageIsNotReady from '@pages/page-is-not-ready'
+import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import React from 'react'
 import { SliderPage } from 'widgets'
+
 import DownloadAccepts from './pages/accepts'
 import AdditionalAgreements from './pages/additional-agreements'
 import DownloadCheckdata from './pages/checkdata'
-import { CenterPage } from '@shared/ui/atoms'
 import { DownloadPhonebookData } from './pages/phonebook'
 
 const DownloadAdminFilesPage = () => {

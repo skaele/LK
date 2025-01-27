@@ -1,6 +1,6 @@
-import { createEvent, sample } from 'effector'
 import { createQuery } from '@farfetched/core'
 import { getArticle, getArticleDetails } from '@shared/api/science-api'
+import { createEvent, sample } from 'effector'
 
 const getDetailsClicked = createEvent<string>()
 const pageMounted = createEvent<string>()

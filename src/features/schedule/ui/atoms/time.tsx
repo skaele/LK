@@ -1,5 +1,6 @@
-import { ITimeIntervalColor, TimeIntervalColor, TimeIntervals } from '@api/model'
 import React from 'react'
+
+import { ITimeIntervalColor, TimeIntervalColor, TimeIntervals } from '@api/model'
 import styled from 'styled-components'
 
 const TimeWrapper = styled.span<{

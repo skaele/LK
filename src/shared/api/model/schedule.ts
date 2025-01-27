@@ -1,6 +1,7 @@
-import { type DayCalendarEvent } from '@shared/ui/calendar'
-import { Colors, IColorPalette, IWeekDayNames } from '../../constants'
 import { View } from '@entities/schedule/consts'
+import { type DayCalendarEvent } from '@shared/ui/calendar'
+
+import { Colors, IColorPalette, IWeekDayNames } from '../../constants'
 
 export interface ITimeIntervalColor {
     '9:00 - 10:30': IColorPalette

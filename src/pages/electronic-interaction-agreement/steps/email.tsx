@@ -1,10 +1,11 @@
+import React, { useState } from 'react'
+
 import { thirdPartyInteractionModel } from '@entities/payments'
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
 import { useUnit } from 'effector-react'
-import React, { useState } from 'react'
 import { useModal } from 'widgets'
 
 export const Email = ({ next, guid, defaultEmail }: { defaultEmail: string; guid: string; next: () => void }) => {

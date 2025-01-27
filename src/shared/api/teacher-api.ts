@@ -1,4 +1,5 @@
 import token from '@utils/token'
+
 import { $api } from './config'
 import { TTeacher } from './model'
 

@@ -1,9 +1,9 @@
 import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { createMutation } from '@farfetched/core'
 import {
-    sendElectroincInteractionCodes,
     SendElectronicInteractionCodes,
     SignThirdPartyElectronicInteraction,
+    sendElectroincInteractionCodes,
     signThirdPartyElectronicInteraction,
 } from '@shared/api/payment-api'
 import { createEvent, createStore, sample } from 'effector'

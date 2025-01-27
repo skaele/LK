@@ -1,18 +1,20 @@
+import React from 'react'
+import { useHistory } from 'react-router'
+
 import { menuModel } from '@entities/menu'
 import { userModel } from '@entities/user'
 import AllInfo from '@features/home/ui/molecules/all-info'
 import Orders from '@features/home/ui/molecules/orders'
 import { UserInfo } from '@features/profile'
+import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
+import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { CenterPage, Wrapper } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
 import { Error } from '@ui/error'
-import React from 'react'
 import styled from 'styled-components'
 import { AvailableAccounts } from 'widgets'
+
 import Top from './ui/top'
-import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
-import useQueryParams from '@shared/lib/hooks/use-query-params'
-import { useHistory } from 'react-router'
 
 const ContentList = styled.div`
     display: flex;

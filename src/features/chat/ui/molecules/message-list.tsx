@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { chatMessagesModel } from '@entities/chat-messages'
 import { chatModel } from '@entities/chats'
 import { userModel } from '@entities/user'
@@ -6,8 +8,8 @@ import { allChatMessagesModel } from '@features/chat/model'
 import { RawChatMessage } from '@features/chat/type'
 import Avatar from '@features/home/ui/molecules/avatar'
 import { useUnit } from 'effector-react'
-import React from 'react'
 import styled from 'styled-components'
+
 import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
 import { useModal } from '../../../../widgets'
 import { StudentModal } from '../../../../widgets/user/ui'

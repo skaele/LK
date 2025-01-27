@@ -1,4 +1,5 @@
 import token from '@utils/token'
+
 import { $api } from './config'
 
 export const get = () => {

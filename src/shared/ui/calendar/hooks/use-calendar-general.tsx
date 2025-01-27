@@ -1,5 +1,6 @@
 import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
 import { useCalendarScale } from '@shared/ui/calendar/hooks/use-calendar-scale'
+
 import { CalendarWeekProps } from '../calendars/week/types'
 
 type Props = CalendarWeekProps

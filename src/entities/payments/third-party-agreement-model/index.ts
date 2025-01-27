@@ -3,7 +3,9 @@ import { createMutation } from '@farfetched/core'
 import { SendAgreementCodesReq, sendAgreementCodesApi, signThirdPartyAgreementApi } from '@shared/api/payment-api'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
+
 import { paymentsModel } from '..'
+
 type Emails = { clientEmail: string; userEmail: string }
 
 const signStarted = createEvent()

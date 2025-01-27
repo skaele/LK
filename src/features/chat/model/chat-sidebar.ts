@@ -1,5 +1,6 @@
 import { chatsModel } from '@entities/chats'
 import { combine, createEvent, createStore } from 'effector'
+
 import searchChats from '../lib/search-chats'
 
 const setSearch = createEvent<string>()

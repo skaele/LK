@@ -2,12 +2,13 @@ import { applicationApi, userApi } from '@api'
 import { ADName, User, UserToken } from '@api/model'
 import { LoginData } from '@api/user-api'
 import createFullName from '@features/home/lib/create-full-name'
+import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
+
 import { clearTokens } from '../lib/clear-tokens'
-import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 
 interface UserStore {
     currentUser: User | null

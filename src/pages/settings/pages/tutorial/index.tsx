@@ -1,16 +1,18 @@
+import React, { useEffect, useState } from 'react'
+import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
+
+import { confirmModel } from '@entities/confirm'
 import { tutorialModel } from '@entities/tutorial'
 import { Colors, TUTORIAL_PROGRESS, isProduction } from '@shared/constants'
 import { Button, Title } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
 import { useUnit } from 'effector-react'
-import React, { useEffect, useState } from 'react'
-import { TITLE_CONFIG } from '../constants'
 import styled, { keyframes } from 'styled-components'
+
+import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'
-import { confirmModel } from '@entities/confirm'
-import { TutorialProgressBar } from './tutorial-progress-bar'
 import { StartTutorialLinks } from './start-tutorial-links'
-import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
+import { TutorialProgressBar } from './tutorial-progress-bar'
 
 export const TutorialSettings = () => {
     const [tutorialEnabled, setTutorialState, clearProgress, getTutorialData, sync, pending, clearAll] = useUnit([

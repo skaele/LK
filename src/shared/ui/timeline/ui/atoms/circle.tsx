@@ -1,7 +1,8 @@
+import React from 'react'
+
 import { Colors } from '@shared/constants'
 import { Message } from '@ui/message'
 import { Direction } from '@ui/types'
-import React from 'react'
 import styled from 'styled-components'
 
 export type CircleType = 'normal' | 'big'

@@ -1,8 +1,9 @@
-import { IGrade } from '@api/model/acad-performance'
-import { GradeByScore } from '@shared/constants'
-import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
 import React from 'react'
 import { HiOutlineCheck, HiOutlineX } from 'react-icons/hi'
+
+import { IGrade } from '@api/model/acad-performance'
+import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
+import { GradeByScore } from '@shared/constants'
 import styled from 'styled-components'
 
 interface Props {

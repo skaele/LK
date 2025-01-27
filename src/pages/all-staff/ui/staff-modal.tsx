@@ -1,12 +1,14 @@
 import React from 'react'
-import { TeacherModal } from 'widgets/user/ui'
-import { PhonebookModal } from './phonebook-modal'
-import { userModel } from '@entities/user'
-import { findEmployeeByFio } from '../lib/find-employee-by-fio'
-import { useUnit } from 'effector-react'
+
 import { phonebookModel } from '@entities/phonebook'
-import { getEmployeeInfo } from '../lib/get-employee-info'
+import { userModel } from '@entities/user'
+import { useUnit } from 'effector-react'
 import { UserProps } from 'widgets/user/types'
+import { TeacherModal } from 'widgets/user/ui'
+
+import { findEmployeeByFio } from '../lib/find-employee-by-fio'
+import { getEmployeeInfo } from '../lib/get-employee-info'
+import { PhonebookModal } from './phonebook-modal'
 
 type Props = Pick<UserProps, 'name' | 'division' | 'avatar' | 'id'>
 

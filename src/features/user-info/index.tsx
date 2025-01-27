@@ -1,10 +1,11 @@
+import React from 'react'
+
 import { contextMenuModel } from '@entities/context-menu'
 import { userModel } from '@entities/user'
+import GlobalAppSearch from '@features/global-app-search'
 import Avatar from '@features/home/ui/molecules/avatar'
 import UserContextMenu from '@features/user-context-menu'
-import React from 'react'
 import styled from 'styled-components'
-import GlobalAppSearch from '@features/global-app-search'
 import { NotificationBellTutorial } from 'widgets/tutorial/tutorials/notification-bell-tutorial'
 
 const UserInfoStyled = styled.div`

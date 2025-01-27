@@ -1,16 +1,18 @@
+import React, { useEffect } from 'react'
+
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
 import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import { useUnit } from 'effector-react'
-import React, { useEffect } from 'react'
 import Slider from 'widgets/slider'
+
 import { AdminPanel } from './admin-panel'
 import { MyGroups } from './my-groups'
 import { $page, pageIndexChanged, pageLoaded } from './page-model'
-import { StudentsList } from './students-list'
 import { StudentsExam } from './students-exam'
+import { StudentsList } from './students-list'
 
 const TeacherPhysicalEducation = () => {
     const [peTeacher, currentPageIndex] = useUnit([peTeacherModel.stores.peTeacher, $page])

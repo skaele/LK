@@ -1,5 +1,7 @@
-import { Shape } from '@ui/types'
 import React from 'react'
+
+import { Shape } from '@ui/types'
+
 import { SkeletonShapeWrapper } from './styles'
 
 export type SkieletonShapeProps = {

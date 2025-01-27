@@ -1,10 +1,12 @@
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { storyModel } from '@entities/story'
 import { Button } from '@ui/button'
 import { Image } from '@ui/image'
 import Subtext from '@ui/subtext'
 import { Title } from '@ui/title'
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+
 import StoryPageWrapper, { StyledProps, TextContent } from './style'
 
 export type StoryProps = StyledProps & {

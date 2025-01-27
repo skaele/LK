@@ -1,4 +1,5 @@
 import { createEvent, createStore, sample } from 'effector'
+
 import { pEStudentSearchModel } from '.'
 
 const addFilter = createEvent<{ name: string; value: string | number; strict?: boolean }>()

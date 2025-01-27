@@ -1,5 +1,6 @@
-import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 import React from 'react'
+
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 

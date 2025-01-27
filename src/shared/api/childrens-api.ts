@@ -1,6 +1,7 @@
-import token from '@utils/token'
-import { $api } from './config'
 import { Children } from '@entities/children/types'
+import token from '@utils/token'
+
+import { $api } from './config'
 
 export const getChildrens = async () => {
     const formData = new FormData()

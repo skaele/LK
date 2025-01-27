@@ -78,8 +78,8 @@ export const JOB_ROUTE = '/job'
 export const APPLICATION_FOR_SUPERIOR_ROOM_ROUTE = '/application-for-superior-room'
 export const ACAD_PERFORMANCE_ROUTE = '/acad-performance'
 export const DORMITORY = '/dormitory'
-export const STUDENT_EMPLOYMENT_ROUTE = '/student-employment'
 
+export const STUDENT_EMPLOYMENT_ROUTE = '/student-employment'
 export const STUDENT_EMPLOYMENT_TYPE = STUDENT_EMPLOYMENT_ROUTE + '/:type'
 export const STUDENT_INTERNSHIP = STUDENT_EMPLOYMENT_ROUTE + '/internship'
 export const STUDENT_EMPLOYMENT = STUDENT_EMPLOYMENT_ROUTE + '/employment'
@@ -255,7 +255,7 @@ export const privateRoutes: () => IRoutes = () => ({
         id: 'student-employment',
         title: 'Практика и трудоустройство',
         icon: <BiInfoCircle />,
-        path: STUDENT_EMPLOYMENT_TYPE,
+        path: STUDENT_EMPLOYMENT_ROUTE,
         Component: StudentEmploymentPage,
         color: 'blue',
         isTemplate: false,
@@ -266,6 +266,17 @@ export const privateRoutes: () => IRoutes = () => ({
 
 export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
     ...generalHiddenRoutes,
+    'student-employment-type': {
+        id: 'student-employment-type',
+        title: 'Практика и трудоустройство',
+        icon: <BiInfoCircle />,
+        path: STUDENT_EMPLOYMENT_TYPE,
+        Component: StudentEmploymentPage,
+        color: 'blue',
+        isTemplate: false,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['работа'],
+    },
     'clarification-of-passport-data': {
         id: 'clarification-of-passport-data',
         title: 'Уточнение паспортных данных',

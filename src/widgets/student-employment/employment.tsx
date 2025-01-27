@@ -34,9 +34,9 @@ export const Employment = () => {
 
     return (
         <Flex d="column" gap="1.5rem" ai="flex-start" p="1rem 0">
-            <Block title="Анкетирование выпускников">
+            <Block title="Трудоустройство выпускников">
                 <a href="https://forms.gle/45EVREys1DD2wKGL8" target="_blank" rel="noreferrer">
-                    Трудоустройство студентов
+                    Анкета выпускника
                 </a>
             </Block>
             <Block title="Все события, вакансии и стажировки в сообществе Центра карьеры:">

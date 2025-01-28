@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
+import { useModal } from 'widgets'
+
+import { File } from '@pages/allowances/ui/file'
+
 import Select, { SelectPage } from '@features/select'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Wrapper } from '@shared/ui/atoms'
 import { Button } from '@shared/ui/button'
@@ -10,7 +15,6 @@ import { Grid } from '@shared/ui/grid'
 import PageBlock from '@shared/ui/page-block'
 import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
-import { useModal } from 'widgets'
 
 function getYears(): SelectPage[] {
     const currentYear = new Date().getFullYear()
@@ -45,8 +49,30 @@ const TaxCertificate = () => {
             >
                 <Flex d="column" gap="2rem" ai="flex-start">
                     <Flex d="column" w="fit-content" gap="0.5rem" jc="flex-start">
-                        <a href="">Печатная форма справки</a>
-                        <a href="">Печатная форма справки</a>
+                        <a href="" style={{ width: 250 }}>
+                            <File
+                                file={{
+                                    contentType: 'pdf',
+                                    id: '1',
+                                    name: 'Печатная форма',
+                                    sizeB: 0,
+                                    digitalSignature: '',
+                                    extension: 'pdf',
+                                }}
+                            />
+                        </a>
+                        <a href="" style={{ width: 250 }}>
+                            <File
+                                file={{
+                                    contentType: 'pdf',
+                                    id: '1',
+                                    name: 'Форма с ЭЦП',
+                                    sizeB: 0,
+                                    digitalSignature: '',
+                                    extension: 'pdf',
+                                }}
+                            />
+                        </a>
                     </Flex>
                     <Flex d="column" gap="0.5rem">
                         <Title size={4} align="left">
@@ -163,6 +189,7 @@ const FormModal = () => {
     return (
         <Flex d="column" gap="1rem" ai="flex-end">
             <Select
+                title="Год"
                 items={years}
                 selected={selected}
                 setSelected={setSelected}

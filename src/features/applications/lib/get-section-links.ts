@@ -35,12 +35,14 @@ import {
     SOCIAL_AGENCIES,
     SOCIAL_SCOLLARSHIP,
     STATE_ACCREDITATION,
-    STUDENT_EMPLOYMENT_ROUTE,
+    STUDENT_EMPLOYMENT_APP_ROUTE,
     STUDENT_STATUS,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
 } from '@app/routes/routes'
 import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
+
 import { Section } from '@features/applications/ui/molecules/create-application-list'
+
 import { RECEPTION_COMMISSION, UNION_ORGANIZATION, isProduction } from '@shared/constants'
 
 const getSectionLinks = (): Section[] => {
@@ -218,7 +220,7 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 {
-                    link: STUDENT_EMPLOYMENT_ROUTE,
+                    link: STUDENT_EMPLOYMENT_APP_ROUTE,
                     title: 'Трудоустройство студентов',
                 },
             ],

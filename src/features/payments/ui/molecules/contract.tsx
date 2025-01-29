@@ -112,7 +112,7 @@ const Contract = ({ contract }: Props) => {
                     return <KeyValue keyStr={text} value={info} key={info} />
                 })}
             </div>
-            {can_sign === true && (
+            {can_sign && (
                 <Flex d="column" gap="8px">
                     <Flex gap="8px">
                         <SubmitButton

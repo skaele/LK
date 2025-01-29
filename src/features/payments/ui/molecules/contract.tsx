@@ -3,6 +3,7 @@ import { FiDownload } from 'react-icons/fi'
 
 import { PaymentsContract } from '@api/model'
 import { paymentsModel } from '@entities/payments'
+import { userModel } from '@entities/user'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { formatNumber } from '@shared/lib/get-number-with-spaces-format'
@@ -45,6 +46,7 @@ const Contract = ({ contract }: Props) => {
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
     const error = useUnit(paymentsModel.stores.$error)
+    const isStudent = useUnit(userModel.stores.user).currentUser?.user_status === 'stud'
 
     const contractInfo = [
         {
@@ -68,7 +70,7 @@ const Contract = ({ contract }: Props) => {
             info: contragent || 'Московский политех',
         },
         {
-            text: 'Обучающийся',
+            text: isStudent ? 'Обучающийся' : 'Работник',
             info: student ?? '',
         },
         {
@@ -110,7 +112,7 @@ const Contract = ({ contract }: Props) => {
                     return <KeyValue keyStr={text} value={info} key={info} />
                 })}
             </div>
-            {can_sign && (
+            {can_sign === true && (
                 <Flex d="column" gap="8px">
                     <Flex gap="8px">
                         <SubmitButton

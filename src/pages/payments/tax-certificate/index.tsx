@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { useHistory } from 'react-router'
 
-import { useModal } from 'widgets'
-
-import { File } from '@pages/allowances/ui/file'
-
+import { TAX_CERTIFICATES_ROUTE } from '@app/routes/routes'
+import { confirmModel } from '@entities/confirm'
+import { taxCertificateModel } from '@entities/payments'
 import Select, { SelectPage } from '@features/select'
-
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Wrapper } from '@shared/ui/atoms'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
-import { Grid } from '@shared/ui/grid'
 import PageBlock from '@shared/ui/page-block'
 import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
+import { Docs, File } from './docs'
 
 function getYears(): SelectPage[] {
     const currentYear = new Date().getFullYear()
@@ -28,8 +30,17 @@ function getYears(): SelectPage[] {
 const years = getYears()
 
 const TaxCertificate = () => {
+    const history = useHistory()
     const { open } = useModal()
-    const { isTablet } = useCurrentDevice()
+    const [pageMounted, certificates, loading] = useUnit([
+        taxCertificateModel.pageMounted,
+        taxCertificateModel.certificates,
+        taxCertificateModel.certificatesLoading,
+    ])
+
+    useEffect(() => {
+        pageMounted()
+    }, [])
 
     return (
         <Wrapper data={true} load={() => {}} error={null}>
@@ -48,131 +59,62 @@ const TaxCertificate = () => {
                 }
             >
                 <Flex d="column" gap="2rem" ai="flex-start">
-                    <Flex d="column" w="fit-content" gap="0.5rem" jc="flex-start">
-                        <a href="" style={{ width: 250 }}>
-                            <File
-                                file={{
-                                    contentType: 'pdf',
-                                    id: '1',
-                                    name: 'Печатная форма',
-                                    sizeB: 0,
-                                    digitalSignature: '',
-                                    extension: 'pdf',
-                                }}
-                            />
-                        </a>
-                        <a href="" style={{ width: 250 }}>
-                            <File
-                                file={{
-                                    contentType: 'pdf',
-                                    id: '1',
-                                    name: 'Форма с ЭЦП',
-                                    sizeB: 0,
-                                    digitalSignature: '',
-                                    extension: 'pdf',
-                                }}
-                            />
-                        </a>
-                    </Flex>
+                    {!!certificates?.length && (
+                        <Docs title="Файлы новейшей справки">
+                            <Flex d="column" w="fit-content" gap="0.5rem" jc="flex-start">
+                                <File link={certificates[0].cert_file_stamp} title="Справка" />
+                                <File link={certificates[0].cert_file_sign} title="Электронная подпись" />
+                            </Flex>
+                        </Docs>
+                    )}
                     <Flex d="column" gap="0.5rem">
                         <Title size={4} align="left">
                             Справки в ФНС
                         </Title>
                         <Table
+                            loading={loading}
                             innerPadding="0.5rem"
                             columns={[
                                 {
                                     title: 'Дата справки',
-                                    field: '1',
+                                    field: 'cert_date',
+                                    priority: 'one',
                                 },
                                 {
                                     title: 'Номер справки',
-                                    field: '2',
+                                    field: 'number',
+                                    priority: 'four',
                                 },
                                 {
                                     title: 'Номер корректировки',
-                                    field: '3',
+                                    field: 'correction',
+                                    priority: 'two',
                                 },
                                 {
                                     title: 'Отчетный год',
-                                    field: '4',
+                                    field: 'year',
+                                    priority: 'one',
                                 },
                                 {
                                     title: 'Плательщик',
-                                    field: '5',
+                                    field: 'payer',
+                                    priority: 'four',
                                 },
                                 {
                                     title: 'Очная форма',
-                                    field: '6',
+                                    field: 'is_full_time',
+                                    priority: 'four',
                                 },
                                 {
                                     title: 'Сумма справки',
-                                    field: '7',
-                                },
-                                {
-                                    title: 'Код справки',
-                                    field: '8',
+                                    field: 'summ',
+                                    priority: 'three',
                                 },
                             ]}
-                            data={[]}
+                            data={certificates}
+                            onRowClick={(row) => history.push(TAX_CERTIFICATES_ROUTE + '/' + row.id)}
                         />
                     </Flex>
-                    <Grid
-                        columnGap="2rem"
-                        rowGap="2rem"
-                        columns={isTablet ? '1fr' : '1fr 1fr'}
-                        rows={isTablet ? '1fr 1fr' : '1fr'}
-                    >
-                        <Flex d="column" gap="0.5rem" jc="space-between" h="100%">
-                            <Title size={4} align="left">
-                                Список договоров к справке
-                                <br />
-                            </Title>
-                            <Table
-                                innerPadding="0.33rem"
-                                fontSize="0.75rem"
-                                columns={[
-                                    {
-                                        title: 'Номер договора',
-                                        field: '1',
-                                    },
-                                    {
-                                        title: 'Дата договора',
-                                        field: '2',
-                                    },
-                                ]}
-                                data={[]}
-                            />
-                        </Flex>
-                        <Flex d="column" gap="0.5rem">
-                            <Title size={4} align="left">
-                                Список оплат с редакциями к договору к справке (договор, доп.соглашение)
-                            </Title>
-                            <Table
-                                innerPadding="0.33rem"
-                                fontSize="0.75rem"
-                                columns={[
-                                    {
-                                        title: 'Дата оплаты',
-                                        field: '1',
-                                    },
-                                    {
-                                        title: 'Сумма оплаты',
-                                        field: '2',
-                                    },
-                                    {
-                                        title: 'Тип редакции',
-                                        field: '3',
-                                    },
-                                    {
-                                        title: 'Дата редакции',
-                                        field: '4',
-                                    },
-                                ]}
-                                data={[]}
-                            />
-                        </Flex>
-                    </Grid>
                 </Flex>
             </PageBlock>
         </Wrapper>
@@ -180,7 +122,12 @@ const TaxCertificate = () => {
 }
 
 const FormModal = () => {
+    const { close } = useModal()
     const [selected, setSelected] = useState<SelectPage | null>(null)
+    const [presentYears, certificatedRequested] = useUnit([
+        taxCertificateModel.presentYears,
+        taxCertificateModel.certificatedRequested,
+    ])
 
     useEffect(() => {
         if (years.length === 1) setSelected(years[0])
@@ -198,9 +145,47 @@ const FormModal = () => {
                 width="100%"
                 placeholder="Выберите год"
             />
-            <Button text="Получить" background="var(--reallyBlue)" textColor="#fff" />
+            <Button
+                text="Получить"
+                background="var(--reallyBlue)"
+                textColor="#fff"
+                disabled={!selected}
+                onClick={() => {
+                    if (!selected) return
+
+                    if (presentYears.has(selected.title)) {
+                        confirmModel.events.evokeConfirm({
+                            message: (
+                                <Flex d="column" gap="0.5rem" ai="flex-start">
+                                    <Title align="left" size={4}>
+                                        Справка за выбранный год уже сформирована.
+                                    </Title>
+                                    <P>
+                                        Если вы уверены, что есть причина для формирования справки с корректировкой,
+                                        например: изменились состав оплат или личные документы, тогда запрос на новую
+                                        версию справки будет отправлен.
+                                    </P>
+                                    <P>Отправить?</P>
+                                </Flex>
+                            ),
+                            onConfirm: () => {
+                                certificatedRequested({ year: selected.title })
+                                close()
+                            },
+                        })
+                        return
+                    }
+                    certificatedRequested({ year: selected.title })
+                    close()
+                }}
+            />
         </Flex>
     )
 }
+
+const P = styled.p`
+    font-size: 1rem;
+    line-height: 1.45rem;
+`
 
 export default TaxCertificate

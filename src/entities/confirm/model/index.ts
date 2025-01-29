@@ -1,10 +1,12 @@
+import { ReactNode } from 'react'
+
 import { userModel } from '@entities/user'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
 export interface Confirm {
     isOpen: boolean
-    message?: string | null
+    message?: ReactNode
     onConfirm: () => void
     onReject?: (params: any) => void
     isSubmitSuccess?: boolean

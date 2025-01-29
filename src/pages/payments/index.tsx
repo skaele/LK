@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { TAX_CERTIFICATE_ROUTE } from '@app/routes/routes'
+import { TAX_CERTIFICATES_ROUTE } from '@app/routes/routes'
 import { paymentsModel } from '@entities/payments'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
@@ -54,13 +54,11 @@ const PaymentsPage = () => {
                 <Message type={'alert'} title="Внимание!">
                     Ведутся доработки по информации о долге по оплате и суммам оплат
                 </Message>
-                {paymentType !== 'none' && (
-                    <>
-                        <PaymentsWidget fullWidth />
-                        <Link to={TAX_CERTIFICATE_ROUTE}>
-                            Заказать справку по оплате образовательных услуг для представления в налоговый орган
-                        </Link>
-                    </>
+                {paymentType !== 'none' && <PaymentsWidget fullWidth />}
+                {paymentType === 'education' && (
+                    <Link to={TAX_CERTIFICATES_ROUTE}>
+                        Заказать справку по оплате образовательных услуг для представления в налоговый орган
+                    </Link>
                 )}
                 {paymentType === 'none' && <Error text="Нет данных" />}
                 {paymentType === 'both' && (

@@ -50,7 +50,12 @@ const ConfirmMessage = () => {
 
     return (
         <ModalWrapper isOpen={isOpen}>
-            <ConfirmWrapper isOpen={isOpen} ref={confirmRef}>
+            <ConfirmWrapper
+                isOpen={isOpen}
+                ref={confirmRef}
+                onMouseDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+            >
                 <Title size={3} align="left">
                     {message ?? 'Хотите продолжить?'}
                 </Title>

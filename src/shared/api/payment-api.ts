@@ -83,3 +83,47 @@ export const signThirdPartyElectronicInteraction = async ({
     if (data[0].result !== 'ok') throw new Error(data[0].error_text)
     return data
 }
+
+type TaxCertificate = {
+    id: string
+    cert_date: string
+    year: string
+    summ: string
+    is_full_time: boolean
+    student_is_payer: boolean
+    payer: string
+    number: string
+    correction: string
+    signatory: string
+    cert_file: string
+    cert_file_stamp: string
+    cert_file_sign: string
+    cert_file_with_sign: string
+    payments: Payments[]
+    contracts: Contracts[]
+}
+
+type Payments = {
+    contractNumber: string
+    contractGuid: string
+    paymentDate: string
+    summ: string
+    signatory: string
+    versionType: string
+    versionDate: string
+}
+
+type Contracts = {
+    contractGuid: string
+    contractNumber: string
+    contractDate: string
+}
+
+export const getTaxCerts = async () => (await $api.get<TaxCertificate[]>(`?getTaxCert&token=${token()}`)).data
+
+export const createTaxCertificate = async ({ year }: { year: string }) => {
+    const { data } = await $api.get(`?createTaxCert=${year}&token=${token()}`)
+
+    if (data.result !== 'ok') throw new Error(data.error_text)
+    return data
+}

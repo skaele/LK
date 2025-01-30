@@ -528,7 +528,8 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         isNew: true,
         Component: () => {
             React.useEffect(() => {
-                window.location.replace('https://lk-staff.mospolytech.ru/applications/1SKabinet-sotrudnika')
+                window.open('https://lk-staff.mospolytech.ru/applications/1SKabinet-sotrudnika')
+                window.history.back()
             }, [])
 
             return null

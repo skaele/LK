@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
-
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import normalizeString from '@shared/lib/normalize-string'
 import { FilterElementList } from '@shared/ui/added-elements-list'
 import { TableCatalogType, TableSearchType, TableSortType } from '@shared/ui/table/types'

@@ -5,7 +5,7 @@ import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 
 import { $hrApi } from '@shared/api/config'
 import { getJwtToken, parseJwt } from '@shared/api/session/jwt-token'
-import { MessageType } from '@shared/ui/types'
+import { MessageType } from '@shared/consts'
 
 import { BufferWorkTransfer, BufferWorkTransferForm, BufferWorkTransferHistories } from '../types'
 

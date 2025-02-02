@@ -10,6 +10,6 @@ export const serverSettingsQuery = createQuery({
 
 sample({
     clock: userModel.stores.user,
-    filter: ({ currentUser }) => Boolean(currentUser),
+    filter: (currentUser) => Boolean(currentUser),
     target: serverSettingsQuery.start,
 })

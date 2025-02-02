@@ -9,11 +9,12 @@ import UserContextMenu from '@widgets/user-context-menu'
 import { contextMenuModel } from '@entities/context-menu'
 
 import { PROFILE_ROUTE } from '@shared/routing'
-import { TutorialComponent, withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import Avatar from '@shared/ui/avatar'
 import { Button } from '@shared/ui/button'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
 import { Title } from '@shared/ui/title'
+import { TutorialComponent } from '@shared/ui/types'
 
 const UserBigWrapper = styled(Link)`
     display: flex;

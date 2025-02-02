@@ -1,5 +1,4 @@
-import { IGrade } from '@shared/api/model/acad-performance'
-import { ColorsByGrade, IColorPalette } from '@shared/consts'
+import { ColorsByGrade, IColorPalette, IGrade } from '@shared/consts'
 
 const findProgressBarColor = (grade: keyof IGrade | undefined, returnColor?: boolean): IColorPalette | string => {
     if (!!grade) {

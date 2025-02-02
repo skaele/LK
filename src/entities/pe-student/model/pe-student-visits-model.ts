@@ -1,10 +1,10 @@
-import { modalModel } from '@features/modal/model'
-import { peApi } from '@shared/api'
-import { getPeErrorMsg } from '@shared/api/config/pe-config'
-import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import { createEffect, createEvent, sample } from 'effector'
 
-import { AddStudentVisits } from '../types/add-student-visits'
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { AddStudentVisits } from '@shared/api/physical-education'
+import { modalModel } from '@shared/ui/modal/model'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const addVisit = createEvent<AddStudentVisits>()
 const removeVisit = createEvent<{ id: string }>()

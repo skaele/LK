@@ -1,6 +1,5 @@
+import { UserSettings } from '@shared/api/settings'
 import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG, ThemeVariant } from '@shared/consts'
-
-import { UserSettings } from '../types'
 
 export const getDefaultNewSettings = (isEmployee: boolean): UserSettings => {
     // get default theme from user preferences

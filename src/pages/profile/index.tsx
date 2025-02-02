@@ -1,10 +1,11 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 
-import { Error } from '@sha@shared/session'
 import styled from 'styled-components'
 
 import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
+
+import AvailableAccounts from '@widgets/available-accounts'
 
 import AllInfo from '@features/home/ui/molecules/all-info'
 import Orders from '@features/home/ui/molecules/orders'
@@ -14,9 +15,8 @@ import { menuModel } from '@entities/menu'
 
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { userModel } from '@shared/session'
-import { CenterPage, Wrapper } from '@shared/ui/atoms'
+import { CenterPage, Error, Wrapper } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
-import { AvailableAccounts } from '@shared/widgets'
 
 import Top from './ui/top'
 

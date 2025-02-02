@@ -2,7 +2,7 @@ import instructionsTeacherData from '@features/helpful-information/instructions/
 
 import { HelpfulInfoEnum, helpfulInfoName } from '@entities/useful-information'
 
-import { HelpfulPages } from '../types'
+import { HelpfulPages, Link } from '../types'
 
 const pages: HelpfulPages = [
     {

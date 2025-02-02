@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
-
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import Checkbox from '@shared/ui/checkbox'
 import { useModal } from '@shared/ui/modal'
 import displayWithType from '@shared/ui/table/lib/display-with-type'

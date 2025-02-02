@@ -2,7 +2,18 @@ import React from 'react'
 import { FiEdit2, FiLogOut, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+import {
+    AvatarWrapper,
+    BlocksList,
+    Buttons,
+    Info,
+    InfoWrapper,
+    TopInfoBlock,
+    TopStyled,
+} from '@widgets/notifications/ui/styles'
+
 import ThemeToggle from '@features/theme-toggle'
+import { IconWrapper } from '@features/theme-toggle/styles'
 
 import { User } from '@shared/api/model'
 import { Colors } from '@shared/consts'
@@ -15,17 +26,6 @@ import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Slider from '@shared/ui/slider'
 import Subtext from '@shared/ui/subtext'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
-
-import {
-    AvatarWrapper,
-    BlocksList,
-    Buttons,
-    IconWrapper,
-    Info,
-    InfoWrapper,
-    TopInfoBlock,
-    TopStyled,
-} from '../../../../widgets/notifications/ui/styles'
 
 type Props = {
     pages: { title: string }[]

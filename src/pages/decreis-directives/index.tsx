@@ -1,6 +1,6 @@
 import React from 'react'
 
-import NotificationsPage from '@shared/widgets/notifications'
+import NotificationsPage from '@widgets/notifications'
 
 const DecreisDirectivesPage = () => {
     return <NotificationsPage docsType />

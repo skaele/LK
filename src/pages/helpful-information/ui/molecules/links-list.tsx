@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
-import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
-
+import { HelpfulPage } from '@features/helpful-information'
 import search from '@features/helpful-information/lib/search'
 
 import { Error } from '@shared/ui/error'

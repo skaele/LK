@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-
 import { globalAppSendForm } from '@pages/applications/lib'
 import getReasonForReceiving from '@pages/applications/pages/multifunctional-center/certificate-of-attendance/lib/get-reason-for-receiving'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
@@ -9,12 +7,13 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import getMethodObtaining from '@entities/applications/lib/get-method-obstaing'
 
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 
 import getForm from './lib/get-form'
 

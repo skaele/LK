@@ -187,7 +187,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             isVertical={isVertical}
             justifyContent="center"
             shadow={shadow}
-            color={color.length ? color : 'blue'}
+            color={color ?? 'blue'}
             hasNotifications={!!notifications}
             data-selected={props.isActive}
         >
@@ -198,7 +198,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
                 </LinkIcon>
             )}
             <div className="outside">
-                <Icon badge={notifications?.toString()} color={color.length ? color : 'blue'}>
+                <Icon badge={notifications?.toString()} color={color ?? 'blue'}>
                     {icon ?? <HiOutlineFolder />}
                 </Icon>
                 <b title={title}>{title}</b>

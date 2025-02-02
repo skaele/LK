@@ -1,7 +1,6 @@
-import { TimeIntervals } from '@shared/api/model'
+import { DayCalendarEvent, TimeIntervals } from '@shared/api/model'
 
 import { getEndTime } from '../calendars/day/lib/get-end-time'
-import { DayCalendarEvent } from '../types'
 
 export const getTimeInterval = (startTime: DayCalendarEvent['startTime'], duration: DayCalendarEvent['duration']) => {
     return startTime

@@ -70,6 +70,7 @@
         "eslint-plugin-prettier": "^5.2.3",
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.18",
         "knip": "^3.0.2",
         "prettier": "^3.4.2",
         "tiny-invariant": "^1.3.1",

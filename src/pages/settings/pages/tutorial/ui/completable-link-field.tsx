@@ -2,9 +2,9 @@ import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline, IoIosRadioButtonOff } from 'react-icons/io'
 
-import { FieldProps } from '@pages/settings/types'
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import TextFieldItem from '@shared/ui/text-field/text-field-item'
+import { FieldProps } from '@shared/ui/text-field/types'
 
 interface LocalProps {
     completed: boolean

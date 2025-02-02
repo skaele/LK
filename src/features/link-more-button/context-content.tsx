@@ -46,7 +46,7 @@ const ContextContent = (props: Page) => {
     return (
         <ContextContentWrapper>
             <div className="top">
-                <Icon color={color} size={22}>
+                <Icon color={color ?? 'blue'} size={22}>
                     {icon}
                 </Icon>
                 <PageName>{title}</PageName>

@@ -6,8 +6,8 @@ import { AxiosResponse } from 'axios'
 
 import { studentApi, teacherApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
-import { Hint } from '@shared/session'
 import { userModel } from '@shared/session'
+import { Hint } from '@shared/ui/search'
 import SearchWithHints from '@shared/ui/search-with-hints'
 
 type Props = {

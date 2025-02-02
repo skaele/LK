@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Title } from '@sha@shared/session'
 import styled from 'styled-components'
 
 import createApplicationSearch from '@features/applications/lib/create-application-search'
@@ -16,6 +15,7 @@ import Flex from '@shared/ui/flex'
 import { useModal } from '@shared/ui/modal'
 import { LocalSearch } from '@shared/ui/molecules'
 import Subtext from '@shared/ui/subtext'
+import { Title } from '@shared/ui/title'
 
 import isEnabledForDegreeLevel from '../lib/isEnabledForDegreeLevel'
 

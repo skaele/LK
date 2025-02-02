@@ -3,9 +3,8 @@ import axios from 'axios'
 import { createEvent, sample } from 'effector'
 
 import { applicationsModel } from '@entities/applications'
-import { ApplicationCreating } from '@entities/applications/model'
 
-import { post } from '@shared/api/applications/application-api'
+import { ApplicationCreating, post } from '@shared/api/applications/application-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'

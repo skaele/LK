@@ -285,53 +285,7 @@ export const scheduleRoutes: IRoutes = {
     },
 }
 
-export const generalHiddenRoutes: IRoutes = {
-    // 'teachers-schedule': {
-    //     id: 'teachers-schedule',
-    //     title: 'Расписание преподавателя',
-    //     icon: <BiIdCard />,
-    //     path: FILTER_SCHEDULE,
-    //     Component: TeachersSchedule,
-    //     color: 'blue',
-    //     isTemplate: false,
-    //     show: false,
-    //     group: 'OTHER',
-    //     pageSize: 'large',
-    // },
-    'schedule-filter': {
-        id: 'schedule-filter',
-        title: 'Расписание',
-        icon: FiClock,
-        path: SCHEDULE_FILTER_ROUTE,
-        color: 'pink',
-        isTemplate: false,
-        show: false,
-        group: 'OTHER',
-        pageSize: 'large',
-    },
-    ...scheduleRoutes,
-    'filtered-all-students': {
-        id: 'filtered-all-students',
-        title: 'Все студенты',
-        icon: BiGroup,
-        path: FILTERED_ALL_STUDENTS_ROUTE,
-        color: 'blue',
-        isTemplate: false,
-        show: false,
-        group: 'OTHER',
-    },
-    // move to student's after #ASM
-    'filtered-all-teachers': {
-        id: 'filtered-all-teachers',
-        title: 'Все сотрудники',
-        icon: BiGroup,
-        path: FILTERED_ALL_TEACHERS_ROUTE,
-        color: 'blue',
-        isTemplate: false,
-        show: false,
-        group: 'OTHER',
-    },
-    // #region settings pages
+export const settingsRoutes: IRoutes = {
     'settings-appearance': {
         id: 'settings-appearance',
         title: 'Настройки. Внешний вид',
@@ -417,8 +371,54 @@ export const generalHiddenRoutes: IRoutes = {
 
         backButtonText: 'Настройки',
     },
-    // #endregion
+}
 
+export const generalHiddenRoutes: IRoutes = {
+    // 'teachers-schedule': {
+    //     id: 'teachers-schedule',
+    //     title: 'Расписание преподавателя',
+    //     icon: <BiIdCard />,
+    //     path: FILTER_SCHEDULE,
+    //     Component: TeachersSchedule,
+    //     color: 'blue',
+    //     isTemplate: false,
+    //     show: false,
+    //     group: 'OTHER',
+    //     pageSize: 'large',
+    // },
+    'schedule-filter': {
+        id: 'schedule-filter',
+        title: 'Расписание',
+        icon: FiClock,
+        path: SCHEDULE_FILTER_ROUTE,
+        color: 'pink',
+        isTemplate: false,
+        show: false,
+        group: 'OTHER',
+        pageSize: 'large',
+    },
+    ...scheduleRoutes,
+    'filtered-all-students': {
+        id: 'filtered-all-students',
+        title: 'Все студенты',
+        icon: BiGroup,
+        path: FILTERED_ALL_STUDENTS_ROUTE,
+        color: 'blue',
+        isTemplate: false,
+        show: false,
+        group: 'OTHER',
+    },
+    // move to student's after #ASM
+    'filtered-all-teachers': {
+        id: 'filtered-all-teachers',
+        title: 'Все сотрудники',
+        icon: BiGroup,
+        path: FILTERED_ALL_TEACHERS_ROUTE,
+        color: 'blue',
+        isTemplate: false,
+        show: false,
+        group: 'OTHER',
+    },
     'useful-info-template': {
         id: `useful-info-template`,
         title: `Полезная информация`,

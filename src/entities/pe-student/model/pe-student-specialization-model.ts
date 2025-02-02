@@ -1,10 +1,9 @@
-import { peApi } from '@shared/api'
-import { getPeErrorMsg } from '@shared/api/config/pe-config'
-import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import { createEffect, createEvent, sample } from 'effector'
 
-import { Specialization } from '../types'
-import { SetSpecialization } from '../types/set-specialization'
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { SetSpecialization, Specialization } from '@shared/api/physical-education'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const setSpecialization = createEvent<{ studentGuid: string; specialization: Specialization }>()
 

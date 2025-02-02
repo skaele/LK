@@ -12,7 +12,6 @@ export default defineConfig((conf) => {
         server: {
             open: true,
             port: 3000,
-            hmr: false,
             proxy: {
                 '/api': {
                     target: 'https://e.mospolytech.ru/old/lk_api.php',

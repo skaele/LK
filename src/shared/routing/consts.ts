@@ -1,6 +1,7 @@
 import { FC, LazyExoticComponent } from 'react'
 import { IconType } from 'react-icons'
 
+import { PETeacher } from '@shared/api/physical-education'
 import { IColors } from '@shared/consts'
 
 export const pageGroups = {
@@ -50,7 +51,7 @@ export type Page = Route & {
     fallbackPrevPage?: string
     planeHeader?: boolean
     pageSize?: 'small' | 'middle' | 'big' | 'large'
-    // getIsVisibleForCurrentUser?: (peTeacher: PETeacher | null) => boolean
+    getIsVisibleForCurrentUser?: (peTeacher: PETeacher | null) => boolean
     guidsAllowed?: string[]
     hiddenTitle?: boolean
 }

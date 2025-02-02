@@ -4,10 +4,10 @@ import { useUnit } from 'effector-react'
 import { adminLinksModel } from '@entities/admin-links'
 import { allowancesModel } from '@entities/allowances'
 import { userSettingsModel } from '@entities/settings'
-import { UserSettings } from '@entities/settings/types'
 
 import { Role } from '@shared/api/allowances/types'
 import { AdminLinks, User } from '@shared/api/model'
+import { UserSettings } from '@shared/api/settings'
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/consts'
 import {
     IRoutes,

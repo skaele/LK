@@ -2,9 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { StoryProps } from '@widgets/story/ui/story-page'
-
 import { storyModel } from '@entities/story'
+import { StoryProps } from '@entities/story/model'
 
 import BlockWrapper from '@shared/ui/block/styles'
 import { Image } from '@shared/ui/image'

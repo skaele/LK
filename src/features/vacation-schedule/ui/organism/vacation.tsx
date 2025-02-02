@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
-
 import { VacationSchedule, Vacation as VacationType } from '@shared/api/model/vacation-schedule'
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import localizeDate from '@shared/lib/dates/localize-date'
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
 import KeyValue from '@shared/ui/atoms/key-value'

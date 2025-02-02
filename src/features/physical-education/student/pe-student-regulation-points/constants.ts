@@ -1,4 +1,4 @@
-import { RegulationType } from '@entities/pe-student-regulation-points/types'
+import { RegulationType } from '@shared/api/physical-education'
 
 export const SelectorData: { id: RegulationType; title: string }[] = [
     { id: RegulationType.FlexionAndExtensionOfArms, title: 'Сгибание и разгибание рук' },

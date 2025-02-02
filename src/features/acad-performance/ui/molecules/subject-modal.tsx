@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { SubjectIconAndBackground } from '@features/schedule/ui/subject/subject-icon-and-background'
+import User from '@features/user'
 
 import { AcadPerformance } from '@shared/api/model/acad-performance'
 import { IColorPalette } from '@shared/consts'
@@ -10,7 +11,6 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import findSemestr from '@shared/lib/find-semestr'
 import KeyValue from '@shared/ui/atoms/key-value'
 import { Title } from '@shared/ui/title'
-import { User } from '@shared/widgets'
 
 const Container = styled.div`
     width: 400px;

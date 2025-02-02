@@ -4,15 +4,14 @@ import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
 import checkFormFields from '@features/send-form/check-form-fields'
-import { LoadedState } from '@features/template-form'
 
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { LoadedState, SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 
 import { getForm } from './lib/get-form'
 import { getAttachmentExitAcademic } from './lib/get-reason-exit-academic'

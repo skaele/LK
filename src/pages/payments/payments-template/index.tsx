@@ -5,9 +5,8 @@ import { useUnit } from 'effector-react'
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
 import { PageWrapperTutorial } from '@features/tutorials/page-wrapper-tutorial'
 
-import { tutorialModel } from '@entities/tutorial'
-
 import { PaymentsContract } from '@shared/api/model'
+import { tutorialModel } from '@shared/tutorial'
 import { Divider, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 

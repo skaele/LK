@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-import { Title } from '@sha@shared/session'
 import styled from 'styled-components'
 
 import User from '@features/user'
@@ -8,7 +7,7 @@ import User from '@features/user'
 import { User as UserType } from '@shared/api/model'
 import getCorrectWordForm from '@shared/lib/get-correct-word-form'
 import { userModel } from '@shared/session'
-import { SubmitButton } from '@shared/ui/atoms'
+import { SubmitButton, Title } from '@shared/ui/atoms'
 import { LocalSearch } from '@shared/ui/molecules'
 import PagintaionList from '@shared/ui/pagination-list'
 

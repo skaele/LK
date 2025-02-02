@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-import GoBackButton from '@@shared/session-back-button'
 import { useStore } from 'effector-react'
 import styled from 'styled-components'
 
 import { userModel } from '@shared/session'
 import { CenterPage, Input, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
+import GoBackButton from '@shared/ui/go-back-button'
 
 import { USER_NOT_FOUND } from './config/ad-result-status'
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 
-import PageBlock from '@sha@shared/sessionblock'
 import { useStore } from 'effector-react'
 import styled from 'styled-components'
+
+import ListOfPeople from '@features/list-of-people'
 
 import { paginationList } from '@entities/all-students'
 
@@ -11,8 +12,8 @@ import { getGroups } from '@shared/api/student-api'
 import Masks from '@shared/lib/masks'
 import { userModel } from '@shared/session'
 import { Wrapper } from '@shared/ui/atoms'
+import PageBlock from '@shared/ui/page-block'
 import { SelectPage } from '@shared/ui/select'
-import ListOfPeople from '@shared/widgets/list-of-people'
 
 const PageWrapper = styled.div`
     width: 100%;

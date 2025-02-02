@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
-
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import { Divider } from '@shared/ui/divider'
 import { ColumnProps, Footer as IFooter } from '@shared/ui/table/types'
 

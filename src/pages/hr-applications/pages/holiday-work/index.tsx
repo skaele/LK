@@ -7,12 +7,12 @@ import SendHrFormHolidayWork from '@pages/hr-applications/lib/send-hr-form-holid
 import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 
 import { bufferHolidayWorkModel } from '../buffer-holiday-work/model'
 import getCompensation from './lib/get-compenstion'

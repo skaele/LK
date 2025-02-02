@@ -1,5 +1,6 @@
+import { MessageType } from '@shared/consts'
+
 import { FilterElementList } from '../added-elements-list'
-import { MessageType } from '../types'
 
 type TValueFieldType = FilterElementList | string[] | number[] | string | boolean
 

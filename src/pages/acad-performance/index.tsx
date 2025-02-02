@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { HiOutlineEmojiSad } from 'react-icons/hi'
 
-import PageBlock from '@sha@shared/sessionblock'
-
 import createSelectItems from '@features/acad-performance/lib/create-select-items'
 import search from '@features/acad-performance/lib/search'
 import { SubjectList } from '@features/acad-performance/ui/organisms'
@@ -16,6 +14,7 @@ import { userModel } from '@shared/session'
 import { Error, Wrapper } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { LocalSearch } from '@shared/ui/molecules'
+import PageBlock from '@shared/ui/page-block'
 import Select, { SelectPage } from '@shared/ui/select'
 
 import GradeGraph from './ui/grade-graph'

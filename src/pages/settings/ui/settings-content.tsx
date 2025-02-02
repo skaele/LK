@@ -4,14 +4,14 @@ import { Route, Switch, useRouteMatch } from 'react-router'
 
 import styled from 'styled-components'
 
+import { settingsPages } from '@pages/routes'
+
 import { menuModel } from '@entities/menu'
 
-import { TEMPLATE_SETTINGS_ROUTE } from '@shared/routing'
+import { TEMPLATE_SETTINGS_ROUTE, settingsRoutes } from '@shared/routing'
 import { CenterPage, Error } from '@shared/ui/atoms'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 import { Icon } from '@shared/ui/icon'
-
-import { SETTINGS_PAGES } from '../contants'
 
 export const SettingsContent = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
@@ -23,8 +23,8 @@ export const SettingsContent = () => {
         <SettingsContentWrapper data-is-base-settings-page={!pathParams?.id}>
             <SettingsContentStyled>
                 <Switch>
-                    {SETTINGS_PAGES.map((name) => (
-                        <Route path={allRoutes[name].path} key={name} component={allRoutes[name].Component} />
+                    {Object.keys(settingsRoutes).map((name) => (
+                        <Route path={allRoutes[name].path} key={name} component={settingsPages[name]} />
                     ))}
 
                     <Route path={'/'}>

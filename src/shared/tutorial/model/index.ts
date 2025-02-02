@@ -1,6 +1,7 @@
 import { createMutation, createQuery } from '@farfetched/core'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
+import { commonTutorialIds } from '@shared/api/tutorial/constants'
 import {
     TutorialData,
     callUserInteraction,
@@ -20,7 +21,7 @@ import { userModel } from '@shared/session'
 import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { Module, Modules, TutorialId, TutorialRoles } from '../../api/tutorial/types'
-import { ModuleData, commonTutorialIds, createTutorials } from '../tutorials'
+import { ModuleData, createTutorials } from '../tutorials'
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()

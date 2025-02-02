@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { DayCalendarEvent } from '@features/schedule/ui/calendar/types'
 import { CalendarWrapper } from '@features/schedule/ui/calendar/ui/calendar-wrapper'
 import Events from '@features/schedule/ui/calendar/ui/event/events'
 import { getEventTopPosition } from '@features/schedule/ui/calendar/ui/event/lib/get-event-top-position'
 import Times from '@features/schedule/ui/calendar/ui/times'
 
+import { DayCalendarEvent } from '@shared/api/model'
 import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
 
 type Props = {

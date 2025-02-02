@@ -2,6 +2,8 @@ import React from 'react'
 import { FiMenu, FiSidebar } from 'react-icons/fi'
 import { Redirect, Route, Switch } from 'react-router'
 
+import { schedulePages } from '@pages/routes'
+
 import { menuModel } from '@entities/menu'
 import { scheduleModel } from '@entities/schedule'
 import { SESSION_VIEWS, VIEWS } from '@entities/schedule/consts'
@@ -77,7 +79,8 @@ const Schedule = () => {
                         )}
                         <Switch>
                             {Object.keys(scheduleRoutes ?? {}).map((key) => {
-                                const { path, id, Component } = scheduleRoutes[key]
+                                const { path, id } = scheduleRoutes[key]
+                                const Component = schedulePages[id]
                                 return (
                                     <Route key={id} path={path}>
                                         {<Component />}

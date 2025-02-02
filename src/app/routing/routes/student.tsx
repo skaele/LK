@@ -56,14 +56,14 @@ import {
     StudentStatus,
     TerminationOfEmploymentContractPage,
 } from './pages'
-import { generalHiddenRoutes, generalRoutes } from './private'
+import { privateHiddenPages, privatePages } from './private'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '' })
 
-export const privateRoutes: () => Record<string, PageComponent> = () => ({
+export const studentPages: () => Record<string, PageComponent> = () => ({
     // On this position just to make necessary order
     applications: ApplicationsPage,
-    ...generalRoutes,
+    ...privatePages,
     payments: PaymentsPage,
     dormitory: DormitoryPage,
     softskills: () => {
@@ -82,8 +82,8 @@ export const privateRoutes: () => Record<string, PageComponent> = () => ({
     'all-teachers': AllTeachersPage,
 })
 
-export const hiddenRoutes: (user: User | null) => PageRoute = (user) => ({
-    ...generalHiddenRoutes,
+export const hiddenStudentPages: (user: User | null) => PageRoute = (user) => ({
+    ...privateHiddenPages,
     'clarification-of-passport-data': ClarificationOfPassportDataApplication,
     'arbitrary-request': ArbitraryRequestPage,
     'student-employment': isProduction ? ApplicationRedirect : StudentEmploymentPage,

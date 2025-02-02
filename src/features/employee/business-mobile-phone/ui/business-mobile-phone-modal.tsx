@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import ToggleItem from '@sh@shared/sessionle-item'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
@@ -8,6 +7,7 @@ import { Colors } from '@shared/consts'
 import { userModel } from '@shared/session'
 import { Button, Divider, Input } from '@shared/ui/atoms'
 import { useModal } from '@shared/ui/modal'
+import ToggleItem from '@shared/ui/toggle-item'
 
 import { changeStaffPhone, changeStaffPhoneParamsMutation } from '../model'
 
@@ -30,10 +30,7 @@ const Buttons = styled.div`
 export const BusinessMobilePhoneModal = () => {
     const { close, isOpen } = useModal()
 
-    const {
-        loading,
-        user: { currentUser },
-    } = useUnit({
+    const { loading, user: currentUser } = useUnit({
         loading: changeStaffPhoneParamsMutation.$pending,
         user: userModel.stores.user,
     })

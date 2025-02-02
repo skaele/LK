@@ -1,8 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 
-import { PEStudent, healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
+import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 
+import { PEStudent } from '@shared/api/physical-education'
 import { buildRealLink } from '@shared/lib/buildRealLink'
 import { PHYSICAL_EDUCATION_STUDENT } from '@shared/routing'
 import KeyValue from '@shared/ui/atoms/key-value'

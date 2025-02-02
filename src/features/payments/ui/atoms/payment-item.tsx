@@ -3,12 +3,11 @@ import { BiRuble } from 'react-icons/bi'
 
 import styled from 'styled-components'
 
-import { Icon } from '@features/all-pages'
-
 import { IPaymentItem } from '@shared/api/model'
 import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import Flex from '@shared/ui/flex'
+import { Icon } from '@shared/ui/icon'
 import Subtext from '@shared/ui/subtext'
 
 const PaymentItemWrapper = styled.div`

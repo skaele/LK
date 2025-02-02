@@ -7,12 +7,10 @@ import { PageLinkTutorial } from '@features/tutorials/page-link-tutorial'
 
 import { menuModel } from '@entities/menu'
 
-import { TEMPLATE_SETTINGS_ROUTE } from '@shared/routing'
+import { TEMPLATE_SETTINGS_ROUTE, settingsRoutes } from '@shared/routing'
 import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 import { TutorialComponent } from '@shared/ui/types'
-
-import { SETTINGS_PAGES } from '../contants'
 
 export const SettingsList = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
@@ -22,7 +20,7 @@ export const SettingsList = () => {
 
     return (
         <WrapperTutorial data-is-base-settings-page={!pathParams?.id} tutorialModule={{ id: 'settings', step: 0 }}>
-            {SETTINGS_PAGES.map((id, index) => (
+            {Object.keys(settingsRoutes).map((id, index) => (
                 <PageLinkTutorial
                     {...allRoutes[id]}
                     title={allRoutes[id].title?.slice(11, allRoutes[id].title.length) ?? ''}

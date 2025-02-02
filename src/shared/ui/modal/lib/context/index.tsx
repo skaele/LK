@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useEffect, useMemo, useState } from 
 
 import { useUnit } from 'effector-react'
 
-import { modalModel } from '@features/modal/model'
+import { modalModel } from '../../model'
 
 export const Context = createContext<ModalContext>({
     isOpen: false,

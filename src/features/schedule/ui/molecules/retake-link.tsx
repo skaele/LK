@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import styled from 'styled-components'
 
@@ -18,7 +18,7 @@ const LinkWrapper = styled.a<{ width: number | string }>`
     }
 `
 
-export type RetakeLinkProps = Omit<PageLinkProps, 'restricted' | 'mode'>
+export type RetakeLinkProps = Omit<PageLinkProps, 'restricted' | 'mode'> & { Component: FC }
 
 const RetakeLink = (props: RetakeLinkProps) => {
     const { path, Component: RetakeModal, fullTitle } = props

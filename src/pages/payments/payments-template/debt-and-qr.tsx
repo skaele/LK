@@ -6,13 +6,11 @@ import styled from 'styled-components'
 
 import { Contract } from '@features/payments'
 import { DebtTutorial } from '@features/tutorials/debt-tutorial'
-import { PaymentButtonTutorial } from '@features/tutorials/payment-button'
-
-import { tutorialModel } from '@entities/tutorial'
 
 import { PaymentsContract } from '@shared/api/model'
 import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { tutorialModel } from '@shared/tutorial'
 import { Button, LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { useModal } from '@shared/ui/modal'
@@ -20,6 +18,8 @@ import Notification from '@shared/ui/notification'
 import Slider from '@shared/ui/slider'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
+
+import { PaymentButtonTutorial } from './payment-button-animated'
 
 const DebtAndQrWrapper = styled.div`
     width: 100%;

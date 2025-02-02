@@ -3,10 +3,10 @@ import { combine, createEffect, createEvent, createStore, sample } from 'effecto
 import { paymentApi } from '@shared/api'
 import { Payments, PaymentsContract } from '@shared/api/model'
 import { agreementSubmit } from '@shared/api/payment-api'
+import { MessageType } from '@shared/consts'
 import { userModel } from '@shared/session'
 import { tutorialModel } from '@shared/tutorial'
 import { popUpMessageModel } from '@shared/ui/pop-up-message'
-import { MessageType } from '@shared/ui/types'
 
 import changeCanSign from '../lib/change-can-sign'
 

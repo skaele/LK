@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
-import { Icon } from '@features/all-pages'
 
 import { AcadPerformance } from '@shared/api/model/acad-performance'
 import { GradeByScore, IColorPalette } from '@shared/consts'
@@ -12,6 +11,7 @@ import getShortName from '@shared/lib/get-short-name'
 import { getSubjectIcon } from '@shared/lib/get-subject-icon'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
+import { Icon } from '@shared/ui/icon'
 import { useModal } from '@shared/ui/modal'
 import Subtext from '@shared/ui/subtext'
 

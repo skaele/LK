@@ -1,6 +1,6 @@
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 
-import { setServerSettings } from '@shared/api/settings'
+import { UserSettings, setServerSettings } from '@shared/api/settings'
 import { ThemeVariant } from '@shared/consts'
 import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
 import { userModel } from '@shared/session'
@@ -8,7 +8,7 @@ import { tutorialModel } from '@shared/tutorial'
 
 import { getDefaultNewSettings } from '../lib/get-default-settings'
 import { getSettingsKey } from '../lib/get-settings-key'
-import { SettingsOldType, UserSettings } from '../types'
+import { SettingsOldType } from '../types'
 import { serverSettingsQuery } from './server-settings'
 
 const update = createEvent<RequireOnlyOne<UserSettings>>()

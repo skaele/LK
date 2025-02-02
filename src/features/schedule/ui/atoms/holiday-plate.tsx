@@ -2,7 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import Sleep from '../../../../shared/images/sleep.gif'
+import { Sleep } from '@shared/ui/images'
+
 import { ShowNextDayEventsButton } from '../show-next-day-events-button'
 
 const HolidayPlateWrapper = styled.div`

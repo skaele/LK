@@ -6,11 +6,11 @@ import sendHrFormHolidayPlanning from '@pages/hr-applications/lib/send-hr-form-h
 import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 import PageBlock from '@shared/ui/page-block'
 
 import { bufferHolidayPlanningModel } from '../buffer-holiday-planning/model'

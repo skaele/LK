@@ -9,9 +9,9 @@ import { baseNotification, businesstripNotification } from '@shared/api/model/no
 import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import getRightGenderWord from '@shared/lib/get-right-gender-word'
-import Subtext from '@shared/session'
 import { userModel } from '@shared/session'
 import { LinkButton, SubmitButton } from '@shared/ui/atoms'
+import Subtext from '@shared/ui/subtext'
 
 import { CardTitle, Info } from './styled'
 

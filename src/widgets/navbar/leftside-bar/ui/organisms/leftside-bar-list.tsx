@@ -6,6 +6,7 @@ import { useUnit } from 'effector-react'
 import { menuModel } from '@entities/menu'
 
 import { Page } from '@shared/routing'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import Flex from '@shared/ui/flex'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
 import { TutorialComponent } from '@shared/ui/types'
@@ -106,3 +107,4 @@ const LeftsideBarList = ({ forwardedRef }: TutorialComponent) => {
 }
 
 export default React.memo(LeftsideBarList)
+export const LeftSideBarListTutorial = withTutorial(LeftsideBarList)

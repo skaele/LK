@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { BiBookBookmark } from 'react-icons/bi'
 import { FaRegCalendar, FaRegLightbulb } from 'react-icons/fa'
 import { FiTruck } from 'react-icons/fi'
@@ -25,102 +25,104 @@ const retakeRoutesRaw: RetakeRouteRaw[] = [
         id: 'feiu',
         title: 'ФЭИУ',
         fullTitle: 'Факультет экономики и управления',
-        icon: <RiBarChartFill />,
+        icon: RiBarChartFill,
         color: 'lightGreen',
     },
     {
         id: 'fuigh',
         title: 'ФУИГХ',
         fullTitle: 'Факультет урбанистики и городского хозяйства',
-        icon: <HiOutlineOfficeBuilding />,
+        icon: HiOutlineOfficeBuilding,
         color: 'purple',
     },
     {
         id: 'fbk',
         title: 'ФБК',
         fullTitle: 'Факультет базовых компетенций',
-        icon: <HiOutlinePencilAlt />,
+        icon: HiOutlinePencilAlt,
         color: 'red',
     },
     {
         id: 'fhtib',
         title: 'ФХТИБ',
         fullTitle: 'Факультет химической технологии и биотехнологии',
-        icon: <RiFlaskLine />,
+        icon: RiFlaskLine,
         color: 'orange',
     },
     {
         id: 'tf',
         title: 'ТФ',
         fullTitle: 'Транспортный факультет',
-        icon: <FiTruck />,
+        icon: FiTruck,
         color: 'green',
     },
     {
         id: 'fm',
         title: 'ФМ',
         fullTitle: 'Факультет машиностроения',
-        icon: <MdCarRepair />,
+        icon: MdCarRepair,
         color: 'green',
     },
     {
         id: 'fit',
         title: 'ФИТ',
         fullTitle: 'Факультет информационных технологий',
-        icon: <HiOutlineDesktopComputer />,
+        icon: HiOutlineDesktopComputer,
         color: 'blue',
     },
     {
         id: 'pi',
         title: 'ПИ',
         fullTitle: 'Полиграфический институт',
-        icon: <HiOutlinePrinter />,
+        icon: HiOutlinePrinter,
         color: 'pink',
     },
     {
         id: 'iidizh',
         title: 'ИИДИЖ',
         fullTitle: 'Институт издательского дела и журналистики',
-        icon: <BiBookBookmark />,
+        icon: BiBookBookmark,
         color: 'purple',
     },
     {
         id: 'igrik',
         title: 'ИГРИК',
         fullTitle: 'Институт графики и искусства книги имени В.А.Фаворского',
-        icon: <TiBrush />,
+        icon: TiBrush,
         color: 'orange',
     },
     {
         id: 'pishe',
         title: 'ПИШЭ',
         fullTitle: 'Передовая инженерная школа электротранспорта',
-        icon: <MdEvStation />,
+        icon: MdEvStation,
         color: 'lightGreen',
     },
     {
         id: 'cpd',
         title: 'ЦПД',
         fullTitle: 'Центр проектной деятельности',
-        icon: <FaRegLightbulb />,
+        icon: FaRegLightbulb,
         color: 'purple',
     },
     {
         id: 'nid',
         title: 'НИД (Аспиранты)',
         fullTitle: 'Научно-исследовательская деятельность',
-        icon: <FaRegCalendar />,
+        icon: FaRegCalendar,
         color: 'orange',
     },
     {
         id: 'nivk',
         title: 'НИВК (Аспиранты)',
-        icon: <HiOutlineDocumentSearch />,
+        icon: HiOutlineDocumentSearch,
         color: 'lightBlue',
     },
 ]
-
-const retakeRoutes: IRoutes = retakeRoutesRaw.reduce((routes: IRoutes, { id, ...rest }: RetakeRouteRaw) => {
+type RetakeLinks = {
+    [id: string]: Page & { Component: FC }
+}
+const retakeRoutes: RetakeLinks = retakeRoutesRaw.reduce((routes: RetakeLinks, { id, ...rest }: RetakeRouteRaw) => {
     if (!RETAKE_LINKS[id]) {
         return { ...routes }
     }
@@ -130,8 +132,7 @@ const retakeRoutes: IRoutes = retakeRoutesRaw.reduce((routes: IRoutes, { id, ...
     const path = href && !links.length ? href : ''
 
     const Component = links.length && !href ? () => RetakeModal({ links, fullTitle }) : () => null
-
     return { ...routes, [id]: { id, path, Component, isTemplate: false, ...rest } }
-}, {} as IRoutes)
+}, {} as RetakeLinks)
 
 export default retakeRoutes

@@ -1,4 +1,4 @@
-import { DayCalendarEvent } from '@features/schedule/ui/calendar/types'
+import { DayCalendarEvent } from '@shared/api/model'
 
 export const prepareEvents = (events: DayCalendarEvent[] | null | undefined): Record<string, DayCalendarEvent[]> => {
     const result: Record<string, DayCalendarEvent[]> = {}

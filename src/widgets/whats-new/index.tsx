@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components'
 
-import { useModal } from '@features/modal'
 import { TimesEvents } from '@features/schedule/ui/calendar/calendars/day/ui/times-events'
 
 import { TimeIntervalColor } from '@shared/api/model'
@@ -10,6 +9,7 @@ import { Colors } from '@shared/consts'
 import { getSubjectIcon } from '@shared/lib/get-subject-icon'
 import limitNumber from '@shared/lib/limit-number'
 import { Button } from '@shared/ui/atoms'
+import { useModal } from '@shared/ui/modal'
 import { DotPages } from '@shared/ui/molecules'
 
 import { WhatsNewTemplate } from './ui'

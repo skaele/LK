@@ -1,10 +1,9 @@
-import { peApi } from '@shared/api'
-import { getPeErrorMsg } from '@shared/api/config/pe-config'
-import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import { createEffect, createEvent, sample } from 'effector'
 
-import { HealthGroup } from '../types'
-import { SetHealthGroup } from '../types/set-health-group'
+import { peApi } from '@shared/api'
+import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { HealthGroup, SetHealthGroup } from '@shared/api/physical-education'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const setHealthGroup = createEvent<{ studentGuid: string; healthGroup: HealthGroup }>()
 

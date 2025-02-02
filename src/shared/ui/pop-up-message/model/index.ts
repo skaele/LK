@@ -1,8 +1,8 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
+import { MessageType } from '@shared/consts'
 import { userModel } from '@shared/session'
-import { MessageType } from '@shared/ui/types'
 
 interface IPopUpMessage {
     message: ChildrenType

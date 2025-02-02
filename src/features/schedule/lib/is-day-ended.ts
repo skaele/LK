@@ -1,5 +1,4 @@
-import { DayCalendarEvent } from '@features/schedule/ui/calendar'
-
+import { DayCalendarEvent } from '@shared/api/model'
 import { TimeType, getMinutesFromStringTime } from '@shared/lib/dates/get-minutes-from-string-time'
 import { getMinutesFromDate } from '@shared/lib/dates/get-time-from-date'
 

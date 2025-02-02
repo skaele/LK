@@ -1,8 +1,9 @@
 import React from 'react'
 
 import Flex from '@shared/ui/flex'
+import { TutorialComponent } from '@shared/ui/types'
 
-import { TutorialComponent, withTutorial } from '../../shared/tutorial/lib/with-tutorial'
+import { withTutorial } from '../../shared/tutorial/lib/with-tutorial'
 
 type JC = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around'
 type AI = 'flex-start' | 'center' | 'flex-end'

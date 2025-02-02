@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { DayCalendarEvent, WeekEvents } from '@features/schedule/ui/calendar/types'
+import { WeekEvents } from '@features/schedule/ui/calendar/types'
 import { MonthEventItem } from '@features/schedule/ui/calendar/ui/event/month-event-item'
 import { SubjectsIndicator } from '@features/schedule/ui/calendar/ui/subjects-indicator'
 import { getSunday } from '@features/schedule/ui/calendar/ui/week-days/lib/get-sunday'
 import { EventsModal } from '@features/schedule/ui/show-next-day-events-button/events-modal'
 
+import { DayCalendarEvent } from '@shared/api/model'
 import capitalizeFirstLetter from '@shared/lib/capitalize-first-letter'
 import { areDatesEqual } from '@shared/lib/dates/are-dates-equal'
 import localizeDate from '@shared/lib/dates/localize-date'

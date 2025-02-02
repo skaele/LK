@@ -3,11 +3,10 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import { useCalendarGeneral } from '@features/schedule/ui/calendar/hooks/use-calendar-general'
 import { checkIfEventIsCurrent } from '@features/schedule/ui/calendar/ui/event/lib/check-if-event-is-current'
 
-import { TimeIntervals } from '@shared/api/model'
+import { DayCalendarEvent, TimeIntervals } from '@shared/api/model'
 import { IWeekDayNames } from '@shared/consts'
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 
-import { DayCalendarEvent } from '../../../types'
 import { getCurrentDay } from '../lib/get-current-day'
 import { getEndTime } from '../lib/get-end-time'
 import { DayCalendarProps } from '../types'

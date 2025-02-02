@@ -62,7 +62,7 @@ sample({ clock: tick, target: chatsQuery.start })
 
 sample({
     clock: userModel.stores.user,
-    filter: (user) => !!user.currentUser,
+    filter: (user) => !!user,
     target: load,
 })
 

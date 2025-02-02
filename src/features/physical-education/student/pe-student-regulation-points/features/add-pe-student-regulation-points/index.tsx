@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { useUnit } from 'effector-react'
 
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
-import { AddStudentRegulationPoints, RegulationType } from '@entities/pe-student-regulation-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 
+import { AddStudentRegulationPoints, RegulationType } from '@shared/api/physical-education'
 import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'

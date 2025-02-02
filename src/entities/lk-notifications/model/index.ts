@@ -3,10 +3,10 @@ import { useStore } from 'effector-react'
 
 import { allowancesModel } from '@entities/allowances'
 import { menuModel } from '@entities/menu'
-import { UserSettings } from '@entities/settings/types'
 
 import { allowancesApi, lkNotificationApi } from '@shared/api'
 import { NotificationTitles } from '@shared/api/allowances/consts'
+import { UserSettings } from '@shared/api/settings'
 import { userModel } from '@shared/session'
 
 import { TNotification } from '../../../shared/api/notifications/types'

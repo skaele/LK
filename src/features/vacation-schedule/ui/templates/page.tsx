@@ -3,13 +3,13 @@ import { FiPlus } from 'react-icons/fi'
 
 import { vacationScheduleModel } from '@entities/vacation-schedule'
 
-import Subtext from '@shared/session'
 import { userModel } from '@shared/session'
 import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@shared/ui/atoms'
 import Card from '@shared/ui/card'
 import List from '@shared/ui/list'
 import PageBlock from '@shared/ui/page-block'
 import Select, { SelectPage } from '@shared/ui/select'
+import Subtext from '@shared/ui/subtext'
 
 import { Vacation } from '../organism'
 

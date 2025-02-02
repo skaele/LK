@@ -1,4 +1,4 @@
-import { DayCalendarEvent } from '../../types'
+import { DayCalendarEvent } from '@shared/api/model'
 
 export type UIProps = {
     shift: number

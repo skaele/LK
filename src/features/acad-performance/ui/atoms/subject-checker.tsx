@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
 
-import { IGrade } from '@shared/api/model/acad-performance'
-import { GradeByScore } from '@shared/consts'
+import { GradeByScore, IGrade } from '@shared/consts'
 
 interface Props {
     grade: keyof IGrade | undefined

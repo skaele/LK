@@ -3,17 +3,30 @@ import { Redirect, Route, Switch } from 'react-router'
 
 import { menuModel } from '@entities/menu'
 
-import { HOME_ROUTE } from '@shared/routing'
+import { HOME_ROUTE, PageComponent } from '@shared/routing'
+
+import { employeeHiddenPages, employeePages } from './routes/employee'
+import { privateHiddenPages, privatePages } from './routes/private'
+import { hiddenStudentPages, studentPages } from './routes/student'
+
+export const allPages: Record<string, PageComponent> = {
+    ...privatePages,
+    ...privateHiddenPages,
+    ...studentPages,
+    ...hiddenStudentPages,
+    ...employeePages,
+    ...employeeHiddenPages,
+}
 
 const PrivateRouter = () => {
-    const { allRoutes } = menuModel.selectors.useMenu()
+    const { allRoutes: availableRoutes } = menuModel.selectors.useMenu()
 
-    if (!allRoutes) return null
+    if (!availableRoutes) return null
 
     return (
         <Switch>
-            {Object.values(allRoutes).map(({ path, Component, isTemplate }) => {
-                return <Route path={path} component={Component} exact={!isTemplate} key={path} />
+            {Object.values(availableRoutes).map(({ path, isTemplate, id }) => {
+                return <Route path={path} component={allPages[id]} exact={!isTemplate} key={path} />
             })}
             <Redirect exact to={HOME_ROUTE} />
         </Switch>

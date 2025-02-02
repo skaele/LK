@@ -6,7 +6,6 @@ import { globalPrepareFormData } from '@pages/applications/lib/prepare-form-data
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
 import checkFormFields from '@features/send-form/check-form-fields'
-import { LoadedState } from '@features/template-form'
 
 import { applicationsModel } from '@entities/applications'
 import { familyContactsModel } from '@entities/family-contacts'
@@ -15,6 +14,7 @@ import { ApplicationFormCodes } from '@shared/consts/models/application-form-cod
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
 
 import { checkForAtLeastOneField } from './lib/check-for-at-least-one-field'
 import { getAbstractRelativeForm, getForm, getRelativeForm } from './lib/get-form'

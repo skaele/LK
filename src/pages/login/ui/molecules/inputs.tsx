@@ -1,11 +1,9 @@
 import React from 'react'
 
-import { Title } from '@sha@shared/session'
-
 import useLogin from '@pages/login/hooks/use-login'
 
 import { userModel } from '@shared/session'
-import { Input, Logo, SubmitButton } from '@shared/ui/atoms'
+import { Input, Logo, SubmitButton, Title } from '@shared/ui/atoms'
 import Checkbox from '@shared/ui/checkbox'
 import Flex from '@shared/ui/flex'
 import List from '@shared/ui/list'

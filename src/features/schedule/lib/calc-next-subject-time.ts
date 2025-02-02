@@ -1,5 +1,4 @@
-import { type DayCalendarEvent } from '@features/schedule/ui/calendar'
-
+import { DayCalendarEvent } from '@shared/api/model'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
 
 const calcNextSubjectTime = (lessons: DayCalendarEvent[] | null | undefined) => {

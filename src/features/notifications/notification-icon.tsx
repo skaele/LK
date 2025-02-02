@@ -49,11 +49,6 @@ export const iconObject = (): Record<NotificationType, ChildrenType> => ({
             <FiFileText />
         </IconWrapper>
     ),
-    'hr-applications': (
-        <IconWrapper color="green">
-            <FiFileText />
-        </IconWrapper>
-    ),
     'kpi-pps': (
         <IconWrapper color="pink">
             <FiStar />

@@ -1,12 +1,7 @@
 import React from 'react'
 
+import { schedulePages } from '@pages/routes'
 import SettingsPage from '@pages/settings'
-import AppearanceSettings from '@pages/settings/pages/appearance'
-import MainPageSettings from '@pages/settings/pages/main-page'
-import MenuSettings from '@pages/settings/pages/menu'
-import NotificationsSettings from '@pages/settings/pages/notifications'
-import PersonalSettings from '@pages/settings/pages/personal'
-import { TutorialSettings } from '@pages/settings/pages/tutorial'
 
 import { PageRoute } from '@shared/routing'
 
@@ -25,15 +20,11 @@ import {
     LkNotificationsPage,
     ProfilePage,
     SafetyInformation,
-    ScheduleCurrent,
     SchedulePage,
-    ScheduleRetake,
-    ScheduleSemester,
-    ScheduleSession,
     TechnicalMaintenance,
 } from './pages'
 
-export const generalRoutes: PageRoute = {
+export const privatePages: PageRoute = {
     all: AllPages,
     doclist: DecreisDirectivesPage,
     alerts: AlertsPage,
@@ -59,27 +50,13 @@ export const generalRoutes: PageRoute = {
     'technical-maintenance': TechnicalMaintenance,
 }
 
-export const scheduleRoutes: PageRoute = {
-    'schedule-current': ScheduleCurrent,
-    'schedule-semestr': ScheduleSemester,
-    'schedule-session': ScheduleSession,
-    'schedule-retake': ScheduleRetake,
-}
-
-export const generalHiddenRoutes: PageRoute = {
+export const privateHiddenPages: PageRoute = {
     // 'teachers-schedule':  TeachersSchedule,
     'schedule-filter': SchedulePage,
-    ...scheduleRoutes,
+    ...schedulePages,
     'filtered-all-students': AllStudentsPage,
     // move to student's after #ASM
     'filtered-all-teachers': AllTeachersPage,
-
-    'settings-appearance': AppearanceSettings,
-    'settings-personal': PersonalSettings,
-    'settings-home-page': MainPageSettings,
-    'settings-customize-menu': MenuSettings,
-    'settings-notifications': NotificationsSettings,
-    'settings-tutorial': TutorialSettings,
 
     'useful-info-template': HelpfulInformation,
 }

@@ -16,7 +16,7 @@ const LeftsideBarItem = (props: Props) => {
         <LeftsideBarItemWrapper
             to={menuPath ?? path}
             className="leftside-bar-item"
-            color={color}
+            color={color ?? 'blue'}
             isCurrent={isCurrent}
             title={title}
         >

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-
 import { getAdditionally, globalAppSendForm } from '@pages/applications/lib'
 import getBirthCertificate from '@pages/applications/pages/campus-management/family-room/lib/get-birth-certificate'
 import getConsentToProcessingPersonalData from '@pages/applications/pages/campus-management/family-room/lib/get-consent-to-processing-personal-data'
@@ -16,6 +14,7 @@ import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
 
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton, Title } from '@shared/ui/atoms'
 import { IInputArea } from '@shared/ui/input-area/model'
 

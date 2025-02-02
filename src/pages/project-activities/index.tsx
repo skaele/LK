@@ -7,15 +7,16 @@ import styled from 'styled-components'
 import { DivTutorial } from '@features/tutorials/div-tutorial'
 
 import { projectActivitesModel } from '@entities/project-activites'
-import { tutorialModel } from '@entities/tutorial'
 
 import { Colors } from '@shared/consts'
-import { TutorialComponent, withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import { tutorialModel } from '@shared/tutorial'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import { EmptyDiv } from '@shared/tutorial/ui/empty-div'
 import { Button, Divider, Title, Wrapper } from '@shared/ui/atoms'
 import { useModal } from '@shared/ui/modal'
 import PageBlock from '@shared/ui/page-block'
 import Subtext from '@shared/ui/subtext'
+import { TutorialComponent } from '@shared/ui/types'
 
 import CurrentSemestr from './ui/current-semestr'
 import { ProjectActivityIntroMessage } from './ui/intro-message'

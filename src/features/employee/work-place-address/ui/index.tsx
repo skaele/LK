@@ -4,8 +4,8 @@ import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { useUnit } from 'effector-react'
 
 import { userModel } from '@shared/session'
-import TextFieldItem from '@shared/sessionext-field/text-field-item'
 import { useModal } from '@shared/ui/modal'
+import TextFieldItem from '@shared/ui/text-field/text-field-item'
 
 import { WorkPlaceAddressModal } from './work-place-address-modal'
 
@@ -14,9 +14,7 @@ type WorkPlaceAddressProps = {
 }
 
 export const WorkPlaceAddress = ({ subDivisionGuidStaff }: WorkPlaceAddressProps) => {
-    const {
-        user: { currentUser },
-    } = useUnit({ user: userModel.stores.user })
+    const { user: currentUser } = useUnit({ user: userModel.stores.user })
 
     const { open } = useModal()
 

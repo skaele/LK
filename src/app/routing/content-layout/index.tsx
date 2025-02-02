@@ -6,12 +6,12 @@ import PrivateRouter from '@app/routing/private-router'
 import ConfirmMessage from '@widgets/confirm'
 import Header from '@widgets/header'
 import HintModal from '@widgets/hint-modal'
+import { LeftSideBarTutorial } from '@widgets/navbar/leftside-bar'
 import MobileBottomMenu from '@widgets/navbar/mobile-bottom-menu'
 import PopUpMessage from '@widgets/pop-up-message'
 import PopUpNotifications from '@widgets/pop-up-notifications'
 
 import ContextMenu from '@features/context-menu'
-import { LeftSideBarTutorial } from '@features/tutorials/left-sidebar-tutorial'
 
 import { menuModel } from '@entities/menu'
 

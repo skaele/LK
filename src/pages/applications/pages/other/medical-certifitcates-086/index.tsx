@@ -5,7 +5,6 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 
 import { getCertForm } from '@features/medical-certificate/lib/cert-form'
 import checkFormFields from '@features/send-form/check-form-fields'
-import { LoadedState } from '@features/template-form'
 
 import { applicationsModel } from '@entities/applications'
 
@@ -13,6 +12,7 @@ import { ApplicationFormCodes } from '@shared/consts/models/application-form-cod
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
 
 import { getForm } from './lib/get-form'
 

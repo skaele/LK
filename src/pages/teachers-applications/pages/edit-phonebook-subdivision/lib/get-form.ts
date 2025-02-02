@@ -1,10 +1,10 @@
 import { getSubivisions } from '@features/applications/lib/get-subdivisions'
 
 import { User } from '@shared/api/model'
+import { sites } from '@shared/lib'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@shared/ui/input-area/model'
 
-import { sites } from '../../contact-details/lib/get-form'
 import { getCabinetInitialValue } from '../../contact-details/lib/getCabinetMask'
 
 const getForm = (

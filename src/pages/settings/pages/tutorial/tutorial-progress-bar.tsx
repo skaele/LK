@@ -1,18 +1,17 @@
 import React from 'react'
 
-import ProgressBar from '@s@shared/sessiongress-bar'
 import { useUnit } from 'effector-react'
 
-import { tutorialModel } from '@entities/tutorial'
-
 import { userModel } from '@shared/session'
+import { tutorialModel } from '@shared/tutorial'
+import ProgressBar from '@shared/ui/progress-bar'
 
 export const TutorialProgressBar = () => {
     const [tutorials, user] = useUnit([tutorialModel.stores.tutorials, userModel.stores.user])
     if (!tutorials) return null
 
     const tutorialsFiltered = Object.values(tutorials)
-        .filter((module) => module.roles.includes(user?.currentUser?.user_status || ''))
+        .filter((module) => module.roles.includes(user?.user_status || ''))
         .filter((module) => module.name)
 
     const length = Object.keys(tutorialsFiltered).length

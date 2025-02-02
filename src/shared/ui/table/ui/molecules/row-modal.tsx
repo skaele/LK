@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
 import styled from 'styled-components'
 
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import KeyValue from '@shared/ui/atoms/key-value'
 import displayWithType from '@shared/ui/table/lib/display-with-type'
 import { ColumnProps } from '@shared/ui/table/types'

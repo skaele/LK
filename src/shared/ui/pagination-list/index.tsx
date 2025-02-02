@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 
-import { Loading } from '@s@shared/sessionding'
 import styled from 'styled-components'
 
 import { userModel } from '@shared/session'
@@ -9,6 +8,7 @@ import { SelectPage } from '@shared/ui/select'
 import { Button } from '../button'
 import { Divider } from '../divider'
 import { Error } from '../error'
+import { Loading } from '../loading'
 import { Title } from '../title'
 
 const List = styled.div`

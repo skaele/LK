@@ -5,13 +5,13 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
 import checkFormFields from '@features/send-form/check-form-fields'
-import { LoadedState } from '@features/template-form'
 
 import { applicationsModel } from '@entities/applications'
 
 import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
 import { SelectPage } from '@shared/ui/select'
 
 import {

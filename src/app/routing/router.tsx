@@ -7,11 +7,12 @@ import ContentLayout from '@app/routing/content-layout'
 import { useScrollToTop } from '@app/routing/hooks/use-scroll-to-top'
 
 import { LOGIN_ROUTE } from '@shared/routing'
+import { publicRoutes } from '@shared/routing/routes/public'
 import { userModel } from '@shared/session'
 import { useSetTutorial } from '@shared/tutorial/lib/use-set-tutorial'
 
 import { useRedirect } from './hooks/use-redirect'
-import { publicRoutes } from './routes/public'
+import { publicPages } from './routes/public'
 
 const Router = () => {
     useScrollToTop(window) // scroll window to top when change route
@@ -25,8 +26,8 @@ const Router = () => {
     ) : (
         <Suspense fallback={null}>
             <Switch>
-                {publicRoutes.map(({ path, Component }, i) => {
-                    return <Route path={path} component={Component} exact={true} key={i} />
+                {publicRoutes.map(({ path, id }, i) => {
+                    return <Route path={path} component={publicPages[id]} exact={true} key={i} />
                 })}
                 <Redirect exact to={LOGIN_ROUTE} />
             </Switch>

@@ -8,9 +8,9 @@ import { userSettingsModel } from '@entities/settings'
 import { Colors, ThemeVariant } from '@shared/consts'
 import { Button } from '@shared/ui/button'
 import ToggleItem from '@shared/ui/toggle-item'
-import { IconWrapper } from '@shared/widgets/notifications/ui/styles'
 
 import { switchTheme } from './model'
+import { IconWrapper } from './styles'
 
 type Props = {
     type: 'toggle' | 'h-button' | 'v-button'

@@ -4,8 +4,8 @@ import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
 import { peStudentHealthGroupModel } from '@entities/pe-student/model'
-import { HealthGroup } from '@entities/pe-student/types'
 
+import { HealthGroup } from '@shared/api/physical-education'
 import { Colors } from '@shared/consts'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'

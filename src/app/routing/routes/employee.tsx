@@ -162,11 +162,11 @@ import {
     VisaCertificatePage,
     WorkOnTermsOfExternalConcurrencyPage,
 } from './pages'
-import { generalHiddenRoutes, generalRoutes } from './private'
+import { privateHiddenPages, privatePages } from './private'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
-export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
+export const employeePages: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
@@ -178,7 +178,7 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         group: 'FINANCES_DOCS',
         pageSize: 'big',
     },
-    ...generalRoutes,
+    ...privatePages,
 
     // свою основную задачу форма выполнила, а дальше ее скрываем. на случай, если надо будет проводить очередную сверку
     'contact-details': {
@@ -574,8 +574,8 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
     // },
 })
 
-export const teachersHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
-    ...generalHiddenRoutes,
+export const employeeHiddenPages: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
+    ...privateHiddenPages,
     // remove after mobile version is ready
     // #ASM
     'all-teachers': {

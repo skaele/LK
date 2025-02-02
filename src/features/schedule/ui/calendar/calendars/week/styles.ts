@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
-import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE, CALENDAR_HEIGHT_TABLET } from '@pages/schedule/consts'
-
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 
+import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE, CALENDAR_HEIGHT_TABLET } from '../../consts'
 import { Wrapper } from '../../ui/wrapper'
 
 export const WeekCalendarWrapper = styled(Wrapper)`

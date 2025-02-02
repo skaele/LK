@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
-import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE } from '@pages/schedule/consts'
-
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 
+import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE } from '../../consts'
 import { DateWrapperProps, getBackground, getColor } from '../../ui/week-days/styles'
 
 export const MonthCalendarWrapper = styled.div`
@@ -29,7 +28,7 @@ export const Cells = styled.div`
     scroll-snap-type: y mandatory;
     scroll-padding-top: 100px;
 
-    ${MEDIA_QUERIES.isMiddleTesktop} {
+    ${MEDIA_QUERIES.isMiddleDesktop} {
         &::-webkit-scrollbar {
             display: none;
         }

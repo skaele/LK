@@ -4,10 +4,9 @@ import { differenceInDays } from 'date-fns'
 import { combine } from 'effector'
 
 import { pEStudentVisitModel } from '@entities/pe-student/model'
-import { PEStudentProfile } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { PeTeacherPermission } from '@entities/pe-teacher/types'
 
+import { PEStudentProfile, PeTeacherPermission } from '@shared/api/physical-education'
 import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'
 

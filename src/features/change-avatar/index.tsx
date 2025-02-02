@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
+import UserHeader from '@sh@shared/session-header'
 import styled from 'styled-components'
 
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
-
 import { changeAvatar } from '@shared/api/user-api'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { userModel } from '@shared/session'
 import { Message, SubmitButton } from '@shared/ui/atoms'
+import { confirmModel } from '@shared/ui/confirm'
 import FileInput from '@shared/ui/file-input'
 import List from '@shared/ui/list'
 import useSubmitButton from '@shared/ui/submit-button/use-submit-button'
-import UserHeader from '@shared/ui/user-header'
 
 const ChangeAvatarStyled = styled.div`
     display: flex;

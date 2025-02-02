@@ -1,15 +1,14 @@
 import React from 'react'
 import { FiLogOut } from 'react-icons/fi'
 
+import PageBlock from '@sha@shared/sessionblock'
 import styled from 'styled-components'
 
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
-
-import { MEDIA_QUERIES } from '@shared/constants'
+import { userModel } from '@shared/session'
 import { Button, CenterPage } from '@shared/ui/atoms'
+import { confirmModel } from '@shared/ui/confirm'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Flex from '@shared/ui/flex'
-import PageBlock from '@shared/ui/page-block'
 
 import { SettingsContent } from './ui/settings-content'
 import { SettingsList } from './ui/settings-list'

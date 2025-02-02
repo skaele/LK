@@ -4,21 +4,19 @@ import { BsAsterisk } from 'react-icons/bs'
 import { FiAlertCircle, FiArrowLeftCircle, FiMeh } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import { LinkButton } from '@ui/atoms'
-import { Button } from '@ui/button'
-import { Divider } from '@ui/divider'
-import List from '@ui/list'
-import { Logo } from '@ui/logo'
-
+import { OLD_LK_URL } from '@shared/consts'
 import {
     CANT_ACCESS_ROUTE,
     FEEDBACK_ROUTE,
     GET_YOUR_LOGIN_ROUTE,
     MEMO_FRESHMEN_ROUTE,
     MEMO_TEACHER_ROUTE,
-} from '@app/routes/general-routes'
-
-import { OLD_LK_URL } from '@shared/constants'
+} from '@shared/routing'
+import { LinkButton } from '@shared/ui/atoms'
+import { Button } from '@shared/ui/button'
+import { Divider } from '@shared/ui/divider'
+import List from '@shared/ui/list'
+import { Logo } from '@shared/ui/logo'
 
 const Information = () => {
     return (

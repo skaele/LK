@@ -1,22 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { HiOutlineEmojiSad } from 'react-icons/hi'
 
-import { AcadPerformance as IAcadPerformance } from '@api/model/acad-performance'
-import { Error, Wrapper } from '@ui/atoms'
-import { LocalSearch } from '@ui/molecules'
-import findSemestr from '@utils/find-semestr'
+import PageBlock from '@sha@shared/sessionblock'
 
 import createSelectItems from '@features/acad-performance/lib/create-select-items'
 import search from '@features/acad-performance/lib/search'
 import { SubjectList } from '@features/acad-performance/ui/organisms'
-import Select, { SelectPage } from '@features/select'
 
 import { acadPerformanceModel } from '@entities/acad-performance'
 import { PreparedAcadPerformanceData, getCurrentData, prepareData } from '@entities/acad-performance/lib/prepare'
-import { userModel } from '@entities/user'
 
+import { AcadPerformance as IAcadPerformance } from '@shared/api/model/acad-performance'
+import findSemestr from '@shared/lib/find-semestr'
+import { userModel } from '@shared/session'
+import { Error, Wrapper } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
-import PageBlock from '@shared/ui/page-block'
+import { LocalSearch } from '@shared/ui/molecules'
+import Select, { SelectPage } from '@shared/ui/select'
 
 import GradeGraph from './ui/grade-graph'
 import PerformanceMessage from './ui/performance-message'

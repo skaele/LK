@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 
-import { AcadPerformance } from '@api/model/acad-performance'
-import { Divider } from '@ui/atoms'
+import { AcadPerformance } from '@shared/api/model/acad-performance'
+import { Divider } from '@shared/ui/atoms'
 
 import { SubjectItem } from '.'
 

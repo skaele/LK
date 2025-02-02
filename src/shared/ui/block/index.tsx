@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { SkeletonShape } from '@ui/skeleton-shape'
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { SkeletonShape } from '@shared/ui/skeleton-shape'
+import { TutorialComponent } from '@shared/ui/types'
 
 import BlockWrapper, { StyledProps } from './styles'
 

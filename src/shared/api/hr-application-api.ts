@@ -1,10 +1,13 @@
-import { $hrApi } from '@api/config'
-import token from '@utils/token'
 import { AxiosResponse } from 'axios'
 
-import { ApplicationCreating } from '@entities/hr-applications/model'
+import { $hrApi } from '@shared/api/config'
+import token from '@shared/lib/token'
 
 import { Application, UserApplication } from './model'
+
+export interface ApplicationCreating {
+    [key: string]: any
+}
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {
     return $hrApi.get(`?getAppRequests&token=${token()}`)

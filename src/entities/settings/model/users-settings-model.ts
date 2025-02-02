@@ -1,10 +1,10 @@
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 
-import { userModel } from '@entities/user'
-
 import { setServerSettings } from '@shared/api/settings'
-import { ThemeVariant } from '@shared/constants'
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { ThemeVariant } from '@shared/consts'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
+import { userModel } from '@shared/session'
+import { tutorialModel } from '@shared/tutorial'
 
 import { getDefaultNewSettings } from '../lib/get-default-settings'
 import { getSettingsKey } from '../lib/get-settings-key'
@@ -23,7 +23,7 @@ const saveSettingsGlobalFx = createEffect((settings: UserSettings) => {
 
 const getSettingsFx = attach({
     source: { userStore: userModel.stores.user, serverSettingsQueryData: serverSettingsQuery.$data },
-    effect: ({ userStore: { currentUser }, serverSettingsQueryData }): UserSettings => {
+    effect: ({ userStore: currentUser, serverSettingsQueryData }): UserSettings => {
         const userGuid = currentUser?.guid
         const newSettings = localStorage.getItem(getSettingsKey(userGuid ?? ''))
         const defaultSettings = getDefaultNewSettings(currentUser?.user_status === 'staff')
@@ -73,7 +73,7 @@ const getSettingsFx = attach({
 
 sample({
     source: { userStore: userModel.stores.user, isServerSettingsLoaded: serverSettingsQuery.$finished },
-    filter: ({ userStore, isServerSettingsLoaded }) => Boolean(userStore.currentUser && isServerSettingsLoaded),
+    filter: ({ userStore, isServerSettingsLoaded }) => Boolean(userStore && isServerSettingsLoaded),
     fn: ({ userStore }) => {
         return userStore
     },
@@ -96,9 +96,9 @@ sample({ clock: $theme, filter: Boolean, target: setThemeToDocument })
 
 sample({
     source: { settings: $userSettings, userStore: userModel.stores.user },
-    filter: ({ userStore, settings }) => Boolean(userStore.currentUser) && Boolean(settings),
+    filter: ({ userStore, settings }) => Boolean(userStore) && Boolean(settings),
     fn: ({ settings, userStore: user }) => {
-        return { settings: settings!, userId: user!.currentUser?.guid ?? '' }
+        return { settings: settings!, userId: user?.guid ?? '' }
     },
     target: saveUsersSettingsLocalFx,
 })
@@ -110,7 +110,7 @@ sample({
         isSettingsLoadedFromServer: serverSettingsQuery.$succeeded,
     },
     filter: ({ userStore, settings, isSettingsLoadedFromServer }) =>
-        Boolean(userStore.currentUser && settings?.syncAcrossAllDevices && isSettingsLoadedFromServer),
+        Boolean(userStore && settings?.syncAcrossAllDevices && isSettingsLoadedFromServer),
     fn: ({ settings }) => {
         return settings!
     },
@@ -138,6 +138,17 @@ sample({
         return { ...settings!, ...newSettings }
     },
     target: saveSettingsGlobalFx,
+})
+
+sample({
+    clock: $userSettings,
+    source: tutorialModel.stores.roles,
+    filter: (_, settings) => Boolean(settings),
+    fn: (roles, settings) =>
+        settings?.homePage.hasPayment && settings?.homePage.hasSchedule
+            ? ([...roles, 'has widgets'] as const)
+            : roles.filter((role) => role !== 'has widgets'),
+    target: tutorialModel.stores.roles,
 })
 
 export const stores = {

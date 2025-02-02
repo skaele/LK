@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Message } from '@ui/message'
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { Message } from '@shared/ui/atoms'
+import { Direction } from '@shared/ui/types'
 
 export type CircleType = 'normal' | 'big'
 

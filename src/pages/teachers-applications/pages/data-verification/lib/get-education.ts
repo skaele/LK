@@ -1,5 +1,5 @@
-import { TeacherDataVerification } from '@api/model'
-import { IInputArea } from '@ui/input-area/model'
+import { TeacherDataVerification } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const getEducation = (data: TeacherDataVerification, isDone: boolean): IInputArea => {
     return {

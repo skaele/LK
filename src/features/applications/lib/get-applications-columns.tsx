@@ -1,13 +1,12 @@
 import React from 'react'
 import { FiDownload } from 'react-icons/fi'
 
-import { Message } from '@ui/message'
-import { ColumnProps } from '@ui/table/types'
-
 import { ApplicationStatusType, ApplicationsConstants } from '@entities/applications/consts'
 
 import { LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { Message } from '@shared/ui/message'
+import { ColumnProps } from '@shared/ui/table/types'
 import { Tooltip } from '@shared/ui/tooltip'
 
 import { ApplicationFileOutput } from '../../../shared/api/model/applications'

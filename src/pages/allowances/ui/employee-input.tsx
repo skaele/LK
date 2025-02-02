@@ -3,8 +3,8 @@ import React from 'react'
 import { useUnit } from 'effector-react'
 
 import { allowancesModel } from '@entities/allowances'
-import { Subordnate } from '@entities/allowances/types'
 
+import { Subordnate } from '@shared/api/allowances/types'
 import Checkbox from '@shared/ui/checkbox'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'

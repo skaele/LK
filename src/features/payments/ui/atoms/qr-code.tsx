@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { Image } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { Image } from '@shared/ui/atoms'
 
 const QrCodeWrapper = styled.div`
     display: flex;

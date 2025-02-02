@@ -4,13 +4,13 @@ import { createEvent, sample } from 'effector'
 
 import { applicationsModel } from '@entities/applications'
 import { ApplicationCreating } from '@entities/applications/model'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
-import { post } from '@shared/api/application-api'
+import { post } from '@shared/api/applications/application-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
 import { createSelectField } from '@shared/effector/form/create-select-field'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const pageMounted = createEvent()
 const sendForm = createEvent<ApplicationCreating>()

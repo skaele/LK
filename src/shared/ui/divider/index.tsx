@@ -1,5 +1,6 @@
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
+
+import { Direction } from '@shared/ui/types'
 
 export type DividerProps = {
     direction?: Direction

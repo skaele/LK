@@ -1,6 +1,6 @@
-import { TeacherDataVerification } from '@api/model'
-import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
-import { IInputArea } from '@ui/input-area/model'
+import { TeacherDataVerification } from '@shared/api/model'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const getFamilyStatusItems = (sex: 'Мужской' | 'Женский') => {
     switch (sex) {

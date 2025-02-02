@@ -2,9 +2,9 @@ import React from 'react'
 import { FiChevronRight, FiUsers } from 'react-icons/fi'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import Flex from '@shared/ui/flex'
+import { useModal } from '@shared/ui/modal'
 import Subtext from '@shared/ui/subtext'
 
 import GroupModal from './group-modal'

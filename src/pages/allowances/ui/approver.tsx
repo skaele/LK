@@ -3,13 +3,11 @@ import { useHistory } from 'react-router'
 
 import { useUnit } from 'effector-react'
 
-import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
-
-import Select, { SelectPage } from '@features/select'
-
 import { allowancesModel } from '@entities/allowances'
 
+import { ALLOWANCE_INFO_CUT } from '@shared/routing'
 import Flex from '@shared/ui/flex'
+import Select, { SelectPage } from '@shared/ui/select'
 import Table from '@shared/ui/table'
 
 import { getAllowancesColumns } from '../lib/get-allowances-columns'

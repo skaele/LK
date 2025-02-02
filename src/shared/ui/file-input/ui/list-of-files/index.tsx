@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { FileInputProps } from '@ui/file-input'
-import List from '@ui/list'
-
-import { confirmModel } from '@entities/confirm'
+import { confirmModel } from '@shared/ui/confirm'
+import { FileInputProps } from '@shared/ui/file-input'
+import List from '@shared/ui/list'
 
 import File from './ui/file'
 

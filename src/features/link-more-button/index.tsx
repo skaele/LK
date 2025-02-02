@@ -1,17 +1,16 @@
 import React from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
-import { IRoute } from '@app/routes/general-routes'
-
 import { contextMenuModel } from '@entities/context-menu'
 
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
+import { Page } from '@shared/routing'
 import { Button } from '@shared/ui/button'
 
 import ContextContent from './context-content'
 
 type Props = {
-    route: IRoute
+    route: Page
 }
 
 const LinkMoreButton = ({ route }: Props) => {

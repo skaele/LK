@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Wrapper } from '@ui/atoms'
-
 import { ContentPage } from '@features/feedback/ui'
+
+import { Wrapper } from '@shared/ui/atoms'
 
 const FeedbackPage = () => {
     return (

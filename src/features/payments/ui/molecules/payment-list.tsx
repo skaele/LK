@@ -1,13 +1,13 @@
 import React from 'react'
 import { FiArrowDownCircle, FiBox } from 'react-icons/fi'
 
-import { IPaymentItem } from '@api/model'
-import { Error, Title } from '@ui/atoms'
-import getCorrectNumberFormat from '@utils/get-correct-number-format'
 import styled from 'styled-components'
 
 import { PaymentItem } from '@features/payments'
 
+import { IPaymentItem } from '@shared/api/model'
+import getCorrectNumberFormat from '@shared/lib/get-correct-number-format'
+import { Error, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import RubleNumber from '@shared/ui/ruble-number'
 import Subtext from '@shared/ui/subtext'

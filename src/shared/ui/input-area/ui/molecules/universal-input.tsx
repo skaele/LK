@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
 
-import { Input, TextArea } from '@ui/atoms'
-import Checkbox from '@ui/checkbox'
-import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData, IInputAreaFiles } from '@ui/input-area/model'
-import { DateInterval } from '@ui/molecules'
-import SimpleText from '@ui/molecules/simple-text'
-import { CheckboxDocumentList, RadioButtonList } from '@ui/organisms'
-import { RadioButton } from '@ui/organisms/radio-button-list'
-
-import Select, { SelectPage } from '@features/select'
-
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-
+import { Input, TextArea } from '@shared/ui/atoms'
 import AutocompleteInput from '@shared/ui/atoms/auto-complete-input'
 import HrCheckbox from '@shared/ui/atoms/hr-checkbox'
+import Checkbox from '@shared/ui/checkbox'
+import {
+    CheckboxDocs,
+    IComplexInputAreaData,
+    IInputArea,
+    IInputAreaData,
+    IInputAreaFiles,
+} from '@shared/ui/input-area/model'
+import { DateInterval } from '@shared/ui/molecules'
+import SimpleText from '@shared/ui/molecules/simple-text'
 import TextHeader from '@shared/ui/molecules/text-header'
 import TextWarning from '@shared/ui/molecules/text-warning'
+import { CheckboxDocumentList, RadioButtonList } from '@shared/ui/organisms'
+import { RadioButton } from '@shared/ui/organisms/radio-button-list'
+import Select, { SelectPage } from '@shared/ui/select'
+
+import { SpecialFieldsNameConfig } from '../../types'
 
 type Props = IInputAreaData & {
     documents?: IInputAreaFiles

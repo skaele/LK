@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
 
-import { Loading } from '@ui/loading'
+import { Loading } from '@s@shared/sessionding'
 import styled from 'styled-components'
 
-import { SelectPage } from '@features/select'
-
-import { userModel } from '@entities/user'
+import { userModel } from '@shared/session'
+import { SelectPage } from '@shared/ui/select'
 
 import { Button } from '../button'
 import { Divider } from '../divider'

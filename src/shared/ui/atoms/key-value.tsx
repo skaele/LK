@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
+
+import { Direction } from '@shared/ui/types'
 
 const Line = styled.div<{ direction: Direction; fontSize?: string }>`
     display: flex;

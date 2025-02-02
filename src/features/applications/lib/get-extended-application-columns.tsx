@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { ColumnProps } from '@ui/table/types'
-
 import { ApplicationFileOutput } from '@shared/api/model'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
+import { ColumnProps } from '@shared/ui/table/types'
 
 import { getCommonApplicationsColumns } from './get-applications-columns'
 

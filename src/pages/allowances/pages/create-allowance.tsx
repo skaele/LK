@@ -4,10 +4,7 @@ import { useUnit } from 'effector-react'
 
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
-import Select from '@features/select'
-
 import { allowancesModel } from '@entities/allowances'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
 import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
@@ -16,10 +13,12 @@ import Checkbox from '@shared/ui/checkbox'
 import FileInput from '@shared/ui/file-input'
 import Flex from '@shared/ui/flex'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import Search from '@shared/ui/search'
+import Select from '@shared/ui/select'
 import Subtext from '@shared/ui/subtext'
 
-import { DevModeMessage } from '../ui/dev-mode-message'
+import { DevModeMessage } from '../../../features/test-database-message/test-database-message'
 import { EmployeeInput } from '../ui/employee-input'
 import { AllowancesForbidden } from '../ui/forbidden'
 

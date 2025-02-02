@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { IRoute } from '@app/routes/general-routes'
-
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { Page } from '@shared/routing'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 
@@ -48,7 +47,7 @@ const LinkTitle = styled.div<{ isCurrent: boolean }>`
 `
 
 type Props = StyleProps & {
-    route: IRoute | undefined
+    route: Page | undefined
 }
 
 export const NewPageLink = ({ route, collapsed = false, disabled = false, isCurrent = false }: Props) => {

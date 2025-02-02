@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { IRoute } from '@app/routes/general-routes'
-
 import { Icon } from '@features/all-pages'
 
-import { Colors, MEDIA_QUERIES } from '@shared/constants'
+import { Colors, MEDIA_QUERIES } from '@shared/consts'
+import { Page } from '@shared/routing'
 import Subtext from '@shared/ui/subtext'
 
 const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
@@ -77,7 +76,7 @@ const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
 `
 
 type Props = {
-    item: IRoute
+    item: Page
     amount: number
 }
 

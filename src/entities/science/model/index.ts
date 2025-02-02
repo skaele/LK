@@ -3,17 +3,16 @@ import { IndexRange } from 'react-virtualized'
 import { createMutation } from '@farfetched/core'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-import { getDefaultColumns } from '@pages/science/lib/get-default-columns'
+import { getDefaultColumns } from '@entities/science/lib/get-default-columns'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-
-import { UploadReq, getAllArticles, uploadArticle } from '@shared/api/science-api'
+import { UploadReq, getAllArticles, uploadArticle } from '@shared/api/science/science-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createInputField } from '@shared/effector/form/create-input-field'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import { ColumnProps } from '@shared/ui/table/types'
 
+import { Article, Filter, Sort } from '../../../shared/api/science/types'
 import { scienceNameMap } from '../lib/nameMap'
-import { Article, Filter, Sort } from '../types'
 import { TABLE_SIZE } from './consts'
 
 const pageMounted = createEvent()

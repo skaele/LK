@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
-import { PEStudentsFilter } from '@features/pe-students-filter'
+import {
+    PEStudentsFilter,
+    pEStudentFilterModel,
+    pEStudentIsExamModel,
+    pEStudentSearchModel,
+} from '@features/pe-students-filter'
 import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
 
-import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
 import { pEStudentModel } from '@entities/pe-student/model'
-import { PEStudent } from '@entities/pe-student/types'
 
+import { PEStudent, STUDENT_PAGE_SIZE } from '@shared/api/physical-education'
+import { useModal } from '@shared/ui/modal'
 import Pagination from '@shared/ui/pagination'
 import Search from '@shared/ui/search'
 import Table from '@shared/ui/table'
 
-import { pEStudentIsExamModel, pEStudentSearchModel } from '../model'
 import { examPeStudentColumns, peStudentColumns } from './constants'
 import { pageLoaded } from './model'
 import { FiltersWrapper, TableWrapper, Wrapper } from './styled'
@@ -24,7 +27,7 @@ export const StudentsList = () => {
 
     const { students, totalCount, page, search, loading, isExam } = useUnit({
         students: pEStudentModel.stores.$pEStudents,
-        loading: pEStudentModel.stores.$loading,
+        loading: pEStudentFilterModel.stores.$loading,
         totalCount: pEStudentModel.stores.$pEStudentsTotalCount,
         page: pEStudentModel.stores.$pEStudentsPage,
         search: pEStudentSearchModel.stores.$search,

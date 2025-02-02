@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { VacationSchedule, Vacation as VacationType } from '@api/model/vacation-schedule'
-import KeyValue from '@ui/atoms/key-value'
-import List from '@ui/list'
-import Table from '@ui/table'
-import { ColumnProps } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
-import getCorrectWordForm, { Rules } from '@utils/get-correct-word-form'
 
+import { VacationSchedule, Vacation as VacationType } from '@shared/api/model/vacation-schedule'
 import localizeDate from '@shared/lib/dates/localize-date'
+import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import KeyValue from '@shared/ui/atoms/key-value'
+import List from '@shared/ui/list'
+import Table from '@shared/ui/table'
+import { ColumnProps } from '@shared/ui/table/types'
 
 const RULES: Rules = {
     fiveToNine: 'дней',

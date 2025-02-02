@@ -3,15 +3,13 @@ import { FiUsers } from 'react-icons/fi'
 
 import { useUnit } from 'effector-react'
 
-import { pEStudentFilterModel, pEStudentIsExamModel } from '@pages/teacher-physical-education/model'
-
-import SearchWithHints from '@features/search-with-hints'
-import Select, { SelectPage } from '@features/select'
-
 import { studentApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
+import SearchWithHints from '@shared/ui/search-with-hints'
+import Select, { SelectPage } from '@shared/ui/select'
 import ToggleItem from '@shared/ui/toggle-item'
 
+import { pEStudentFilterModel, pEStudentIsExamModel } from '..'
 import { Wrapper } from './styled'
 
 export enum FiltersSelect {

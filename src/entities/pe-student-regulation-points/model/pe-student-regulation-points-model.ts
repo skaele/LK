@@ -1,10 +1,8 @@
-import { createEffect, createEvent, sample } from 'effector'
-import { modalModel } from 'widgets/modal/model'
-
-import { popUpMessageModel } from '@entities/pop-up-message'
-
+import { modalModel } from '@features/modal/model'
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
+import { createEffect, createEvent, sample } from 'effector'
 
 import { AddStudentRegulationPoints } from '../types'
 

@@ -1,4 +1,4 @@
-import { User } from '@api/model'
+import { User } from '@shared/api/model'
 
 const isEnabledForEducationForm = (
     currentEducationForm: User['educationForm'] | undefined,

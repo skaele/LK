@@ -1,4 +1,4 @@
-import { Colors, IColorPalette, letterColorMatch } from '@shared/constants'
+import { Colors, IColorPalette, letterColorMatch } from '@shared/consts'
 
 import getNameFirstLetters from './get-name-first-letters'
 

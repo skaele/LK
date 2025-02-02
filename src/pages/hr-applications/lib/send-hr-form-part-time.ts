@@ -1,4 +1,4 @@
-import { IInputArea } from '@ui/input-area/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import { bufferHolidayWorkModel } from '../pages/buffer-holiday-work/model'
 

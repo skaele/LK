@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Colors, MEDIA_QUERIES } from '@shared/constants'
+import { Colors, MEDIA_QUERIES } from '@shared/consts'
 
 export const ScheduleWidgetStyled = styled.div<{ noSchedule: boolean }>`
     --time-width: 30px;

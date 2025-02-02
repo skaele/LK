@@ -1,6 +1,6 @@
-import normalizeString from '@utils/normalize-string'
-
 import { Chat } from '@entities/chats'
+
+import normalizeString from '@shared/lib/normalize-string'
 
 type SearchChatsParams = {
     search: string

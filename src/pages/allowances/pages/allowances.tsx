@@ -3,18 +3,18 @@ import { FiPlus } from 'react-icons/fi'
 import { useHistory, useParams } from 'react-router'
 
 import { useUnit } from 'effector-react'
-import { SliderPage } from 'widgets'
 
-import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
+import SliderPage from '@features/slider-page'
 
 import { allowancesModel } from '@entities/allowances'
 
+import { ALLOWANCES, CREATE_ALLOWANCE } from '@shared/routing'
 import { Button, Loading, Message } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 
+import { DevModeMessage } from '../../../features/test-database-message/test-database-message'
 import { Approver } from '../ui/approver'
-import { DevModeMessage } from '../ui/dev-mode-message'
 import { AllowancesForbidden } from '../ui/forbidden'
 import { Initiator } from '../ui/initiator'
 

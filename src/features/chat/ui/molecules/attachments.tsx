@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { Title } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { Title } from '@shared/ui/atoms'
 
 const AttachmentsWrapper = styled.div`
     @media (min-width: 1001px) {

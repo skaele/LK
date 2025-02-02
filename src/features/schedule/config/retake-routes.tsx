@@ -13,12 +13,12 @@ import { MdCarRepair, MdEvStation } from 'react-icons/md'
 import { RiBarChartFill, RiFlaskLine } from 'react-icons/ri'
 import { TiBrush } from 'react-icons/ti'
 
-import { IRoute, IRoutes } from '@app/routes/general-routes'
+import { Page } from '@shared/routing'
 
 import RetakeModal from '../ui/molecules/retake-modal'
 import RETAKE_LINKS from './retake-links'
 
-type RetakeRouteRaw = Pick<IRoute, 'id' | 'title' | 'icon' | 'color' | 'fullTitle'>
+type RetakeRouteRaw = Pick<Page, 'id' | 'title' | 'icon' | 'color' | 'fullTitle'>
 
 const retakeRoutesRaw: RetakeRouteRaw[] = [
     {

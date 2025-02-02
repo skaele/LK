@@ -1,17 +1,16 @@
 import React from 'react'
 
-import { Input, Logo, SubmitButton } from '@ui/atoms'
-import Checkbox from '@ui/checkbox'
-import List from '@ui/list'
-import { Message } from '@ui/message'
-import Subtext from '@ui/subtext'
-import { Title } from '@ui/title'
+import { Title } from '@sha@shared/session'
 
 import useLogin from '@pages/login/hooks/use-login'
 
-import { userModel } from '@entities/user'
-
+import { userModel } from '@shared/session'
+import { Input, Logo, SubmitButton } from '@shared/ui/atoms'
+import Checkbox from '@shared/ui/checkbox'
 import Flex from '@shared/ui/flex'
+import List from '@shared/ui/list'
+import { Message } from '@shared/ui/message'
+import Subtext from '@shared/ui/subtext'
 
 const Inputs = () => {
     const { loading, error, data } = userModel.selectors.useUser()

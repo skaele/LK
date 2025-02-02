@@ -1,11 +1,11 @@
 import React from 'react'
 
-import displayWithType from '@ui/table/lib/display-with-type'
-import { ColumnProps } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
-import { useModal } from 'widgets'
 
 import Checkbox from '@shared/ui/checkbox'
+import { useModal } from '@shared/ui/modal'
+import displayWithType from '@shared/ui/table/lib/display-with-type'
+import { ColumnProps } from '@shared/ui/table/types'
 
 import { RowWrapper } from '../atoms'
 import Column from '../atoms/column'

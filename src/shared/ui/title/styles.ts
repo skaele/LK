@@ -1,5 +1,6 @@
-import { Align } from '@ui/types'
 import styled from 'styled-components'
+
+import { Align } from '@shared/ui/types'
 
 export const TitleWrapper = styled.div<{ align: Align; bottomGap: boolean | string; iconColor?: string; size: number }>`
     width: 100%;

@@ -3,18 +3,19 @@ import React from 'react'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
+import { StaffModal } from '@features/all-staff/staff-modal'
 import { prepareMessages } from '@features/chat/lib/prepare-messages'
 import { allChatMessagesModel } from '@features/chat/model'
 import { RawChatMessage } from '@features/chat/type'
-import Avatar from '@features/home/ui/molecules/avatar'
+import { StudentModal } from '@features/user/ui'
 
 import { chatMessagesModel } from '@entities/chat-messages'
 import { chatModel } from '@entities/chats'
-import { userModel } from '@entities/user'
 
-import { StaffModal } from '../../../../pages/all-staff/ui/staff-modal'
-import { useModal } from '../../../../widgets'
-import { StudentModal } from '../../../../widgets/user/ui'
+import { userModel } from '@shared/session'
+import Avatar from '@shared/ui/avatar'
+import { useModal } from '@shared/ui/modal'
+
 import { MessageItem } from '../atoms'
 import EmptyHere from '../atoms/empty-here'
 import TopDate from '../atoms/top-date'
@@ -29,7 +30,7 @@ export const MessageList = () => {
     ])
 
     const handleOpenUserModal = (message: RawChatMessage) => {
-        if (!chat || message.author_id === user?.currentUser?.id.toString()) return
+        if (!chat || message.author_id === user?.id.toString()) return
 
         open(
             chat?.opponent?.status === 'сотрудник' ? (
@@ -49,7 +50,7 @@ export const MessageList = () => {
                 prepareMessages({
                     chat: chat!,
                     messages: allMessages,
-                    currentUser: user.currentUser!,
+                    currentUser: user!,
                 }),
             ).map((messageGroup) => {
                 return (

@@ -4,14 +4,12 @@ import { Route, Switch, useRouteMatch } from 'react-router'
 
 import styled from 'styled-components'
 
-import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
-
-import { Icon } from '@features/all-pages'
-
 import { menuModel } from '@entities/menu'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { TEMPLATE_SETTINGS_ROUTE } from '@shared/routing'
 import { CenterPage, Error } from '@shared/ui/atoms'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
+import { Icon } from '@shared/ui/icon'
 
 import { SETTINGS_PAGES } from '../contants'
 

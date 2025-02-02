@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 
 const FileWrapper = styled.div`
     width: 100%;

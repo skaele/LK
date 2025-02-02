@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 import { chatSidebarModel } from '@features/chat/model'
 
 import { chatsModel } from '@entities/chats'
+
+import { Title } from '@shared/ui/atoms'
+import { TutorialComponent } from '@shared/ui/types'
 
 import { ChatItem, SkeletonLoading } from '../atoms'
 

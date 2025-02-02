@@ -3,8 +3,7 @@ import { FiChevronRight } from 'react-icons/fi'
 import { IoIosCheckmarkCircleOutline, IoIosRadioButtonOff } from 'react-icons/io'
 
 import { FieldProps } from '@pages/settings/types'
-
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import TextFieldItem from '@shared/ui/text-field/text-field-item'
 
 interface LocalProps {

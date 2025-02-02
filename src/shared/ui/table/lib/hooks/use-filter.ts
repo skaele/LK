@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { FilterElementList } from '@ui/added-elements-list'
-import { TableCatalogType, TableSearchType, TableSortType } from '@ui/table/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
-import normalizeString from '@utils/normalize-string'
+
+import normalizeString from '@shared/lib/normalize-string'
+import { FilterElementList } from '@shared/ui/added-elements-list'
+import { TableCatalogType, TableSearchType, TableSortType } from '@shared/ui/table/types'
 
 import displayWithType from '../display-with-type'
 

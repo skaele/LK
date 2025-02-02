@@ -5,11 +5,11 @@ import { interval } from 'patronum'
 import sanitize from 'sanitize-html'
 
 import { Chat, LastMessage, chatModel, chatsModel } from '@entities/chats'
-import { userModel } from '@entities/user'
-import { getFullUserName } from '@entities/user/lib/get-full-user-name'
 
 import { User } from '@shared/api/model'
-import { pageVisibility } from '@shared/models/window-focus'
+import { pageVisibility } from '@shared/consts/models/window-focus'
+import { userModel } from '@shared/session'
+import { getFullUserName } from '@shared/session/lib/get-full-user-nameame'
 
 import { addMessage, getChatMessages } from './api'
 import { AddChatMessage, ChatMessage, LocalChatMessage } from './type'

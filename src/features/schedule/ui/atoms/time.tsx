@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { ITimeIntervalColor, TimeIntervalColor, TimeIntervals } from '@api/model'
 import styled from 'styled-components'
+
+import { ITimeIntervalColor, TimeIntervalColor, TimeIntervals } from '@shared/api/model'
 
 const TimeWrapper = styled.span<{
     isCurrent: boolean

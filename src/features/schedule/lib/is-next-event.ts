@@ -1,5 +1,6 @@
+import { DayCalendarEvent } from '@features/schedule/ui/calendar'
+
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
-import { DayCalendarEvent } from '@shared/ui/calendar'
 
 import calcNextSubjectTime from './calc-next-subject-time'
 

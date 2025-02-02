@@ -2,24 +2,23 @@ import React from 'react'
 import { FiCheck, FiInfo } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import { Payments, PaymentsContract } from '@api/model'
-import { Button } from '@ui/button'
-import { Error } from '@ui/error'
-import { Message } from '@ui/message'
-import { SkeletonShape } from '@ui/skeleton-shape'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
 
 import PaymentButton from '@features/payment-button'
 import Debt from '@features/payments/debt'
 
 import { paymentsModel } from '@entities/payments'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { Payments, PaymentsContract } from '@shared/api/model'
+import { PAYMENTS_ROUTE } from '@shared/routing'
+import { Button } from '@shared/ui/button'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
+import { Error } from '@shared/ui/error'
+import { Message } from '@shared/ui/message'
+import { SkeletonShape } from '@shared/ui/skeleton-shape'
 import Subtext from '@shared/ui/subtext'
+import { TutorialComponent } from '@shared/ui/types'
 
 const PaymentsWidgetWrapper = styled.div<{ fullWidth?: boolean }>`
     max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '400px')};

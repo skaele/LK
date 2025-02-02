@@ -2,11 +2,11 @@ import React, { memo } from 'react'
 import { FaSort } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 
-import sortPopUp from '@ui/table/lib/sort-pop-up'
-import { ColumnProps, TableCatalogType, TableSearchType, TableSortType } from '@ui/table/types'
 import styled from 'styled-components'
 
-import Select, { SelectPage } from '@features/select'
+import Select, { SelectPage } from '@shared/ui/select'
+import sortPopUp from '@shared/ui/table/lib/sort-pop-up'
+import { ColumnProps, TableCatalogType, TableSearchType, TableSortType } from '@shared/ui/table/types'
 
 import { Column, HeaderWrapper } from '../atoms'
 

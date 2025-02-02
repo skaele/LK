@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { ColumnProps } from '@ui/table/types'
-
 import downloadFile from '@pages/hr-applications/lib/get-file'
 
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
+import { ColumnProps } from '@shared/ui/table/types'
 
 export const getMedicalExaminationHistoryColumns = (): ColumnProps[] => {
     return [

@@ -1,7 +1,7 @@
-import { UserApplication } from '@api/model'
-import { IInputAreaData } from '@ui/input-area/model'
-
 import { getFormattedDivisions } from '@features/applications/lib/get-divisions'
+
+import { UserApplication } from '@shared/api/model'
+import { IInputAreaData } from '@shared/ui/input-area/model'
 
 const getStudentSubdivisions = ({ divisions_crs }: UserApplication): IInputAreaData[] => {
     return [

@@ -1,6 +1,7 @@
-import { teacherStatementApi } from '@api'
-import { UserApplication } from '@api/model'
-import { createFormStore } from 'shared/effector/create-form-store'
+import { createFormStore } from '@entities/applications/lib/create-form-store'
+
+import { teacherStatementApi } from '@shared/api'
+import { UserApplication } from '@shared/api/model'
 
 export const { effects, events, selectors } = createFormStore<UserApplication, UserApplication>({
     defaultStore: {

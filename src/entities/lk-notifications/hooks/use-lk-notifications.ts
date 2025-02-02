@@ -5,9 +5,9 @@ import { useUnit } from 'effector-react'
 import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
 
-import { NotificationsResponse } from '@shared/api/lk-notification-api'
+import { NotificationsResponse } from '@shared/api/notifications/lk-notification-api'
+import { userModel } from '@shared/session'
 
 import { lkNotificationModel } from '..'
 import createNotification from '../lib/create-notification'

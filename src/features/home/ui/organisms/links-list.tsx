@@ -1,13 +1,11 @@
 import React from 'react'
 
-import { Align } from '@ui/types'
-
-import { IRoutes } from '@app/routes/general-routes'
-
 import AllPagesLink from '@features/all-pages/ui/molecules/all-pages-link'
 
+import { IRoutes } from '@shared/routing'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
+import { Align } from '@shared/ui/types'
 
 import PageLink, { PageLinkProps } from '../../../all-pages/ui/molecules/page-link'
 
@@ -36,7 +34,7 @@ const LinksList = ({ title, links, doNotShow, orientation, background, shadow = 
                                 mode={mode}
                                 shadow={shadow}
                                 {...el}
-                                color={el.color.length ? el.color : 'blue'}
+                                color={el.color?.length ? el.color : 'blue'}
                             />
                         )
                 })}

@@ -1,10 +1,11 @@
 import React from 'react'
 
-import List from '@ui/list'
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
 
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
+
+import List from '../list'
+import { Direction } from '../types'
 
 const Dot = styled.div`
     width: 8px;

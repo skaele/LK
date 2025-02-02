@@ -1,6 +1,6 @@
 import { UserSettings } from '@entities/settings/types'
 
-import { NotificationsResponse } from '@shared/api/lk-notification-api'
+import { NotificationsResponse } from '@shared/api/notifications/lk-notification-api'
 
 const typeSettingsDictionary: Record<string, keyof UserSettings['notifications']> = {
     message: 'messages',

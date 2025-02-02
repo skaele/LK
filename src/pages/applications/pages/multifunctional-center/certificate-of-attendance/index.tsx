@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { FormBlock, SubmitButton } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-import checkFormFields from '@utils/check-form-fields'
 
 import { globalAppSendForm } from '@pages/applications/lib'
 import getReasonForReceiving from '@pages/applications/pages/multifunctional-center/certificate-of-attendance/lib/get-reason-for-receiving'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
-import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+import getMethodObtaining from '@entities/applications/lib/get-method-obstaing'
+
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 
 import getForm from './lib/get-form'
 

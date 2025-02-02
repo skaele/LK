@@ -1,5 +1,5 @@
 // import { projectActivitesResponse } from './__mock__/project-activites'
-import token from '@utils/token'
+import token from '@shared/lib/token'
 
 import { $api } from './config'
 import { Project } from './model/project-activites'

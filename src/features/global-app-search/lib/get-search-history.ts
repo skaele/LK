@@ -1,4 +1,4 @@
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
 
 const getSearchHistory = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SearchHistory) ?? '[]') as string[]
 

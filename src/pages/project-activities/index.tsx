@@ -1,18 +1,19 @@
 import React from 'react'
 import { FiInfo } from 'react-icons/fi'
 
-import { Button, Divider, Title, Wrapper } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
-import { DivTutorial } from 'widgets/tutorial/tutorials/div-tutorial'
-import { EmptyDiv } from 'widgets/tutorial/ui/empty-div'
+
+import { DivTutorial } from '@features/tutorials/div-tutorial'
 
 import { projectActivitesModel } from '@entities/project-activites'
 import { tutorialModel } from '@entities/tutorial'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { TutorialComponent, withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import { EmptyDiv } from '@shared/tutorial/ui/empty-div'
+import { Button, Divider, Title, Wrapper } from '@shared/ui/atoms'
+import { useModal } from '@shared/ui/modal'
 import PageBlock from '@shared/ui/page-block'
 import Subtext from '@shared/ui/subtext'
 

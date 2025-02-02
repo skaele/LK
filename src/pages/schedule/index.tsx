@@ -2,18 +2,16 @@ import React from 'react'
 import { FiMenu, FiSidebar } from 'react-icons/fi'
 import { Redirect, Route, Switch } from 'react-router'
 
-import { Button, Wrapper } from '@ui/atoms'
-import { Slider } from 'widgets'
-
-import { SCHEDULE_CURRENT_ROUTE, scheduleRoutes } from '@app/routes/general-routes'
-
 import { menuModel } from '@entities/menu'
 import { scheduleModel } from '@entities/schedule'
 import { SESSION_VIEWS, VIEWS } from '@entities/schedule/consts'
 
+import { SCHEDULE_CURRENT_ROUTE, scheduleRoutes } from '@shared/routing'
+import { Button, Wrapper } from '@shared/ui/atoms'
 import { ErrorIconIndicator } from '@shared/ui/error-icon-indicator'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
+import Slider from '@shared/ui/slider'
 
 import useSchedule from './hooks/use-schedule'
 import { SideMenu } from './ui/side-menu'

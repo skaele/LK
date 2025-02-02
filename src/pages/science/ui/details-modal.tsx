@@ -5,8 +5,8 @@ import styled from 'styled-components'
 
 import { articleModel } from '@entities/science'
 
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import { Loading } from '@shared/ui/loading'
 import { Title } from '@shared/ui/title'
 

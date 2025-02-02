@@ -1,9 +1,9 @@
-import { studentApi } from '@api'
-import { TStudent } from '@api/model'
 import { createEffect } from 'effector'
-import { createPaginationList } from 'shared/effector/create-pagination-list'
 
-import { SelectPage } from '@features/select'
+import { studentApi } from '@shared/api'
+import { TStudent } from '@shared/api/model'
+import { createPaginationList } from '@shared/effector/create-pagination-list'
+import { SelectPage } from '@shared/ui/select'
 
 const getFetchStudentsFx = createEffect(
     async (request: ServerListRequest<SelectPage | null>): Promise<ServerListResponse<TStudent>> => {

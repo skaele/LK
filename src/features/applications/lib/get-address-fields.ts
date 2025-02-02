@@ -1,4 +1,4 @@
-import { IInputAreaData } from '@ui/input-area/model'
+import { IInputAreaData } from '@shared/ui/input-area/model'
 
 const getAddressFields = (): IInputAreaData[] => {
     return [

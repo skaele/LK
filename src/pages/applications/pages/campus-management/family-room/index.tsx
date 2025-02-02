@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { FormBlock, SubmitButton, Title } from '@ui/atoms'
-import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-import checkFormFields from '@utils/check-form-fields'
 
 import { getAdditionally, globalAppSendForm } from '@pages/applications/lib'
 import getBirthCertificate from '@pages/applications/pages/campus-management/family-room/lib/get-birth-certificate'
@@ -15,8 +12,12 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
+
+import { FormBlock, SubmitButton, Title } from '@shared/ui/atoms'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import { CampusError } from '../ui/error'
 import getFamily from './lib/get-family'

@@ -2,9 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 
 import { useUnit } from 'effector-react'
 
-import { DevModeMessage } from '@pages/allowances/ui/dev-mode-message'
-
-import { SelectPage } from '@features/select'
+import { DevModeMessage } from '@features/test-database-message/test-database-message'
 
 import { allowancesModel } from '@entities/allowances'
 
@@ -12,6 +10,7 @@ import { PersonalAllowance } from '@shared/api/model/notification'
 import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import { Loading } from '@shared/ui/loading'
+import { SelectPage } from '@shared/ui/select'
 
 import { CardAllowance } from './atoms/card-allowance'
 

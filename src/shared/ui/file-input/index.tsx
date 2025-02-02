@@ -1,8 +1,7 @@
 import React from 'react'
 
-import List from '@ui/list'
-
-import { FileFormats } from '@shared/constants'
+import { FileFormats } from '@shared/consts'
+import List from '@shared/ui/list'
 
 import DragAndDropArea from './ui/drag-and-drop-area'
 import ListOfFiles from './ui/list-of-files'

@@ -2,6 +2,7 @@ import { createEffect, createEvent, createStore, sample } from 'effector'
 
 import { phonebookApi } from '@shared/api'
 import { Subdivision } from '@shared/api/model/phonebook'
+import { userModel } from '@shared/session'
 
 const setSubdivisionPath = createEvent<Subdivision[] | null>()
 
@@ -19,7 +20,16 @@ const getSubdivisionsFx = createEffect(async (): Promise<Subdivision[]> => {
     }
     throw new Error('Не удалось загрузить подразделения')
 })
+
+sample({
+    clock: userModel.events.authenticated,
+    source: userModel.stores.userRole,
+    filter: (role) => role === 'staff',
+    target: getSubdivisions,
+})
+
 sample({ clock: getSubdivisions, target: getSubdivisionsFx })
+
 const $pedningGetSubdividions = getSubdivisionsFx.pending
 
 const clearSubdivisionData = createEvent()

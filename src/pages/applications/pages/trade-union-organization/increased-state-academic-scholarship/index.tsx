@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { Divider, FileLink, FormBlock, Input, Message, SubmitButton, TextArea } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
 import { parseFilesToFormData } from '@pages/applications/lib/prepare-form-data'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
-import Select from '@features/select'
-
 import { increasedScholarshipModel } from '@entities/increased-scholarship'
 
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
+import { Divider, FileLink, FormBlock, Input, Message, SubmitButton, TextArea } from '@shared/ui/atoms'
 import Checkbox from '@shared/ui/checkbox'
 import FileInput from '@shared/ui/file-input'
 import Flex from '@shared/ui/flex'
 import TextHeader from '@shared/ui/molecules/text-header'
+import Select from '@shared/ui/select'
 
 const typesOfActivity = [
     { id: 0, title: 'Учебная деятельность' },

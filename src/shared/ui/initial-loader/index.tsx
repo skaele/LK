@@ -1,19 +1,17 @@
 import React from 'react'
 import { AiOutlineReload } from 'react-icons/ai'
 
-import { UserToken } from '@api/model'
-import { Button } from '@ui/button'
-import { Error } from '@ui/error'
-import { Loading } from '@ui/loading'
-import { Logo } from '@ui/logo'
-
-import { userModel } from '@entities/user'
-
-import { Colors } from '@shared/constants'
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { UserToken } from '@shared/api/model'
+import { Colors } from '@shared/consts'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
 import getLettersColors from '@shared/lib/get-letters-colors'
+import { userModel } from '@shared/session'
+import { Button } from '@shared/ui/button'
+import { Error } from '@shared/ui/error'
+import { Loading } from '@shared/ui/loading'
 
 import Flex from '../flex'
+import { Logo } from '../logo'
 import { InitialLoaderWrapper } from './styles'
 
 interface Props {

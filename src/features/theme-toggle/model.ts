@@ -2,7 +2,7 @@ import { createEvent, sample } from 'effector'
 
 import { userSettingsModel } from '@entities/settings'
 
-import { ThemeVariant } from '@shared/constants'
+import { ThemeVariant } from '@shared/consts'
 
 export const switchTheme = createEvent<{ isDark: boolean }>()
 

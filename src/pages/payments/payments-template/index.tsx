@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
-import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
 
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
+import { PageWrapperTutorial } from '@features/tutorials/page-wrapper-tutorial'
 
 import { tutorialModel } from '@entities/tutorial'
 
 import { PaymentsContract } from '@shared/api/model'
+import { Divider, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 
 import DebtAndQr from './debt-and-qr'

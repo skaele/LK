@@ -6,7 +6,7 @@ import { switchTheme } from '@features/theme-toggle/model'
 
 import { userSettingsModel } from '@entities/settings'
 
-import { ThemeVariant } from '@shared/constants'
+import { ThemeVariant } from '@shared/consts'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
 

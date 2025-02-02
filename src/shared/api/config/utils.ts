@@ -1,11 +1,12 @@
 import { InternalAxiosRequestConfig } from 'axios'
+import { createEvent } from 'effector'
 
-import { userModel } from '@entities/user'
-import { getJwtToken } from '@entities/user/lib/jwt-token'
-
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { getJwtToken } from '@shared/api/session/jwt-token'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
 
 import { authServiceHealthCheck, refreshAccessToken } from '../user-api'
+
+export const forceLogout = createEvent()
 
 const savePasswordInStorage = () => JSON.parse(localStorage.getItem(BrowserStorageKey.SavePassword) ?? 'true')
 
@@ -30,10 +31,10 @@ export const getAuthResponseInterceptor = (apiInstance: any) => async (error: an
                 return apiInstance(originalRequest)
             } catch (error) {
                 const isServiceAvailable = await authServiceHealthCheck()
-                if (isServiceAvailable.status === 200) userModel.events.logout()
+                if (isServiceAvailable.status === 200) forceLogout()
             }
         } else {
-            userModel.events.logout()
+            forceLogout()
         }
     }
     return Promise.reject(error)

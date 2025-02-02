@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { scienceModel } from '@entities/science'
 
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { SubmitButton } from '@shared/ui/atoms'
+import { SubmitButton, Title } from '@shared/ui/atoms'
 import FileInput from '@shared/ui/file-input'
 import Flex from '@shared/ui/flex'
-import { Title } from '@shared/ui/title'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
+import { useModal } from '@shared/ui/modal'
 
 export const UploadModal = () => {
     const { isMobile } = useCurrentDevice()

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useModal } from 'widgets'
-
 import { FieldProps } from '@pages/settings/types'
+
+import { useModal } from '@shared/ui/modal'
 
 import ChangeAvatar from '../../../../features/change-avatar'
 import TextFieldItem from '../../../../shared/ui/text-field/text-field-item'

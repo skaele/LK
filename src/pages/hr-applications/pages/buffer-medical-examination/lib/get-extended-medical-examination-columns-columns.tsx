@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { ColumnProps } from '@ui/table/types'
-
 import downloadFile from '@pages/hr-applications/lib/get-file'
 
 import { Button } from '@shared/ui/button'
+import { ColumnProps } from '@shared/ui/table/types'
 
 import { getMedicalExaminationHistoryColumns } from './get-medical-examination-columns'
 

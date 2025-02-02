@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
-import { FormBlock, SubmitButton, Title } from '@ui/atoms'
-import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes } from '@utility-types/application-form-codes'
-import checkFormFields from '@utils/check-form-fields'
 
 import { getDisability, getRegistration, globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
 import { listConfigCert } from '@features/applications/lib/get-list-configs-certificate'
 import StepByStepForm from '@features/applications/ui/molecules/step-by-step-form'
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
+
+import { FormBlock, SubmitButton, Title } from '@shared/ui/atoms'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import getForm from './lib/get-form'
 

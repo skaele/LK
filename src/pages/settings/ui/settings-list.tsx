@@ -2,14 +2,15 @@ import React from 'react'
 import { useRouteMatch } from 'react-router'
 
 import styled from 'styled-components'
-import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
-import { PageLinkTutorial } from 'widgets/tutorial/tutorials/page-link-tutorial'
 
-import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
+import { PageLinkTutorial } from '@features/tutorials/page-link-tutorial'
 
 import { menuModel } from '@entities/menu'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { TEMPLATE_SETTINGS_ROUTE } from '@shared/routing'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
+import { TutorialComponent } from '@shared/ui/types'
 
 import { SETTINGS_PAGES } from '../contants'
 
@@ -24,7 +25,7 @@ export const SettingsList = () => {
             {SETTINGS_PAGES.map((id, index) => (
                 <PageLinkTutorial
                     {...allRoutes[id]}
-                    title={allRoutes[id].title.slice(11, allRoutes[id].title.length)}
+                    title={allRoutes[id].title?.slice(11, allRoutes[id].title.length) ?? ''}
                     key={id}
                     orientation="horizontal"
                     shadow={false}

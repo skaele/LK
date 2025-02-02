@@ -1,11 +1,13 @@
 import React from 'react'
 
-import BlockWrapper from '@ui/block/styles'
-import { Image } from '@ui/image'
-import { StoryProps } from '@ui/story/ui/story-page'
 import styled from 'styled-components'
 
+import { StoryProps } from '@widgets/story/ui/story-page'
+
 import { storyModel } from '@entities/story'
+
+import BlockWrapper from '@shared/ui/block/styles'
+import { Image } from '@shared/ui/image'
 
 const StoryCardWrapper = styled(BlockWrapper)<{ color?: string; seen?: boolean; background?: string }>`
     overflow: hidden;

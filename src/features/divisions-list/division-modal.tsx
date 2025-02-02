@@ -3,14 +3,12 @@ import { FiBriefcase, FiList } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
-import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
-
-import { Icon } from '@features/all-pages'
-
+import { ALL_TEACHERS_ROUTE } from '@shared/routing'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
+import { Icon } from '@shared/ui/icon'
+import { useModal } from '@shared/ui/modal'
 import Subtext from '@shared/ui/subtext'
 
 const DivisionModalStyled = styled.div`

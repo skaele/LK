@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
 import { useUnit } from 'effector-react'
-import Slider from 'widgets/slider'
 
 import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
 import { SetPEStudentSpecialization } from '@features/physical-education/student/pe-student-specialization/ui'
@@ -11,18 +10,18 @@ import { sliderData } from '@features/physical-education/student/pe-student-visi
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { userModel } from '@entities/user'
 
-import { CenterPage, Error, Message } from '@shared/ui/atoms'
+import { userModel } from '@shared/session'
+import { CenterPage, Error, Message, Title } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-import { Title } from '@shared/ui/title'
+import Slider from '@shared/ui/slider'
 
 import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'
 
 const PEStudent = () => {
     const { studentId: studentIdFromParams } = useParams<{ studentId: string }>()
-    const [student, { currentUser }, isTeacherLoading, isStudentLoading, peTeacher] = useUnit([
+    const [student, currentUser, isTeacherLoading, isStudentLoading, peTeacher] = useUnit([
         selectedPEStudentModel.stores.$selectedStudent,
         userModel.stores.user,
         peTeacherModel.stores.isLoading,

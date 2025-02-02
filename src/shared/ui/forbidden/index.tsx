@@ -2,8 +2,7 @@ import React from 'react'
 import { FiChevronDown, FiHome } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import { HOME_ROUTE } from '@app/routes/general-routes'
-
+import { HOME_ROUTE } from '@shared/routing'
 import { Button, Error as ErrorUI, Message } from '@shared/ui/atoms'
 
 import AutoAccordion from '../auto-accordion'

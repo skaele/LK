@@ -1,4 +1,4 @@
-import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG, ThemeVariant } from '@shared/constants'
+import { REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG, ThemeVariant } from '@shared/consts'
 
 import { UserSettings } from '../types'
 
@@ -30,10 +30,4 @@ export const getDefaultNewSettings = (isEmployee: boolean): UserSettings => {
         },
         syncAcrossAllDevices: false,
     }
-}
-
-export type PhoneSettingsType = {
-    phone_staff?: string
-    allow_mobphone_in?: boolean
-    allow_mobphone_out?: boolean
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Sad from '../../images/sad-emoji.gif'
+import { Sad } from '../images'
 import Subtext from '../subtext'
 import { ErrorContainer } from './styles'
 

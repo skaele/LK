@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 
-import Select, { SelectPage } from '@features/select'
-
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { AddStudentAdditionalPoints, WorkType } from '@entities/pe-student-additional-points/types'
 import { peStudentCompetitionModel, selectedPEStudentModel } from '@entities/pe-student/model'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Input from '@shared/ui/input'
+import Select, { SelectPage } from '@shared/ui/select'
 import { TextArea } from '@shared/ui/textarea'
 
 import { SelectorData } from '../../constants'

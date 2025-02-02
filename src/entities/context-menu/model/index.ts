@@ -1,9 +1,7 @@
-import React from 'react'
-
-import { Coordinates } from '@ui/types'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
-import calcPosition from 'widgets/context-menu/lib/calc-position'
+
+import { ClickEvent, Coordinates } from '@shared/ui/types'
 
 type ClickType = 'left-click' | 'right-click' | 'both'
 
@@ -14,7 +12,14 @@ interface ContextMenuStore {
     position: Coordinates
 }
 
-export type ClickEvent = React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLButtonElement, MouseEvent>
+const calcPosition = (e: ClickEvent, width = 265, height = 200) => {
+    e.preventDefault()
+
+    return {
+        x: e.clientX < window.innerWidth / 2 ? e.clientX : e.clientX - width,
+        y: e.clientY < window.innerHeight / 2 ? e.clientY : e.clientY - height,
+    }
+}
 
 const DEFAULT_STORE: ContextMenuStore = {
     open: false,

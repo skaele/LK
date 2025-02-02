@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { FiArrowLeftCircle } from 'react-icons/fi'
 
-import { Button, Error } from '@ui/atoms'
-
-import { OLD_LK_URL } from '@shared/constants'
+import { OLD_LK_URL } from '@shared/consts'
+import { Button, Error } from '@shared/ui/atoms'
 
 interface Props {
     oldVersionUrl?: string

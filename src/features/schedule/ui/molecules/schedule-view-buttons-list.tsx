@@ -1,9 +1,10 @@
 import React from 'react'
 import { FiColumns, FiSidebar } from 'react-icons/fi'
 
-import { ViewType } from '@api/model'
-import { Button } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { ViewType } from '@shared/api/model'
+import { Button } from '@shared/ui/atoms'
 
 const ScheduleViewButtonsListWrapper = styled.div`
     display: flex;

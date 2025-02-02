@@ -4,8 +4,8 @@ import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
 
 import { useUnit } from 'effector-react'
 
-import { userModel } from '../../../../entities/user'
-import { Tooltip } from '../../../../shared/ui/tooltip'
+import { Tooltip } from '..../../../../shared/sessionltip'
+import { userModel } from '../../../../shared/session'
 import { RawChatMessage } from '../../type'
 
 type Props = {

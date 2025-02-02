@@ -1,4 +1,4 @@
-import getToken from '@utils/token'
+import getToken from '@shared/lib/token'
 
 import { $api } from './config'
 import { VacationSchedule } from './model/vacation-schedule'

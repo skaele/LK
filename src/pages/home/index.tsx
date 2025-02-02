@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { Wrapper } from '@ui/atoms'
-import { HomePageTutorial } from 'widgets/tutorial/tutorials/home-page-tutorial'
+import { Wrapper } from '@s@shared/sessionms'
 
-import { userModel } from '@entities/user'
+import { HomePageTutorial } from '@features/tutorials/home-page-tutorial'
+
+import { userModel } from '@shared/session'
 
 import HomeTopPlate from './ui/home-top-plate'
 

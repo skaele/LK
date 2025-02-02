@@ -1,6 +1,6 @@
-import { IInputAreaData } from '@ui/input-area/model'
-
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
+import { IInputAreaData } from '@shared/ui/input-area/model'
 
 const getCompensation = (data: IInputAreaData[]): SpecialFieldsNameConfig => {
     const reasonField = data.find((item: IInputAreaData) => item.fieldName === 'isRetirement')

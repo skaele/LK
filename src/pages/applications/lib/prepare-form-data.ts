@@ -1,9 +1,9 @@
-import { SelectPage } from '@features/select'
+import prepareFormData from '@features/send-form/prepare-form-data'
 
-import prepareFormData from '@shared/lib/prepare-form-data'
-import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
-import { IndexedProperties } from '@shared/models/indexed-properties'
+import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@shared/consts/models/application-form-codes'
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SelectPage } from '@shared/ui/select'
 
 export const globalPrepareFormData = (
     formId: ApplicationFormCodes | ApplicationTeachersFormCodes,

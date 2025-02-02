@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { Button } from '@shared/ui/button'
+import { useModal } from '@shared/ui/modal'
 
 import { AddPEStudentAdditionalPoints } from './features/add-pe-student-additional-points'
 import { $additionalPointsColumns } from './model'

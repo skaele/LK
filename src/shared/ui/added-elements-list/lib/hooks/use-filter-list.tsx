@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { FilterElementList } from '@ui/added-elements-list'
+import { FilterElementList } from '@shared/ui/added-elements-list'
 
 const useFilterList = (listKeys: string[], setList?: React.Dispatch<React.SetStateAction<FilterElementList>>) => {
     const [removeAll, setRemoveAll] = useState(false)

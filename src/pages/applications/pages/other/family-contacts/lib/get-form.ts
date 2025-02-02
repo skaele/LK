@@ -1,8 +1,7 @@
-import { UserApplication } from '@api/model'
-import { IInputArea } from '@ui/input-area/model'
-
 import { FamilyContacts } from '@shared/api/family-contacts-api'
+import { UserApplication } from '@shared/api/model'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const relatives = [
     { id: 0, title: 'Брат' },

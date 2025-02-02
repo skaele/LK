@@ -2,9 +2,6 @@ import React from 'react'
 import { FiArrowLeftCircle, FiPlus, FiX } from 'react-icons/fi'
 import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 
-import BlockWrapper from '@ui/block/styles'
-import { Button } from '@ui/button'
-import getCorrectWordForm from '@utils/get-correct-word-form'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
@@ -13,9 +10,12 @@ import LinkMoreButton from '@features/link-more-button'
 
 import { userSettingsModel } from '@entities/settings'
 
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
+import getCorrectWordForm from '@shared/lib/get-correct-word-form'
+import BlockWrapper from '@shared/ui/block/styles'
+import { Button } from '@shared/ui/button'
 
-import Icon from '../atoms/icon'
+import Icon from '../../../../shared/ui/icon/icon'
 import { PageLinkProps } from './page-link'
 
 export const PageLinkWrapper = styled(BlockWrapper)<{
@@ -164,8 +164,8 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
         title,
         isNew,
         icon,
-        isExternalPage,
-        isOldLkPage,
+        isExternal,
+        isOldLK,
         mode,
         id,
         orientation = 'vertical',
@@ -191,10 +191,10 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             hasNotifications={!!notifications}
             data-selected={props.isActive}
         >
-            {(isOldLkPage || isExternalPage) && isVertical && (
+            {(isOldLK || isExternal) && isVertical && (
                 <LinkIcon>
-                    {isOldLkPage && <FiArrowLeftCircle title="Раздел в старом ЛК" />}
-                    {isExternalPage && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
+                    {isOldLK && <FiArrowLeftCircle title="Раздел в старом ЛК" />}
+                    {isExternal && <HiOutlineExternalLink title="Раздел на внешнем ресурсе" />}
                 </LinkIcon>
             )}
             <div className="outside">

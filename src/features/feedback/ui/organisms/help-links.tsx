@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { Message } from '@ui/message'
 import styled from 'styled-components'
 
-import { PAYMENTS_ROUTE } from '@app/routes/general-routes'
-import { ARBITRARY_REQUEST_ROUTE } from '@app/routes/routes'
+import { ARBITRARY_REQUEST_ROUTE, PAYMENTS_ROUTE } from '@shared/routing'
+import { Message } from '@shared/ui/message'
 
 export const Ul = styled.div`
     display: flex;

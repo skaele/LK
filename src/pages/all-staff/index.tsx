@@ -3,22 +3,20 @@ import { useHistory } from 'react-router'
 
 import { useUnit } from 'effector-react'
 
-import { ALL_TEACHERS_ROUTE } from '@app/routes/general-routes'
-
 import { Wrapper } from '@pages/pe-student/styled'
-
-import SearchWithHints from '@features/search-with-hints'
 
 import { phonebookModel } from '@entities/phonebook'
 
 import { getDivisions } from '@shared/api/teacher-api'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import useDebounce from '@shared/lib/hooks/use-debounce'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
+import { ALL_TEACHERS_ROUTE } from '@shared/routing'
 import { Loader } from '@shared/ui/atoms/loader'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import Search, { Hint } from '@shared/ui/search'
+import SearchWithHints from '@shared/ui/search-with-hints'
 
 import { Grid } from '../../shared/ui/grid'
 import { setSubdivisionPath } from './lib/set-subdivision-path'

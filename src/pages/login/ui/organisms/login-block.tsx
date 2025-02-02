@@ -1,9 +1,9 @@
 import React from 'react'
 
-import BlockWrapper from '@ui/block/styles'
+import BlockWrapper from '@@shared/sessionock/styles'
 import styled from 'styled-components'
 
-import { userModel } from '@entities/user'
+import { userModel } from '@shared/session'
 
 import Information from '../molecules/information'
 import Inputs from '../molecules/inputs'

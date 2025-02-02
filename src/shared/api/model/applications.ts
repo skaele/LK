@@ -1,6 +1,6 @@
-import { User } from '@api/model/user'
+import { User } from '@shared/api/session/user'
 
-import { divisionT } from '@features/applications/lib/get-divisions'
+import { divisionT } from './hr-applications'
 
 export interface Application {
     regDate: string

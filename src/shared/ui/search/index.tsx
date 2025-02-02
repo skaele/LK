@@ -3,11 +3,10 @@ import { FiSearch } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
-import PerhapsYouMeant from '@features/perhaps-you-meant'
-
-import { Colors } from '@shared/constants'
-import useOnClickOutside from '@shared/lib/hooks/use-on-click-outside'
+import { Colors } from '@shared/consts'
 import limitNumber from '@shared/lib/limit-number'
+import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
+import PerhapsYouMeant from '@shared/ui/perhaps-you-meant'
 
 import { Input } from '../atoms'
 import BlockWrapper from '../block/styles'

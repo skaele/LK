@@ -1,8 +1,7 @@
-import { IInputAreaData } from '@ui/input-area/model'
-
-import { SelectPage } from '@features/select'
-
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
+import { IInputAreaData } from '@shared/ui/input-area/model'
+import { SelectPage } from '@shared/ui/select'
 
 //type radioType = { id: number; title: string; data?: number | string }
 

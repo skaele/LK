@@ -1,8 +1,8 @@
 import React from 'react'
 
-import TemplateFormPage from 'widgets/template-form-page'
-
 import { contactInfoActualizationModel } from '@entities/contact-info-actualization'
+
+import TemplateFormPage from '@shared/widgets/template-form-page'
 
 import getForm from './lib/get-form'
 

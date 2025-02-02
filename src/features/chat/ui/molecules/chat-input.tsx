@@ -1,7 +1,6 @@
 import React from 'react'
 import { IoMdSend } from 'react-icons/io'
 
-import { Button } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import sanitize from 'sanitize-html'
 import styled from 'styled-components'
@@ -10,7 +9,8 @@ import { chatsMessageModel } from '@features/chat/model'
 
 import { chatModel } from '@entities/chats'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { Button } from '@shared/ui/atoms'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 import ListOfFiles from '@shared/ui/file-input/ui/list-of-files'
 import { RichTextInput } from '@shared/ui/rich-text-input'
 import { UploadFileButton } from '@shared/ui/upload-file-button'

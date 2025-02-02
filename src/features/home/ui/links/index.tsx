@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { IRoutes } from '@app/routes/general-routes'
 
 import { menuModel } from '@entities/menu'
 
+import { IRoutes } from '@shared/routing'
 import { Divider } from '@shared/ui/divider'
+import { TutorialComponent } from '@shared/ui/types'
 
 import LinkItem from './link-item'
 

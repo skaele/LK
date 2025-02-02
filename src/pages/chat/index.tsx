@@ -4,14 +4,13 @@ import { Route, Switch, useRouteMatch } from 'react-router'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-
 import { ChatWindow, ListOfChats } from '@features/chat'
 import EmptyHere from '@features/chat/ui/atoms/empty-here'
 
 import { chatModel, chatsModel } from '@entities/chats'
 
-import { MEDIA_QUERIES } from '../../shared/constants'
+import { TEMPLATE_CHAT_ROUTE } from '@shared/routing'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 const ChatPage = () => {
     const params = useRouteMatch<{ chatId: string | undefined }>(TEMPLATE_CHAT_ROUTE)?.params
@@ -57,7 +56,7 @@ const ChatPageWrapper = styled.div`
     border-radius: 12px;
     overflow: hidden;
 
-    ${MEDIA_QUERIES.isSmallTesktop} {
+    ${MEDIA_QUERIES.isSmallDesktop} {
         margin: 0;
         height: 100%;
         border-radius: 0;

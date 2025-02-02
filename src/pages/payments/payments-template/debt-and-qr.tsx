@@ -3,21 +3,21 @@ import { BiWallet } from 'react-icons/bi'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import Slider from 'widgets/slider'
-import { DebtTutorial } from 'widgets/tutorial/tutorials/debt-tutorial'
-import { PaymentButtonTutorial } from 'widgets/tutorial/tutorials/payment-button'
 
 import { Contract } from '@features/payments'
+import { DebtTutorial } from '@features/tutorials/debt-tutorial'
+import { PaymentButtonTutorial } from '@features/tutorials/payment-button'
 
 import { tutorialModel } from '@entities/tutorial'
 
 import { PaymentsContract } from '@shared/api/model'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button, LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { useModal } from '@shared/ui/modal'
 import Notification from '@shared/ui/notification'
+import Slider from '@shared/ui/slider'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 

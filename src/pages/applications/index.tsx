@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TemplateApplications } from 'widgets'
+import { TemplateApplications } from '@shared/widgets'
 
 const ApplicationsPage = () => {
     return <TemplateApplications isTeachers={false} />

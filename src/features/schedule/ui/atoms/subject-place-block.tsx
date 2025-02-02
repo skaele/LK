@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import { Loading } from '@ui/atoms'
 import styled from 'styled-components'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { Loading } from '@shared/ui/atoms'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Flex from '@shared/ui/flex'
 
 import LinkImageBlock from './link-image-block'

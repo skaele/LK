@@ -1,8 +1,7 @@
-import { Groups, IRoutes } from '@app/routes/general-routes'
+import { PETeacher } from '@shared/api/physical-education'
+import { Groups, IRoutes, pageGroups } from '@shared/routing'
 
-import { PETeacher } from '@entities/pe-teacher/types'
-
-type RoutesOrder = Record<Groups, number>
+type RoutesOrder = Record<(typeof pageGroups)[Groups], number>
 
 export const routesOrder: RoutesOrder = {
     Основное: 0,
@@ -24,7 +23,7 @@ const getGroupPages = (routes: IRoutes | null, peTeacher: PETeacher | null, user
         )
         .reduce(
             (acc, route) => {
-                const group = route?.group ? Groups[route.group] : Groups.OTHER
+                const group = (route?.group ? pageGroups[route.group] : pageGroups.OTHER) as Groups
 
                 if (!acc[group]) acc[group] = {}
                 acc[group][route.id] = route

@@ -1,4 +1,4 @@
-import token from '@utils/token'
+import token from '@shared/lib/token'
 
 import { $api } from './config'
 

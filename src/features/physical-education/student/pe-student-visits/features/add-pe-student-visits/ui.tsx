@@ -7,7 +7,7 @@ import { pEStudentVisitModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'

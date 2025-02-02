@@ -1,14 +1,14 @@
 import React, { ForwardedRef, HTMLInputTypeAttribute, forwardRef } from 'react'
 import { FiAlertTriangle, FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 
-import { Button } from '@ui/button'
-import { Title } from '@ui/title'
 import { format } from 'date-fns'
 import styled from 'styled-components'
-import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
 
-import { Colors } from '@shared/constants'
-import { INPUT_HEIGHT } from '@shared/constants/input-size'
+import { Colors } from '@shared/consts'
+import { Button } from '@shared/ui/button'
+import { INPUT_HEIGHT } from '@shared/ui/input-size'
+import { getValueFromSize } from '@shared/ui/slider/lib/get-value-from-size'
+import { Title } from '@shared/ui/title'
 
 import { Loading, Message } from '../atoms'
 import { Size } from '../types'

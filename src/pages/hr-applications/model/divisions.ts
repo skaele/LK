@@ -1,6 +1,6 @@
 import { combine, createEffect, createEvent, createStore, sample } from 'effector'
 
-import { getDivisions } from '@shared/api/application-api'
+import { getDivisions } from '@shared/api/applications/application-api'
 
 export const loadDivisions = createEvent()
 

@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-import { Button } from '@ui/atoms'
-import { DotPages } from '@ui/molecules'
-import limitNumber from '@utils/limit-number'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
-import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
+import { useModal } from '@features/modal'
+import { TimesEvents } from '@features/schedule/ui/calendar/calendars/day/ui/times-events'
 
 import { TimeIntervalColor } from '@shared/api/model'
-import { Colors } from '@shared/constants'
-import { TimesEvents } from '@shared/ui/calendar/calendars/day/ui/times-events'
+import { Colors } from '@shared/consts'
+import { getSubjectIcon } from '@shared/lib/get-subject-icon'
+import limitNumber from '@shared/lib/limit-number'
+import { Button } from '@shared/ui/atoms'
+import { DotPages } from '@shared/ui/molecules'
 
 import { WhatsNewTemplate } from './ui'
 

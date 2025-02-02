@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { ModifiedAlign } from '@ui/list'
-import { ListWrapper } from '@ui/list/styles'
-import { SkeletonShape, SkieletonShapeProps } from '@ui/skeleton-shape'
-import { Direction, VerticalAlign } from '@ui/types'
 import styled from 'styled-components'
+
+import { ModifiedAlign } from '@shared/ui/list'
+import { ListWrapper } from '@shared/ui/list/styles'
+
+import { SkeletonShape, SkieletonShapeProps } from '../skeleton-shape'
+import { Direction, VerticalAlign } from '../types'
 
 const SkeletonListWrapper = styled(ListWrapper)`
     height: 100%;

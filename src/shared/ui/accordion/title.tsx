@@ -1,8 +1,9 @@
 import React from 'react'
 import { HiChevronDown, HiOutlineCheckCircle, HiOutlineExclamationCircle } from 'react-icons/hi'
 
-import { Button } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { Button } from '@shared/ui/atoms'
 
 const AreaTitleWrapper = styled.div`
     display: flex;

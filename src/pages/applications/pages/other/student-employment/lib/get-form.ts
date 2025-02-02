@@ -1,7 +1,6 @@
-import { SelectPage } from '@features/select'
-
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
+import { SelectPage } from '@shared/ui/select'
 
 const SELECT_FIELD_OF_ACTIVITY: SelectPage[] = [
     { id: '1', title: 'Банковская сфера' },

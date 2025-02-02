@@ -1,4 +1,4 @@
-import { ApprovalStatus, OrderStatus } from '@entities/allowances/types'
+import { ApprovalStatus, OrderStatus } from '@shared/api/allowances/types'
 
 export interface businesstripNotification {
     id: string

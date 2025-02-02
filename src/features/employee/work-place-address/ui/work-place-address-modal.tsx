@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { SliderPage, useModal } from 'widgets'
 
-import { sites } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
-import { getCabinetMask } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
+import SliderPage from '@features/slider-page'
 
-import Select, { SelectPage } from '@features/select'
-
-import { userModel } from '@entities/user'
-
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { getCabinetMask, sites } from '@shared/lib'
 import Masks from '@shared/lib/masks'
+import { userModel } from '@shared/session'
 import { Button, Divider, Input, Title } from '@shared/ui/atoms'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { useModal } from '@shared/ui/modal'
+import Select, { SelectPage } from '@shared/ui/select'
 
 import { changeStaffAddress, changeStaffAddressMutation } from '../model'
 
@@ -40,10 +38,7 @@ type WorkPlaceAddressModalProps = {
 
 export const WorkPlaceAddressModal = ({ subDivisionGuidStaff }: WorkPlaceAddressModalProps) => {
     const { close, isOpen } = useModal()
-    const {
-        loading,
-        user: { currentUser },
-    } = useUnit({
+    const { loading, user: currentUser } = useUnit({
         loading: changeStaffAddressMutation.$pending,
         user: userModel.stores.user,
     })

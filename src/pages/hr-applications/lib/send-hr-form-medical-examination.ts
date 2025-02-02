@@ -1,4 +1,4 @@
-import { IInputArea } from '@ui/input-area/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import { bufferMedicalExaminationModel } from '../pages/buffer-medical-examination/model'
 

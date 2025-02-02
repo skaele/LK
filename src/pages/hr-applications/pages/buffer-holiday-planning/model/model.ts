@@ -3,11 +3,10 @@ import { useStore } from 'effector-react'
 
 import { BufferHoliday } from '@pages/hr-applications/types/hr-applications'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-
 import { $hrApi, isAxiosError } from '@shared/api/config'
-import { MessageType } from '@shared/ui/types'
+import { getJwtToken, parseJwt } from '@shared/api/session/jwt-token'
+import { MessageType } from '@shared/consts'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { BufferHolidayPlanningForm } from '../types'
 

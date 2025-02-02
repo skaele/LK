@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 
-import { baseNotification, businesstripNotification } from '@api/model/notification'
-import { LinkButton, SubmitButton } from '@ui/atoms'
-import getRightGenderWord from '@utils/get-right-gender-word'
 import styled from 'styled-components'
 
 import { personalNotificationModel } from '@entities/notification'
-import { userModel } from '@entities/user'
 
-import { Colors } from '@shared/constants'
+import { baseNotification, businesstripNotification } from '@shared/api/model/notification'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
-import Subtext from '@shared/ui/subtext'
+import getRightGenderWord from '@shared/lib/get-right-gender-word'
+import Subtext from '@shared/session'
+import { userModel } from '@shared/session'
+import { LinkButton, SubmitButton } from '@shared/ui/atoms'
 
 import { CardTitle, Info } from './styled'
 

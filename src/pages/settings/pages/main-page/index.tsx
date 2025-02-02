@@ -2,7 +2,6 @@ import React from 'react'
 
 import { createStore } from 'effector'
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
 import CustomizeMenu from '@features/customize-menu'
@@ -11,6 +10,7 @@ import { menuModel } from '@entities/menu'
 import { userSettingsModel } from '@entities/settings'
 
 import AddedElementsList, { FilterElementList } from '@shared/ui/added-elements-list'
+import { useModal } from '@shared/ui/modal'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
 

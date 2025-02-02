@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { AddCompetition } from '@features/physical-education/admin-panel/add-competition/ui'
 
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
 
 import { Button } from '@shared/ui/button'
+import { useModal } from '@shared/ui/modal'
 import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
 

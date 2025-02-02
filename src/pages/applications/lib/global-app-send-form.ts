@@ -1,7 +1,8 @@
-import { IInputArea } from '@ui/input-area/model'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
 
 import { applicationsModel } from '@entities/applications'
+
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import { globalPrepareFormData } from './prepare-form-data'
 

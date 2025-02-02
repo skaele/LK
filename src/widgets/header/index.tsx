@@ -1,18 +1,17 @@
 import React from 'react'
 
-import { IRoute } from '@app/routes/general-routes'
+import UserInfo from '@widgets/user-info'
 
-import UserInfo from '@features/user-info'
-
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Page } from '@shared/routing'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 
 import { HeaderWrapper } from './ui'
 import { HeaderTitle } from './ui/atoms/header-wrapper'
 import useHeader from './use-header'
 
 type Props = {
-    currentPage: IRoute | null
+    currentPage: Page | null
     headerVisible?: boolean
     noTitle?: boolean
 }

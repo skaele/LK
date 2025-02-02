@@ -1,4 +1,4 @@
-import { Payments } from '@api/model'
+import { Payments } from '@shared/api/model'
 
 const changeCanSign = (payments: Payments | null, contractId: string, value: boolean): Payments | null => {
     if (!payments) return null

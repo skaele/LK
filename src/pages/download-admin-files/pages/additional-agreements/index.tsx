@@ -1,8 +1,8 @@
 import React from 'react'
 
-import AdminLinksTemplate from 'widgets/admin-links-template'
-
 import { adminLinksModel } from '@entities/admin-links'
+
+import AdminLinksTemplate from '@shared/widgets/admin-links-template'
 
 const AdditionalAgreements = () => {
     const { data } = adminLinksModel.selectors.useData()

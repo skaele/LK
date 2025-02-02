@@ -2,24 +2,30 @@ import React from 'react'
 import { FiEdit2, FiLogOut, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import Slider from 'widgets/slider'
-
-import { SETTINGS_PERSONAl_ROUTE, SETTINGS_ROUTE } from '@app/routes/general-routes'
-
-import Avatar from '@features/home/ui/molecules/avatar'
 import ThemeToggle from '@features/theme-toggle'
 
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
-
 import { User } from '@shared/api/model'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { SETTINGS_PERSONAl_ROUTE, SETTINGS_ROUTE } from '@shared/routing'
+import { userModel } from '@shared/session'
+import Avatar from '@shared/ui/avatar'
 import { Button } from '@shared/ui/button'
+import { confirmModel } from '@shared/ui/confirm'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import Slider from '@shared/ui/slider'
 import Subtext from '@shared/ui/subtext'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 
-import { AvatarWrapper, BlocksList, Buttons, IconWrapper, Info, InfoWrapper, TopInfoBlock, TopStyled } from './styles'
+import {
+    AvatarWrapper,
+    BlocksList,
+    Buttons,
+    IconWrapper,
+    Info,
+    InfoWrapper,
+    TopInfoBlock,
+    TopStyled,
+} from '../../../../widgets/notifications/ui/styles'
 
 type Props = {
     pages: { title: string }[]

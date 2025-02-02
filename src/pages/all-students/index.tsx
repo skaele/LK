@@ -1,19 +1,18 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 
-import { Wrapper } from '@ui/atoms'
+import PageBlock from '@sha@shared/sessionblock'
 import { useStore } from 'effector-react'
 import styled from 'styled-components'
-import ListOfPeople from 'widgets/list-of-people'
-
-import { SelectPage } from '@features/select'
 
 import { paginationList } from '@entities/all-students'
-import { userModel } from '@entities/user'
 
 import { getGroups } from '@shared/api/student-api'
 import Masks from '@shared/lib/masks'
-import PageBlock from '@shared/ui/page-block'
+import { userModel } from '@shared/session'
+import { Wrapper } from '@shared/ui/atoms'
+import { SelectPage } from '@shared/ui/select'
+import ListOfPeople from '@shared/widgets/list-of-people'
 
 const PageWrapper = styled.div`
     width: 100%;

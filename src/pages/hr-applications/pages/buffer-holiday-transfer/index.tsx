@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 
-import { Title, Wrapper } from '@ui/atoms'
 import styled from 'styled-components'
 
 import { HrBlockWrapper } from '@pages/hr-applications/ui'
 import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
+
+import { Title, Wrapper } from '@shared/ui/atoms'
 
 import { bufferHolidayTransferModel } from './model'
 import Content from './ui/content'

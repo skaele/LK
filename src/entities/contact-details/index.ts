@@ -1,5 +1,6 @@
+import { createFormStore } from '@entities/applications/lib/create-form-store'
+
 import { contactDetailsApi } from '@shared/api'
-import { createFormStore } from '@shared/effector/create-form-store'
 
 export const contactDetailsModel = createFormStore({
     defaultStore: {

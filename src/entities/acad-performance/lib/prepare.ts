@@ -1,4 +1,4 @@
-import { AcadPerformance } from '@api/model/acad-performance'
+import { AcadPerformance } from '@shared/api/model/acad-performance'
 
 // const EXAM = 'exam'
 // const TEST = 'test'

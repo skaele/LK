@@ -1,20 +1,18 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 
-import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { ChatItemsTutorial } from 'widgets/tutorial/tutorials/chat-items-tutorial'
-import { FlexTutorial } from 'widgets/tutorial/tutorials/flex-tutorial'
-import { AddNewChatTutorial } from 'widgets/tutorial/tutorials/new-chat'
-
-import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
 
 import { chatSidebarModel } from '@features/chat/model'
+import { ChatItemsTutorial } from '@features/tutorials/chat-items-tutorial'
+import { FlexTutorial } from '@features/tutorials/flex-tutorial'
+import { AddNewChatTutorial } from '@features/tutorials/new-chat'
 
+import { TEMPLATE_CHAT_ROUTE } from '@shared/routing'
+import { Divider, Title } from '@shared/ui/atoms'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Search from '@shared/ui/search'
-
-import { MEDIA_QUERIES } from '../../../../shared/constants'
 
 export const ListOfChats = () => {
     const params = useRouteMatch(TEMPLATE_CHAT_ROUTE)?.params as { chatId: string | undefined }

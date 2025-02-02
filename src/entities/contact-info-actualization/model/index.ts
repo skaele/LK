@@ -1,5 +1,6 @@
-import { contactInfoActualizationApi } from '@api'
-import { createFormStore } from 'shared/effector/create-form-store'
+import { createFormStore } from '@entities/applications/lib/create-form-store'
+
+import { contactInfoActualizationApi } from '@shared/api'
 
 export const { effects, events, selectors } = createFormStore({
     defaultStore: {

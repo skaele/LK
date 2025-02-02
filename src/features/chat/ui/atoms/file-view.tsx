@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import { ChatFile } from '@entities/chat-messages/type'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { downloadFile } from '@shared/lib/download-file'
 
 type FileProps = {

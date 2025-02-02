@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Title } from '@ui/atoms'
-import Checkbox from '@ui/checkbox'
-import List from '@ui/list'
+import { Title } from '@shared/ui/atoms'
+import Checkbox from '@shared/ui/checkbox'
+import List from '@shared/ui/list'
 
 export interface RadioButton {
     id: string | number

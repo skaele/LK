@@ -1,4 +1,4 @@
-import { JobRoles } from '@shared/api/allowances-api'
+import { JobRoles } from '@shared/api/allowances/allowances-api'
 
 export function getAllowancesErrorCode(jobRoles: JobRoles) {
     return jobRoles.map((job) => {

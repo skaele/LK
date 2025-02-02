@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+import ToggleItem from '@sh@shared/sessionle-item'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
-import { userModel } from '@entities/user'
-
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { userModel } from '@shared/session'
 import { Button, Divider, Input } from '@shared/ui/atoms'
-import ToggleItem from '@shared/ui/toggle-item'
+import { useModal } from '@shared/ui/modal'
 
 import { changeStaffPhone, changeStaffPhoneParamsMutation } from '../model'
 

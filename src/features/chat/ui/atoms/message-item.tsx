@@ -7,11 +7,11 @@ import styled from 'styled-components'
 import { RawChatMessage } from '@features/chat/type'
 
 import { contextMenuModel } from '@entities/context-menu'
-import { userModel } from '@entities/user'
 
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Colors } from '@shared/consts'
+import { userModel } from '@shared/session'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 
 import Subtext from '../../../../shared/ui/subtext'
 import { getTimeFromDate } from '../../lib/get-time-from-date'
@@ -35,7 +35,7 @@ export const MessageItem = ({ name, message, isLast }: Props) => {
 
     const { isMobile } = useCurrentDevice()
 
-    const isYourMessage = message.author_id === user.currentUser?.id.toString()
+    const isYourMessage = message.author_id === user?.id.toString()
 
     const openContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
         // prevent click on link and files

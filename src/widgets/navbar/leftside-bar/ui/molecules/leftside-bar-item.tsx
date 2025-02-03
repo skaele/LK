@@ -10,7 +10,7 @@ import LeftsideBarItemWrapper from '../atoms/leftside-bar-item-wrapper'
 type Props = Page & { isCurrent: boolean }
 
 const LeftsideBarItem = (props: Props) => {
-    const { menuPath, path, icon, title, isCurrent, isAdmin, color, notifications } = props
+    const { menuPath, path, icon: LinkIcon, title, isCurrent, isAdmin, color, notifications } = props
 
     return (
         <LeftsideBarItemWrapper
@@ -32,7 +32,7 @@ const LeftsideBarItem = (props: Props) => {
             >
                 {notifications}
             </Notification>
-            {icon}
+            {LinkIcon && <LinkIcon />}
             <span className="title">{title}</span>
             <LinkMoreButton route={props} />
         </LeftsideBarItemWrapper>

@@ -2,15 +2,10 @@ import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
 
-import {
-    PEStudentsFilter,
-    pEStudentFilterModel,
-    pEStudentIsExamModel,
-    pEStudentSearchModel,
-} from '@features/pe-students-filter'
+import { PEStudentsFilter, pEStudentFilterModel, pEStudentIsExamModel } from '@features/pe-students-filter'
 import { PEStudentModal } from '@features/physical-education/student/pe-student-modal/ui/modal'
 
-import { pEStudentModel } from '@entities/pe-student/model'
+import { pEStudentModel, pEStudentSearchModel } from '@entities/pe-student/model'
 
 import { PEStudent, STUDENT_PAGE_SIZE } from '@shared/api/physical-education'
 import { useModal } from '@shared/ui/modal'

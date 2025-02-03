@@ -11,7 +11,6 @@ import {
     getAllowancesNotifications,
     getHandbook,
     getPersonalAllowances,
-    getRoles,
     getSubordinates,
     inspectAllowance,
     removeFile,
@@ -234,11 +233,6 @@ sample({
     }),
     target: veridctMutation.start,
 })
-
-const roleQuery = createQuery({
-    handler: getRoles,
-})
-const $roles = roleQuery.$data.map((jobs) => jobs?.map((job) => job.roles).flat() ?? [])
 const paymentIdentifierQuery = createQuery({
     handler: getHandbook,
 })
@@ -327,10 +321,6 @@ sample({
 $completed.on(setCompleted, (_, val) => val)
 sample({
     clock: appStarted,
-    target: roleQuery.start,
-})
-sample({
-    clock: appStarted,
     target: notificationsQuery.start,
 })
 
@@ -398,7 +388,7 @@ sample({
 })
 sample({
     clock: pageMounted,
-    source: roleQuery.$data,
+    source: userModel.stores.jobRoles,
     filter: (roles) => roles !== null,
     fn: (roles) => roles as JobRoles,
     target: getAllAllowances,
@@ -410,7 +400,7 @@ sample({
 
 sample({
     clock: pageMounted,
-    source: roleQuery.$data,
+    source: userModel.stores.jobRoles,
     filter: (roles) => roles !== null,
     fn: (roles) => roles as JobRoles,
     target: getAllEmployees,
@@ -450,7 +440,6 @@ sample({
 sample({
     clock: userModel.events.logout,
     target: [
-        roleQuery.reset,
         sourceOfFundingQuery.reset,
         paymentIdentifierQuery.reset,
         allowanceQuery.reset,
@@ -474,7 +463,6 @@ sample({
 export const events = {
     pageMounted,
     personalAllowancesMounted,
-    appStarted,
     createSupplement,
     setCompleted,
     infoPageMounted,
@@ -488,10 +476,6 @@ export const events = {
 }
 
 export const stores = {
-    jobRoles: roleQuery.$data,
-    rolesPending: roleQuery.$pending,
-    roles: $roles,
-
     paymentIdentifiers: $paymentIdentifiers,
     allowances: $allowances,
     fileUploading: uploadFileMutation.$pending,

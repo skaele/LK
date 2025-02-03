@@ -13,29 +13,10 @@ import { Title } from '@shared/ui/title'
 import { TutorialComponent } from '@shared/ui/types'
 
 import { tutorialModel } from '..'
-import { TutorialId } from '../../api/tutorial/types'
+import { Dimensions, HintPosition, Position, TutorialWrapperProps } from '../types'
+import { FadeOut } from '../ui/fade-out-animation'
 import { SkipButton } from '../ui/skip-button'
 import { usePosition } from './use-position'
-
-type HintPosition = 'right' | 'bottom' | 'top' | 'left'
-export type Dimensions = { width: number; height: number }
-export type Position = { top: number; left: number; right: number; bottom: number }
-export interface TutorialWrapperProps {
-    tutorialModule?: {
-        id: TutorialId
-        step: number | number[]
-        params?: {
-            noPadding?: boolean
-            position?: HintPosition
-
-            // TODO: implement
-            inside?: boolean
-            widthMatchParent?: boolean
-            heightMatchParent?: boolean
-            noScroll?: boolean
-        }
-    }
-}
 
 export const withTutorial = <P,>(WrappedComponent: ComponentType<P & TutorialComponent>) => {
     const TutWrapper: React.FC<P & TutorialWrapperProps> = (props) => {
@@ -212,14 +193,6 @@ const FadeIn = keyframes`
             opacity: 1;
         }
 `
-
-export const FadeOut = keyframes`
-        0% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-        }`
 
 const BGFadeIn = keyframes`
         0% {

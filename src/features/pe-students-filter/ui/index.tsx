@@ -10,12 +10,8 @@ import Select, { SelectPage } from '@shared/ui/select'
 import ToggleItem from '@shared/ui/toggle-item'
 
 import { pEStudentFilterModel, pEStudentIsExamModel } from '..'
+import { FiltersSelect } from '../types'
 import { Wrapper } from './styled'
-
-export enum FiltersSelect {
-    Group = 'group.groupName',
-    Course = 'course',
-}
 
 const courses = [
     { id: 0, title: 'Не выбрано' },

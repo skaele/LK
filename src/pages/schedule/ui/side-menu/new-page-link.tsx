@@ -53,7 +53,7 @@ type Props = StyleProps & {
 export const NewPageLink = ({ route, collapsed = false, disabled = false, isCurrent = false }: Props) => {
     if (!route) return <Subtext>Ссылка не определена</Subtext>
 
-    const { path, title, icon, color, shortTitle } = route
+    const { path, title, icon: IconLink, color, shortTitle } = route
 
     const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
         if (disabled) {
@@ -72,7 +72,7 @@ export const NewPageLink = ({ route, collapsed = false, disabled = false, isCurr
             onClick={handleClick}
         >
             <Flex gap="8px">
-                <IconWrapper>{icon}</IconWrapper>
+                <IconWrapper>{IconLink && <IconLink />}</IconWrapper>
                 {!collapsed && <LinkTitle isCurrent={isCurrent}>{shortTitle ?? title}</LinkTitle>}
             </Flex>
         </NewPageLinkWrapper>

@@ -1,29 +1,9 @@
-import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 
 import { modalModel } from '../../model'
-
-export const Context = createContext<ModalContext>({
-    isOpen: false,
-    component: undefined,
-    back: () => {},
-    close: () => {},
-    open: () => {},
-    title: undefined,
-    canBack: false,
-})
-
-export interface ModalContext {
-    isOpen: boolean
-    component: React.ReactElement<any, any> | undefined
-    setComponent?: (Component: React.ReactElement<any, any> | undefined) => void
-    back: () => void
-    open: (Component: React.ReactElement<any, any> | undefined) => void
-    close: () => void
-    canBack: boolean
-    title?: string
-}
+import { Context } from './context'
 
 interface Props {
     children: JSX.Element

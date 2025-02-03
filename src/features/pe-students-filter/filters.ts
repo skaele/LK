@@ -1,11 +1,9 @@
 import { attach, combine, createEvent, createStore, sample } from 'effector'
 import { debounce, reset } from 'patronum'
 
-import { pEStudentModel } from '@entities/pe-student/model'
+import { pEStudentModel, pEStudentSearchModel } from '@entities/pe-student/model'
 
 import { peApi } from '@shared/api'
-
-import { pEStudentSearchModel } from '.'
 
 const addFilter = createEvent<{ name: string; value: string | number; strict?: boolean }>()
 const resetFilters = createEvent()

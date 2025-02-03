@@ -24,7 +24,7 @@ export const SettingsContent = () => {
             <SettingsContentStyled>
                 <Switch>
                     {Object.keys(settingsRoutes).map((name) => (
-                        <Route path={allRoutes[name].path} key={name} component={settingsPages[name]} />
+                        <Route path={settingsRoutes[name].path} key={name} component={settingsPages[name]} />
                     ))}
 
                     <Route path={'/'}>

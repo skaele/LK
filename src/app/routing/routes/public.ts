@@ -1,4 +1,4 @@
-import { PageComponent } from '@shared/routing'
+import { PageRoute } from '@shared/routing'
 
 import {
     CantAccessPage,
@@ -10,7 +10,7 @@ import {
     MemoTeacherPage,
 } from './pages'
 
-export const publicPages: Record<string, PageComponent> = {
+export const publicPages: PageRoute = {
     login: LoginPage,
     'forgot-password': ForgotPasswordPage,
     feedback: FeedbackPage,

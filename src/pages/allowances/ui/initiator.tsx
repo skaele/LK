@@ -6,6 +6,7 @@ import { useUnit } from 'effector-react'
 import { allowancesModel } from '@entities/allowances'
 
 import { ALLOWANCE_INFO_CUT } from '@shared/routing'
+import { userModel } from '@shared/session'
 import Flex from '@shared/ui/flex'
 import Select, { SelectPage } from '@shared/ui/select'
 import Table from '@shared/ui/table'
@@ -16,7 +17,7 @@ export const Initiator = () => {
     const history = useHistory()
     const [allowances, jobs, setRole, setJobId] = useUnit([
         allowancesModel.stores.allowances,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.jobRoles,
         allowancesModel.events.setCurrentRole,
         allowancesModel.events.setCurrentJobId,
     ])

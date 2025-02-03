@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router'
 
-import { IRoutes, Page, allRoutes } from '@shared/routing'
+import { useUnit } from 'effector-react'
+
+import { $allRoutes, IRoutes, Page } from '@shared/routing'
 
 const getPage = (location: string, currentRoute: IRoutes) => {
     const locationSplitted = location.split('/')
@@ -26,6 +28,7 @@ const getPage = (location: string, currentRoute: IRoutes) => {
 const useCurrentExactPage = () => {
     const history = useHistory()
     const location = useLocation()
+    const allRoutes = useUnit($allRoutes)
     const currentRoute: IRoutes = allRoutes ?? {}
 
     const [currentPage, setCurrentPage] = useState<Page | null>(getPage(history.location.pathname, currentRoute))

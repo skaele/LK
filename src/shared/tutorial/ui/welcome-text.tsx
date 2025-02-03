@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { FadeOut } from '../lib/with-tutorial'
+import { FadeOut } from './fade-out-animation'
 
 export const TutorialHeroLayout = styled.div`
     position: fixed;

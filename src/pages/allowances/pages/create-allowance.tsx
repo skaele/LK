@@ -7,6 +7,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 import { allowancesModel } from '@entities/allowances'
 
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import { userModel } from '@shared/session'
 import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Checkbox from '@shared/ui/checkbox'
@@ -35,15 +36,15 @@ const CreateAllowance = () => {
         jobRoles,
         errorMessage,
     ] = useUnit([
-        allowancesModel.stores.rolesPending,
+        userModel.stores.rolesPending,
         allowancesModel.events.createSupplement,
         allowancesModel.stores.supplementCreating,
         allowancesModel.events.pageMounted,
-        allowancesModel.stores.roles,
+        userModel.stores.roles,
         allowancesModel.stores.completed,
         allowancesModel.events.setCompleted,
         allowancesModel.stores.isActive,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.jobRoles,
         allowancesModel.stores.errorMessage,
     ])
 
@@ -97,7 +98,7 @@ const CreateAllowance = () => {
 
 function Job() {
     const { value, setValue } = useUnit(allowancesModel.fields.job)
-    const jobRoles = useUnit(allowancesModel.stores.jobRoles)
+    const jobRoles = useUnit(userModel.stores.jobRoles)
 
     if (!jobRoles) return null
 

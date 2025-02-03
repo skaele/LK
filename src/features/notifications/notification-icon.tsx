@@ -5,13 +5,9 @@ import { HiOutlineClipboardCheck } from 'react-icons/hi'
 
 import { NotificationType } from '@entities/lk-notifications'
 
-import { IColors } from '@shared/consts'
-import { Icon } from '@shared/ui/icon'
 import NewVersionMessage from '@shared/ui/new-version-message'
 
-const IconWrapper = ({ color, children }: { color: keyof IColors; children: JSX.Element }) => {
-    return <Icon color={color}>{children}</Icon>
-}
+import { IconWrapper } from './icon-wrapper'
 
 export const iconObject = (): Record<NotificationType, ChildrenType> => ({
     info: (

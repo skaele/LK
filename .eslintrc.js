@@ -5,7 +5,7 @@ module.exports = {
         sourceType: 'module',
         tsconfigRootDir: __dirname,
     },
-    plugins: ['prettier', '@typescript-eslint', 'react', 'boundaries'],
+    plugins: ['prettier', '@typescript-eslint', 'react', 'boundaries', 'react-refresh'],
     extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
@@ -43,6 +43,7 @@ module.exports = {
         ],
     },
     rules: {
+        'react-refresh/only-export-components': 'error',
         'react/react-in-jsx-scope': 'off',
         'linebreak-style': 'off',
         'prettier/prettier': [

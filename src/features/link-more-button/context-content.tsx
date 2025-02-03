@@ -24,7 +24,7 @@ import { Divider } from '@shared/ui/divider'
 import Icon from '../../shared/ui/icon/icon'
 
 const ContextContent = (props: Page) => {
-    const { id, icon, title, color } = props
+    const { id, icon: LinkIcon, title, color } = props
     const [home, sidebar, requiredSidebar] = useUnit([$homePages, $sidebarItems, $requiredSidebarItems])
 
     const isAddedToHome = home.includes(id)
@@ -47,7 +47,7 @@ const ContextContent = (props: Page) => {
         <ContextContentWrapper>
             <div className="top">
                 <Icon color={color ?? 'blue'} size={22}>
-                    {icon}
+                    {LinkIcon && <LinkIcon />}
                 </Icon>
                 <PageName>{title}</PageName>
             </div>

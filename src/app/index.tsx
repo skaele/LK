@@ -25,9 +25,3 @@ const App = () => {
 }
 
 export default App
-
-// APP
-// ROUTER (ROUTES + ROUTER)
-// PAGE
-// WIDGET (LAYOUT + OTHER)
-// ...

@@ -9,6 +9,7 @@ import SliderPage from '@features/slider-page'
 import { allowancesModel } from '@entities/allowances'
 
 import { ALLOWANCES, CREATE_ALLOWANCE } from '@shared/routing'
+import { userModel } from '@shared/session'
 import { Button, Loading, Message } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
@@ -26,9 +27,9 @@ const Allowances = () => {
     }
     const [pageMounted, loading, roles, jobRoles] = useUnit([
         allowancesModel.events.pageMounted,
-        allowancesModel.stores.rolesPending,
-        allowancesModel.stores.roles,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.rolesPending,
+        userModel.stores.roles,
+        userModel.stores.jobRoles,
     ])
 
     const handleCreateApplication = () => {

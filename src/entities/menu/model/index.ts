@@ -2,7 +2,6 @@ import { combine, createEvent, createStore, sample } from 'effector'
 import { useUnit } from 'effector-react'
 
 import { adminLinksModel } from '@entities/admin-links'
-import { allowancesModel } from '@entities/allowances'
 import { userSettingsModel } from '@entities/settings'
 
 import { Role } from '@shared/api/allowances/types'
@@ -108,7 +107,7 @@ const $leftSidebar = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    allowancesModel.stores.roles,
+    userModel.stores.roles,
     (user, settings, adminLinks, allowancesRoles) => {
         if (!user || !settings) return null
 
@@ -128,7 +127,7 @@ const $homeRoutes = combine(
     userModel.stores.user,
     userSettingsModel.stores.userSettings,
     adminLinksModel.store,
-    allowancesModel.stores.roles,
+    userModel.stores.roles,
     (user, settings, adminLinks, allowancesRoles) => {
         if (!user || !settings) return null
 
@@ -149,7 +148,7 @@ sample({
         userStore: userModel.stores.user,
         settings: userSettingsModel.stores.userSettings,
         adminLinks: adminLinksModel.store,
-        allowancesRoles: allowancesModel.stores.roles,
+        allowancesRoles: userModel.stores.roles,
     },
     filter: ({ settings, userStore }) => {
         return Boolean(settings) && Boolean(userStore)

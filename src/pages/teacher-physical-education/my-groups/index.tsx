@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
 
-import { FiltersSelect, pEStudentFilterModel } from '@features/pe-students-filter'
+import { pEStudentFilterModel } from '@features/pe-students-filter'
+import { FiltersSelect } from '@features/pe-students-filter/types'
 
 import Table from '@shared/ui/table'
 

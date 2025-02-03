@@ -5,25 +5,20 @@ import styled from 'styled-components'
 
 import { PageLinkTutorial } from '@features/tutorials/page-link-tutorial'
 
-import { menuModel } from '@entities/menu'
-
 import { TEMPLATE_SETTINGS_ROUTE, settingsRoutes } from '@shared/routing'
 import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 import { TutorialComponent } from '@shared/ui/types'
 
 export const SettingsList = () => {
-    const { allRoutes } = menuModel.selectors.useMenu()
     const pathParams = useRouteMatch<{ id?: string }>(TEMPLATE_SETTINGS_ROUTE)?.params
-
-    if (!allRoutes) return null
 
     return (
         <WrapperTutorial data-is-base-settings-page={!pathParams?.id} tutorialModule={{ id: 'settings', step: 0 }}>
             {Object.keys(settingsRoutes).map((id, index) => (
                 <PageLinkTutorial
-                    {...allRoutes[id]}
-                    title={allRoutes[id].title?.slice(11, allRoutes[id].title.length) ?? ''}
+                    {...settingsRoutes[id]}
+                    title={settingsRoutes[id].title?.slice(11, settingsRoutes[id].title.length) ?? ''}
                     key={id}
                     orientation="horizontal"
                     shadow={false}

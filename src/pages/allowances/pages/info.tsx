@@ -8,6 +8,7 @@ import SliderPage from '@features/slider-page'
 import { allowancesModel } from '@entities/allowances'
 
 import { AllowanceEmployee, AllowanceFiles, Role } from '@shared/api/allowances/types'
+import { userModel } from '@shared/session'
 import { Loader } from '@shared/ui/atoms/loader'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
@@ -29,8 +30,8 @@ const Info = () => {
         allowancesModel.stores.allowance.data,
         allowancesModel.stores.allowance.loading,
         allowancesModel.stores.allowance.error,
-        allowancesModel.stores.roles,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.roles,
+        userModel.stores.jobRoles,
         allowancesModel.stores.allowance.role,
         allowancesModel.events.setCurrentRole,
         allowancesModel.stores.allowance.jobId,

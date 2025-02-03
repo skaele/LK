@@ -60,7 +60,4 @@ export interface IRoutes {
     [id: string]: Page
 }
 
-export type PageComponent = LazyExoticComponent<FC> | FC
-export type PageRoute = Record<string, PageComponent>
-
-export type AllowancesRole = 'Initiator' | 'Approver'
+export type PageRoute = Record<string, LazyExoticComponent<FC> | FC>

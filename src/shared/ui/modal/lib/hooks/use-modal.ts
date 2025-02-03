@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { Context, ModalContext } from '../context'
+import { Context, ModalContext } from '../context/context'
 
 export interface IModal {
     isOpen: boolean

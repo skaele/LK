@@ -258,7 +258,7 @@ const pages: HelpfulPages = [
     {
         id: HelpfulInfoEnum.instructions,
         title: 'Положения',
-        visible: 'all',
+        visible: 'student',
         content: [
             {
                 title: 'Положения',
@@ -360,7 +360,7 @@ const pages: HelpfulPages = [
     {
         id: HelpfulInfoEnum.instructions,
         title: 'Правила',
-        visible: 'all',
+        visible: 'student',
         content: [
             {
                 title: 'Правила',

@@ -1,9 +1,11 @@
+import { createQuery } from '@farfetched/core'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore, useUnit } from 'effector-react'
 import { reset } from 'patronum'
 
 import { applicationApi, userApi } from '@shared/api'
+import { getRoles } from '@shared/api/allowances/allowances-api'
 import { forceLogout } from '@shared/api/config/utils'
 import { ADName, User, UserToken } from '@shared/api/model'
 import { LoginData } from '@shared/api/user-api'
@@ -15,6 +17,11 @@ import createFullName from '../lib/create-full-name'
 
 //  In effector chat core-team describe something like this code (Perhaps a better solution can be found)
 const tokenInStorage = localStorage.getItem(BrowserStorageKey.Token) ?? ''
+
+const roleQuery = createQuery({
+    handler: getRoles,
+})
+const $roles = roleQuery.$data.map((jobs) => jobs?.map((job) => job.roles).flat() ?? [])
 
 const $currentUser = createStore<User | null>(null)
 const $isAuthenticated = createStore<boolean | null>(!!tokenInStorage?.length)
@@ -162,6 +169,13 @@ reset({
     target: [$currentUser, $isAuthenticated, $savePassword],
 })
 
+sample({
+    clock: authenticated,
+    source: $userRole,
+    filter: (role) => role === 'staff',
+    target: roleQuery.start,
+})
+
 //getUserTokenFx
 sample({
     clock: getUserTokenFx.failData,
@@ -183,12 +197,12 @@ reset({
 sample({
     clock: logout,
     fn: () => null,
-    target: [$currentUser, $isAuthenticated, $error],
+    target: [$currentUser, $isAuthenticated, $error, roleQuery.reset],
 })
 
 reset({
     clock: logout,
-    target: $savePassword,
+    target: [$savePassword],
 })
 
 sample({
@@ -236,8 +250,9 @@ reset({
 })
 
 sample({
-    clock: $isAuthenticated,
-    filter: Boolean,
+    clock: $currentUser,
+    source: $isAuthenticated,
+    filter: (isAuth) => !!isAuth,
     target: authenticated,
 })
 
@@ -278,6 +293,9 @@ export const stores = {
     user: $currentUser,
     userGuid: $userGuid,
     userRole: $userRole,
+    jobRoles: roleQuery.$data,
+    rolesPending: roleQuery.$pending,
+    roles: $roles,
 }
 
 function savePasswordInStorage() {

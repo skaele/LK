@@ -13,7 +13,6 @@ import search from '@features/helpful-information/lib/search'
 import { safetyPages } from '@features/helpful-information/safety-information/config'
 import BlocksList from '@features/helpful-information/ui/blocks-list'
 import NotificationList from '@features/lk-notification-list/ui/list'
-import User from '@features/user'
 
 import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
 import { menuModel } from '@entities/menu'
@@ -31,6 +30,7 @@ import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
 
 import getDataLength from '../lib/get-data-length'
+import { FoundPeople } from '../ui/found-people'
 
 type SearchConfig = {
     title: string
@@ -40,38 +40,7 @@ type SearchConfig = {
     search: (value: string) => Promise<void> | void
 }[]
 
-const FoundPeople = ({
-    people,
-    type,
-}: {
-    people: (TTeacher | TStudent | Employee)[] | null
-    type: 'stud' | 'staff'
-}) => {
-    if (!people || people.length === 0) return null
-
-    return (
-        <Flex d="column">
-            {people.map((s) => (
-                <User
-                    id={'guid_person' in s ? s.guid_person : s.id}
-                    name={s.fio}
-                    type={type}
-                    {...s}
-                    key={'id' in s ? s.id : s.guid_person}
-                    division={
-                        'division' in s
-                            ? s.division
-                            : 'job' in s
-                              ? s.job.find((j) => j.post === s.post)?.subdivision
-                              : ''
-                    }
-                />
-            ))}
-        </Flex>
-    )
-}
-
-const useSearchConfig = () => {
+export const useSearchConfig = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
     const { notifications, removeNotificationLoading } = lkNotificationModel.selectors.useLkNotifications()
     const {
@@ -265,5 +234,3 @@ const useSearchConfig = () => {
 
     return [getAllTab(), ...preconfig]
 }
-
-export default useSearchConfig

@@ -81,11 +81,11 @@ type Props = {
 }
 
 const LinkItem = ({ item, amount }: Props) => {
-    const { icon, color, path, title, notifications, menuPath } = item
+    const { icon: LinkIcon, color, path, title, notifications, menuPath } = item
     return (
         <LinkItemStyled to={menuPath ?? path} color={Colors[color ?? 'blue'].transparent3} amount={amount}>
             <Icon badge={notifications?.toString()} color={color ?? 'blue'} size={35}>
-                {icon}
+                {LinkIcon && <LinkIcon />}
             </Icon>
             <Subtext width="95px" maxWidth="95px" className="subtext" align="center">
                 {title}

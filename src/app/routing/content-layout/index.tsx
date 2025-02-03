@@ -16,7 +16,7 @@ import ContextMenu from '@features/context-menu'
 import { menuModel } from '@entities/menu'
 
 import { userModel } from '@shared/session'
-import { TutorialHero } from '@shared/tutorial'
+import { TutorialHero } from '@shared/tutorial/ui/tutorial-hero'
 import ErrorBoundary from '@shared/ui/error-boundary'
 import { Modal } from '@shared/ui/modal'
 

@@ -1,27 +1,18 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 
+import { useUnit } from 'effector-react'
+
 import { menuModel } from '@entities/menu'
 
-import { HOME_ROUTE, PageComponent } from '@shared/routing'
+import { HOME_ROUTE } from '@shared/routing'
 
-import { employeeHiddenPages, employeePages } from './routes/employee'
-import { privateHiddenPages, privatePages } from './routes/private'
-import { hiddenStudentPages, studentPages } from './routes/student'
-
-export const allPages: Record<string, PageComponent> = {
-    ...privatePages,
-    ...privateHiddenPages,
-    ...studentPages,
-    ...hiddenStudentPages,
-    ...employeePages,
-    ...employeeHiddenPages,
-}
+import { $allPages } from './routes/pages'
 
 const PrivateRouter = () => {
+    const allPages = useUnit($allPages)
     const { allRoutes: availableRoutes } = menuModel.selectors.useMenu()
-
-    if (!availableRoutes) return null
+    if (!availableRoutes || !allPages) return null
 
     return (
         <Switch>
@@ -34,7 +25,3 @@ const PrivateRouter = () => {
 }
 
 export default React.memo(PrivateRouter)
-
-// APP
-// Auth
-// Routing => (loading | auth | none)

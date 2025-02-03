@@ -163,7 +163,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
         notifications,
         title,
         isNew,
-        icon,
+        icon: PageLinkIcon,
         isExternal,
         isOldLK,
         mode,
@@ -199,7 +199,7 @@ const PageLinkContent = (props: PageLinkProps & { maxWordLength: number }) => {
             )}
             <div className="outside">
                 <Icon badge={notifications?.toString()} color={color ?? 'blue'}>
-                    {icon ?? <HiOutlineFolder />}
+                    {PageLinkIcon ? <PageLinkIcon /> : <HiOutlineFolder />}
                 </Icon>
                 <b title={title}>{title}</b>
                 {!!notifications && (

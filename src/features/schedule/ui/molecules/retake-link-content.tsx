@@ -6,7 +6,7 @@ import { Icon } from '@shared/ui/icon'
 
 import { RetakeLinkProps } from './retake-link'
 
-const RetakeLinkContent = ({ title, icon, color }: RetakeLinkProps) => {
+const RetakeLinkContent = ({ title, icon: LinkIcon, color }: RetakeLinkProps) => {
     return (
         <ContentWrapper
             padding="0"
@@ -19,7 +19,7 @@ const RetakeLinkContent = ({ title, icon, color }: RetakeLinkProps) => {
             hasNotifications={false}
         >
             <div className="outside">
-                <Icon color={color ?? 'blue'}>{icon}</Icon>
+                <Icon color={color ?? 'blue'}>{LinkIcon && <LinkIcon />}</Icon>
                 <b>{title}</b>
             </div>
         </ContentWrapper>

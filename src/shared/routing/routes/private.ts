@@ -398,6 +398,7 @@ export const generalHiddenRoutes: IRoutes = {
         pageSize: 'large',
     },
     ...scheduleRoutes,
+    ...settingsRoutes,
     'filtered-all-students': {
         id: 'filtered-all-students',
         title: 'Все студенты',

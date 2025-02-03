@@ -16,9 +16,10 @@ import { IoNewspaperOutline } from 'react-icons/io5'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import { RiNotificationBadgeLine, RiPassValidLine } from 'react-icons/ri'
 
+import { Role } from '@shared/api/allowances/types'
 import { isProduction } from '@shared/consts'
 
-import { AllowancesRole, IRoutes } from '../consts'
+import { IRoutes } from '../consts'
 import {
     ADDRESSES_AND_CONTACTS,
     ALLOWANCES,
@@ -101,7 +102,7 @@ import {
 } from '../paths'
 import { generalHiddenRoutes, generalRoutes } from './private'
 
-export const employeeRoutes: (params: { allowancesRoles: AllowancesRole[] }) => IRoutes = ({ allowancesRoles }) => ({
+export const employeeRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
@@ -439,9 +440,7 @@ export const employeeRoutes: (params: { allowancesRoles: AllowancesRole[] }) => 
     // },
 })
 
-export const employeeHiddenRoutes: (params: { allowancesRoles: AllowancesRole[] }) => IRoutes = ({
-    allowancesRoles,
-}) => ({
+export const employeeHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
     ...generalHiddenRoutes,
     // remove after mobile version is ready
     // #ASM

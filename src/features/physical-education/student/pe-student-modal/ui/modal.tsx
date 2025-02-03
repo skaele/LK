@@ -5,7 +5,7 @@ import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/
 
 import { PEStudent } from '@shared/api/physical-education'
 import { buildRealLink } from '@shared/lib/buildRealLink'
-import { PHYSICAL_EDUCATION_STUDENT } from '@shared/routing'
+import { PHYSICAL_EDUCATION_STUDENT_ID } from '@shared/routing'
 import KeyValue from '@shared/ui/atoms/key-value'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
@@ -26,7 +26,7 @@ export const PEStudentModal = ({ student }: Props) => {
     const { close } = useModal()
 
     const handleClick = () => {
-        history.push(buildRealLink(PHYSICAL_EDUCATION_STUDENT, { studentId: student.studentGuid }))
+        history.push(buildRealLink(PHYSICAL_EDUCATION_STUDENT_ID, { studentId: student.studentGuid }))
         close()
     }
 

@@ -1,6 +1,7 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { createMutation, createQuery } from '@farfetched/core'
 import { createTaxCertificate, getTaxCerts } from '@shared/api/payment-api'
+import axios from 'axios'
 import { createEvent, sample } from 'effector'
 
 const pageMounted = createEvent()
@@ -37,11 +38,15 @@ sample({
 })
 
 sample({
-    clock: createTaxCertificateMutation.$failed,
-    target: popUpMessageModel.events.evokePopUpMessage.prepend(() => ({
-        message: 'Не удалось отправить запрос',
-        type: 'failure',
-    })),
+    clock: createTaxCertificateMutation.finished.failure,
+    fn: ({ error }) => ({
+        message: axios.isAxiosError(error)
+            ? 'Не удалось отправить запрос.'
+            : 'Не удалось отправить запрос. ' + (error as Error).message,
+        time: 6000,
+        type: 'failure' as const,
+    }),
+    target: popUpMessageModel.events.evokePopUpMessage,
 })
 
 export const taxCertificateModel = {

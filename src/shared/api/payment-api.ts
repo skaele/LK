@@ -125,5 +125,9 @@ export const createTaxCertificate = async ({ year }: { year: string }) => {
     const { data } = await $api.get(`?createTaxCert=${year}&token=${token()}`)
 
     if (data.result !== 'ok') throw new Error(data.error_text)
+    if (data?.num_created <= 0)
+        throw new Error(
+            'Документы не были созданы. Возможно, у вас нет оплат или договора на обучение за выбранный год.',
+        )
     return data
 }

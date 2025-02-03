@@ -16,8 +16,6 @@ import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 
-import { Docs, File } from './docs'
-
 function getYears(): SelectPage[] {
     const currentYear = new Date().getFullYear()
     const startYear = 2024
@@ -58,15 +56,7 @@ const TaxCertificate = () => {
                     />
                 }
             >
-                <Flex d="column" gap="2rem" ai="flex-start">
-                    {!!certificates?.length && (
-                        <Docs title="Файлы новейшей справки">
-                            <Flex d="column" w="fit-content" gap="0.5rem" jc="flex-start">
-                                <File link={certificates[0].cert_file_stamp} title="Справка" />
-                                <File link={certificates[0].cert_file_sign} title="Электронная подпись" />
-                            </Flex>
-                        </Docs>
-                    )}
+                <Flex d="column" gap="2rem" p="1rem 0 0 0" ai="flex-start">
                     <Flex d="column" gap="0.5rem">
                         <Title size={4} align="left">
                             Справки в ФНС

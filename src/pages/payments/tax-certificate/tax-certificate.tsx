@@ -31,7 +31,7 @@ const TaxCertificatePage = () => {
             <PageBlock>
                 <Flex d="column" gap="2rem" ai="flex-start">
                     <Docs>
-                        <File link={certificate.cert_file_stamp} title="Справка" />
+                        <File link={certificate.cert_file_stamp} title="Печатная форма Справки в ФНС" />
                         <File link={certificate.cert_file_sign} title="Электронная подпись" />
                     </Docs>
                     <Flex d="column" ai="flex-start">

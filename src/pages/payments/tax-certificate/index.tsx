@@ -16,13 +16,14 @@ import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 
+const currentYear = new Date().getFullYear()
+
 function getYears(): SelectPage[] {
-    const currentYear = new Date().getFullYear()
-    const startYear = 2024
+    const startYear = 2007
 
     return Array.from({ length: currentYear - startYear }, (_, index) => ({
         id: index,
-        title: (startYear + index).toString(),
+        title: (currentYear - 1 - index).toString(),
     }))
 }
 const years = getYears()
@@ -113,15 +114,11 @@ const TaxCertificate = () => {
 
 const FormModal = () => {
     const { close } = useModal()
-    const [selected, setSelected] = useState<SelectPage | null>(null)
+    const [selected, setSelected] = useState<SelectPage | null>(years[0])
     const [presentYears, certificatedRequested] = useUnit([
         taxCertificateModel.presentYears,
         taxCertificateModel.certificatedRequested,
     ])
-
-    useEffect(() => {
-        if (years.length === 1) setSelected(years[0])
-    }, [years])
 
     return (
         <Flex d="column" gap="1rem" ai="flex-end">

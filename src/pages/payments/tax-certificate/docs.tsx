@@ -38,7 +38,7 @@ const DocsTitle = styled.div`
 `
 
 export const File = ({ link, title }: { link: string; title: string }) => (
-    <a href={link} style={{ width: 250, zIndex: 1 }}>
+    <a href={link} style={{ width: 275, zIndex: 1 }}>
         <FileWrapper>
             <div className="file-body">
                 <div className="image-container">

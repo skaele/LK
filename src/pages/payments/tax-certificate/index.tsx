@@ -14,7 +14,6 @@ import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 const currentYear = new Date().getFullYear()
 
@@ -30,11 +29,16 @@ const years = getYears()
 
 const TaxCertificate = () => {
     const history = useHistory()
-    const { open } = useModal()
+    const [selected, setSelected] = useState<SelectPage | null>(years[0])
     const [pageMounted, certificates, loading] = useUnit([
         taxCertificateModel.pageMounted,
         taxCertificateModel.certificates,
         taxCertificateModel.certificatesLoading,
+    ])
+    const [presentYears, certificatedRequested, certCreating] = useUnit([
+        taxCertificateModel.presentYears,
+        taxCertificateModel.certificatedRequested,
+        taxCertificateModel.createCertificateLoading,
     ])
 
     useEffect(() => {
@@ -43,23 +47,63 @@ const TaxCertificate = () => {
 
     return (
         <Wrapper data={true} load={() => {}} error={null}>
-            <PageBlock
-                topRightCornerElement={
-                    <Button
-                        onClick={() => open(<FormModal />, 'Получить новую справку')}
-                        text="Получить новую справку"
-                        background="var(--reallyBlue)"
-                        textColor="#fff"
-                        icon={<FiPlus />}
-                        minWidth="35px"
-                        height="36px"
-                        shrinkTextInMobile
-                    />
-                }
-            >
+            <PageBlock>
                 <Flex d="column" gap="2rem" p="1rem 0 0 0" ai="flex-start">
                     <Flex d="column" gap="0.5rem">
-                        <Title size={4} align="left">
+                        <Title size={3} align="left">
+                            Заказать справку в ФНС
+                        </Title>
+                        <Flex gap="1rem" jc="space-between" ai="flex-end">
+                            <Select
+                                title="Год"
+                                items={years}
+                                selected={selected}
+                                setSelected={setSelected}
+                                isActive={years.length > 1}
+                                required
+                                width="10rem"
+                                placeholder="Выберите год"
+                            />
+                            <Button
+                                text="Заказать"
+                                background="var(--reallyBlue)"
+                                textColor="#fff"
+                                icon={<FiPlus />}
+                                disabled={!selected}
+                                loading={certCreating}
+                                onClick={() => {
+                                    if (!selected) return
+
+                                    if (presentYears.has(selected.title)) {
+                                        confirmModel.events.evokeConfirm({
+                                            message: (
+                                                <Flex d="column" gap="0.5rem" ai="flex-start">
+                                                    <Title align="left" size={4}>
+                                                        Справка за выбранный год уже сформирована.
+                                                    </Title>
+                                                    <P>
+                                                        Если вы уверены, что есть причина для формирования справки с
+                                                        корректировкой, например: изменились состав оплат или личные
+                                                        документы, тогда запрос на новую версию справки будет отправлен.
+                                                    </P>
+                                                    <P>Отправить?</P>
+                                                </Flex>
+                                            ),
+                                            onConfirm: () => {
+                                                certificatedRequested({ year: selected.title })
+                                                close()
+                                            },
+                                        })
+                                        return
+                                    }
+                                    certificatedRequested({ year: selected.title })
+                                    close()
+                                }}
+                            />
+                        </Flex>
+                    </Flex>
+                    <Flex d="column" gap="0.5rem">
+                        <Title size={3} align="left">
                             Справки в ФНС
                         </Title>
                         <Table
@@ -109,64 +153,6 @@ const TaxCertificate = () => {
                 </Flex>
             </PageBlock>
         </Wrapper>
-    )
-}
-
-const FormModal = () => {
-    const { close } = useModal()
-    const [selected, setSelected] = useState<SelectPage | null>(years[0])
-    const [presentYears, certificatedRequested] = useUnit([
-        taxCertificateModel.presentYears,
-        taxCertificateModel.certificatedRequested,
-    ])
-
-    return (
-        <Flex d="column" gap="1rem" ai="flex-end">
-            <Select
-                title="Год"
-                items={years}
-                selected={selected}
-                setSelected={setSelected}
-                isActive={years.length > 1}
-                required
-                width="100%"
-                placeholder="Выберите год"
-            />
-            <Button
-                text="Получить"
-                background="var(--reallyBlue)"
-                textColor="#fff"
-                disabled={!selected}
-                onClick={() => {
-                    if (!selected) return
-
-                    if (presentYears.has(selected.title)) {
-                        confirmModel.events.evokeConfirm({
-                            message: (
-                                <Flex d="column" gap="0.5rem" ai="flex-start">
-                                    <Title align="left" size={4}>
-                                        Справка за выбранный год уже сформирована.
-                                    </Title>
-                                    <P>
-                                        Если вы уверены, что есть причина для формирования справки с корректировкой,
-                                        например: изменились состав оплат или личные документы, тогда запрос на новую
-                                        версию справки будет отправлен.
-                                    </P>
-                                    <P>Отправить?</P>
-                                </Flex>
-                            ),
-                            onConfirm: () => {
-                                certificatedRequested({ year: selected.title })
-                                close()
-                            },
-                        })
-                        return
-                    }
-                    certificatedRequested({ year: selected.title })
-                    close()
-                }}
-            />
-        </Flex>
     )
 }
 

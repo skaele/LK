@@ -84,7 +84,7 @@ export const signThirdPartyElectronicInteraction = async ({
     return data
 }
 
-type TaxCertificate = {
+export type TaxCertificate = {
     id: string
     cert_date: string
     year: string

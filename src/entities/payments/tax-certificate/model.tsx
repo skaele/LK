@@ -1,27 +1,35 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { createMutation, createQuery } from '@farfetched/core'
-import { createTaxCertificate, getTaxCerts } from '@shared/api/payment-api'
+import { userModel } from '@entities/user'
+import { createMutation } from '@farfetched/core'
+import { TaxCertificate, createTaxCertificate, getTaxCerts } from '@shared/api/payment-api'
 import axios from 'axios'
-import { createEvent, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+import { and, not, reset } from 'patronum'
 
 const pageMounted = createEvent()
 const certificatedRequested = createEvent<{ year: string }>()
+
+const $taxCerts = createStore<TaxCertificate[] | null>(null)
 
 const createTaxCertificateMutation = createMutation({
     handler: createTaxCertificate,
 })
 
-const getTaxCertsQuery = createQuery({
-    handler: getTaxCerts,
+const getTaxCertsFx = createEffect(getTaxCerts)
+
+sample({
+    clock: getTaxCertsFx.doneData,
+    target: $taxCerts,
 })
-const $presentYears = getTaxCertsQuery.$data.map((certificates) => {
+
+const $presentYears = $taxCerts.map((certificates) => {
     if (!certificates) return new Set<string>()
     return new Set(certificates.map((certificate) => certificate.year))
 })
 
 sample({
     clock: pageMounted,
-    target: getTaxCertsQuery.start,
+    target: getTaxCertsFx,
 })
 
 sample({
@@ -31,10 +39,13 @@ sample({
 
 sample({
     clock: createTaxCertificateMutation.$succeeded,
-    target: popUpMessageModel.events.evokePopUpMessage.prepend(() => ({
-        message: 'Запрос отправлен',
-        type: 'success',
-    })),
+    target: [
+        popUpMessageModel.events.evokePopUpMessage.prepend(() => ({
+            message: 'Запрос отправлен',
+            type: 'success',
+        })),
+        getTaxCertsFx,
+    ],
 })
 
 sample({
@@ -49,11 +60,16 @@ sample({
     target: popUpMessageModel.events.evokePopUpMessage,
 })
 
+reset({
+    clock: userModel.events.logout,
+    target: [$taxCerts],
+})
+
 export const taxCertificateModel = {
     pageMounted,
     certificatedRequested,
-    certificates: getTaxCertsQuery.$data,
+    certificates: $taxCerts,
     presentYears: $presentYears,
-    certificatesLoading: getTaxCertsQuery.$pending,
+    certificatesLoading: and(getTaxCertsFx.pending, not($taxCerts)),
     createCertificateLoading: createTaxCertificateMutation.$pending,
 }

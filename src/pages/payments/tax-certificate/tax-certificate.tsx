@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 
 import { taxCertificateModel } from '@entities/payments'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { Title, Wrapper } from '@shared/ui/atoms'
+import { Error, Loading, Title, Wrapper } from '@shared/ui/atoms'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
@@ -22,9 +22,21 @@ const TaxCertificatePage = () => {
 
     useEffect(() => {
         pageMounted()
-    }, [])
+    }, [id])
 
-    if (!certificate) return null
+    if (loading)
+        return (
+            <Flex h="100%" d="column" ai="center" jc="center">
+                <Loading />
+            </Flex>
+        )
+
+    if (!certificate)
+        return (
+            <Flex h="100%" d="column" ai="center" jc="center">
+                <Error text="Справка не найдена"></Error>
+            </Flex>
+        )
 
     return (
         <Wrapper data={true} load={() => {}} error={null}>

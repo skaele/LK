@@ -29,6 +29,7 @@ const $presentYears = $taxCerts.map((certificates) => {
 
 sample({
     clock: pageMounted,
+    filter: not($taxCerts),
     target: getTaxCertsFx,
 })
 

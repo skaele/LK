@@ -7,7 +7,6 @@ import { confirmModel } from '@entities/confirm'
 import { taxCertificateModel } from '@entities/payments'
 import Select, { SelectPage } from '@features/select'
 import { Wrapper } from '@shared/ui/atoms'
-import KeyValue from '@shared/ui/atoms/key-value'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
@@ -45,8 +44,6 @@ const TaxCertificate = () => {
     useEffect(() => {
         pageMounted()
     }, [])
-
-    const signatory = !!certificates?.length ? certificates[certificates.length - 1].signatory : ''
 
     return (
         <Wrapper data={true} load={() => {}} error={null}>
@@ -109,11 +106,6 @@ const TaxCertificate = () => {
                         <Title size={3} align="left">
                             Справки в ФНС
                         </Title>
-                        {signatory && (
-                            <Flex d="column" ai="flex-start">
-                                <KeyValue keyStr="Подписант" value={signatory} />
-                            </Flex>
-                        )}
                         <Table
                             loading={loading}
                             innerPadding="0.5rem"
@@ -141,6 +133,11 @@ const TaxCertificate = () => {
                                 {
                                     title: 'Плательщик',
                                     field: 'payer',
+                                    priority: 'four',
+                                },
+                                {
+                                    title: 'Подписант',
+                                    field: 'signatory',
                                     priority: 'four',
                                 },
                                 {

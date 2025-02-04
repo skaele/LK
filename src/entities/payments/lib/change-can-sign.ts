@@ -10,9 +10,16 @@ const changeCanSign = (payments: Payments | null, contractId: string, value: boo
         return dorm
     })
 
+    const newEduData = payments.education.map((edu) => {
+        if (edu.id === contractId) {
+            return { ...edu, can_sign: value }
+        }
+        return edu
+    })
+
     return {
-        ...payments,
         dormitory: newDormitoryData,
+        education: newEduData,
     }
 }
 

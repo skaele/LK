@@ -3,6 +3,7 @@ import { FiDownload } from 'react-icons/fi'
 
 import { PaymentsContract } from '@api/model'
 import { paymentsModel } from '@entities/payments'
+import { userModel } from '@entities/user'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { formatNumber } from '@shared/lib/get-number-with-spaces-format'
@@ -26,6 +27,7 @@ const ContractWrapper = styled.div`
     .contract-info {
         display: flex;
         flex-direction: column;
+        padding: 0.5rem 0;
     }
 
     p {
@@ -39,12 +41,14 @@ interface Props {
 
 const Contract = ({ contract }: Props) => {
     if (!contract) return null
-    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date } = contract
+    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date, sign_text } =
+        contract
     const { open } = useModal()
     const [copied, setCopied] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
     const error = useUnit(paymentsModel.stores.$error)
+    const isStudent = useUnit(userModel.stores.user).currentUser?.user_status === 'stud'
 
     const contractInfo = [
         {
@@ -68,7 +72,7 @@ const Contract = ({ contract }: Props) => {
             info: contragent || 'Московский политех',
         },
         {
-            text: 'Обучающийся',
+            text: isStudent ? 'Обучающийся' : 'Работник',
             info: student ?? '',
         },
         {
@@ -77,7 +81,7 @@ const Contract = ({ contract }: Props) => {
         },
         {
             text: 'Статус',
-            info: '',
+            info: sign_text,
         },
         // {
         //     text: 'Ежемесячная плата: ',

@@ -27,7 +27,6 @@ import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holid
 import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
 import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
 import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
-//import PartTimeEmploymentBufferPage from '@pages/hr-applications/pages/buffer-part-time-employment'
 import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
@@ -76,7 +75,6 @@ import {
     HolidayPlanning,
     HolidayTransfer,
     HolidayWork,
-    HrApplicationsPage,
     IncreaseAntiplagiatLimits,
     IssuanceOfLicensesPage,
     IssuanceOfPass,
@@ -107,6 +105,7 @@ import {
 } from './pages'
 
 export const APPLICATIONS_ROUTE = '/applications'
+export const KEDO_ROUTE = '/kedo'
 export const HR_APPLICATIONS_ROUTE = '/hr-applications'
 export const ALLOWANCES = '/allowances'
 export const ALLOWANCES_ROLE = ALLOWANCES + '/:role'
@@ -201,13 +200,11 @@ export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
 export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
 export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
 export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
-// export const BUFFER_EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/buffer-extra-holiday-coll'
 export const BUFFER_HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/buffer-holiday-planning'
 export const BUFFER_HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-holiday-transfer'
 export const BUFFER_HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/buffer-holiday-work'
 export const BUFFER_MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/buffer-medical-examination'
 export const BUFFER_WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-work-transfer'
-// export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
 export const BUFFER_PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/buffer-part-time-deployment'
 export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
 
@@ -224,8 +221,6 @@ export const CERTIFICATION_AND_ISSUANCE_OF_DOCS = APPLICATIONS_ROUTE + '/certifi
 
 export const DEFERMENT_FROM_CONSCRIPTION = APPLICATIONS_ROUTE + '/deferment-from-conscription'
 export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certified-copies-of-military-docs'
-
-// export const GENERATE_SCHEDULE = '/generate-schedule'
 
 const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
 
@@ -524,18 +519,25 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         group: 'FINANCES_DOCS',
         keywords: ['заявления', 'справки', 'заявление', 'справка'],
     },
-    'hr-applications': {
-        id: 'hr-applications',
-        title: 'Кадровые заявления',
+    kedo: {
+        id: 'kedo',
+        title: 'КЭДО',
         icon: <FiFileText />,
-        path: HR_APPLICATIONS_ROUTE,
-        Component: isProduction
-            ? () =>
-                  PageIsNotReady({ errorText: 'Страница еще находится в разработке.', isRedirectButtonVisible: false })
-            : HrApplicationsPage,
+        path: KEDO_ROUTE,
+        isExternalPage: true,
+        isNew: true,
+        Component: () => {
+            React.useEffect(() => {
+                window.open('https://lk-staff.mospolytech.ru/applications/1SKabinet-sotrudnika')
+                window.history.back()
+            }, [])
+
+            return null
+        },
         color: 'green',
         isTemplate: false,
         group: 'FINANCES_DOCS',
+        withoutHeader: true,
     },
     allowances: {
         id: 'allowances',

@@ -3,6 +3,7 @@ import React from 'react'
 import { tutorialModel } from '@entities/tutorial'
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
 import { PaymentsContract } from '@shared/api/model'
+import localizeDate from '@shared/lib/dates/localize-date'
 import Flex from '@shared/ui/flex'
 import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
@@ -58,7 +59,9 @@ function Contract({ contract, index }: { contract: PaymentsContract; index: numb
             <Flex gap="8px">
                 <Flex w="fit-content">
                     <Title size={3} align="left">
-                        {contract.name}
+                        {contract.createDate
+                            ? `Договор №${contract.number} от ${localizeDate(contract.createDate)}`
+                            : contract.name}
                     </Title>
                 </Flex>
             </Flex>

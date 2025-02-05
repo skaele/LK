@@ -26,6 +26,7 @@ export interface PaymentsContract {
     dorm_room: string
     endDateFact: string
     endDatePlan: string
+    createDate: string
     file: string
     id: string
     lastPaymentDate: string

@@ -7,7 +7,7 @@ import { IInputArea } from '@shared/ui/input-area/model'
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
     const { surname, name, patronymic, email, phone } = dataUserApplication
     return {
-        title: 'Заверенные копии документов по воинскому учету из личного дела',
+        title: 'Справка в военкомат (форма 5)',
         data: [
             {
                 title: 'ФИО',

@@ -1,6 +1,6 @@
 import { UserApplication } from '@api/model'
 import getAddressFields from '@features/applications/lib/get-address-fields'
-import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
+import { getStudentMethodObtainingFields } from '@features/applications/lib/get-student-method-obtaining-fields'
 import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import { IInputArea } from '@ui/input-area/model'
 
@@ -46,7 +46,7 @@ const getForm = (dataUserApplication: UserApplication): IInputArea => {
                 editable: true,
                 required: true,
             },
-            ...getMethodObtainingFields(),
+            ...getStudentMethodObtainingFields(),
             ...getStudentSubdivisions(dataUserApplication),
             ...getAddressFields(),
             {

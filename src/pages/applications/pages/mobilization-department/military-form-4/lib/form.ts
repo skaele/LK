@@ -14,7 +14,7 @@ const education = [
 export const getForm = (dataUserApplication: UserApplication): IInputArea => {
     const { surname, name, patronymic, email, phone } = dataUserApplication
     return {
-        title: 'Заверенные копии документов по воинскому учету из личного дела',
+        title: 'Справка в военкомат (форма 4)',
         data: [
             {
                 title: 'ФИО',

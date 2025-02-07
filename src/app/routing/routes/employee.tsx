@@ -6,7 +6,6 @@ import AllTeachersPage from '@pages/all-teachers'
 import DownloadAdminFilesPage from '@pages/download-admin-files'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
-
 import { OLD_LK_URL, isProduction } from '@shared/consts'
 import {
     CENTERS_ROUTE,
@@ -157,6 +156,13 @@ export const employeePages = {
         return null
     },
     // 'generate-schedule': GenerateSchedule,
+    kedo: () => {
+        React.useEffect(() => {
+            window.open('https://lk-staff.mospolytech.ru/applications/1SKabinet-sotrudnika')
+            window.history.back()
+        }, [])
+        return null
+    },
 }
 
 export const employeeHiddenPages = {

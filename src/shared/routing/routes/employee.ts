@@ -67,6 +67,7 @@ import {
     INFO_ROUTE,
     ISSUANCE_OF_LICENSES,
     ISSUANCE_OF_PASS,
+    KEDO_ROUTE,
     KPI_ADMIN_ROUTE,
     KPI_PPS_ROUTE,
     LIVING_IN_RESIDENTIAL_PREMISES,
@@ -438,6 +439,18 @@ export const employeeRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = 
     //     group: 'OTHER',
     //     isAdmin: true,
     // },
+    kedo: {
+        id: 'kedo',
+        title: 'КЭДО',
+        icon: FiFileText,
+        path: KEDO_ROUTE,
+        isExternal: true,
+        isNew: true,
+        color: 'green',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        withoutHeader: true,
+    },
 })
 
 export const employeeHiddenRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({

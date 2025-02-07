@@ -1,7 +1,9 @@
+import { createEffect, createEvent, sample } from 'effector'
+
 import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
-import { createEffect, createEvent, sample } from 'effector'
 
 import { HealthGroup } from '../types'
 import { SetHealthGroup } from '../types/set-health-group'

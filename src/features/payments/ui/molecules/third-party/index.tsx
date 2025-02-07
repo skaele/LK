@@ -1,14 +1,16 @@
 import React from 'react'
 import { FiChevronLeft } from 'react-icons/fi'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { thirdPartyAgreementModel } from '@entities/payments'
+
 import { Agreement } from '@shared/api/model'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 import { CheckEmails } from './check-emails'
 import { EnterPasswords } from './enter-passwords'

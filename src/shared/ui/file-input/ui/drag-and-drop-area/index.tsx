@@ -3,6 +3,7 @@ import { FcFolder } from 'react-icons/fc'
 
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Subtext from '@shared/ui/subtext'
+
 import { FileInputProps } from '@ui/file-input'
 
 import { DEFAULT_FILE_FORMATS } from '../../consts'

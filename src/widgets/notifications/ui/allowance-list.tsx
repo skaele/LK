@@ -1,13 +1,17 @@
 import React, { useEffect, useMemo } from 'react'
 
-import { allowancesModel } from '@entities/allowances'
-import { SelectPage } from '@features/select'
+import { useUnit } from 'effector-react'
+
 import { DevModeMessage } from '@pages/allowances/ui/dev-mode-message'
+
+import { SelectPage } from '@features/select'
+
+import { allowancesModel } from '@entities/allowances'
+
 import { PersonalAllowance } from '@shared/api/model/notification'
 import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import { Loading } from '@shared/ui/loading'
-import { useUnit } from 'effector-react'
 
 import { CardAllowance } from './atoms/card-allowance'
 

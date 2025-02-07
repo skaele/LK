@@ -1,18 +1,23 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 
-import { menuModel } from '@entities/menu'
-import { userModel } from '@entities/user'
+import styled from 'styled-components'
+import { AvailableAccounts } from 'widgets'
+
+import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
+
 import AllInfo from '@features/home/ui/molecules/all-info'
 import Orders from '@features/home/ui/molecules/orders'
 import { UserInfo } from '@features/profile'
-import { ContactDetailsProfile } from '@pages/teachers-applications/pages/contact-details/contact-details-profile'
+
+import { menuModel } from '@entities/menu'
+import { userModel } from '@entities/user'
+
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { CenterPage, Wrapper } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
+
 import { Error } from '@ui/error'
-import styled from 'styled-components'
-import { AvailableAccounts } from 'widgets'
 
 import Top from './ui/top'
 

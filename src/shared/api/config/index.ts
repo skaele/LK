@@ -1,5 +1,6 @@
-import { OLD_LK_URL, isProduction } from '@shared/constants'
 import axios, { AxiosError } from 'axios'
+
+import { OLD_LK_URL, isProduction } from '@shared/constants'
 
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 

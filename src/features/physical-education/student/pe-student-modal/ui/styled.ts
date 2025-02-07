@@ -1,5 +1,6 @@
-import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
+
+import { MEDIA_QUERIES } from '@shared/constants'
 
 export const Visits = styled.div`
     min-height: 50px;

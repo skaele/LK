@@ -1,6 +1,7 @@
+import styled from 'styled-components'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import { Size } from '@shared/ui/types'
-import styled from 'styled-components'
 
 import { HEIGHTS, RADIUSES } from './consts'
 import { getValueFromSize } from './lib/get-value-from-size'

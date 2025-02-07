@@ -1,4 +1,5 @@
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
 
 const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFieldsNameConfig) => {

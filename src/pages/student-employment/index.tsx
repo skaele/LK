@@ -1,11 +1,13 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router'
 
-import { STUDENT_EMPLOYMENT_ROUTE } from '@app/routes/routes'
-import { CenterPage } from '@shared/ui/atoms'
-import PageBlock from '@shared/ui/page-block'
 import { SliderPage } from 'widgets'
 import { Employment, Internship } from 'widgets/student-employment'
+
+import { STUDENT_EMPLOYMENT_ROUTE } from '@app/routes/routes'
+
+import { CenterPage } from '@shared/ui/atoms'
+import PageBlock from '@shared/ui/page-block'
 
 const StudentEmployment = () => {
     const history = useHistory()

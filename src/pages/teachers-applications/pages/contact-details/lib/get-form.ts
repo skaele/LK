@@ -1,5 +1,7 @@
 import { ContactDetails, Subdivision } from '@api/model'
+
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+
 import { IInputArea } from '@ui/input-area/model'
 
 export const POLYTECH_SITES = [

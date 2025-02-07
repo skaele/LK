@@ -2,13 +2,16 @@ import React, { useEffect } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { useHistory, useParams } from 'react-router'
 
+import { useUnit } from 'effector-react'
+import { SliderPage } from 'widgets'
+
 import { ALLOWANCES, CREATE_ALLOWANCE } from '@app/routes/teacher-routes'
+
 import { allowancesModel } from '@entities/allowances'
+
 import { Button, Loading, Message } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import { useUnit } from 'effector-react'
-import { SliderPage } from 'widgets'
 
 import { Approver } from '../ui/approver'
 import { DevModeMessage } from '../ui/dev-mode-message'

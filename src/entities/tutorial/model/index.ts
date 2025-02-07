@@ -1,9 +1,12 @@
+import { createMutation, createQuery } from '@farfetched/core'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+
 import { paymentsModel } from '@entities/payments'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { projectActivitesModel } from '@entities/project-activites'
 import { userSettingsModel } from '@entities/settings'
 import { userModel } from '@entities/user'
-import { createMutation, createQuery } from '@farfetched/core'
+
 import {
     TutorialData,
     callUserInteraction,
@@ -19,7 +22,6 @@ import {
 import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
 import { stringToHash } from '@shared/lib/stringToHash'
 import { getKeys } from '@shared/lib/typescript/getKeys'
-import { createEffect, createEvent, createStore, sample } from 'effector'
 
 import { ModuleData, createTutorials } from '../lib/tutorials'
 import { Module, Modules, TutorialId, TutorialRoles } from '../types'

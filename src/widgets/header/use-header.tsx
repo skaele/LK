@@ -3,7 +3,9 @@ import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useHistory } from 'react-router'
 
 import { ALL_ROUTE, IRoute } from '@app/routes/general-routes'
+
 import { menuModel } from '@entities/menu'
+
 import useHistoryStack from '@shared/lib/hooks/use-history-stack'
 import { Button } from '@shared/ui/button'
 import GoBackButton from '@shared/ui/go-back-button'

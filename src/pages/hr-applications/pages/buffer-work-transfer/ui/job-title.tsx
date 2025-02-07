@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 
+import styled from 'styled-components'
+
 import { WorkerApplication } from '@shared/api/model'
 import Block from '@shared/ui/block'
 import { Button } from '@shared/ui/button'
-import styled from 'styled-components'
 
 // import getHrApplicationsColumns from '../lib/get-hr-applications-columns'
 // import { BufferWorkTransfer } from '../types'

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
+
 import { Button } from '@shared/ui/button'
 
 export const columns = [

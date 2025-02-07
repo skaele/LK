@@ -1,4 +1,5 @@
 import { TeacherDataVerification } from '@api/model'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getRegistration = (data: TeacherDataVerification, isDone: boolean): IInputArea => {

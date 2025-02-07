@@ -1,9 +1,11 @@
-import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-import { $hrApi } from '@shared/api/config'
-import { MessageType } from '@shared/ui/types'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore } from 'effector-react'
+
+import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
+import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
+
+import { $hrApi } from '@shared/api/config'
+import { MessageType } from '@shared/ui/types'
 
 import { BufferWorkTransfer, BufferWorkTransferForm, BufferWorkTransferHistories } from '../types'
 

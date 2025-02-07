@@ -1,5 +1,6 @@
-import { chatMessagesModel } from '@entities/chat-messages'
 import { combine } from 'effector'
+
+import { chatMessagesModel } from '@entities/chat-messages'
 
 import { RawChatMessage } from '../type'
 

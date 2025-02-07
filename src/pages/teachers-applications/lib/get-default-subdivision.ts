@@ -1,4 +1,5 @@
 import { Subdivision } from '@api/model'
+
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 
 export const getDefaultSubdivision = (subdivisions: Subdivision[] = []) => {

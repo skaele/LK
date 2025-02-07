@@ -2,17 +2,20 @@ import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 
 import { PaymentsContract } from '@api/model'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
 import { paymentsModel } from '@entities/payments'
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { formatNumber } from '@shared/lib/get-number-with-spaces-format'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
+
 import { Button, LinkButton, SubmitButton } from '@ui/atoms'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import TechicalErrorMessage from './technical-error-message'
 

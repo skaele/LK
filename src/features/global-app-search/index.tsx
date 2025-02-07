@@ -1,6 +1,10 @@
 import React, { memo } from 'react'
 import { FiCommand, FiSearch } from 'react-icons/fi'
 
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import getUsersOS from '@shared/lib/get-users-os'
 import useShortCutKeys from '@shared/lib/hooks/use-short-cut-keys'
@@ -8,9 +12,6 @@ import BlockWrapper from '@shared/ui/block/styles'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 import GlobalAppSearchModal from './global-app-search-modal'
 

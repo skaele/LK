@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
 
+import { useUnit } from 'effector-react'
+import styled, { keyframes } from 'styled-components'
+
 import { confirmModel } from '@entities/confirm'
 import { tutorialModel } from '@entities/tutorial'
+
 import { Colors, TUTORIAL_PROGRESS, isProduction } from '@shared/constants'
 import { Button, Title } from '@shared/ui/atoms'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
-import styled, { keyframes } from 'styled-components'
 
 import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'

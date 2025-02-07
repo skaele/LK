@@ -1,4 +1,5 @@
 import { confirmModel } from '@entities/confirm'
+
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 
 const handleChangeAccount = (token: string) => {

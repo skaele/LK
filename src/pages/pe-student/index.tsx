@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
+import { useUnit } from 'effector-react'
+import Slider from 'widgets/slider'
+
+import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
+import { SetPEStudentSpecialization } from '@features/physical-education/student/pe-student-specialization/ui'
+import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
+
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { userModel } from '@entities/user'
-import { SetPEStudentHealthGroup } from '@features/physical-education/student/pe-student-health-group/ui'
-import { SetPEStudentSpecialization } from '@features/physical-education/student/pe-student-specialization/ui'
-import { sliderData } from '@features/physical-education/student/pe-student-visits/constants'
+
 import { CenterPage, Error, Message } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import Slider from 'widgets/slider'
 
 import { ContentWrapper, UserData } from './styled'
 import { UserDataBlock } from './ui/user-data-block'

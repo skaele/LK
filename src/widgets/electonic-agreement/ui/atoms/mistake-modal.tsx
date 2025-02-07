@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { userModel } from '@entities/user'
-import { LinkButton } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { userModel } from '@entities/user'
+
+import { LinkButton } from '@ui/atoms'
 
 const MistakeModalWrapper = styled.div`
     display: flex;

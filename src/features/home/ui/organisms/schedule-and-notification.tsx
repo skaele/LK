@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { userSettingsModel } from '@entities/settings'
 import { useUnit } from 'effector-react'
 import { ListTutorial } from 'widgets/tutorial/tutorials/list-tutorial'
+
+import { userSettingsModel } from '@entities/settings'
 
 import PaymentsWidget from '../molecules/payments-widget'
 import { ScheduleWidget } from '../schedule-widget'

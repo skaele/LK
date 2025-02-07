@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { FileFormats } from '@shared/constants'
+
 import List from '@ui/list'
 
 import DragAndDropArea from './ui/drag-and-drop-area'

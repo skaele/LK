@@ -1,16 +1,19 @@
 import { AdminLinks, User } from '@api/model'
+import { combine, createEvent, createStore, sample } from 'effector'
+import { useUnit } from 'effector-react'
+
 import { IRoute, IRoutes } from '@app/routes/general-routes'
 import { hiddenRoutes, privateRoutes } from '@app/routes/routes'
 import { teachersHiddenRoutes, teachersPrivateRoutes } from '@app/routes/teacher-routes'
+
 import { adminLinksModel } from '@entities/admin-links'
 import { allowancesModel } from '@entities/allowances'
 import { Role } from '@entities/allowances/types'
 import { userSettingsModel } from '@entities/settings'
 import { UserSettings } from '@entities/settings/types'
 import { userModel } from '@entities/user'
+
 import { MenuType, REQUIRED_LEFTSIDE_BAR_CONFIG, REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG } from '@shared/constants'
-import { combine, createEvent, createStore, sample } from 'effector'
-import { useUnit } from 'effector-react'
 
 import findRoutesByConfig from '../lib/find-routes-by-config'
 

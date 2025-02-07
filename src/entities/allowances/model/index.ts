@@ -1,7 +1,11 @@
+import { createMutation, createQuery } from '@farfetched/core'
+import { Unit, createEffect, createEvent, createStore, sample } from 'effector'
+
+import { SelectPage } from '@features/select'
+
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
-import { createMutation, createQuery } from '@farfetched/core'
-import { SelectPage } from '@features/select'
+
 import {
     ConfirmRequest,
     JobRoles,
@@ -23,7 +27,6 @@ import { createDatePeriodField } from '@shared/effector/form/create-date-period-
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
 import { createSelectField } from '@shared/effector/form/create-select-field'
-import { Unit, createEffect, createEvent, createStore, sample } from 'effector'
 
 import { allowanceStatus } from '../consts'
 import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'

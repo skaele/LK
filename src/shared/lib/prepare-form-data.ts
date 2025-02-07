@@ -1,5 +1,7 @@
 import { SelectPage } from '@features/select'
+
 import { IndexedProperties } from '@shared/models/indexed-properties'
+
 import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
 
 const prepareFormData = <T>(form: IInputArea) => {

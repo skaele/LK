@@ -1,12 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import { useHistory } from 'react-router'
 
+import { useUnit } from 'effector-react'
+
 import { ALLOWANCE_INFO_CUT } from '@app/routes/teacher-routes'
-import { allowancesModel } from '@entities/allowances'
+
 import Select, { SelectPage } from '@features/select'
+
+import { allowancesModel } from '@entities/allowances'
+
 import Flex from '@shared/ui/flex'
 import Table from '@shared/ui/table'
-import { useUnit } from 'effector-react'
 
 import { getAllowancesColumns } from '../lib/get-allowances-columns'
 

@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
 
 const TeacherWithModalWrapper = styled.strong`
     &:hover {

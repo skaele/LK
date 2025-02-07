@@ -1,7 +1,8 @@
+import styled from 'styled-components'
+
 import { Colors, MEDIA_QUERIES } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import styled from 'styled-components'
 
 export const EventBackgroundStyled = styled.div<{ background: string; noPadding: boolean }>`
     background: ${({ background }) => background};

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+import styled from 'styled-components'
+
 import { Divider } from '@shared/ui/divider'
+
 import { Error } from '@ui/error'
 import { Loading } from '@ui/loading'
 import Pagination from '@ui/pagination'
 import { TableCatalogType, TableProps } from '@ui/table/types'
-import styled from 'styled-components'
 
 import { Row } from '../molecules'
 

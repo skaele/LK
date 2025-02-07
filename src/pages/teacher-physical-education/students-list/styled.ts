@@ -1,6 +1,7 @@
+import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import Flex from '@shared/ui/flex'
-import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     display: grid;

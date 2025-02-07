@@ -1,4 +1,5 @@
 import { ColumnProps } from '@ui/table/types'
+
 import capitalizeFirstLetter from '@utils/capitalize-first-letter'
 
 import renderPayStatus from './render-pay-status'

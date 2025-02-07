@@ -1,6 +1,9 @@
 import React from 'react'
 
+import { useModal } from 'widgets'
+
 import { EventsModal } from '@features/schedule/ui/show-next-day-events-button/events-modal'
+
 import capitalizeFirstLetter from '@shared/lib/capitalize-first-letter'
 import { areDatesEqual } from '@shared/lib/dates/are-dates-equal'
 import localizeDate from '@shared/lib/dates/localize-date'
@@ -13,7 +16,6 @@ import { getSunday } from '@shared/ui/calendar/ui/week-days/lib/get-sunday'
 import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import { useModal } from 'widgets'
 
 import { MAX_EVENTS_VISIBLE_PER_DAY } from '../consts'
 import { getDayEvents } from '../lib/get-day-events'

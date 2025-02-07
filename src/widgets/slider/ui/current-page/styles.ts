@@ -1,7 +1,8 @@
-import { Size } from '@shared/ui/types'
 import styled from 'styled-components'
 import { RADIUSES } from 'widgets/slider/consts'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { Size } from '@shared/ui/types'
 
 export const CurrentPageWrapper = styled.span<{
     pages: { title: string; condition?: boolean }[]

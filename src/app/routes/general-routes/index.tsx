@@ -12,7 +12,7 @@ import {
 } from 'react-icons/hi'
 
 import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
-import { PETeacher } from '@entities/pe-teacher/types'
+
 import ChatPage from '@pages/chat'
 import LoginPage from '@pages/login'
 import SettingsPage from '@pages/settings'
@@ -22,6 +22,9 @@ import MenuSettings from '@pages/settings/pages/menu'
 import NotificationsSettings from '@pages/settings/pages/notifications'
 import PersonalSettings from '@pages/settings/pages/personal'
 import { TutorialSettings } from '@pages/settings/pages/tutorial'
+
+import { PETeacher } from '@entities/pe-teacher/types'
+
 import { IColors, isProduction } from '@shared/constants'
 import { ExtSize } from '@shared/ui/types'
 

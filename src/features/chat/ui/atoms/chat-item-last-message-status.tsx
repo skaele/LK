@@ -2,6 +2,7 @@ import React from 'react'
 import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
 
 import { LastMessage } from '@entities/chats'
+
 import { Tooltip } from '@shared/ui/tooltip'
 
 type Props = {

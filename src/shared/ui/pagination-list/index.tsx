@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react'
 
-import { userModel } from '@entities/user'
-import { SelectPage } from '@features/select'
-import { Loading } from '@ui/loading'
 import styled from 'styled-components'
+
+import { SelectPage } from '@features/select'
+
+import { userModel } from '@entities/user'
+
+import { Loading } from '@ui/loading'
 
 import { Button } from '../button'
 import { Divider } from '../divider'

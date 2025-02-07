@@ -1,12 +1,14 @@
-import { electronicInteractionModel } from '@entities/electronic-interaction'
 import { createMutation } from '@farfetched/core'
+import { createEvent, createStore, sample } from 'effector'
+
+import { electronicInteractionModel } from '@entities/electronic-interaction'
+
 import {
     SendElectronicInteractionCodes,
     SignThirdPartyElectronicInteraction,
     sendElectroincInteractionCodes,
     signThirdPartyElectronicInteraction,
 } from '@shared/api/payment-api'
-import { createEvent, createStore, sample } from 'effector'
 
 const sendCodes = createEvent<SendElectronicInteractionCodes>()
 const signAgreement = createEvent<SignThirdPartyElectronicInteraction>()

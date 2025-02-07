@@ -2,6 +2,7 @@ import React from 'react'
 
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
 import { DayEnded, HolidayPlate, SkeletonLoading } from '@features/schedule/ui'
+
 import EventItem from '@shared/ui/calendar/ui/event/event-item'
 import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
 import { ErrorIconIndicator } from '@shared/ui/error-icon-indicator'

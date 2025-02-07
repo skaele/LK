@@ -1,9 +1,10 @@
 import React from 'react'
 import { FiSearch } from 'react-icons/fi'
 
+import styled from 'styled-components'
+
 import { Input } from '@ui/atoms'
 import { ColumnType, TableSearchType } from '@ui/table/types'
-import styled from 'styled-components'
 
 const SearchWrapper = styled.div<{ closed: boolean }>`
     display: flex;

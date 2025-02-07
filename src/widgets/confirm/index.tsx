@@ -1,12 +1,16 @@
 import React, { useRef } from 'react'
 
-import { confirmModel } from '@entities/confirm'
-import { Colors } from '@shared/constants'
-import { Button, Title } from '@ui/atoms'
-import List from '@ui/list'
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+
+import { confirmModel } from '@entities/confirm'
+
+import { Colors } from '@shared/constants'
+
+import { Button, Title } from '@ui/atoms'
+import List from '@ui/list'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 
 const ConfirmWrapper = styled.div<{ isOpen: boolean }>`
     position: absolute;

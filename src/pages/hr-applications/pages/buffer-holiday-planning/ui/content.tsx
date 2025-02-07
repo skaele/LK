@@ -2,12 +2,13 @@ import React from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+import { compareDesc } from 'date-fns'
+import styled from 'styled-components'
+
 import { Button, Loading, Wrapper } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
 import Flex from '@shared/ui/flex'
 import Table from '@shared/ui/table'
-import { compareDesc } from 'date-fns'
-import styled from 'styled-components'
 
 import { getBufferHolidayPlanningColumns } from '../lib/get-buffer-holiday-planning-columns'
 import { getExtendedBufferHolidayPlanningColumns } from '../lib/get-extended-buffer-holiday-planning-columns'

@@ -45,6 +45,7 @@ import {
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
 } from '@app/routes/teacher-routes'
+
 import { User } from '@shared/api/model'
 import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
 

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
 import { thirdPartyInteractionModel } from '@entities/payments'
+
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
-import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 export const Code = ({ next, guid }: { guid: string; next: () => void }) => {
     const { close } = useModal()

@@ -1,8 +1,10 @@
 import React from 'react'
 
-import retakeRoutes from '@features/schedule/config/retake-routes'
-import List from '@ui/list'
 import styled from 'styled-components'
+
+import retakeRoutes from '@features/schedule/config/retake-routes'
+
+import List from '@ui/list'
 
 import RetakeLink from '../../../../features/schedule/ui/molecules/retake-link'
 

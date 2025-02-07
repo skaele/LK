@@ -1,7 +1,8 @@
 import React, { memo } from 'react'
 
-import Subtext from '@shared/ui/subtext'
 import styled from 'styled-components'
+
+import Subtext from '@shared/ui/subtext'
 
 const OrderList = styled.div`
     display: flex;

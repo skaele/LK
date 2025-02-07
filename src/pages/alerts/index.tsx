@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { alertModel } from '@entities/alert'
 import { lkNotificationModel } from '@entities/lk-notifications'
+
 import { Error, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 

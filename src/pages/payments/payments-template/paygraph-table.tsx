@@ -2,6 +2,7 @@ import React from 'react'
 import { FiBarChart2 } from 'react-icons/fi'
 
 import getDormitoryPaygraphColumns from '@pages/payments/lib/get-dormitory-paygraph-columns'
+
 import { Paygraph } from '@shared/api/model'
 import Flex from '@shared/ui/flex'
 import Table from '@shared/ui/table'

@@ -1,4 +1,5 @@
 import { phonebookModel } from '@entities/phonebook'
+
 import { Subdivision } from '@shared/api/model/phonebook'
 
 import { getSubdivisionPath } from './get-subdivision-path'

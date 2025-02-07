@@ -1,8 +1,9 @@
 import { teacherApi } from '@api'
 import { TTeacher } from '@api/model'
-import { SelectPage } from '@features/select'
 import { createEffect } from 'effector'
 import { createPaginationList } from 'shared/effector/create-pagination-list'
+
+import { SelectPage } from '@features/select'
 
 const getFetchTeachersFx = createEffect(
     async (request: ServerListRequest<SelectPage | null>): Promise<ServerListResponse<TTeacher>> => {

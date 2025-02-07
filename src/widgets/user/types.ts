@@ -1,4 +1,5 @@
 import { StudentAccount, UserStatus } from '@shared/api/model'
+
 import { Direction, Size } from '@ui/types'
 
 export type UserProps = StudentAccount & {

@@ -3,6 +3,7 @@ import { FiChevronDown, FiHome } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import { HOME_ROUTE } from '@app/routes/general-routes'
+
 import { Button, Error as ErrorUI, Message } from '@shared/ui/atoms'
 
 import AutoAccordion from '../auto-accordion'

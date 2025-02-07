@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { tutorialModel } from '@entities/tutorial'
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button } from '@shared/ui/button'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 import TrainingPic from '../../shared/images/tutorial-picture.jpg'
 import { Buttons, Hero, Text, Title, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'

@@ -1,5 +1,6 @@
-import { peApi } from '@shared/api'
 import { createEffect, createEvent, createStore, sample } from 'effector'
+
+import { peApi } from '@shared/api'
 
 const endSemester = createEvent<{ studentId: string }>()
 const reset = createEvent()

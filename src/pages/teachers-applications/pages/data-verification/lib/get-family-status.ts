@@ -1,4 +1,5 @@
 import { TeacherDataVerification } from '@api/model'
+
 import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
 import { IInputArea } from '@ui/input-area/model'
 

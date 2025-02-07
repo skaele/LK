@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
+import { LoadedState } from 'widgets/template-form'
+
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
+
+import { applicationsModel } from '@entities/applications'
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import checkFormFields from '@shared/lib/check-form-fields'
 import { ApplicationFormCodes } from '@shared/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
-import { LoadedState } from 'widgets/template-form'
 
 import getReasonForReceiving from '../../multifunctional-center/certificate-of-attendance/lib/get-reason-for-receiving'
 import { getForm } from './lib/form'

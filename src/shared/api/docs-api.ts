@@ -1,5 +1,6 @@
 import { $api } from '@api/config'
 import { ItemNotification, viewNotificationResponse } from '@api/model/notification'
+
 import token from '@utils/token'
 
 export const get = () => {

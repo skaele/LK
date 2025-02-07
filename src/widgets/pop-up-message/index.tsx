@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { messageType } from '@shared/constants'
-import { Message } from '@ui/atoms'
 import styled from 'styled-components'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { messageType } from '@shared/constants'
+
+import { Message } from '@ui/atoms'
 
 const PopUpMessageWrapper = styled.div<{ isOpen: boolean; isClickable: boolean }>`
     width: 300px;

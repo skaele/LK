@@ -2,9 +2,11 @@ import React from 'react'
 import { AiOutlineReload } from 'react-icons/ai'
 
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
 import getLettersColors from '@shared/lib/get-letters-colors'
+
 import { Button } from '@ui/button'
 import { Error } from '@ui/error'
 import { Loading } from '@ui/loading'

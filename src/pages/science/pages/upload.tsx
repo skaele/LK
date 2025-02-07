@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { scienceModel } from '@entities/science'
-import { Button } from '@shared/ui/atoms'
-import Flex from '@shared/ui/flex'
-import PageBlock from '@shared/ui/page-block'
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
 import { ScienceTable } from 'widgets/science-table'
+
+import { scienceModel } from '@entities/science'
+
+import { Button } from '@shared/ui/atoms'
+import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
 
 import { getDefaultColumns } from '../lib/get-default-columns'
 import { UploadModal } from '../widgets/upload-modal'

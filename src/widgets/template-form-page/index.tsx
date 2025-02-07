@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
 
+import TemplateForm, { TemplateFormProps } from 'widgets/template-form'
+
 import { CenterPage, Error, FormBlock, Wrapper } from '@ui/atoms'
 import GoBackButton from '@ui/go-back-button'
 import { IInputArea } from '@ui/input-area/model'
-import TemplateForm, { TemplateFormProps } from 'widgets/template-form'
 
 type Props<T extends { last_update?: string }> = TemplateFormProps<T> & {
     pageAvailability?: {

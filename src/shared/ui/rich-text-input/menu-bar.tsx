@@ -1,10 +1,11 @@
 import React from 'react'
 import { FaBold, FaItalic, FaListOl, FaListUl, FaStrikethrough } from 'react-icons/fa'
 
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Editor } from '@tiptap/react'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 import { Button } from '../atoms'
 

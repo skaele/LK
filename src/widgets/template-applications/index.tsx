@@ -1,15 +1,19 @@
 import React, { memo, useCallback } from 'react'
 import { FiInfo, FiPlus } from 'react-icons/fi'
 
-import { applicationsModel } from '@entities/applications'
-import getApplicationsColumns from '@features/applications/lib/get-applications-columns'
-import { getExtendedApplicationsColumns } from '@features/applications/lib/get-extended-application-columns'
-import CreateApplicationList from '@features/applications/ui/molecules/create-application-list'
-import PageBlock from '@shared/ui/page-block'
-import { Message, Wrapper } from '@ui/atoms'
 import { useModal } from 'widgets'
 import { ButtonTutorial } from 'widgets/tutorial/tutorials/button-tutorial'
 import { TableTutorial } from 'widgets/tutorial/tutorials/table-tutorial'
+
+import getApplicationsColumns from '@features/applications/lib/get-applications-columns'
+import { getExtendedApplicationsColumns } from '@features/applications/lib/get-extended-application-columns'
+import CreateApplicationList from '@features/applications/ui/molecules/create-application-list'
+
+import { applicationsModel } from '@entities/applications'
+
+import PageBlock from '@shared/ui/page-block'
+
+import { Message, Wrapper } from '@ui/atoms'
 
 interface Props {
     isTeachers: boolean

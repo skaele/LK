@@ -1,4 +1,5 @@
 import { SelectPage } from '@features/select'
+
 import { IndexedProperties } from '@shared/models/indexed-properties'
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 

@@ -1,4 +1,5 @@
 import { SelectPage } from '@features/select'
+
 import findSemestr from '@utils/find-semestr'
 
 const createSelectItems = (course: number | string) => {

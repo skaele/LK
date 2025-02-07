@@ -1,7 +1,9 @@
-import { userModel } from '@entities/user'
 import { createQuery } from '@farfetched/core'
-import { getServerSettings } from '@shared/api/settings'
 import { sample } from 'effector'
+
+import { userModel } from '@entities/user'
+
+import { getServerSettings } from '@shared/api/settings'
 
 export const serverSettingsQuery = createQuery({
     handler: getServerSettings,

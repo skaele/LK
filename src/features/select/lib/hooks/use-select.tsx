@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { SelectPage } from '@features/select'
+
 import { Size } from '@shared/ui/types'
+
 import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 
 import findCurrentPage from '../find-current-page'

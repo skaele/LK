@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router'
 
 import { IRoute, IRoutes } from '@app/routes/general-routes'
+
 import { menuModel } from '@entities/menu'
 
 const getPage = (location: string, currentRoute: IRoutes) => {

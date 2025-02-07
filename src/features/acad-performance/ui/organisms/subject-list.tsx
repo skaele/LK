@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 
 import { PreparedAcadPerformanceData } from '@entities/acad-performance/lib/prepare'
+
 import Flex from '@shared/ui/flex'
 import PlaneSkeletonList from '@shared/ui/plane-skeleton-list'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'

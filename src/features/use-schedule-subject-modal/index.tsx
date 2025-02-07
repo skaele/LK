@@ -1,10 +1,12 @@
 import React from 'react'
 
+import { useModal } from 'widgets'
+
 import { SubjectModal } from '@features/schedule/ui'
+
 import { DayCalendarEvent } from '@shared/ui/calendar'
 import { getTimeInterval } from '@shared/ui/calendar/lib/get-time-interval'
 import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
-import { useModal } from 'widgets'
 
 export const useScheduleSubjectModal = () => {
     const { open } = useModal()

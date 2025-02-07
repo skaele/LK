@@ -1,15 +1,19 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 
-import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-import { chatSidebarModel } from '@features/chat/model'
-import Search from '@shared/ui/search'
-import { Divider, Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { ChatItemsTutorial } from 'widgets/tutorial/tutorials/chat-items-tutorial'
 import { FlexTutorial } from 'widgets/tutorial/tutorials/flex-tutorial'
 import { AddNewChatTutorial } from 'widgets/tutorial/tutorials/new-chat'
+
+import { TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
+
+import { chatSidebarModel } from '@features/chat/model'
+
+import Search from '@shared/ui/search'
+
+import { Divider, Title } from '@ui/atoms'
 
 import { MEDIA_QUERIES } from '../../../../shared/constants'
 

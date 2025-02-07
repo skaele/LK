@@ -1,8 +1,9 @@
 import React from 'react'
 
+import { useUnit } from 'effector-react'
+
 import { selectedPEStudentModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { useUnit } from 'effector-react'
 
 import { AddPeStudentVisits } from './features/add-pe-student-visits/ui'
 import { $peStudentVisitsColumns } from './model'

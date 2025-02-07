@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
+import Select, { SelectPage } from '@features/select'
+
 import { peStudentSpecializationModel } from '@entities/pe-student/model'
 import { Specialization } from '@entities/pe-student/types'
-import Select, { SelectPage } from '@features/select'
+
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 interface Props {
     studentGuid: string

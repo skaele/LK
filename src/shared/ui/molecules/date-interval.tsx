@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { FiAlertCircle } from 'react-icons/fi'
 
-import localizeDate from '@shared/lib/dates/localize-date'
-import { Input, Message, Title } from '@ui/atoms'
 import styled from 'styled-components'
+
+import localizeDate from '@shared/lib/dates/localize-date'
+
+import { Input, Message, Title } from '@ui/atoms'
 
 const DateIntervalWrapper = styled.div`
     width: 100%;

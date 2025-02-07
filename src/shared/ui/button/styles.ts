@@ -1,6 +1,8 @@
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Align, Direction } from '@ui/types'
 import styled from 'styled-components'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+
+import { Align, Direction } from '@ui/types'
 
 export const ButtonWrapper = styled.button<{
     text: boolean

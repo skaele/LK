@@ -2,7 +2,9 @@ import React from 'react'
 import { FiInfo } from 'react-icons/fi'
 
 import { applicationsModel } from '@entities/applications'
+
 import PageBlock from '@shared/ui/page-block'
+
 import { Message, Wrapper } from '@ui/atoms'
 
 import Content from './ui/content'

@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react'
 import { FiUsers } from 'react-icons/fi'
 
-import { confirmModel } from '@entities/confirm'
+import { useUnit } from 'effector-react'
+import { useModal } from 'widgets'
+
 import { EndSemester } from '@features/physical-education/end-semester'
 import SearchWithHints from '@features/search-with-hints'
+
+import { confirmModel } from '@entities/confirm'
+
 import { studentApi } from '@shared/api'
 import { Colors } from '@shared/constants'
 import Masks from '@shared/lib/masks'
 import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
 import Table from '@shared/ui/table'
-import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { examPeStudentColumns } from './constants'
 import { pageLoaded } from './model'

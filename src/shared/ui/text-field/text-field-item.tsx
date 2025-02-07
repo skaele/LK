@@ -1,8 +1,9 @@
 import React from 'react'
 import { FiEdit2 } from 'react-icons/fi'
 
-import { TSettingsFields } from '@pages/settings/types'
 import styled from 'styled-components'
+
+import { TSettingsFields } from '@pages/settings/types'
 
 type FieldProps = Omit<TSettingsFields, 'type'> & {
     onClick?: () => void

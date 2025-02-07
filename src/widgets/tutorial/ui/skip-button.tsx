@@ -1,10 +1,12 @@
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
 
-import { tutorialModel } from '@entities/tutorial'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+
+import { tutorialModel } from '@entities/tutorial'
+
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 
 export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out' | 'removed') => void }) => {
     const module = useUnit(tutorialModel.stores.currentModule)

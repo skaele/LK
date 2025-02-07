@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { FiUsers } from 'react-icons/fi'
 
+import { useUnit } from 'effector-react'
+
+import { pEStudentFilterModel, pEStudentIsExamModel } from '@pages/teacher-physical-education/model'
+
 import SearchWithHints from '@features/search-with-hints'
 import Select, { SelectPage } from '@features/select'
-import { pEStudentFilterModel, pEStudentIsExamModel } from '@pages/teacher-physical-education/model'
+
 import { studentApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
 
 import { Wrapper } from './styled'
 

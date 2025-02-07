@@ -2,12 +2,14 @@ import React from 'react'
 import { BiRuble } from 'react-icons/bi'
 
 import { IPaymentItem } from '@api/model'
+import styled from 'styled-components'
+
 import { Icon } from '@features/all-pages'
+
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import styled from 'styled-components'
 
 const PaymentItemWrapper = styled.div`
     width: 100%;

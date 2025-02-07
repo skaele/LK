@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { UserApplication } from '@api/model'
-import { IInputArea } from '@ui/input-area/model'
 import styled from 'styled-components'
+
+import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (dataUserApplication: UserApplication): IInputArea => {
     return {

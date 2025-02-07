@@ -1,9 +1,10 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import { Title } from '@ui/atoms'
 import { CheckboxDocs } from '@ui/input-area/model'
 import { CheckboxDocument } from '@ui/molecules'
-import styled from 'styled-components'
 
 const CheckboxDocumentListWrapper = styled.div``
 

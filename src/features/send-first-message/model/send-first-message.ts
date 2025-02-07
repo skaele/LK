@@ -1,9 +1,10 @@
-import { addMessage } from '@entities/chat-messages/api'
-import { Chat, chatsModel } from '@entities/chats'
 import { createMutation, update } from '@farfetched/core'
 import { formatISO } from 'date-fns'
 import { createStore, sample } from 'effector'
 import sanitizeHtml from 'sanitize-html'
+
+import { addMessage } from '@entities/chat-messages/api'
+import { Chat, chatsModel } from '@entities/chats'
 
 const sendFirstMessageMutation = createMutation({
     handler: addMessage,

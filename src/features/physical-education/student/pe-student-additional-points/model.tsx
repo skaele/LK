@@ -1,14 +1,16 @@
 import React from 'react'
 
+import { differenceInDays } from 'date-fns'
+import { combine } from 'effector'
+
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { WorkType } from '@entities/pe-student-additional-points/types'
 import { PEStudentProfile } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
+
 import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'
-import { differenceInDays } from 'date-fns'
-import { combine } from 'effector'
 
 import { SelectorData } from './constants'
 

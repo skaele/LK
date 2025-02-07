@@ -1,4 +1,5 @@
 import { PreparedAlerts } from '@entities/alert/lib/prepare-data'
+
 import normalizeString from '@shared/lib/normalize-string'
 
 const search = (value: string, alerts: PreparedAlerts): PreparedAlerts =>

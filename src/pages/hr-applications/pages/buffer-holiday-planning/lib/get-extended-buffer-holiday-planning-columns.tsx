@@ -1,6 +1,7 @@
 import React from 'react'
 
 import downloadFile from '@pages/hr-applications/lib/get-file'
+
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'

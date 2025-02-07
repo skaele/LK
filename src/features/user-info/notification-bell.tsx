@@ -2,17 +2,20 @@ import React from 'react'
 import { FiBell } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+import LkNotificationList from 'widgets/lk-notification-list'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
 import { LK_NOTIFICATIONS_ROUTE } from '@app/routes/general-routes'
+
 import { lkNotificationModel } from '@entities/lk-notifications'
+
 import getCorrectWordForm from '@shared/lib/get-correct-word-form'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
-import LkNotificationList from 'widgets/lk-notification-list'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
 const NotificationBellStyled = styled.div`
     position: relative;

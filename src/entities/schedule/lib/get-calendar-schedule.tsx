@@ -2,6 +2,7 @@ import React from 'react'
 import { HiBookOpen } from 'react-icons/hi'
 
 import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
+
 import { ISubject, ITimeIntervalColor, TimeIntervalColor } from '@shared/api/model'
 import { IWeekDays } from '@shared/constants'
 import { TimeType, getMinutesFromStringTime } from '@shared/lib/dates/get-minutes-from-string-time'

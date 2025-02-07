@@ -1,4 +1,5 @@
 import { Groups, IRoutes } from '@app/routes/general-routes'
+
 import { PETeacher } from '@entities/pe-teacher/types'
 
 type RoutesOrder = Record<Groups, number>

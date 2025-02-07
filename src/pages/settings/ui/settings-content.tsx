@@ -2,12 +2,16 @@ import React from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Route, Switch, useRouteMatch } from 'react-router'
 
+import styled from 'styled-components'
+
 import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
+
 import { Icon } from '@features/all-pages'
+
+import { menuModel } from '@entities/menu'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import { CenterPage, Error } from '@shared/ui/atoms'
-import styled from 'styled-components'
 
 import { SETTINGS_PAGES } from '../contants'
 

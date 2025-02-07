@@ -1,8 +1,11 @@
-import { PEStudent } from '@entities/pe-student/types'
-import { pEStudentFilterModel } from '@pages/teacher-physical-education/model'
-import { peApi } from '@shared/api'
 import { attach, combine, createEvent, createStore, sample } from 'effector'
 import { debounce } from 'patronum'
+
+import { pEStudentFilterModel } from '@pages/teacher-physical-education/model'
+
+import { PEStudent } from '@entities/pe-student/types'
+
+import { peApi } from '@shared/api'
 
 import { pEStudentVisitModel } from '.'
 

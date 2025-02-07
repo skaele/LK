@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
 
 import { Title } from '../title'
 

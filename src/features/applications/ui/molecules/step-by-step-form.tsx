@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
+import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
 import { Line } from '@ui/timeline/ui'
+
 import checkFormFields from '@utils/check-form-fields'
-import styled from 'styled-components'
 
 type HiddenProps = {
     reached?: boolean

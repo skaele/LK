@@ -1,8 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 
-import { applicationsModel } from '@entities/applications'
 import styled from 'styled-components'
+
+import { applicationsModel } from '@entities/applications'
 
 import { bufferHolidayTransferModel } from '../model'
 import History from './history'

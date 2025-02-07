@@ -2,9 +2,11 @@ import React from 'react'
 import { FiDownload } from 'react-icons/fi'
 
 import { ApplicationStatusType, ApplicationsConstants } from '@entities/applications/consts'
+
 import { LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { Tooltip } from '@shared/ui/tooltip'
+
 import { Message } from '@ui/message'
 import { ColumnProps } from '@ui/table/types'
 

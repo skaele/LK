@@ -1,4 +1,5 @@
 import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import { IInputAreaData } from '@ui/input-area/model'
 
 const getCompensation = (data: IInputAreaData[]): SpecialFieldsNameConfig => {

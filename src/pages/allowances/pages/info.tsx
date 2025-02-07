@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 
+import { useUnit } from 'effector-react'
+import { SliderPage } from 'widgets'
+
 import { allowancesModel } from '@entities/allowances'
 import { AllowanceEmployee, AllowanceFiles, Role } from '@entities/allowances/types'
+
 import { Loader } from '@shared/ui/atoms/loader'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
@@ -10,8 +14,6 @@ import { Forbidden } from '@shared/ui/forbidden'
 import { Loading } from '@shared/ui/loading'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import { SliderPage } from 'widgets'
 
 import { DevModeMessage } from '../ui/dev-mode-message'
 import { Employee } from '../ui/employee'

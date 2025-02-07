@@ -1,8 +1,9 @@
 import React from 'react'
 
-import QrCode from '@features/payments/ui/atoms/qr-code'
 import styled from 'styled-components'
 import { SliderPage } from 'widgets'
+
+import QrCode from '@features/payments/ui/atoms/qr-code'
 
 const PayQRModalStyled = styled.div`
     @media (min-width: 1001px) {

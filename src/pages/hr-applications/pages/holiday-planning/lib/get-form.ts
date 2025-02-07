@@ -1,7 +1,10 @@
 import { UserApplication, WorkerApplication } from '@api/model'
-import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
+
+import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (

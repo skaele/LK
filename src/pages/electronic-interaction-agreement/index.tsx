@@ -1,15 +1,19 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router'
 
-import { ELECTRONIC_INTERACTION_AGREEMENT_ROUTE } from '@app/routes/general-routes'
-import { electronicInteractionModel } from '@entities/electronic-interaction'
-import { thirdPartyInteractionModel } from '@entities/payments'
-import localizeDate from '@shared/lib/dates/localize-date'
-import PageBlock from '@shared/ui/page-block'
-import { Wrapper } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import { SliderPage, useModal } from 'widgets'
 import { ElectornicAgreement } from 'widgets/electonic-agreement'
+
+import { ELECTRONIC_INTERACTION_AGREEMENT_ROUTE } from '@app/routes/general-routes'
+
+import { electronicInteractionModel } from '@entities/electronic-interaction'
+import { thirdPartyInteractionModel } from '@entities/payments'
+
+import localizeDate from '@shared/lib/dates/localize-date'
+import PageBlock from '@shared/ui/page-block'
+
+import { Wrapper } from '@ui/atoms'
 
 import { Modal } from './modal'
 

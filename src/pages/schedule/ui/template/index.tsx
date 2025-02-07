@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { scheduleModel } from '@entities/schedule'
 import { View } from '@entities/schedule/consts'
+
 import { IWeekEventSchedule } from '@shared/api/model'
 import { DayCalendar, MonthCalendar, WeekCalendar } from '@shared/ui/calendar'
 

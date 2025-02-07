@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { IRoute } from '@app/routes/general-routes'
+
 import UserInfo from '@features/user-info'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 

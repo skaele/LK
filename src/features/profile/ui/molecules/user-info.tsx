@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { userModel } from '@entities/user'
+
 import { CenterPage } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
 

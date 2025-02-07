@@ -1,4 +1,5 @@
 import { TeacherDataVerification } from '@api/model'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getPersonalData = (data: TeacherDataVerification, isDone: boolean): IInputArea => {

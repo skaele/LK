@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
-import { userModel } from '@entities/user'
-import Select, { SelectPage } from '@features/select'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { SliderPage, useModal } from 'widgets'
+
 import { sites } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
 import { getCabinetMask } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
+
+import Select, { SelectPage } from '@features/select'
+
+import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import Masks from '@shared/lib/masks'
 import { Button, Divider, Input, Title } from '@shared/ui/atoms'
 import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
-import { SliderPage, useModal } from 'widgets'
 
 import { changeStaffAddress, changeStaffAddressMutation } from '../model'
 

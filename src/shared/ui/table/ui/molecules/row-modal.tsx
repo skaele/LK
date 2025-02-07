@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { IndexedProperties } from '@utility-types/indexed-properties'
+import styled from 'styled-components'
+
 import KeyValue from '@ui/atoms/key-value'
 import displayWithType from '@ui/table/lib/display-with-type'
 import { ColumnProps } from '@ui/table/types'
-import { IndexedProperties } from '@utility-types/indexed-properties'
-import styled from 'styled-components'
 
 const RowModalWrapper = styled.div`
     @media (min-width: 1001px) {

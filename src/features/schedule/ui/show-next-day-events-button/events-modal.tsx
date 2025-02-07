@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
+
 import { Sleep } from '@shared/images'
 import { DayCalendarEvent } from '@shared/ui/calendar'
 import { TimesEvents } from '@shared/ui/calendar/calendars/day/ui/times-events'

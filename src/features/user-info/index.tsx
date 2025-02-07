@@ -1,12 +1,14 @@
 import React from 'react'
 
-import { contextMenuModel } from '@entities/context-menu'
-import { userModel } from '@entities/user'
+import styled from 'styled-components'
+import { NotificationBellTutorial } from 'widgets/tutorial/tutorials/notification-bell-tutorial'
+
 import GlobalAppSearch from '@features/global-app-search'
 import Avatar from '@features/home/ui/molecules/avatar'
 import UserContextMenu from '@features/user-context-menu'
-import styled from 'styled-components'
-import { NotificationBellTutorial } from 'widgets/tutorial/tutorials/notification-bell-tutorial'
+
+import { contextMenuModel } from '@entities/context-menu'
+import { userModel } from '@entities/user'
 
 const UserInfoStyled = styled.div`
     padding: 4px;

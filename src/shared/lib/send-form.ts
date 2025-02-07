@@ -1,7 +1,10 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { IInputArea } from '@ui/input-area/model'
-import prepareFormData from '@utils/prepare-form-data'
 import { Effect, EventCallable } from 'effector'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { IInputArea } from '@ui/input-area/model'
+
+import prepareFormData from '@utils/prepare-form-data'
 
 const sendForm = async <T>(
     form: IInputArea,

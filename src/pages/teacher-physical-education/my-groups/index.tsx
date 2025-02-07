@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { FiltersSelect } from '@features/pe-students-filter'
-import Table from '@shared/ui/table'
 import { useUnit } from 'effector-react'
+
+import { FiltersSelect } from '@features/pe-students-filter'
+
+import Table from '@shared/ui/table'
 
 import { pEStudentFilterModel } from '../model'
 import { pageIndexChanged } from '../page-model'

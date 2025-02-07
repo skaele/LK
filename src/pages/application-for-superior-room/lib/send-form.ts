@@ -1,7 +1,10 @@
 import { superiorRoomApi } from '@api'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { IInputArea } from '@ui/input-area/model'
 import { IndexedProperties } from '@utility-types/indexed-properties'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { IInputArea } from '@ui/input-area/model'
+
 import prepareFormData from '@utils/prepare-form-data'
 
 const sendForm = (

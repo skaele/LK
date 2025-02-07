@@ -1,5 +1,7 @@
 import { Feedback } from '@api/model/feedback'
+
 import { SelectPage } from '@features/select'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const SELECT_OPTIONS: SelectPage[] = [

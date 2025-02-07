@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { PageLinkProps } from '@features/all-pages/ui/molecules/page-link'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import { PageLinkProps } from '@features/all-pages/ui/molecules/page-link'
 
 import RetakeLinkContent from './retake-link-content'
 

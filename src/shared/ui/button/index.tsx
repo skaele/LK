@@ -1,8 +1,10 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { Align, Direction } from '@ui/types'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { Align, Direction } from '@ui/types'
 
 import { ButtonLoading } from '../loading/button-loading'
 import { ButtonWrapper } from './styles'

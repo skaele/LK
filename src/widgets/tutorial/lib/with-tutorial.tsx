@@ -2,15 +2,17 @@ import React, { ComponentType, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 
+import { useUnit } from 'effector-react'
+import styled, { keyframes } from 'styled-components'
+
 import { tutorialModel } from '@entities/tutorial'
 import { TutorialId } from '@entities/tutorial/types'
+
 import { useIntersectionObserver } from '@shared/lib/hooks/use-intersection-observer'
 import useResize from '@shared/lib/hooks/use-resize'
 import Flex from '@shared/ui/flex'
 import { MobileSwiper } from '@shared/ui/mobile-swiper'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import styled, { keyframes } from 'styled-components'
 
 import { SkipButton } from '../ui/skip-button'
 import { usePosition } from './use-position'

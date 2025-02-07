@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { phonebookModel } from '@entities/phonebook'
+
 import { Subdivision } from '@shared/api/model/phonebook'
 import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 export const ExpandableItem = ({ item, parents }: { item: Subdivision; parents: Subdivision[] }) => {
     const history = useHistory()

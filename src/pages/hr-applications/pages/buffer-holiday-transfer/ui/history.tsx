@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi'
 
+import styled from 'styled-components'
+
 import Block from '@shared/ui/block'
 import { Button } from '@shared/ui/button'
 import Table from '@shared/ui/table'
-import styled from 'styled-components'
 
 import getExHrApplicationsColumns from '../lib/get-ex-hr-applications-columns'
 import { bufferHolidayTransferModel } from '../model'

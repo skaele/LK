@@ -1,9 +1,10 @@
 import React from 'react'
 
-import Avatar from '@features/home/ui/molecules/avatar'
 import styled from 'styled-components'
 import getStatus from 'widgets/user/lib/get-status'
 import { UserProps } from 'widgets/user/types'
+
+import Avatar from '@features/home/ui/molecules/avatar'
 
 import KeyValue from '../atoms/key-value'
 import DotSeparatedWords from '../dot-separated-words'

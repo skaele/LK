@@ -1,8 +1,9 @@
 import React from 'react'
 import { FiPlus, FiX } from 'react-icons/fi'
 
-import { Colors } from '@shared/constants'
 import styled from 'styled-components'
+
+import { Colors } from '@shared/constants'
 
 import useFilterList from './lib/hooks/use-filter-list'
 

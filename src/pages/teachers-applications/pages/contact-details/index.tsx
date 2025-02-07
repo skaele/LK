@@ -3,8 +3,11 @@ import { FiInfo } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
 import { CONTACT_DETAILS } from '@app/routes/teacher-routes'
-import { applicationsModel } from '@entities/applications'
+
 import { LinkField } from '@pages/settings/ui'
+
+import { applicationsModel } from '@entities/applications'
+
 import { Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 

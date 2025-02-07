@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { phonebookModel } from '@entities/phonebook'
-import { userModel } from '@entities/user'
 import { useUnit } from 'effector-react'
 import { UserProps } from 'widgets/user/types'
 import { TeacherModal } from 'widgets/user/ui'
+
+import { phonebookModel } from '@entities/phonebook'
+import { userModel } from '@entities/user'
 
 import { findEmployeeByFio } from '../lib/find-employee-by-fio'
 import { getEmployeeInfo } from '../lib/get-employee-info'

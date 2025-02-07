@@ -1,13 +1,15 @@
 import React from 'react'
 import { FiEyeOff, FiSearch } from 'react-icons/fi'
 
-import PerhapsYouMeant from '@features/perhaps-you-meant'
-import { Error } from '@shared/ui/error'
-import Flex from '@shared/ui/flex'
-import Search from '@shared/ui/search'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import Slider from 'widgets/slider'
+
+import PerhapsYouMeant from '@features/perhaps-you-meant'
+
+import { Error } from '@shared/ui/error'
+import Flex from '@shared/ui/flex'
+import Search from '@shared/ui/search'
 
 import useGlobalAppSearch from './hooks/use-global-app-search'
 import getDataLength from './lib/get-data-length'

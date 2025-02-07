@@ -1,7 +1,9 @@
-import { userModel } from '@entities/user'
-import { DEFAULT_API_LOAD_ERROR_MESSAGE } from '@shared/constants'
 import { createEffect, createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
+
+import { userModel } from '@entities/user'
+
+import { DEFAULT_API_LOAD_ERROR_MESSAGE } from '@shared/constants'
 
 import { Args, EffectReturnType, TemplateStore, TemplateStoreOutput } from './types'
 

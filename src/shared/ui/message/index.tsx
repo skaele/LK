@@ -1,12 +1,15 @@
 import React from 'react'
 import { FiX } from 'react-icons/fi'
 
+import { useUnit } from 'effector-react'
+
 import { userSettingsModel } from '@entities/settings'
+
 import { ThemeVariant, messageType } from '@shared/constants'
+
 import { Button } from '@ui/button'
 import SkeletonList from '@ui/skeleton-list'
 import { Align, MessageType } from '@ui/types'
-import { useUnit } from 'effector-react'
 
 import { Title } from '../title'
 import { MessageWrapper } from './styles'

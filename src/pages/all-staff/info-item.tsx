@@ -1,8 +1,9 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import styled from 'styled-components'
 
 export const InfoItem = ({
     title,

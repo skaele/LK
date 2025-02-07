@@ -1,7 +1,10 @@
 import { UserApplication } from '@api/model'
+
 import getBasicFormFields from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 import { getSiteAndAud } from '@pages/teachers-applications/lib/get-site-and-topic'
+
 import { isProduction } from '@shared/constants'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (data: UserApplication): IInputArea => {

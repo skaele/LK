@@ -1,4 +1,5 @@
 import * as z from 'zod'
+
 import { ThemeVariant } from '@shared/constants'
 
 import { UserSettingsSchema } from './constants'

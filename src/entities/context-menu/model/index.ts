@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { Coordinates } from '@ui/types'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
 import calcPosition from 'widgets/context-menu/lib/calc-position'
+
+import { Coordinates } from '@ui/types'
 
 type ClickType = 'left-click' | 'right-click' | 'both'
 

@@ -3,8 +3,10 @@ import { BiNews, BiRuble } from 'react-icons/bi'
 import { FiClock, FiFileText, FiInfo, FiMessageCircle, FiStar } from 'react-icons/fi'
 import { HiOutlineClipboardCheck } from 'react-icons/hi'
 
-import { NotificationType } from '@entities/lk-notifications'
 import { Icon } from '@features/all-pages'
+
+import { NotificationType } from '@entities/lk-notifications'
+
 import { IColors } from '@shared/constants'
 import NewVersionMessage from '@shared/ui/new-version-message'
 

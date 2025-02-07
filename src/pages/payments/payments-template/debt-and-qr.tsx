@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
 import { BiWallet } from 'react-icons/bi'
 
-import { tutorialModel } from '@entities/tutorial'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+import Slider from 'widgets/slider'
+import { DebtTutorial } from 'widgets/tutorial/tutorials/debt-tutorial'
+import { PaymentButtonTutorial } from 'widgets/tutorial/tutorials/payment-button'
+
 import { Contract } from '@features/payments'
+
+import { tutorialModel } from '@entities/tutorial'
+
 import { PaymentsContract } from '@shared/api/model'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
@@ -11,12 +20,6 @@ import Flex from '@shared/ui/flex'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
-import Slider from 'widgets/slider'
-import { DebtTutorial } from 'widgets/tutorial/tutorials/debt-tutorial'
-import { PaymentButtonTutorial } from 'widgets/tutorial/tutorials/payment-button'
 
 const DebtAndQrWrapper = styled.div`
     width: 100%;

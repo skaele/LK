@@ -1,8 +1,9 @@
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Size } from '@shared/ui/types'
 import styled from 'styled-components'
 import { FONT_SIZES, MOBILE_FONT_SIZES } from 'widgets/slider/consts'
 import { getValueFromSize } from 'widgets/slider/lib/get-value-from-size'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import { Size } from '@shared/ui/types'
 
 export const SliderItemWrapper = styled.div<{ elementsVisible: number; condition: boolean; size: Size }>`
     width: 100%;

@@ -2,10 +2,12 @@ import React from 'react'
 import { FaFilePdf } from 'react-icons/fa'
 import { FcFile, FcImageFile } from 'react-icons/fc'
 
+import styled from 'styled-components'
+
 import { ChatFile } from '@entities/chat-messages/type'
+
 import { Colors } from '@shared/constants'
 import { downloadFile } from '@shared/lib/download-file'
-import styled from 'styled-components'
 
 type FileProps = {
     file: ChatFile | File

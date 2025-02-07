@@ -1,7 +1,9 @@
+import { combine, createEffect, createEvent, createStore, sample } from 'effector'
+
 import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-points/model'
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
+
 import { peApi } from '@shared/api'
-import { combine, createEffect, createEvent, createStore, sample } from 'effector'
 
 import * as peStudentHealthGroupModel from './pe-student-health-group-model'
 import * as peStudentSpecializationModel from './pe-student-specialization-model'

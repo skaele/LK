@@ -1,8 +1,9 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import Checkbox, { CheckboxProps } from '@ui/checkbox'
 import FileInput, { FileInputProps } from '@ui/file-input'
-import styled from 'styled-components'
 
 const CheckboxDocumentWrapper = styled.div`
     display: flex;

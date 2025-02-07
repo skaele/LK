@@ -1,6 +1,8 @@
 import { UserApplication } from '@api/model'
+
 import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher-subdivisions'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const docs = [

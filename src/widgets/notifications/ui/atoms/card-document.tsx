@@ -3,16 +3,20 @@ import { useState } from 'react'
 import { FiLink } from 'react-icons/fi'
 
 import { docsNotification } from '@api/model/notification'
+import styled from 'styled-components'
+
 import { lkNotificationModel } from '@entities/lk-notifications'
 import { personalNotificationModel } from '@entities/notification'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import Subtext from '@shared/ui/subtext'
+
 import { LinkButton, SubmitButton } from '@ui/atoms'
+
 import getRightGenderWord from '@utils/get-right-gender-word'
-import styled from 'styled-components'
 
 import { CardTitle, Info } from './styled'
 

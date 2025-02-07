@@ -2,14 +2,17 @@ import React, { useEffect } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+import LkNotificationList from 'widgets/lk-notification-list'
+
 import { SETTINGS_NOTIFICATIONS } from '@app/routes/general-routes'
+
 import { confirmModel } from '@entities/confirm'
 import { lkNotificationModel } from '@entities/lk-notifications'
 import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { Button, CenterPage, Loading } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import LkNotificationList from 'widgets/lk-notification-list'
 
 const LkNotificationsPage = () => {
     const { notifications, clearAllError, clearAllLoading } = lkNotificationModel.selectors.useLkNotifications()

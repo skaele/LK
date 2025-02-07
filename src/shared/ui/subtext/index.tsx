@@ -1,5 +1,6 @@
-import { Align } from '@ui/types'
 import styled from 'styled-components'
+
+import { Align } from '@ui/types'
 
 const Subtext = styled.span<{
     width?: string

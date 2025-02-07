@@ -1,12 +1,15 @@
 import React from 'react'
 
-import { userSettingsModel } from '@entities/settings'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
+
+import { userSettingsModel } from '@entities/settings'
+
 import { ThemeVariant } from '@shared/constants'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 import { DayCalendarEvent } from '../../types'
 

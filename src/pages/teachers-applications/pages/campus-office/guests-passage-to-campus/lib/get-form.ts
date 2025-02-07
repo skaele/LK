@@ -1,5 +1,7 @@
 import { UserApplication } from '@api/model'
+
 import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (data: UserApplication): IInputArea => {

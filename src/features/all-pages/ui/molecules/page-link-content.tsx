@@ -2,15 +2,20 @@ import React from 'react'
 import { FiArrowLeftCircle, FiPlus, FiX } from 'react-icons/fi'
 import { HiOutlineExternalLink, HiOutlineFolder } from 'react-icons/hi'
 
-import { userSettingsModel } from '@entities/settings'
-import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
-import LinkMoreButton from '@features/link-more-button'
-import { Colors, IColors } from '@shared/constants'
-import BlockWrapper from '@ui/block/styles'
-import { Button } from '@ui/button'
-import getCorrectWordForm from '@utils/get-correct-word-form'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+
+import { addPageToHome, deletePageFromHome } from '@features/all-pages/model'
+import LinkMoreButton from '@features/link-more-button'
+
+import { userSettingsModel } from '@entities/settings'
+
+import { Colors, IColors } from '@shared/constants'
+
+import BlockWrapper from '@ui/block/styles'
+import { Button } from '@ui/button'
+
+import getCorrectWordForm from '@utils/get-correct-word-form'
 
 import Icon from '../atoms/icon'
 import { PageLinkProps } from './page-link'

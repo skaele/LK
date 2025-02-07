@@ -1,16 +1,19 @@
 import React from 'react'
 import { FiCheck, FiDownload } from 'react-icons/fi'
 
+import styled from 'styled-components'
+import { useModal } from 'widgets'
+
 import { electronicInteractionModel } from '@entities/electronic-interaction'
+
 import { ElectronicInteractionTemplate } from '@shared/api/model'
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
+
 import { Button, Divider, LinkButton, SubmitButton } from '@ui/atoms'
 import { Message } from '@ui/message'
-import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import { MistakeModal } from './atoms'
 

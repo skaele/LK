@@ -1,5 +1,6 @@
-import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 import { Sex } from '@utility-types/sex'
+
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 
 export type UserStatus = 'stud' | 'staff'
 

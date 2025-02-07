@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react'
 import { FcFile } from 'react-icons/fc'
 
+import styled from 'styled-components'
+
 import { Colors } from '@shared/constants'
 import FileWrapper from '@shared/ui/file-input/ui/list-of-files/ui/file/style'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import styled from 'styled-components'
 
 export const Docs = ({ children, title }: { children: ReactNode; title?: string }) => {
     return (

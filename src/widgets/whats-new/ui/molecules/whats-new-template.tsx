@@ -1,9 +1,11 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Subtext from '@shared/ui/subtext'
+
 import { Title } from '@ui/atoms'
-import styled from 'styled-components'
 
 import { Plate } from '../atoms'
 import { WhatsNewPlate } from '../atoms/plate'

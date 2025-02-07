@@ -1,16 +1,18 @@
 import React from 'react'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { allowancesModel } from '@entities/allowances'
 import { approvalStatus, orderStatus } from '@entities/allowances/consts'
 import { getStatusType } from '@entities/allowances/lib/get-status'
 import { AllowanceEmployee, Role } from '@entities/allowances/types'
+
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button, Message } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 export const Employee = ({
     employee,

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 
+import styled from 'styled-components'
+
+import { SelectPage } from '@features/select'
+
 import { superiorRoomModel } from '@entities/superior-room'
 import { userModel } from '@entities/user'
-import { SelectPage } from '@features/select'
+
 import { isProduction } from '@shared/constants'
+
 import { Error, FormBlock, Message, SubmitButton, Wrapper } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea, IInputAreaData } from '@ui/input-area/model'
+
 import checkFormFields from '@utils/check-form-fields'
-import styled from 'styled-components'
 
 import getForm from './lib/get-form'
 import { getStatusFormSuperiorRoom } from './lib/get-status'

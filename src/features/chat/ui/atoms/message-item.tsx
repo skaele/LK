@@ -1,14 +1,17 @@
 import React from 'react'
 
-import { contextMenuModel } from '@entities/context-menu'
-import { userModel } from '@entities/user'
-import { RawChatMessage } from '@features/chat/type'
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import Flex from '@shared/ui/flex'
 import { useUnit } from 'effector-react'
 import sanitize from 'sanitize-html'
 import styled from 'styled-components'
+
+import { RawChatMessage } from '@features/chat/type'
+
+import { contextMenuModel } from '@entities/context-menu'
+import { userModel } from '@entities/user'
+
+import { Colors } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import Flex from '@shared/ui/flex'
 
 import Subtext from '../../../../shared/ui/subtext'
 import { getTimeFromDate } from '../../lib/get-time-from-date'

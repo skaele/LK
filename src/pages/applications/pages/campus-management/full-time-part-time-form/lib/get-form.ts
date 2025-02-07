@@ -1,5 +1,7 @@
 import { UserApplication } from '@api/model'
+
 import listHostelsOptions from '@features/applications/lib/get-list-hostels'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const reasonItems = [

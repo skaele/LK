@@ -1,8 +1,11 @@
 import { $api, $authApi } from '@api/config'
-import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
-import { LocationSettingsType } from '@pages/settings/types'
-import getToken from '@shared/lib/token'
 import axios from 'axios'
+
+import { LocationSettingsType } from '@pages/settings/types'
+
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
+
+import getToken from '@shared/lib/token'
 
 import { ADName, User, UserToken } from './model'
 

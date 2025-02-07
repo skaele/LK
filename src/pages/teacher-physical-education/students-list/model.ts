@@ -1,5 +1,6 @@
-import { pEStudentModel } from '@entities/pe-student/model'
 import { createEvent, sample } from 'effector'
+
+import { pEStudentModel } from '@entities/pe-student/model'
 
 export const pageLoaded = createEvent()
 

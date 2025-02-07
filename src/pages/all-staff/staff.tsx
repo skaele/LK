@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react'
 
-import { phonebookModel } from '@entities/phonebook'
-import useQueryParams from '@shared/lib/hooks/use-query-params'
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
+
+import { phonebookModel } from '@entities/phonebook'
+
+import useQueryParams from '@shared/lib/hooks/use-query-params'
 
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
 import { getEmployeeInfo } from './lib/get-employee-info'

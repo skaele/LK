@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { TAX_CERTIFICATES_ROUTE } from '@app/routes/routes'
+
+import Select, { SelectPage } from '@features/select'
+
 import { confirmModel } from '@entities/confirm'
 import { taxCertificateModel } from '@entities/payments'
-import Select, { SelectPage } from '@features/select'
+
 import { Wrapper } from '@shared/ui/atoms'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import Table from '@shared/ui/table'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 const currentYear = new Date().getFullYear()
 

@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
+import Select, { SelectPage } from '@features/select'
+
 import { userModel } from '@entities/user'
 import { vacationScheduleModel } from '@entities/vacation-schedule'
-import Select, { SelectPage } from '@features/select'
+
 import PageBlock from '@shared/ui/page-block'
+
 import { Button, CenterPage, Divider, LinkButton, Title, Wrapper } from '@ui/atoms'
 import Card from '@ui/card'
 import List from '@ui/list'

@@ -2,11 +2,14 @@ import React from 'react'
 import { FiMessageCircle } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import { CHAT_ROUTE } from '@app/routes/general-routes'
-import { chatsModel } from '@entities/chats'
-import { Button } from '@shared/ui/atoms'
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
+
+import { CHAT_ROUTE } from '@app/routes/general-routes'
+
+import { chatsModel } from '@entities/chats'
+
+import { Button } from '@shared/ui/atoms'
 
 import { SendFirstMessageProps } from './type'
 import { SendMessageModal } from './ui/send-first-message-modal'

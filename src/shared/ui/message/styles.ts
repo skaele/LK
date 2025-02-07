@@ -1,6 +1,8 @@
-import { Colors, messageType } from '@shared/constants'
-import { Align, MessageType } from '@ui/types'
 import styled from 'styled-components'
+
+import { Colors, messageType } from '@shared/constants'
+
+import { Align, MessageType } from '@ui/types'
 
 // const getBackground = (isLightTheme: boolean, type: MessageType, solidBackground: boolean) =>
 //     isLightTheme

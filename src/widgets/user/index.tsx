@@ -1,13 +1,18 @@
 import React from 'react'
 
-import { contextMenuModel } from '@entities/context-menu'
-import Avatar from '@features/home/ui/molecules/avatar'
-import { StaffModal } from '@pages/all-staff/ui/staff-modal'
-import { Colors } from '@shared/constants'
-import DotSeparatedWords from '@shared/ui/dot-separated-words'
-import { Direction, Size } from '@ui/types'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import { StaffModal } from '@pages/all-staff/ui/staff-modal'
+
+import Avatar from '@features/home/ui/molecules/avatar'
+
+import { contextMenuModel } from '@entities/context-menu'
+
+import { Colors } from '@shared/constants'
+import DotSeparatedWords from '@shared/ui/dot-separated-words'
+
+import { Direction, Size } from '@ui/types'
 
 import getFontSize from './lib/get-font-size'
 import getImageSize from './lib/get-image-size'

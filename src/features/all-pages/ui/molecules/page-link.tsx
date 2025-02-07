@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { IRoute } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { IRoute } from '@app/routes/general-routes'
+
+import { menuModel } from '@entities/menu'
+
+import { Direction } from '@ui/types'
 
 import PageLinkContent from './page-link-content'
 

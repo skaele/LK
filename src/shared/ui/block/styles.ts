@@ -1,6 +1,8 @@
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Direction } from '@ui/types'
 import styled from 'styled-components'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+
+import { Direction } from '@ui/types'
 
 export interface StyledProps {
     width?: string

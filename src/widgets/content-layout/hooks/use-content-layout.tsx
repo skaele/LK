@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 
-import useLkNotifications from '@entities/lk-notifications/hooks/use-lk-notifications'
-import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
-import useIsShowWhatsNew from '@shared/lib/hooks/use-is-whats-new'
 import { WhatsNew } from 'widgets'
 import useModal from 'widgets/modal'
+
+import useLkNotifications from '@entities/lk-notifications/hooks/use-lk-notifications'
+
+import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
+import useIsShowWhatsNew from '@shared/lib/hooks/use-is-whats-new'
 
 const useContentLayout = () => {
     const currentPage = useCurrentExactPage()

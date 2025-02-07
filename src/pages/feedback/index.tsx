@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ContentPage } from '@features/feedback/ui'
+
 import { Wrapper } from '@ui/atoms'
 
 const FeedbackPage = () => {

@@ -1,20 +1,28 @@
 import React, { useMemo, useState } from 'react'
 
+import { useUnit } from 'effector-react'
+import { User } from 'widgets'
+import NotificationList from 'widgets/lk-notification-list/ui/list'
+
 import { IRoutes } from '@app/routes/general-routes'
-import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
-import { menuModel } from '@entities/menu'
-import { phonebookModel } from '@entities/phonebook'
-import { userModel } from '@entities/user'
-import { FoundPages } from '@features/all-pages'
-import searchFunc from '@features/all-pages/lib/search'
-import DivisionsList from '@features/divisions-list'
-import GroupsList from '@features/groups-list'
+
 import { findEmployee } from '@pages/all-staff/lib/find-employee'
 import pages from '@pages/helpful-information/config/pages-config'
 import search from '@pages/helpful-information/lib/search'
 import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
 import BlocksList from '@pages/helpful-information/ui/molecules/blocks-list'
 import { safetyPages } from '@pages/safety-information'
+
+import { FoundPages } from '@features/all-pages'
+import searchFunc from '@features/all-pages/lib/search'
+import DivisionsList from '@features/divisions-list'
+import GroupsList from '@features/groups-list'
+
+import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
+import { menuModel } from '@entities/menu'
+import { phonebookModel } from '@entities/phonebook'
+import { userModel } from '@entities/user'
+
 import { studentApi, teacherApi } from '@shared/api'
 import { TStudent, TTeacher } from '@shared/api/model'
 import { Employee } from '@shared/api/model/phonebook'
@@ -23,9 +31,6 @@ import normalizeString from '@shared/lib/normalize-string'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import { useUnit } from 'effector-react'
-import { User } from 'widgets'
-import NotificationList from 'widgets/lk-notification-list/ui/list'
 
 import getDataLength from '../lib/get-data-length'
 

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 
+import { useModal } from 'widgets'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 import { Title } from '@shared/ui/title'
-import { useModal } from 'widgets'
 
 import { Code } from './steps/code'
 import { Email } from './steps/email'

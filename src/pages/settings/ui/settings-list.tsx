@@ -1,12 +1,15 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router'
 
-import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
-import { menuModel } from '@entities/menu'
-import { MEDIA_QUERIES } from '@shared/constants'
 import styled from 'styled-components'
 import { TutorialComponent, withTutorial } from 'widgets/tutorial/lib/with-tutorial'
 import { PageLinkTutorial } from 'widgets/tutorial/tutorials/page-link-tutorial'
+
+import { TEMPLATE_SETTINGS_ROUTE } from '@app/routes/general-routes'
+
+import { menuModel } from '@entities/menu'
+
+import { MEDIA_QUERIES } from '@shared/constants'
 
 import { SETTINGS_PAGES } from '../contants'
 

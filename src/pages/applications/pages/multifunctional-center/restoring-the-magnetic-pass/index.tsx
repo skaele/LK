@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-import { applicationsModel } from '@entities/applications'
+import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import { applicationsModel } from '@entities/applications'
+
 import { FormBlock, SubmitButton } from '@ui/atoms'
 import InputArea from '@ui/input-area'
 import { IInputArea } from '@ui/input-area/model'
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+
 import checkFormFields from '@utils/check-form-fields'
 
 import getForm from './lib/get-form'

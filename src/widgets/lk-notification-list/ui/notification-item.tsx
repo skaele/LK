@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+import styled from 'styled-components'
+import { useModal } from 'widgets/modal/lib'
+
 import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
+
 import localizeDate from '@shared/lib/dates/localize-date'
 import getShortString from '@shared/lib/get-short-string'
 import AutoAccordion from '@shared/ui/auto-accordion'
@@ -11,8 +15,6 @@ import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 import { ExtSize, Size } from '@shared/ui/types'
-import styled from 'styled-components'
-import { useModal } from 'widgets/modal/lib'
 
 import { iconObject } from './notification-icon'
 

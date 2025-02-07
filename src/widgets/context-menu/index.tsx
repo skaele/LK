@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 import styled from 'styled-components'
 import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
 
 import { contextMenuModel } from '../../entities/context-menu'
 

@@ -1,8 +1,12 @@
 import { UserApplication } from '@api/model'
-import { NumberOfCopiesOptions } from '@entities/applications/consts'
+
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+
 import getAddressFields from '@features/applications/lib/get-address-fields'
 import { getStudentMethodObtainingFields } from '@features/applications/lib/get-student-method-obtaining-fields'
-import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
+
+import { NumberOfCopiesOptions } from '@entities/applications/consts'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const SocialPlaceOfReferenceOptions = [

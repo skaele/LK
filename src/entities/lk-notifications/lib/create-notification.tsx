@@ -7,6 +7,7 @@ import {
 } from '@app/routes/general-routes'
 import { APPLICATIONS_ROUTE } from '@app/routes/routes'
 import { DOCLIST_ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
+
 import { allowancesModel } from '@entities/allowances'
 import { NotificationLinks } from '@entities/allowances/consts'
 import { AllowanceNotification } from '@entities/allowances/types'

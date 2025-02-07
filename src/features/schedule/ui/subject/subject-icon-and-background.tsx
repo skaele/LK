@@ -1,12 +1,15 @@
 import React from 'react'
 
-import { userSettingsModel } from '@entities/settings'
-import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
-import { Icon } from '@features/all-pages'
-import { IColorPalette, ThemeVariant } from '@shared/constants'
-import EventBackground from '@shared/ui/calendar/calendars/day/ui/event-background'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+
+import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
+import { Icon } from '@features/all-pages'
+
+import { userSettingsModel } from '@entities/settings'
+
+import { IColorPalette, ThemeVariant } from '@shared/constants'
+import EventBackground from '@shared/ui/calendar/calendars/day/ui/event-background'
 
 type Props = {
     subjectName: string

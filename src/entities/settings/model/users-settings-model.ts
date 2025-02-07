@@ -1,8 +1,10 @@
+import { attach, createEffect, createEvent, createStore, sample } from 'effector'
+
 import { userModel } from '@entities/user'
+
 import { setServerSettings } from '@shared/api/settings'
 import { ThemeVariant } from '@shared/constants'
 import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
-import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 
 import { getDefaultNewSettings } from '../lib/get-default-settings'
 import { getSettingsKey } from '../lib/get-settings-key'

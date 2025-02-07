@@ -1,22 +1,25 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router'
 
+import { useModal } from 'widgets'
+
 import {
     SCHEDULE_FILTER_ROUTE,
     SCHEDULE_RETAKE_ROUTE,
     SCHEDULE_SEMESTR_ROUTE,
     SCHEDULE_SESSION_ROUTE,
 } from '@app/routes/general-routes'
+
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { scheduleModel } from '@entities/schedule'
 import { View } from '@entities/schedule/consts'
 import { userModel } from '@entities/user'
+
 import { TIME_IN_MS } from '@shared/constants'
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
 import { Hint } from '@shared/ui/search'
-import { useModal } from 'widgets'
 
 import { SideMenuContent } from '../ui/side-menu/side-menu-content'
 

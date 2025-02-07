@@ -1,4 +1,5 @@
 import { SelectPage } from '@features/select'
+
 import prepareFormData from '@shared/lib/prepare-form-data'
 import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
 import { IndexedProperties } from '@shared/models/indexed-properties'

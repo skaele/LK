@@ -1,6 +1,8 @@
-import { SelectPage } from '@features/select'
-import { Align } from '@ui/types'
 import { IndexedProperties } from '@utility-types/indexed-properties'
+
+import { SelectPage } from '@features/select'
+
+import { Align } from '@ui/types'
 
 export type SortType = 'desc' | 'asc' | null
 

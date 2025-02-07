@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FiInfo, FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
 
-import { childrensModel } from '@entities/children'
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import { childrensModel } from '@entities/children'
+
 import { Colors } from '@shared/constants'
 import { isNumber } from '@shared/lib/is-number'
 import { Button, Input, Loading, Message, Title } from '@shared/ui/atoms'
@@ -10,8 +15,6 @@ import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Checkbox from '@shared/ui/checkbox'
 import Flex from '@shared/ui/flex'
 import SubmitButton from '@shared/ui/submit-button'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 const Children = () => {
     const [pageMounted, loading, childrens, addChildren, saveChildrens, saving, isActive, confirmed, confirm] = useUnit(

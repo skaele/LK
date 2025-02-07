@@ -1,14 +1,16 @@
+import { createMutation } from '@farfetched/core'
+import axios from 'axios'
+import { createEvent, sample } from 'effector'
+
 import { applicationsModel } from '@entities/applications'
 import { ApplicationCreating } from '@entities/applications/model'
 import { popUpMessageModel } from '@entities/pop-up-message'
-import { createMutation } from '@farfetched/core'
+
 import { post } from '@shared/api/application-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
 import { createSelectField } from '@shared/effector/form/create-select-field'
-import axios from 'axios'
-import { createEvent, sample } from 'effector'
 
 const pageMounted = createEvent()
 const sendForm = createEvent<ApplicationCreating>()

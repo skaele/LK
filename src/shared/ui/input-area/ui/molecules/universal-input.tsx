@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 import Select, { SelectPage } from '@features/select'
+
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
 import AutocompleteInput from '@shared/ui/atoms/auto-complete-input'
 import HrCheckbox from '@shared/ui/atoms/hr-checkbox'
 import TextHeader from '@shared/ui/molecules/text-header'
 import TextWarning from '@shared/ui/molecules/text-warning'
+
 import { Input, TextArea } from '@ui/atoms'
 import Checkbox from '@ui/checkbox'
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData, IInputAreaFiles } from '@ui/input-area/model'

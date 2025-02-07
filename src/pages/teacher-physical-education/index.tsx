@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 
+import { useUnit } from 'effector-react'
+import Slider from 'widgets/slider'
+
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
+
 import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
-import { useUnit } from 'effector-react'
-import Slider from 'widgets/slider'
 
 import { AdminPanel } from './admin-panel'
 import { MyGroups } from './my-groups'

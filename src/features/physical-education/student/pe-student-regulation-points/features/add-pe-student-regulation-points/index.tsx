@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 
+import { useUnit } from 'effector-react'
+
+import Select, { SelectPage } from '@features/select'
+
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
 import { AddStudentRegulationPoints, RegulationType } from '@entities/pe-student-regulation-points/types'
 import { selectedPEStudentModel } from '@entities/pe-student/model'
-import Select, { SelectPage } from '@features/select'
+
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Input from '@shared/ui/input'
-import { useUnit } from 'effector-react'
 
 import { SelectorData } from '../../constants'
 import { Wrapper } from './styled'

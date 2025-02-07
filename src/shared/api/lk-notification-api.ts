@@ -1,4 +1,5 @@
 import { NotificationType } from '@entities/lk-notifications'
+
 import getToken from '@shared/lib/token'
 
 import { $api } from './config'

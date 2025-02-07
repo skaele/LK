@@ -1,4 +1,5 @@
 import { ContactInfoActualization } from '@api/model'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (data: ContactInfoActualization): IInputArea => {

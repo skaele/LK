@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { FiArrowLeftCircle } from 'react-icons/fi'
 
 import { OLD_LK_URL } from '@shared/constants'
+
 import { Button, Error } from '@ui/atoms'
 
 interface Props {

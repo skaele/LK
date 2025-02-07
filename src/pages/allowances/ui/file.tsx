@@ -4,6 +4,7 @@ import { FcFile, FcLandscape } from 'react-icons/fc'
 import { AttachedFile } from '@entities/allowances/types'
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { getJwtToken } from '@entities/user/lib/jwt-token'
+
 import { ALLOWANCES_URL } from '@shared/api/config/allowances-config'
 import getFileSize from '@shared/lib/get-file-size'
 import FileWrapper from '@shared/ui/file-input/ui/list-of-files/ui/file/style'

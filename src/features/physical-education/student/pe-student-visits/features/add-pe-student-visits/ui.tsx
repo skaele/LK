@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+import { isWithinInterval, subWeeks } from 'date-fns'
+import { useUnit } from 'effector-react'
+
 import { pEStudentVisitModel } from '@entities/pe-student/model'
 import { peTeacherModel } from '@entities/pe-teacher'
 import { PeTeacherPermission } from '@entities/pe-teacher/types'
+
 import { Colors } from '@shared/constants'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
 import Input from '@shared/ui/input'
-import { isWithinInterval, subWeeks } from 'date-fns'
-import { useUnit } from 'effector-react'
 
 interface Props {
     studentGuid: string

@@ -1,8 +1,11 @@
 import React from 'react'
 
-import { userModel } from '@entities/user'
 import useLogin from '@pages/login/hooks/use-login'
+
+import { userModel } from '@entities/user'
+
 import Flex from '@shared/ui/flex'
+
 import { Input, Logo, SubmitButton } from '@ui/atoms'
 import Checkbox from '@ui/checkbox'
 import List from '@ui/list'

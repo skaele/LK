@@ -1,5 +1,6 @@
 import { $api } from '@api/config'
 import { ContactInfoActualization } from '@api/model'
+
 import token from '@utils/token'
 
 export const get = () => {

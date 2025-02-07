@@ -1,8 +1,9 @@
 import React from 'react'
 
-import AddedElementsList from '@ui/added-elements-list'
 import styled from 'styled-components'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import AddedElementsList from '@ui/added-elements-list'
 
 import useFilter from './lib/hooks/use-filter'
 import { TableProps } from './types'

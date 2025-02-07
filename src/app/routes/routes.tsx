@@ -12,6 +12,7 @@ import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctio
 import MedicalCertificate from '@pages/medical-certificate'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
+
 import { User } from '@shared/api/model'
 import { isProduction } from '@shared/constants'
 

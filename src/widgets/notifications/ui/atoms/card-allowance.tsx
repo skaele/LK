@@ -1,9 +1,14 @@
 import React from 'react'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
+import { Info } from '@pages/profile/ui/top/styles'
+
 import { allowancesModel } from '@entities/allowances'
 import { approvalStatus, orderStatus } from '@entities/allowances/consts'
 import { userSettingsModel } from '@entities/settings'
-import { Info } from '@pages/profile/ui/top/styles'
+
 import { PersonalAllowance } from '@shared/api/model/notification'
 import { Colors, ThemeVariant } from '@shared/constants'
 import { isValidDate } from '@shared/lib/dates/is-valid-date'
@@ -11,8 +16,6 @@ import localizeDate from '@shared/lib/dates/localize-date'
 import { timeDiff } from '@shared/lib/dates/time-diff'
 import { Button, Title } from '@shared/ui/atoms'
 import Subtext from '@shared/ui/subtext'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 export const CardAllowance = ({ allowance }: { allowance: PersonalAllowance }) => {
     const changeStatus = useUnit(allowancesModel.events.allowanceStatusChanged)

@@ -3,8 +3,12 @@ import { AutoSizer } from 'react-virtualized/dist/es/AutoSizer'
 import { InfiniteLoader } from 'react-virtualized/dist/es/InfiniteLoader'
 import { List, ListRowProps } from 'react-virtualized/dist/es/List'
 
+import { useUnit } from 'effector-react'
+import styled from 'styled-components'
+
 import { scienceModel } from '@entities/science'
 import { TABLE_SIZE } from '@entities/science/model/consts'
+
 import { IndexedProperties } from '@shared/models/indexed-properties'
 import Accordion from '@shared/ui/accordion/accordion'
 import { Button, Error } from '@shared/ui/atoms'
@@ -14,8 +18,6 @@ import Input from '@shared/ui/input'
 import Subtext from '@shared/ui/subtext'
 import { ColumnProps } from '@shared/ui/table/types'
 import { Row } from '@shared/ui/table/ui'
-import { useUnit } from 'effector-react'
-import styled from 'styled-components'
 
 import { Header } from './ui/header'
 

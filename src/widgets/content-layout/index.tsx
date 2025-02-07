@@ -1,10 +1,5 @@
 import React, { Suspense, useRef, useState } from 'react'
 
-import PrivateRouter from '@app/routers/private-router'
-import { menuModel } from '@entities/menu'
-import { userModel } from '@entities/user'
-import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
-import ErrorBoundary from '@shared/ui/error-boundary'
 import { Confirm, HintModal, MobileBottomMenu, PopUpMessage } from 'widgets'
 import ContextMenu from 'widgets/context-menu'
 import Header from 'widgets/header'
@@ -12,6 +7,14 @@ import { Modal } from 'widgets/modal'
 import PopUpNotifications from 'widgets/pop-up-notifications'
 import { TutorialHero } from 'widgets/tutorial'
 import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
+
+import PrivateRouter from '@app/routers/private-router'
+
+import { menuModel } from '@entities/menu'
+import { userModel } from '@entities/user'
+
+import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
+import ErrorBoundary from '@shared/ui/error-boundary'
 
 import InitialLoader from '../../shared/ui/initial-loader'
 import Story from '../../shared/ui/story'

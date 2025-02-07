@@ -3,6 +3,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import { Button, Input } from '@ui/atoms'
 import { Align } from '@ui/types'
+
 import limitNumber from '@utils/limit-number'
 
 import Flex from '../flex'

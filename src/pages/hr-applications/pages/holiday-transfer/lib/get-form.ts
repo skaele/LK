@@ -1,5 +1,7 @@
 import { UserApplication, WorkerApplication } from '@api/model'
+
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const getForm = (

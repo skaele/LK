@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 
-import { technicalMaintenanceModel } from '@entities/technical-maintenance'
-import Select, { SelectPage } from '@features/select'
+import { useUnit } from 'effector-react'
+
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import Select, { SelectPage } from '@features/select'
+
+import { technicalMaintenanceModel } from '@entities/technical-maintenance'
+
 import { Input, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import FileInput from '@shared/ui/file-input'
-import { useUnit } from 'effector-react'
 
 const TechnicalMaintenance = () => {
     const [pageMounted, done, applicationNumber] = useUnit([

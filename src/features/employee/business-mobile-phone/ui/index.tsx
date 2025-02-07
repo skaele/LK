@@ -1,10 +1,12 @@
 import React from 'react'
 import { FiPhone } from 'react-icons/fi'
 
-import { userModel } from '@entities/user'
-import TextFieldItem from '@shared/ui/text-field/text-field-item'
 import { useUnit } from 'effector-react'
 import { useModal } from 'widgets'
+
+import { userModel } from '@entities/user'
+
+import TextFieldItem from '@shared/ui/text-field/text-field-item'
 
 import { BusinessMobilePhoneModal } from './business-mobile-phone-modal'
 

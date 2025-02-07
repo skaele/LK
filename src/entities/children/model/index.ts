@@ -1,9 +1,11 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { createMutation, createQuery } from '@farfetched/core'
+import { createEvent, createStore, sample } from 'effector'
+
+import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { deleteChildren, getChildrens, saveChildrens } from '@shared/api/childrens-api'
 import { createCheckboxField } from '@shared/effector/form/create-checkbox-field'
 import { isNumber } from '@shared/lib/is-number'
-import { createEvent, createStore, sample } from 'effector'
 
 import { Children } from '../types'
 

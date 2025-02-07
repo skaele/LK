@@ -2,13 +2,18 @@ import React from 'react'
 import { FiClock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
-import { SendMessage } from '@features/send-first-message'
-import getLettersColors from '@shared/lib/get-letters-colors'
-import { Button } from '@ui/button'
 import useModal from 'widgets/modal'
 import { UserProps } from 'widgets/user/types'
+
+import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
+
+import { SendMessage } from '@features/send-first-message'
+
+import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+
+import getLettersColors from '@shared/lib/get-letters-colors'
+
+import { Button } from '@ui/button'
 
 import handleChangeAccount from '../../lib/handle-change-account'
 import { UserModal } from '../atoms'

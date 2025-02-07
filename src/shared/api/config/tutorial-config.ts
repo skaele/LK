@@ -1,5 +1,6 @@
-import { runsLocally } from '@shared/constants'
 import axios from 'axios'
+
+import { runsLocally } from '@shared/constants'
 
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 

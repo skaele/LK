@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { useUnit } from 'effector-react'
+
 import { peExamStudentModel } from '@pages/teacher-physical-education/students-exam/pe-exam-student-model'
+
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-import { useUnit } from 'effector-react'
 
 import { peStudentEndSemesterModel } from '../student/pe-student-end-semester'
 import { Status } from '../student/pe-student-end-semester/model'

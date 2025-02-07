@@ -1,4 +1,5 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
+
 import { FileFormats, MAX_FILE_SIZE } from '@shared/constants'
 import { DEFAULT_FILE_FORMATS } from '@shared/ui/file-input/consts'
 

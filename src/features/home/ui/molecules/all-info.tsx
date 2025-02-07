@@ -1,10 +1,12 @@
 import React, { memo } from 'react'
 
 import { User } from '@api/model'
+import styled from 'styled-components'
+
 import KeyValue from '@ui/atoms/key-value'
 import { Divider } from '@ui/divider'
+
 import transformSex from '@utils/transform-sex'
-import styled from 'styled-components'
 
 export default memo(AllInfo)
 

@@ -1,4 +1,5 @@
 import { IRoute } from '@app/routes/general-routes'
+
 import { ExtSize } from '@shared/ui/types'
 
 const sizes: Record<ExtSize, string> = {

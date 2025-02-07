@@ -1,5 +1,6 @@
-import { isProduction } from '@shared/constants'
 import axios from 'axios'
+
+import { isProduction } from '@shared/constants'
 
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 

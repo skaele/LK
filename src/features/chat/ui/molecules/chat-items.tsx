@@ -1,11 +1,14 @@
 import React from 'react'
 
-import { chatsModel } from '@entities/chats'
-import { chatSidebarModel } from '@features/chat/model'
-import { Title } from '@ui/atoms'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { chatSidebarModel } from '@features/chat/model'
+
+import { chatsModel } from '@entities/chats'
+
+import { Title } from '@ui/atoms'
 
 import { ChatItem, SkeletonLoading } from '../atoms'
 

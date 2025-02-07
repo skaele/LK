@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { useUnit } from 'effector-react'
+
 import { userSettingsModel } from '@entities/settings'
+
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
-import { useUnit } from 'effector-react'
 
 import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'

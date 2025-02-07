@@ -1,5 +1,6 @@
-import { HelpfulInfoEnum, helpfulInfoName } from '@entities/useful-information'
 import instructionsTeacherData from '@pages/instructions/data/teacher-data'
+
+import { HelpfulInfoEnum, helpfulInfoName } from '@entities/useful-information'
 
 import { HelpfulPages, Link } from '../types/helpful-pages'
 

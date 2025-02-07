@@ -1,4 +1,5 @@
 import { Chat } from '@entities/chats'
+
 import normalizeString from '@utils/normalize-string'
 
 type SearchChatsParams = {

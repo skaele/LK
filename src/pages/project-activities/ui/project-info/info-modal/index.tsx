@@ -1,9 +1,10 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import { Project } from '@shared/api/model/project-activites'
 import getShortStirng from '@shared/lib/get-short-string'
 import isValidURL from '@shared/lib/is-valid-url'
-import styled from 'styled-components'
 
 const ModalStyled = styled.div`
     max-width: 400px;

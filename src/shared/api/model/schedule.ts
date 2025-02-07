@@ -1,4 +1,5 @@
 import { View } from '@entities/schedule/consts'
+
 import { type DayCalendarEvent } from '@shared/ui/calendar'
 
 import { Colors, IColorPalette, IWeekDayNames } from '../../constants'

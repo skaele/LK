@@ -1,4 +1,5 @@
 import { Chat } from '@entities/chats'
+
 import { User } from '@shared/api/model'
 import localizeDate from '@shared/lib/dates/localize-date'
 

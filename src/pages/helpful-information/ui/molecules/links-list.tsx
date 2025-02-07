@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import search from '@pages/helpful-information/lib/search'
 import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
+
 import { Error } from '@ui/error'
 import List from '@ui/list'
 import { LocalSearch } from '@ui/molecules'

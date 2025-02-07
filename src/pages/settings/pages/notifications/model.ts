@@ -1,5 +1,6 @@
-import { userSettingsModel } from '@entities/settings'
 import { createEvent, sample } from 'effector'
+
+import { userSettingsModel } from '@entities/settings'
 
 export const turnOnAllNotifications = createEvent()
 export const turnOffAllNotifications = createEvent()

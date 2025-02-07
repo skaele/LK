@@ -1,5 +1,6 @@
 import { $api } from '@api/config'
 import { UserApplication } from '@api/model'
+
 import token from '@utils/token'
 
 export const get = () => {

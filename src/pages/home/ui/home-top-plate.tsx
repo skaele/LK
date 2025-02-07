@@ -1,9 +1,11 @@
 import React from 'react'
 
+import styled from 'styled-components'
+
 import { userModel } from '@entities/user'
+
 import { Colors } from '@shared/constants'
 import getLettersColors from '@shared/lib/get-letters-colors'
-import styled from 'styled-components'
 
 const HomeTopPlateStyled = styled.div<{ dark: string; main: string; light: string }>`
     width: 100%;

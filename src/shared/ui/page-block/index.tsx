@@ -1,8 +1,9 @@
 import React, { ForwardedRef, forwardRef } from 'react'
 
+import styled from 'styled-components'
+
 import { MEDIA_QUERIES } from '@shared/constants'
 import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
-import styled from 'styled-components'
 
 import { CenterPage } from '../atoms'
 import BlockWrapper from '../block/styles'

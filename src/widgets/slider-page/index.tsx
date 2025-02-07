@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import { tutorialModel } from '@entities/tutorial'
-import { Error } from '@ui/atoms'
-import convertHorizontalAlign from '@ui/list/lib/convert-horizontal-align'
-import { Align } from '@ui/types'
-import useResize from '@utils/hooks/use-resize'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 import { SliderTutorial } from 'widgets/tutorial/tutorials/slider-tutorial'
+
+import { tutorialModel } from '@entities/tutorial'
+
+import { Error } from '@ui/atoms'
+import convertHorizontalAlign from '@ui/list/lib/convert-horizontal-align'
+import { Align } from '@ui/types'
+
+import useResize from '@utils/hooks/use-resize'
 
 const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: string }>`
     display: flex;

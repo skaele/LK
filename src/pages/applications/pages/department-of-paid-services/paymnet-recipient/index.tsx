@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import { applicationsModel } from '@entities/applications'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import { applicationsModel } from '@entities/applications'
+
 import { FormBlock, Message, SubmitButton } from '@ui/atoms'
 import { IInputArea } from '@ui/input-area/model'
+
 import checkFormFields from '@utils/check-form-fields'
 
 import getForm from './lib/get-form'

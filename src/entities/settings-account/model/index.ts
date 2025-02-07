@@ -1,6 +1,7 @@
-import { settingsAccountApi } from '@shared/api'
 import { createEffect, createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react'
+
+import { settingsAccountApi } from '@shared/api'
 
 type TStore<T> = {
     data: T

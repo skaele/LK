@@ -18,7 +18,6 @@ import { MdGroups, MdPsychology } from 'react-icons/md'
 import { RiNotificationBadgeLine, RiPassValidLine } from 'react-icons/ri'
 import { Redirect } from 'react-router-dom'
 
-import { Role } from '@entities/allowances/types'
 import AllStaff from '@pages/all-staff'
 import AllTeachersPage from '@pages/all-teachers'
 import DownloadAdminFilesPage from '@pages/download-admin-files'
@@ -30,6 +29,9 @@ import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-me
 import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
 import PageIsNotReady from '@pages/page-is-not-ready'
 import PaymentsPage from '@pages/payments'
+
+import { Role } from '@entities/allowances/types'
+
 import { OLD_LK_URL, isProduction } from '@shared/constants'
 
 import {

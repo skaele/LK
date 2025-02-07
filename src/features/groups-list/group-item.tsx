@@ -1,10 +1,11 @@
 import React from 'react'
 import { FiChevronRight, FiUsers } from 'react-icons/fi'
 
-import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
 import styled from 'styled-components'
 import { useModal } from 'widgets'
+
+import Flex from '@shared/ui/flex'
+import Subtext from '@shared/ui/subtext'
 
 import GroupModal from './group-modal'
 

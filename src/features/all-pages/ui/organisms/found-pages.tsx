@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { IRoutes } from '@app/routes/general-routes'
-import { Error } from '@ui/error'
 import styled from 'styled-components'
+
+import { IRoutes } from '@app/routes/general-routes'
+
+import { Error } from '@ui/error'
 
 import { PageLink } from '../molecules'
 

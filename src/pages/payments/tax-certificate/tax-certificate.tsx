@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 
+import { useStoreMap, useUnit } from 'effector-react'
+
 import { taxCertificateModel } from '@entities/payments'
+
 import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Error, Loading, Title, Wrapper } from '@shared/ui/atoms'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 import Table from '@shared/ui/table'
-import { useStoreMap, useUnit } from 'effector-react'
 
 import { Docs, File } from './docs'
 

@@ -1,5 +1,6 @@
 import { popUpMessageModel } from '@entities/pop-up-message'
 import { teacherDateVerificationModel } from '@entities/teacher-data-verification'
+
 import { IInputArea } from '@ui/input-area/model'
 
 const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<React.SetStateAction<boolean>>): void => {

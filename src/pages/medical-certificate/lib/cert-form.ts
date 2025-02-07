@@ -1,4 +1,5 @@
 import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
+
 import { IInputArea } from '@shared/ui/input-area/model'
 
 // add data

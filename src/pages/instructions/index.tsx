@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
+import styled from 'styled-components'
+
 import { userModel } from '@entities/user'
+
 import { CenterPage, Divider, Error, Message, Title } from '@ui/atoms'
 import BlockWrapper from '@ui/block/styles'
 import { LocalSearch } from '@ui/molecules'
-import styled from 'styled-components'
 
 import instructionsStudentData, { InstructionsType } from './data/student-data'
 import instructionsTeacherData from './data/teacher-data'

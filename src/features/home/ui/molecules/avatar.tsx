@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
+import { useModal } from 'widgets'
+
 import Checkbox from '@ui/checkbox'
 import Notification from '@ui/notification'
+
 import getLettersColors from '@utils/get-letters-colors'
 import getNameFirstLetters from '@utils/get-name-first-letters'
-import { useModal } from 'widgets'
 
 import { Container, Img } from '../atoms/avatar'
 

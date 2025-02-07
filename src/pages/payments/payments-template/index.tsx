@@ -1,14 +1,13 @@
 import React from 'react'
 
-import { useUnit } from 'effector-react'
-
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
 import { PageWrapperTutorial } from '@features/tutorials/page-wrapper-tutorial'
-
 import { PaymentsContract } from '@shared/api/model'
+import localizeDate from '@shared/lib/dates/localize-date'
 import { tutorialModel } from '@shared/tutorial'
 import { Divider, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { useUnit } from 'effector-react'
 
 import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'
@@ -60,7 +59,9 @@ function Contract({ contract, index }: { contract: PaymentsContract; index: numb
             <Flex gap="8px">
                 <Flex w="fit-content">
                     <Title size={3} align="left">
-                        {contract.name}
+                        {contract.createDate
+                            ? `Договор №${contract.number} от ${localizeDate(contract.createDate)}`
+                            : contract.name}
                     </Title>
                 </Flex>
             </Flex>

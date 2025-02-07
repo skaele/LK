@@ -1,12 +1,4 @@
-export interface IGrade {
-    Зачтено: number
-    'Не зачтено': number
-    Отлично: number
-    Хорошо: number
-    Удовлетворительно: number
-    'Не явился': number
-    Неудовлетворительно: number
-}
+import { IGrade } from '@shared/consts'
 
 export interface AcadPerformance {
     bill_num: string

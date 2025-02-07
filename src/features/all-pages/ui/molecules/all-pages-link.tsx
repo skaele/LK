@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { ALL_ROUTE } from '@app/routes/general-routes'
-
 import { menuModel } from '@entities/menu'
 
-import Icon from '../atoms/icon'
+import { ALL_ROUTE } from '@shared/routing'
+
+import Icon from '../../../../shared/ui/icon/icon'
 import { PageLinkWrapper } from './page-link-content'
 
 const AllPagesLinkWrapper = styled(PageLinkWrapper)`

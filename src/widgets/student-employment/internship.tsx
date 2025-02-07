@@ -8,7 +8,6 @@ import { LocalSearch } from '@shared/ui/molecules'
 import { Title } from '@shared/ui/title'
 
 type FacultyInternship = { faculty: string; link: string }
-
 const facultyInternships: FacultyInternship[] = [
     {
         faculty: 'Факультет информационных технологий',
@@ -51,10 +50,8 @@ const facultyInternships: FacultyInternship[] = [
         link: 'https://mospolytech.ru/upload/medialibrary/6ac/oldo8lozcx9e7hnd65l3yrm0dzk2bnwp/Grafik-praktik-2024_25_PISHE.pdf',
     },
 ]
-
 const search = (value: string, links: FacultyInternship[]) =>
     links.filter((link) => normalizeString(link.faculty).includes(normalizeString(value)))
-
 export const Internship = () => {
     return (
         <Flex d="column" gap="0.5rem" ai="flex-start" p="1rem 0">
@@ -67,7 +64,6 @@ export const Internship = () => {
 }
 const LinksList = ({ links }: { links: FacultyInternship[] }) => {
     const [searchBlocks, setSearchBlocks] = useState<FacultyInternship[] | null>(null)
-
     return (
         <List gap={16}>
             <LocalSearch

@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosCheckmarkCircle, IoIosRadioButtonOff } from 'react-icons/io'
 
-import { Button } from '@ui/button'
+import { Button } from '@shared/ui/button'
 
 interface Props {
     chosen: boolean

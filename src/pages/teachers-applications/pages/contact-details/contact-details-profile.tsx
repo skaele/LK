@@ -3,12 +3,11 @@ import { FaRegEdit } from 'react-icons/fa'
 import { FiMail, FiPhone } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
-import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@app/routes/teacher-routes'
-
 import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
 import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
 
 import { User } from '@shared/api/model'
+import { EDIT_PHONEBOOK_EMAIL, EDIT_PHONEBOOK_INNER_PHONE } from '@shared/routing'
 import { Message } from '@shared/ui/atoms'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'

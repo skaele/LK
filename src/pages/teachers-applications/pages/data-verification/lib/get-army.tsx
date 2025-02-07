@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { TeacherDataVerification } from '@api/model'
-
+import { TeacherDataVerification } from '@shared/api/model'
 import converMilliseconds from '@shared/lib/dates/convert-milliseconds'
-
-import { IInputArea } from '@ui/input-area/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const getArmy = (data: TeacherDataVerification, isDone: boolean): IInputArea => {
     const isMale = data.sex === 'Мужской'

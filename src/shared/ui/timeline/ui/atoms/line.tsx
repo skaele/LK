@@ -2,9 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { Colors } from '@shared/constants'
-
-import { Direction } from '@ui/types'
+import { Colors } from '@shared/consts'
+import { Direction } from '@shared/ui/types'
 
 type StyledProps = {
     distance?: number

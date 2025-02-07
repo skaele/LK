@@ -4,12 +4,11 @@ import { useRouteMatch } from 'react-router'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { CHAT_ROUTE, TEMPLATE_CHAT_ROUTE } from '@app/routes/general-routes'
-
-import Avatar from '@features/home/ui/molecules/avatar'
-
 import { chatMessagesModel } from '@entities/chat-messages'
 import { Chat } from '@entities/chats'
+
+import { CHAT_ROUTE, TEMPLATE_CHAT_ROUTE } from '@shared/routing'
+import Avatar from '@shared/ui/avatar'
 
 import Badge from '../../../../shared/ui/badge'
 import Flex from '../../../../shared/ui/flex'

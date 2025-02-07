@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Direction, VerticalAlign } from '@ui/types'
+import { Direction, VerticalAlign } from '@shared/ui/types'
 
 import { ModifiedAlign } from '.'
 import convertHorizontalAlign from './lib/convert-horizontal-align'

@@ -4,13 +4,11 @@ import { HiOutlineUserCircle } from 'react-icons/hi'
 
 import { AxiosResponse } from 'axios'
 
-import SearchWithHints from '@features/search-with-hints'
-
-import { userModel } from '@entities/user'
-
 import { studentApi, teacherApi } from '@shared/api'
 import Masks from '@shared/lib/masks'
+import { userModel } from '@shared/session'
 import { Hint } from '@shared/ui/search'
+import SearchWithHints from '@shared/ui/search-with-hints'
 
 type Props = {
     value: string

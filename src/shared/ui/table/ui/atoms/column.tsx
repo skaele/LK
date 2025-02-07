@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Align } from '@ui/types'
+import { Align } from '@shared/ui/types'
 
 const Column = styled.div<{
     even?: boolean

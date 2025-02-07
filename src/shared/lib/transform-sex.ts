@@ -1,4 +1,4 @@
-import { Sex } from '@utility-types/sex'
+import { Sex } from '@shared/consts/models/sex'
 
 const transformSex = (sex: Sex) => {
     return sex === 'Male' ? 'Мужской' : 'Женский'

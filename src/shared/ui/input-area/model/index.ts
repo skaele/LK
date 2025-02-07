@@ -1,10 +1,8 @@
-import { SelectPage } from '@features/select'
+import { FileFormats } from '@shared/consts'
+import { RadioButton } from '@shared/ui/organisms/radio-button-list'
+import { SelectPage } from '@shared/ui/select'
 
-import { SpecialFieldsName, SpecialFieldsNameConfig } from '@entities/applications/consts'
-
-import { FileFormats } from '@shared/constants'
-
-import { RadioButton } from '@ui/organisms/radio-button-list'
+import { SpecialFieldsName, SpecialFieldsNameConfig } from '../types'
 
 export interface IInputAreaCheckbox {
     fieldName: string

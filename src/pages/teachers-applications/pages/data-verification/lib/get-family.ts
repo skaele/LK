@@ -1,7 +1,6 @@
-import { TeacherDataVerification } from '@api/model'
-
-import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
+import { TeacherDataVerification } from '@shared/api/model'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 
 const familyType = [
     { id: 'mother', title: 'Мать' },

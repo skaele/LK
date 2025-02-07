@@ -1,6 +1,5 @@
-import { ContactInfoActualization } from '@api/model'
-
-import { IInputArea } from '@ui/input-area/model'
+import { ContactInfoActualization } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const getForm = (data: ContactInfoActualization): IInputArea => {
     return {

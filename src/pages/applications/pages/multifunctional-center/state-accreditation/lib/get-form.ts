@@ -1,11 +1,10 @@
-import { UserApplication } from '@api/model'
-
 import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 
 import getAddressFields from '@features/applications/lib/get-address-fields'
 import { getStudentMethodObtainingFields } from '@features/applications/lib/get-student-method-obtaining-fields'
 
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const documentOptions = [
     { id: 0, title: 'Лицензия на право ведения образовательной деятельности' },

@@ -1,8 +1,4 @@
-export type divisionT = {
-    id: string
-    name: string
-    contact: string
-}
+import { divisionT } from '@shared/api/model'
 
 export const getFormattedDivisions = (divisions: divisionT[]) => {
     return divisions.map((division) => {

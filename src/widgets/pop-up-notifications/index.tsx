@@ -1,6 +1,6 @@
 import React from 'react'
 
-import NotificationItem from 'widgets/lk-notification-list/ui/notification-item'
+import NotificationItem from '@features/notifications/notification-item'
 
 import { lkNotificationModel } from '@entities/lk-notifications'
 

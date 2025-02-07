@@ -1,17 +1,16 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 
-import { useModal } from 'widgets'
+import { healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
 
-import { PHYSICAL_EDUCATION_STUDENT } from '@app/routes/teacher-routes'
-
-import { PEStudent, healthGroupToTitle, specializationToTitle } from '@entities/pe-student/types'
-
+import { PEStudent } from '@shared/api/physical-education'
 import { buildRealLink } from '@shared/lib/buildRealLink'
+import { PHYSICAL_EDUCATION_STUDENT_ID } from '@shared/routing'
 import KeyValue from '@shared/ui/atoms/key-value'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
+import { useModal } from '@shared/ui/modal'
 import { Title } from '@shared/ui/title'
 
 import { AddPeStudentVisits } from '../../pe-student-visits/features/add-pe-student-visits/ui'
@@ -27,7 +26,7 @@ export const PEStudentModal = ({ student }: Props) => {
     const { close } = useModal()
 
     const handleClick = () => {
-        history.push(buildRealLink(PHYSICAL_EDUCATION_STUDENT, { studentId: student.studentGuid }))
+        history.push(buildRealLink(PHYSICAL_EDUCATION_STUDENT_ID, { studentId: student.studentGuid }))
         close()
     }
 

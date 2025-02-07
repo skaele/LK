@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Divider } from '@shared/ui/divider'
-
-import { Error } from '@ui/error'
-import { Loading } from '@ui/loading'
-import Pagination from '@ui/pagination'
-import { TableCatalogType, TableProps } from '@ui/table/types'
+import { Error } from '@shared/ui/error'
+import { Loading } from '@shared/ui/loading'
+import Pagination from '@shared/ui/pagination'
+import { TableCatalogType, TableProps } from '@shared/ui/table/types'
 
 import { Row } from '../molecules'
 

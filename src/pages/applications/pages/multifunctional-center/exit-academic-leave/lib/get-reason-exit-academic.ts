@@ -1,6 +1,5 @@
-import { SpecialFieldsName, SpecialFieldsNameConfig } from '@entities/applications/consts'
-
-import { IInputAreaData } from '@ui/input-area/model'
+import { IInputAreaData } from '@shared/ui/input-area/model'
+import { SpecialFieldsName, SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 
 type radioType = { id: number; title: string }
 

@@ -1,4 +1,4 @@
-import { Subdivision } from '@api/model'
+import { Subdivision } from '@shared/api/model'
 
 export const getFormattedSubDivisions = (subdivisions: Subdivision[] = []) => {
     return subdivisions.map((subdivision) => {

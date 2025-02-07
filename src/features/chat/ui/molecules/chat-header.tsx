@@ -4,13 +4,13 @@ import { useHistory } from 'react-router'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { User } from 'widgets'
 
-import { CHAT_ROUTE } from '@app/routes/general-routes'
+import User from '@features/user'
 
 import { chatModel, chatsModel } from '@entities/chats'
 
-import { Button } from '@ui/atoms'
+import { CHAT_ROUTE } from '@shared/routing'
+import { Button } from '@shared/ui/atoms'
 
 import Flex from '../../../../shared/ui/flex'
 import Subtext from '../../../../shared/ui/subtext'

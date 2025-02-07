@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import { useUnit } from 'effector-react'
-import { SliderPage } from 'widgets'
+
+import SliderPage from '@features/slider-page'
 
 import { allowancesModel } from '@entities/allowances'
-import { AllowanceEmployee, AllowanceFiles, Role } from '@entities/allowances/types'
 
+import { AllowanceEmployee, AllowanceFiles, Role } from '@shared/api/allowances/types'
+import { userModel } from '@shared/session'
 import { Loader } from '@shared/ui/atoms/loader'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'
@@ -15,7 +17,7 @@ import { Loading } from '@shared/ui/loading'
 import PageBlock from '@shared/ui/page-block'
 import { Title } from '@shared/ui/title'
 
-import { DevModeMessage } from '../ui/dev-mode-message'
+import { DevModeMessage } from '../../../features/test-database-message/test-database-message'
 import { Employee } from '../ui/employee'
 import { File } from '../ui/file'
 import { AllowancesForbidden } from '../ui/forbidden'
@@ -28,8 +30,8 @@ const Info = () => {
         allowancesModel.stores.allowance.data,
         allowancesModel.stores.allowance.loading,
         allowancesModel.stores.allowance.error,
-        allowancesModel.stores.roles,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.roles,
+        userModel.stores.jobRoles,
         allowancesModel.stores.allowance.role,
         allowancesModel.events.setCurrentRole,
         allowancesModel.stores.allowance.jobId,

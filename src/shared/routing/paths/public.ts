@@ -1,0 +1,7 @@
+export const LOGIN_ROUTE = '/login'
+export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
+export const FEEDBACK_ROUTE = '/feedback'
+export const CANT_ACCESS_ROUTE = '/cant-access'
+export const GET_YOUR_LOGIN_ROUTE = '/get-your-login'
+export const MEMO_FRESHMEN_ROUTE = '/memo-freshmen'
+export const MEMO_TEACHER_ROUTE = '/memo-teacher'

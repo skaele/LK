@@ -1,6 +1,6 @@
 import React from 'react'
 
-import TemplateFormPage from 'widgets/template-form-page'
+import TemplateFormPage from '@widgets/template-form-page'
 
 import { contactInfoActualizationModel } from '@entities/contact-info-actualization'
 

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { userSettingsModel } from '@entities/settings'
 
-import { IColorPalette, ThemeVariant } from '@shared/constants'
+import { IColorPalette, ThemeVariant } from '@shared/consts'
 
 const NextSubjectWrapper = styled.div<{ background: string }>`
     border-radius: var(--brSemi);

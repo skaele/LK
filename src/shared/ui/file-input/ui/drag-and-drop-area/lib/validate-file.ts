@@ -1,4 +1,4 @@
-import { FileFormat, FileFormats, VALID_FORMATS } from '@shared/constants'
+import { FileFormat, FileFormats, VALID_FORMATS } from '@shared/consts'
 
 const validateFile = (file: File, allowedTypes?: FileFormats) => {
     return (

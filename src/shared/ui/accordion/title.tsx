@@ -3,7 +3,7 @@ import { HiChevronDown, HiOutlineCheckCircle, HiOutlineExclamationCircle } from 
 
 import styled from 'styled-components'
 
-import { Button } from '@ui/atoms'
+import { Button } from '@shared/ui/atoms'
 
 const AreaTitleWrapper = styled.div`
     display: flex;

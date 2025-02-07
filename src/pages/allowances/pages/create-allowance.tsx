@@ -4,22 +4,22 @@ import { useUnit } from 'effector-react'
 
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
-import Select from '@features/select'
-
 import { allowancesModel } from '@entities/allowances'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 import getCorrectWordForm, { Rules } from '@shared/lib/get-correct-word-form'
+import { userModel } from '@shared/session'
 import { Input, Loading, SubmitButton, TextArea } from '@shared/ui/atoms'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import Checkbox from '@shared/ui/checkbox'
 import FileInput from '@shared/ui/file-input'
 import Flex from '@shared/ui/flex'
 import { AreaTitle, InputAreaWrapper } from '@shared/ui/input-area/ui'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 import Search from '@shared/ui/search'
+import Select from '@shared/ui/select'
 import Subtext from '@shared/ui/subtext'
 
-import { DevModeMessage } from '../ui/dev-mode-message'
+import { DevModeMessage } from '../../../features/test-database-message/test-database-message'
 import { EmployeeInput } from '../ui/employee-input'
 import { AllowancesForbidden } from '../ui/forbidden'
 
@@ -36,15 +36,15 @@ const CreateAllowance = () => {
         jobRoles,
         errorMessage,
     ] = useUnit([
-        allowancesModel.stores.rolesPending,
+        userModel.stores.rolesPending,
         allowancesModel.events.createSupplement,
         allowancesModel.stores.supplementCreating,
         allowancesModel.events.pageMounted,
-        allowancesModel.stores.roles,
+        userModel.stores.roles,
         allowancesModel.stores.completed,
         allowancesModel.events.setCompleted,
         allowancesModel.stores.isActive,
-        allowancesModel.stores.jobRoles,
+        userModel.stores.jobRoles,
         allowancesModel.stores.errorMessage,
     ])
 
@@ -98,7 +98,7 @@ const CreateAllowance = () => {
 
 function Job() {
     const { value, setValue } = useUnit(allowancesModel.fields.job)
-    const jobRoles = useUnit(allowancesModel.stores.jobRoles)
+    const jobRoles = useUnit(userModel.stores.jobRoles)
 
     if (!jobRoles) return null
 

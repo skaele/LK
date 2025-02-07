@@ -2,11 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import useModal from 'widgets/modal'
 
-import { Colors, IColors } from '@shared/constants'
-
-import { Button } from '@ui/button'
+import { Colors, IColors } from '@shared/consts'
+import { Button } from '@shared/ui/button'
+import { useModal } from '@shared/ui/modal'
 
 const PlateWrapper = styled.div<{ color?: keyof IColors }>`
     display: flex;

@@ -1,17 +1,12 @@
 import React from 'react'
 import { FiX } from 'react-icons/fi'
 
-import { useUnit } from 'effector-react'
+import { MessageType, ThemeVariant, messageType } from '@shared/consts'
+import { Button } from '@shared/ui/button'
 
-import { userSettingsModel } from '@entities/settings'
-
-import { ThemeVariant, messageType } from '@shared/constants'
-
-import { Button } from '@ui/button'
-import SkeletonList from '@ui/skeleton-list'
-import { Align, MessageType } from '@ui/types'
-
+import SkeletonList from '../skeleton-list'
 import { Title } from '../title'
+import { Align } from '../types'
 import { MessageWrapper } from './styles'
 
 export type MessageProps = {
@@ -78,11 +73,12 @@ export function Message({
     loading = false,
 }: MessageProps) {
     if (!visible) return null
-    const settings = useUnit(userSettingsModel.stores.userSettings)
+
+    const theme = document.documentElement.getAttribute('data-theme') as ThemeVariant[keyof ThemeVariant]
 
     return (
         <MessageWrapper
-            isLightTheme={settings?.appearance.theme === ThemeVariant.Light}
+            isLightTheme={theme === ThemeVariant.Light}
             className="message"
             closable={!!onClose}
             type={type}

@@ -1,4 +1,4 @@
-import { IRoute, IRoutes } from '@app/routes/general-routes'
+import { IRoutes, Page } from '@shared/routing'
 
 const findRoutesWidthConfig = (config: string[], allRoutes: IRoutes): IRoutes => {
     return config.reduce(
@@ -6,7 +6,7 @@ const findRoutesWidthConfig = (config: string[], allRoutes: IRoutes): IRoutes =>
             acc[id] = allRoutes[id]
             return acc
         },
-        {} as { [key: string]: IRoute },
+        {} as { [key: string]: Page },
     )
 }
 

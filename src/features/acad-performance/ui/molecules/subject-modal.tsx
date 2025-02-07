@@ -1,18 +1,16 @@
 import React from 'react'
 
-import { AcadPerformance } from '@api/model/acad-performance'
 import styled from 'styled-components'
-import { User } from 'widgets'
 
 import { SubjectIconAndBackground } from '@features/schedule/ui/subject/subject-icon-and-background'
+import User from '@features/user'
 
-import { IColorPalette } from '@shared/constants'
+import { AcadPerformance } from '@shared/api/model/acad-performance'
+import { IColorPalette } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
+import findSemestr from '@shared/lib/find-semestr'
+import KeyValue from '@shared/ui/atoms/key-value'
 import { Title } from '@shared/ui/title'
-
-import KeyValue from '@ui/atoms/key-value'
-
-import findSemestr from '@utils/find-semestr'
 
 const Container = styled.div`
     width: 400px;

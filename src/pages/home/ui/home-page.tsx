@@ -2,25 +2,26 @@ import React, { useEffect } from 'react'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import AlertsWidget from 'widgets/alerts-widget'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-import { GlobalAppSearchTutorial } from 'widgets/tutorial/tutorials/global-app-search-tutorial'
-import { LinksTutorial } from 'widgets/tutorial/tutorials/links-tutorial'
-import { TutorialActionPlate } from 'widgets/tutorial/ui/tutorial-action-plate'
+
+import AlertsWidget from '@widgets/alerts-widget'
+import UserInfo from '@widgets/user-info'
 
 import ScheduleAndNotification from '@features/home/ui/organisms/schedule-and-notification'
-import UserInfo from '@features/user-info'
+import { GlobalAppSearchTutorial } from '@features/tutorials/global-app-search-tutorial'
+import { LinksTutorial } from '@features/tutorials/links-tutorial'
 
 import { menuModel } from '@entities/menu'
 import { paymentsModel } from '@entities/payments'
 import { scheduleModel } from '@entities/schedule'
 import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
 
+import { userModel } from '@shared/session'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import { TutorialActionPlate } from '@shared/tutorial/ui/tutorial-action-plate'
+import { CenterPage, Title } from '@shared/ui/atoms'
 import Block from '@shared/ui/block'
 import Flex from '@shared/ui/flex'
-
-import { CenterPage, Title } from '@ui/atoms'
+import { TutorialComponent } from '@shared/ui/types'
 
 const HomePageStyled = styled.div`
     width: 100%;
@@ -93,3 +94,5 @@ export const HomePage = ({ forwardedRef }: TutorialComponent) => {
         </HomePageStyled>
     )
 }
+
+export const HomePageTutorial = withTutorial(HomePage)

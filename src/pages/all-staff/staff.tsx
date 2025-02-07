@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { phonebookModel } from '@entities/phonebook'
 
 import useQueryParams from '@shared/lib/hooks/use-query-params'
+import { useModal } from '@shared/ui/modal'
 
-import { findEmployeeByFio } from './lib/find-employee-by-fio'
-import { getEmployeeInfo } from './lib/get-employee-info'
-import { getSubdivisionInfo } from './lib/get-subdivision-info'
-import { ScrollWrapper } from './styled'
+import { findEmployeeByFio } from '../../features/all-staff/lib/find-employee-by-fio'
+import { getEmployeeInfo } from '../../features/all-staff/lib/get-employee-info'
+import { getSubdivisionInfo } from '../../features/all-staff/lib/get-subdivision-info'
+import { ScrollWrapper } from '../../features/all-staff/styled'
+import { PhonebookModal } from '../../features/all-staff/ui/phonebook-modal'
 import { SubdivisionItem } from './subdivision-item'
-import { PhonebookModal } from './ui/phonebook-modal'
 
 export const Staff = () => {
     const query = useQueryParams()

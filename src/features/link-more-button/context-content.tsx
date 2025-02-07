@@ -4,8 +4,6 @@ import { FiPlus, FiXCircle } from 'react-icons/fi'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { IRoute } from '@app/routes/general-routes'
-
 import {
     $homePages,
     $requiredSidebarItems,
@@ -18,15 +16,15 @@ import {
 
 import { contextMenuModel } from '@entities/context-menu'
 
-import { REQUIRED_HOME_PAGES_CONFIG } from '@shared/constants'
+import { REQUIRED_HOME_PAGES_CONFIG } from '@shared/consts'
+import { Page } from '@shared/routing'
+import { Button } from '@shared/ui/button'
+import { Divider } from '@shared/ui/divider'
 
-import { Button } from '@ui/button'
-import { Divider } from '@ui/divider'
+import Icon from '../../shared/ui/icon/icon'
 
-import Icon from '../all-pages/ui/atoms/icon'
-
-const ContextContent = (props: IRoute) => {
-    const { id, icon, title, color } = props
+const ContextContent = (props: Page) => {
+    const { id, icon: LinkIcon, title, color } = props
     const [home, sidebar, requiredSidebar] = useUnit([$homePages, $sidebarItems, $requiredSidebarItems])
 
     const isAddedToHome = home.includes(id)
@@ -48,8 +46,8 @@ const ContextContent = (props: IRoute) => {
     return (
         <ContextContentWrapper>
             <div className="top">
-                <Icon color={color} size={22}>
-                    {icon}
+                <Icon color={color ?? 'blue'} size={22}>
+                    {LinkIcon && <LinkIcon />}
                 </Icon>
                 <PageName>{title}</PageName>
             </div>

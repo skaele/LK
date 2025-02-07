@@ -2,9 +2,8 @@ import { createMutation } from '@farfetched/core'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-
 import { SendAgreementCodesReq, sendAgreementCodesApi, signThirdPartyAgreementApi } from '@shared/api/payment-api'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { paymentsModel } from '..'
 

@@ -2,8 +2,9 @@ import React from 'react'
 import { HiOutlinePencilAlt } from 'react-icons/hi'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { useModal } from '@shared/ui/modal'
+import { TutorialComponent } from '@shared/ui/types'
 
 import { Modal } from './ui/modal'
 

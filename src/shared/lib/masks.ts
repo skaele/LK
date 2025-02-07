@@ -1,4 +1,4 @@
-import { Buildings } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
+import { Buildings } from './get-cabinet-mask'
 
 const groupMask = (value: string, prevValue?: string) => {
     if (value.length > 8) return value.substring(0, 8)

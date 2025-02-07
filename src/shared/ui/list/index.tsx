@@ -1,17 +1,13 @@
 import React, { HtmlHTMLAttributes } from 'react'
 import { FiChevronLeft, FiChevronRight, FiPlus } from 'react-icons/fi'
 
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+import { Colors } from '@shared/consts'
+import limitNumber from '@shared/lib/limit-number'
+import { Button } from '@shared/ui/button'
+import { DotPages } from '@shared/ui/molecules'
+import { Align, TutorialComponent } from '@shared/ui/types'
 
-import { Colors } from '@shared/constants'
-
-import { Button } from '@ui/button'
-import { DotPages } from '@ui/molecules'
-import { Title } from '@ui/title'
-import { Align } from '@ui/types'
-
-import limitNumber from '@utils/limit-number'
-
+import { Title } from '../title'
 import useList from './hooks/use-list'
 import { ListWrapper, StyleProps, Wrapper } from './styles'
 

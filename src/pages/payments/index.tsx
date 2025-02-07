@@ -3,18 +3,16 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { SliderPage } from 'widgets'
-
-import { TAX_CERTIFICATES_ROUTE } from '@app/routes/routes'
 
 import PaymentsWidget from '@features/home/ui/molecules/payments-widget'
+import SliderPage from '@features/slider-page'
 
 import { paymentsModel } from '@entities/payments'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
+import { TAX_CERTIFICATES_ROUTE } from '@shared/routing'
+import { Error, Message, Wrapper } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
-
-import { Error, Message, Wrapper } from '@ui/atoms'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import PaymentsTemplate from './payments-template'
 

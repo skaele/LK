@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Shape } from '@ui/types'
+import { Shape } from '@shared/ui/types'
 
 import { SkeletonShapeWrapper } from './styles'
 

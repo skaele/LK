@@ -1,12 +1,12 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import getStatus from 'widgets/user/lib/get-status'
-import { UserProps } from 'widgets/user/types'
 
-import Avatar from '@features/home/ui/molecules/avatar'
+import getStatus from '@shared/ui/user-header/get-status'
+import { UserProps } from '@shared/ui/user-header/types'
 
 import KeyValue from '../atoms/key-value'
+import Avatar from '../avatar'
 import DotSeparatedWords from '../dot-separated-words'
 import Subtext from '../subtext'
 import UserHeaderBackground from './user-header-background'

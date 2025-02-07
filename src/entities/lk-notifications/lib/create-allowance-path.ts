@@ -1,5 +1,6 @@
-import { NotificationLinks } from '@entities/allowances/consts'
-import { AllowanceNotification } from '@entities/allowances/types'
+import { AllowanceNotification } from '@shared/api/allowances/types'
+
+import { NotificationLinks } from '../consts'
 
 export const createAllowancePath = (allowance: AllowanceNotification) => {
     const page = NotificationLinks[allowance.notificationType]

@@ -5,10 +5,10 @@ import { useStoreMap, useUnit } from 'effector-react'
 
 import { taxCertificateModel } from '@entities/payments'
 
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Error, Loading, Title, Wrapper } from '@shared/ui/atoms'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import PageBlock from '@shared/ui/page-block'
 import Table from '@shared/ui/table'
 
@@ -21,25 +21,21 @@ const TaxCertificatePage = () => {
     const certificate = useStoreMap(taxCertificateModel.certificates, (certificates) =>
         certificates?.find((certificate) => certificate.id === id),
     )
-
     useEffect(() => {
         pageMounted()
     }, [id])
-
     if (loading)
         return (
             <Flex h="100%" d="column" ai="center" jc="center">
                 <Loading />
             </Flex>
         )
-
     if (!certificate)
         return (
             <Flex h="100%" d="column" ai="center" jc="center">
                 <Error text="Справка не найдена"></Error>
             </Flex>
         )
-
     return (
         <Wrapper data={true} load={() => {}} error={null}>
             <PageBlock>
@@ -114,5 +110,4 @@ const TaxCertificatePage = () => {
         </Wrapper>
     )
 }
-
 export default TaxCertificatePage

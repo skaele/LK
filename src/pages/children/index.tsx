@@ -8,7 +8,7 @@ import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrap
 
 import { childrensModel } from '@entities/children'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { isNumber } from '@shared/lib/is-number'
 import { Button, Input, Loading, Message, Title } from '@shared/ui/atoms'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'

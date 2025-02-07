@@ -1,7 +1,7 @@
 import React from 'react'
 import { FiUsers } from 'react-icons/fi'
 
-import { Icon } from '@features/all-pages'
+import { Icon } from '@shared/ui/icon'
 
 type GroupIconProps = {
     size?: number

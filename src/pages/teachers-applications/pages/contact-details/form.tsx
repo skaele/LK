@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
-import { LoadedState } from 'widgets/template-form'
-
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+
+import checkFormFields from '@features/send-form/check-form-fields'
+import sendForm from '@features/send-form/send-form'
 
 import { applicationsModel } from '@entities/applications'
 import { contactDetailsModel } from '@entities/contact-details'
 
 import { ContactDetails } from '@shared/api/model'
-import checkFormFields from '@shared/lib/check-form-fields'
-import sendForm from '@shared/lib/send-form'
 import { FormBlock, SubmitButton, Wrapper } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
 
 import getForm from './lib/get-form'
 

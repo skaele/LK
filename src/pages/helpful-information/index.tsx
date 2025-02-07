@@ -1,17 +1,16 @@
 import React, { useCallback, useMemo } from 'react'
 import { useHistory, useRouteMatch } from 'react-router'
 
-import { SliderPage } from 'widgets'
-
-import { TEMPLATE_USEFUL_INFO_ROUTE, USEFUL_INFO_ROUTE } from '@app/routes/general-routes'
+import SliderPage from '@features/slider-page'
 
 import { menuModel } from '@entities/menu'
-import { userModel } from '@entities/user'
 
+import { TEMPLATE_USEFUL_INFO_ROUTE, USEFUL_INFO_ROUTE } from '@shared/routing'
+import { userModel } from '@shared/session'
 import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 
-import pages from './config/pages-config'
+import pages from '../../features/helpful-information/config/pages-config'
 import getPages from './lib/get-pages'
 
 const HelpfulInformation = () => {

@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { useUnit } from 'effector-react'
-import { pulse } from 'global-styles'
 import styled from 'styled-components'
 
 import { userSettingsModel } from '@entities/settings'
 
-import { IColorPalette, MEDIA_QUERIES, ThemeVariant } from '@shared/constants'
+import { IColorPalette, ThemeVariant } from '@shared/consts'
+import { pulse } from '@shared/global-styles'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 type Props = {
     timeInterval?: string

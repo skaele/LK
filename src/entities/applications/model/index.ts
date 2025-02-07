@@ -1,14 +1,14 @@
-import { applicationApi } from '@api'
-import { Application, UserApplication, WorkerApplication } from '@api/model'
-import { ApplicationFormCodes, ApplicationTeachersFormCodes } from '@utility-types/application-form-codes'
-import { combine, createEffect, createStore, forward, sample } from 'effector'
+import { combine, createEffect, createStore, sample } from 'effector'
 import { useStore } from 'effector-react/compat'
 
 import { applicationsModel } from '@entities/hr-applications'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
 
-import { MessageType } from '@shared/ui/types'
+import { applicationApi } from '@shared/api'
+import { ApplicationCreating } from '@shared/api/applications/application-api'
+import { Application, UserApplication, WorkerApplication } from '@shared/api/model'
+import { MessageType } from '@shared/consts'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 interface ApplicationsStore {
     listApplication: Application[] | null
@@ -16,12 +16,6 @@ interface ApplicationsStore {
     dataWorkerApplication: WorkerApplication[] | null
     error: string | null
 }
-
-export interface ApplicationCreating {
-    formId: ApplicationFormCodes | ApplicationTeachersFormCodes
-    args: { [key: string]: any }
-}
-
 const DEFAULT_STORE = { listApplication: null, error: null, dataUserApplication: null, dataWorkerApplication: null }
 
 const getWorkerPostsFx = createEffect(async (): Promise<any[]> => {
@@ -77,7 +71,16 @@ const useApplications = () => {
     }
 }
 
-forward({ from: postApplicationFx.doneData, to: getApplicationsFx })
+sample({ clock: userModel.events.authenticated, target: getUserDataApplicationsFx })
+
+sample({
+    clock: userModel.events.authenticated,
+    source: userModel.stores.userRole,
+    filter: (role) => role === 'staff',
+    target: getWorkerPostsFx,
+})
+
+sample({ clock: postApplicationFx.doneData, target: getApplicationsFx })
 
 sample({
     clock: postApplicationFx.failData,

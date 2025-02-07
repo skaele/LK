@@ -2,14 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { IRoute } from '@app/routes/general-routes'
 
 import { menuModel } from '@entities/menu'
 
-import { Direction } from '@ui/types'
+import { Page } from '@shared/routing'
+import { useModal } from '@shared/ui/modal'
+import { Direction, TutorialComponent } from '@shared/ui/types'
 
 import PageLinkContent from './page-link-content'
 
@@ -30,7 +28,7 @@ const AddPageWrapper = styled.div<{ width: number | string }>`
 
 export type PageLinkMode = 'use' | 'add'
 
-export type PageLinkProps = IRoute & {
+export type PageLinkProps = Page & {
     orientation?: Direction
     shadow?: boolean
     mode?: PageLinkMode

@@ -1,12 +1,11 @@
-import { UserApplication } from '@api/model'
-
 import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 
 import getAddressFields from '@features/applications/lib/get-address-fields'
 import { getStudentMethodObtainingFields } from '@features/applications/lib/get-student-method-obtaining-fields'
 
-import findCurrentInSelect from '@ui/input-area/lib/find-current-in-select'
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import findCurrentInSelect from '@shared/ui/input-area/lib/find-current-in-select'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const academic_form = [
     { id: 0, title: 'Очная' },

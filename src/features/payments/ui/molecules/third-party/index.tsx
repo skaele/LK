@@ -7,9 +7,9 @@ import styled from 'styled-components'
 import { thirdPartyAgreementModel } from '@entities/payments'
 
 import { Agreement } from '@shared/api/model'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import { Title } from '@shared/ui/title'
 
 import { CheckEmails } from './check-emails'

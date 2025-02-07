@@ -1,13 +1,12 @@
 import { attach, createEvent, restore, sample } from 'effector'
 
-import { userModel } from '@entities/user'
-
 import { peApi } from '@shared/api'
+import { userModel } from '@shared/session'
 
 const load = createEvent()
 
 const loadFx = attach({
-    effect: async ({ currentUser }) => {
+    effect: async (currentUser) => {
         const { data } = await peApi.getTeacher(currentUser?.guid ?? '')
 
         return { ...data.data, id: currentUser?.guid ?? '' }
@@ -16,6 +15,11 @@ const loadFx = attach({
 })
 
 const $peTeacher = restore(loadFx, null)
+
+sample({
+    clock: userModel.events.authenticated,
+    target: load,
+})
 
 sample({ clock: load, target: loadFx })
 

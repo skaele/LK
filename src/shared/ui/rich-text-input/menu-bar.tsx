@@ -4,8 +4,8 @@ import { FaBold, FaItalic, FaListOl, FaListUl, FaStrikethrough } from 'react-ico
 import { Editor } from '@tiptap/react'
 import styled from 'styled-components'
 
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Colors } from '@shared/consts'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 
 import { Button } from '../atoms'
 

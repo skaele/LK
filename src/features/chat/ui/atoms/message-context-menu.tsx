@@ -8,11 +8,10 @@ import { RawChatMessage } from '@features/chat/type'
 
 import { chatMessagesModel } from '@entities/chat-messages'
 import { contextMenuModel } from '@entities/context-menu'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
+import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
-
-import { Button } from '@ui/button'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 interface Props {
     message: RawChatMessage

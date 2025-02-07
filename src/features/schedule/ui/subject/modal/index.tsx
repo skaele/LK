@@ -8,21 +8,21 @@ import {
     HiOutlineUserGroup,
 } from 'react-icons/hi'
 
-import { ISubject } from '@api/model'
 import styled from 'styled-components'
-import { User, useModal } from 'widgets'
 
 import GroupModal from '@features/groups-list/group-modal'
 import { getSubjectName } from '@features/schedule/lib/get-subject-name'
+import IconText from '@features/schedule/ui/calendar/calendars/day/ui/icon-text'
+import User from '@features/user'
 
-import { IColorPalette } from '@shared/constants'
+import { ISubject } from '@shared/api/model'
+import { IColorPalette } from '@shared/consts'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
 import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
-import IconText from '@shared/ui/calendar/calendars/day/ui/icon-text'
+import { Button, Divider, Title } from '@shared/ui/atoms'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
-
-import { Button, Divider, Title } from '@ui/atoms'
+import { useModal } from '@shared/ui/modal'
 
 import { NextSubject, SubjectPlaceBlock } from '../../atoms'
 import ListOfGroups from '../../atoms/list-of-groups'

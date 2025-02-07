@@ -1,9 +1,8 @@
 import { createQuery } from '@farfetched/core'
 import { createEvent, createStore, sample } from 'effector'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-
 import { FamilyContacts, getFamilyContacts, saveFamilyContacts } from '@shared/api/family-contacts-api'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const getContacts = createEvent()
 const saveContacts = createEvent<FamilyContacts>()

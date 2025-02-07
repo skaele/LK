@@ -1,9 +1,8 @@
 import React from 'react'
 import { FiFolderPlus } from 'react-icons/fi'
 
+import List from '@shared/ui/list'
 import { Title } from '@shared/ui/title'
-
-import List from '@ui/list'
 
 import ElectronicAgreementListItem from '../molecules/electronic-agreement-list-item'
 

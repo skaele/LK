@@ -1,12 +1,10 @@
 import { createMutation } from '@farfetched/core'
 import { createEvent, sample } from 'effector'
 
-import { LocationSettingsType } from '@pages/settings/types'
-
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
-
+import { LocationSettingsType } from '@shared/api/model'
 import { changeStaffAddressApi } from '@shared/api/user-api'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 export const changeStaffAddress = createEvent<LocationSettingsType>()
 
@@ -22,7 +20,7 @@ sample({
 sample({
     clock: changeStaffAddressMutation.$succeeded,
     source: { user: userModel.stores.user, mutationParams: changeStaffAddressMutation.__.$latestParams },
-    fn: ({ user: { currentUser }, mutationParams }) => {
+    fn: ({ user: currentUser, mutationParams }) => {
         return {
             subdivisions: currentUser?.subdivisions?.map((subdivision) => {
                 if (subdivision.guid_staff === mutationParams?.guid_staff) return { ...subdivision, ...mutationParams }
@@ -37,7 +35,7 @@ sample({
 sample({
     clock: changeStaffAddressMutation.$succeeded,
     source: { user: userModel.stores.user, mutationParams: changeStaffAddressMutation.__.$latestParams },
-    fn: ({ user: { currentUser }, mutationParams }) => ({
+    fn: ({ user: currentUser, mutationParams }) => ({
         message: `Данные об адресе рабочего места (${
             currentUser?.subdivisions?.find((s) => s.guid_staff === mutationParams?.guid_staff)?.post
         }) успешно изменены`,

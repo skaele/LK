@@ -1,15 +1,16 @@
 import React from 'react'
 
-import { User, useModal } from 'widgets'
-import { UserList } from 'widgets/user-big/ui'
+import { UserList } from '@widgets/user-big/ui'
+
+import User from '@features/user'
 
 import { contextMenuModel } from '@entities/context-menu'
-import { userModel } from '@entities/user'
 
+import { userModel } from '@shared/session'
+import List from '@shared/ui/list'
+import { useModal } from '@shared/ui/modal'
 import Subtext from '@shared/ui/subtext'
 import { Size } from '@shared/ui/types'
-
-import List from '@ui/list'
 
 type Props = {
     padding?: string

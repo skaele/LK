@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { useUnit } from 'effector-react'
-import { ListTutorial } from 'widgets/tutorial/tutorials/list-tutorial'
+
+import { ListTutorial } from '@features/tutorials/list-tutorial'
 
 import { userSettingsModel } from '@entities/settings'
 

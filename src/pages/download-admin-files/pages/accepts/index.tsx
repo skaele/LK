@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AdminLinksTemplate from 'widgets/admin-links-template'
+import AdminLinksTemplate from '@widgets/admin-links-template'
 
 import { adminLinksModel } from '@entities/admin-links'
 

@@ -1,8 +1,29 @@
-import { View } from '@entities/schedule/consts'
+import { TimeType } from '@shared/lib/dates/get-minutes-from-string-time'
 
-import { type DayCalendarEvent } from '@shared/ui/calendar'
+import { Colors, IColorPalette, IWeekDayNames } from '../../consts'
 
-import { Colors, IColorPalette, IWeekDayNames } from '../../constants'
+export enum View {
+    day,
+    week,
+    month,
+}
+
+export type DayCalendarEvent = {
+    duration: number
+    title: string
+    startTime: TimeType
+    startDate: Date
+    endDate: Date | null
+    icon: ChildrenType
+    place: string
+    people: string[]
+    color: IColorPalette
+    rooms?: string[]
+    dateInterval: string
+    link?: string | null
+    groups?: string
+    weekday: string
+}
 
 export interface ITimeIntervalColor {
     '9:00 - 10:30': IColorPalette

@@ -1,6 +1,6 @@
 import { Unit, createEvent, createStore } from 'effector'
 
-import { SelectPage } from '@features/select'
+import { SelectPage } from '@shared/ui/select'
 
 export const createSelectField = ({
     defaultValue,

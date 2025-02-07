@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
-import { Button, Input } from '@ui/atoms'
-import { Align } from '@ui/types'
+import limitNumber from '@shared/lib/limit-number'
 
-import limitNumber from '@utils/limit-number'
-
+import { Button } from '../button'
 import Flex from '../flex'
+import Input from '../input'
 import Subtext from '../subtext'
+import { Align } from '../types'
 
 interface Props {
     align?: Align

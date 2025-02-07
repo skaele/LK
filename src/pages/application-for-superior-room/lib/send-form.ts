@@ -1,11 +1,9 @@
-import { superiorRoomApi } from '@api'
-import { IndexedProperties } from '@utility-types/indexed-properties'
+import prepareFormData from '@features/send-form/prepare-form-data'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-
-import { IInputArea } from '@ui/input-area/model'
-
-import prepareFormData from '@utils/prepare-form-data'
+import { superiorRoomApi } from '@shared/api'
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
+import { IInputArea } from '@shared/ui/input-area/model'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const sendForm = (
     form: IInputArea,

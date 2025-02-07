@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { thirdPartyAgreementModel } from '@entities/payments'
 
 import { Agreement } from '@shared/api/model'
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { Button, Message, Title } from '@shared/ui/atoms'
+import { Colors } from '@shared/consts'
+import { Button, Input, Message, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import { Grid } from '@shared/ui/grid'
-import Input from '@shared/ui/input'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
+import { useModal } from '@shared/ui/modal'
 
 export const CheckEmails = ({ agreement }: { agreement: Agreement }) => {
     const { isMobile } = useCurrentDevice()

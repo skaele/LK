@@ -1,6 +1,5 @@
-import { UserApplication } from '@api/model'
-
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const justificationGrantOptions = [
     { id: 0, title: 'Сироты или оставшиеся без попечения родителей' },

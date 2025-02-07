@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react'
 
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
 import useDebounce from '@shared/lib/hooks/use-debounce'
 import englishToRussianKeyboard from '@shared/ui/search/lib/english-to-russian-keyboard'
 import isValidEnglishText from '@shared/ui/search/lib/is-valid-english-text'
 
 import getDataLength from '../lib/get-data-length'
 import getSearchHistory from '../lib/get-search-history'
-import useSearchConfig from './use-search-config'
+import { useSearchConfig } from './use-search-config'
 
 const useGlobalAppSearch = () => {
     const config = useSearchConfig()

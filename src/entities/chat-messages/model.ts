@@ -5,11 +5,11 @@ import { interval } from 'patronum'
 import sanitize from 'sanitize-html'
 
 import { Chat, LastMessage, chatModel, chatsModel } from '@entities/chats'
-import { userModel } from '@entities/user'
-import { getFullUserName } from '@entities/user/lib/get-full-user-name'
 
 import { User } from '@shared/api/model'
-import { pageVisibility } from '@shared/models/window-focus'
+import { pageVisibility } from '@shared/consts/models/window-focus'
+import { userModel } from '@shared/session'
+import { getFullUserName } from '@shared/session/lib/get-full-user-name'
 
 import { addMessage, getChatMessages } from './api'
 import { AddChatMessage, ChatMessage, LocalChatMessage } from './type'
@@ -46,7 +46,7 @@ const addChatMessageFx = attach({
     effect: async ([chatId, user], body: AddChatMessage) => {
         if (!chatId) throw new Error('Чат не выбран')
 
-        const currentUser = user.currentUser
+        const currentUser = user
         const data = await addMessage({ ...body, chatId })
 
         return { ...data, currentUser }
@@ -124,8 +124,8 @@ sample({
                     readed: false,
                     readed_opponent: false,
                     files: params.files ?? [],
-                    author_id: user.currentUser?.id.toString() ?? '',
-                    author_name: getFullUserName(user.currentUser),
+                    author_id: user?.id.toString() ?? '',
+                    author_name: getFullUserName(user),
                     msg_id: params.localId,
                 },
             ],
@@ -157,8 +157,8 @@ sample({
                     readed_opponent: false,
                     readed: true,
                     files: params.files ?? [],
-                    author_id: user.currentUser?.id.toString() ?? '',
-                    author_name: getFullUserName(user.currentUser),
+                    author_id: user?.id.toString() ?? '',
+                    author_name: getFullUserName(user),
                     msg_id: params.localId,
                 },
             ],

@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { useModal } from 'widgets'
-
 import { scheduleModel } from '@entities/schedule'
 
 import capitalizeFirstLetter from '@shared/lib/capitalize-first-letter'
 import { getDateInSomeDays } from '@shared/lib/dates/get-date-in-some-days'
 import { getWeekDayFromDate } from '@shared/lib/dates/get-weekday-from-date'
 import { Button } from '@shared/ui/button'
+import { useModal } from '@shared/ui/modal'
 
 import { EventsModal } from './events-modal'
 

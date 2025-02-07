@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
 import { FiDownload } from 'react-icons/fi'
 
-import { PaymentsContract } from '@api/model'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import { paymentsModel } from '@entities/payments'
-import { userModel } from '@entities/user'
 
-import { Colors } from '@shared/constants'
+import { PaymentsContract } from '@shared/api/model'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
 import { formatNumber } from '@shared/lib/get-number-with-spaces-format'
+import { userModel } from '@shared/session'
+import { Button, LinkButton, SubmitButton } from '@shared/ui/atoms'
 import KeyValue from '@shared/ui/atoms/key-value'
 import Flex from '@shared/ui/flex'
-
-import { Button, LinkButton, SubmitButton } from '@ui/atoms'
+import { useModal } from '@shared/ui/modal'
 
 import TechicalErrorMessage from './technical-error-message'
 
@@ -62,7 +61,7 @@ const Contract = ({ contract }: Props) => {
     const [loading, setLoading] = useState(false)
     const [completed, setCompleted] = useState(false)
     const error = useUnit(paymentsModel.stores.$error)
-    const isStudent = useUnit(userModel.stores.user).currentUser?.user_status === 'stud'
+    const isStudent = useUnit(userModel.stores.userRole) === 'stud'
 
     const contractInfo = [
         {
@@ -99,7 +98,7 @@ const Contract = ({ contract }: Props) => {
         },
         {
             text: 'Статус',
-            info: sign_text,
+            info: sign_text ?? '',
         },
         // {
         //     text: 'Ежемесячная плата: ',

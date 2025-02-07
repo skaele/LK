@@ -4,11 +4,9 @@ import { differenceInDays } from 'date-fns'
 import { combine } from 'effector'
 
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
-import { RegulationType } from '@entities/pe-student-regulation-points/types'
-import { PEStudentProfile } from '@entities/pe-student/types'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { PeTeacherPermission } from '@entities/pe-teacher/types'
 
+import { PEStudentProfile, PeTeacherPermission, RegulationType } from '@shared/api/physical-education'
 import { Button } from '@shared/ui/button'
 import { ColumnProps } from '@shared/ui/table/types'
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { AnimatedCheck, Title } from '@ui/atoms'
+import { AnimatedCheck, Title } from '@shared/ui/atoms'
 
 import { ShowNextDayEventsButton } from '../show-next-day-events-button'
 

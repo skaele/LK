@@ -4,11 +4,10 @@ import { IoCheckmarkCircleOutline, IoSync } from 'react-icons/io5'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
 
-import { confirmModel } from '@entities/confirm'
-import { tutorialModel } from '@entities/tutorial'
-
-import { Colors, TUTORIAL_PROGRESS, isProduction } from '@shared/constants'
+import { Colors, TUTORIAL_PROGRESS, isProduction } from '@shared/consts'
+import { tutorialModel } from '@shared/tutorial'
 import { Button, Title } from '@shared/ui/atoms'
+import { confirmModel } from '@shared/ui/confirm'
 import ToggleItem from '@shared/ui/toggle-item'
 
 import { TITLE_CONFIG } from '../constants'

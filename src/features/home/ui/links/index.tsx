@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { IRoutes } from '@app/routes/general-routes'
 
 import { menuModel } from '@entities/menu'
 
+import { IRoutes } from '@shared/routing'
 import { Divider } from '@shared/ui/divider'
+import { TutorialComponent } from '@shared/ui/types'
 
 import LinkItem from './link-item'
 
@@ -50,8 +49,10 @@ const Links = ({ links, forwardedRef }: Props) => {
     if (!allRoutes) return null
 
     useEffect(() => {
-        const longestTitle = linksKeysArray.reduce((a, b) => (links[a].title.length > links[b].title.length ? a : b))
-        setLongestTitleLength(links[longestTitle].title.length)
+        const longestTitle = linksKeysArray.reduce((a, b) =>
+            (links[a].title?.length ?? 0) > (links[b].title?.length ?? 0) ? a : b,
+        )
+        setLongestTitleLength(links[longestTitle].title?.length ?? 0)
     }, [linksKeysArray])
 
     const linksAmount = Object.keys(links).length

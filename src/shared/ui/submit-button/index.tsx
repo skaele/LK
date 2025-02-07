@@ -3,7 +3,7 @@ import { ImCheckmark } from 'react-icons/im'
 
 import styled from 'styled-components'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { Loading } from '../loading'
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ContentPage } from '@features/feedback/ui'
 
-import { Wrapper } from '@ui/atoms'
+import { Wrapper } from '@shared/ui/atoms'
 
 const FeedbackPage = () => {
     return (

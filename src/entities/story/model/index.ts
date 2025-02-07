@@ -1,7 +1,27 @@
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
-import { StoryProps } from '@ui/story/ui/story-page'
+import { Align, VerticalAlign } from '@shared/ui/types'
+
+export type StyledProps = {
+    textAlign?: Align
+    color?: string
+    align: { horizontal: Align; vertical: VerticalAlign }
+    imageAlign?: { horizontal?: Align; vertical?: VerticalAlign }
+    background?: string
+}
+
+export type StoryProps = StyledProps & {
+    title: string
+    text?: string
+    image?: string
+    children?: ChildrenType
+    imageSize?: { width: string; height: string }
+    link?: {
+        text: string
+        to: string
+    }
+}
 
 export interface IStory {
     isOpen: boolean

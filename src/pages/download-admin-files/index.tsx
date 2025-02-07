@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { SliderPage } from 'widgets'
-
-import { STUDENTS_LOGINS_ROUTE } from '@app/routes/teacher-routes'
-
 import PageIsNotReady from '@pages/page-is-not-ready'
+
+import SliderPage from '@features/slider-page'
 
 import { adminLinksModel } from '@entities/admin-links'
 
+import { STUDENTS_LOGINS_ROUTE } from '@shared/routing'
 import { CenterPage } from '@shared/ui/atoms'
 import PageBlock from '@shared/ui/page-block'
 

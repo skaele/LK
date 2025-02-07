@@ -4,10 +4,9 @@ import { useHistory } from 'react-router'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { tutorialModel } from '@entities/tutorial'
-import { userModel } from '@entities/user'
-
 import { getEntries } from '@shared/lib/typescript/getEntries'
+import { userModel } from '@shared/session'
+import { tutorialModel } from '@shared/tutorial'
 import { Title } from '@shared/ui/title'
 
 import { TITLE_CONFIG } from '../constants'
@@ -32,7 +31,7 @@ export const StartTutorialLinks = () => {
             <Container>
                 {getEntries(tutorials)
                     .sort((a, b) => a[1].index - b[1].index)
-                    .filter(([, value]) => value.roles.includes(user?.currentUser?.user_status || ''))
+                    .filter(([, value]) => value.roles.includes(user?.user_status || ''))
                     .map(([key, value]) => {
                         if (value.name)
                             return (

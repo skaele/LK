@@ -1,18 +1,20 @@
+import { allowancesModel } from '@entities/allowances'
+
+import { AllowanceNotification } from '@shared/api/allowances/types'
 import {
     ALERTS_ROUTE,
+    APPLICATIONS_ROUTE,
     CHAT_ROUTE,
+    DOCLIST_ALLOWANCES,
+    DOCLIST_ROUTE,
     PAYMENTS_ROUTE,
     PERSONAL_ELECTRONIC_INTERACTION,
+    PPS_CONTEST_ROUTE,
     SCHEDULE_ROUTE,
-} from '@app/routes/general-routes'
-import { APPLICATIONS_ROUTE } from '@app/routes/routes'
-import { DOCLIST_ALLOWANCES, DOCLIST_ROUTE, HR_APPLICATIONS_ROUTE, PPS_CONTEST_ROUTE } from '@app/routes/teacher-routes'
+} from '@shared/routing'
 
-import { allowancesModel } from '@entities/allowances'
-import { NotificationLinks } from '@entities/allowances/consts'
-import { AllowanceNotification } from '@entities/allowances/types'
-
-import { NotificationType, TNotification } from '../types'
+import { NotificationType, TNotification } from '../../../shared/api/notifications/types'
+import { NotificationLinks } from '../consts'
 
 const createNotification = (
     type: NotificationType,
@@ -73,14 +75,6 @@ const createNotification = (
             goTo: CHAT_ROUTE,
             pageId: 'chat',
             canClose: false,
-        },
-        'hr-applications': {
-            id,
-            title: title ?? '',
-            text: text ?? 'У вашей заявки изменился статус',
-            type: 'hr-applications',
-            goTo: HR_APPLICATIONS_ROUTE,
-            pageId: 'hr-applications',
         },
         'kpi-pps': {
             id,

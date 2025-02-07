@@ -2,16 +2,15 @@ import React, { useCallback } from 'react'
 
 import styled from 'styled-components'
 
-import { SelectPage } from '@features/select'
-
-import { userModel } from '@entities/user'
-
-import { Loading } from '@ui/loading'
+import { userModel } from '@shared/session'
+import { SelectPage } from '@shared/ui/select'
 
 import { Button } from '../button'
 import { Divider } from '../divider'
 import { Error } from '../error'
+import { Loading } from '../loading'
 import { Title } from '../title'
+import { PAGINATION_OFFSET } from './config'
 
 const List = styled.div`
     display: flex;
@@ -50,8 +49,6 @@ type PagintaionListProps<T> = {
     showAlphabetLetters?: boolean
     noResultContent?: JSX.Element | null
 }
-
-export const PAGINATION_OFFSET = 50
 
 export function PagintaionList<T extends { id: string | number; fio?: string; avatar?: string }>({
     items,

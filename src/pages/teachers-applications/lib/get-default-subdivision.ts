@@ -1,6 +1,6 @@
-import { Subdivision } from '@api/model'
-
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
+
+import { Subdivision } from '@shared/api/model'
 
 export const getDefaultSubdivision = (subdivisions: Subdivision[] = []) => {
     if (subdivisions && subdivisions.length === 1) {

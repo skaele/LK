@@ -1,12 +1,10 @@
 import { createEffect, createEvent, sample } from 'effector'
-import { modalModel } from 'widgets/modal/model'
-
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
-
-import { AddStudentRegulationPoints } from '../types'
+import { AddStudentRegulationPoints } from '@shared/api/physical-education'
+import { modalModel } from '@shared/ui/modal/model'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const addRegulationPoints = createEvent<AddStudentRegulationPoints>()
 const removeRegulationPoints = createEvent<{ id: string }>()

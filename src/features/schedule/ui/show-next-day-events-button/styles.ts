@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 export const NextDayScheduleStyled = styled.div`
     --time-width: 55px;

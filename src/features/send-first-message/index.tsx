@@ -3,13 +3,12 @@ import { FiMessageCircle } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
-
-import { CHAT_ROUTE } from '@app/routes/general-routes'
 
 import { chatsModel } from '@entities/chats'
 
+import { CHAT_ROUTE } from '@shared/routing'
 import { Button } from '@shared/ui/atoms'
+import { useModal } from '@shared/ui/modal'
 
 import { SendFirstMessageProps } from './type'
 import { SendMessageModal } from './ui/send-first-message-modal'

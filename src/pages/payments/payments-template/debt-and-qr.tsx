@@ -3,23 +3,23 @@ import { BiWallet } from 'react-icons/bi'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import Slider from 'widgets/slider'
-import { DebtTutorial } from 'widgets/tutorial/tutorials/debt-tutorial'
-import { PaymentButtonTutorial } from 'widgets/tutorial/tutorials/payment-button'
 
 import { Contract } from '@features/payments'
-
-import { tutorialModel } from '@entities/tutorial'
+import { DebtTutorial } from '@features/tutorials/debt-tutorial'
 
 import { PaymentsContract } from '@shared/api/model'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { tutorialModel } from '@shared/tutorial'
 import { Button, LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { useModal } from '@shared/ui/modal'
 import Notification from '@shared/ui/notification'
+import Slider from '@shared/ui/slider'
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
+
+import { PaymentButtonTutorial } from './payment-button-animated'
 
 const DebtAndQrWrapper = styled.div`
     width: 100%;

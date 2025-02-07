@@ -4,7 +4,7 @@ import { AiOutlineReload } from 'react-icons/ai'
 import styled from 'styled-components'
 
 import { Button, Error, Loading } from '.'
-import Thinking from '../../images/thinking-emoji.gif'
+import { Thinking } from '../images'
 
 const styledPropsArray: Array<keyof Props> = ['loading']
 

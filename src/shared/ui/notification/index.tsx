@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
 
 const Notification = styled.span<{
     color?: keyof IColors

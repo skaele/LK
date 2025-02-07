@@ -1,6 +1,7 @@
-import { feedbackApi } from '@api'
-import { Feedback, FormFeedback } from '@api/model/feedback'
-import { createFormStore } from 'shared/effector/create-form-store'
+import { createFormStore } from '@entities/applications/lib/create-form-store'
+
+import { feedbackApi } from '@shared/api'
+import { Feedback, FormFeedback } from '@shared/api/model/feedback'
 
 export const { effects, events, selectors } = createFormStore<Feedback, FormFeedback>({
     defaultStore: {

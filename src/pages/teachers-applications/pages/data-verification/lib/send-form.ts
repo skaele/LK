@@ -1,7 +1,7 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { teacherDateVerificationModel } from '@entities/teacher-data-verification'
 
-import { IInputArea } from '@ui/input-area/model'
+import { IInputArea } from '@shared/ui/input-area/model'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const sendForm = (inputAreas: IInputArea[], setSubmitLoading: React.Dispatch<React.SetStateAction<boolean>>): void => {
     setSubmitLoading(true)

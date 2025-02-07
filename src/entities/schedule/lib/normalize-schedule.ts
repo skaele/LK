@@ -1,4 +1,4 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
+import { getMonday } from '@entities/schedule/lib/get-monday'
 
 import {
     CapitalLettersWeekNames,
@@ -10,9 +10,9 @@ import {
     RawSessionScheduleResponse,
     RawTeacherScheduleResponse,
 } from '@shared/api/model'
-import { IWeekDayNames, TIME_IN_MS, WEEK_DAYS } from '@shared/constants'
+import { IWeekDayNames, TIME_IN_MS, WEEK_DAYS } from '@shared/consts'
 import { getDateInSomeDays } from '@shared/lib/dates/get-date-in-some-days'
-import { getMonday } from '@shared/ui/calendar/ui/week-days/lib/get-monday'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { EMPTY_WEEK, SCHEDULE_NO_RESULT } from '../consts'
 import { getCalendarSchedule } from './get-calendar-schedule'

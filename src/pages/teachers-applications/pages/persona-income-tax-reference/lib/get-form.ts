@@ -1,5 +1,3 @@
-import { UserApplication } from '@api/model'
-
 import getBasicFieldsApplicationTeacher from '@pages/teachers-applications/lib/get-basic-fields-application-teacher'
 import { getLastYearForPeriod } from '@pages/teachers-applications/lib/get-last-year-for-period'
 import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher-subdivisions'
@@ -7,7 +5,8 @@ import getTeacherSubdivisions from '@pages/teachers-applications/lib/get-teacher
 import getAddressFields from '@features/applications/lib/get-address-fields'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
 
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const getForm = (data: UserApplication): IInputArea => {
     return {

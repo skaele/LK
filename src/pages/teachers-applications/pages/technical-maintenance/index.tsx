@@ -4,13 +4,12 @@ import { useUnit } from 'effector-react'
 
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
-import Select, { SelectPage } from '@features/select'
-
 import { technicalMaintenanceModel } from '@entities/technical-maintenance'
 
 import { Input, SubmitButton, TextArea, Title } from '@shared/ui/atoms'
 import FormBlockWrapper from '@shared/ui/atoms/form-block'
 import FileInput from '@shared/ui/file-input'
+import Select, { SelectPage } from '@shared/ui/select'
 
 const TechnicalMaintenance = () => {
     const [pageMounted, done, applicationNumber] = useUnit([

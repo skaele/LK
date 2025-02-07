@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { ALERTS_ROUTE } from '@app/routes/general-routes'
-
 import { alertModel } from '@entities/alert'
-import { userModel } from '@entities/user'
 
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Colors } from '@shared/consts'
+import { ALERTS_ROUTE } from '@shared/routing'
+import { userModel } from '@shared/session'
 import { Button } from '@shared/ui/button'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 import PlaneSkeletonList from '@shared/ui/plane-skeleton-list'
 import { Title } from '@shared/ui/title'
 

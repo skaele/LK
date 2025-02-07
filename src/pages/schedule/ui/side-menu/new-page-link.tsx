@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { IRoute } from '@app/routes/general-routes'
-
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { Page } from '@shared/routing'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 
@@ -48,13 +47,13 @@ const LinkTitle = styled.div<{ isCurrent: boolean }>`
 `
 
 type Props = StyleProps & {
-    route: IRoute | undefined
+    route: Page | undefined
 }
 
 export const NewPageLink = ({ route, collapsed = false, disabled = false, isCurrent = false }: Props) => {
     if (!route) return <Subtext>Ссылка не определена</Subtext>
 
-    const { path, title, icon, color, shortTitle } = route
+    const { path, title, icon: IconLink, color, shortTitle } = route
 
     const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
         if (disabled) {
@@ -73,7 +72,7 @@ export const NewPageLink = ({ route, collapsed = false, disabled = false, isCurr
             onClick={handleClick}
         >
             <Flex gap="8px">
-                <IconWrapper>{icon}</IconWrapper>
+                <IconWrapper>{IconLink && <IconLink />}</IconWrapper>
                 {!collapsed && <LinkTitle isCurrent={isCurrent}>{shortTitle ?? title}</LinkTitle>}
             </Flex>
         </NewPageLinkWrapper>

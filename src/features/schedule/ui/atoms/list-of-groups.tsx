@@ -4,11 +4,11 @@ import { FiChevronRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-
-import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
 
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
+
+import { SCHEDULE_FILTER_ROUTE } from '@shared/routing'
+import { useModal } from '@shared/ui/modal'
 
 const ListOfGroupsStyled = styled.div`
     display: flex;

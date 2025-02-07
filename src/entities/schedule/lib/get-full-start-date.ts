@@ -1,4 +1,4 @@
-import { Months } from '@shared/models/months'
+import { Months } from '@shared/consts/models/months'
 
 export const getFullStartDate = (startDate: string) => {
     const [startDay, startMonth] = startDate.split(' ')

@@ -1,12 +1,10 @@
 import React from 'react'
 import { HiOutlineQrcode } from 'react-icons/hi'
 
-import { useModal } from 'widgets'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { Button } from '@shared/ui/button'
-import { Direction } from '@shared/ui/types'
+import { useModal } from '@shared/ui/modal'
+import { Direction, TutorialComponent } from '@shared/ui/types'
 
 import PayQRModal from './pay-qr-modal'
 

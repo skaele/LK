@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { SuperiorRoom } from '@api/model'
-
-import { SelectPage } from '@features/select'
-
-import { CheckboxDocs, IInputArea, IInputAreaData } from '@ui/input-area/model'
+import { SuperiorRoom } from '@shared/api/model'
+import { CheckboxDocs, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SelectPage } from '@shared/ui/select'
 
 import { superiorRoomAlert } from './get-status'
 

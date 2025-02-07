@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import { scienceModel } from '@entities/science'
 import { TABLE_SIZE } from '@entities/science/model/consts'
 
-import { IndexedProperties } from '@shared/models/indexed-properties'
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
 import Accordion from '@shared/ui/accordion/accordion'
 import { Button, Error } from '@shared/ui/atoms'
 import Checkbox from '@shared/ui/checkbox'

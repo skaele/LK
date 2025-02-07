@@ -1,5 +1,4 @@
 import { Section } from '@features/applications/ui/molecules/create-application-list'
-
 import { RECEPTION_COMMISSION, UNION_ORGANIZATION, isProduction } from '@shared/consts'
 import {
     ACADEMIC_LEAVE_ACCOMMODATION,
@@ -38,7 +37,7 @@ import {
     SOCIAL_AGENCIES,
     SOCIAL_SCOLLARSHIP,
     STATE_ACCREDITATION,
-    STUDENT_EMPLOYMENT_ROUTE,
+    STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
     STUDENT_STATUS,
     TECHNICAL_MAINTENANCE,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
@@ -219,7 +218,7 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 {
-                    link: STUDENT_EMPLOYMENT_ROUTE,
+                    link: STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
                     title: 'Трудоустройство студентов',
                 },
             ],

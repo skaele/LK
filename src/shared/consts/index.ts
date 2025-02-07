@@ -403,8 +403,7 @@ export const TIME_IN_MS = {
  * @example
  * Component: () => isProduction ? PageIsNotReady : SettingsPage
  **/
-export const isProduction =
-    true || !window.location.port || window.location.port === '80' || window.location.port === '4001'
+export const isProduction = !window.location.port || window.location.port === '80'
 
 export const runsLocally = false
 export const TUTORIAL_HASH = 'tHash'

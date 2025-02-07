@@ -5,7 +5,6 @@ import FullTimePartTimeFormPage from '@pages/applications/pages/campus-managemen
 import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
 import MedicalCertificate from '@pages/medical-certificate'
 import PaymentsPage from '@pages/payments'
-
 import { isProduction } from '@shared/consts'
 
 import {
@@ -49,6 +48,7 @@ import {
     RestoringTheMagneticPass,
     RetakeForDiploma,
     StateAccreditation,
+    StudentEmploymentApplicationPage,
     StudentEmploymentPage,
     StudentStatus,
     TerminationOfEmploymentContractPage,
@@ -79,9 +79,10 @@ export const studentPages = {
 
 export const hiddenStudentPages = {
     ...privateHiddenPages,
+    'student-employment': StudentEmploymentPage,
     'clarification-of-passport-data': ClarificationOfPassportDataApplication,
     'arbitrary-request': ArbitraryRequestPage,
-    'student-employment': isProduction ? ApplicationRedirect : StudentEmploymentPage,
+    'student-employment-app': isProduction ? ApplicationRedirect : StudentEmploymentApplicationPage,
     'social-scollarship': isProduction ? ApplicationRedirect : ApplicationForSocialScrollarship,
     'certificate-of-attendance': ApplicationForCertificateOfAttendance,
     'social-agencies': ApplicationSocialAgencies,

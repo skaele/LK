@@ -123,4 +123,5 @@ export const AccommodationCorrespondenceFormPage = lazy(
 export const FamilyRoomPage = lazy(() => import('@pages/applications/pages/campus-management/family-room'))
 
 export const ArbitraryRequestPage = lazy(() => import('@pages/applications/pages/other/arbitrary-request'))
-export const StudentEmploymentPage = lazy(() => import('@pages/applications/pages/other/student-employment'))
+export const StudentEmploymentPage = lazy(() => import('@pages/student-employment'))
+export const StudentEmploymentApplicationPage = lazy(() => import('@pages/applications/pages/other/student-employment'))

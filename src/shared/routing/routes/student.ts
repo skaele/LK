@@ -53,7 +53,8 @@ import {
     SOCIAL_SCOLLARSHIP,
     SOFTSKILLS_ROUTE,
     STATE_ACCREDITATION,
-    STUDENT_EMPLOYMENT_ROUTE,
+    STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
+    STUDENT_EMPLOYMENT_TYPE,
     STUDENT_STATUS,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
     USEFUL_INFO_ROUTE,
@@ -174,6 +175,16 @@ export const studentRoutes: () => IRoutes = () => ({
 
 export const studentHiddenRoutes: () => IRoutes = () => ({
     ...generalHiddenRoutes,
+    'student-employment-type': {
+        id: 'student-employment-type',
+        title: 'Практика и трудоустройство',
+        icon: BiInfoCircle,
+        path: STUDENT_EMPLOYMENT_TYPE,
+        color: 'blue',
+        isTemplate: false,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['работа'],
+    },
     'clarification-of-passport-data': {
         id: 'clarification-of-passport-data',
         title: 'Уточнение паспортных данных',
@@ -200,11 +211,11 @@ export const studentHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
-    'student-employment': {
-        id: 'student-employment',
+    'student-employment-app': {
+        id: 'student-employment-app',
         title: 'Трудоустройство студентов',
         icon: FiBriefcase,
-        path: STUDENT_EMPLOYMENT_ROUTE,
+        path: STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

@@ -1,8 +1,7 @@
 import React from 'react'
 
-import styled from 'styled-components'
-
 import AddedElementsList from '@shared/ui/added-elements-list'
+import styled from 'styled-components'
 
 import { TutorialComponent } from '../types'
 import useFilter from './lib/hooks/use-filter'
@@ -31,6 +30,7 @@ const Table = ({
     forwardedRef,
     pagination,
     innerPadding,
+    fontSize,
 }: TableProps & TutorialComponent) => {
     const {
         sort,
@@ -67,6 +67,7 @@ const Table = ({
                 filter={filter}
                 setFilter={setFilter}
                 tableHasSelect={Boolean(select)}
+                fontSize={fontSize}
             />
             <Body
                 innerPadding={innerPadding}

@@ -1,11 +1,12 @@
+import { ReactNode } from 'react'
+
+import { userModel } from '@shared/session'
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
-import { userModel } from '@shared/session'
-
 export interface Confirm {
     isOpen: boolean
-    message?: string | null
+    message?: ReactNode
     onConfirm: () => void
     onReject?: (params: any) => void
     isSubmitSuccess?: boolean

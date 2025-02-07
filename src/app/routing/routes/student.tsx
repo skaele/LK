@@ -51,6 +51,8 @@ import {
     StudentEmploymentApplicationPage,
     StudentEmploymentPage,
     StudentStatus,
+    TaxCertificatePage,
+    TaxCertificatesPage,
     TerminationOfEmploymentContractPage,
 } from './pages'
 import { ApplicationRedirect } from './pages/redirect'
@@ -119,4 +121,6 @@ export const hiddenStudentPages = {
     'exit-academic-leave': ApplicationExitAcademicLeave,
     'independently-deducted': ApplicationIndependentlyDeduction,
     'extension-attestation': ApplicationExtensionAttestation,
+    'tax-certificate': TaxCertificatesPage,
+    'tax-certificate-form': TaxCertificatePage,
 }

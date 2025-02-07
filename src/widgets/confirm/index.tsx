@@ -1,13 +1,12 @@
 import React, { useRef } from 'react'
 
-import styled from 'styled-components'
-
 import { Colors } from '@shared/consts'
 import { Button, Title } from '@shared/ui/atoms'
 import { confirmModel } from '@shared/ui/confirm'
 import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
 import List from '@shared/ui/list'
 import ModalWrapper from '@shared/ui/modal/ui/atoms/modal-wrapper'
+import styled from 'styled-components'
 
 const ConfirmWrapper = styled.div<{ isOpen: boolean }>`
     position: absolute;
@@ -51,7 +50,12 @@ const ConfirmMessage = () => {
 
     return (
         <ModalWrapper isOpen={isOpen}>
-            <ConfirmWrapper isOpen={isOpen} ref={confirmRef}>
+            <ConfirmWrapper
+                isOpen={isOpen}
+                ref={confirmRef}
+                onMouseDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+            >
                 <Title size={3} align="left">
                     {message ?? 'Хотите продолжить?'}
                 </Title>

@@ -51,3 +51,6 @@ export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student'
 export const STUDENT_EMPLOYMENT_TYPE = STUDENT_EMPLOYMENT_ROUTE + '/:type'
 export const STUDENT_INTERNSHIP = STUDENT_EMPLOYMENT_ROUTE + '/internship'
 export const STUDENT_EMPLOYMENT = STUDENT_EMPLOYMENT_ROUTE + '/employment'
+
+export const TAX_CERTIFICATES_ROUTE = '/tax-certificates'
+export const TAX_CERTIFICATE_ROUTE = '/tax-certificates/:id'

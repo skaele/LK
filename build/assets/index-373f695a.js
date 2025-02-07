@@ -1,0 +1,1 @@
+import{j as t}from"./vendor-93473b96.js";import{N as r}from"./index-b23958b6.js";import"./index-7eec75d1.js";import"./dev-mode-message-63fc4dda.js";const a=()=>t.jsx(r,{docsType:!0});export{a as default};

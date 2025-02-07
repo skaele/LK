@@ -54,6 +54,7 @@ import {
     SOFTSKILLS_ROUTE,
     STATE_ACCREDITATION,
     STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
+    STUDENT_EMPLOYMENT_ROUTE,
     STUDENT_EMPLOYMENT_TYPE,
     STUDENT_STATUS,
     TAX_CERTIFICATES_ROUTE,
@@ -172,6 +173,16 @@ export const studentRoutes: () => IRoutes = () => ({
         isTemplate: false,
         group: 'COMMUNICATION',
         keywords: ['преподаватели', 'преподы'],
+    },
+    'student-employment': {
+        id: 'student-employment',
+        title: 'Практика и трудоустройство',
+        icon: BiInfoCircle,
+        path: STUDENT_EMPLOYMENT_ROUTE,
+        color: 'blue',
+        isTemplate: false,
+        group: 'LEARNING_ACTIVITIES',
+        keywords: ['работа'],
     },
 })
 

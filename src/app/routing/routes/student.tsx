@@ -82,6 +82,7 @@ export const studentPages = {
 export const hiddenStudentPages = {
     ...privateHiddenPages,
     'student-employment': StudentEmploymentPage,
+    'student-employment-type': StudentEmploymentPage,
     'clarification-of-passport-data': ClarificationOfPassportDataApplication,
     'arbitrary-request': ArbitraryRequestPage,
     'student-employment-app': isProduction ? ApplicationRedirect : StudentEmploymentApplicationPage,

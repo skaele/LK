@@ -1,17 +1,9 @@
 import React from 'react'
 
-<<<<<<<< HEAD:src/widgets/navbar/leftside-bar/ui/molecules/leftside-bar-item.tsx
 import LinkMoreButton from '@features/link-more-button'
 
 import { Page } from '@shared/routing'
 import Notification from '@shared/ui/notification'
-========
-import { IRoute } from '@app/routes/general-routes'
-
-import LinkMoreButton from '@features/link-more-button'
-
-import Notification from '@ui/notification'
->>>>>>>> master:src/widgets/leftside-bar/ui/molecules/leftside-bar-item.tsx
 
 import LeftsideBarItemWrapper from '../atoms/leftside-bar-item-wrapper'
 

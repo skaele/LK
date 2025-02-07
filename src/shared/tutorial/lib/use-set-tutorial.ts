@@ -3,11 +3,7 @@ import { useLocation } from 'react-router'
 
 import { useUnit } from 'effector-react'
 
-<<<<<<<< HEAD:src/shared/tutorial/lib/use-set-tutorial.ts
 import { tutorialModel } from '..'
-========
-import { tutorialModel } from '@entities/tutorial'
->>>>>>>> master:src/widgets/tutorial/lib/use-set-tutorial.ts
 
 export const useSetTutorial = () => {
     const location = useLocation()

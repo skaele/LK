@@ -6,9 +6,6 @@ import { Size } from '@shared/ui/types'
 
 import { getValueFromSize } from '../../lib/get-value-from-size'
 
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Size } from '@shared/ui/types'
-
 export const SliderItemWrapper = styled.div<{ elementsVisible: number; condition: boolean; size: Size }>`
     width: 100%;
     height: 100%;

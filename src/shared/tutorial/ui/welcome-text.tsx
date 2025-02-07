@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/shared/tutorial/ui/welcome-text.tsx
 import { FadeOut } from './fade-out-animation'
-========
-import { FadeOut } from '../lib/with-tutorial'
->>>>>>>> master:src/widgets/tutorial/ui/welcome-text.tsx
 
 export const TutorialHeroLayout = styled.div`
     position: fixed;

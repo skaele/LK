@@ -2,11 +2,8 @@ import React from 'react'
 
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/event/events.tsx
 import { DayCalendarEvent } from '@shared/api/model'
 
-========
->>>>>>>> master:src/shared/ui/calendar/ui/event/events.tsx
 import { CurrentTimeLine } from '../../calendars/day/ui/current-time-line'
 import EventItem from './event-item'
 import { checkIfEventIsCurrent } from './lib/check-if-event-is-current'

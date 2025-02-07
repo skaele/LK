@@ -1,11 +1,7 @@
 import React, { memo, useRef } from 'react'
 import { FiCheck, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
-<<<<<<<< HEAD:src/shared/ui/select/index.tsx
 import { Input, Title } from '@shared/ui/atoms'
-========
-import { Input, Title } from '@ui/atoms'
->>>>>>>> master:src/features/select/index.tsx
 
 import useSelect, { SelectProps } from './lib/hooks/use-select'
 import { SelectArrow, SelectHeader, SelectHeaderWrapper, SelectItem, SelectItems, SelectWrapper } from './ui/atoms'

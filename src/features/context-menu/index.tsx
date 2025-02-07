@@ -1,19 +1,11 @@
 import React, { useRef } from 'react'
 
 import styled from 'styled-components'
-<<<<<<<< HEAD:src/features/context-menu/index.tsx
 
 import { contextMenuModel } from '@entities/context-menu'
 
 import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
 import ModalWrapper from '@shared/ui/modal/ui/atoms/modal-wrapper'
-========
-import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
-
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
-
-import { contextMenuModel } from '../../entities/context-menu'
->>>>>>>> master:src/widgets/context-menu/index.tsx
 
 const ContextMenuWrapper = styled.div<{
     isVisible: boolean

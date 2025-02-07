@@ -1,6 +1,5 @@
 import React from 'react'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/month/ui/calendar-cells.tsx
 import { WeekEvents } from '@features/schedule/ui/calendar/types'
 import { MonthEventItem } from '@features/schedule/ui/calendar/ui/event/month-event-item'
 import { SubjectsIndicator } from '@features/schedule/ui/calendar/ui/subjects-indicator'
@@ -8,24 +7,10 @@ import { getSunday } from '@features/schedule/ui/calendar/ui/week-days/lib/get-s
 import { EventsModal } from '@features/schedule/ui/show-next-day-events-button/events-modal'
 
 import { DayCalendarEvent } from '@shared/api/model'
-========
-import { useModal } from 'widgets'
-
-import { EventsModal } from '@features/schedule/ui/show-next-day-events-button/events-modal'
-
->>>>>>>> master:src/shared/ui/calendar/calendars/month/ui/calendar-cells.tsx
 import capitalizeFirstLetter from '@shared/lib/capitalize-first-letter'
 import { areDatesEqual } from '@shared/lib/dates/are-dates-equal'
 import localizeDate from '@shared/lib/dates/localize-date'
 import get2DigitDumber from '@shared/lib/get-2-digit-number'
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/month/ui/calendar-cells.tsx
-========
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { DayCalendarEvent, WeekEvents } from '@shared/ui/calendar/types'
-import { MonthEventItem } from '@shared/ui/calendar/ui/event/month-event-item'
-import { SubjectsIndicator } from '@shared/ui/calendar/ui/subjects-indicator'
-import { getSunday } from '@shared/ui/calendar/ui/week-days/lib/get-sunday'
->>>>>>>> master:src/shared/ui/calendar/calendars/month/ui/calendar-cells.tsx
 import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'

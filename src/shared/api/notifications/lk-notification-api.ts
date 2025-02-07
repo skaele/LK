@@ -1,15 +1,7 @@
-<<<<<<<< HEAD:src/shared/api/notifications/lk-notification-api.ts
 import getToken from '@shared/lib/token'
 
 import { $api } from '../config'
 import { NotificationType } from './types'
-========
-import { NotificationType } from '@entities/lk-notifications'
->>>>>>>> master:src/shared/api/lk-notification-api.ts
-
-import getToken from '@shared/lib/token'
-
-import { $api } from './config'
 
 export type NotificationsResponse = {
     id: NotificationType

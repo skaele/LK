@@ -2,31 +2,16 @@ import React from 'react'
 import { FiClock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-<<<<<<<< HEAD:src/features/user/ui/molecules/teacher-modal.tsx
 import { SendMessage } from '@features/send-first-message'
 import handleChangeAccount from '@features/user/lib/handle-change-account'
-========
-import useModal from 'widgets/modal'
-import handleChangeAccount from 'widgets/user/lib/handle-change-account'
-import { UserProps } from 'widgets/user/types'
-
-import { SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
-
-import { SendMessage } from '@features/send-first-message'
->>>>>>>> master:src/widgets/user/ui/molecules/teacher-modal.tsx
 
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 
 import getLettersColors from '@shared/lib/get-letters-colors'
-<<<<<<<< HEAD:src/features/user/ui/molecules/teacher-modal.tsx
 import { SCHEDULE_FILTER_ROUTE } from '@shared/routing'
 import { Button } from '@shared/ui/button'
 import { useModal } from '@shared/ui/modal'
 import { UserProps } from '@shared/ui/user-header/types'
-========
-
-import { Button } from '@ui/button'
->>>>>>>> master:src/widgets/user/ui/molecules/teacher-modal.tsx
 
 import { UserModal } from '../atoms'
 

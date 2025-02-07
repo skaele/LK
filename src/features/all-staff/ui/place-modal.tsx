@@ -2,14 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/features/all-staff/ui/place-modal.tsx
 import { SiteName } from '@shared/lib'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
-========
-import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
-
-import { MEDIA_QUERIES } from '@shared/constants'
->>>>>>>> master:src/pages/all-staff/ui/place-modal.tsx
 
 export const PlaceModal = ({ place }: { place: SiteName }) => {
     return (

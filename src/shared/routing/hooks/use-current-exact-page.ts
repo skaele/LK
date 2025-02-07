@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router'
 
-<<<<<<<< HEAD:src/shared/routing/hooks/use-current-exact-page.ts
 import { useUnit } from 'effector-react'
 
 import { $allRoutes, IRoutes, Page } from '@shared/routing'
-========
-import { IRoute, IRoutes } from '@app/routes/general-routes'
-
-import { menuModel } from '@entities/menu'
->>>>>>>> master:src/shared/lib/hooks/use-current-exact-page.ts
 
 const getPage = (location: string, currentRoute: IRoutes) => {
     const locationSplitted = location.split('/')

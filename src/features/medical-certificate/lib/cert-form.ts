@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/features/medical-certificate/lib/cert-form.ts
 import getDelayInDays from '@features/medical-certificate/lib/get-delay-in-days'
-========
-import getDelayInDays from '@pages/hr-applications/lib/get-delay-in-days'
->>>>>>>> master:src/pages/medical-certificate/lib/cert-form.ts
 
 import { IInputArea } from '@shared/ui/input-area/model'
 

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/shared/tutorial/ui/tutorial-hero.tsx
 import { Colors } from '@shared/consts'
 import { userModel } from '@shared/session'
 import { Button } from '@shared/ui/button'
@@ -12,17 +11,6 @@ import TrainingPic from '@shared/ui/images/tutorial-picture.jpg'
 
 import * as model from '../model'
 import { Buttons, Hero, Text, Title, TutorialHeroLayout, TutorialHeroText } from './welcome-text'
-========
-import { tutorialModel } from '@entities/tutorial'
-import { userModel } from '@entities/user'
->>>>>>>> master:src/widgets/tutorial/index.tsx
-
-import { Colors } from '@shared/constants'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { Button } from '@shared/ui/button'
-
-import TrainingPic from '../../shared/images/tutorial-picture.jpg'
-import { Buttons, Hero, Text, Title, TutorialHeroLayout, TutorialHeroText } from './ui/welcome-text'
 
 export const TutorialHero = () => {
     const [isDeleted, setIsDeleted] = useState(false)

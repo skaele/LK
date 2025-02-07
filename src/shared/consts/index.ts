@@ -2,7 +2,6 @@ import { IconType } from 'react-icons'
 import { FiAlertCircle, FiCheck, FiInfo, FiXCircle } from 'react-icons/fi'
 import { HiOutlineLightBulb } from 'react-icons/hi'
 
-<<<<<<<< HEAD:src/shared/consts/index.ts
 export type MessageType = 'success' | 'failure' | 'info' | 'alert' | 'tip' | 'hint' | 'hrFailure'
 export interface IGrade {
     Зачтено: number
@@ -13,12 +12,6 @@ export interface IGrade {
     'Не явился': number
     Неудовлетворительно: number
 }
-========
-import { IGrade } from '@api/model/acad-performance'
-
-import { MessageType } from '@ui/types'
-
->>>>>>>> master:src/shared/constants/index.ts
 export type MenuType = string[]
 export type ShortCutLinksType = number[]
 

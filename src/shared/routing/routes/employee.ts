@@ -1,7 +1,3 @@
-<<<<<<<< HEAD:src/shared/routing/routes/employee.ts
-========
-import React from 'react'
->>>>>>>> master:src/app/routes/teacher-routes/index.tsx
 import {
     BiBookOpen,
     BiBookReader,
@@ -14,160 +10,14 @@ import {
     BiWifi,
 } from 'react-icons/bi'
 import { BsPeople } from 'react-icons/bs'
-<<<<<<<< HEAD:src/shared/routing/routes/employee.ts
 import { FaRegLightbulb } from 'react-icons/fa6'
-========
-import { FaRegLightbulb } from 'react-icons/fa'
->>>>>>>> master:src/app/routes/teacher-routes/index.tsx
 import { FiArrowDownCircle, FiCalendar, FiFileText, FiMonitor, FiStar } from 'react-icons/fi'
 import { IoNewspaperOutline } from 'react-icons/io5'
 import { MdGroups, MdPsychology } from 'react-icons/md'
 import { RiNotificationBadgeLine, RiPassValidLine } from 'react-icons/ri'
-<<<<<<<< HEAD:src/shared/routing/routes/employee.ts
 
 import { Role } from '@shared/api/allowances/types'
 import { isProduction } from '@shared/consts'
-========
-import { Redirect } from 'react-router-dom'
-
-import AllStaff from '@pages/all-staff'
-import AllTeachersPage from '@pages/all-teachers'
-import DownloadAdminFilesPage from '@pages/download-admin-files'
-import DismissalBufferPage from '@pages/hr-applications/pages/buffer-dismissal'
-import HolidayPlanningBufferPage from '@pages/hr-applications/pages/buffer-holiday-planning'
-import HolidayTransferBufferPage from '@pages/hr-applications/pages/buffer-holiday-transfer'
-import HolidayWorkBufferPage from '@pages/hr-applications/pages/buffer-holiday-work'
-import MedicalExaminationBufferPage from '@pages/hr-applications/pages/buffer-medical-examination'
-import WorkTransferBufferPage from '@pages/hr-applications/pages/buffer-work-transfer'
-import PageIsNotReady from '@pages/page-is-not-ready'
-import PaymentsPage from '@pages/payments'
-
-import { Role } from '@entities/allowances/types'
-
-import { OLD_LK_URL, isProduction } from '@shared/constants'
-
-import {
-    ALL_TEACHERS_ROUTE,
-    IRoutes,
-    PAYMENTS_ROUTE,
-    PROJECT_ACTIVITIES_ROUTE,
-    generalHiddenRoutes,
-    generalRoutes,
-} from '../general-routes'
-import {
-    AllowanceInfo,
-    Allowances,
-    ArbitraryRequestPage,
-    Article,
-    ArticleList,
-    CertificateFromPlaceOfWorkPage,
-    CertificateOfWorkExperiencePage,
-    CertificateTimeParentalLeavePage,
-    CertificationAndIssuanceOfDocs,
-    CertifiedCopiesOfMilitaryDocs,
-    Children,
-    ConnectingComputerPage,
-    ContactDetails,
-    ContactDetailsForm,
-    ContactInfoActualizationPage,
-    CopiesOfDocumentsFromPersonalFilePage,
-    CopyOfEmploymentRecordPage,
-    CourierPage,
-    CreateAllowance,
-    DataVerificationPage,
-    DefermentFromConscription,
-    Dismissal,
-    EditPhonebookEmail,
-    EditPhonebookInnerPhone,
-    EditPhonebookSubdivision,
-    ExtraHolidayColl,
-    GettingComputerEquipmentPage,
-    GuestPass,
-    GuestsAccomodationOnCampus,
-    GuestsPassageToCampus,
-    HelpfulInformation,
-    HolidayPlanning,
-    HolidayTransfer,
-    HolidayWork,
-    IncreaseAntiplagiatLimits,
-    IssuanceOfLicensesPage,
-    IssuanceOfPass,
-    LivingInResidentialPremises,
-    MedicalExamination,
-    NumberOfUnusedVacationDaysPage,
-    Onboarding,
-    OtherItServicesPage,
-    PartTimeEmployment,
-    PaymentForChildCarePage,
-    PaymentOfChildBirthAllowancePage,
-    PersonaIncomeTaxReferencePage,
-    PersonalNotificationsPage,
-    PhysicalEducationStudent,
-    PrinterMaintenancePage,
-    QuestionPersonalAccountPage,
-    QuestionSedPage,
-    Relocation,
-    Science,
-    TeacherPhysicalEducation,
-    TeachersApplicationsPage,
-    TerminationOfAgreement,
-    VacationSchedule,
-    VisaCertificatePage,
-    WorkOnTermsOfExternalConcurrencyPage,
-    WorkTransfer,
-    WorkTransferChangeRate,
-} from './pages'
-
-export const APPLICATIONS_ROUTE = '/applications'
-export const KEDO_ROUTE = '/kedo'
-export const HR_APPLICATIONS_ROUTE = '/hr-applications'
-export const ALLOWANCES = '/allowances'
-export const ALLOWANCES_ROLE = ALLOWANCES + '/:role'
-export const ALLOWANCES_INITIATOR = ALLOWANCES + '/initiator'
-export const ALLOWANCES_APPROVER = ALLOWANCES + '/approver'
-export const CREATE_ALLOWANCE = '/allowances-create'
-export const ALLOWANCE_INFO_CUT = '/allowances-info'
-export const ALLOWANCE_INFO = ALLOWANCE_INFO_CUT + '/:id'
-export const JOB_ROUTE = '/job'
-export const ORDERS_ROUTE = '/staff_orders'
-export const DOCUMENT_BLANKS_ROUTE = '/staff_blanks'
-export const STUDENTS_LOGINS_ROUTE = '/ad_logins'
-export const VAX_ROUTE = '/vaccination'
-export const DOCLIST_ROUTE = '/doclist'
-export const DOCLIST_TYPE = '/doclist/:type'
-export const DOCLIST_ALLOWANCES = '/doclist/allowances'
-export const PPS_VOTE_ROUTE = '/pps_vote2020'
-export const CHILDREN_ROUTE = '/children'
-export const PPS_CONTEST_ROUTE = '/pps_contest'
-export const ElECTRONIC_STATEMENTS = '/electronic-statements'
-export const ONBOARDING = '/onboarding'
-export const STRUCTURE_OF_THE_UNIVERSITY = '/structure-of-the-university'
-export const ADDRESSES_AND_CONTACTS = '/addresses-and-contacts'
-export const BRANDBOOK = '/brandbook'
-export const WIFI_AT_THE_UNIVERSITY = '/wifi-at-the-university'
-export const HEALTH_CARE = '/health-care'
-export const PSYCHOLOGICAL_HELP = '/psychological-help'
-export const SOICAL_ENVIROMENT = '/social-environment'
-export const VACATION_ROUTE = '/vacation'
-export const KPI_PPS_ROUTE = '/kpi_pps'
-export const KPI_ADMIN_ROUTE = '/kpi_admin'
-export const SC_NEWS_ROUTE = '/sc_news'
-export const OOP_ROUTE = '/oop'
-export const CENTERS_ROUTE = '/centers'
-export const PORTFOLIO_ROUTE = '/portfolio'
-export const INFO_ROUTE = '/helpful-information'
-export const HELP_SERVICE_ROUTE = '/help_service'
-export const DOWNLOAD_AGREEMENTS_FILES_ROUTE = '/download-agreements'
-export const PERSONAL_NOTIFICATIONS = '/personal-notifications'
-export const PHYSICAL_EDUCATION = '/physical-education/main'
-export const ALL_STAFF_ROUTE = '/all-staff'
-export const PUBLICATION_ACTIVITY = '/publication-activity'
-export const ARTICLE_LIST = '/article-list'
-export const ARTICLES = '/articles'
-export const ARTICLE = '/articles/:id'
-export const OPEN_PUBLICATION = '/open-publication'
-export const EXPORT_CONTROL = '/export-control'
->>>>>>>> master:src/app/routes/teacher-routes/index.tsx
 
 import { IRoutes } from '../consts'
 import {
@@ -253,64 +103,7 @@ import {
 } from '../paths'
 import { generalHiddenRoutes, generalRoutes } from './private'
 
-<<<<<<<< HEAD:src/shared/routing/routes/employee.ts
 export const employeeRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
-========
-export const CONTACT_DETAILS = APPLICATIONS_ROUTE + '/contact-details'
-export const CONTACT_DETAILS_FORM = APPLICATIONS_ROUTE + '/contact-details/:guid'
-
-export const EDIT_PHONEBOOK_SUBDIVISION = APPLICATIONS_ROUTE + '/edit-phonebook-subdivision'
-export const EDIT_PHONEBOOK_INNER_PHONE = APPLICATIONS_ROUTE + '/edit-phonebook-inner-phone'
-export const EDIT_PHONEBOOK_EMAIL = APPLICATIONS_ROUTE + '/edit-phonebook-email'
-
-export const TECHNICAL_MAINTENANCE = APPLICATIONS_ROUTE + '/technical-maintenance'
-
-export const COPY_OF_EMPLOYMENT_RECORD = APPLICATIONS_ROUTE + '/copy-of-the-employment-record'
-export const COPIES_OF_DOCUMENTS_FROM_PERSONAL_FILE = APPLICATIONS_ROUTE + '/copies-of-documents-from-the-personal-file'
-export const WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY = APPLICATIONS_ROUTE + '/work-on-the-terms-of-external-concurrency'
-export const CERTIFICATE_TIME_PARENTAL_LEAVE = APPLICATIONS_ROUTE + '/certificate-time-parental-leave'
-export const ARBITRARY_REQUEST = APPLICATIONS_ROUTE + '/arbitrary-request'
-export const COURIER = APPLICATIONS_ROUTE + '/courier'
-export const PERSONA_INCOME_TAX_REFERENCE = APPLICATIONS_ROUTE + '/persona-income-tax-reference'
-export const PAYMENT_OF_CHILD_BIRTH_ALLOWANCE = APPLICATIONS_ROUTE + '/payment-of-child-birth-allowance'
-export const PAYMENT_FOR_CHILD_CARE = APPLICATIONS_ROUTE + '/payment-for-child-care'
-export const PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/part-time-employment/'
-export const HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/holiday-postponed'
-export const DISMISSAL = HR_APPLICATIONS_ROUTE + '/dismissal/:id'
-export const WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/work-transfer/:id'
-export const EXTRA_HOLIDAY_COLL = HR_APPLICATIONS_ROUTE + '/extra-holiday-coll'
-export const HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/holiday-planning'
-export const HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/holiday-transfer/:id'
-export const HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/holiday-work/:id'
-export const WORK_TRANSFER_CHANGE_RATE = HR_APPLICATIONS_ROUTE + '/work-transfer-change-rate/:id'
-export const MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/medical-examination'
-export const BUFFER_DISMISSAL = HR_APPLICATIONS_ROUTE + '/buffer-dismissal'
-export const BUFFER_HOLIDAY_PLANNING = HR_APPLICATIONS_ROUTE + '/buffer-holiday-planning'
-export const BUFFER_HOLIDAY_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-holiday-transfer'
-export const BUFFER_HOLIDAY_WORK = HR_APPLICATIONS_ROUTE + '/buffer-holiday-work'
-export const BUFFER_MEDICAL_EXAMINATION = HR_APPLICATIONS_ROUTE + '/buffer-medical-examination'
-export const BUFFER_WORK_TRANSFER = HR_APPLICATIONS_ROUTE + '/buffer-work-transfer'
-export const BUFFER_PARTTIME_EMPLOYMENT = HR_APPLICATIONS_ROUTE + '/buffer-part-time-deployment'
-export const BUFFER_HOLIDAY_POSTPONED = HR_APPLICATIONS_ROUTE + '/buffer-holiday-postponed'
-
-export const LIVING_IN_RESIDENTIAL_PREMISES = APPLICATIONS_ROUTE + '/living-in-residential-premises'
-export const GUESTS_ACCOMODATION_ON_CAMPUS = APPLICATIONS_ROUTE + '/guests-accomodation-on-campus'
-export const GUESTS_PASSAGE_TO_CAMPUS = APPLICATIONS_ROUTE + '/guests-passage-to-campus'
-export const RELOCATION = APPLICATIONS_ROUTE + '/relocation'
-export const TERMINATION_OF_AGREEMENT = APPLICATIONS_ROUTE + '/termination-of-agreement'
-
-export const ISSUANCE_OF_PASS = APPLICATIONS_ROUTE + '/issuance-of-pass'
-export const GUEST_PASS = APPLICATIONS_ROUTE + '/guest-pass'
-
-export const CERTIFICATION_AND_ISSUANCE_OF_DOCS = APPLICATIONS_ROUTE + '/certification-and-issuance-of-docs'
-
-export const DEFERMENT_FROM_CONSCRIPTION = APPLICATIONS_ROUTE + '/deferment-from-conscription'
-export const CERTIFIED_COPIES_OF_MILITARY_DOCS = APPLICATIONS_ROUTE + '/certified-copies-of-military-docs'
-
-const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
-
-export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRoutes = ({ allowancesRoles }) => ({
->>>>>>>> master:src/app/routes/teacher-routes/index.tsx
     onboarding: {
         id: 'onboarding',
         title: 'Новому работнику',
@@ -553,29 +346,6 @@ export const teachersPrivateRoutes: (params: { allowancesRoles: Role[] }) => IRo
         group: 'FINANCES_DOCS',
         keywords: ['заявления', 'справки', 'заявление', 'справка'],
     },
-<<<<<<<< HEAD:src/shared/routing/routes/employee.ts
-========
-    kedo: {
-        id: 'kedo',
-        title: 'КЭДО',
-        icon: <FiFileText />,
-        path: KEDO_ROUTE,
-        isExternalPage: true,
-        isNew: true,
-        Component: () => {
-            React.useEffect(() => {
-                window.open('https://lk-staff.mospolytech.ru/applications/1SKabinet-sotrudnika')
-                window.history.back()
-            }, [])
-
-            return null
-        },
-        color: 'green',
-        isTemplate: false,
-        group: 'FINANCES_DOCS',
-        withoutHeader: true,
-    },
->>>>>>>> master:src/app/routes/teacher-routes/index.tsx
     allowances: {
         id: 'allowances',
         title: 'Установление надбавок',

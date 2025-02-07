@@ -2,18 +2,10 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/features/helpful-information/instructions/index.tsx
 import { userModel } from '@shared/session'
 import { CenterPage, Divider, Error, Message, Title } from '@shared/ui/atoms'
 import BlockWrapper from '@shared/ui/block/styles'
 import { LocalSearch } from '@shared/ui/molecules'
-========
-import { userModel } from '@entities/user'
-
-import { CenterPage, Divider, Error, Message, Title } from '@ui/atoms'
-import BlockWrapper from '@ui/block/styles'
-import { LocalSearch } from '@ui/molecules'
->>>>>>>> master:src/pages/instructions/index.tsx
 
 import instructionsStudentData, { InstructionsType } from './data/student-data'
 import instructionsTeacherData from './data/teacher-data'

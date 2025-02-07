@@ -1,12 +1,6 @@
 import * as z from 'zod'
 
-<<<<<<<< HEAD:src/shared/api/tutorial/types.ts
 import { TutorialData } from '@shared/api/tutorial/tutorial-api'
-
-import { ModuleSchema, TutorialIdSchema, TutorialStepSchema } from './constants'
-========
-import { TutorialData } from '@shared/api/tutorial-api'
->>>>>>>> master:src/entities/tutorial/types.ts
 
 import { ModuleSchema, TutorialIdSchema, TutorialStepSchema } from './constants'
 

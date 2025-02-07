@@ -2,19 +2,11 @@ import React, { useRef, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import styled from 'styled-components'
-<<<<<<<< HEAD:src/widgets/story/index.tsx
 
 import { storyModel } from '@entities/story'
 
 import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
 import ModalWrapper from '@shared/ui/modal/ui/atoms/modal-wrapper'
-========
-import ModalWrapper from 'widgets/modal/ui/atoms/modal-wrapper'
-
-import { storyModel } from '@entities/story'
-
-import useOnClickOutside from '@utils/hooks/use-on-click-outside'
->>>>>>>> master:src/shared/ui/story/index.tsx
 
 import PagesIndicator from './ui/pages-indicator'
 import StoryPage from './ui/story-page'

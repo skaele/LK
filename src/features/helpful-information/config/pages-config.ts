@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:src/features/helpful-information/config/pages-config.ts
 import instructionsTeacherData from '@features/helpful-information/instructions/data/teacher-data'
 
 import { HelpfulInfoEnum, helpfulInfoName } from '@entities/useful-information'
 
 import { HelpfulPages, Link } from '../types'
-========
-import instructionsTeacherData from '@pages/instructions/data/teacher-data'
-
-import { HelpfulInfoEnum, helpfulInfoName } from '@entities/useful-information'
-
-import { HelpfulPages, Link } from '../types/helpful-pages'
->>>>>>>> master:src/pages/helpful-information/config/pages-config.ts
 
 const pages: HelpfulPages = [
     {

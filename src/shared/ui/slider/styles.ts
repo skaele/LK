@@ -1,13 +1,7 @@
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/shared/ui/slider/styles.ts
 import { MEDIA_QUERIES } from '../consts'
 import { Size } from '../types'
-========
-import { MEDIA_QUERIES } from '@shared/constants'
-import { Size } from '@shared/ui/types'
-
->>>>>>>> master:src/widgets/slider/styles.ts
 import { HEIGHTS, RADIUSES } from './consts'
 import { getValueFromSize } from './lib/get-value-from-size'
 

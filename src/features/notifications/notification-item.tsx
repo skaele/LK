@@ -3,10 +3,6 @@ import { FiX } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-<<<<<<<< HEAD:src/features/notifications/notification-item.tsx
-========
-import { useModal } from 'widgets/modal/lib'
->>>>>>>> master:src/widgets/lk-notification-list/ui/notification-item.tsx
 
 import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
 

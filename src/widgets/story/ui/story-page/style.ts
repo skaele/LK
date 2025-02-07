@@ -1,12 +1,4 @@
 import styled from 'styled-components'
-<<<<<<<< HEAD:src/widgets/story/ui/story-page/style.ts
-========
-
-import BlockWrapper from '@ui/block/styles'
-import { Align, VerticalAlign } from '@ui/types'
-
-import getTranslate from './lib/get-translate'
->>>>>>>> master:src/shared/ui/story/ui/story-page/style.ts
 
 import { StyledProps } from '@entities/story/model'
 

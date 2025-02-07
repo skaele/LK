@@ -2,21 +2,12 @@ import React from 'react'
 
 import { EventCallable, Store } from 'effector'
 import { useStore } from 'effector-react'
-<<<<<<<< HEAD:src/features/list-of-people/people-pagination-list.tsx
 
 import User from '@features/user'
 
 import PagintaionList from '@shared/ui/pagination-list'
 import { Hint } from '@shared/ui/search'
 import { SelectPage } from '@shared/ui/select'
-========
-import User from 'widgets/user'
->>>>>>>> master:src/widgets/list-of-people/people-pagination-list.tsx
-
-import { SelectPage } from '@features/select'
-
-import PagintaionList from '@shared/ui/pagination-list'
-import { Hint } from '@shared/ui/search'
 
 type TUser = {
     id: string

@@ -2,11 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/shared/ui/perhaps-you-meant/index.tsx
 import { Colors } from '@shared/consts'
-========
-import { Colors } from '@shared/constants'
->>>>>>>> master:src/features/perhaps-you-meant/index.tsx
 import englishToRussianKeyboard from '@shared/ui/search/lib/english-to-russian-keyboard'
 import isValidEnglishText from '@shared/ui/search/lib/is-valid-english-text'
 import Subtext from '@shared/ui/subtext'

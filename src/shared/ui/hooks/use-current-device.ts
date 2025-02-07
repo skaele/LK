@@ -1,10 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
 
-<<<<<<<< HEAD:src/shared/ui/hooks/use-current-device.ts
 import { JS_QUERIES } from '@shared/ui/consts'
-========
-import { JS_QUERIES } from '@shared/constants'
->>>>>>>> master:src/shared/lib/hooks/use-current-device.ts
 
 type QueryType = typeof JS_QUERIES
 

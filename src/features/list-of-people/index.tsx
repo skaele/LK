@@ -4,18 +4,10 @@ import { AxiosResponse } from 'axios'
 import { EventCallable, Store } from 'effector'
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/features/list-of-people/index.tsx
 import GlobalSearch from '@shared/ui/global-search'
 import { Hint } from '@shared/ui/search'
 import SearchWithHints from '@shared/ui/search-with-hints'
 import { SelectPage } from '@shared/ui/select'
-========
-import SearchWithHints from '@features/search-with-hints'
-import { SelectPage } from '@features/select'
-
-import GlobalSearch from '@shared/ui/global-search'
-import { Hint } from '@shared/ui/search'
->>>>>>>> master:src/widgets/list-of-people/index.tsx
 import Subtext from '@shared/ui/subtext'
 import { Title } from '@shared/ui/title'
 

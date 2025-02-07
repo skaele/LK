@@ -1,14 +1,4 @@
 import React from 'react'
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/day/ui/times-events.tsx
-========
-
-import { useScrollTo } from '@shared/lib/hooks/use-scroll-to'
-import { DayCalendarEvent } from '@shared/ui/calendar/types'
-import { CalendarWrapper } from '@shared/ui/calendar/ui/calendar-wrapper'
-import Events from '@shared/ui/calendar/ui/event/events'
-import { getEventTopPosition } from '@shared/ui/calendar/ui/event/lib/get-event-top-position'
-import Times from '@shared/ui/calendar/ui/times'
->>>>>>>> master:src/shared/ui/calendar/calendars/day/ui/times-events.tsx
 
 import { CalendarWrapper } from '@features/schedule/ui/calendar/ui/calendar-wrapper'
 import Events from '@features/schedule/ui/calendar/ui/event/events'

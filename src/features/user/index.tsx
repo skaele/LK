@@ -1,7 +1,6 @@
 import React from 'react'
 
 import styled from 'styled-components'
-<<<<<<<< HEAD:src/features/user/index.tsx
 
 import { StaffModal } from '@features/all-staff/staff-modal'
 
@@ -15,21 +14,6 @@ import { Direction, Size } from '@shared/ui/types'
 
 import getStatus from '../../shared/ui/user-header/get-status'
 import { UserProps } from '../../shared/ui/user-header/types'
-========
-import { useModal } from 'widgets'
-
-import { StaffModal } from '@pages/all-staff/ui/staff-modal'
-
-import Avatar from '@features/home/ui/molecules/avatar'
-
-import { contextMenuModel } from '@entities/context-menu'
-
-import { Colors } from '@shared/constants'
-import DotSeparatedWords from '@shared/ui/dot-separated-words'
-
-import { Direction, Size } from '@ui/types'
-
->>>>>>>> master:src/widgets/user/index.tsx
 import getFontSize from './lib/get-font-size'
 import getImageSize from './lib/get-image-size'
 import getWidth from './lib/get-width'

@@ -1,17 +1,9 @@
 import { Effect, EventCallable } from 'effector'
 
-<<<<<<<< HEAD:src/features/send-form/send-form.ts
 import prepareFormData from '@features/send-form/prepare-form-data'
 
 import { IInputArea } from '@shared/ui/input-area/model'
 import { popUpMessageModel } from '@shared/ui/pop-up-message'
-========
-import { popUpMessageModel } from '@entities/pop-up-message'
-
-import { IInputArea } from '@ui/input-area/model'
-
-import prepareFormData from '@utils/prepare-form-data'
->>>>>>>> master:src/shared/lib/send-form.ts
 
 const sendForm = async <T>(
     form: IInputArea,

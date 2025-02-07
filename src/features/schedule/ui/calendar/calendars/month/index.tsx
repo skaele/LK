@@ -1,9 +1,6 @@
 import React from 'react'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/month/index.tsx
 import { getMonday } from '../../../../../../entities/schedule/lib/get-monday'
-========
->>>>>>>> master:src/shared/ui/calendar/calendars/month/index.tsx
 import { WeekEvents } from '../../types'
 import { WeekDays } from '../../ui/week-days'
 import { getSunday } from '../../ui/week-days/lib/get-sunday'

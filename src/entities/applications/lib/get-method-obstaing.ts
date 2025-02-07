@@ -1,11 +1,5 @@
-<<<<<<<< HEAD:src/entities/applications/lib/get-method-obstaing.ts
 import { IInputAreaData } from '@shared/ui/input-area/model'
 import { SpecialFieldsName, SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
-========
-import { SpecialFieldsName, SpecialFieldsNameConfig } from '@entities/applications/consts'
-
-import { IInputAreaData } from '@ui/input-area/model'
->>>>>>>> master:src/features/applications/lib/get-method-obstaing.ts
 
 type radioType = { id: number; title: string }
 

@@ -1,9 +1,5 @@
-import { AllAllowances } from '@entities/allowances/model'
 import {
-<<<<<<<< HEAD:src/shared/api/allowances/allowances-api.ts
     Allowance,
-========
->>>>>>>> master:src/shared/api/allowances-api.ts
     AllowanceEmployee,
     AllowanceFiles,
     AllowanceNotification,
@@ -13,19 +9,12 @@ import {
     HandbookType,
     Role,
     Subordnate,
-<<<<<<<< HEAD:src/shared/api/allowances/allowances-api.ts
 } from '@shared/api/allowances/types'
 
 import { $allowancesApi } from '../config/allowances-config'
 import { PersonalAllowance } from '../model/notification'
 
 export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
-========
-} from '@entities/allowances/types'
-
-import { $allowancesApi } from './config/allowances-config'
-import { PersonalAllowance } from './model/notification'
->>>>>>>> master:src/shared/api/allowances-api.ts
 
 type AllowanceRequest = {
     initiatorId: string

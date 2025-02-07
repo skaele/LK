@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 
-<<<<<<<< HEAD:src/widgets/navbar/leftside-bar/index.tsx
 import { UserBigTutorial } from '@widgets/user-big'
 
 import ThemeToggle from '@features/theme-toggle'
@@ -19,26 +18,6 @@ import { TutorialComponent } from '@shared/ui/types'
 
 import { CloseMenuButton, LeftsideBarWrapper } from './ui'
 import { LeftSideBarListTutorial } from './ui/organisms/leftside-bar-list'
-========
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-import { GlobalAppSearchTutorial } from 'widgets/tutorial/tutorials/global-app-search-tutorial'
-import { LeftSideBarListTutorial } from 'widgets/tutorial/tutorials/left-sidebar-list-tutorial'
-import { LinkTutoiral } from 'widgets/tutorial/tutorials/link-tutorial'
-import { UserBigTutorial } from 'widgets/tutorial/tutorials/user-big-tutoria'
->>>>>>>> master:src/widgets/leftside-bar/index.tsx
-
-import { HOME_ROUTE } from '@app/routes/general-routes'
-
-import ThemeToggle from '@features/theme-toggle'
-
-import { menuModel } from '@entities/menu'
-import { userModel } from '@entities/user'
-
-import { Logo } from '@ui/logo'
-
-import useResize from '@utils/hooks/use-resize'
-
-import { CloseMenuButton, LeftsideBarWrapper } from './ui'
 
 const LeftsideBar = ({ forwardedRef }: TutorialComponent) => {
     const { isOpen } = menuModel.selectors.useMenu()

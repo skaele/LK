@@ -1,18 +1,10 @@
 import React from 'react'
 
-<<<<<<<< HEAD:src/features/lk-notification-list/ui/list.tsx
 import NotificationItem from '@features/notifications/notification-item'
 
 import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
 
 import Flex from '@shared/ui/flex'
-========
-import { TNotification, lkNotificationModel } from '@entities/lk-notifications'
-
-import Flex from '@shared/ui/flex'
-
-import NotificationItem from './notification-item'
->>>>>>>> master:src/widgets/lk-notification-list/ui/list.tsx
 
 type Props = {
     notifications: TNotification[] | null

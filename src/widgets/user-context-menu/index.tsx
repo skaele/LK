@@ -24,23 +24,6 @@ import { useModal } from '@shared/ui/modal'
 import NewVersionMessage from '@shared/ui/new-version-message'
 import Notification from '@shared/ui/notification'
 
-import { PROFILE_ROUTE, SETTINGS_ROUTE } from '@app/routes/general-routes'
-
-import ThemeToggle from '@features/theme-toggle'
-import { NotificationsModal } from '@features/user-info/notification-bell'
-
-import { confirmModel } from '@entities/confirm'
-import { contextMenuModel } from '@entities/context-menu'
-import { lkNotificationModel } from '@entities/lk-notifications'
-import { userModel } from '@entities/user'
-
-import { OLD_LK_URL } from '@shared/constants'
-import { Divider } from '@shared/ui/atoms'
-import { Button } from '@shared/ui/button'
-import NewVersionMessage from '@shared/ui/new-version-message'
-
-import Notification from '@ui/notification'
-
 const NotificationButtonWrapper = styled.div`
     position: relative;
 `

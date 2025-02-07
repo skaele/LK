@@ -1,16 +1,7 @@
 import { createMutation, createQuery } from '@farfetched/core'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-<<<<<<<< HEAD:src/shared/tutorial/model/index.ts
 import { commonTutorialIds } from '@shared/api/tutorial/constants'
-========
-import { paymentsModel } from '@entities/payments'
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { projectActivitesModel } from '@entities/project-activites'
-import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
-
->>>>>>>> master:src/entities/tutorial/model/index.ts
 import {
     TutorialData,
     callUserInteraction,
@@ -22,7 +13,6 @@ import {
     rerunModule,
     resetTutorial,
     syncModules,
-<<<<<<<< HEAD:src/shared/tutorial/model/index.ts
 } from '@shared/api/tutorial/tutorial-api'
 import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/consts'
 import { stringToHash } from '@shared/lib/stringToHash'
@@ -32,15 +22,6 @@ import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { Module, Modules, TutorialId, TutorialRoles } from '../../api/tutorial/types'
 import { ModuleData, createTutorials } from '../tutorials'
-========
-} from '@shared/api/tutorial-api'
-import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
-import { stringToHash } from '@shared/lib/stringToHash'
-import { getKeys } from '@shared/lib/typescript/getKeys'
-
-import { ModuleData, createTutorials } from '../lib/tutorials'
-import { Module, Modules, TutorialId, TutorialRoles } from '../types'
->>>>>>>> master:src/entities/tutorial/model/index.ts
 
 const tutorialEnabled = createEvent<boolean>()
 const setHeroVisited = createEvent<boolean>()

@@ -1,10 +1,6 @@
 import React from 'react'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/week/index.tsx
 import { IWeekDayNames, WEEK_DAYS } from '@shared/consts'
-========
-import { IWeekDayNames, WEEK_DAYS } from '@shared/constants'
->>>>>>>> master:src/shared/ui/calendar/calendars/week/index.tsx
 
 import { useCalendarGeneral } from '../../hooks/use-calendar-general'
 import { CalendarWrapper } from '../../ui/calendar-wrapper'

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FiInfo } from 'react-icons/fi'
 
-<<<<<<<< HEAD:src/features/template-form/index.tsx
 import checkFormFields from '@features/send-form/check-form-fields'
 import sendForm from '@features/send-form/send-form'
 
@@ -14,23 +13,6 @@ import InputArea from '@shared/ui/input-area'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import { LoadedState, SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 import { Loading } from '@shared/ui/loading'
-========
-import { TemplateFormStoreOutput } from 'shared/effector/create-form-store'
-
-import getMethodObtaining from '@features/applications/lib/get-method-obstaing'
-
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
-
-import localizeDate from '@shared/lib/dates/localize-date'
-
-import { Loading, SubmitButton, Title } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
-import { Message } from '@ui/message'
-
-import checkFormFields from '@utils/check-form-fields'
-import sendForm from '@utils/send-form'
->>>>>>>> master:src/widgets/template-form/index.tsx
 
 export type TemplateFormProps<T extends { last_update?: string }> = {
     model: TemplateFormStoreOutput<T, T>

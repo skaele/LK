@@ -1,6 +1,5 @@
 import * as z from 'zod'
 
-<<<<<<<< HEAD:src/shared/api/tutorial/constants.ts
 export const commonTutorialIds = [
     'home',
     'settings',
@@ -12,9 +11,6 @@ export const commonTutorialIds = [
     // 'medical-certificate',
     // 'stud-physical-education',
 ] as const
-========
-import { commonTutorialIds } from './lib/tutorials'
->>>>>>>> master:src/entities/tutorial/constants.ts
 
 export const TutorialIdSchema = z.enum(commonTutorialIds)
 

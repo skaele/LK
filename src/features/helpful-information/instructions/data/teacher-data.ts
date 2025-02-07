@@ -1,10 +1,6 @@
 import { HiOutlineDocumentText } from 'react-icons/hi'
 
-<<<<<<<< HEAD:src/features/helpful-information/instructions/data/teacher-data.ts
 import { OLD_LK_URL } from '@shared/consts'
-========
-import { OLD_LK_URL } from '@shared/constants'
->>>>>>>> master:src/pages/instructions/data/teacher-data.ts
 
 import { InstructionsType } from './student-data'
 

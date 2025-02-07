@@ -1,15 +1,7 @@
-<<<<<<<< HEAD:src/shared/routing/routes/private.ts
 import { AiOutlineReload } from 'react-icons/ai'
 import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
 import { BsFileMedical } from 'react-icons/bs'
 import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser } from 'react-icons/fi'
-========
-import React, { LazyExoticComponent } from 'react'
-import { AiOutlineReload } from 'react-icons/ai'
-import { BiGroup, BiHeadphone, BiInfoCircle, BiMessageRounded, BiNews, BiPalette, BiUserCircle } from 'react-icons/bi'
-import { BsFileMedical } from 'react-icons/bs'
-import { FiBell, FiClipboard, FiClock, FiFileText, FiHome, FiMenu, FiSettings, FiUser, FiXCircle } from 'react-icons/fi'
->>>>>>>> master:src/app/routes/general-routes/index.tsx
 import {
     HiOutlineAcademicCap,
     HiOutlineCalendar,
@@ -18,59 +10,7 @@ import {
     HiOutlineViewGrid,
 } from 'react-icons/hi'
 
-<<<<<<<< HEAD:src/shared/routing/routes/private.ts
 import { isProduction } from '@shared/consts'
-========
-import { HelpfulInformation } from '@app/routes/teacher-routes/pages'
-
-import ChatPage from '@pages/chat'
-import LoginPage from '@pages/login'
-import SettingsPage from '@pages/settings'
-import AppearanceSettings from '@pages/settings/pages/appearance'
-import MainPageSettings from '@pages/settings/pages/main-page'
-import MenuSettings from '@pages/settings/pages/menu'
-import NotificationsSettings from '@pages/settings/pages/notifications'
-import PersonalSettings from '@pages/settings/pages/personal'
-import { TutorialSettings } from '@pages/settings/pages/tutorial'
-
-import { PETeacher } from '@entities/pe-teacher/types'
-
-import { IColors, isProduction } from '@shared/constants'
-import { ExtSize } from '@shared/ui/types'
-
-import { DOCLIST_ROUTE, TECHNICAL_MAINTENANCE } from '../teacher-routes'
-import {
-    AlertsPage,
-    AllPages,
-    AllStudentsPage,
-    AllTeachersPage,
-    CantAccessPage,
-    DecreisDirectivesPage,
-    ElectronicInteractionAgreementPage,
-    FeedbackPage,
-    ForgotPasswordPage,
-    GetYourLoginPage,
-    Home,
-    InstructionsPage,
-    LkNotificationsPage,
-    MemoFreshmenPage,
-    MemoTeacherPage,
-    ProfilePage,
-    SafetyInformation,
-    ScheduleCurrent,
-    // ChatPage,
-    SchedulePage,
-    ScheduleRetake,
-    ScheduleSemestr,
-    ScheduleSession,
-    TechnicalMaintenance,
-} from './pages'
-
-export const LOGIN_ROUTE = '/login'
-export const FORGOT_PASSWORD_ROUTE = '/forgot-password'
-export const MEDICAL_CERTIFICATE = '/medical-certificate'
-export const VACCINATION = '/vaccination'
->>>>>>>> master:src/app/routes/general-routes/index.tsx
 
 import { IRoutes } from '../consts'
 import {

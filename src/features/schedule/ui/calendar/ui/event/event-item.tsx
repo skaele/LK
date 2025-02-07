@@ -11,16 +11,12 @@ import { useUnit } from 'effector-react'
 
 import { getSubjectName } from '@features/schedule/lib/get-subject-name'
 import { NextSubject } from '@features/schedule/ui'
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/event/event-item.tsx
 import IconText from '@features/schedule/ui/calendar/calendars/day/ui/icon-text'
 import { getTimeInterval } from '@features/schedule/ui/calendar/lib/get-time-interval'
-========
->>>>>>>> master:src/shared/ui/calendar/ui/event/event-item.tsx
 import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
 
 import { userSettingsModel } from '@entities/settings'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/event/event-item.tsx
 import { DayCalendarEvent } from '@shared/api/model'
 import { ThemeVariant } from '@shared/consts'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
@@ -29,18 +25,6 @@ import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'
-========
-import { ThemeVariant } from '@shared/constants'
-import calcTimeLeft from '@shared/lib/dates/calc-time-left'
-import getShortString from '@shared/lib/get-short-string'
-import { useCalcTimeLeft } from '@shared/lib/hooks/use-calc-time-left'
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
-import { type DayCalendarEvent } from '@shared/ui/calendar'
-import IconText from '@shared/ui/calendar/calendars/day/ui/icon-text'
-import { getTimeInterval } from '@shared/ui/calendar/lib/get-time-interval'
-import DotSeparatedWords from '@shared/ui/dot-separated-words'
-import Flex from '@shared/ui/flex'
->>>>>>>> master:src/shared/ui/calendar/ui/event/event-item.tsx
 
 import { getEventTopPosition } from './lib/get-event-top-position'
 import { EventFront, EventItemStyled, EventTitle, MobileIcon } from './styles'

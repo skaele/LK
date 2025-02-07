@@ -7,18 +7,10 @@ import { TimeIndicator } from '@features/schedule/ui/subject/time-indicator'
 
 import { userSettingsModel } from '@entities/settings'
 
-<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/event/month-event-item.tsx
 import { DayCalendarEvent } from '@shared/api/model'
 import { ThemeVariant } from '@shared/consts'
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
-========
-import { ThemeVariant } from '@shared/constants'
-import Flex from '@shared/ui/flex'
-import Subtext from '@shared/ui/subtext'
-
-import { DayCalendarEvent } from '../../types'
->>>>>>>> master:src/shared/ui/calendar/ui/event/month-event-item.tsx
 
 const MonthEventItemStyled = styled(Flex)<{ textColor: string; background: string }>`
     padding: 4px;

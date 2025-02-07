@@ -1,24 +1,8 @@
-<<<<<<<< HEAD:src/shared/session/model/index.ts
 import { createQuery } from '@farfetched/core'
 import axios from 'axios'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import { useStore, useUnit } from 'effector-react'
 import { reset } from 'patronum'
-========
-import { applicationApi, userApi } from '@api'
-import { ADName, User, UserToken } from '@api/model'
-import { LoginData } from '@api/user-api'
-import axios from 'axios'
-import { createEffect, createEvent, createStore, sample } from 'effector'
-import { useStore } from 'effector-react'
-
-import createFullName from '@features/home/lib/create-full-name'
-
-import { TUTORIAL_HASH, TUTORIAL_PROGRESS, TUTORIAL_PROGRESS_DATE, TUTORIAL_PROGRESS_HASH } from '@shared/constants'
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
-
-import { clearTokens } from '../lib/clear-tokens'
->>>>>>>> master:src/entities/user/model/index.ts
 
 import { applicationApi, userApi } from '@shared/api'
 import { getRoles } from '@shared/api/allowances/allowances-api'

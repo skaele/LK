@@ -1,12 +1,6 @@
-<<<<<<<< HEAD:src/shared/api/science/science-api.ts
 import { Article, Changes, Filter, Sort } from '@shared/api/science/types'
 
 import { $scienceApi } from '../config/science-config'
-========
-import { Article, Changes, Filter, Sort } from '@entities/science/types'
-
-import { $scienceApi } from './config/science-config'
->>>>>>>> master:src/shared/api/science-api.ts
 
 export type UploadReq = { scopusFile: File; wosFile: File }
 

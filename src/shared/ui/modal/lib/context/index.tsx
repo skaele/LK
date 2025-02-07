@@ -1,13 +1,6 @@
-<<<<<<<< HEAD:src/shared/ui/modal/lib/context/index.tsx
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useUnit } from 'effector-react'
-========
-import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
-
-import { useUnit } from 'effector-react'
-import { modalModel } from 'widgets/modal/model'
->>>>>>>> master:src/widgets/modal/lib/context/index.tsx
 
 import { modalModel } from '../../model'
 import { Context } from './context'

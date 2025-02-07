@@ -1,12 +1,4 @@
 import { attach, combine, createEvent, createStore, sample } from 'effector'
-<<<<<<<< HEAD:src/features/physical-education/end-semester/pe-exam-student-model.ts
-========
-
-import { peStudentEndSemesterModel } from '@features/physical-education/student/pe-student-end-semester'
-import { Status } from '@features/physical-education/student/pe-student-end-semester/model'
-
-import { PEStudent } from '@entities/pe-student/types'
->>>>>>>> master:src/pages/teacher-physical-education/students-exam/pe-exam-student-model.ts
 
 import { peStudentEndSemesterModel } from '@features/physical-education/student/pe-student-end-semester'
 import { Status } from '@features/physical-education/student/pe-student-end-semester/model'

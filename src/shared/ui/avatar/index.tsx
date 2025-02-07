@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-<<<<<<<< HEAD:src/shared/ui/avatar/index.tsx
 import getLettersColors from '@shared/lib/get-letters-colors'
 import getNameFirstLetters from '@shared/lib/get-name-first-letters'
 
@@ -8,17 +7,6 @@ import Checkbox from '../checkbox'
 import { useModal } from '../modal'
 import Notification from '../notification'
 import { Container, Img } from './avatar'
-========
-import { useModal } from 'widgets'
-
-import Checkbox from '@ui/checkbox'
-import Notification from '@ui/notification'
-
-import getLettersColors from '@utils/get-letters-colors'
-import getNameFirstLetters from '@utils/get-name-first-letters'
-
-import { Container, Img } from '../atoms/avatar'
->>>>>>>> master:src/features/home/ui/molecules/avatar.tsx
 
 export default Avatar
 

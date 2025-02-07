@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 
-<<<<<<<< HEAD:src/shared/ui/select/ui/atoms/select-header.ts
 import { Colors } from '@shared/consts'
-========
-import { Colors } from '@shared/constants'
->>>>>>>> master:src/features/select/ui/atoms/select-header.ts
 
 const SelectHeader = styled.header<{ appearance: boolean }>`
     display: flex;

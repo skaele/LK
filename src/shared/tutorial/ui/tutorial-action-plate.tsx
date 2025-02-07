@@ -3,15 +3,9 @@ import { BsArrowUpRightCircleFill } from 'react-icons/bs'
 
 import { useUnit } from 'effector-react'
 
-<<<<<<<< HEAD:src/shared/tutorial/ui/tutorial-action-plate.tsx
 import { BrightPlate } from '@shared/ui/bright-plate/bright-plate'
 
 import { tutorialModel } from '..'
-========
-import { BrightPlate } from '@pages/home/ui/bright-plate'
-
-import { tutorialModel } from '@entities/tutorial'
->>>>>>>> master:src/widgets/tutorial/ui/tutorial-action-plate.tsx
 
 export const TutorialActionPlate = () => {
     const [tutorialState, setHeroVisited, increasedInteractions, interactions] = useUnit([

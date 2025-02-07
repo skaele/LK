@@ -5,8 +5,6 @@ import { Size } from '@shared/ui/types'
 
 import { getValueFromSize } from '../../lib/get-value-from-size'
 
-import { Size } from '@shared/ui/types'
-
 export const CurrentPageWrapper = styled.span<{
     pages: { title: string; condition?: boolean }[]
     currentPage: number

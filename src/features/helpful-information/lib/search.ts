@@ -1,12 +1,6 @@
-<<<<<<<< HEAD:src/features/helpful-information/lib/search.ts
 import normalizeString from '@shared/lib/normalize-string'
 
 import { HelpfulPage } from '../types'
-========
-import normalizeString from '@utils/normalize-string'
-
-import { HelpfulPage } from '../types/helpful-pages'
->>>>>>>> master:src/pages/helpful-information/lib/search.ts
 
 const search = (value: string, pages: HelpfulPage[]) => {
     return pages.reduce((acc, page) => {

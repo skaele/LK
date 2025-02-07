@@ -2,7 +2,6 @@ import React from 'react'
 import { useLocation } from 'react-router'
 
 import { useUnit } from 'effector-react'
-<<<<<<<< HEAD:src/widgets/navbar/leftside-bar/ui/organisms/leftside-bar-list.tsx
 
 import { menuModel } from '@entities/menu'
 
@@ -11,17 +10,6 @@ import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import Flex from '@shared/ui/flex'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
 import { TutorialComponent } from '@shared/ui/types'
-========
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { IRoute } from '@app/routes/general-routes'
-
-import { menuModel } from '@entities/menu'
-
-import Flex from '@shared/ui/flex'
-
-import { SkeletonShape } from '@ui/skeleton-shape'
->>>>>>>> master:src/widgets/leftside-bar/ui/organisms/leftside-bar-list.tsx
 
 import LeftsideBarListWrapper from '../atoms/leftside-bar-list-wrapper'
 import LeftsideBarItem from '../molecules/leftside-bar-item'

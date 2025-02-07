@@ -3,17 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
+import checkFormFields from '@features/send-form/check-form-fields'
+
 import { applicationsModel } from '@entities/applications'
 import { medicalCertificateModel } from '@entities/medical-certificate'
 
-import checkFormFields from '@shared/lib/check-form-fields'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import Checkbox from '@shared/ui/checkbox'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
 
-import { getCertForm } from './lib/cert-form'
+import { getCertForm } from '../../features/medical-certificate/lib/cert-form'
 import { getForm } from './lib/main-form'
 
 const MedicalCertificate = () => {

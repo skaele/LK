@@ -1,5 +1,3 @@
-import { SelectPage } from '@features/select'
-
 import { $technicalMaintenanceApi } from './config/technical-maintenance-config'
 
 export type TechnicalMaintenance = {
@@ -7,8 +5,8 @@ export type TechnicalMaintenance = {
     name: string
     phone: string
     email: string
-    location: SelectPage
-    stack: SelectPage
+    location: { id: string; title: string }
+    stack: { id: string; title: string }
     files: File[]
 }
 

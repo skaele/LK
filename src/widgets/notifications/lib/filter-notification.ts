@@ -1,4 +1,4 @@
-import { ItemNotification, Notifications } from '@api/model/notification'
+import { ItemNotification, Notifications } from '@shared/api/model/notification'
 
 const checkNotifications = (search: string, selected: string | number, notifications: Notifications) => {
     const result: { [index: string]: ItemNotification[] } = {}

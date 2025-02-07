@@ -1,6 +1,5 @@
-import { AcadPerformance } from '@api/model/acad-performance'
-
-import { GradeByScore } from '@shared/constants'
+import { AcadPerformance } from '@shared/api/model/acad-performance'
+import { GradeByScore } from '@shared/consts'
 
 type Percentage = {
     5: number

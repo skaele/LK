@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { userModel } from '@entities/user'
-
+import { userModel } from '@shared/session'
 import GoBackButton from '@shared/ui/go-back-button'
 import PageBlock from '@shared/ui/page-block'
 

@@ -1,7 +1,8 @@
 import { createEvent, sample } from 'effector'
 
 import { userSettingsModel } from '@entities/settings'
-import { UserSettings } from '@entities/settings/types'
+
+import { UserSettings } from '@shared/api/settings'
 
 export const setHomePageWidgetView = createEvent<RequireOnlyOne<Omit<UserSettings['homePage'], 'pages'>>>()
 

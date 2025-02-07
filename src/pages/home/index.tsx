@@ -1,11 +1,9 @@
 import React from 'react'
 
-import { HomePageTutorial } from 'widgets/tutorial/tutorials/home-page-tutorial'
+import { userModel } from '@shared/session'
+import { Wrapper } from '@shared/ui/atoms'
 
-import { userModel } from '@entities/user'
-
-import { Wrapper } from '@ui/atoms'
-
+import { HomePageTutorial } from './ui/home-page'
 import HomeTopPlate from './ui/home-top-plate'
 
 const Home = () => {

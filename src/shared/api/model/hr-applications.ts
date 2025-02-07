@@ -1,8 +1,12 @@
-import { User } from '@api/model/user'
-
-import { divisionT } from '@features/applications/lib/get-divisions'
+import { User } from '@shared/api/session/user'
 
 import { Subdivision } from './applications'
+
+export type divisionT = {
+    id: string
+    name: string
+    contact: string
+}
 
 export interface HrApplication {
     regDate: string

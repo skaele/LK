@@ -3,22 +3,22 @@ import { FiUsers } from 'react-icons/fi'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
-import ListOfPeople from 'widgets/list-of-people'
-import Slider from 'widgets/slider'
 
 import GroupModal from '@features/groups-list/group-modal'
-import SearchWithHints from '@features/search-with-hints'
+import ListOfPeople from '@features/list-of-people'
 
 import { paginationList as studentPaginationList } from '@entities/all-students'
 import { paginationList as teacherPaginationList } from '@entities/all-teachers'
-import { userModel } from '@entities/user'
 
 import { studentApi } from '@shared/api'
 import { getGroups } from '@shared/api/student-api'
 import { getDivisions } from '@shared/api/teacher-api'
 import Masks from '@shared/lib/masks'
+import { userModel } from '@shared/session'
 import { Wrapper } from '@shared/ui/atoms'
+import { useModal } from '@shared/ui/modal'
+import SearchWithHints from '@shared/ui/search-with-hints'
+import Slider from '@shared/ui/slider'
 
 import { addNewChatModel } from '../model'
 import { SearchType } from '../type'
@@ -40,16 +40,16 @@ export const Modal = () => {
 
     useEffect(() => {
         // doesn't work in sample xd
-        if (user.currentUser) {
-            addNewChatModel.events.setSearchMode(user.currentUser.user_status === 'stud' ? 'employee' : 'student')
+        if (user) {
+            addNewChatModel.events.setSearchMode(user.user_status === 'stud' ? 'employee' : 'student')
         }
-    }, [user.currentUser])
+    }, [user])
 
     useEffect(() => {
         setGroupSearch('')
     }, [searchMode])
 
-    if (!user.currentUser) return null
+    if (!user) return null
 
     return (
         <ModalContent>

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import { PageLinkProps } from '@features/all-pages/ui/molecules/page-link'
+
+import { useModal } from '@shared/ui/modal'
 
 import RetakeLinkContent from './retake-link-content'
 
@@ -17,7 +18,7 @@ const LinkWrapper = styled.a<{ width: number | string }>`
     }
 `
 
-export type RetakeLinkProps = Omit<PageLinkProps, 'restricted' | 'mode'>
+export type RetakeLinkProps = Omit<PageLinkProps, 'restricted' | 'mode'> & { Component: FC }
 
 const RetakeLink = (props: RetakeLinkProps) => {
     const { path, Component: RetakeModal, fullTitle } = props

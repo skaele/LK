@@ -6,11 +6,10 @@ import styled from 'styled-components'
 import { teacherDateVerificationModel } from '@entities/teacher-data-verification'
 
 import localizeDate from '@shared/lib/dates/localize-date'
-
-import { FormBlock, Message, SubmitButton, Title, Wrapper } from '@ui/atoms'
-import Checkbox from '@ui/checkbox'
-import InputArea from '@ui/input-area'
-import { IInputArea } from '@ui/input-area/model'
+import { FormBlock, Message, SubmitButton, Title, Wrapper } from '@shared/ui/atoms'
+import Checkbox from '@shared/ui/checkbox'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import getArmy from './lib/get-army'
 import getContactInfo from './lib/get-contact-info'

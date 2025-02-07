@@ -3,7 +3,7 @@ import { FiFileText, FiLink } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
-import { IInputAreaLink } from '@ui/input-area/model'
+import { IInputAreaLink } from '@shared/ui/input-area/model'
 
 const FileLinkWrapper = styled.a`
     display: flex;

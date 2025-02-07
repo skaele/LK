@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useUnit } from 'effector-react'
 
-import { peExamStudentModel } from '@pages/teacher-physical-education/students-exam/pe-exam-student-model'
+import { peExamStudentModel } from '@features/physical-education/end-semester/pe-exam-student-model'
 
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'

@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { HelpfulPages } from '../types/helpful-pages'
+import { HelpfulPages } from '@features/helpful-information'
+
 import LinksList from '../ui/molecules/links-list'
 
 const getPages = (config: HelpfulPages, isStaff: boolean) => {

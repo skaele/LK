@@ -1,4 +1,4 @@
-import { ClickEvent } from '@entities/context-menu/model'
+import { ClickEvent } from '@shared/ui/types'
 
 const removeFile = (e: ClickEvent, name: string, files: File[]) => {
     e.preventDefault()

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import search from '@pages/helpful-information/lib/search'
-import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
+import { HelpfulPage } from '@features/helpful-information'
+import search from '@features/helpful-information/lib/search'
 
-import { Error } from '@ui/error'
-import List from '@ui/list'
-import { LocalSearch } from '@ui/molecules'
+import { Error } from '@shared/ui/error'
+import List from '@shared/ui/list'
+import { LocalSearch } from '@shared/ui/molecules'
 
-import BlocksList from './blocks-list'
+import BlocksList from '../../../../features/helpful-information/ui/blocks-list'
 
 const LinksList = ({ title, blocks, isStaff }: { title: string; blocks: HelpfulPage[]; isStaff: boolean }) => {
     const [searchBlocks, setSearchBlocks] = useState<HelpfulPage[] | null>(null)

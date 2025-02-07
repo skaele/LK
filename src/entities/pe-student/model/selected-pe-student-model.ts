@@ -4,11 +4,11 @@ import { peStudentAdditionalPointsModel } from '@entities/pe-student-additional-
 import { peStudentRegulationPointsModel } from '@entities/pe-student-regulation-points/model'
 
 import { peApi } from '@shared/api'
+import { PEStudentProfile } from '@shared/api/physical-education'
 
 import * as peStudentHealthGroupModel from './pe-student-health-group-model'
 import * as peStudentSpecializationModel from './pe-student-specialization-model'
 import { pEStudentVisitModel } from '.'
-import { PEStudentProfile } from '../types'
 
 const setCurrentStudentId = createEvent<string>()
 const resetStudentId = createEvent()

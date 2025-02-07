@@ -3,18 +3,16 @@ import { FiInfo } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
-import { SelectPage } from '@features/select'
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { superiorRoomModel } from '@entities/superior-room'
-import { userModel } from '@entities/user'
 
-import { isProduction } from '@shared/constants'
-
-import { Error, FormBlock, Message, SubmitButton, Wrapper } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
-
-import checkFormFields from '@utils/check-form-fields'
+import { isProduction } from '@shared/consts'
+import { userModel } from '@shared/session'
+import { Error, FormBlock, Message, SubmitButton, Wrapper } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SelectPage } from '@shared/ui/select'
 
 import getForm from './lib/get-form'
 import { getStatusFormSuperiorRoom } from './lib/get-status'

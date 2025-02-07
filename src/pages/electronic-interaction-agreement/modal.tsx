@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 
-import { useModal } from 'widgets'
-
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
 import Flex from '@shared/ui/flex'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
+import { useModal } from '@shared/ui/modal'
 import { Title } from '@shared/ui/title'
 
 import { Code } from './steps/code'

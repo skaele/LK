@@ -2,8 +2,8 @@ import React, { ForwardedRef, forwardRef } from 'react'
 
 import styled from 'styled-components'
 
-import { MEDIA_QUERIES } from '@shared/constants'
-import useCurrentExactPage from '@shared/lib/hooks/use-current-exact-page'
+import useCurrentExactPage from '@shared/routing/hooks/use-current-exact-page'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 import { CenterPage } from '../atoms'
 import BlockWrapper from '../block/styles'
@@ -63,13 +63,13 @@ const PageBlock = forwardRef(
         ref: ForwardedRef<HTMLDivElement>,
     ) => {
         const currentPage = useCurrentExactPage()
-        const maxWidth = getPageWidth(currentPage)
+        const maxWidth = getPageWidth(currentPage?.pageSize)
 
         return (
             <CenterPage padding={outerPadding ?? '0 0 10px 0'} height={height}>
                 <PageBlockStyled
                     hasCenterEl={!!topCenterElement}
-                    titleLen={currentPage?.subPageHeaderTitle?.length ?? currentPage?.title.length ?? 0}
+                    titleLen={currentPage?.subPageHeaderTitle?.length ?? currentPage?.title?.length ?? 0}
                     justifyContent="flex-start"
                     height="100%"
                     orientation="vertical"

@@ -1,5 +1,4 @@
-import { ISubject } from '@api/model'
-
+import { ISubject } from '@shared/api/model'
 import getDateWithoutTime from '@shared/lib/dates/get-date-without-time'
 
 import { getFullEndDate } from './get-full-end-date'

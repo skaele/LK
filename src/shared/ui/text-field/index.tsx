@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { useModal } from 'widgets'
-
-import { FieldProps } from '@pages/settings/types'
+import { useModal } from '@shared/ui/modal'
 
 import TextFieldItem from './text-field-item'
 import TextFieldModal from './text-field-modal'
+import { FieldProps } from './types'
 
 const TextField = (props: FieldProps) => {
     const { open } = useModal()

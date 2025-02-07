@@ -1,10 +1,4 @@
-import * as z from 'zod'
-
-import { ThemeVariant } from '@shared/constants'
-
-import { UserSettingsSchema } from './constants'
-
-export type UserSettings = z.infer<typeof UserSettingsSchema>
+import { ThemeVariant } from '@shared/consts'
 
 export enum OldNameSettings {
     'settings-home-page' = 'settings-home-page',

@@ -3,18 +3,18 @@ import { FiMoreVertical } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
 
-import { PROFILE_ROUTE } from '@app/routes/general-routes'
-
-import Avatar from '@features/home/ui/molecules/avatar'
-import UserContextMenu from '@features/user-context-menu'
+import UserContextMenu from '@widgets/user-context-menu'
 
 import { contextMenuModel } from '@entities/context-menu'
 
-import { Button } from '@ui/button'
-import { SkeletonShape } from '@ui/skeleton-shape'
-import { Title } from '@ui/title'
+import { PROFILE_ROUTE } from '@shared/routing'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
+import Avatar from '@shared/ui/avatar'
+import { Button } from '@shared/ui/button'
+import { SkeletonShape } from '@shared/ui/skeleton-shape'
+import { Title } from '@shared/ui/title'
+import { TutorialComponent } from '@shared/ui/types'
 
 const UserBigWrapper = styled(Link)`
     display: flex;
@@ -93,3 +93,4 @@ const UserBig = ({ name, avatar, loading, size, notifications, selected, forward
 }
 
 export default React.memo(UserBig)
+export const UserBigTutorial = withTutorial(UserBig)

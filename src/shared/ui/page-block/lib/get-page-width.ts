@@ -1,5 +1,3 @@
-import { IRoute } from '@app/routes/general-routes'
-
 import { ExtSize } from '@shared/ui/types'
 
 const sizes: Record<ExtSize, string> = {
@@ -9,4 +7,4 @@ const sizes: Record<ExtSize, string> = {
     large: 'calc(100% - 35px)',
 }
 
-export const getPageWidth = (exactCurrentPage: IRoute | null) => sizes[exactCurrentPage?.pageSize ?? 'middle']
+export const getPageWidth = (pageSize?: ExtSize) => sizes[pageSize ?? 'middle']

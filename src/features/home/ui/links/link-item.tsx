@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-import { IRoute } from '@app/routes/general-routes'
-
-import { Icon } from '@features/all-pages'
-
-import { Colors, MEDIA_QUERIES } from '@shared/constants'
+import { Colors } from '@shared/consts'
+import { Page } from '@shared/routing'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
+import { Icon } from '@shared/ui/icon'
 import Subtext from '@shared/ui/subtext'
 
 const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
@@ -77,16 +76,16 @@ const LinkItemStyled = styled(Link)<{ color: string; amount: number }>`
 `
 
 type Props = {
-    item: IRoute
+    item: Page
     amount: number
 }
 
 const LinkItem = ({ item, amount }: Props) => {
-    const { icon, color, path, title, notifications, menuPath } = item
+    const { icon: LinkIcon, color, path, title, notifications, menuPath } = item
     return (
-        <LinkItemStyled to={menuPath ?? path} color={Colors[color].transparent3} amount={amount}>
-            <Icon badge={notifications?.toString()} color={color} size={35}>
-                {icon}
+        <LinkItemStyled to={menuPath ?? path} color={Colors[color ?? 'blue'].transparent3} amount={amount}>
+            <Icon badge={notifications?.toString()} color={color ?? 'blue'} size={35}>
+                {LinkIcon && <LinkIcon />}
             </Icon>
             <Subtext width="95px" maxWidth="95px" className="subtext" align="center">
                 {title}

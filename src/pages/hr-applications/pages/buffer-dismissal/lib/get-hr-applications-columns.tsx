@@ -6,9 +6,8 @@ import { hrApplicationsConstants, hrOrderConstants } from '@entities/application
 
 import localizeDate from '@shared/lib/dates/localize-date'
 import { Button } from '@shared/ui/button'
-
-import { Message } from '@ui/message'
-import { ColumnProps } from '@ui/table/types'
+import { Message } from '@shared/ui/message'
+import { ColumnProps } from '@shared/ui/table/types'
 
 const getHrApplicationsColumns = (): ColumnProps[] => {
     return [

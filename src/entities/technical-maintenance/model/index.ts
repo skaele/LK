@@ -1,12 +1,11 @@
 import { createMutation } from '@farfetched/core'
 import { createEvent, createStore, sample } from 'effector'
 
-import { SelectPage } from '@features/select'
-
 import { applicationsModel } from '@entities/applications'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 import { TechnicalMaintenance, postTechnicalMaintenance } from '@shared/api/technical-maintenance-api'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
+import { SelectPage } from '@shared/ui/select'
 
 const pageMounted = createEvent()
 const sendForm = createEvent()

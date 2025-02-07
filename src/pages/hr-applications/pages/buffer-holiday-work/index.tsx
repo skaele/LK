@@ -7,7 +7,7 @@ import { HRInfoMessage } from '@pages/hr-applications/ui/atoms/hr-info-message'
 
 import { applicationsModel } from '@entities/applications'
 
-import { Title, Wrapper } from '@ui/atoms'
+import { Title, Wrapper } from '@shared/ui/atoms'
 
 import Content from './ui/content'
 

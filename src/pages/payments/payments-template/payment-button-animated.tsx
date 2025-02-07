@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
 import PaymentButton from '@features/payment-button'
 
-import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import { AnimatedCheck } from '@shared/ui/animated-check'
+import useCurrentDevice from '@shared/ui/hooks/use-current-device'
+import { TutorialComponent } from '@shared/ui/types'
 
 export const PaymentButtonAnimated = ({
     currentPage,
@@ -32,3 +32,5 @@ export const PaymentButtonAnimated = ({
         )
     return <AnimatedCheck forwardedRef={forwardedRef} color="green" size="40px" />
 }
+
+export const PaymentButtonTutorial = withTutorial(PaymentButtonAnimated)

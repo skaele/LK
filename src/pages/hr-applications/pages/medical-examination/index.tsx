@@ -3,16 +3,15 @@ import React, { useEffect, useState } from 'react'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 import SendHrFormMedicalExamination from '@pages/hr-applications/lib/send-hr-form-medical-examination'
 
+import checkFormFields from '@features/send-form/check-form-fields'
+
 import { applicationsModel } from '@entities/applications'
-import { SpecialFieldsNameConfig } from '@entities/applications/consts'
 
+import { FormBlock, SubmitButton } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
 import PageBlock from '@shared/ui/page-block'
-
-import { FormBlock, SubmitButton } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea, IInputAreaData } from '@ui/input-area/model'
-
-import checkFormFields from '@utils/check-form-fields'
 
 import { bufferMedicalExaminationModel } from '../buffer-medical-examination/model'
 import getCompensation from './lib/get-compenstion'

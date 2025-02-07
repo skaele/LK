@@ -1,7 +1,6 @@
-import { $api } from '@api/config'
-import { ContactInfoActualization } from '@api/model'
-
-import token from '@utils/token'
+import { $api } from '@shared/api/config'
+import { ContactInfoActualization } from '@shared/api/model'
+import token from '@shared/lib/token'
 
 export const get = () => {
     return $api.get<ContactInfoActualization>(`?getContactData&token=${token()}`)

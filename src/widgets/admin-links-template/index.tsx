@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { FiDownload, FiInfo } from 'react-icons/fi'
 
-import { AdminLink } from '@api/model'
 import styled from 'styled-components'
 
 import { adminLinksModel } from '@entities/admin-links'
 
-import { Colors } from '@shared/constants'
-
-import { Divider, LinkButton, Message, Title } from '@ui/atoms'
-import { DateInterval } from '@ui/molecules'
+import { AdminLink } from '@shared/api/model'
+import { Colors } from '@shared/consts'
+import { Divider, LinkButton, Message, Title } from '@shared/ui/atoms'
+import { DateInterval } from '@shared/ui/molecules'
 
 import getMessage from './lib/get-message'
 

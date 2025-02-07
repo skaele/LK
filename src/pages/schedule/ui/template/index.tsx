@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-import { scheduleModel } from '@entities/schedule'
-import { View } from '@entities/schedule/consts'
+import { DayCalendar, MonthCalendar, WeekCalendar } from '@features/schedule/ui/calendar'
 
-import { IWeekEventSchedule } from '@shared/api/model'
-import { DayCalendar, MonthCalendar, WeekCalendar } from '@shared/ui/calendar'
+import { scheduleModel } from '@entities/schedule'
+
+import { IWeekEventSchedule, View } from '@shared/api/model'
 
 type Props = {
     events: IWeekEventSchedule

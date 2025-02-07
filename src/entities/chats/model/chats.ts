@@ -2,9 +2,8 @@ import { cache, concurrency, createQuery, onAbort, sessionStorageCache } from '@
 import { createEvent, createStore, sample } from 'effector'
 import { interval } from 'patronum'
 
-import { userModel } from '@entities/user'
-
-import { pageVisibility } from '@shared/models/window-focus'
+import { pageVisibility } from '@shared/consts/models/window-focus'
+import { userModel } from '@shared/session'
 
 import { getAllChats } from '../api'
 
@@ -63,7 +62,7 @@ sample({ clock: tick, target: chatsQuery.start })
 
 sample({
     clock: userModel.stores.user,
-    filter: (user) => !!user.currentUser,
+    filter: (user) => !!user,
     target: load,
 })
 

@@ -1,12 +1,12 @@
-import { paymentApi } from '@api'
-import { Payments, PaymentsContract } from '@api/model'
 import { combine, createEffect, createEvent, createStore, sample } from 'effector'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
-
+import { paymentApi } from '@shared/api'
+import { Payments, PaymentsContract } from '@shared/api/model'
 import { agreementSubmit } from '@shared/api/payment-api'
-import { MessageType } from '@shared/ui/types'
+import { MessageType } from '@shared/consts'
+import { userModel } from '@shared/session'
+import { tutorialModel } from '@shared/tutorial'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import changeCanSign from '../lib/change-can-sign'
 
@@ -94,6 +94,18 @@ const $paymentType = combine($combinedDormLength, $combinedEduLength, (combinedD
             ? 'education'
             : 'none',
 )
+
+sample({
+    clock: getPaymentsFx.doneData,
+    source: tutorialModel.stores.roles,
+    fn: (oldRoles, { dormitory, education }) => {
+        const roles = [...oldRoles]
+        if (dormitory.length && !roles.includes('dormitory')) roles.push('dormitory')
+        if (education.length && !roles.includes('education')) roles.push('education')
+        return roles
+    },
+    target: tutorialModel.events.setRoles,
+})
 
 export const stores = {
     $loading,

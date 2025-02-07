@@ -10,13 +10,13 @@ import PasswordField from '@pages/settings/ui/password-field'
 
 import { BusinessMobilePhone } from '@features/employee/business-mobile-phone/ui'
 import { WorkPlaceAddress } from '@features/employee/work-place-address/ui'
-import Avatar from '@features/home/ui/molecules/avatar'
 
-import { confirmModel } from '@entities/confirm'
 import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
 
 import { changeEmail, changePhone } from '@shared/api/user-api'
+import { userModel } from '@shared/session'
+import Avatar from '@shared/ui/avatar'
+import { confirmModel } from '@shared/ui/confirm'
 import { Title } from '@shared/ui/title'
 import ToggleItem from '@shared/ui/toggle-item'
 
@@ -24,10 +24,10 @@ import { TITLE_CONFIG } from '../constants'
 import { Wrapper } from '../styled'
 
 const PersonalSettings = () => {
-    const {
-        user: { currentUser },
-        settings,
-    } = useUnit({ user: userModel.stores.user, settings: userSettingsModel.stores.userSettings })
+    const { user: currentUser, settings } = useUnit({
+        user: userModel.stores.user,
+        settings: userSettingsModel.stores.userSettings,
+    })
 
     if (!settings) {
         return null

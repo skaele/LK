@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 
 import styled from 'styled-components'
-import AlertItem from 'widgets/alerts-widget/alert-item'
+
+import AlertItem from '@widgets/alerts-widget/alert-item'
 
 import { PreparedAlerts } from '@entities/alert/lib/prepare-data'
-import { userModel } from '@entities/user'
 
+import { userModel } from '@shared/session'
 import Flex from '@shared/ui/flex'
 import { LocalSearch } from '@shared/ui/molecules'
 

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 
-import { OLD_LK_URL, isProduction } from '@shared/constants'
+import { OLD_LK_URL, isProduction } from '@shared/consts'
 
 import { addAuthHeaderToRequests, getAuthResponseInterceptor } from './utils'
 

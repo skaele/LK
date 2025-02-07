@@ -2,9 +2,8 @@ import React, { useRef, useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
 
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
+import { FileInputProps } from '@shared/ui/file-input'
 import Subtext from '@shared/ui/subtext'
-
-import { FileInputProps } from '@ui/file-input'
 
 import { DEFAULT_FILE_FORMATS } from '../../consts'
 import loadFiles from './lib/load-files'

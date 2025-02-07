@@ -1,10 +1,10 @@
-import { teacherDataVerificationApi } from '@api'
-import { TeacherDataVerification } from '@api/model'
 import { createEffect, createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 import { forward } from 'effector/effector.mjs'
 
-import { userModel } from '@entities/user'
+import { teacherDataVerificationApi } from '@shared/api'
+import { TeacherDataVerification } from '@shared/api/model'
+import { userModel } from '@shared/session'
 
 interface TeacherDataVerificationStore {
     teacherDataVerification: TeacherDataVerification | null

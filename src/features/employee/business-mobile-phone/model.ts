@@ -1,11 +1,10 @@
 import { createMutation } from '@farfetched/core'
 import { createEvent, sample } from 'effector'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
-import { userModel } from '@entities/user'
-
+import { PhoneSettingsType } from '@shared/api/session/user'
 import { changeStaffPhoneApi } from '@shared/api/user-api'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 export const changeStaffPhone = createEvent<PhoneSettingsType>()
 

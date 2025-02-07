@@ -1,19 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { LoadedState } from 'widgets/template-form'
-
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
 import StepByStepForm, { StagesConfigsT } from '@features/applications/ui/molecules/step-by-step-form'
-import { SelectPage } from '@features/select'
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
 
-import checkFormFields from '@shared/lib/check-form-fields'
-import { ApplicationFormCodes } from '@shared/models/application-form-codes'
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, Message, SubmitButton, Title } from '@shared/ui/atoms'
 import { IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
+import { SelectPage } from '@shared/ui/select'
 
 import {
     getContacts,

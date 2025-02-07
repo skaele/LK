@@ -1,11 +1,11 @@
 import { createEffect, createEvent, sample } from 'effector'
-import { modalModel } from 'widgets/modal/model'
 
 import { peStudentCompetitionModel } from '@entities/pe-student/model'
-import { popUpMessageModel } from '@entities/pop-up-message'
 
 import { peApi } from '@shared/api'
 import { getPeErrorMsg } from '@shared/api/config/pe-config'
+import { modalModel } from '@shared/ui/modal/model'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { AddCompetition } from './types'
 

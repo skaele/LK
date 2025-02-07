@@ -1,4 +1,4 @@
-import { getCertForm } from '@pages/medical-certificate/lib/cert-form'
+import { getCertForm } from '@features/medical-certificate/lib/cert-form'
 
 export const listConfigCert = {
     kvdCert: getCertForm({

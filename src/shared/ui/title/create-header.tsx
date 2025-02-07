@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { HeaderSize } from '@ui/types'
+import { HeaderSize } from '@shared/ui/types'
 
 type Props = {
     size: HeaderSize

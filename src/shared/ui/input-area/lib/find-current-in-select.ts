@@ -1,4 +1,4 @@
-import { SelectPage } from '@features/select'
+import { SelectPage } from '@shared/ui/select'
 
 const findCurrentInSelect = (list: SelectPage[], title: string): SelectPage | null => {
     if (title?.length === 0) return null

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FiAlertOctagon, FiCheck } from 'react-icons/fi'
 
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import { Loading } from '@shared/ui/loading'
 
 import { Status } from '../student/pe-student-end-semester/model'

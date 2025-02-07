@@ -3,12 +3,12 @@ import { FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
 import { useUnit } from 'effector-react'
-import { ScienceTable } from 'widgets/science-table'
 
-import { ARTICLES } from '@app/routes/teacher-routes'
+import { ScienceTable } from '@widgets/science-table'
 
 import { scienceModel } from '@entities/science'
 
+import { ARTICLES } from '@shared/routing'
 import { Button } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'

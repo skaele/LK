@@ -2,35 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router'
 
+import { taxCertificateModel } from '@entities/payments'
+import { TAX_CERTIFICATES_ROUTE } from '@shared/routing'
+import { Wrapper } from '@shared/ui/atoms'
+import { Button } from '@shared/ui/button'
+import { confirmModel } from '@shared/ui/confirm'
+import Flex from '@shared/ui/flex'
+import PageBlock from '@shared/ui/page-block'
+import Select, { SelectPage } from '@shared/ui/select'
+import Table from '@shared/ui/table'
+import { Title } from '@shared/ui/title'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { TAX_CERTIFICATES_ROUTE } from '@app/routes/routes'
-
-import Select, { SelectPage } from '@features/select'
-
-import { confirmModel } from '@entities/confirm'
-import { taxCertificateModel } from '@entities/payments'
-
-import { Wrapper } from '@shared/ui/atoms'
-import { Button } from '@shared/ui/button'
-import Flex from '@shared/ui/flex'
-import PageBlock from '@shared/ui/page-block'
-import Table from '@shared/ui/table'
-import { Title } from '@shared/ui/title'
-
 const currentYear = new Date().getFullYear()
-
 function getYears(): SelectPage[] {
     const startYear = 2007
-
     return Array.from({ length: currentYear - startYear }, (_, index) => ({
         id: index,
         title: (currentYear - 1 - index).toString(),
     }))
 }
 const years = getYears()
-
 const TaxCertificate = () => {
     const history = useHistory()
     const [selected, setSelected] = useState<SelectPage | null>(years[0])
@@ -44,11 +37,9 @@ const TaxCertificate = () => {
         taxCertificateModel.certificatedRequested,
         taxCertificateModel.createCertificateLoading,
     ])
-
     useEffect(() => {
         pageMounted()
     }, [])
-
     return (
         <Wrapper data={true} load={() => {}} error={null}>
             <PageBlock>
@@ -77,7 +68,6 @@ const TaxCertificate = () => {
                                 loading={certCreating}
                                 onClick={() => {
                                     if (!selected) return
-
                                     if (presentYears.has(selected.title)) {
                                         confirmModel.events.evokeConfirm({
                                             message: (

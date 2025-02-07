@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { Shape } from '@ui/types'
+import { Shape } from '@shared/ui/types'
 
 export const SkeletonShapeWrapper = styled.div<{
     shape: Shape

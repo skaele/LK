@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
-import { LoadedState } from 'widgets/template-form'
-
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
 
+import checkFormFields from '@features/send-form/check-form-fields'
+
 import { applicationsModel } from '@entities/applications'
 
-import checkFormFields from '@shared/lib/check-form-fields'
-import { ApplicationTeachersFormCodes } from '@shared/models/application-form-codes'
+import { ApplicationTeachersFormCodes } from '@shared/consts/models/application-form-codes'
 import { FormBlock, SubmitButton } from '@shared/ui/atoms'
 import InputArea from '@shared/ui/input-area'
 import { IInputArea } from '@shared/ui/input-area/model'
+import { LoadedState } from '@shared/ui/input-area/types'
 
 import getForm from './lib/get-form'
 

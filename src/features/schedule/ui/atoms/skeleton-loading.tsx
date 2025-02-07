@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { SkeletonShape } from '@ui/atoms'
+import { SkeletonShape } from '@shared/ui/atoms'
 
 const SkeletonLoadingWrapper = styled.div`
     width: 100%;

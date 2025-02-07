@@ -2,12 +2,11 @@ import React from 'react'
 
 import downloadFile from '@pages/hr-applications/lib/get-file'
 
+import { TypesOfVacation } from '@shared/consts/models/types-of-vacation'
 import localizeDate from '@shared/lib/dates/localize-date'
-import { TypesOfVacation } from '@shared/models/types-of-vacation'
 import { Button } from '@shared/ui/button'
 import { Message } from '@shared/ui/message'
-
-import { ColumnProps } from '@ui/table/types'
+import { ColumnProps } from '@shared/ui/table/types'
 
 export const getBufferHolidayPlanningColumns = (): ColumnProps[] => {
     return [

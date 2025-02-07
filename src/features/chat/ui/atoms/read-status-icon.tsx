@@ -4,9 +4,10 @@ import { IoCheckmarkDoneOutline, IoCheckmarkOutline } from 'react-icons/io5'
 
 import { useUnit } from 'effector-react'
 
-import { userModel } from '../../../../entities/user'
-import { Tooltip } from '../../../../shared/ui/tooltip'
-import { RawChatMessage } from '../../type'
+import { RawChatMessage } from '@features/chat/type'
+
+import { userModel } from '@shared/session'
+import { Tooltip } from '@shared/ui/tooltip'
 
 type Props = {
     message: RawChatMessage
@@ -24,8 +25,8 @@ export const ReadStatusIcon = ({ message }: Props) => {
     }
 
     if (
-        (message.author_id === user?.currentUser?.id.toString() && message.readed_opponent) ||
-        message.author_id !== user?.currentUser?.id.toString()
+        (message.author_id === user?.id.toString() && message.readed_opponent) ||
+        message.author_id !== user?.id.toString()
     ) {
         return (
             <Tooltip text="Прочитано" direction="left">

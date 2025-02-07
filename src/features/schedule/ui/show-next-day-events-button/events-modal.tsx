@@ -1,12 +1,12 @@
 import React from 'react'
 
+import { TimesEvents } from '@features/schedule/ui/calendar/calendars/day/ui/times-events'
+import { useCalendarScale } from '@features/schedule/ui/calendar/hooks/use-calendar-scale'
 import { useScheduleSubjectModal } from '@features/use-schedule-subject-modal'
 
-import { Sleep } from '@shared/images'
-import { DayCalendarEvent } from '@shared/ui/calendar'
-import { TimesEvents } from '@shared/ui/calendar/calendars/day/ui/times-events'
-import { useCalendarScale } from '@shared/ui/calendar/hooks/use-calendar-scale'
+import { DayCalendarEvent } from '@shared/api/model'
 import { Error } from '@shared/ui/error'
+import { Sleep } from '@shared/ui/images'
 
 import { NextDayScheduleStyled } from './styles'
 

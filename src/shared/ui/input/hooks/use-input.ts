@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { BUILDINGS, Buildings } from '@pages/teachers-applications/pages/contact-details/lib/getCabinetMask'
-
+import { BUILDINGS, Buildings } from '@shared/lib'
 import Masks from '@shared/lib/masks'
 
 const useInput = (

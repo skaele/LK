@@ -1,6 +1,5 @@
-import { userModel } from '@entities/user'
-
-import { BrowserStorageKey } from '@shared/constants/browser-storage-key'
+import { BrowserStorageKey } from '@shared/consts/browser-storage-key'
+import { userModel } from '@shared/session'
 
 export const releaseClear = () => {
     const currentVersion = '0.0.1'

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import LogoPicture from '../../images/logo.png'
-import LogoShort from '../../images/mospolytech-logo-white.png'
+import LogoPicture from './logo.png'
+import LogoShort from './mospolytech-logo-white.png'
 import { LogoWrapper } from './styles'
 
 interface Props {

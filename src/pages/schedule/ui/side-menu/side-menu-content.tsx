@@ -2,13 +2,12 @@ import React from 'react'
 import { HiOutlineChevronLeft } from 'react-icons/hi'
 import { useLocation } from 'react-router'
 
-import { scheduleRoutes } from '@app/routes/general-routes'
-
 import { TeacherGroupSearch } from '@features/teacher-group-search'
 
 import { scheduleModel } from '@entities/schedule'
-import { userModel } from '@entities/user'
 
+import { scheduleRoutes } from '@shared/routing'
+import { userModel } from '@shared/session'
 import { Button } from '@shared/ui/button'
 import { Divider } from '@shared/ui/divider'
 import Flex from '@shared/ui/flex'

@@ -1,6 +1,6 @@
 import { createEvent, sample } from 'effector'
 
-import { peExamStudentModel } from './pe-exam-student-model'
+import { peExamStudentModel } from '../../../features/physical-education/end-semester/pe-exam-student-model'
 
 export const pageLoaded = createEvent()
 export const pageUnloaded = createEvent()

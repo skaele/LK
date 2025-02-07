@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { UserApplication } from '@api/model'
-
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const typeExamOptions = [
     { id: 0, title: 'Экзамен' },

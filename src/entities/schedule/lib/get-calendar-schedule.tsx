@@ -1,12 +1,10 @@
 import React from 'react'
 import { HiBookOpen } from 'react-icons/hi'
 
-import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
-
-import { ISubject, ITimeIntervalColor, TimeIntervalColor } from '@shared/api/model'
-import { IWeekDays } from '@shared/constants'
+import { DayCalendarEvent, ISubject, ITimeIntervalColor, TimeIntervalColor } from '@shared/api/model'
+import { IWeekDays } from '@shared/consts'
 import { TimeType, getMinutesFromStringTime } from '@shared/lib/dates/get-minutes-from-string-time'
-import { type DayCalendarEvent } from '@shared/ui/calendar'
+import { getSubjectIcon } from '@shared/lib/get-subject-icon'
 
 import { getFullEndDate } from './get-full-end-date'
 import { getFullStartDate } from './get-full-start-date'

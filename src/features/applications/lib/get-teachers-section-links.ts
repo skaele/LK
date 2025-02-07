@@ -1,13 +1,9 @@
+import { User } from '@shared/api/model'
+import { UNION_ORGANIZATION, isProduction } from '@shared/consts'
 import {
     ARBITRARY_REQUEST,
-    BUFFER_DISMISSAL,
     // BUFFER_EXTRA_HOLIDAY_COLL,
-    BUFFER_HOLIDAY_PLANNING,
-    BUFFER_HOLIDAY_TRANSFER,
-    BUFFER_HOLIDAY_WORK,
-    BUFFER_MEDICAL_EXAMINATION,
     // BUFFER_HOLIDAY_POSTPONED,
-    BUFFER_WORK_TRANSFER,
     CERTIFICATE_FROM_PLACE_OF_WORK,
     CERTIFICATE_OF_WORK_EXPERIENCE,
     CERTIFICATE_TIME_PARENTAL_LEAVE,
@@ -23,7 +19,7 @@ import {
     EDIT_PHONEBOOK_INNER_PHONE,
     EDIT_PHONEBOOK_SUBDIVISION,
     GETTING_COMPUTER_EQUIPMENT,
-    GUESTS_ACCOMODATION_ON_CAMPUS,
+    GUESTS_ACCOMMODATION_ON_CAMPUS,
     GUESTS_PASSAGE_TO_CAMPUS,
     GUEST_PASS,
     INCREASE_ANTIPLAGIAT_LIMITS,
@@ -32,7 +28,6 @@ import {
     LIVING_IN_RESIDENTIAL_PREMISES,
     NUMBER_OF_UNUSED_VACATION_DAYS,
     OTHER_IT_SERVICES,
-    PARTTIME_EMPLOYMENT,
     PAYMENT_FOR_CHILD_CARE,
     PAYMENT_OF_CHILD_BIRTH_ALLOWANCE,
     PERSONA_INCOME_TAX_REFERENCE,
@@ -44,10 +39,7 @@ import {
     TERMINATION_OF_AGREEMENT,
     VISA_CERTIFICATE,
     WORK_ON_TERMS_OF_EXTERNAL_CONCURRENCY,
-} from '@app/routes/teacher-routes'
-
-import { User } from '@shared/api/model'
-import { UNION_ORGANIZATION, isProduction } from '@shared/constants'
+} from '@shared/routing'
 
 import { Section } from '../ui/molecules/create-application-list'
 
@@ -147,7 +139,7 @@ const getInDevelopmentStaffLinks = () => [
         disabled: isProduction,
         links: [
             { link: LIVING_IN_RESIDENTIAL_PREMISES, title: 'Предоставление права проживания в жилом помещении' },
-            { link: GUESTS_ACCOMODATION_ON_CAMPUS, title: 'Временное размещение гостей в студгородке' },
+            { link: GUESTS_ACCOMMODATION_ON_CAMPUS, title: 'Временное размещение гостей в студгородке' },
             { link: GUESTS_PASSAGE_TO_CAMPUS, title: 'Проход гостей на территорию студенческого городка' },
             { link: RELOCATION, title: 'Переселение' },
             { link: TERMINATION_OF_AGREEMENT, title: 'Расторжение договора найма жилого помещения' },
@@ -211,30 +203,7 @@ const getTeachersHRSectionLinks = () => {
     return [
         {
             title: '',
-            links: [
-                //{ link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
-                //{ link: HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
-                { link: PARTTIME_EMPLOYMENT, title: 'Заявление на трудоустройство по совместительству' },
-                // { link: BUFFER_HOLIDAY_POSTPONED, title: 'Заявление на перенос отпуска' },
-                { link: BUFFER_DISMISSAL, title: 'Заявление на увольнение' },
-                { link: BUFFER_HOLIDAY_WORK, title: 'Заявление о привлечении к работе в выходной день' },
-                { link: BUFFER_HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска' },
-                { link: BUFFER_HOLIDAY_TRANSFER, title: 'Заявление о переносе отпуска' },
-                { link: BUFFER_MEDICAL_EXAMINATION, title: 'Заявление о диспансеризации' },
-                { link: BUFFER_WORK_TRANSFER, title: 'Заявление на перевод' },
-                // {
-                //     link: BUFFER_EXTRA_HOLIDAY_COLL,
-                //     title: 'Заявление о предоставлении дополнительного отпуска по коллективному договору',
-                // },
-                // { link: DISMISSAL, title: 'Заявление на увольнение' },
-                //{ link: HOLIDAY_WORK, title: 'Заявление о привлечении к работе в выходной день' },
-                // { link: HOLIDAY_PLANNING, title: 'Заявление о предоставлении отпуска' },
-                //{ link: WORK_TRANSFER, title: 'Заявление на перевод' },
-                // {
-                //     link: EXTRA_HOLIDAY_COLL,
-                //     title: 'Заявление о предоставлении дополнительного отпуска по коллективному договору',
-                // },
-            ],
+            links: [],
         },
     ]
 }

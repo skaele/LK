@@ -1,12 +1,15 @@
 import React from 'react'
 
-import { ItemNotification, baseNotification, businesstripNotification, docsNotification } from '@api/model/notification'
-
 import { personalNotificationModel } from '@entities/notification'
 
+import {
+    ItemNotification,
+    baseNotification,
+    businesstripNotification,
+    docsNotification,
+} from '@shared/api/model/notification'
+import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
-
-import { Error } from '@ui/error'
 
 import { CardDocument, CardNotification } from './index'
 

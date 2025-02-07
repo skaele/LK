@@ -1,16 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import { HR_APPLICATIONS_ROUTE } from '@app/routes/teacher-routes'
 
 import { ScheduleTable } from './schedule-table'
 
 export const HRDocumentFlow = () => (
     <>
         <p>
-            Для оформления кадровых заявлений перейдите в раздел{' '}
-            <Link to={HR_APPLICATIONS_ROUTE}>«Кадровые заявления»</Link> или обратитесь в Отдел кадров университета.
-            По всем дополнительным вопросам, связанным с работой, также обращайтесь в Отдел кадров университета.
+            Для оформления кадровых заявлений обратитесь в Отдел кадров университета. По всем дополнительным вопросам,
+            связанным с работой, также обращайтесь в Отдел кадров университета.
         </p>
         <ScheduleTable
             title="Приемные часы и контакты Отдела кадров:"

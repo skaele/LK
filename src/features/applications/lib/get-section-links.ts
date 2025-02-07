@@ -1,4 +1,5 @@
-import { MEDICAL_CERTIFICATE } from '@app/routes/general-routes'
+import { Section } from '@features/applications/ui/molecules/create-application-list'
+import { RECEPTION_COMMISSION, UNION_ORGANIZATION, isProduction } from '@shared/consts'
 import {
     ACADEMIC_LEAVE_ACCOMMODATION,
     ACCOMMODATION_CORRESPONDENCE_FORM,
@@ -17,6 +18,7 @@ import {
     HOLIDAYS_AFTER_TRAINING,
     INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
     INDEPENDENTLY_DEDUCTED,
+    MEDICAL_CERTIFICATE,
     MEDICAL_CERTIFICATES_086,
     MILITARY_COPIES,
     MILITARY_FORM_4,
@@ -35,15 +37,11 @@ import {
     SOCIAL_AGENCIES,
     SOCIAL_SCOLLARSHIP,
     STATE_ACCREDITATION,
-    STUDENT_EMPLOYMENT_APP_ROUTE,
+    STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
     STUDENT_STATUS,
+    TECHNICAL_MAINTENANCE,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
-} from '@app/routes/routes'
-import { TECHNICAL_MAINTENANCE } from '@app/routes/teacher-routes'
-
-import { Section } from '@features/applications/ui/molecules/create-application-list'
-
-import { RECEPTION_COMMISSION, UNION_ORGANIZATION, isProduction } from '@shared/constants'
+} from '@shared/routing'
 
 const getSectionLinks = (): Section[] => {
     const additionalHeaderClosedService = isProduction ? ' (Сервис временно недоступен)' : ''
@@ -220,7 +218,7 @@ const getSectionLinks = (): Section[] => {
             disabled: isProduction,
             links: [
                 {
-                    link: STUDENT_EMPLOYMENT_APP_ROUTE,
+                    link: STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
                     title: 'Трудоустройство студентов',
                 },
             ],

@@ -1,8 +1,7 @@
-import { UserApplication } from '@api/model'
-
 import listHostelsOptions from '@features/applications/lib/get-list-hostels'
 
-import { CheckboxDocs, IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { CheckboxDocs, IInputArea } from '@shared/ui/input-area/model'
 
 const extracurricularActivities: CheckboxDocs[] = [
     {

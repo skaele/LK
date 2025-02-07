@@ -1,21 +1,18 @@
-import { hrApplicationApi } from '@api'
-import { HrApplication, HrUserApplication } from '@api/model'
 import { createEvent, forward, sample } from 'effector'
 import { createEffect, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
 
 import { popUpMessageModelHr } from '@entities/pop-up-message-hr'
 
-import { MessageType } from '@shared/ui/types'
+import { hrApplicationApi } from '@shared/api'
+import { ApplicationCreating } from '@shared/api/hr-application-api'
+import { HrApplication, HrUserApplication } from '@shared/api/model'
+import { MessageType } from '@shared/consts'
 
 interface ApplicationsStore {
     listApplication: HrApplication[] | null
     dataUserApplication: HrUserApplication | null
     error: string | null
-}
-
-export interface ApplicationCreating {
-    [key: string]: any
 }
 
 const DEFAULT_STORE = { listApplication: null, error: null, dataUserApplication: null }

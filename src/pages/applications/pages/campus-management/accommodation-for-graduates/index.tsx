@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react'
 
-import { ApplicationFormCodes } from '@utility-types/application-form-codes'
+import { useUnit } from 'effector-react'
 
 import { globalAppSendForm } from '@pages/applications/lib'
 import BaseApplicationWrapper from '@pages/applications/ui/base-application-wrapper'
+import PageIsNotReady from '@pages/page-is-not-ready'
+
+import checkFormFields from '@features/send-form/check-form-fields'
 
 import { applicationsModel } from '@entities/applications'
 
-import { isProduction } from '@shared/constants'
-
-import { Error, FormBlock, SubmitButton } from '@ui/atoms'
-import InputArea from '@ui/input-area'
-import { IInputArea } from '@ui/input-area/model'
-
-import checkFormFields from '@utils/check-form-fields'
+import { isProduction } from '@shared/consts'
+import { ApplicationFormCodes } from '@shared/consts/models/application-form-codes'
+import { userModel } from '@shared/session'
+import { Error, FormBlock, SubmitButton } from '@shared/ui/atoms'
+import InputArea from '@shared/ui/input-area'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import getForm from './lib/get-form'
 
 type LoadedState = React.Dispatch<React.SetStateAction<IInputArea>>
 
 const AccommodationForGraduatesPage = () => {
+    const user = useUnit(userModel.stores.user)
     const [form, setForm] = useState<IInputArea | null>(null)
     const {
         data: { dataUserApplication },
@@ -33,6 +36,18 @@ const AccommodationForGraduatesPage = () => {
             setForm(getForm(dataUserApplication))
         }
     }, [dataUserApplication])
+
+    if (
+        !['4', '5', '6'].includes(user?.course ?? '') &&
+        !user?.status?.toLocaleLowerCase()?.includes('окончил') &&
+        !(user?.degreeLevel?.toLocaleLowerCase() === 'магистратура' && user?.course === '2')
+    )
+        return (
+            <PageIsNotReady
+                isRedirectButtonVisible={false}
+                errorText={'Сервис доступен только выпускникам университета, проживающих в общежитии'}
+            />
+        )
 
     if (isProduction && new Date() > new Date('2024 Aug 08')) return <Error text="Подача заявок закончилась"></Error>
 

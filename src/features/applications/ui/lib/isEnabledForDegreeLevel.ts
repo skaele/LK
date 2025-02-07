@@ -1,4 +1,4 @@
-import { User } from '@api/model'
+import { User } from '@shared/api/model'
 
 const isEnabledForDegreeLevel = (
     currentDegreeLevel: User['degreeLevel'] | undefined,

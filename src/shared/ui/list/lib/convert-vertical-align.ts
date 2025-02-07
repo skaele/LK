@@ -1,4 +1,4 @@
-import { VerticalAlign } from '@ui/types'
+import { VerticalAlign } from '@shared/ui/types'
 
 const convertVerticalAlign = (align?: VerticalAlign) => {
     switch (align) {

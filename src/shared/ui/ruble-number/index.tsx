@@ -2,7 +2,8 @@ import React from 'react'
 import { BiRuble } from 'react-icons/bi'
 
 import styled from 'styled-components'
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { TutorialComponent } from '@shared/ui/types'
 
 import { Size } from '../types'
 

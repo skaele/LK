@@ -1,7 +1,6 @@
-import { $api } from '@api/config'
-import { UserApplication } from '@api/model'
-
-import token from '@utils/token'
+import { $api } from '@shared/api/config'
+import { UserApplication } from '@shared/api/model'
+import token from '@shared/lib/token'
 
 export const get = () => {
     return $api.get<UserApplication>(`?getAppData&token=${token()}`)

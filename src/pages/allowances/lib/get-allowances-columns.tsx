@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { allowanceStatus } from '@entities/allowances/consts'
-import { AllowanceFiles, AllowanceStatus } from '@entities/allowances/types'
-
+import { allowanceStatus } from '@shared/api/allowances/consts'
+import { AllowanceFiles, AllowanceStatus } from '@shared/api/allowances/types'
 import { Message } from '@shared/ui/atoms'
 import { ColumnProps } from '@shared/ui/table/types'
 

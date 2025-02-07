@@ -5,10 +5,9 @@ import { ApplicationStatusType, ApplicationsConstants } from '@entities/applicat
 
 import { LinkButton } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { Message } from '@shared/ui/message'
+import { ColumnProps } from '@shared/ui/table/types'
 import { Tooltip } from '@shared/ui/tooltip'
-
-import { Message } from '@ui/message'
-import { ColumnProps } from '@ui/table/types'
 
 import { ApplicationFileOutput } from '../../../shared/api/model/applications'
 

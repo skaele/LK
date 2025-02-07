@@ -1,16 +1,16 @@
 import { combine, createEvent, sample } from 'effector'
 
 import { adminLinksModel } from '@entities/admin-links'
-import { popUpMessageModel } from '@entities/pop-up-message'
 import { userSettingsModel } from '@entities/settings'
-import { userModel } from '@entities/user'
 
 import {
     REQUIRED_HOME_PAGES_CONFIG,
     REQUIRED_LEFTSIDE_BAR_CONFIG,
     REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG,
     SIDEBAR_ITEMS_LIMIT_SIZE,
-} from '@shared/constants'
+} from '@shared/consts'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 export const addPageToHome = createEvent<{ pageId: string }>()
 export const deletePageFromHome = createEvent<{ pageId: string }>()
@@ -50,19 +50,15 @@ sample({
 
 export const addPageToSidebar = createEvent<{ pageId: string }>()
 export const deletePageFromSidebar = createEvent<{ pageId: string }>()
-export const $requiredSidebarItems = combine(
-    userModel.stores.user,
-    adminLinksModel.store,
-    ({ currentUser }, { data }) => {
-        if (currentUser?.status === '') {
-            return REQUIRED_LEFTSIDE_BAR_CONFIG
-        }
+export const $requiredSidebarItems = combine(userModel.stores.user, adminLinksModel.store, (currentUser, { data }) => {
+    if (currentUser?.status === '') {
+        return REQUIRED_LEFTSIDE_BAR_CONFIG
+    }
 
-        const config = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG
+    const config = REQUIRED_TEACHER_LEFTSIDE_BAR_CONFIG
 
-        return Object.values(data ?? {}).some((l) => l.length) ? [...config, 'download-agreements'] : config
-    },
-)
+    return Object.values(data ?? {}).some((l) => l.length) ? [...config, 'download-agreements'] : config
+})
 
 export const $sidebarItems = combine(
     $requiredSidebarItems,

@@ -1,17 +1,13 @@
 import React from 'react'
 
-import { useUnit } from 'effector-react'
-import { PageWrapperTutorial } from 'widgets/tutorial/tutorials/page-wrapper-tutorial'
-
 import { ElectronicAgreementList, PaymentList } from '@features/payments'
-
-import { tutorialModel } from '@entities/tutorial'
-
+import { PageWrapperTutorial } from '@features/tutorials/page-wrapper-tutorial'
 import { PaymentsContract } from '@shared/api/model'
 import localizeDate from '@shared/lib/dates/localize-date'
+import { tutorialModel } from '@shared/tutorial'
+import { Divider, Title } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
-
-import { Divider, Title } from '@ui/atoms'
+import { useUnit } from 'effector-react'
 
 import DebtAndQr from './debt-and-qr'
 import PaygraphTable from './paygraph-table'

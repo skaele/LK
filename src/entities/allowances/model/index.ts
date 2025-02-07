@@ -1,11 +1,6 @@
 import { createMutation, createQuery } from '@farfetched/core'
 import { Unit, createEffect, createEvent, createStore, sample } from 'effector'
 
-import { SelectPage } from '@features/select'
-
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
-
 import {
     ConfirmRequest,
     JobRoles,
@@ -16,26 +11,27 @@ import {
     getAllowancesNotifications,
     getHandbook,
     getPersonalAllowances,
-    getRoles,
     getSubordinates,
     inspectAllowance,
     removeFile,
     uploadFile,
     viewNotification,
-} from '@shared/api/allowances-api'
+} from '@shared/api/allowances/allowances-api'
+import { AllowanceModified, Employee, Role, Subordnate } from '@shared/api/allowances/types'
 import { createDatePeriodField } from '@shared/effector/form/create-date-period-field'
 import { createFilesField } from '@shared/effector/form/create-file-filed'
 import { createInputField } from '@shared/effector/form/create-input-field'
 import { createSelectField } from '@shared/effector/form/create-select-field'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
+import { SelectPage } from '@shared/ui/select'
 
-import { allowanceStatus } from '../consts'
-import { Allowance, AllowanceModified, Employee, Role, Subordnate } from '../types'
+import { allowanceStatus } from '../../../shared/api/allowances/consts'
 
 export type AllAllowancesModified = {
     initiatorAllowances: AllowanceModified[]
     approverAllowances: AllowanceModified[]
 }
-export type AllAllowances = { initiatorAllowances: Allowance[]; approverAllowances: Allowance[] }
 
 const appStarted = createEvent()
 const pageMounted = createEvent()
@@ -120,6 +116,13 @@ const getAllowancesFx = createEffect(async (userId: string) => {
 
 const getSubordinatesFx = createEffect(async (userId: string) => {
     return getSubordinates(userId)
+})
+
+sample({
+    clock: userModel.events.authenticated,
+    source: userModel.stores.userRole,
+    filter: (role) => role === 'staff',
+    target: appStarted,
 })
 
 sample({
@@ -230,11 +233,6 @@ sample({
     }),
     target: veridctMutation.start,
 })
-
-const roleQuery = createQuery({
-    handler: getRoles,
-})
-const $roles = roleQuery.$data.map((jobs) => jobs?.map((job) => job.roles).flat() ?? [])
 const paymentIdentifierQuery = createQuery({
     handler: getHandbook,
 })
@@ -323,10 +321,6 @@ sample({
 $completed.on(setCompleted, (_, val) => val)
 sample({
     clock: appStarted,
-    target: roleQuery.start,
-})
-sample({
-    clock: appStarted,
     target: notificationsQuery.start,
 })
 
@@ -394,7 +388,7 @@ sample({
 })
 sample({
     clock: pageMounted,
-    source: roleQuery.$data,
+    source: userModel.stores.jobRoles,
     filter: (roles) => roles !== null,
     fn: (roles) => roles as JobRoles,
     target: getAllAllowances,
@@ -406,7 +400,7 @@ sample({
 
 sample({
     clock: pageMounted,
-    source: roleQuery.$data,
+    source: userModel.stores.jobRoles,
     filter: (roles) => roles !== null,
     fn: (roles) => roles as JobRoles,
     target: getAllEmployees,
@@ -446,7 +440,6 @@ sample({
 sample({
     clock: userModel.events.logout,
     target: [
-        roleQuery.reset,
         sourceOfFundingQuery.reset,
         paymentIdentifierQuery.reset,
         allowanceQuery.reset,
@@ -470,7 +463,6 @@ sample({
 export const events = {
     pageMounted,
     personalAllowancesMounted,
-    appStarted,
     createSupplement,
     setCompleted,
     infoPageMounted,
@@ -484,10 +476,6 @@ export const events = {
 }
 
 export const stores = {
-    jobRoles: roleQuery.$data,
-    rolesPending: roleQuery.$pending,
-    roles: $roles,
-
     paymentIdentifiers: $paymentIdentifiers,
     allowances: $allowances,
     fileUploading: uploadFileMutation.$pending,

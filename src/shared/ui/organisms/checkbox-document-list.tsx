@@ -2,9 +2,9 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { Title } from '@ui/atoms'
-import { CheckboxDocs } from '@ui/input-area/model'
-import { CheckboxDocument } from '@ui/molecules'
+import { Title } from '@shared/ui/atoms'
+import { CheckboxDocs } from '@shared/ui/input-area/model'
+import { CheckboxDocument } from '@shared/ui/molecules'
 
 const CheckboxDocumentListWrapper = styled.div``
 

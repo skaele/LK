@@ -1,5 +1,5 @@
+import { DayCalendarEvent } from '@shared/api/model'
 import calcTimeLeft from '@shared/lib/dates/calc-time-left'
-import { DayCalendarEvent } from '@shared/ui/calendar'
 
 import calcNextSubjectTime from './calc-next-subject-time'
 

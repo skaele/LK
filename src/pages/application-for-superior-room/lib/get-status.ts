@@ -1,7 +1,5 @@
-import { User } from '@api/model'
-
-export const StartDateSuperiorRoom = 'Jun 26 2024 12:00:00 GMT+0300'
-export const EndDateSuperiorRoom = 'Jun 28 2024 12:00:00 GMT+0300'
+import { User } from '@shared/api/model'
+import { EndDateSuperiorRoom, StartDateSuperiorRoom } from '@shared/routing/routes/student'
 
 export const superiorRoomAlert = 'Подача заявок открыта с 12:00 26 июня до 12:00 28 июня!'
 

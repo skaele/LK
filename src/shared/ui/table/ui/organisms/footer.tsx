@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { IndexedProperties } from '@utility-types/indexed-properties'
-
-import { Divider } from '@ui/divider'
-import { ColumnProps, Footer as IFooter } from '@ui/table/types'
+import { IndexedProperties } from '@shared/consts/models/indexed-properties'
+import { Divider } from '@shared/ui/divider'
+import { ColumnProps, Footer as IFooter } from '@shared/ui/table/types'
 
 import { Row } from '../molecules'
 

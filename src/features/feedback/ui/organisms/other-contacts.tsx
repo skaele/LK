@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Message } from '@ui/atoms'
+import { Message } from '@shared/ui/atoms'
 
 export function OtherContacts() {
     return (

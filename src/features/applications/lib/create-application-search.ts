@@ -1,4 +1,4 @@
-import normalizeString from '@utils/normalize-string'
+import normalizeString from '@shared/lib/normalize-string'
 
 import { Section } from '../ui/molecules/create-application-list'
 

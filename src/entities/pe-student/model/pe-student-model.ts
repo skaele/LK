@@ -1,37 +1,16 @@
-import { attach, combine, createEvent, createStore, sample } from 'effector'
-import { debounce } from 'patronum'
+import { createEvent, createStore, sample } from 'effector'
 
-import { pEStudentFilterModel } from '@pages/teacher-physical-education/model'
-
-import { PEStudent } from '@entities/pe-student/types'
-
-import { peApi } from '@shared/api'
+import { PEStudent } from '@shared/api/physical-education'
 
 import { pEStudentVisitModel } from '.'
 
 const load = createEvent()
 const setPage = createEvent<number>()
 
-const $pEStudentsPage = createStore<number>(0)
-    .on(setPage, (_, page) => page)
-    .on(pEStudentFilterModel.stores.$filters, () => 0)
+const $pEStudentsPage = createStore<number>(0).on(setPage, (_, page) => page)
 
-const loadPageFx = attach({
-    source: { page: $pEStudentsPage, filters: pEStudentFilterModel.stores.$filters },
-    effect: async ({ filters, page }) => {
-        const { data } = await peApi.getStudents(page, filters)
-
-        return data.data
-    },
-})
-
-debounce({ source: combine($pEStudentsPage, pEStudentFilterModel.stores.$filters), timeout: 200, target: load })
-
-sample({ clock: load, target: loadPageFx })
-
-const $pEStudents = createStore<PEStudent[]>([]).on(loadPageFx.doneData, (_, data) => data.students)
-const $pEStudentsTotalCount = createStore<number>(0).on(loadPageFx.doneData, (_, data) => data.totalCount)
-const $loading = combine(loadPageFx.pending, Boolean)
+const $pEStudents = createStore<PEStudent[]>([])
+const $pEStudentsTotalCount = createStore<number>(0)
 
 sample({
     clock: pEStudentVisitModel.effects.addVisitFx.doneData,
@@ -55,7 +34,6 @@ export const events = {
 }
 
 export const stores = {
-    $loading,
     $pEStudents,
     $pEStudentsPage,
     $pEStudentsTotalCount,

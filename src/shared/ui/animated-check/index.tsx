@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
-
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
+import { TutorialComponent } from '@shared/ui/types'
 
 import { AnimatedCheckWrapper } from './styles'
 

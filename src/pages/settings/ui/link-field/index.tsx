@@ -1,7 +1,7 @@
 import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 
-import { FieldProps } from '@pages/settings/types'
+import { FieldProps } from '@shared/ui/text-field/types'
 
 import TextFieldItem from '../../../../shared/ui/text-field/text-field-item'
 

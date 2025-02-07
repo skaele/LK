@@ -1,18 +1,17 @@
 import React from 'react'
 
-import { IRoute } from '@app/routes/general-routes'
-
 import { PageLink } from '@features/all-pages'
 
 import { menuModel } from '@entities/menu'
 
+import { Page } from '@shared/routing'
 import Flex from '@shared/ui/flex'
 
 export const LinkList = () => {
     const { allRoutes } = menuModel.selectors.useMenu()
     if (!allRoutes) return null
 
-    const links: IRoute[] = [
+    const links: Page[] = [
         allRoutes['structure-of-the-university'],
         allRoutes['social-environment'],
         allRoutes['psychological-help'],

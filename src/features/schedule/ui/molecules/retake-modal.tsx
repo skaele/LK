@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { RetakeLink } from '@features/schedule/types/retake-types'
 
-import { Title } from '@ui/title'
+import { Title } from '@shared/ui/title'
 
 const Container = styled.div`
     width: 600px;

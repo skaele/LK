@@ -1,23 +1,21 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { User } from '@api/model'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import createApplicationSearch from '@features/applications/lib/create-application-search'
 import getSectionLinks from '@features/applications/lib/get-section-links'
 import { getTeachersSectionLinks } from '@features/applications/lib/get-teachers-section-links'
 import isEnabledForEducationForm from '@features/applications/ui/lib/isEnabledForEducationForm'
 
-import { userModel } from '@entities/user'
-
+import { User } from '@shared/api/model'
+import { userModel } from '@shared/session'
+import { Error } from '@shared/ui/error'
 import Flex from '@shared/ui/flex'
+import { useModal } from '@shared/ui/modal'
+import { LocalSearch } from '@shared/ui/molecules'
 import Subtext from '@shared/ui/subtext'
-
-import { Error } from '@ui/error'
-import { LocalSearch } from '@ui/molecules'
-import { Title } from '@ui/title'
+import { Title } from '@shared/ui/title'
 
 import isEnabledForDegreeLevel from '../lib/isEnabledForDegreeLevel'
 

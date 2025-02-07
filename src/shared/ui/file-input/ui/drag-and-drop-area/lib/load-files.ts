@@ -1,7 +1,6 @@
-import { popUpMessageModel } from '@entities/pop-up-message'
-
-import { FileFormats, MAX_FILE_SIZE } from '@shared/constants'
+import { FileFormats, MAX_FILE_SIZE } from '@shared/consts'
 import { DEFAULT_FILE_FORMATS } from '@shared/ui/file-input/consts'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { getFileSize } from './get-file-size'
 import validateFile from './validate-file'

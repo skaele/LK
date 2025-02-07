@@ -1,6 +1,6 @@
-import { MessageType } from '@shared/ui/types'
+import { MessageType } from '@shared/consts'
 
-import { ApprovalStatus } from '../types'
+import { ApprovalStatus } from '../../../shared/api/allowances/types'
 
 export const getStatusType = (status: ApprovalStatus): MessageType =>
     status === 'Approved'

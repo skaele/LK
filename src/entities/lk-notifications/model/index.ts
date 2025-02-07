@@ -1,17 +1,18 @@
-// sort-imports-ignore
-import { menuModel } from '@entities/menu'
-import { allowancesModel } from '@entities/allowances'
-import { NotificationTitles } from '@entities/allowances/consts'
-import { UserSettings } from '@entities/settings/types'
-import { userModel } from '@entities/user'
-import { allowancesApi, lkNotificationApi } from '@shared/api'
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 
+import { allowancesModel } from '@entities/allowances'
+import { menuModel } from '@entities/menu'
+
+import { allowancesApi, lkNotificationApi } from '@shared/api'
+import { NotificationTitles } from '@shared/api/allowances/consts'
+import { UserSettings } from '@shared/api/settings'
+import { userModel } from '@shared/session'
+
+import { TNotification } from '../../../shared/api/notifications/types'
 import { createAllowancePath } from '../lib/create-allowance-path'
 import createNotification from '../lib/create-notification'
 import { filterNotificationsViaSettings } from '../lib/filter-notifications-via-settings'
-import { TNotification } from '../types'
 
 type TStore = {
     notifications: TNotification[]

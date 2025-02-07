@@ -1,20 +1,19 @@
 import React from 'react'
 
-import { AcadPerformance } from '@api/model/acad-performance'
 import styled from 'styled-components'
-import { useModal } from 'widgets'
 
 import findProgressBarColor from '@features/acad-performance/lib/find-progress-bar-color'
-import { getSubjectIcon } from '@features/acad-performance/lib/get-subject-icon'
-import { Icon } from '@features/all-pages'
 
-import { GradeByScore, IColorPalette } from '@shared/constants'
+import { AcadPerformance } from '@shared/api/model/acad-performance'
+import { GradeByScore, IColorPalette } from '@shared/consts'
 import localizeDate from '@shared/lib/dates/localize-date'
+import getShortName from '@shared/lib/get-short-name'
+import { getSubjectIcon } from '@shared/lib/get-subject-icon'
 import DotSeparatedWords from '@shared/ui/dot-separated-words'
 import Flex from '@shared/ui/flex'
+import { Icon } from '@shared/ui/icon'
+import { useModal } from '@shared/ui/modal'
 import Subtext from '@shared/ui/subtext'
-
-import getShortName from '@utils/get-short-name'
 
 import { SubjectModal } from '.'
 import { SubjectCheker } from '../atoms'

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { MEDIA_QUERIES } from '@shared/constants'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 const HeaderWrapper = styled.header<{ hidden?: boolean; headerVisible: boolean }>`
     width: calc(100% - 15px);

@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { Colors, IColors } from '@shared/constants'
+import { Colors, IColors } from '@shared/consts'
 
 import { Title } from '../title'
 import { ExtSize, Size } from '../types'

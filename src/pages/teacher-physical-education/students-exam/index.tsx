@@ -2,23 +2,22 @@ import React, { useEffect } from 'react'
 import { FiUsers } from 'react-icons/fi'
 
 import { useUnit } from 'effector-react'
-import { useModal } from 'widgets'
 
 import { EndSemester } from '@features/physical-education/end-semester'
-import SearchWithHints from '@features/search-with-hints'
-
-import { confirmModel } from '@entities/confirm'
 
 import { studentApi } from '@shared/api'
-import { Colors } from '@shared/constants'
+import { Colors } from '@shared/consts'
 import Masks from '@shared/lib/masks'
 import { Button } from '@shared/ui/button'
+import { confirmModel } from '@shared/ui/confirm'
 import { Message } from '@shared/ui/message'
+import { useModal } from '@shared/ui/modal'
+import SearchWithHints from '@shared/ui/search-with-hints'
 import Table from '@shared/ui/table'
 
+import { peExamStudentModel } from '../../../features/physical-education/end-semester/pe-exam-student-model'
 import { examPeStudentColumns } from './constants'
 import { pageLoaded } from './model'
-import { peExamStudentModel } from './pe-exam-student-model'
 import { TableHeader, TableWrapper, Wrapper } from './styled'
 
 export const StudentsExam = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TemplateApplications } from 'widgets'
+import TemplateApplications from '@widgets/template-applications'
 
 const TeachersHrApplicationsPage = () => {
     return <TemplateApplications isTeachers={true} />

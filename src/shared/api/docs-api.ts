@@ -1,7 +1,6 @@
-import { $api } from '@api/config'
-import { ItemNotification, viewNotificationResponse } from '@api/model/notification'
-
-import token from '@utils/token'
+import { $api } from '@shared/api/config'
+import { ItemNotification, viewNotificationResponse } from '@shared/api/model/notification'
+import token from '@shared/lib/token'
 
 export const get = () => {
     return $api.get<ItemNotification[]>(`?getDocList&token=${token()}`).then((res) => {

@@ -1,11 +1,10 @@
 import { createEffect, createEvent, createStore, forward, sample } from 'effector'
 import { useStore } from 'effector-react'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
-
 import { $hrApi } from '@shared/api/config'
-import { MessageType } from '@shared/ui/types'
+import { getJwtToken, parseJwt } from '@shared/api/session/jwt-token'
+import { MessageType } from '@shared/consts'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 import { setAgeMed } from '../../medical-examination/lib/age-med'
 import { setIsTutor } from '../../medical-examination/lib/is-tutor'

@@ -2,8 +2,6 @@ import React, { useMemo, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 
-import { Groups, IRoutes } from '@app/routes/general-routes'
-
 import { FoundPages } from '@features/all-pages'
 import getGroupPages, { routesOrder } from '@features/all-pages/lib/get-group-pages'
 import search from '@features/all-pages/lib/search'
@@ -11,13 +9,13 @@ import LinksList from '@features/home/ui/organisms/links-list'
 
 import { menuModel } from '@entities/menu'
 import { peTeacherModel } from '@entities/pe-teacher'
-import { userModel } from '@entities/user'
 
+import { Groups, IRoutes } from '@shared/routing'
+import { userModel } from '@shared/session'
 import { CenterPage } from '@shared/ui/atoms'
 import Flex from '@shared/ui/flex'
+import { LocalSearch } from '@shared/ui/molecules'
 import PageBlock from '@shared/ui/page-block'
-
-import { LocalSearch } from '@ui/molecules'
 
 const AllPages = () => {
     const { visibleRoutes, allRoutes } = menuModel.selectors.useMenu()

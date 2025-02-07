@@ -1,10 +1,9 @@
-import { UserApplication } from '@api/model'
-
 import { getDefaultSubdivision } from '@pages/teachers-applications/lib/get-default-subdivision'
 
 import { getFormattedSubDivisions } from '@features/applications/lib/get-formatted-subdivisions'
 
-import { IInputArea } from '@ui/input-area/model'
+import { UserApplication } from '@shared/api/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const requestTypes = [
     { id: 0, title: 'Учебная деятельность' },

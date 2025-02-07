@@ -97,7 +97,6 @@ jobs:
                       cd client-app/LK
                       echo ${{ secrets.TEST_SERVER_PASSWORD }} | sudo -S docker compose -p web pull
                       echo ${{ secrets.TEST_SERVER_PASSWORD }} | sudo -S docker compose -p web up -d
-
             - name: Kill VPN connection
               if: always()
               run: |

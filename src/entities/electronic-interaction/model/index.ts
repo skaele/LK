@@ -1,11 +1,10 @@
-import { pepApi } from '@api'
-import { ElectronicInteraction } from '@api/model'
 import { createEffect, createEvent, createStore, sample } from 'effector'
 
-import { popUpMessageModel } from '@entities/pop-up-message'
-import { userModel } from '@entities/user'
-
-import { MessageType } from '@shared/ui/types'
+import { pepApi } from '@shared/api'
+import { ElectronicInteraction } from '@shared/api/model'
+import { MessageType } from '@shared/consts'
+import { userModel } from '@shared/session'
+import { popUpMessageModel } from '@shared/ui/pop-up-message'
 
 const getElectronicInteraction = createEvent()
 const postElectronicInteraction = createEvent()

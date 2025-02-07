@@ -2,11 +2,10 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import BlockWrapper from '@ui/block/styles'
-import Subtext from '@ui/subtext'
-import { Title } from '@ui/title'
-
-import getShortStirng from '@utils/get-short-string'
+import getShortStirng from '@shared/lib/get-short-string'
+import BlockWrapper from '@shared/ui/block/styles'
+import Subtext from '@shared/ui/subtext'
+import { Title } from '@shared/ui/title'
 
 const CardWrapper = styled(BlockWrapper)`
     border-radius: var(--brLight);

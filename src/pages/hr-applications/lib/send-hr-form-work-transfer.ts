@@ -1,4 +1,4 @@
-import { IInputArea } from '@ui/input-area/model'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 import { bufferWorkTransferModel } from '../pages/buffer-work-transfer/model'
 

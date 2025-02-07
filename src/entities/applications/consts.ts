@@ -64,29 +64,4 @@ export const TeacherMethodObtainingOptions = [
     { id: 1, title: 'Лично' },
 ]
 
-export type SpecialFieldsName =
-    | 'personalMethod'
-    | 'postMethod'
-    | 'personalNature'
-    | 'Compensation'
-    | 'Compensation2'
-    | 'Address'
-    | 'collHoliday1'
-    | 'collHoliday2'
-    | 'collHoliday3'
-    | 'collHoliday4'
-    | 'collHoliday5'
-    | 'Structure1'
-    | 'Structure2'
-    | 'PartTime'
-    | 'collDog'
-    | 'dueToWithdrawal'
-    | 'medicalReport'
-    | 'employed'
-    | 'unemployed'
-    | 'universityTransfer'
-    | null
-
-export type SpecialFieldsNameConfig = { [key: string]: SpecialFieldsName }
-
 export type ApplicationStatusType = (typeof ApplicationsConstants)[keyof typeof ApplicationsConstants]

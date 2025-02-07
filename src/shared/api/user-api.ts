@@ -1,13 +1,9 @@
-import { $api, $authApi } from '@api/config'
 import axios from 'axios'
 
-import { LocationSettingsType } from '@pages/settings/types'
-
-import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
-
+import { $api, $authApi } from '@shared/api/config'
 import getToken from '@shared/lib/token'
 
-import { ADName, User, UserToken } from './model'
+import { ADName, LocationSettingsType, PhoneSettingsType, User, UserToken } from './model'
 
 export type LoginData = { login: string; password: string }
 

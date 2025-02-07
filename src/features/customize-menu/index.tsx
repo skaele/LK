@@ -4,13 +4,12 @@ import { Store } from 'effector'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
-import { IRoute, IRoutes } from '@app/routes/general-routes'
-
 import search from '@features/all-pages/lib/search'
 import { CustomizeLeftsideBarItem } from '@features/customize-menu/ui/customize-leftside-bar-item'
 
 import { menuModel } from '@entities/menu'
 
+import { IRoutes, Page } from '@shared/routing'
 import { LocalSearch } from '@shared/ui/molecules'
 
 const CustomizeMenuStyled = styled.div`
@@ -56,7 +55,7 @@ const CustomizeMenu = ({ enabledListStore, add, remove, requiredListStore }: Pro
             />
             {Object.values(searchResult ?? visibleRoutes)
                 .filter((route) => !requiredList.includes(route.id))
-                .map((el: IRoute, index) => {
+                .map((el: Page, index) => {
                     return (
                         <CustomizeLeftsideBarItem
                             {...el}

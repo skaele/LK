@@ -1,6 +1,5 @@
-import { $api } from '@api/config'
-
-import token from '@utils/token'
+import { $api } from '@shared/api/config'
+import token from '@shared/lib/token'
 
 import { RawScheduleResponse, RawSessionScheduleResponse, RawTeacherScheduleResponse } from './model'
 

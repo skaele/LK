@@ -3,8 +3,8 @@ import { FiSearch } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
-import { Input } from '@ui/atoms'
-import { ColumnType, TableSearchType } from '@ui/table/types'
+import { Input } from '@shared/ui/atoms'
+import { ColumnType, TableSearchType } from '@shared/ui/table/types'
 
 const SearchWrapper = styled.div<{ closed: boolean }>`
     display: flex;

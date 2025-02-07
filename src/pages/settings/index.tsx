@@ -3,11 +3,10 @@ import { FiLogOut } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
-import { confirmModel } from '@entities/confirm'
-import { userModel } from '@entities/user'
-
-import { MEDIA_QUERIES } from '@shared/constants'
+import { userModel } from '@shared/session'
 import { Button, CenterPage } from '@shared/ui/atoms'
+import { confirmModel } from '@shared/ui/confirm'
+import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Flex from '@shared/ui/flex'
 import PageBlock from '@shared/ui/page-block'
 

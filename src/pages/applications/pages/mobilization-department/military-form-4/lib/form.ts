@@ -1,8 +1,6 @@
-import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
-
 import getAddressFields from '@features/applications/lib/get-address-fields'
 import getMethodObtainingFields from '@features/applications/lib/get-method-obtaining-fields'
-
+import getStudentSubdivisions from '@pages/applications/lib/get-student-subdivisions'
 import { UserApplication } from '@shared/api/model'
 import { IInputArea } from '@shared/ui/input-area/model'
 

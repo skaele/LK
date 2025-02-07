@@ -1,7 +1,7 @@
 import { applicationsModel } from '@entities/hr-applications'
-import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
 
-import { IInputArea } from '@ui/input-area/model'
+import { getJwtToken, parseJwt } from '@shared/api/session/jwt-token'
+import { IInputArea } from '@shared/ui/input-area/model'
 
 const sendHrFormDismissal = async (
     employeeId: string,

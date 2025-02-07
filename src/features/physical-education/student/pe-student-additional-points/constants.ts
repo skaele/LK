@@ -1,4 +1,4 @@
-import { WorkType } from '@entities/pe-student-additional-points/types'
+import { WorkType } from '@shared/api/physical-education'
 
 export const SelectorData: { id: WorkType; title: string }[] = [
     { id: WorkType.Activist, title: 'Активист' },

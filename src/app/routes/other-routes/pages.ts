@@ -128,3 +128,6 @@ export const FamilyRoomPage = lazy(() => import('@pages/applications/pages/campu
 
 export const ArbitraryRequestPage = lazy(() => import('@pages/applications/pages/other/arbitrary-request'))
 export const StudentEmploymentApplicationPage = lazy(() => import('@pages/applications/pages/other/student-employment'))
+
+export const TaxCertificatesPage = lazy(() => import('@pages/payments/tax-certificate'))
+export const TaxCertificatePage = lazy(() => import('@pages/payments/tax-certificate/tax-certificate'))

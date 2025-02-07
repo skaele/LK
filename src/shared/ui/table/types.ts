@@ -42,4 +42,5 @@ export interface TableProps {
         setPage: (offset: number) => void
     }
     innerPadding?: string
+    fontSize?: string
 }

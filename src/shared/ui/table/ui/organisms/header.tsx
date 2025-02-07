@@ -19,6 +19,7 @@ interface Props {
     setSearch: React.Dispatch<React.SetStateAction<TableSearchType>>
     tableHasSelect?: boolean
     padding?: string
+    fontSize?: string
 }
 
 const FilterWrapper = styled.div`
@@ -26,7 +27,18 @@ const FilterWrapper = styled.div`
     align-items: center;
 `
 
-const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, tableHasSelect, padding }: Props) => {
+const Header = ({
+    columns,
+    search,
+    setSearch,
+    filter,
+    setFilter,
+    sort,
+    setSort,
+    tableHasSelect,
+    padding,
+    fontSize,
+}: Props) => {
     const columnClick = (column: ColumnProps) => {
         return () => {
             if (column.search) {
@@ -59,6 +71,7 @@ const Header = ({ columns, search, setSearch, filter, setFilter, sort, setSort, 
                         showFull={column.showFull}
                         className={column.priority?.toString() ?? 'one'}
                         onClick={columnClick(column)}
+                        fontSize={fontSize}
                     >
                         {!column.catalogs && column.title}
                         {!column.catalogs && !column.sort && column.search && (

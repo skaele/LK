@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-const ModalWrapper = styled.div<{ isOpen: boolean }>`
+const ModalWrapper = styled.div<{ isOpen: boolean; zIndex?: number }>`
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    z-index: 5;
+    z-index: ${({ zIndex }) => zIndex ?? 5};
     width: 100%;
     height: 100%;
     padding: 0 30px;

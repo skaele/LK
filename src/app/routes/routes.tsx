@@ -69,6 +69,8 @@ import {
     StudentEmploymentApplicationPage,
     StudentEmploymentPage,
     StudentStatus,
+    TaxCertificatePage,
+    TaxCertificatesPage,
     TerminationOfEmploymentContractPage,
 } from './other-routes/pages'
 import { HelpfulInformation } from './teacher-routes/pages'
@@ -85,6 +87,8 @@ export const STUDENT_INTERNSHIP = STUDENT_EMPLOYMENT_ROUTE + '/internship'
 export const STUDENT_EMPLOYMENT = STUDENT_EMPLOYMENT_ROUTE + '/employment'
 
 //hidden routes
+export const TAX_CERTIFICATES_ROUTE = '/tax-certificates'
+export const TAX_CERTIFICATE_ROUTE = '/tax-certificates/:id'
 export const CLARIFICATION_OF_PASSPORT_DATA_ROUTE = APPLICATIONS_ROUTE + '/clarification-of-passport-data'
 export const ARBITRARY_REQUEST_ROUTE = APPLICATIONS_ROUTE + '/arbitrary-request'
 export const STUDENT_EMPLOYMENT_APP_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
@@ -290,6 +294,40 @@ export const hiddenRoutes: (user: User | null) => IRoutes = (user) => ({
         backButtonText: 'Назад к цифровым сервисам',
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
+    },
+    'tax-certificate': {
+        id: 'tax-certificate',
+        title: 'Заказать справку по оплате образовательных услуг для представления в налоговый орган',
+        icon: <FiBriefcase />,
+        path: TAX_CERTIFICATES_ROUTE,
+        Component: TaxCertificatesPage,
+        color: 'green',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к договорам и оплатам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: PAYMENTS_ROUTE,
+        isNew: true,
+        pageSize: 'big',
+        hiddenTitle: true,
+    },
+    'tax-certificate-form': {
+        id: 'tax-certificate-form',
+        title: 'Справка по оплате образовательных услуг для представления в налоговый орган',
+        icon: <FiBriefcase />,
+        path: TAX_CERTIFICATE_ROUTE,
+        Component: TaxCertificatePage,
+        color: 'green',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к списку справок',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: TAX_CERTIFICATES_ROUTE,
+        isNew: true,
+        pageSize: 'big',
+        hiddenTitle: true,
     },
     'arbitrary-request': {
         id: 'arbitrary-request',

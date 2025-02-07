@@ -27,6 +27,7 @@ const ContractWrapper = styled.div`
     .contract-info {
         display: flex;
         flex-direction: column;
+        padding: 0.5rem 0;
     }
 
     p {
@@ -40,7 +41,8 @@ interface Props {
 
 const Contract = ({ contract }: Props) => {
     if (!contract) return null
-    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date } = contract
+    const { number, startDate, endDatePlan, contragent, sum, can_sign, file, student, signed_user_date, sign_text } =
+        contract
     const { open } = useModal()
     const [copied, setCopied] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
@@ -79,7 +81,7 @@ const Contract = ({ contract }: Props) => {
         },
         {
             text: 'Статус',
-            info: '',
+            info: sign_text ?? '',
         },
         // {
         //     text: 'Ежемесячная плата: ',

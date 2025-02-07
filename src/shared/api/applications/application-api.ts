@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:src/shared/api/applications/application-api.ts
 import { AxiosResponse } from 'axios'
 
 import { $api, $hrApi } from '@shared/api/config'
@@ -11,6 +12,17 @@ export interface ApplicationCreating {
     formId: ApplicationFormCodes | ApplicationTeachersFormCodes
     args: { [key: string]: any }
 }
+========
+import { $api, $hrApi } from '@api/config'
+import { AxiosResponse } from 'axios'
+
+import { ApplicationCreating } from '@entities/applications/model'
+import { getJwtToken, parseJwt } from '@entities/user/lib/jwt-token'
+
+import token from '@utils/token'
+
+import { Application, UserApplication } from './model'
+>>>>>>>> master:src/shared/api/application-api.ts
 
 export const get = (): Promise<AxiosResponse<Application[]>> => {
     return $api.get(`?getAppRequests&token=${token()}`)

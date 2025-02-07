@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+<<<<<<<< HEAD:src/features/slider-page/index.tsx
 
 import { SliderTutorial } from '@features/tutorials'
 
@@ -10,6 +11,17 @@ import { tutorialModel } from '@shared/tutorial'
 import { Error } from '@shared/ui/atoms'
 import convertHorizontalAlign from '@shared/ui/list/lib/convert-horizontal-align'
 import { Align } from '@shared/ui/types'
+========
+import { SliderTutorial } from 'widgets/tutorial/tutorials/slider-tutorial'
+
+import { tutorialModel } from '@entities/tutorial'
+
+import { Error } from '@ui/atoms'
+import convertHorizontalAlign from '@ui/list/lib/convert-horizontal-align'
+import { Align } from '@ui/types'
+
+import useResize from '@utils/hooks/use-resize'
+>>>>>>>> master:src/widgets/slider-page/index.tsx
 
 const SliderPageWrapper = styled.div<{ width?: string; align: Align; maxWidth?: string }>`
     display: flex;

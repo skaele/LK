@@ -1,8 +1,17 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 
+<<<<<<<< HEAD:src/shared/ui/slider/index.tsx
 import useResize from '@shared/lib/hooks/use-resize'
 
 import { Size, TutorialComponent } from '../types'
+========
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { Size } from '@shared/ui/types'
+
+import useResize from '@utils/hooks/use-resize'
+
+>>>>>>>> master:src/widgets/slider/index.tsx
 import { SliderWrapper } from './styles'
 import { CurrentPage, SliderItem } from './ui'
 

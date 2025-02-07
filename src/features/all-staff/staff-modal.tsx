@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useUnit } from 'effector-react'
+<<<<<<<< HEAD:src/features/all-staff/staff-modal.tsx
 
 import { TeacherModal } from '@features/user/ui'
 
@@ -12,6 +13,17 @@ import { UserProps } from '@shared/ui/user-header/types'
 import { findEmployeeByFio } from './lib/find-employee-by-fio'
 import { getEmployeeInfo } from './lib/get-employee-info'
 import { PhonebookModal } from './ui/phonebook-modal'
+========
+import { UserProps } from 'widgets/user/types'
+import { TeacherModal } from 'widgets/user/ui'
+
+import { phonebookModel } from '@entities/phonebook'
+import { userModel } from '@entities/user'
+
+import { findEmployeeByFio } from '../lib/find-employee-by-fio'
+import { getEmployeeInfo } from '../lib/get-employee-info'
+import { PhonebookModal } from './phonebook-modal'
+>>>>>>>> master:src/pages/all-staff/ui/staff-modal.tsx
 
 type Props = Pick<UserProps, 'name' | 'division' | 'avatar' | 'id'>
 

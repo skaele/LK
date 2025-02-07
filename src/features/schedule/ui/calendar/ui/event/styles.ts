@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/event/styles.ts
 import { MEDIA_QUERIES } from '@shared/ui/consts'
+========
+import { MEDIA_QUERIES } from '@shared/constants'
+>>>>>>>> master:src/shared/ui/calendar/ui/event/styles.ts
 import Flex from '@shared/ui/flex'
 
 import { StyledProps } from './types'

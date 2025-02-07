@@ -2,6 +2,10 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/times/index.tsx
+========
+import { MEDIA_QUERIES } from '@shared/constants'
+>>>>>>>> master:src/shared/ui/calendar/ui/times/index.tsx
 import get2DigitDumber from '@shared/lib/get-2-digit-number'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Flex from '@shared/ui/flex'

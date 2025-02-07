@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
+<<<<<<<< HEAD:src/features/all-staff/styled/index.ts
+========
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import Flex from '@shared/ui/flex'
+>>>>>>>> master:src/pages/all-staff/styled/index.ts
 
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 import Flex from '@shared/ui/flex'

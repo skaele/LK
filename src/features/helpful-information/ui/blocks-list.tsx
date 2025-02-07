@@ -2,7 +2,11 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/helpful-information/ui/blocks-list.tsx
 import { HelpfulPage } from '@features/helpful-information'
+========
+import { HelpfulPage } from '@pages/helpful-information/types/helpful-pages'
+>>>>>>>> master:src/pages/helpful-information/ui/molecules/blocks-list.tsx
 
 import List from '@shared/ui/list'
 import { Title } from '@shared/ui/title'

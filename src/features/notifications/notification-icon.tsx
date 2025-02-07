@@ -3,11 +3,24 @@ import { BiNews, BiRuble } from 'react-icons/bi'
 import { FiClock, FiFileText, FiInfo, FiMessageCircle, FiStar } from 'react-icons/fi'
 import { HiOutlineClipboardCheck } from 'react-icons/hi'
 
+<<<<<<<< HEAD:src/features/notifications/notification-icon.tsx
 import { NotificationType } from '@entities/lk-notifications'
 
 import NewVersionMessage from '@shared/ui/new-version-message'
 
 import { IconWrapper } from './icon-wrapper'
+========
+import { Icon } from '@features/all-pages'
+
+import { NotificationType } from '@entities/lk-notifications'
+
+import { IColors } from '@shared/constants'
+import NewVersionMessage from '@shared/ui/new-version-message'
+
+const IconWrapper = ({ color, children }: { color: keyof IColors; children: JSX.Element }) => {
+    return <Icon color={color}>{children}</Icon>
+}
+>>>>>>>> master:src/widgets/lk-notification-list/ui/notification-icon.tsx
 
 export const iconObject = (): Record<NotificationType, ChildrenType> => ({
     info: (

@@ -3,9 +3,17 @@ import { FiChevronLeft, FiX } from 'react-icons/fi'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/shared/ui/modal/ui/index.tsx
 import { Button, Title } from '@shared/ui/atoms'
 import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
 import useShortCutKeys from '@shared/ui/hooks/use-short-cut-keys'
+========
+import useShortCutKeys from '@shared/lib/hooks/use-short-cut-keys'
+
+import { Button, Title } from '@ui/atoms'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
+>>>>>>>> master:src/widgets/modal/ui/index.tsx
 
 import useCoreModal from '../lib/hooks/use-core-modal'
 import ModalContent from './atoms/modal-content'

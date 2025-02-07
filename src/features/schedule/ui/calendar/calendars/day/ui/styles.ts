@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/day/ui/styles.ts
 import { Colors } from '@shared/consts'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
+========
+import { Colors, MEDIA_QUERIES } from '@shared/constants'
+>>>>>>>> master:src/shared/ui/calendar/calendars/day/ui/styles.ts
 import Flex from '@shared/ui/flex'
 import Subtext from '@shared/ui/subtext'
 

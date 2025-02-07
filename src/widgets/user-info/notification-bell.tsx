@@ -3,12 +3,21 @@ import { FiBell } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
+<<<<<<<< HEAD:src/widgets/user-info/notification-bell.tsx
 
 import LkNotificationList from '@features/lk-notification-list'
+========
+import { useModal } from 'widgets'
+import LkNotificationList from 'widgets/lk-notification-list'
+import { TutorialComponent } from 'widgets/tutorial/lib/with-tutorial'
+
+import { LK_NOTIFICATIONS_ROUTE } from '@app/routes/general-routes'
+>>>>>>>> master:src/features/user-info/notification-bell.tsx
 
 import { lkNotificationModel } from '@entities/lk-notifications'
 
 import getCorrectWordForm from '@shared/lib/get-correct-word-form'
+<<<<<<<< HEAD:src/widgets/user-info/notification-bell.tsx
 import { LK_NOTIFICATIONS_ROUTE } from '@shared/routing'
 import { withTutorial } from '@shared/tutorial/lib/with-tutorial'
 import { Button } from '@shared/ui/button'
@@ -17,6 +26,12 @@ import { useModal } from '@shared/ui/modal'
 import Notification from '@shared/ui/notification'
 import Subtext from '@shared/ui/subtext'
 import { TutorialComponent } from '@shared/ui/types'
+========
+import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
+import Notification from '@shared/ui/notification'
+import Subtext from '@shared/ui/subtext'
+>>>>>>>> master:src/features/user-info/notification-bell.tsx
 
 const NotificationBellStyled = styled.div`
     position: relative;

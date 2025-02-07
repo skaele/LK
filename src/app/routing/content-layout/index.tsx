@@ -1,5 +1,6 @@
 import React, { Suspense, useRef, useState } from 'react'
 
+<<<<<<<< HEAD:src/app/routing/content-layout/index.tsx
 import { useScrollToTop } from '@app/routing/hooks/use-scroll-to-top'
 import PrivateRouter from '@app/routing/private-router'
 
@@ -22,6 +23,26 @@ import { Modal } from '@shared/ui/modal'
 
 import InitialLoader from '../../../shared/ui/initial-loader'
 import Story from '../../../widgets/story'
+========
+import { Confirm, HintModal, MobileBottomMenu, PopUpMessage } from 'widgets'
+import ContextMenu from 'widgets/context-menu'
+import Header from 'widgets/header'
+import { Modal } from 'widgets/modal'
+import PopUpNotifications from 'widgets/pop-up-notifications'
+import { TutorialHero } from 'widgets/tutorial'
+import { LeftSideBarTutorial } from 'widgets/tutorial/tutorials/left-sidebar-tutorial'
+
+import PrivateRouter from '@app/routers/private-router'
+
+import { menuModel } from '@entities/menu'
+import { userModel } from '@entities/user'
+
+import { useScrollToTop } from '@shared/lib/hooks/use-scroll-to-top'
+import ErrorBoundary from '@shared/ui/error-boundary'
+
+import InitialLoader from '../../shared/ui/initial-loader'
+import Story from '../../shared/ui/story'
+>>>>>>>> master:src/widgets/content-layout/index.tsx
 import useContentLayout from './hooks/use-content-layout'
 import { ContentWrapper, PageContent } from './styled'
 

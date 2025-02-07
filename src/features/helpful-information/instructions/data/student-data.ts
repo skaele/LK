@@ -1,7 +1,11 @@
 import { IconType } from 'react-icons'
 import { HiOutlineDocumentText } from 'react-icons/hi'
 
+<<<<<<<< HEAD:src/features/helpful-information/instructions/data/student-data.ts
 import { OLD_LK_URL } from '@shared/consts'
+========
+import { OLD_LK_URL } from '@shared/constants'
+>>>>>>>> master:src/pages/instructions/data/student-data.ts
 
 type LinksType = {
     link: string

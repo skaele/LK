@@ -3,9 +3,15 @@ import { Effect, EventCallable, createEffect, createEvent, createStore, sample }
 import { useStore } from 'effector-react'
 
 import { applicationsModel } from '@entities/applications'
+<<<<<<<< HEAD:src/entities/applications/lib/create-form-store.ts
 
 import { MessageType } from '@shared/consts'
 import { popUpMessageModel } from '@shared/ui/pop-up-message'
+========
+import { popUpMessageModel } from '@entities/pop-up-message'
+
+import { MessageType } from '@shared/ui/types'
+>>>>>>>> master:src/shared/effector/create-form-store.ts
 
 export interface TemplateFormStore<DataType> {
     data: DataType | null

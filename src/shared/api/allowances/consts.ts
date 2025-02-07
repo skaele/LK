@@ -1,3 +1,8 @@
+<<<<<<<< HEAD:src/shared/api/allowances/consts.ts
+========
+import { ALLOWANCE_INFO_CUT, DOCLIST_ALLOWANCES } from '@app/routes/teacher-routes'
+
+>>>>>>>> master:src/entities/allowances/consts.ts
 import { AllowanceNotificationType } from './types'
 
 export const approvalStatus = {

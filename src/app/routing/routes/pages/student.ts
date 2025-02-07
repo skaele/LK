@@ -3,6 +3,7 @@ import { lazy } from 'react'
 export const ApplicationForSuperiorRoom = lazy(() => import('@pages/application-for-superior-room'))
 export const AcadPerformance = lazy(() => import('@pages/acad-performance'))
 export const DormitoryPage = lazy(() => import('@pages/dormitory'))
+export const StudentEmploymentPage = lazy(() => import('@pages/student-employment'))
 export const ClarificationOfPassportDataApplication = lazy(
     () => import('@pages/applications/pages/multifunctional-center/clarification-of-passport-data'),
 )
@@ -123,7 +124,10 @@ export const AccommodationCorrespondenceFormPage = lazy(
 export const FamilyRoomPage = lazy(() => import('@pages/applications/pages/campus-management/family-room'))
 
 export const ArbitraryRequestPage = lazy(() => import('@pages/applications/pages/other/arbitrary-request'))
+<<<<<<<< HEAD:src/app/routing/routes/pages/student.ts
 export const StudentEmploymentPage = lazy(() => import('@pages/student-employment'))
+========
+>>>>>>>> master:src/app/routes/other-routes/pages.ts
 export const StudentEmploymentApplicationPage = lazy(() => import('@pages/applications/pages/other/student-employment'))
 
 export const TaxCertificatesPage = lazy(() => import('@pages/payments/tax-certificate'))

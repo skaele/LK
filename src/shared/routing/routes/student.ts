@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
 import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
 import { BsFileMedical } from 'react-icons/bs'
 import { FaRegLightbulb } from 'react-icons/fa6'
@@ -7,12 +8,33 @@ import { MdOutlineBedroomChild } from 'react-icons/md'
 import { isProduction } from '@shared/consts'
 
 import { IRoutes } from '../consts'
+========
+import React from 'react'
+import { BiBookReader, BiBrain, BiCheckCircle, BiIdCard, BiInfoCircle, BiRuble, BiStar } from 'react-icons/bi'
+import { BsFileMedical } from 'react-icons/bs'
+import { FaRegLightbulb } from 'react-icons/fa'
+import { FiBriefcase, FiFileText } from 'react-icons/fi'
+import { MdOutlineBedroomChild } from 'react-icons/md'
+
+import AllTeachersPage from '@pages/all-teachers'
+import { EndDateSuperiorRoom } from '@pages/application-for-superior-room/lib/get-status'
+import FullTimePartTimeFormPage from '@pages/applications/pages/campus-management/full-time-part-time-form'
+import ApplicationExitAcademicLeave from '@pages/applications/pages/multifunctional-center/exit-academic-leave'
+import MedicalCertificate from '@pages/medical-certificate'
+import PageIsNotReady from '@pages/page-is-not-ready'
+import PaymentsPage from '@pages/payments'
+
+import { User } from '@shared/api/model'
+import { isProduction } from '@shared/constants'
+
+>>>>>>>> master:src/app/routes/routes.tsx
 import {
     ACADEMIC_LEAVE_ACCOMMODATION,
     ACAD_PERFORMANCE_ROUTE,
     ACCOMMODATION_CORRESPONDENCE_FORM,
     ACCOMMODATION_FOR_GRADUATES,
     ALL_TEACHERS_ROUTE,
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
     APPLICATIONS_ROUTE,
     APPLICATION_FOR_SUPERIOR_ROOM_ROUTE,
     ARBITRARY_REQUEST_ROUTE,
@@ -30,6 +52,9 @@ import {
     HOLIDAYS_AFTER_TRAINING,
     INCREASED_STATE_ACADEMIC_SCHOLARSHIP,
     INDEPENDENTLY_DEDUCTED,
+========
+    IRoutes,
+>>>>>>>> master:src/app/routes/routes.tsx
     MEDICAL_CERTIFICATE,
     MEDICAL_CERTIFICATES_086,
     MILITARY_COPIES,
@@ -61,13 +86,122 @@ import {
     TAX_CERTIFICATE_ROUTE,
     TERMINATION_OF_EMPLOYMENT_CONTRACT,
     USEFUL_INFO_ROUTE,
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
 } from '../paths'
 import { generalHiddenRoutes, generalRoutes } from './private'
+========
+    generalHiddenRoutes,
+    generalRoutes,
+} from './general-routes'
+import {
+    AcadPerformance,
+    AcademicLeaveAccommodationPage,
+    AccommodationCorrespondenceFormPage,
+    AccommodationForGraduatesPage,
+    ApplicationExtensionAttestation,
+    ApplicationForCertificateOfAttendance,
+    ApplicationForFinancialAssistance,
+    ApplicationForSocialScrollarship,
+    ApplicationForSuperiorRoom,
+    ApplicationHolidaysAfterTraining,
+    ApplicationIndependentlyDeduction,
+    ApplicationPaperCall,
+    ApplicationProvisionAcademicLeave,
+    ApplicationSocialAgencies,
+    ApplicationsPage,
+    ArbitraryRequestPage,
+    ChangingPersonalData,
+    ClarificationOfPassportDataApplication,
+    DormitoryPage,
+    FamilyRoomPage,
+    FinancialSupport,
+    IncreasedStateAcademicScholarship,
+    MedicalCertificates086,
+    MilitaryCopies,
+    MilitaryForm4,
+    MilitaryForm5,
+    MilitaryRegistration,
+    MilitaryRegistrationDocuments,
+    ParentContacts,
+    PaymentRecipient,
+    PhysicalEducationStudent,
+    PreferentialAccommodationPage,
+    ProjectActivitiesPage,
+    RegularAccommodationPage,
+    RelocationInsideHostelPage,
+    RelocationToAnotherHostelPage,
+    RestoringTheMagneticPass,
+    RetakeForDiploma,
+    StateAccreditation,
+    StudentEmploymentApplicationPage,
+    StudentEmploymentPage,
+    StudentStatus,
+    TaxCertificatePage,
+    TaxCertificatesPage,
+    TerminationOfEmploymentContractPage,
+} from './other-routes/pages'
+import { HelpfulInformation } from './teacher-routes/pages'
+>>>>>>>> master:src/app/routes/routes.tsx
 
 export const StartDateSuperiorRoom = 'Jun 26 2024 12:00:00 GMT+0300'
 export const EndDateSuperiorRoom = 'Jun 28 2024 12:00:00 GMT+0300'
 
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
 export const studentRoutes: () => IRoutes = () => ({
+========
+export const STUDENT_EMPLOYMENT_ROUTE = '/student-employment'
+export const STUDENT_EMPLOYMENT_TYPE = STUDENT_EMPLOYMENT_ROUTE + '/:type'
+export const STUDENT_INTERNSHIP = STUDENT_EMPLOYMENT_ROUTE + '/internship'
+export const STUDENT_EMPLOYMENT = STUDENT_EMPLOYMENT_ROUTE + '/employment'
+
+//hidden routes
+export const TAX_CERTIFICATES_ROUTE = '/tax-certificates'
+export const TAX_CERTIFICATE_ROUTE = '/tax-certificates/:id'
+export const CLARIFICATION_OF_PASSPORT_DATA_ROUTE = APPLICATIONS_ROUTE + '/clarification-of-passport-data'
+export const ARBITRARY_REQUEST_ROUTE = APPLICATIONS_ROUTE + '/arbitrary-request'
+export const STUDENT_EMPLOYMENT_APP_ROUTE = APPLICATIONS_ROUTE + '/student-employment'
+export const SOCIAL_SCOLLARSHIP = APPLICATIONS_ROUTE + '/social-scollarship'
+export const CERTIFICATE_OF_ATTENDANCE = APPLICATIONS_ROUTE + '/certificate-of-attendance'
+export const SOCIAL_AGENCIES = APPLICATIONS_ROUTE + '/social-agencies'
+export const PAPER_CALL = APPLICATIONS_ROUTE + '/paper-call'
+export const REGULAR_ACCOMMODATION = APPLICATIONS_ROUTE + '/regular-accommodation'
+export const FULL_TIME_PART_TIME_FORM = APPLICATIONS_ROUTE + '/full-time-part-time-form'
+export const ACCOMMODATION_CORRESPONDENCE_FORM = APPLICATIONS_ROUTE + '/accommodation-correspondence-form'
+export const ACADEMIC_LEAVE_ACCOMMODATION = APPLICATIONS_ROUTE + '/academic-leave-accommodation'
+export const PREFERENTIAL_ACCOMMODATION = APPLICATIONS_ROUTE + '/preferential-accommodation'
+export const FAMILY_ROOM = APPLICATIONS_ROUTE + '/family-room'
+export const TERMINATION_OF_EMPLOYMENT_CONTRACT = APPLICATIONS_ROUTE + '/termination-of-employment-contract'
+export const RELOCATION_INSIDE_HOSTEL = APPLICATIONS_ROUTE + '/relocation-inside-hostel'
+export const RELOCATION_TO_ANOTHER_HOSTEL = APPLICATIONS_ROUTE + '/relocation-to-another-hostel'
+export const ACCOMMODATION_FOR_GRADUATES = APPLICATIONS_ROUTE + '/accommodation-for-graduates'
+export const PAYMENT_RECIPIENT = APPLICATIONS_ROUTE + '/payment-recipient'
+export const RESTORING_THE_MAGNETIC_PASS = APPLICATIONS_ROUTE + '/restoring-the-magnetic-pass'
+export const RETAKE_FOR_DIPLOMA = APPLICATIONS_ROUTE + '/retake-for-diploma'
+export const MILITARY_REGISTRATION_DOCUMENTS = APPLICATIONS_ROUTE + '/military-registration-documents'
+export const MILITARY_REGISTRATION = APPLICATIONS_ROUTE + '/military-registration'
+export const MILITARY_FORM_4 = APPLICATIONS_ROUTE + '/military-form-4'
+export const MILITARY_FORM_5 = APPLICATIONS_ROUTE + '/military-form-5'
+export const MILITARY_COPIES = APPLICATIONS_ROUTE + '/military-copies'
+export const FINANCIAL_SUPPORT = APPLICATIONS_ROUTE + '/financial-support'
+export const FINANCIAL_ASSISTANCE = APPLICATIONS_ROUTE + '/financial-assistance'
+export const INCREASED_STATE_ACADEMIC_SCHOLARSHIP = APPLICATIONS_ROUTE + '/increased-state-academic-scholarship'
+export const CHANGING_PERSONAL_DATA = APPLICATIONS_ROUTE + '/changing-personal-data'
+export const STUDENT_STATUS = APPLICATIONS_ROUTE + '/student-status'
+export const FAMILY_CONTACTS = APPLICATIONS_ROUTE + '/family-contacts'
+export const MEDICAL_CERTIFICATES_086 = APPLICATIONS_ROUTE + '/medical-certificates-086'
+export const STATE_ACCREDITATION = APPLICATIONS_ROUTE + '/state-accreditation'
+export const MILITARY_REGISTRATION_CARD = APPLICATIONS_ROUTE + '/military-registration-card'
+export const HOLIDAYS_AFTER_TRAINING = APPLICATIONS_ROUTE + '/holidays-after-training'
+export const PROVISION_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/provision-academic-leave'
+export const EXIT_ACADEMIC_LEAVE = APPLICATIONS_ROUTE + '/exit-academic-leave'
+export const INDEPENDENTLY_DEDUCTED = APPLICATIONS_ROUTE + '/independently-deducted'
+export const EXTENSION_ATTESTATION = APPLICATIONS_ROUTE + '/extension-attestation'
+export const PHYSICAL_EDUCATION_STUDENT = '/physical-education/student'
+
+const ApplicationRedirect = () => PageIsNotReady({ oldVersionUrl: '/sprav' })
+
+export const privateRoutes: () => IRoutes = () => ({
+>>>>>>>> master:src/app/routes/routes.tsx
     // On this position just to make necessary order
     applications: {
         id: 'applications',
@@ -177,8 +311,14 @@ export const studentRoutes: () => IRoutes = () => ({
     'student-employment': {
         id: 'student-employment',
         title: 'Практика и трудоустройство',
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
         icon: BiInfoCircle,
         path: STUDENT_EMPLOYMENT_ROUTE,
+========
+        icon: <BiInfoCircle />,
+        path: STUDENT_EMPLOYMENT_ROUTE,
+        Component: StudentEmploymentPage,
+>>>>>>>> master:src/app/routes/routes.tsx
         color: 'blue',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -191,8 +331,14 @@ export const studentHiddenRoutes: () => IRoutes = () => ({
     'student-employment-type': {
         id: 'student-employment-type',
         title: 'Практика и трудоустройство',
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
         icon: BiInfoCircle,
         path: STUDENT_EMPLOYMENT_TYPE,
+========
+        icon: <BiInfoCircle />,
+        path: STUDENT_EMPLOYMENT_TYPE,
+        Component: StudentEmploymentPage,
+>>>>>>>> master:src/app/routes/routes.tsx
         color: 'blue',
         isTemplate: false,
         group: 'LEARNING_ACTIVITIES',
@@ -211,6 +357,40 @@ export const studentHiddenRoutes: () => IRoutes = () => ({
         subPageHeaderTitle: '',
         fallbackPrevPage: APPLICATIONS_ROUTE,
     },
+    'tax-certificate': {
+        id: 'tax-certificate',
+        title: 'Заказать справку по оплате образовательных услуг для представления в налоговый орган',
+        icon: <FiBriefcase />,
+        path: TAX_CERTIFICATES_ROUTE,
+        Component: TaxCertificatesPage,
+        color: 'green',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к договорам и оплатам',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: PAYMENTS_ROUTE,
+        isNew: true,
+        pageSize: 'big',
+        hiddenTitle: true,
+    },
+    'tax-certificate-form': {
+        id: 'tax-certificate-form',
+        title: 'Справка по оплате образовательных услуг для представления в налоговый орган',
+        icon: <FiBriefcase />,
+        path: TAX_CERTIFICATE_ROUTE,
+        Component: TaxCertificatePage,
+        color: 'green',
+        isTemplate: false,
+        group: 'FINANCES_DOCS',
+        isSubPage: true,
+        backButtonText: 'Назад к списку справок',
+        subPageHeaderTitle: '',
+        fallbackPrevPage: TAX_CERTIFICATES_ROUTE,
+        isNew: true,
+        pageSize: 'big',
+        hiddenTitle: true,
+    },
     'arbitrary-request': {
         id: 'arbitrary-request',
         title: 'Произвольный запрос',
@@ -227,8 +407,14 @@ export const studentHiddenRoutes: () => IRoutes = () => ({
     'student-employment-app': {
         id: 'student-employment-app',
         title: 'Трудоустройство студентов',
+<<<<<<<< HEAD:src/shared/routing/routes/student.ts
         icon: FiBriefcase,
         path: STUDENT_EMPLOYMENT_APPLICATION_ROUTE,
+========
+        icon: <FiBriefcase />,
+        path: STUDENT_EMPLOYMENT_APP_ROUTE,
+        Component: isProduction ? ApplicationRedirect : StudentEmploymentApplicationPage,
+>>>>>>>> master:src/app/routes/routes.tsx
         color: 'blue',
         isTemplate: false,
         group: 'FINANCES_DOCS',

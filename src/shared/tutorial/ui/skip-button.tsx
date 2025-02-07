@@ -4,9 +4,15 @@ import { IoMdClose } from 'react-icons/io'
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/shared/tutorial/ui/skip-button.tsx
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'
 
 import { tutorialModel } from '..'
+========
+import { tutorialModel } from '@entities/tutorial'
+
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+>>>>>>>> master:src/widgets/tutorial/ui/skip-button.tsx
 
 export const SkipButton = ({ setAnimation }: { setAnimation: (value: 'in' | 'out' | 'removed') => void }) => {
     const module = useUnit(tutorialModel.stores.currentModule)

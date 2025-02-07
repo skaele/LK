@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+<<<<<<<< HEAD:src/shared/tutorial/lib/use-position.ts
 import { Dimensions, Position } from '../types'
+========
+import { Dimensions, Position } from './with-tutorial'
+>>>>>>>> master:src/widgets/tutorial/lib/use-position.ts
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type DebouncedFunction<T extends (...args: any[]) => any> = {

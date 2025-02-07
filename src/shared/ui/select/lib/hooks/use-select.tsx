@@ -1,9 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
+<<<<<<<< HEAD:src/shared/ui/select/lib/hooks/use-select.tsx
 import useOnClickOutside from '@shared/ui/hooks/use-on-click-outside'
 import { Size } from '@shared/ui/types'
 
 import { SelectPage } from '../..'
+========
+import { SelectPage } from '@features/select'
+
+import { Size } from '@shared/ui/types'
+
+import useOnClickOutside from '@utils/hooks/use-on-click-outside'
+
+>>>>>>>> master:src/features/select/lib/hooks/use-select.tsx
 import findCurrentPage from '../find-current-page'
 
 type SingleSelect = React.Dispatch<React.SetStateAction<SelectPage | null>>

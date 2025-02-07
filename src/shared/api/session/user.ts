@@ -1,4 +1,10 @@
+<<<<<<<< HEAD:src/shared/api/session/user.ts
 import { Sex } from '@shared/consts/models/sex'
+========
+import { Sex } from '@utility-types/sex'
+>>>>>>>> master:src/shared/api/model/user.ts
+
+import { PhoneSettingsType } from '@entities/settings/lib/get-default-settings'
 
 export type UserStatus = 'stud' | 'staff'
 

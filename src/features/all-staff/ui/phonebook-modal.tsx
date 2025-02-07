@@ -4,12 +4,23 @@ import { Link } from 'react-router-dom'
 
 import { useUnit } from 'effector-react'
 import styled from 'styled-components'
+<<<<<<<< HEAD:src/features/all-staff/ui/phonebook-modal.tsx
 
+========
+import { useModal } from 'widgets'
+
+import { ALL_TEACHERS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@app/routes/general-routes'
+
+import { SiteName } from '@pages/teachers-applications/pages/contact-details/lib/get-form'
+
+import Avatar from '@features/home/ui/molecules/avatar'
+>>>>>>>> master:src/pages/all-staff/ui/phonebook-modal.tsx
 import { SendMessage } from '@features/send-first-message'
 
 import { getEnrichedTemplatePath } from '@entities/menu/lib/get-enriched-template-path'
 import { phonebookModel } from '@entities/phonebook'
 
+<<<<<<<< HEAD:src/features/all-staff/ui/phonebook-modal.tsx
 import { SiteName } from '@shared/lib'
 import { ALL_TEACHERS_ROUTE, SCHEDULE_FILTER_ROUTE } from '@shared/routing'
 import Avatar from '@shared/ui/avatar'
@@ -20,12 +31,24 @@ import List from '@shared/ui/list'
 import { useModal } from '@shared/ui/modal'
 import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
 
+========
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { Button } from '@shared/ui/button'
+import Flex from '@shared/ui/flex'
+import List from '@shared/ui/list'
+import UserHeaderBackground from '@shared/ui/user-header/user-header-background'
+
+import { InfoItem } from '../info-item'
+>>>>>>>> master:src/pages/all-staff/ui/phonebook-modal.tsx
 import { findEmployeeByFio } from '../lib/find-employee-by-fio'
 import { findSubdivisionByName } from '../lib/find-subdivision-by-name'
 import { getEmployeeInfo } from '../lib/get-employee-info'
 import { getSubdivisionInfo } from '../lib/get-subdivision-info'
 import { AvatarWrapper, Buttons, Content, Header, LinkStyled, Subtitle, Title, Wrapper } from '../styled'
+<<<<<<<< HEAD:src/features/all-staff/ui/phonebook-modal.tsx
 import { InfoItem } from './info-item'
+========
+>>>>>>>> master:src/pages/all-staff/ui/phonebook-modal.tsx
 import { PlaceModal } from './place-modal'
 
 export type PhonebookInfo = {

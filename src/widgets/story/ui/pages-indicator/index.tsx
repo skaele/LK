@@ -5,8 +5,13 @@ import styled from 'styled-components'
 
 import { storyModel } from '@entities/story'
 
+<<<<<<<< HEAD:src/widgets/story/ui/pages-indicator/index.tsx
 import { Button } from '@shared/ui/button'
 import { ListWrapper } from '@shared/ui/list/styles'
+========
+import { Button } from '@ui/button'
+import { ListWrapper } from '@ui/list/styles'
+>>>>>>>> master:src/shared/ui/story/ui/pages-indicator/index.tsx
 
 import Indicator from '../indicator'
 

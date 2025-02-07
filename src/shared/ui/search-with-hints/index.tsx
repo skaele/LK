@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from 'react'
+<<<<<<<< HEAD:src/shared/ui/search-with-hints/index.tsx
+========
+
+import { AxiosResponse } from 'axios'
+
+import Search, { Hint } from '@shared/ui/search'
+import { Size } from '@shared/ui/types'
+>>>>>>>> master:src/features/search-with-hints/index.tsx
 
 import { AxiosResponse } from 'axios'
 

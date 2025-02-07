@@ -2,7 +2,11 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/subjects-indicator/index.tsx
 import { DayCalendarEvent } from '@shared/api/model'
+========
+import { DayCalendarEvent } from '../../types'
+>>>>>>>> master:src/shared/ui/calendar/ui/subjects-indicator/index.tsx
 
 const SubjectsIndicatorStyled = styled.div`
     display: flex;

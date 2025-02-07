@@ -2,6 +2,10 @@ import React from 'react'
 import { useLocation } from 'react-router'
 
 import styled from 'styled-components'
+<<<<<<<< HEAD:src/widgets/navbar/mobile-bottom-menu/index.tsx
+========
+import { LeftsideBarItem } from 'widgets/leftside-bar/ui'
+>>>>>>>> master:src/widgets/mobile-bottom-menu/index.tsx
 
 import { useScheduleWidget } from '@features/home/ui/schedule-widget/hooks/use-schedule-widget'
 
@@ -11,6 +15,7 @@ import {
     DEFAULT_STAFF_MOBILE_CONFIG,
     DEFAULT_STUDENT_MOBILE_CONFIG,
 } from '@entities/menu/model'
+<<<<<<<< HEAD:src/widgets/navbar/mobile-bottom-menu/index.tsx
 
 import { userModel } from '@shared/session'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
@@ -19,6 +24,15 @@ import { ListWrapper } from '@shared/ui/list/styles'
 import { SkeletonShape } from '@shared/ui/skeleton-shape'
 
 import { LeftsideBarItem } from '../leftside-bar/ui'
+========
+import { userModel } from '@entities/user'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+import Flex from '@shared/ui/flex'
+
+import { ListWrapper } from '@ui/list/styles'
+import { SkeletonShape } from '@ui/skeleton-shape'
+>>>>>>>> master:src/widgets/mobile-bottom-menu/index.tsx
 
 const MobileBottomMenuWrapper = styled(ListWrapper)`
     position: fixed;

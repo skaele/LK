@@ -1,7 +1,14 @@
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/week-days/lib/get-week-names.ts
 import { IWeekDays, WEEK_DAYS } from '@shared/consts'
 import { getDateInSomeDays } from '@shared/lib/dates/get-date-in-some-days'
 
 import { getMonday } from '../../../../../../../entities/schedule/lib/get-monday'
+========
+import { IWeekDays, WEEK_DAYS } from '@shared/constants'
+import { getDateInSomeDays } from '@shared/lib/dates/get-date-in-some-days'
+
+import { getMonday } from './get-monday'
+>>>>>>>> master:src/shared/ui/calendar/ui/week-days/lib/get-week-names.ts
 
 export const getWeekNames = () => {
     const today = new Date()

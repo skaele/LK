@@ -5,12 +5,24 @@ import { FaArrowLeftLong, FaArrowRightLong, FaCheck } from 'react-icons/fa6'
 import { useUnit } from 'effector-react'
 import styled, { keyframes } from 'styled-components'
 
+<<<<<<<< HEAD:src/shared/tutorial/lib/with-tutorial.tsx
+========
+import { tutorialModel } from '@entities/tutorial'
+import { TutorialId } from '@entities/tutorial/types'
+
+>>>>>>>> master:src/widgets/tutorial/lib/with-tutorial.tsx
 import { useIntersectionObserver } from '@shared/lib/hooks/use-intersection-observer'
 import useResize from '@shared/lib/hooks/use-resize'
 import Flex from '@shared/ui/flex'
 import { MobileSwiper } from '@shared/ui/mobile-swiper'
 import { Title } from '@shared/ui/title'
+<<<<<<<< HEAD:src/shared/tutorial/lib/with-tutorial.tsx
 import { TutorialComponent } from '@shared/ui/types'
+========
+
+import { SkipButton } from '../ui/skip-button'
+import { usePosition } from './use-position'
+>>>>>>>> master:src/widgets/tutorial/lib/with-tutorial.tsx
 
 import { tutorialModel } from '..'
 import { Dimensions, HintPosition, Position, TutorialWrapperProps } from '../types'

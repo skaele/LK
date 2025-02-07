@@ -2,8 +2,14 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/shared/ui/icon/icon.tsx
 import { Colors, IColors } from '@shared/consts'
 import Notification from '@shared/ui/notification'
+========
+import { Colors, IColors } from '@shared/constants'
+
+import Notification from '@ui/notification'
+>>>>>>>> master:src/features/all-pages/ui/atoms/icon.tsx
 
 type ColorType = keyof IColors | Omit<string, keyof IColors>
 

@@ -1,7 +1,17 @@
 import React from 'react'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/ui/week-days/index.tsx
 import { Colors } from '@shared/consts'
 import Flex from '@shared/ui/flex'
+
+import { WeekEvents } from '../../types'
+import { IndicatorItem, SubjectsIndicator } from '../subjects-indicator'
+import { getWeekNames } from './lib/get-week-names'
+import { DateWrapper, DayWrapper, WeekDay, WeekDayTop, WeekDaysWrapper } from './styles'
+========
+import { Colors } from '@shared/constants'
+import Flex from '@shared/ui/flex'
+>>>>>>>> master:src/shared/ui/calendar/ui/week-days/index.tsx
 
 import { WeekEvents } from '../../types'
 import { IndicatorItem, SubjectsIndicator } from '../subjects-indicator'

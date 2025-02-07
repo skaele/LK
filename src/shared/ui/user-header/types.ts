@@ -1,5 +1,10 @@
 import { StudentAccount, UserStatus } from '@shared/api/model'
+<<<<<<<< HEAD:src/shared/ui/user-header/types.ts
 import { Direction, Size } from '@shared/ui/types'
+========
+
+import { Direction, Size } from '@ui/types'
+>>>>>>>> master:src/widgets/user/types.ts
 
 export type UserProps = StudentAccount & {
     id: number | string | undefined

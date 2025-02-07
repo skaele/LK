@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/features/helpful-information/instructions/lib/search.ts
 import normalizeString from '@shared/lib/normalize-string'
+========
+import normalizeString from '@utils/normalize-string'
+>>>>>>>> master:src/pages/instructions/lib/search.ts
 
 import { InstructionsType } from '../data/student-data'
 

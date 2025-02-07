@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:src/shared/api/physical-education/pe-api.ts
 import { $peApi } from '../config/pe-config'
 import {
     AddStudentAdditionalPoints,
@@ -12,6 +13,20 @@ import {
 } from './types'
 
 export const STUDENT_PAGE_SIZE = 40
+========
+import { Group } from '@pages/teacher-physical-education/my-groups/model'
+
+import { AddStudentAdditionalPoints } from '@entities/pe-student-additional-points/types'
+import { AddStudentRegulationPoints } from '@entities/pe-student-regulation-points/types'
+import { STUDENT_PAGE_SIZE } from '@entities/pe-student/constants'
+import { PEStudent, PEStudentProfile } from '@entities/pe-student/types'
+import { AddStudentVisits } from '@entities/pe-student/types/add-student-visits'
+import { SetHealthGroup } from '@entities/pe-student/types/set-health-group'
+import { SetSpecialization } from '@entities/pe-student/types/set-specialization'
+import { PETeacher } from '@entities/pe-teacher/types'
+
+import { $peApi } from './config/pe-config'
+>>>>>>>> master:src/shared/api/pe-api.ts
 
 const extractStudentFilters = (filters: Record<string, { value: string | number }>) => {
     const studentFilters: Record<string, string | number> = {}

@@ -1,5 +1,17 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+<<<<<<<< HEAD:src/widgets/story/ui/story-page/index.tsx
+========
+
+import { storyModel } from '@entities/story'
+
+import { Button } from '@ui/button'
+import { Image } from '@ui/image'
+import Subtext from '@ui/subtext'
+import { Title } from '@ui/title'
+
+import StoryPageWrapper, { StyledProps, TextContent } from './style'
+>>>>>>>> master:src/shared/ui/story/ui/story-page/index.tsx
 
 import { storyModel } from '@entities/story'
 import { StoryProps } from '@entities/story/model'

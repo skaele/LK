@@ -1,8 +1,15 @@
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/day/styles.ts
 import { MEDIA_QUERIES } from '@shared/ui/consts'
 
 import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE, CALENDAR_HEIGHT_TABLET } from '../../consts'
+========
+import { CALENDAR_HEIGHT_DESKTOP, CALENDAR_HEIGHT_MOBILE, CALENDAR_HEIGHT_TABLET } from '@pages/schedule/consts'
+
+import { MEDIA_QUERIES } from '@shared/constants'
+
+>>>>>>>> master:src/shared/ui/calendar/calendars/day/styles.ts
 import { Wrapper } from '../../ui/wrapper'
 
 export const DayCalendarWrapper = styled(Wrapper)`

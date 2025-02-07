@@ -1,11 +1,20 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/day/hooks/use-calendar-day.ts
 import { useCalendarGeneral } from '@features/schedule/ui/calendar/hooks/use-calendar-general'
 import { checkIfEventIsCurrent } from '@features/schedule/ui/calendar/ui/event/lib/check-if-event-is-current'
 
 import { DayCalendarEvent, TimeIntervals } from '@shared/api/model'
 import { IWeekDayNames } from '@shared/consts'
 import useCurrentDevice from '@shared/ui/hooks/use-current-device'
+========
+import { TimeIntervals } from '@shared/api/model'
+import { IWeekDayNames } from '@shared/constants'
+import useCurrentDevice from '@shared/lib/hooks/use-current-device'
+import { DayCalendarEvent } from '@shared/ui/calendar'
+import { useCalendarGeneral } from '@shared/ui/calendar/hooks/use-calendar-general'
+import { checkIfEventIsCurrent } from '@shared/ui/calendar/ui/event/lib/check-if-event-is-current'
+>>>>>>>> master:src/shared/ui/calendar/calendars/day/hooks/use-calendar-day.ts
 
 import { getCurrentDay } from '../lib/get-current-day'
 import { getEndTime } from '../lib/get-end-time'

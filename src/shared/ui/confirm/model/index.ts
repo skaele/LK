@@ -1,8 +1,13 @@
 import { ReactNode } from 'react'
 
+<<<<<<<< HEAD:src/shared/ui/confirm/model/index.ts
 import { userModel } from '@shared/session'
+========
+>>>>>>>> master:src/entities/confirm/model/index.ts
 import { createEvent, createStore } from 'effector'
 import { useStore } from 'effector-react/compat'
+
+import { userModel } from '@entities/user'
 
 export interface Confirm {
     isOpen: boolean

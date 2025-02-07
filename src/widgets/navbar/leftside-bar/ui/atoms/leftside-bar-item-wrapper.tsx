@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/widgets/navbar/leftside-bar/ui/atoms/leftside-bar-item-wrapper.tsx
 import { Colors, IColors } from '@shared/consts'
 import { MEDIA_QUERIES } from '@shared/ui/consts'
+========
+import { Colors, IColors, MEDIA_QUERIES } from '@shared/constants'
+>>>>>>>> master:src/widgets/leftside-bar/ui/atoms/leftside-bar-item-wrapper.tsx
 
 const styledPropsArray = ['isCurrent', 'color']
 

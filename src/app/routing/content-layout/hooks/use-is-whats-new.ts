@@ -2,9 +2,16 @@ import { useEffect, useState } from 'react'
 
 import { useUnit } from 'effector-react'
 
+<<<<<<<< HEAD:src/app/routing/content-layout/hooks/use-is-whats-new.ts
 import { LastUpdateWhatsNew } from '@shared/consts'
 import { userModel } from '@shared/session'
 import { tutorialModel } from '@shared/tutorial'
+========
+import { tutorialModel } from '@entities/tutorial'
+import { userModel } from '@entities/user'
+
+import { LastUpdateWhatsNew } from '@shared/constants'
+>>>>>>>> master:src/shared/lib/hooks/use-is-whats-new.ts
 
 const useIsShowWhatsNew = () => {
     const {

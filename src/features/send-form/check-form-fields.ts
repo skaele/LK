@@ -1,5 +1,11 @@
+<<<<<<<< HEAD:src/features/send-form/check-form-fields.ts
 import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@shared/ui/input-area/model'
 import { SpecialFieldsNameConfig } from '@shared/ui/input-area/types'
+========
+import { SpecialFieldsNameConfig } from '@entities/applications/consts'
+
+import { CheckboxDocs, IComplexInputAreaData, IInputArea, IInputAreaData } from '@ui/input-area/model'
+>>>>>>>> master:src/shared/lib/check-form-fields.ts
 
 const checkFormFields = (form: IInputArea, specialFieldsNameConfig?: SpecialFieldsNameConfig) => {
     const isCheckDocument = !form.documents?.required || !!form.documents.files.length

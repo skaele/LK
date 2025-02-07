@@ -4,8 +4,13 @@ import { FiInbox } from 'react-icons/fi'
 import { isNextEvent } from '@features/schedule/lib/is-next-event'
 import { SubjectModal } from '@features/schedule/ui'
 
+<<<<<<<< HEAD:src/features/schedule/ui/calendar/calendars/day/index.tsx
 import { Error } from '../../../../../../shared/ui/error'
 import Flex from '../../../../../../shared/ui/flex'
+========
+import { Error } from '../../../error'
+import Flex from '../../../flex'
+>>>>>>>> master:src/shared/ui/calendar/calendars/day/index.tsx
 import { checkIfEventIsCurrent } from '../../ui/event/lib/check-if-event-is-current'
 import { WeekDays } from '../../ui/week-days'
 import { useCalendarDay } from './hooks/use-calendar-day'

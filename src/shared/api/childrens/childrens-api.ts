@@ -1,7 +1,15 @@
+<<<<<<<< HEAD:src/shared/api/childrens/childrens-api.ts
 import { Children } from '@shared/api/childrens/types'
 import token from '@shared/lib/token'
 
 import { $api } from '../config'
+========
+import { Children } from '@entities/children/types'
+>>>>>>>> master:src/shared/api/childrens-api.ts
+
+import token from '@utils/token'
+
+import { $api } from './config'
 
 export const getChildrens = async () => {
     const formData = new FormData()

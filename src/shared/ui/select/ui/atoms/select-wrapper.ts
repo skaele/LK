@@ -4,6 +4,9 @@ import { INPUT_HEIGHT } from '@shared/ui/input-size'
 import { getValueFromSize } from '@shared/ui/slider/lib/get-value-from-size'
 import { Size } from '@shared/ui/types'
 
+import { INPUT_HEIGHT } from '@shared/constants/input-size'
+import { Size } from '@shared/ui/types'
+
 const SelectWrapper = styled.div<{
     isOpen: boolean
     isActive: boolean

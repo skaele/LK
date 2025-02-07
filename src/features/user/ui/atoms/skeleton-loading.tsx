@@ -2,7 +2,11 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+<<<<<<<< HEAD:src/features/user/ui/atoms/skeleton-loading.tsx
 import { SkeletonShape } from '@shared/ui/atoms'
+========
+import { SkeletonShape } from '@ui/atoms'
+>>>>>>>> master:src/widgets/user/ui/atoms/skeleton-loading.tsx
 
 const SkeletonLoadingWrapper = styled.div`
     display: flex;

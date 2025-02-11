@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import { RetakeLink } from '@features/schedule/types/retake-types'
+import { RetakeLink } from '@features/schedule/types'
 
 import { Title } from '@shared/ui/title'
 
